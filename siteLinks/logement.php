@@ -48,7 +48,7 @@
 
 
         <header>
-            <a href="../sae_martin/index.php">
+            <a href="index.php">
                 <img src="../asset/img/logo.png" alt="logo">
             </a>
             <div></div>
@@ -76,34 +76,8 @@
                 </ul>
             </div>
             <div>
-    
             </div>
         </header>    <!-- Fin de la classe header (celle de martin) -->
-
-
-        <div class="barre_fin_header_log"> <!-- Début de la barre de séparation du header -->
-            <svg width="100%" height="23" viewBox="0 0 1920 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <g filter="url(#filter0_d_15_355)">
-                    <path d="M0 6H1920V9H0V6Z" fill="#97ADC1" />
-                </g>
-                <defs>
-                    <filter id="filter0_d_15_355" x="-7" y="0" width="1940" height="23" filterUnits="userSpaceOnUse"
-                        color-interpolation-filters="sRGB">
-                        <feFlood flood-opacity="0" result="BackgroundImageFix" />
-                        <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-                            result="hardAlpha" />
-                        <feOffset dx="3" dy="4" />
-                        <feGaussianBlur stdDeviation="5" />
-                        <feComposite in2="hardAlpha" operator="out" />
-                        <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
-                        <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_15_355" />
-                        <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_15_355" result="shape" />
-                    </filter>
-                </defs>
-            </svg>
-        </div> <!-- Fin de la barre de séparation du header -->
-
-
     </div>  <!-- Fin du header -->
 
 

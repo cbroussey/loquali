@@ -25,6 +25,7 @@ h2 {
 }
 
 h3 {
+  font-weight: normal;
   font-size: 20px;
 }
 
@@ -402,14 +403,8 @@ h2 span{
   font-size: 15px;
 }
 
-a {
-  color:#F5F5F5;
-  text-decoration: none;
-}
-
 .blanc{
   background: #fff;
-  margin-top: -15px;
   padding-top: 30px;
   top: 0;
   width: 100%;
@@ -3093,6 +3088,7 @@ p > .h3 {
 }
 
 #connexion > section:first-of-type > img {
+  margin-top: 100px;
   width: 360px;
 }
 
@@ -3144,11 +3140,12 @@ p > .h3 {
   color: #1D4C77;
 }
 
-#connexion > section:first-of-type > p {
+#connexion > section:first-of-type > p, #creation > section:last-of-type > p {
   position:absolute;
   bottom:0;
   max-width: 500px;
   text-align: center;
+  margin-bottom: 15px;
 }
 
 #connexion > section:last-of-type {
@@ -3162,7 +3159,8 @@ p > .h3 {
   align-items: center;
 }
 
-#connexion > section:last-of-type > button {
+#connexion > section:last-of-type > button, #creation > section:first-of-type > a > button {
+  height:70px;
   border-radius: 100px;
   border: 2px solid #FFF;
   background: rgba(217, 217, 217, 0.70);
@@ -3173,9 +3171,8 @@ p > .h3 {
   text-decoration: none;
 }
 
-
 #connexion > section:last-of-type > h1 {
-margin:10% 0 5% 0;
+margin:100px 0 20px 0;
 }
 
 #connexion > section:last-of-type > h2 {
@@ -3270,15 +3267,13 @@ margin:10% 0 5% 0;
 #creation > section:first-of-type > h2,
 #creation > section:first-of-type > a > button > h2, 
 #formIsOwner > div > div > label > h2,
-#formIsOwner > div > p {
+#formIsOwner > div > p, 
+#creation a {
   color: #1D4C77;
 }
 
-#creation > section:last-of-type > p {
-  position:absolute;
-  bottom:0;
-  max-width: 500px;
-  text-align: center;
+#creation a , #connexion a {
+  text-decoration: underline;
 }
 
 #creation > section:first-of-type {
@@ -3290,14 +3285,6 @@ margin:10% 0 5% 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-#creation > section:first-of-type > a > button {
-  border-radius: 100px;
-  border: 2px solid #FFF;
-  background: rgba(217, 217, 217, 0.70);
-  padding:0 10% 0 10%;
-  width:auto;
 }
 
 #creation > section:first-of-type > a > button > h2 {
@@ -3342,4 +3329,317 @@ margin:10% 0 5% 0;
 
 #formIsOwner > div > p {
   max-width: 400px;
+}
+
+/************************ COMPTE - ACCUEIL **************************/
+
+#svgBack {
+    width: 45px;
+    height: 45px;
+    flex-shrink: 0;
+    margin: 40px;
+}
+
+.accueil {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    margin-top: -3rem;
+}
+
+.accueil h2{
+    color: #1D4C77;
+    font-size: 35px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+#photoProfil {
+    border-radius: 93.5px;
+    width: 160px;
+    height: 160px;
+
+    opacity: 1;
+    display: block;
+    transition: .5s ease;
+    backface-visibility: hidden;
+}
+
+.middle {
+    transition: .5s ease;
+    opacity: 0;
+    position: absolute;
+    top: 23.5%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    text-align: center;
+}
+  
+.container:hover #photoProfil {
+    opacity: 0.3;
+}
+  
+.container:hover .middle {
+    opacity: 1;
+}
+
+.bienvenue {
+    font-size: 25px;
+    font-weight: 400;
+    margin: 20px 0 40px 0;
+    color: #1D4C77;
+}
+
+.lienPagePerso  {
+    color: #2072BC;
+    text-decoration: underline;
+}
+
+.pageAccueil{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+
+    padding: 0;
+    margin: 0 240px;
+}
+
+.pageAccueil a {
+    margin: 10px;
+}
+
+.pageAccueil div {
+    width: 340px;
+    height: 140px;
+    background: #7297B8;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pageAccueil figure{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.pageAccueil img{
+    width: 50px;
+    height: 40px;
+
+    margin-bottom: 15px;
+}
+
+.pageAccueil figcaption {
+    color: white;
+}
+
+.separateur {
+    width: 319px;
+    height: 2px;
+    background: #97ADC1;
+    margin: 40px 0;
+}
+
+#comptePro {
+    border-radius: 5px;
+    background: #2072BC;
+    width: 435px;
+    height: 55px;
+    margin: 0 0 80px 0;
+    color: #F5F5F5;
+    font-size: 25px;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+
+@media screen and (min-width: 0px) and (max-width: 400px) { 
+
+    #svgBack{
+        display: none;
+    }
+
+    .accueil {
+        margin-top: 2rem;
+    }
+    
+    .accueil h2{
+        font-size: 25px;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+    
+    #photoProfil {
+        width: 130px;
+        height: 130px;
+    }
+
+    .middle {
+        display: none;
+    }
+
+    .container:hover #photoProfil {
+        display: none;
+    }
+      
+    .container:hover .middle {
+        display: none;
+    }
+    
+    .bienvenue {
+        font-size: 15px;
+        font-weight: 400;
+        margin: 20px 0 25px 0;
+    }
+    
+    .pageAccueil{
+        margin: 0px;
+    }
+    
+    .pageAccueil a {
+        margin: 0 2px 5px 5px;
+    }
+    
+    .pageAccueil div {
+        width: 175px;
+        height: 110px;
+    }
+
+    .pageAccueil img{
+        width: 40px;
+        height: 30px;
+        margin-bottom: 10px;
+    }
+    
+    .pageAccueil figcaption {
+        display: flex;
+        flex-wrap: wrap;
+        text-align: center;
+        padding: 0 10px;
+    }
+    
+    .separateur {
+        width: 60%;
+        margin: 30px 0;
+    }
+    
+    #comptePro {
+        border-radius: 5px;
+        background: #2072BC;
+        width: 275px;
+        height: 48px;
+
+        font-size: 15px;
+        font-weight: 700;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+}
+
+/************************** COMPTE - INFOS **************************/
+
+.nav {
+    width: 295px;
+    height: 875px;
+    background-color: #7297B8;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+}
+  
+.nav figure {
+    display: flex;
+    flex-direction: row;
+
+    margin: 0 30px;
+}
+
+
+.nav figcaption {
+    color: #F5F5F5;
+    font-size: 20px;
+    font-weight: 500;;
+    padding-left: 28px;
+    display: flex;
+    align-items: center;
+
+}
+
+.img-area{
+    position: relative;
+    height: 50px;
+    width: 50px;
+}
+.img-area img{
+    position: absolute;
+    left: 0;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.nav figcaption:hover{
+    color: #1D4C77;
+}
+
+.img-area img.img-front:hover {
+    opacity: 0;
+}
+
+
+@media screen and (min-width: 0px) and (max-width: 400px) { 
+
+    .nav {
+        width: 100%;
+        height: 90px;
+        background-color: #7297B8;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-evenly;
+
+        box-shadow: inset 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+    }
+      
+    .nav figure {
+        display: flex;
+        flex-direction: row;
+        margin: 0 0px;
+    }
+    
+    
+    .nav figcaption {
+        display: none;
+    
+    }
+    
+    .img-area{
+        position: relative;
+        height: 30px;
+        width: 30px;
+    }
+    .img-area img{
+        position: absolute;
+        left: 0;
+        width: 30px;
+        height: 30px;
+        transition: opacity 0.2s ease-in-out;
+    }
+    
+    .nav figcaption:hover{
+        color: #1D4C77;
+    }
+    
+
 }
