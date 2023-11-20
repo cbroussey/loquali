@@ -62,7 +62,7 @@
         <div class="container">
             <img src="asset/img/profils/photoProfil.png" alt="" id="photoProfil">
             <div class="middle">
-                <img src="asset/img/photo.svg" alt="">
+                <img src="asset/icons/photo.svg" alt="">
             </div>
         </div>
         <p class="bienvenue">Bienvenue ! Accedez à votre <a href="" class="lienPagePerso">page personnel</a>.</p>
