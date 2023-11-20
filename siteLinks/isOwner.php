@@ -1,3 +1,10 @@
+<?php
+    session_start();
+    $_SESSION['username'] = $_POST['nom'];
+    $_SESSION['email'] = $_POST['email'];
+    $_SESSION['password'] = $_POST['motdepasse'];
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,12 +14,6 @@
     <link rel="stylesheet" type="text/css" href="asset/css/style.css">
     <title>Créer votre compte</title>
 </head>
-<?php
-    session_start();
-    $_SESSION['username'] = $_POST['nom'];
-    $_SESSION['email'] = $_POST['email'];
-    $_SESSION['password'] = $_POST['motdepasse'];
-?>
 <body>
     <main id="creation">
         <section>

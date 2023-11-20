@@ -1,9 +1,5 @@
 <?php
   session_start();
-  $linkAccount = 'connexion.php';
-  if (isset($_SESSION['username'])) {
-    $linkAccount = 'account.php';
-  }
 ?>
 
 <!DOCTYPE html>
@@ -33,9 +29,18 @@
           <path d="M8.99141 13.4874C9.54926 14.1709 10.4552 14.1709 11.0131 13.4874L19.5816 2.98945C20.1395 2.30599 20.1395 1.19605 19.5816 0.512594C19.0238 -0.170866 18.1178 -0.170866 17.56 0.512594L10 9.77485L2.44003 0.518062C1.88218 -0.165399 0.976236 -0.165399 0.418387 0.518062C-0.139462 1.20152 -0.139462 2.31146 0.418387 2.99492L8.98695 13.4929L8.99141 13.4874Z" fill="#F5F5F5"/>
         </svg>
       </div>
+      <?php 
+      if (isset($_SESSION['username'])) {
+      ?>
       <h4><a href="">Messagerie</a></h4>
       <h4><a href="">Mes réservations</a></h4>
-      <h4><a href=<?php echo $linkAccount ?>>Mon compte</a></h4>
+      <h4><a href="account.php">Mon compte</a></h4>
+      <?php } else {
+        ?>
+          <h4><a href="connexion.php">Se connecter</a></h4>
+        <?php
+      }
+      ?>
     </nav>
     <div id="headerPopup">
       <ul>
