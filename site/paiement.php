@@ -14,7 +14,8 @@
     //print_r(pdo_drivers());
     //print_r($_POST);
     if (isset($_POST["devis"]) && is_numeric($_POST["devis"])) {
-        include("../data/dbImport.php");
+        //include("../data/dbImport.php");
+        $db = new PDO('pgsql:host=servbdd; dbname=pg_cbroussey', 'cbroussey', 'cb13524Lannion');
         $res = $db->prepare(
             'SELECT * FROM test.devis
             JOIN test.reservation ON test.devis.id_reservation = test.reservation.id_reservation
@@ -56,7 +57,17 @@
                     <div id="infosPaiement">
                         <h2>Validez et payez</h2>
                         <p>Payez avec</p>
-                        <div id="paymentType"><img src="images/mastercard.png"><a>MasterCard</a><img src="images/arrow-down.svg"></div>
+                        <!--<div id="paymentType" name="paymentType" href="#" onclick="toggleCM('CM', this)">
+                            <input onclick="toggleCM('CM', this.parentElement)" readonly>
+                        </div>-->
+                        <div id="paymentType" name="paymentType" href="#" onclick="toggleCM('CM', this)">
+                            <input class="inputImg" onclick="toggleCM('CM', this.parentElement)" style="background-image: url('images/mastercard.png');" readonly>
+                        </div>
+                        <div id="CM" class="contextMenu">
+                            <input class="inputImg" onclick="toggleCM('CM', this.parentElement)" style="background-image: url('images/mastercard.png');" value="MasterCard" readonly><img src="images/arrow-down.svg">|
+                            <input class="inputImg" onclick="toggleCM('CM', this.parentElement)" style="background-image: url('images/paypal.png');" value="PayPal" readonly><img src="images/arrow-down.svg">
+                        </div>
+                        <!-- <div id="paymentType"><img src="images/mastercard.png"><a>MasterCard</a><img src="images/arrow-down.svg"></div> -->
                         <input id="cardNumber" placeholder="Numéro de carte" pattern="^(5[1-5][0-9]{14}|2(22[1-9][0-9]{12}|2[3-9][0-9]{13}|[3-6][0-9]{14}|7[0-1][0-9]{13}|720[0-9]{12}))$" required> <!-- Pattern actuel uniquement pour mastercard -->
                         <div>
                             <input id="expiry" placeholder="Expiration" minlength=5 maxlength=5 pattern="(0[1-9]|1[0-9]|3[01])/(0[1-9]|1[0-2])" required>
@@ -93,5 +104,6 @@
     } else {
         ?><h1 class="HTTPstatus">400 - Bad Request</h1><?php
     } ?>
+    <script src="modules/contextMenu.js"></script>
 </body>
 </html>
