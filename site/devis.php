@@ -9,6 +9,7 @@
     <title>Devis</title>
 </head>
 <body>
+    <pre><?php print_r($_POST) ?></pre>
     <form method="post" action="paiement.php" class="flexTop">
         <button class="backButton" onclick="history.back()"><img src="images/arrow-down.svg"></button>
         <input name="devis" placeholder="Numéro de devis">

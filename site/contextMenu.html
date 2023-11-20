@@ -1,7 +1,11 @@
 <link rel="stylesheet" href="CSSreset.css">
 <link rel="stylesheet" href="style.css">
-<input id="yaou" onclick="toggleCM('CM', this)" style="margin: 1em;">
+<form id="menu" method="post" action="./devis.php">
+<input id="yaou" name="ville" onclick="toggleCM('CM', this)" style="margin: 1em;">
 <div id="CM" class="contextMenu">Lannion (22300)|Perros-Guirec (22700)|Plougastel (29470)|Rennes (35)|Finistère (29)</div>
-<button id="yaou2" onclick="toggleCM('CM2', this)" style="margin: 1em;"></button>
+<!--<figure><img src="images/mastercard.png"><figcaption onclick="toggleCM('CM', this.parentElement)" value="ananas">Ananas</figcaption></figure>-->
+<input readonly name="alpha" id="yaou2" form="menu" onclick="toggleCM('CM2', this)" style="margin: 1em;"></button>
 <div id="CM2" class="contextMenu">D|E</div>
+<button type="submit">Envoyer</button>
 <script src="modules/contextMenu.js"></script>
+</form>

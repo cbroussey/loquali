@@ -157,6 +157,17 @@ p > .h3 {
     align-self: center;
 }
 
+#infosPaiement > div > input.inputImg {
+    background-repeat: no-repeat;
+    background-position: left;
+    background-size: 4em;
+    padding: .5em 5em;
+    color: var(--textColor);
+    font-size: 16px;
+    border: none;
+    border-radius: 0;
+}
+
 #paymentType > img:last-of-type {
     max-height: 1em;
 }

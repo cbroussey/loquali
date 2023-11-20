@@ -13,7 +13,7 @@ class contextMenu {
         let html = ""
         this.elems.forEach((e) => {
             if (this.ref == "" || e.toLowerCase().includes(filter.toLowerCase())) {
-                console.log(this.ref)
+                //console.log(this.ref)
                 html += `<tr><td>${e}</td></tr>`
             }
         })
@@ -22,7 +22,8 @@ class contextMenu {
             e.addEventListener("click", () => {
                 this.ref.value = e.innerHTML
                 this.ref.innerHTML = e.innerHTML
-                this.display(this.ref.tagName == "INPUT" ? this.ref.value : "");
+                this.display((this.ref.tagName == "INPUT" && !this.ref.readOnly) ? this.ref.value : "");
+                if (this.ref.tagName != "INPUT") toggleCM(this.CM.id, this)
             })
         })
     }
@@ -38,7 +39,7 @@ function toggleCM(id, caller, x = -1, y = -1) {
         caller.onclick = ""
     }
     if (x == -1) x = `${caller.offsetLeft}`;
-    if (y == -1) y = `1em + ${caller.offsetHeight}`;
+    if (y == -1) y = `.5em + ${caller.offsetTop}px + ${caller.offsetHeight}`;
     if (CM.style.visibility == "visible"){
         CM.style.visibility = "collapse";
         CM.style.opacity = 0;
@@ -57,7 +58,6 @@ function CMapply() {
     let temp = document.getElementsByClassName("contextMenu")
     for (let element of temp) {
         element.oncontextmenu = () => { toggleCM(element.id); }
-        console.log(element.onclick)
         contextMenus[element.id] = new contextMenu(element.id);
         element.innerHTML = '<table><tbody></tbody></table>'
         contextMenus[element.id].display()
