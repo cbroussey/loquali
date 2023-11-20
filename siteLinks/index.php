@@ -1,5 +1,9 @@
 <?php
   session_start();
+  $linkAccount = 'connexion.php';
+  if (isset($_SESSION['username'])) {
+    $linkAccount = 'account.php';
+  }
 ?>
 
 <!DOCTYPE html>
@@ -14,6 +18,10 @@
 </head>
 
 <body>
+
+
+
+
   <header>
     <a href="">
       <img src="asset/img/logo.png" alt="logo">
@@ -29,23 +37,9 @@
           <path d="M8.99141 13.4874C9.54926 14.1709 10.4552 14.1709 11.0131 13.4874L19.5816 2.98945C20.1395 2.30599 20.1395 1.19605 19.5816 0.512594C19.0238 -0.170866 18.1178 -0.170866 17.56 0.512594L10 9.77485L2.44003 0.518062C1.88218 -0.165399 0.976236 -0.165399 0.418387 0.518062C-0.139462 1.20152 -0.139462 2.31146 0.418387 2.99492L8.98695 13.4929L8.99141 13.4874Z" fill="#F5F5F5"/>
         </svg>
       </div>
-      <svg id="headerHamburger" width="28" height="31" viewBox="0 0 28 31" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect y="0.738281" width="28" height="3.52174" rx="1" fill="#F5F5F5"/>
-          <rect y="13.6523" width="28" height="3.52174" rx="1" fill="#F5F5F5"/>
-          <rect y="26.5645" width="28" height="3.52174" rx="1" fill="#F5F5F5"/>
-      </svg>
-      <?php 
-      if (isset($_SESSION['username'])) {
-      ?>
       <h4><a href="">Messagerie</a></h4>
       <h4><a href="">Mes réservations</a></h4>
-      <h4><a href="account.php">Mon compte</a></h4>
-      <?php } else {
-        ?>
-          <h4><a href="connexion.php">Se connecter</a></h4>
-        <?php
-      }
-      ?>
+      <h4><a href=<?php echo $linkAccount ?>>Mon compte</a></h4>
     </nav>
     <div id="headerPopup">
       <ul>
@@ -120,7 +114,7 @@
      
     </div>
     <div class="ajout_log">
-        <a href="../ajout_log.php">
+        <a href="newLogement.php">
           <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M23.7768 9.92104H15.7411V1.88532C15.7411 0.899275 14.9414 0.0996094 13.9554 0.0996094H12.1696C11.1836 0.0996094 10.3839 0.899275 10.3839 1.88532V9.92104H2.34821C1.36217 9.92104 0.5625 10.7207 0.5625 11.7068V13.4925C0.5625 14.4785 1.36217 15.2782 2.34821 15.2782H10.3839V23.3139C10.3839 24.2999 11.1836 25.0996 12.1696 25.0996H13.9554C14.9414 25.0996 15.7411 24.2999 15.7411 23.3139V15.2782H23.7768C24.7628 15.2782 25.5625 14.4785 25.5625 13.4925V11.7068C25.5625 10.7207 24.7628 9.92104 23.7768 9.92104Z" fill="#F5F5F5"/>
           </svg>
@@ -142,41 +136,20 @@
 
   <div class="box">
 
-    <?php
-
-          $dir = '../Logement';
 
 
-          if (is_dir($dir)) {
+<?php
 
-              $files = scandir($dir);
-              $nb_log=0;
-              foreach ($files as $file) {
-                  if ($file !== '.' && $file !== '..') { 
-                      $filePath = $dir . '/' . $file;
+    include('connect_params.php');
+    try {
+        $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
+        foreach($dbh->query("SELECT * from test.logement", PDO::FETCH_ASSOC) as $row) {
+            $i=0;
+            $id=$row["id_logement"];
+            $info=$row;
+            ?>
 
-                      if (file_exists($filePath)) {
-                        $serializedData = file_get_contents($filePath);
-                        $info = unserialize($serializedData);
-                    
-                            
-                          $serializedDataPic = file_get_contents("../img_log/".$file);
-                          $photo = unserialize($serializedDataPic);
-
-                        ?>
-
-                        <a href="<?php
-
-                          $source = '../exe_log.php';
-                          $destination ='../Page/' . $info["titre"].'.php';
-                          $dest=explode(" ",$destination);
-
-
-                          
-                          copy($source, $dest[0].".php");
-                        
-                          echo('../' . $dest[0].".php");
-                        ?>" class="maison">
+            <a href="logement.php?id=<?php echo($id);?>" class="maison">
                           <div id="triangle"></div>
                           <div class="etoile">
                             <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -187,119 +160,33 @@
                             <p>5.0</p>
                     
                           </div>
-                          <img src="../asset/test_img/<?php echo($photo["photo"]["name"][0]); ?>" withd="300" height="225" alt="img">
+                          <?php
+                            foreach($dbh->query("SELECT * from test.photo_logement WHERE id_logement=$id", PDO::FETCH_ASSOC) as $row) {
+
+                              $photo[$i]=$row;
+                              $i++;
+                              
+                          }
+
+                          ?>
+                          <img src="asset/img/logements/<?php echo($photo[0]["id_image"]); ?>.jpg" withd="300" height="225" alt="img">
                     
-                          <p class="ville"><?php  echo($info["ville"]);  ?>, <?php echo($info["dep"]); ?></p>
-                          <p class="prix"><strong><?php  echo($info["prix"]."€");  ?></strong> par nuit</p>
+                          <p class="ville"><?php  echo($info["libelle_logement"]);  ?>, <?php echo($info["localisation"]); ?></p>
+                          <p class="prix"><strong><?php  echo($info["prix_ttc"]."€");  ?></strong> par nuit</p>
                           <p class="date">11 - 25 sept.</p>
                       </a>
 
-                      <?php
-
-
-                        
-                      }
-                  }
-                  $nb_log++;
-              }
-          }
+            <?php
+            $info=[];
+            $photo=[];
+        }
+          $dbh = null;
+    } catch (PDOException $e) {
+        print "Erreur !: " . $e->getMessage() . "<br/>";
+        die();
+    }
 
     ?>
-
-    <a href="logement.php" class="maison">
-      <div id="triangle"></div>
-      <div class="etoile">
-        <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M7.5 0L9.18386 5.52786H14.6329L10.2245 8.94427L11.9084 14.4721L7.5 11.0557L3.09161 14.4721L4.77547 8.94427L0.367076 5.52786H5.81614L7.5 0Z"
-            fill="white" />
-        </svg>
-        <p>5.0</p>
-      </div>
-      <img src="../asset/img/appart1.jpg" height="225" alt="img">
-
-      <p class="ville">Perros-Guirrec, Côtes-D’armor</p>
-      <p class="prix"><strong>600€</strong> par nuit</p>
-      <p class="date">11 - 25 sept.</p>
-    </a>
-
-    <div class="maison">
-      <div id="triangle"></div>
-      <div class="etoile">
-        <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M7.5 0L9.18386 5.52786H14.6329L10.2245 8.94427L11.9084 14.4721L7.5 11.0557L3.09161 14.4721L4.77547 8.94427L0.367076 5.52786H5.81614L7.5 0Z"
-            fill="white" />
-        </svg>
-        <p>5.0</p>
-      </div>
-      <img src="asset/img/logements/logementTest.png" alt="img">
-      <p class="ville">Perros-Guirrec, Côtes-D’armor</p>
-      <p class="prix"><strong>120€</strong> par nuit</p>
-      <p class="date">11 - 25 sept.</p>
-    </div>
-
-    <div class="maison">
-      <div id="triangle"></div>
-      <div class="etoile">
-        <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M7.5 0L9.18386 5.52786H14.6329L10.2245 8.94427L11.9084 14.4721L7.5 11.0557L3.09161 14.4721L4.77547 8.94427L0.367076 5.52786H5.81614L7.5 0Z"
-            fill="white" />
-        </svg>
-        <p>5.0</p>
-
-    </div>
-      <img src="asset/img/logements/logementTest.png" alt="img">
-
-      <p class="ville">Perros-Guirrec, Côtes-D’armor</p>
-      <p class="prix"><strong>120€</strong> par nuit</p>
-      <p class="date">11 - 25 sept.</p>
-    </div>
-    <div class="maison">
-      <div id="triangle"></div>
-      <div class="etoile">
-        <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M7.5 0L9.18386 5.52786H14.6329L10.2245 8.94427L11.9084 14.4721L7.5 11.0557L3.09161 14.4721L4.77547 8.94427L0.367076 5.52786H5.81614L7.5 0Z"
-            fill="white" />
-        </svg>
-        <p>5.0</p>
-
-      </div>
-      <img src="asset/img/logements/logementTest.png" alt="img">
-
-      <p class="ville">Perros-Guirrec, Côtes-D’armor</p>
-      <p class="prix"><strong>120€</strong> par nuit</p>
-      <p class="date">11 - 25 sept.</p>
-    </div>
-    <div class="maison">
-      <div id="triangle"></div>
-      <div class="etoile">
-        <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M7.5 0L9.18386 5.52786H14.6329L10.2245 8.94427L11.9084 14.4721L7.5 11.0557L3.09161 14.4721L4.77547 8.94427L0.367076 5.52786H5.81614L7.5 0Z"
-            fill="white" />
-        </svg>
-        <p>5.0</p>
-
-      </div>
-      <img src="asset/img/logements/logementTest.png" alt="img">
-
-      <p class="ville">Perros-Guirrec, Côtes-D’armor</p>
-      <p class="prix"><strong>120€</strong> par nuit</p>
-      <p class="date">11 - 25 sept.</p>
-    </div>
-
-    <div class="more-container">
-      <div id="plus">
-          <p>Poursuivre la recherche des logements..</p>
-          <div id="ps">
-            <a href="#">Afficher plus</a>
-          </div>
-      </div>
-    </div>
-  </div>
   <footer>
     <div>
       <div id="footerCercleLogo">

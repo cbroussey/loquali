@@ -88,7 +88,7 @@
 
         
 
-            <form action="process.php" method="post" enctype="multipart/form-data">
+            <form action="previsualisation.php" method="post" enctype="multipart/form-data">
 
                 <div class="page" id="page1">
 

@@ -98,12 +98,12 @@
 
 
             <div class="images_log"> <!-- Partie pour montrer les immages (il manque le caroussel) -->
-                <img src="asset/img/logements/appart1.jpg" alt="img1">
+                <img src="asset/img/logements/1.jpg" alt="img1">
                 <div class="images_log_droite">
-                    <img src="asset/img/logements/appart2.jpg" alt="img2">
-                    <img src="asset/img/logements/appart3.jpg" alt="img3">
-                    <img src="asset/img/logements/appart4.jpg" alt="img4">
-                    <img src="asset/img/logements/appart5.jpg" alt="img5">
+                    <img src="asset/img/logements/2.jpg" alt="img2">
+                    <img src="asset/img/logements/3.jpg" alt="img3">
+                    <img src="asset/img/logements/4.jpg" alt="img4">
+                    <img src="asset/img/logements/5.jpg" alt="img5">
                 </div>
             </div>
 
