@@ -14,7 +14,7 @@
     //print_r(pdo_drivers());
     //print_r($_POST);
     if (isset($_POST["devis"]) && is_numeric($_POST["devis"])) {
-        $db = new PDO('pgsql:host=postgresdb; dbname=sae', 'sae', 'roh9oCh4xahj3tae');
+        include("../data/dbImport.php");
         $res = $db->prepare(
             'SELECT * FROM test.devis
             JOIN test.reservation ON test.devis.id_reservation = test.reservation.id_reservation
