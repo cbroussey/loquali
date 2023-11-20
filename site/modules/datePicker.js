@@ -137,22 +137,22 @@ function toggleDP(id, caller) {
         DP.style.opacity = 0;
     }
     else {
-        DP.style.top = `calc(${caller.offsetTop}px + 2em)`
+        DP.style.top = `calc(${caller.offsetHeight}px + 1em)`
         DP.style.left = `${caller.offsetLeft}px`
         DP.style.visibility = "visible"
         DP.style.opacity = 1
     }
 }
 
-let datePickers = [];
+let datePickers = {};
 
 function DPapply() {
     let temp = document.getElementsByClassName("datePicker")
     for (let element of temp) {
-        element.innerHTML += '<div class="DPheader"><button class="DPprev">&lt;</button><div class="DPmonth"></div><button class="DPnext">&gt;</button></div><table><thead><th>Lun.</th><th>Mar.</th><th>Mer.</th><th>Jeu.</th><th>Ven.</th><th>Sam.</th><th>Dim.</th></thead><tbody></tbody></table>'
         element.oncontextmenu = () => { return false; }
-        datePickers.push(new datePicker(element.id, new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()), new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()+1)));
-        datePickers[datePickers.length-1].display()
+        element.innerHTML = '<div class="DPheader"><button class="DPprev">&lt;</button><div class="DPmonth"></div><button class="DPnext">&gt;</button></div><table><thead><th>Lun.</th><th>Mar.</th><th>Mer.</th><th>Jeu.</th><th>Ven.</th><th>Sam.</th><th>Dim.</th></thead><tbody></tbody></table>'
+        datePickers[element.id] = new datePicker(element.id, new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()), new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()+1))
+        datePickers[element.id].display()
     };
 }
 

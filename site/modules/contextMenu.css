@@ -1,0 +1,153 @@
+:root {
+    --DPbg: #EDEDED;
+    --DPselbg: #7297B8;
+    --DPhovbg: #2072BC;
+    --CMhovbg: #C7C7C7;
+    --animSpeed: .1s;
+}
+
+.contextMenu {
+    display: flex;
+    position: absolute;
+    visibility: collapse;
+    opacity: 0;
+    flex-direction: column;
+    align-items: center;
+    font-family: "Inter";
+    background-color: var(--DPbg);
+    max-width: fit-content;
+    gap: 15px;
+    border-radius: 10px;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    transition: visibility var(--animSpeed) ease-out, opacity var(--animSpeed) ease-out;
+    
+    /*
+    left: 1em;
+    top: 3em;
+    */
+}
+
+.contextMenu > table {
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: var(--DPbg);
+}
+
+.contextMenu > table > tbody > tr > td {
+    padding: .6em 1em;
+    color: #545454;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+    transition: background-color var(--animSpeed) ease-out;
+}
+
+.contextMenu > table > tbody > tr > td:hover {
+    background-color: var(--CMhovbg);
+}
+
+.DPheader {
+    display: flex;
+    font-weight: bold;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.DPheader > button {
+    font-weight: bold;
+    border: none;
+    padding-left: 7px;
+    padding-right: 7px;
+    background-color: var(--DPbg);
+    border-radius: 100%;
+}
+
+.DPheader > div {
+    width: 150px;
+    text-align: center;
+}
+
+.DPheader > button {
+    width: 30px;
+    height: 30px;
+}
+
+.DPheader > button:hover, td:is(.DPcurrent):hover {
+    background-color: var(--DPhovbg);
+    border-radius: 100%;
+}
+
+.datePicker > table {
+    border-collapse: collapse;
+}
+
+table, thead, tbody, tfoot, tr, th, td {
+    vertical-align: middle;
+}
+
+
+.datePicker > table > thead > tr > th, .datePicker > table > tbody > tr > td {
+    text-align: center;
+    padding: 0;
+    font-size: 15px;
+}
+
+.datePicker > table > thead > tr > th {
+    padding-bottom: 10px;
+    font-weight: bold;
+    
+}
+
+.datePicker > table > tbody > tr > td {
+    width: 40px;
+    height: 40px;
+    text-indent: -1px;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
+
+td:is(.DPcurrent) {
+    cursor: pointer;
+}
+
+.datePicker > table > tbody > tr > td > a {
+    position: relative;
+    top: -28%;
+}
+
+.DPselected {
+    background-color: var(--DPselbg);
+    border-radius: 100%;
+}
+
+.datePicker > table > tbody > tr > td > div:not(.DPsel) {
+    position: relative;
+    height: 60%;
+    width: 100%;
+    top: 20%;
+    left: 0;
+    z-index: -1;
+    background-color: var(--DPbg);
+}
+
+.DPsel {
+    position: relative;
+    height: 60%;
+    width: 100%;
+    top: 20%;
+    left: 0;
+    z-index: -1;
+    background-color: var(--DPselbg);
+}
+
+.DPselS {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.DPselE {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
