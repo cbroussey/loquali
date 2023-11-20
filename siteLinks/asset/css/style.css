@@ -364,6 +364,21 @@ a {
 
 /******************************************** LOGEMENT ********************************************/
 
+
+#bg{
+  background-color: #f5f5f5;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+
+
+.barre_fin_header_log{
+  margin-top: -8px;
+}
+
 h2 span{
   font-weight: bold;
   font-size: 25px;
@@ -381,6 +396,7 @@ h2 span{
 
 .txt_info_log{
   font-size: 20px;
+  margin: 20px 0;
 }
 
 .txt_info_petit_log{
@@ -409,12 +425,13 @@ h2 span{
 
 .titre_log h3{
   margin-top: 0;
+  text-decoration: underline;
 }
 
 .titre_log_bas{
   display: flex;
   align-items: center;
-  margin-top: -30px;
+  margin: 10px 0;
 }
 
 .titre_log_bas p{
@@ -455,6 +472,7 @@ h2 span{
 
 .images_log img{
   transform: scale(1);
+  transition: all 0.15s ease-in-out;
 }
 
 .images_log img:hover{
@@ -481,6 +499,7 @@ h2 span{
 .barre_info_log{
   padding-top: 3.5%;
   display: flex;
+  height: 175px;
 }
 
 .proprio_log{
@@ -523,8 +542,7 @@ h2 span{
 }
 
 .block_info_log{
-  margin-top: -15px;
-  margin-bottom: -15px;
+  margin-bottom: 20px;
 }
 
 .block_info_log h2{
@@ -533,6 +551,7 @@ h2 span{
 
 .info_proprio_log{
   margin-left: -100px;
+  margin-bottom: -20px;
 }
 
 .note_proprio_log{
@@ -700,6 +719,8 @@ h2 span{
 
 .rerservation_log>.detail_reservation_log>p{
   margin-left: 31px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 
@@ -2272,6 +2293,14 @@ margin-right: 20px;
 }
 
 /******************************************** NOUVEAU LOGEMENT ********************************************/
+
+#newLog h2{
+  margin: 20px 0;
+}
+
+#newLog p, #newLog h4{
+  margin: 15px 0;
+}
 
 .choix_type_log_ajlog{
   width: 100%;

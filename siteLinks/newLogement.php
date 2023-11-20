@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="asset/css/style.css">
 </head>
 
-<body>
+<body id="newLog">
 
 
 
@@ -519,10 +519,9 @@
 
                         <div class="haut_ajout_prix_ajlog">
                             <h2>Fixer votre prix</h2>
-                            <h4>Prix de la nuit :</h4>
                             <div class="prix_log_ajlog">
                                 <input type="text" id="prix" name="prix" required oninput="calculerPrix();" onkeypress="return isNumberKey(event);" value="0" />
-                                <h1> EUR</h1>
+                                <h1> € la nuit</h1>
                             </div>
                         </div>
                         
