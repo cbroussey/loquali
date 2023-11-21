@@ -367,7 +367,7 @@
 
 
                                 <div class="elem_reservation_log">
-                                    <img src="asset/icons/<?php echo($key);?>.svg" alt="">
+                                    <img src="asset/icons/blanc/<?php echo($key);?>.svg" alt="">
                                     <p><?php echo($key);?></p>
                                 </div>
 
@@ -430,7 +430,7 @@
                                 
 
                                 <div class="elem_reservation_log">
-                                    <img src="asset/icons/<?php echo($key);?>.svg" alt="">
+                                    <img src="asset/icons/blanc/<?php echo($key);?>.svg" alt="">
                                     <p> <?php echo($key);?> </p>
                                 </div>
 
@@ -491,7 +491,7 @@
 
                                 <div class="elem_reservation_log">
 
-                                <img src="asset/icons/<?php echo($key);?>.svg" alt="">
+                                <img src="asset/icons/blanc/<?php echo($key);?>.svg" alt="">
                                 <p> <?php echo($key);?> </p>
 
 

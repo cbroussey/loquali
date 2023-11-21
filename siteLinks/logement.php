@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="asset/css/headerAndFooter.css">
     <link rel="stylesheet" href="asset/css/style.css">
 </head>
-<body>
+<body  id="bg">
 
     <?php
         include('connect_params.php');
@@ -50,6 +50,12 @@
                     $i++;
                     echo "</pre>";
                 }
+                foreach($dbh->query("SELECT * from test.lit WHERE id_logement =$id", PDO::FETCH_ASSOC) as $row) {
+
+                    echo "<pre>";
+                    $lit=$row;
+                    echo "</pre>";
+                }
             }
             echo "<pre>";
             echo "</pre>";            $dbh = null;
@@ -62,6 +68,10 @@
         
         à supprimé : accroche
         */
+
+        echo "<pre>";
+        echo "</pre>"; 
+
     ?>
 
 
@@ -147,7 +157,7 @@
                             d="M8.28537 8.95113L8.93285 8.85804L9.22545 8.27299L12.2766 2.17243C12.3034 2.11885 12.3339 2.09226 12.3627 2.0755C12.3962 2.056 12.4428 2.04182 12.4977 2.04199C12.6083 2.04235 12.6831 2.09285 12.724 2.17358C12.7241 2.17381 12.7242 2.17404 12.7243 2.17427L15.7745 8.27299L16.0672 8.85804L16.7146 8.95113L23.5417 9.93264L23.5426 9.93277C23.6081 9.94213 23.6457 9.96463 23.6704 9.98611C23.6989 10.0108 23.7235 10.0466 23.7379 10.0901C23.7522 10.1336 23.7526 10.174 23.7454 10.2055C23.7394 10.2319 23.7252 10.2672 23.681 10.3097L23.6806 10.31L18.7414 15.0563L18.2619 15.5171L18.376 16.1722L19.5441 22.876C19.5441 22.8762 19.5442 22.8765 19.5442 22.8767C19.5538 22.9329 19.545 22.9667 19.5345 22.9906C19.5216 23.0198 19.4959 23.0546 19.4538 23.0845C19.3684 23.1451 19.2732 23.1524 19.1829 23.1056L19.1827 23.1055L13.0752 19.9397L12.5 19.6416L11.9248 19.9397L5.81729 23.1054L5.81339 23.1075C5.72476 23.1538 5.63192 23.1471 5.54712 23.0869C5.50503 23.057 5.47899 23.0218 5.46577 22.9918C5.45488 22.9671 5.44612 22.9327 5.45587 22.8762C5.45589 22.8762 5.4559 22.8761 5.45591 22.876L6.62398 16.1722L6.73813 15.5171L6.25864 15.0563L1.31939 10.31L1.31904 10.3097C1.27481 10.2672 1.26058 10.2319 1.25457 10.2055C1.24738 10.174 1.24784 10.1336 1.26215 10.0901C1.27647 10.0466 1.30113 10.0108 1.3296 9.98611C1.35432 9.96463 1.39195 9.94213 1.45737 9.93277L1.45827 9.93264L8.28537 8.95113Z"
                             fill="#1D4C77" stroke="#1D4C77" stroke-width="2.5" />
                     </svg>
-                    <p><?php  echo($info["localisation"]);  ?>, <?php  echo($info["code_postal"]);   ?></p>
+                    <p><?php  echo($info["note_logement"]);  ?> <?php  echo($info["localisation"]);   ?> , <?php echo($info["code_postal"]); ?></p>
                 </div>
             </div>
 
@@ -269,11 +279,16 @@
                 </div>
 
 
+                <?php
+                    $nb_piece=$info["type_logement"];
+                    $test=explode("T", $nb_piece);
+                ?>
+
 
                 <div class="details_log">
                     <div class="txt_details_log">
-                        <p class="txt_info_log"> <?php echo($info["nature_logement"]); ?> · <?php echo($info["Pieces"]); ?> pièces · <?php echo($info["nb_pers_max"]); ?> personnes</p>
-                        <p class="txt_info_log"><?php echo($info["nb_chambre"]); ?> chambres · <?php echo($info["nbLit"]); ?> lits · <?php echo($info["nb_salle_de_bain"]); ?> salle de bain</p>
+                        <p class="txt_info_log"> <?php echo($info["nature_logement"]); ?> · <?php echo($test[1]); ?> pièces · <?php echo($info["nb_pers_max"]); ?> personnes</p>
+                        <p class="txt_info_log"><?php echo($info["nb_chambre"]); ?> chambres · <?php echo($lit["nombre_lit"]); ?> lits · <?php echo($info["nb_salle_de_bain"]); ?> salle de bain</p>
                         <p class="txt_info_log"><?php  echo($info["localisation"]);  ?></p>
                         <p class="txt_info_log petit">Posté le 13/09/2023 à 20h56</p>
                     </div>
@@ -524,7 +539,7 @@
 
             <div class="reglement_log">
                 <h4>Réglement intérieur : </h4>
-                <p class="txt_descr_log"><?php echo($info["Règlement"]); ?></p>
+                <p class="txt_descr_log"><?php echo($info["reglement_interieur"]); ?></p>
 
             </div>
 
@@ -537,7 +552,7 @@
 
             <div class="info_arrive_log">
                 <h4>Informations d’arrivée :</h4>
-                <p class="txt_descr_log"><?php echo($info["info_arrive"]);?></p>
+                <p class="txt_descr_log"><?php echo($info["info_arrivee"]);?></p>
 
             </div>
 
@@ -598,7 +613,7 @@
     <footer>
         <div>
             <div id="footerCercleLogo">
-                <img src="../asset/img/logo.png" alt="logo">
+                <img src="asset/img/logo.png" alt="logo">
             </div>
             <div id="footerText">
                 <div>
