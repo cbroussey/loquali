@@ -29,7 +29,7 @@ CREATE TABLE compte(
 CREATE TABLE client(
     id_compte INTEGER NOT NULL,
     note_client NUMERIC(3,2) CHECK (note_client >= 0 AND note_client <= 5),
-    -- civilite VARCHAR(255), -- Non-précisé pour le client, on peut empÃªcher la discrimination
+    -- civilite VARCHAR(255), -- Non-précisé pour le client, on peut empêcher la discrimination
     CONSTRAINT client_pk PRIMARY KEY (id_compte),
     CONSTRAINT client_fk_compte FOREIGN KEY (id_compte) REFERENCES compte(id_compte)
 );
@@ -183,7 +183,7 @@ create table signalement(
     id_objet int,
     classe_objet varchar(255) CHECK (classe_objet IN ('compte', 'logement', 'avis', 'message')),
     constraint signalement_pk primary key(id_signalement)
-    -- Contrainte pour classe objet : ne peut Ãªtre que "compte", "avis", "logement" ou "message"
+    -- Contrainte pour classe objet : ne peut être que "compte", "avis", "logement" ou "message"
 );
 
 
@@ -307,8 +307,13 @@ VALUES
 INSERT INTO photo_logement(id_logement, id_image)
 VALUES
     (1,1),
+    (1,4),
+    (1,2),
+    (1,3),
+    (2,3),
+    (2,1),
     (2,2),
-    (3,3);
+    (3,4);
 
 INSERT INTO CB (numero_carte, date_validite, cryptogramme, id_compte)
 VALUES
@@ -342,9 +347,10 @@ VALUES
     
 INSERT INTO amenagement (nom_amenagement, id_logement)
 VALUES
-    ('Cuisine équipée', 1),
-    ('Piscine privée', 2),
-    ('Balcon', 3);
+    ('jardin', 1),
+    ('parking', 1),
+    ('balcon', 2),
+    ('terrasse', 3);
     
 INSERT INTO equipement (nom_equipement, id_logement)
 VALUES
@@ -354,15 +360,18 @@ VALUES
     
 INSERT INTO service (nom_service, id_logement)
 VALUES
-    ('Service de ménage', 1),
-    ('Service de navette aéroport', 2),
+    ('linge', 1),
+    ('repas', 1),
+    ('taxi', 1),
+    ('ménage', 2),
     ('Petit-déjeuner inclus', 3);
     
 INSERT INTO installation (nom_installation, id_logement)
 VALUES
-    ('Jacuzzi', 1),
-    ('Salle de sport', 2),
-    ('Sauna', 3);
+    ('jacuzzi', 1),
+    ('piscine', 1),
+    ('hammam', 2),
+    ('sauna', 3);
     
 INSERT INTO reservation (id_reservation, debut_reservation, fin_reservation, nb_personne, id_compte, id_logement)
 VALUES
