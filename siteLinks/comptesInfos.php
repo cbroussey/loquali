@@ -41,100 +41,132 @@
     </div>
     <div></div>
   </header>
-  <div class = "nav">
-    <a href="compteAccueil.php">
+  <div id="compteContainer">
+    <div class = "nav">
       <div>
-        <figure>
-          <div class="img-area">
-            <img src="asset/icons/bleu/accountBlue.svg" alt="Infos Persos" class="img-back">
-            <img src="asset/icons/blanc/account.svg" alt="Infos Persos" class="img-front">
-          </div>
-          <figcaption>Accueil</figcaption>
-        </figure>
+        <div>
+          <figure>
+            <div class="img-area">
+              <img src="asset/icons/bleu/accountBlue.svg" alt="Infos Persos" class="img-back">
+              <img src="asset/icons/blanc/account.svg" alt="Infos Persos" class="img-front">
+            </div>
+            <figcaption>Accueil</figcaption>
+          </figure>
+        </div>
       </div>
-    </a>
 
-    <a href="">
       <div>
-        <figure>
-          <div class="img-area">
-            <img src="asset/icons/bleu/personalInfosBlue.svg" alt="Infos Persos" class="img-back">
-            <img src="asset/icons/blanc/personalInfos.svg" alt="Infos Persos" class="img-front">
-          </div>            
-          <figcaption>Informations personnelles</figcaption>
-        </figure>
+        <div>
+          <figure>
+            <div class="img-area">
+              <img src="asset/icons/bleu/personalInfosBlue.svg" alt="Infos Persos" class="img-back">
+              <img src="asset/icons/blanc/personalInfos.svg" alt="Infos Persos" class="img-front">
+            </div>            
+            <figcaption>Informations personnelles</figcaption>
+          </figure>
+        </div>
       </div>
-    </a>
-    <a href="">
       <div>
-        <figure>
-          <div class="img-area">
-            <img src="asset/icons/bleu/connexionBlue.svg" alt="Infos Persos" class="img-back">
-            <img src="asset/icons/blanc/connexion.svg" alt="Infos Persos" class="img-front">
-          </div> 
-          <figcaption>Connexion et sécurité</figcaption>
-        </figure>
+        <div>
+          <figure>
+            <div class="img-area">
+              <img src="asset/icons/bleu/connexionBlue.svg" alt="Infos Persos" class="img-back">
+              <img src="asset/icons/blanc/connexion.svg" alt="Infos Persos" class="img-front">
+            </div> 
+            <figcaption>Connexion et sécurité</figcaption>
+          </figure>
+        </div>
       </div>
-    </a>
-    <a href="">
       <div>
-        <figure>
-          <div class="img-area">
-            <img src="asset/icons/bleu/favoriteBlue.svg" alt="Infos Persos" class="img-back">
-            <img src="asset/icons/blanc/favorite.svg" alt="Infos Persos" class="img-front">
-          </div> 
-          <figcaption>Favoris</figcaption>
-        </figure>
+        <div>
+          <figure>
+            <div class="img-area">
+              <img src="asset/icons/bleu/favoriteBlue.svg" alt="Infos Persos" class="img-back">
+              <img src="asset/icons/blanc/favorite.svg" alt="Infos Persos" class="img-front">
+            </div> 
+            <figcaption>Favoris</figcaption>
+          </figure>
+        </div>
       </div>
-    </a>
-    <a href="">
       <div>
-        <figure>
-          <div class="img-area">
-              <img src="asset/icons/bleu/logementBlue.svg" alt="Infos Persos" class="img-back">
-              <img src="asset/icons/blanc/logement.svg" alt="Infos Persos" class="img-front">
-          </div> 
-          <figcaption>Mes logements</figcaption>
-        </figure>
+        <div>
+          <figure>
+            <div class="img-area">
+                <img src="asset/icons/bleu/logementBlue.svg" alt="Infos Persos" class="img-back">
+                <img src="asset/icons/blanc/logement.svg" alt="Infos Persos" class="img-front">
+            </div> 
+            <figcaption>Mes logements</figcaption>
+          </figure>
+        </div>
       </div>
-    </a>
-    <a href="">
       <div>
-        <figure>
-          <div class="img-area">
-            <img src="asset/icons/bleu/reservationsBlue.svg" alt="Infos Persos" class="img-back">
-            <img src="asset/icons/blanc/reservations.svg" alt="Infos Persos" class="img-front">
-          </div> 
-          <figcaption>Mes réservations</figcaption>
-        </figure>
+        <div>
+          <figure>
+            <div class="img-area">
+              <img src="asset/icons/bleu/reservationsBlue.svg" alt="Infos Persos" class="img-back">
+              <img src="asset/icons/blanc/reservations.svg" alt="Infos Persos" class="img-front">
+            </div> 
+            <figcaption>Mes réservations</figcaption>
+          </figure>
+        </div>
       </div>
-    </a>
 
-    <a href="">
       <div>
-        <figure>
-          <div class="img-area">
-            <img src="asset/icons/bleu/messageBlue.svg" alt="Infos Persos" class="img-back">
-            <img src="asset/icons/blanc/message.svg" alt="Infos Persos" class="img-front">
-          </div> 
-          <figcaption>Messagerie</figcaption>
-        </figure>
-      </div>
-    </a>  
-    
-    <a href="">
+        <div>
+          <figure>
+            <div class="img-area">
+              <img src="asset/icons/bleu/messageBlue.svg" alt="Infos Persos" class="img-back">
+              <img src="asset/icons/blanc/message.svg" alt="Infos Persos" class="img-front">
+            </div> 
+            <figcaption>Messagerie</figcaption>
+          </figure>
+        </div>
+      </div>  
+      
       <div>
-        <figure>
-          <div class="img-area">
-            <img src="asset/icons/bleu/paiementBlue.svg" alt="Infos Persos" class="img-back">
-            <img src="asset/icons/blanc/paiement.svg" alt="Infos Persos" class="img-front">
-          </div> 
-          <figcaption>Paiement</figcaption>
-        </figure>
+        <div>
+          <figure>
+            <div class="img-area">
+              <img src="asset/icons/bleu/paiementBlue.svg" alt="Infos Persos" class="img-back">
+              <img src="asset/icons/blanc/paiement.svg" alt="Infos Persos" class="img-front">
+            </div> 
+            <figcaption>Paiement</figcaption>
+          </figure>
+        </div>
       </div>
-    </a>
-  </div>
+    </div>
+
+    <div id="compteInfosPerso">
+      <!-- Informations personnelles -->
+    </div>
+
+    <div id="compteConnection">
+      <!-- Informations de connection et de sécurité -->
+    </div>
+
+    <div id="compteFavoris">
+      <!-- Favoris -->
+    </div>
+
+    <div id="compteLogements">
+      <!-- Logements -->
+    </div>
+
+    <div id="compteReservations">
+      <!-- Réservations -->
+    </div>
+
+    <div id="compteMessagerie">
+      <!-- Messagerie -->
+    </div>
+
+    <div id="comptePaiement">
+      <!-- payement -->
+    </div>
+
+  </div>  
 
   <script src="asset/js/header.js"></script>
+  <script src="asset/js/account.js"></script>
 </body>
 </html>

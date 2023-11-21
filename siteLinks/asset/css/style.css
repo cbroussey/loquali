@@ -3561,7 +3561,7 @@ margin:10% 0 5% 0;
 /************************** COMPTE - INFOS **************************/
 
 .nav {
-    width: 295px;
+    width: 16vw;
     height: 92vh;
     background-color: #7297B8;
     display: flex;
@@ -3604,6 +3604,59 @@ margin:10% 0 5% 0;
 
 .img-area img.img-front:hover {
     opacity: 0;
+}
+
+#compteContainer {
+  display:flex;
+  flex-direction: row;
+}
+
+#compteInfosPerso {
+  background-color: red;
+  height:92vh;
+  width:84vw;
+}
+
+#compteConnection {
+  background-color: green;
+  height:92vh;
+  width:84vw;
+  display:none;
+}
+
+#compteFavoris {
+  background-color: yellow;
+  height:92vh;
+  width:84vw;
+  display:none;
+}
+
+#compteLogements {
+  background-color: blue;
+  height:92vh;
+  width:84vw;
+  display:none;
+}
+
+#compteReservations {
+  background-color: orange;
+  height:92vh;
+  width:84vw;
+  display:none;
+}
+
+#compteMessagerie {
+  background-color: purple;
+  height:92vh;
+  width:84vw;
+  display:none;
+}
+
+#comptePaiement {
+  background-color: magenta;
+  height:92vh;
+  width:84vw;
+  display:none;
 }
 
 
