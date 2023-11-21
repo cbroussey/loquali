@@ -377,6 +377,7 @@ a {
 
 .barre_fin_header_log{
   margin-top: -8px;
+  margin-bottom: -17px;
 }
 
 h2 span{
@@ -401,6 +402,17 @@ h2 span{
 
 .txt_info_petit_log{
   font-size: 15px;
+}
+
+.txt_descr_log{
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#bg h4{
+  font-size: 20;
+  font-weight: bold;
+  text-decoration: underline;
 }
 
 .blanc{
