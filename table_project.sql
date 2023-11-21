@@ -16,7 +16,7 @@ CREATE TABLE compte(
     date_creation DATE,
     nom VARCHAR(255),
     prenom VARCHAR(255),
-    adresse_mail VARCHAR(255) CHECK (adresse_mail ~ '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.(com|fr)$'),
+    adresse_mail VARCHAR(255) CHECK (adresse_mail ~ '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.\w{2,4}$'),
     adresse_postale VARCHAR(255),
     derniere_operation TIMESTAMP,
     photo_de_profil INTEGER,
@@ -39,7 +39,7 @@ CREATE TABLE proprietaire(
     description VARCHAR(255),
     note_proprio NUMERIC(3,2) CHECK (note_proprio >= 0 AND note_proprio <= 5),
     civilite VARCHAR(255) CHECK (civilite IN ('M', 'F', 'Mme')), -- Nécessaire ici pcq précisé
-    RIB VARCHAR(34) CHECK (RIB ~ '^FR[0-9]{25}$'),
+    RIB VARCHAR(34) CHECK (RIB ~ '^\w{2}\d{2}[a-zA-Z0-9]{1,30}$'),
     constraint proprietaire_pk primary key (id_compte),
     constraint proprietaire_fk_compte Foreign Key (id_compte) REFERENCES compte(id_compte)
 );
@@ -48,22 +48,24 @@ create TABLE logement(
     id_logement SERIAL NOT NULL,
     prix_TTC FLOAT,
     note_logement FLOAT CHECK (note_logement >= 0 AND note_logement <= 5),
-    en_ligne BOOLEAN,
+    en_ligne BOOLEAN DEFAULT FALSE,
+    ouvert BOOLEAN DEFAULT FALSE,
     type_logement VARCHAR(255),
     nature_logement VARCHAR(255),
-    localisation VARCHAR(255),
     descriptif VARCHAR(255),
     surface INTEGER,
     disponible_defaut BOOLEAN,
     prix_base_HT FLOAT,
     delai_annul_defaut int, -- en jours
     pourcentage_retenu_defaut NUMERIC(3),
-    libelle_logement VARCHAR(255),
+    libelle_logement VARCHAR(80),
+    accroche VARCHAR(255),
     nb_pers_max INTEGER,
     nb_chambre integer,
     nb_salle_de_bain integer,
-    code_postal VARCHAR(255) CHECK (code_postal ~ '^[0-9]{5}$|^2[AB]$'),
-    departement VARCHAR(255)  CHECK (departement IN ('Finistère', 'Morbihan', 'Côte-d"Armor', 'Ile-et-Vilaine')),
+    code_postal VARCHAR(5) CHECK (code_postal ~ '^[0-9]{5}$|^2[AB]$'),
+    departement VARCHAR(255) CHECK (departement IN ('Finistère', 'Morbihan', 'Côte-d''Armor', 'Ile-et-Vilaine')), -- JSP si c'est très utile, on a déjà le code postal faut juste déduire
+    localisation VARCHAR(255), -- = commune/ville
     info_arrivee VARCHAR(255),
     info_depart VARCHAR(255),
     reglement_interieur VARCHAR(255),
@@ -75,6 +77,7 @@ create TABLE logement(
 create table photo_logement(
     id_image integer,
     id_logement integer,
+    constraint photo_logement_pk primary key (id_image, id_logement),
     constraint photo_logement_fk_image foreign key (id_image) references image(id_image),
     constraint photo_logement_fk_logement foreign key (id_logement) references logement(id_logement)
 );
@@ -91,7 +94,7 @@ CREATE TABLE CB(
 create table langue(
     nom_langue VARCHAR(255),
     id_compte INTEGER,
-    constraint langue_pk primary key(nom_langue,id_compte),
+    constraint langue_pk primary key(nom_langue, id_compte),
     constraint langue_fk_compte foreign key (id_compte) references compte(id_compte)
 );
 
@@ -102,7 +105,8 @@ create table message(
     date_msg TIMESTAMP,
     id_compte INTEGER,
     constraint message_pk primary key (id_dest,id_msg,id_compte),
-    constraint message_fk_compte foreign key (id_compte) references compte(id_compte)
+    constraint message_fk_compte foreign key (id_compte) references compte(id_compte),
+    constraint message_fk_dest foreign key (id_dest) references compte(id_compte)
 );
 
 create table message_type(
@@ -111,11 +115,12 @@ create table message_type(
     nb_jours_auto INT,
     relativite VARCHAR(10) CHECK (relativite IN ('arrivee', 'depart')),
     id_compte INTEGER,
+    constraint message_type_pk primary key (id_compte, titre_message),
     constraint message_type_fk_compte foreign key (id_compte) references compte(id_compte)  
 );
 
 create table telephone(
-    numero VARCHAR(10) CHECK (numero ~ '^0[0-9]{9}$'),
+    numero VARCHAR(10) CHECK (numero ~ '^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$'), -- Inclut les indicatifs, nécessaire pour les téléphones étrangers
     info VARCHAR(255),
     id_compte INTEGER,
     constraint telephone_pk primary key (numero),
@@ -195,6 +200,7 @@ create table prix_charge(
     prix_charge NUMERIC(10,2),
     id_logement INTEGER,
     nom_charge VARCHAR(255),
+    constraint prix_charge_pk primary key (nom_charge, id_logement),
     constraint prix_charge_fk_logement foreign key (id_logement) references logement(id_logement),
     constraint prix_charge_fk_charge_additionnelle foreign key (nom_charge) references  charge_additionnelle(nom_charge)
 );
@@ -202,6 +208,7 @@ create table prix_charge(
 create table charges_selectionnees(
     id_reservation INTEGER,
     nom_charge VARCHAR(255),
+    constraint charges_selectionnees_pk primary key (nom_charge, id_reservation),
     constraint charges_selectionnees_fk_reservation foreign key (id_reservation) references reservation(id_reservation),
     constraint charges_selectionnees_fk_charge_additionnelle foreign key (nom_charge) references  charge_additionnelle(nom_charge)
 );
@@ -235,6 +242,7 @@ create table contrainte_reservation(
     duree_max_reservation INT NOT NULL, -- en jours
     delai_min_resa_arrive INT NOT NULL, -- en jours, valeur par défaut à rajouter dans logement
     id_logement INTEGER,
+    constraint contrainte_reservation_pk primary key (id_logement),
     constraint contrainte_reservation_fk_logement foreign key (id_logement) references logement(id_logement)
 );
 
@@ -250,7 +258,7 @@ create table facture(
     id_facture INTEGER NOT NULL,
     prix_facture FLOAT,
     info_facture VARCHAR(255),
-    paye FLOAT,
+    payement FLOAT, -- Ce qui a déjà été payé par rapport au prix de la facture
     id_devis INTEGER,
     constraint facture_pk primary key(id_facture),
     constraint facture_fk_devis foreign key (id_devis) references devis(id_devis)
@@ -293,11 +301,11 @@ VALUES
     (6, 'Description Propriétaire 3', 4.7,'M','FR7630002032531234567890168');
 
 
-INSERT INTO logement (prix_TTC, note_logement, en_ligne, type_logement, nature_logement, localisation, descriptif, surface, disponible_defaut, prix_base_HT, delai_annul_defaut, pourcentage_retenu_defaut, libelle_logement, nb_pers_max, nb_chambre, nb_salle_de_bain, code_postal,departement, info_arrivee, info_depart, reglement_interieur, id_compte)
+INSERT INTO logement (prix_TTC, note_logement, en_ligne, type_logement, nature_logement, localisation, descriptif, surface, disponible_defaut, prix_base_HT, delai_annul_defaut, pourcentage_retenu_defaut, libelle_logement, accroche, nb_pers_max, nb_chambre, nb_salle_de_bain, code_postal,departement, info_arrivee, info_depart, reglement_interieur, id_compte)
 VALUES
-    (150.00, 4.3, TRUE,'T1', 'Appartement', 'Paris', 'Bel appartement au cœur de Paris', 80, TRUE, 120.00, 5, 10.00, 'Appartement Parisien', 4, 2, 1, '2A', 'Finistère', 'boite à clé près de la porte d"entrée', 'veuillez ranger les clés dans la boite à clés', 'veuillez ne pas abimer le mobilier', 4),
-    (200.00, 4.5, TRUE, 'T3', 'Maison', 'Nice', 'Charmante maison à Nice', 120, TRUE, 180.00, 6, 15.00, 'Maison Niçoise', 6, 3, 2, 22000, 'Finistère', 'boite à clé près de la porte d"entrée', 'veuillez ranger les clés dans la boite à clés', 'veuillez ne pas abimer le mobilier', 5),
-    (100.00, 4.0, TRUE, 'T5', 'Studio', 'Marseille', 'Studio ensoleillé à Marseille', 45, TRUE, 80.00, 3, 8.00, 'Proche de la plage', 2, 3, 1, 22000, 'Finistère', 'boite à clé près de la porte d"entrée', 'veuillez ranger les clés dans la boite à clés', 'veuillez ne pas abimer le mobilier', 6);
+    (150.00, 4.3, TRUE,'T1', 'Appartement', 'Paris', 'Bel appartement au coeur de Paris', 80, TRUE, 120.00, 5, 10.00, 'Appartement Parisien', 'Vue magnifique sur la Tour Eiffel', 4, 2, 1, '2A', 'Finistère', 'boite à clé près de la porte d''entrée', 'veuillez ranger les clés dans la boite à clés', 'veuillez ne pas abimer le mobilier', 4),
+    (200.00, 4.5, TRUE, 'T3', 'Maison', 'Nice', 'Charmante maison à Nice', 120, TRUE, 180.00, 6, 15.00, 'Maison Niçoise', 'Jardin privé et piscine', 6, 3, 2, 22000, 'Finistère', 'boite à clé près de la porte d''entrée', 'veuillez ranger les clés dans la boite à clés', 'veuillez ne pas abimer le mobilier', 5),
+    (100.00, 4.0, TRUE, 'T5', 'Studio', 'Marseille', 'Studio ensoleillé à Marseille', 45, TRUE, 80.00, 3, 8.00, 'Studio Lumineux', 'Proche de la plage', 2, 3, 1, 22000, 'Finistère', 'boite à clé près de la porte d''entrée', 'veuillez ranger les clés dans la boite à clés', 'veuillez ne pas abimer le mobilier', 6);
     
 
 INSERT INTO photo_logement(id_logement, id_image)
@@ -333,7 +341,7 @@ VALUES
 INSERT INTO message_type (titre_message, contenu_type, nb_jours_auto, relativite, id_compte)
 VALUES
     ('Information', 'votre réservation approche !', -3, 'arrivee', 1),
-    ('Demande avis', 'votre séjour s"est bien déroulé ? n"hésitez pas à donner votre avis! ', 1, 'depart', 2);
+    ('Demande avis', 'votre séjour s''est bien déroulé ? n''hésitez pas à donner votre avis! ', 1, 'depart', 2);
     
 INSERT INTO telephone (numero, info, id_compte)
 VALUES
@@ -431,7 +439,7 @@ VALUES
     ('Lit double', 2, 'Queen size', 2),
     ('Lit simple', 2, 'Simple', 3);
     
-INSERT INTO facture (id_facture, prix_facture, info_facture, paye, id_devis)
+INSERT INTO facture (id_facture, prix_facture, info_facture, payement, id_devis)
 VALUES
     (1, 250.00, 'Facture pour la réservation 1', 139.00, 1),
     (2, 350.00, 'Facture pour la réservation 2', 200.00, 2),
