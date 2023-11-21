@@ -106,7 +106,7 @@ create table message(
     id_compte INTEGER,
     constraint message_pk primary key (id_dest,id_msg,id_compte),
     constraint message_fk_compte foreign key (id_compte) references compte(id_compte),
-    constraint message_fk_compte foreign key (id_dest) references compte(id_compte)
+    constraint message_fk_dest foreign key (id_dest) references compte(id_compte)
 );
 
 create table message_type(
@@ -258,7 +258,7 @@ create table facture(
     id_facture INTEGER NOT NULL,
     prix_facture FLOAT,
     info_facture VARCHAR(255),
-    payement FLOAT, -- Ce qui a déjà été payé
+    payement FLOAT, -- Ce qui a déjà été payé par rapport au prix de la facture
     id_devis INTEGER,
     constraint facture_pk primary key(id_facture),
     constraint facture_fk_devis foreign key (id_devis) references devis(id_devis)
