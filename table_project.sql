@@ -4,19 +4,19 @@ set schema 'test';
 
 
 create table image(
-    id_image INTEGER,
+    id_image INTEGER NOT NULL,
     constraint image_pk primary key (id_image)
 );
 
 CREATE TABLE compte(
-    id_compte SERIAL,
+    id_compte SERIAL NOT NULL,
     identifiant VARCHAR(255) UNIQUE,
     mdp VARCHAR(255),
     nom_affichage VARCHAR(255),
     date_creation DATE,
     nom VARCHAR(255),
     prenom VARCHAR(255),
-    adresse_mail VARCHAR(255) CHECK (adresse_mail ~ '(?:[a-z0-9!#$%&''*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&''*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])'),
+    adresse_mail VARCHAR(255) CHECK (adresse_mail ~ '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.(com|fr)$'),
     adresse_postale VARCHAR(255),
     derniere_operation TIMESTAMP,
     photo_de_profil INTEGER,
@@ -27,29 +27,28 @@ CREATE TABLE compte(
 );  
 
 CREATE TABLE client(
-    id_compte INTEGER,
+    id_compte INTEGER NOT NULL,
     note_client NUMERIC(3,2) CHECK (note_client >= 0 AND note_client <= 5),
-    -- civilite VARCHAR(255), -- Non-précisé pour le client, on peut empêcher la discrimination
+    -- civilite VARCHAR(255), -- Non-prÃ©cisÃ© pour le client, on peut empÃªcher la discrimination
     CONSTRAINT client_pk PRIMARY KEY (id_compte),
     CONSTRAINT client_fk_compte FOREIGN KEY (id_compte) REFERENCES compte(id_compte)
 );
 
 CREATE TABLE proprietaire(
-    id_compte INTEGER,
+    id_compte INTEGER NOT NULL,
     description VARCHAR(255),
     note_proprio NUMERIC(3,2) CHECK (note_proprio >= 0 AND note_proprio <= 5),
-    civilite VARCHAR(255) CHECK (civilite IN ('M', 'F', 'Mme')), -- Nécessaire ici pcq précisé
-    RIB VARCHAR(34) CHECK (RIB ~ '^\w{2}\d{2}[a-zA-Z0-9]{1,30}'),
+    civilite VARCHAR(255) CHECK (civilite IN ('M', 'F', 'Mme')), -- NÃ©cessaire ici pcq prÃ©cisÃ©
+    RIB VARCHAR(34) CHECK (RIB ~ '^FR[0-9]{25}$'),
     constraint proprietaire_pk primary key (id_compte),
     constraint proprietaire_fk_compte Foreign Key (id_compte) REFERENCES compte(id_compte)
 );
 
 create TABLE logement(
-    id_logement SERIAL,
+    id_logement SERIAL NOT NULL,
     prix_TTC FLOAT,
     note_logement FLOAT CHECK (note_logement >= 0 AND note_logement <= 5),
     en_ligne BOOLEAN,
-    ouvert BOOLEAN,
     type_logement VARCHAR(255),
     nature_logement VARCHAR(255),
     localisation VARCHAR(255),
@@ -60,10 +59,14 @@ create TABLE logement(
     delai_annul_defaut int, -- en jours
     pourcentage_retenu_defaut NUMERIC(3),
     libelle_logement VARCHAR(255),
-    accroche VARCHAR(255),
     nb_pers_max INTEGER,
     nb_chambre integer,
     nb_salle_de_bain integer,
+    code_postal VARCHAR(255) CHECK (code_postal ~ '^[0-9]{5}$|^2[AB]$'),
+    departement VARCHAR(255)  CHECK (departement IN ('FinistÃ¨re', 'Morbihan', 'CÃ´te-d"Armor', 'Ile-et-Vilaine')),
+    info_arrivee VARCHAR(255),
+    info_depart VARCHAR(255),
+    reglement_interieur VARCHAR(255),
     id_compte INTEGER,
     constraint logement_pk PRIMARY KEY(id_logement),
     constraint logement_fk_proprietaire foreign key (id_compte) references proprietaire(id_compte)  
@@ -77,7 +80,7 @@ create table photo_logement(
 );
 
 CREATE TABLE CB(
-    numero_carte Varchar(16),
+    numero_carte Varchar(16) CHECK (numero_carte ~ '^[0-9]{16}$'),
     date_validite DATE,
     cryptogramme INTEGER,
     id_compte INTEGER,
@@ -112,7 +115,7 @@ create table message_type(
 );
 
 create table telephone(
-    numero VARCHAR(12) CHECK (numero ~ '^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$'),
+    numero VARCHAR(10) CHECK (numero ~ '^0[0-9]{9}$'),
     info VARCHAR(255),
     id_compte INTEGER,
     constraint telephone_pk primary key (numero),
@@ -147,7 +150,7 @@ create table installation(
     constraint installation_fk_logement foreign key (id_logement) references logement(id_logement)
 );
 create table reservation(
-    id_reservation INTEGER,
+    id_reservation INTEGER NOT NULL,
     debut_reservation date,
     fin_reservation date,
     nb_personne INTEGER,
@@ -159,7 +162,7 @@ create table reservation(
 );
 
 create table avis(
-    id_avis INTEGER,
+    id_avis INTEGER NOT NULL,
     id_parent INTEGER,
     titre VARCHAR(255),
     contenu VARCHAR(255),
@@ -171,14 +174,14 @@ create table avis(
 );
 
 create table signalement(
-    id_signalement INTEGER,
+    id_signalement INTEGER NOT NULL,
     justification VARCHAR(255),
     type_signalement VARCHAR(255),
-    id_compte INTEGER, -- personne qui a signalé
+    id_compte INTEGER, -- personne qui a signalÃ©
     id_objet int,
     classe_objet varchar(255) CHECK (classe_objet IN ('compte', 'logement', 'avis', 'message')),
     constraint signalement_pk primary key(id_signalement)
-    -- Contrainte pour classe objet : ne peut être que "compte", "avis", "logement" ou "message"
+    -- Contrainte pour classe objet : ne peut Ãªtre que "compte", "avis", "logement" ou "message"
 );
 
 
@@ -192,7 +195,6 @@ create table prix_charge(
     prix_charge NUMERIC(10,2),
     id_logement INTEGER,
     nom_charge VARCHAR(255),
-    constraint prix_charge_pk primary key (prix_charge, id_logement),
     constraint prix_charge_fk_logement foreign key (id_logement) references logement(id_logement),
     constraint prix_charge_fk_charge_additionnelle foreign key (nom_charge) references  charge_additionnelle(nom_charge)
 );
@@ -200,7 +202,6 @@ create table prix_charge(
 create table charges_selectionnees(
     id_reservation INTEGER,
     nom_charge VARCHAR(255),
-    constraint charges_selectionnees_pk primary key (nom_charge, id_reservation),
     constraint charges_selectionnees_fk_reservation foreign key (id_reservation) references reservation(id_reservation),
     constraint charges_selectionnees_fk_charge_additionnelle foreign key (nom_charge) references  charge_additionnelle(nom_charge)
 );
@@ -217,8 +218,9 @@ create table plage(
 );
 
 
+
 create table devis(
-    id_devis INTEGER,
+    id_devis INTEGER NOT NULL,
     prix_devis FLOAT,
     delai_acceptation date,
     acceptation BOOLEAN,
@@ -231,7 +233,7 @@ create table devis(
 create table contrainte_reservation(
     duree_min_reservation INT NOT NULL, -- en jours
     duree_max_reservation INT NOT NULL, -- en jours
-    delai_min_resa_arrive INT NOT NULL, -- en jours, valeur par défaut à rajouter dans logement
+    delai_min_resa_arrive INT NOT NULL, -- en jours, valeur par dÃ©faut Ã  rajouter dans logement
     id_logement INTEGER,
     constraint contrainte_reservation_fk_logement foreign key (id_logement) references logement(id_logement)
 );
@@ -245,7 +247,7 @@ create table lit(
 );
 
 create table facture(
-    id_facture INTEGER,
+    id_facture INTEGER NOT NULL,
     prix_facture FLOAT,
     info_facture VARCHAR(255),
     paye FLOAT,
@@ -272,7 +274,7 @@ VALUES
     (1,'motdepasse1', 'Utilisateur 1', '2023-10-19', now(),'789 Rue Client 3', 'client3@email.com', 'Durand', 'Jean',1,1),
     (2,'motdepasse2', 'Utilisateur 2', '2023-10-20','2023-11-03 00:42','123 Rue Client 1', 'client1@email.com', 'Dubois', 'Roger',2,2),
     (3,'motdepasse3', 'Utilisateur 3', '2023-10-21','2023-10-25 09:37','456 Rue Client 2', 'client2@email.com', 'Petit', 'Damien',3,3),
-    (4,'motdepasse4', 'Utilisateur 4', '2023-10-22','2023-11-09 08:57','789 Rue vanier', 'proprio3@email.com', 'Moreau', 'François',4,4),
+    (4,'motdepasse4', 'Utilisateur 4', '2023-10-22','2023-11-09 08:57','789 Rue vanier', 'proprio3@email.com', 'Moreau', 'FranÃ§ois',4,4),
     (5,'motdepasse5', 'Utilisateur 5', '2023-10-23','2023-10-29 11:18','123 Rue de la lys','proprio1@email.com','Roux', 'Robert',5,5),
     (6,'motdepasse6', 'Utilisateur 6', '2023-10-24','2023-11-01 10:28','456 Rue du jardin','proprio2@email.com', 'Simon', 'Richard',6,6);
 
@@ -286,16 +288,16 @@ VALUES
 
 INSERT INTO proprietaire (id_compte, description, note_proprio, civilite, RIB)
 VALUES
-    (4, 'Description Propriétaire 1', 4.9,'M','FR7630056009271234567890182'),
-    (5, 'Description Propriétaire 2', 4.2,'Mme','FR7611315000011234567890138'),
-    (6, 'Description Propriétaire 3', 4.7,'M','FR7630002032531234567890168');
+    (4, 'Description PropriÃ©taire 1', 4.9,'M','FR7611315000011234567890134'),
+    (5, 'Description PropriÃ©taire 2', 4.2,'Mme','FR7611315000011234567890138'),
+    (6, 'Description PropriÃ©taire 3', 4.7,'M','FR7630002032531234567890168');
 
 
-INSERT INTO logement (prix_TTC, note_logement, en_ligne, type_logement, nature_logement, localisation, descriptif, surface, disponible_defaut, prix_base_HT, delai_annul_defaut, pourcentage_retenu_defaut, libelle_logement, accroche, nb_pers_max, nb_chambre, nb_salle_de_bain, id_compte)
+INSERT INTO logement (prix_TTC, note_logement, en_ligne, type_logement, nature_logement, localisation, descriptif, surface, disponible_defaut, prix_base_HT, delai_annul_defaut, pourcentage_retenu_defaut, libelle_logement, nb_pers_max, nb_chambre, nb_salle_de_bain, code_postal,departement, info_arrivee, info_depart, reglement_interieur, id_compte)
 VALUES
-    (150.00, 4.3, TRUE,'T1', 'Appartement', 'Paris', 'Bel appartement au cœur de Paris', 80, TRUE, 120.00, 5, 10.00, 'Appartement Parisien', 'Vue magnifique sur la Tour Eiffel', 4, 2, 1, 4),
-    (200.00, 4.5, TRUE, 'T3', 'Maison', 'Nice', 'Charmante maison à Nice', 120, TRUE, 180.00, 6, 15.00, 'Maison Niçoise', 'Jardin privé et piscine', 6, 3, 2, 5),
-    (100.00, 4.0, TRUE, 'T5', 'Studio', 'Marseille', 'Studio ensoleillé à Marseille', 45, TRUE, 80.00, 3, 8.00, 'Studio Lumineux', 'Proche de la plage', 2, 3, 1, 6);
+    (150.00, 4.3, TRUE,'T1', 'Appartement', 'Paris', 'Bel appartement au cÅ“ur de Paris', 80, TRUE, 120.00, 5, 10.00, 'Appartement Parisien', 4, 2, 1, '2A', 'FinistÃ¨re', 'boite Ã  clÃ© prÃ¨s de la porte d"entrÃ©e', 'veuillez ranger les clÃ©s dans la boite Ã  clÃ©s', 'veuillez ne pas abimer le mobilier', 4),
+    (200.00, 4.5, TRUE, 'T3', 'Maison', 'Nice', 'Charmante maison Ã  Nice', 120, TRUE, 180.00, 6, 15.00, 'Maison NiÃ§oise', 6, 3, 2, 22000, 'FinistÃ¨re', 'boite Ã  clÃ© prÃ¨s de la porte d"entrÃ©e', 'veuillez ranger les clÃ©s dans la boite Ã  clÃ©s', 'veuillez ne pas abimer le mobilier', 5),
+    (100.00, 4.0, TRUE, 'T5', 'Studio', 'Marseille', 'Studio ensoleillÃ© Ã  Marseille', 45, TRUE, 80.00, 3, 8.00, 'Proche de la plage', 2, 3, 1, 22000, 'FinistÃ¨re', 'boite Ã  clÃ© prÃ¨s de la porte d"entrÃ©e', 'veuillez ranger les clÃ©s dans la boite Ã  clÃ©s', 'veuillez ne pas abimer le mobilier', 6);
     
 
 INSERT INTO photo_logement(id_logement, id_image)
@@ -308,36 +310,36 @@ INSERT INTO CB (numero_carte, date_validite, cryptogramme, id_compte)
 VALUES
     ('1234567890123456', '2025-12-31', 123, 1),
     ('9876543210987654', '2024-10-31', 456, 2),
-    (1111222233334444, '2026-06-30', 789, 3);
+    ('1111222233334444', '2026-06-30', 789, 3);
 
 INSERT INTO langue (nom_langue, id_compte)
 VALUES
-    ('Français', 1),
+    ('FranÃ§ais', 1),
     ('Anglais', 2),
     ('Espagnol', 3);
     
 INSERT INTO message (id_dest, id_msg, contenu, date_msg, id_compte)
 VALUES
-    (1, 1, 'Bonjour, je suis intéressé par votre logement.', NOW(), 1),
+    (1, 1, 'Bonjour, je suis intÃ©ressÃ© par votre logement.', NOW(), 1),
     (2, 2, 'Pouvez-vous me donner plus d informations sur la maison ?', '2023-10-21 10:15', 2),
     (3, 3, 'Le studio semble parfait pour mes vacances.', '2023-10-22 15:45', 3);
 
 
 INSERT INTO message_type (titre_message, contenu_type, nb_jours_auto, relativite, id_compte)
 VALUES
-    ('Information', 'votre réservation approche !', -3, 'arrivee', 1),
-    ('Demande avis', 'votre séjour s"est bien déroulé ? n"hésitez pas à donner votre avis! ', 1, 'depart', 2);
+    ('Information', 'votre rÃ©servation approche !', -3, 'arrivee', 1),
+    ('Demande avis', 'votre sÃ©jour s"est bien dÃ©roulÃ© ? n"hÃ©sitez pas Ã  donner votre avis! ', 1, 'depart', 2);
     
 INSERT INTO telephone (numero, info, id_compte)
 VALUES
-    (1234567890, 'Téléphone principal', 1),
-    (9876543210, 'Téléphone secondaire', 2),
-    (1111222333, 'Numéro de contact', 3);
+    ('0234567894', 'TÃ©lÃ©phone principal', 1),
+    ('0876543210', 'TÃ©lÃ©phone secondaire', 2),
+    ('0111222333', 'NumÃ©ro de contact', 3);
     
 INSERT INTO amenagement (nom_amenagement, id_logement)
 VALUES
-    ('Cuisine équipée', 1),
-    ('Piscine privée', 2),
+    ('Cuisine Ã©quipÃ©e', 1),
+    ('Piscine privÃ©e', 2),
     ('Balcon', 3);
     
 INSERT INTO equipement (nom_equipement, id_logement)
@@ -348,9 +350,9 @@ VALUES
     
 INSERT INTO service (nom_service, id_logement)
 VALUES
-    ('Service de ménage', 1),
-    ('Service de navette aéroport', 2),
-    ('Petit-déjeuner inclus', 3);
+    ('Service de mÃ©nage', 1),
+    ('Service de navette aÃ©roport', 2),
+    ('Petit-dÃ©jeuner inclus', 3);
     
 INSERT INTO installation (nom_installation, id_logement)
 VALUES
@@ -366,23 +368,23 @@ VALUES
     
 INSERT INTO avis (id_avis, id_parent, titre, contenu, date_avis, id_logement)
 VALUES
-    (1,1, 'Super séjour', 'Nous avons passé un excellent séjour dans cet appartement.', '2023-11-10', 1),
-    (2,2, 'Magnifique maison', 'La maison était tout simplement magnifique. Nous avons adoré.', '2023-11-25', 2),
-    (3,3, 'Studio agréable', 'Le studio était parfait pour nos vacances. Nous y retournerons.', '2023-12-15', 3);
+    (1,1, 'Super sÃ©jour', 'Nous avons passÃ© un excellent sÃ©jour dans cet appartement.', '2023-11-10', 1),
+    (2,2, 'Magnifique maison', 'La maison Ã©tait tout simplement magnifique. Nous avons adorÃ©.', '2023-11-25', 2),
+    (3,3, 'Studio agrÃ©able', 'Le studio Ã©tait parfait pour nos vacances. Nous y retournerons.', '2023-12-15', 3);
     
 
 INSERT INTO signalement (id_signalement, justification, type_signalement, id_compte, id_objet, classe_objet)
 VALUES
-    (1,'Commentaire inapproprié', 'Abus', 1, 1, 'avis'),
+    (1,'Commentaire inappropriÃ©', 'Abus', 1, 1, 'avis'),
     (2,'Contenu offensant', 'Abus', 2, 2, 'compte'),
     (3,'Fausse information', 'Abus', 3, 3, 'logement');
     
 
 INSERT INTO charge_additionnelle (nom_charge)
 VALUES
-    ('Frais de ménage'),
+    ('Frais de mÃ©nage'),
     ('Frais de piscine'),
-    ('Frais de petit-déjeuner');
+    ('Frais de petit-dÃ©jeuner');
 
 INSERT INTO plage (disponibilite, prix_hT, delai_annul, pourcentage_retenu, date_debut, date_fin, id_logement)
 VALUES
@@ -392,15 +394,15 @@ VALUES
     
 INSERT INTO prix_charge (prix_charge, id_logement, nom_charge)
 VALUES
-    (20.00, 1, 'Frais de ménage'),
+    (20.00, 1, 'Frais de mÃ©nage'),
     (30.00, 2, 'Frais de piscine'),
-    (15.00, 3, 'Frais de petit-déjeuner');
+    (15.00, 3, 'Frais de petit-dÃ©jeuner');
     
 INSERT INTO charges_selectionnees(id_reservation,nom_charge)
 VALUES
-    (1,'Frais de ménage'),
+    (1,'Frais de mÃ©nage'),
     (2,'Frais de piscine'),
-    (3,'Frais de petit-déjeuner');
+    (3,'Frais de petit-dÃ©jeuner');
     
 INSERT INTO devis (id_devis, prix_devis, delai_acceptation, acceptation, date_devis, id_reservation)
 VALUES
@@ -422,7 +424,7 @@ VALUES
     
 INSERT INTO facture (id_facture, prix_facture, info_facture, paye, id_devis)
 VALUES
-    (1, 250.00, 'Facture pour la réservation 1', 139.00, 1),
-    (2, 350.00, 'Facture pour la réservation 2', 200.00, 2),
-    (3, 150.00, 'Facture pour la réservation 3', 60.00, 3);
+    (1, 250.00, 'Facture pour la rÃ©servation 1', 139.00, 1),
+    (2, 350.00, 'Facture pour la rÃ©servation 2', 200.00, 2),
+    (3, 150.00, 'Facture pour la rÃ©servation 3', 60.00, 3);
     
