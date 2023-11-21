@@ -569,7 +569,8 @@ h2 span{
 
 .note_proprio_log{
   display: flex;
-  align-items: center;
+  align-items: flex-end;
+  justify-content: flex-start;
 }
 
 .info_proprio_log p{
@@ -578,7 +579,12 @@ h2 span{
 
 .contact_proprio_log{
   display: flex;
-  align-items: center;
+  align-items: flex-end;
+  justify-content: flex-start;
+}
+
+.contact_proprio_log p{
+  margin-left: 5%;
 }
 
 .details_log{
