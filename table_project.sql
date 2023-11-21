@@ -63,7 +63,7 @@ create TABLE logement(
     nb_pers_max INTEGER,
     nb_chambre integer,
     nb_salle_de_bain integer,
-    code_postal VARCHAR(255) CHECK (code_postal ~ '^[0-9]{5}$|^2[AB]$'),
+    code_postal VARCHAR(5) CHECK (code_postal ~ '^[0-9]{5}$|^2[AB]$'),
     departement VARCHAR(255) CHECK (departement IN ('Finistère', 'Morbihan', 'Côte-d''Armor', 'Ile-et-Vilaine')), -- JSP si c'est très utile, on a déjà le code postal faut juste déduire
     localisation VARCHAR(255), -- = commune/ville
     info_arrivee VARCHAR(255),
@@ -77,6 +77,7 @@ create TABLE logement(
 create table photo_logement(
     id_image integer,
     id_logement integer,
+    constraint photo_logement_pk primary key (id_image, id_logement),
     constraint photo_logement_fk_image foreign key (id_image) references image(id_image),
     constraint photo_logement_fk_logement foreign key (id_logement) references logement(id_logement)
 );
@@ -93,7 +94,7 @@ CREATE TABLE CB(
 create table langue(
     nom_langue VARCHAR(255),
     id_compte INTEGER,
-    constraint langue_pk primary key(nom_langue,id_compte),
+    constraint langue_pk primary key(nom_langue, id_compte),
     constraint langue_fk_compte foreign key (id_compte) references compte(id_compte)
 );
 
@@ -104,7 +105,8 @@ create table message(
     date_msg TIMESTAMP,
     id_compte INTEGER,
     constraint message_pk primary key (id_dest,id_msg,id_compte),
-    constraint message_fk_compte foreign key (id_compte) references compte(id_compte)
+    constraint message_fk_compte foreign key (id_compte) references compte(id_compte),
+    constraint message_fk_compte foreign key (id_dest) references compte(id_compte)
 );
 
 create table message_type(
@@ -113,6 +115,7 @@ create table message_type(
     nb_jours_auto INT,
     relativite VARCHAR(10) CHECK (relativite IN ('arrivee', 'depart')),
     id_compte INTEGER,
+    constraint message_type_pk primary key (id_compte, titre_message),
     constraint message_type_fk_compte foreign key (id_compte) references compte(id_compte)  
 );
 
@@ -239,6 +242,7 @@ create table contrainte_reservation(
     duree_max_reservation INT NOT NULL, -- en jours
     delai_min_resa_arrive INT NOT NULL, -- en jours, valeur par défaut à rajouter dans logement
     id_logement INTEGER,
+    constraint contrainte_reservation_pk primary key (id_logement),
     constraint contrainte_reservation_fk_logement foreign key (id_logement) references logement(id_logement)
 );
 
@@ -254,7 +258,7 @@ create table facture(
     id_facture INTEGER NOT NULL,
     prix_facture FLOAT,
     info_facture VARCHAR(255),
-    paye FLOAT,
+    payement FLOAT, -- Ce qui a déjà été payé
     id_devis INTEGER,
     constraint facture_pk primary key(id_facture),
     constraint facture_fk_devis foreign key (id_devis) references devis(id_devis)
@@ -435,7 +439,7 @@ VALUES
     ('Lit double', 2, 'Queen size', 2),
     ('Lit simple', 2, 'Simple', 3);
     
-INSERT INTO facture (id_facture, prix_facture, info_facture, paye, id_devis)
+INSERT INTO facture (id_facture, prix_facture, info_facture, payement, id_devis)
 VALUES
     (1, 250.00, 'Facture pour la réservation 1', 139.00, 1),
     (2, 350.00, 'Facture pour la réservation 2', 200.00, 2),
