@@ -1,9 +1,5 @@
 <?php
   session_start();
-  $linkAccount = 'connexion.php';
-  if (isset($_SESSION['username'])) {
-    $linkAccount = 'account.php';
-  }
 ?>
 
 <!DOCTYPE html>
@@ -18,10 +14,6 @@
 </head>
 
 <body>
-
-
-
-
   <header>
     <a href="">
       <img src="asset/img/logo.png" alt="logo">
@@ -37,9 +29,23 @@
           <path d="M8.99141 13.4874C9.54926 14.1709 10.4552 14.1709 11.0131 13.4874L19.5816 2.98945C20.1395 2.30599 20.1395 1.19605 19.5816 0.512594C19.0238 -0.170866 18.1178 -0.170866 17.56 0.512594L10 9.77485L2.44003 0.518062C1.88218 -0.165399 0.976236 -0.165399 0.418387 0.518062C-0.139462 1.20152 -0.139462 2.31146 0.418387 2.99492L8.98695 13.4929L8.99141 13.4874Z" fill="#F5F5F5"/>
         </svg>
       </div>
+      <svg id="headerHamburger" width="28" height="31" viewBox="0 0 28 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect y="0.738281" width="28" height="3.52174" rx="1" fill="#F5F5F5"/>
+          <rect y="13.6523" width="28" height="3.52174" rx="1" fill="#F5F5F5"/>
+          <rect y="26.5645" width="28" height="3.52174" rx="1" fill="#F5F5F5"/>
+      </svg>
+      <?php 
+      if (isset($_SESSION['username'])) {
+      ?>
       <h4><a href="">Messagerie</a></h4>
       <h4><a href="">Mes réservations</a></h4>
-      <h4><a href=<?php echo $linkAccount ?>>Mon compte</a></h4>
+      <h4><a href="account.php">Mon compte</a></h4>
+      <?php } else {
+        ?>
+          <h4><a href="connexion.php">Se connecter</a></h4>
+        <?php
+      }
+      ?>
     </nav>
     <div id="headerPopup">
       <ul>
@@ -54,7 +60,7 @@
   </header>
   <div class="slider-container slider1">
     <div class="barreRecherche">
-      <h2>Trouvez votre logement idéal</h2>
+      
       <div class="bar">
         <div class="gauche-bar">
 
@@ -114,7 +120,7 @@
      
     </div>
     <div class="ajout_log">
-        <a href="newLogement.php">
+        <a href="../ajout_log.php">
           <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M23.7768 9.92104H15.7411V1.88532C15.7411 0.899275 14.9414 0.0996094 13.9554 0.0996094H12.1696C11.1836 0.0996094 10.3839 0.899275 10.3839 1.88532V9.92104H2.34821C1.36217 9.92104 0.5625 10.7207 0.5625 11.7068V13.4925C0.5625 14.4785 1.36217 15.2782 2.34821 15.2782H10.3839V23.3139C10.3839 24.2999 11.1836 25.0996 12.1696 25.0996H13.9554C14.9414 25.0996 15.7411 24.2999 15.7411 23.3139V15.2782H23.7768C24.7628 15.2782 25.5625 14.4785 25.5625 13.4925V11.7068C25.5625 10.7207 24.7628 9.92104 23.7768 9.92104Z" fill="#F5F5F5"/>
           </svg>
