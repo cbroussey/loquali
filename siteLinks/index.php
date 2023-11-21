@@ -222,6 +222,7 @@
       <p>Suivez-nous !</p>
     </div>
   </footer>
+  <script src="asset/js/header.js"></script>
   <script src="asset/js/index.js"></script>
 </body>
 </html>

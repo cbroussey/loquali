@@ -18,7 +18,7 @@
 /******************************************* HEADER ********************************************/
 header {
   background-color: #F5F5F5;
-  height: 80px; 
+  height: 8vh; 
   display:flex;
   align-items: center;
   padding-left: 5%;
@@ -27,8 +27,8 @@ header {
 
 header img {
   position:absolute;
-  height:60px;
-  top:10px;
+  height:6vh;
+  top:1vh;
 }
 
 header > div:first-of-type {
@@ -37,7 +37,7 @@ header > div:first-of-type {
   right: 0;
   width: 55%;
   border-left: 10vw solid transparent;
-  border-top: 80px solid #1D4C77;
+  border-top: 8vh solid #1D4C77;
   z-index: 1;
 }
 
@@ -122,10 +122,6 @@ main {
 }
 
 @media screen and (max-width: 800px) {
-  header {
-    height: 60px;
-  }
-
   header > div:first-of-type {
     border-top: 60px solid #1D4C77;
   }

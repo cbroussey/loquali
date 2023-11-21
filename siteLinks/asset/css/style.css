@@ -2844,7 +2844,7 @@ margin:10% 0 5% 0;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-
+    
     margin-top: -3rem;
 }
 
@@ -3052,7 +3052,7 @@ margin:10% 0 5% 0;
 
 .nav {
     width: 295px;
-    height: 875px;
+    height: 92vh;
     background-color: #7297B8;
     display: flex;
     justify-content: space-evenly;
