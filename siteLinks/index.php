@@ -175,6 +175,7 @@
                           }
 
                           ?>
+                    
                           <img src="asset/img/logements/<?php echo($photo[0]["id_image"]); ?>.jpg" withd="300" height="225" alt="img">
                     
                           <p class="ville"><?php  echo($info["libelle_logement"]);  ?>, <?php echo($info["localisation"]); ?></p>

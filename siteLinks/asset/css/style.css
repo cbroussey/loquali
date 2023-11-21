@@ -441,7 +441,7 @@ h2 span{
   display: flex;
   width: 80%;
   margin-left: 10%;
-  justify-content: space-between;
+  justify-content: center;
   align-items: normal;
   padding-bottom: 3.5%;
 }
@@ -453,6 +453,7 @@ h2 span{
 .images_log>img{
   width: 49%;
   margin-top: 0.75%;
+  margin-right: 0.5%;
 }
 
 .images_log_droite{
@@ -475,7 +476,7 @@ h2 span{
 }
 
 .images_log img:hover{
-  transform: scale(1.0375);
+  transform: scale(1.025);
   transition: all 0.2s ease-in-out;
 }
 
@@ -494,6 +495,7 @@ h2 span{
 .barre_log{
   margin-top: -6px;
 }
+
 
 .barre_info_log{
   padding-top: 3.5%;
@@ -1782,6 +1784,13 @@ h1 {
 }
 
 /******************************************** NOUVEAU LOGEMENT ********************************************/
+
+#newLog{
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-x: hidden;
+}
 
 #newLog h2{
   margin: 20px 0;
