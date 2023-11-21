@@ -1,3 +1,7 @@
+<?php
+    session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -65,7 +69,7 @@
                 <img src="asset/icons/photo.svg" alt="">
             </div>
         </div>
-        <p class="bienvenue">Bienvenue ! Accedez à votre <a href="" class="lienPagePerso">page personnel</a>.</p>
+        <p class="bienvenue">Bienvenue ! Accédez à votre <a href="" class="lienPagePerso">page personnel</a>.</p>
 
         <div class="pageAccueil">
             
