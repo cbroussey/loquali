@@ -277,14 +277,14 @@ VALUES
     (5),
     (6);
 
-INSERT INTO compte (id_compte ,mdp, nom_affichage, date_creation, derniere_operation, adresse_postale, adresse_mail, nom, prenom, photo_de_profil, piece_identite) 
+INSERT INTO compte (mdp, nom_affichage, date_creation, derniere_operation, adresse_postale, adresse_mail, nom, prenom, photo_de_profil, piece_identite) 
 VALUES
-    (1,'motdepasse1', 'Utilisateur 1', '2023-10-19', now(),'789 Rue Client 3', 'client3@email.com', 'Durand', 'Jean',1,1),
-    (2,'motdepasse2', 'Utilisateur 2', '2023-10-20','2023-11-03 00:42','123 Rue Client 1', 'client1@email.com', 'Dubois', 'Roger',2,2),
-    (3,'motdepasse3', 'Utilisateur 3', '2023-10-21','2023-10-25 09:37','456 Rue Client 2', 'client2@email.com', 'Petit', 'Damien',3,3),
-    (4,'motdepasse4', 'Utilisateur 4', '2023-10-22','2023-11-09 08:57','789 Rue vanier', 'proprio3@email.com', 'Moreau', 'François',4,4),
-    (5,'motdepasse5', 'Utilisateur 5', '2023-10-23','2023-10-29 11:18','123 Rue de la lys','proprio1@email.com','Roux', 'Robert',5,5),
-    (6,'motdepasse6', 'Utilisateur 6', '2023-10-24','2023-11-01 10:28','456 Rue du jardin','proprio2@email.com', 'Simon', 'Richard',6,6);
+    ('motdepasse1', 'Utilisateur 1', '2023-10-19', now(),'789 Rue Client 3', 'client3@email.com', 'Durand', 'Jean',1,1),
+    ('motdepasse2', 'Utilisateur 2', '2023-10-20','2023-11-03 00:42','123 Rue Client 1', 'client1@email.com', 'Dubois', 'Roger',2,2),
+    ('motdepasse3', 'Utilisateur 3', '2023-10-21','2023-10-25 09:37','456 Rue Client 2', 'client2@email.com', 'Petit', 'Damien',3,3),
+    ('motdepasse4', 'Utilisateur 4', '2023-10-22','2023-11-09 08:57','789 Rue vanier', 'proprio3@email.com', 'Moreau', 'François',4,4),
+    ('motdepasse5', 'Utilisateur 5', '2023-10-23','2023-10-29 11:18','123 Rue de la lys','proprio1@email.com','Roux', 'Robert',5,5),
+    ('motdepasse6', 'Utilisateur 6', '2023-10-24','2023-11-01 10:28','456 Rue du jardin','proprio2@email.com', 'Simon', 'Richard',6,6);
 
 
 INSERT INTO client (id_compte, note_client)

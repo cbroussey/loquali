@@ -1,8 +1,5 @@
 <?php
-    session_start();
-    $_SESSION['username'] = $_POST['nom'];
-    $_SESSION['email'] = $_POST['email'];
-    $_SESSION['password'] = $_POST['motdepasse'];
+
 ?>
 
 <!DOCTYPE html>

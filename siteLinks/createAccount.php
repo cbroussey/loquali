@@ -1,3 +1,60 @@
+<?php
+    if (isset($_POST['nom'])) {
+
+        session_start();
+        include('connect_params.php');
+
+        try {
+            $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
+            $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+    
+            //préparation de la requête d'insertion d'un nouveau compte dans la base de donnée
+            $insert = "INSERT INTO test.compte (mdp, nom_affichage, date_creation, nom, prenom, adresse_mail) VALUES (:mdp, :nom_affichage, :date_creation, :nom, :prenom, :adresse_mail)";
+            $stmt = $dbh->prepare($insert);
+
+            //hashage du mot de passe avant l'insertion dans la base de donnée
+            $hash = password_hash($_POST['motdepasse'], PASSWORD_DEFAULT);
+
+            $nomAffichage = $_POST['prenom'] . " " . $_POST['nom'];
+
+            //binding des données dans la requête
+            $stmt->bindParam(':mdp', $hash, PDO::PARAM_STR);
+            $stmt->bindParam(':nom_affichage', $nomAffichage, PDO::PARAM_STR);
+            $stmt->bindParam(':date_creation', date("Y-m-d H:i:s"), PDO::PARAM_STR);
+            $stmt->bindParam(':nom', $_POST['nom'], PDO::PARAM_STR);
+            $stmt->bindParam(':prenom', $_POST['prenom'], PDO::PARAM_STR);
+            $stmt->bindParam(':adresse_mail', $_POST['email'], PDO::PARAM_STR);
+
+            //exécution de la requête d'insertion
+            $stmt->execute();
+
+            $dbh = null;
+        } catch (PDOException $e) {
+            print "Erreur !: " . $e->getMessage() . "<br/>";
+            die();
+        }
+
+        header("Location: isOwner.php");
+        exit();
+    }
+    /*$_SESSION['username'] = $_POST['nom'];
+    $_SESSION['email'] = $_POST['email'];
+    $_SESSION['password'] = $_POST['motdepasse'];
+    include('connect_params.php');
+    try {
+        $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
+        $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+
+        $req = $dbh->prepare('INSERT INTO test.compte VALUES(?, );');
+        $req->execute("client3@email.com");
+        
+        $dbh = null;
+    } catch (PDOException $e) {
+        print "Erreur !: " . $e->getMessage() . "<br/>";
+        die();
+    }*/ 
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,8 +81,9 @@
                 </button>
             </a>
             <img src="asset/img/logo.png" alt="logo">
-            <form action="isOwner.php" method="post">
+            <form method="post">
                 <input type="text" id="nom" name="nom" placeholder="Nom" required />
+                <input type="text" id="prenom" name="prenom" placeholder="Prénom" required />
                 <input type="email" id="email" name="email" placeholder="Adresse-mail" required/>
                 <div class="surroundCasePassWord">
                     <input type="password" id="motdepasse" placeholder="Mot de passe" name="motdepasse" required/>
