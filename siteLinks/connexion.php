@@ -18,7 +18,14 @@
             if ($post == null) {
                 $mailInconnu = true;
             } else {
-                print_r($post);
+                if (password_verify($_POST['passwordInput'], $post['mdp'])) {
+                    print_r($post);
+                    $_SESSION['userId'] = $post['id_compte']; 
+                    $_SESSION['displayName'] = $post['id_compte'];
+
+                    //header("Location: index.php");
+                    //exit();
+                }
             }
 
             $dbh = null;
