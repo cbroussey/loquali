@@ -8,16 +8,17 @@
             $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
             $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
-            $email = $_POST["email"];
             $query = "SELECT * FROM test.compte WHERE test.compte.adresse_mail = :email";
             
             $stmt = $dbh->prepare($query);
-            $stmt->bindParam('email', $email, PDO::PARAM_STR);
+            $stmt->bindParam('email', $_POST["email"], PDO::PARAM_STR);
             $stmt->execute();
             $post = $stmt->fetch();
 
             if ($post == null) {
                 $mailInconnu = true;
+            } else {
+                print_r($post);
             }
 
             $dbh = null;
