@@ -18,6 +18,250 @@
 
             $photo=$_FILES;
 
+
+            include('connect_params.php');
+            $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
+
+
+
+            /* liste de toutes les données à mettre dans la bdd dans l'ordre de l'insert dans la bdd*/ 
+
+
+            $prix_TTC = $info["prix"]*1.1;
+
+            $note_logement=0; // pas def
+            $en_ligne=1;   // à def en fonction de si le boug veux ou ne veux pas le mettre en ligne
+            $ouvert=0;
+
+            $type_logement="T".$info["Pieces"];
+            $nature_logement = $info["type"];
+            $localisation = $info["ville"];
+            $descriptif = $info["description"];
+
+            $surface = 20; // pas def
+
+            $disponible_defaut = 1; // pas encore def
+
+
+            $prix_base_HT = $info["prix"];
+
+
+            $delai_annul_defaut = 8;  // pas def
+            $pourcentage_retenu_defaut = 15; // je sais pas ce que c'est
+
+
+            $libelle_logement = $info["titre"];
+            $accroche="";
+            $nb_pers_max = $info["Personne"];
+            $nb_chambre = $info["nbChambre"];
+            $nb_salle_de_bain = $info["nbSalle_bain"];
+            $code_postal = 29370;
+            $departement = $info["dep"];
+            $info_arrivee = $info["info_arrive"];
+            $info_depart = $info["info_depart"];
+            $reglement_interieur = $info["Règlement"];
+
+            $id_compte = 4; // besoin de taf de martin 
+
+
+            // Préparer la requête d'insertion
+            $stmt = $dbh->prepare("
+                INSERT INTO test.logement (
+                    prix_TTC,
+                    note_logement,
+                    en_ligne,
+                    ouvert,
+                    type_logement,
+                    nature_logement,
+                    descriptif,
+                    surface,
+                    disponible_defaut,
+                    prix_base_HT,
+                    delai_annul_defaut,
+                    pourcentage_retenu_defaut,
+                    libelle_logement,
+                    accroche,
+                    nb_pers_max,
+                    nb_chambre,
+                    nb_salle_de_bain,
+                    code_postal,
+                    departement,
+                    localisation,
+                    info_arrivee,
+                    info_depart,
+                    reglement_interieur,
+                    id_compte
+                ) VALUES (
+                    :prix_TTC,
+                    :note_logement,
+                    :en_ligne,
+                    :ouvert,
+                    :type_logement,
+                    :nature_logement,
+                    :descriptif,
+                    :surface,
+                    :disponible_defaut,
+                    :prix_base_HT,
+                    :delai_annul_defaut,
+                    :pourcentage_retenu_defaut,
+                    :libelle_logement,
+                    :accroche,
+                    :nb_pers_max,
+                    :nb_chambre,
+                    :nb_salle_de_bain,
+                    :code_postal,
+                    :departement,
+                    :localisation,
+                    :info_arrivee,
+                    :info_depart,
+                    :reglement_interieur,
+                    :id_compte
+                )
+            ");
+
+            // Binder les valeurs
+            $stmt->bindParam(':prix_TTC', $prix_TTC);
+            $stmt->bindParam(':note_logement', $note_logement);
+            $stmt->bindParam(':en_ligne', $en_ligne, PDO::PARAM_INT);
+            $stmt->bindParam(':ouvert', $ouvert, PDO::PARAM_INT);
+            $stmt->bindParam(':type_logement', $type_logement);
+            $stmt->bindParam(':nature_logement', $nature_logement);
+            $stmt->bindParam(':descriptif', $descriptif);
+            $stmt->bindParam(':surface', $surface);
+            $stmt->bindParam(':disponible_defaut', $disponible_defaut, PDO::PARAM_INT);
+            $stmt->bindParam(':prix_base_HT', $prix_base_HT);
+            $stmt->bindParam(':delai_annul_defaut', $delai_annul_defaut);
+            $stmt->bindParam(':pourcentage_retenu_defaut', $pourcentage_retenu_defaut);
+            $stmt->bindParam(':libelle_logement', $libelle_logement);
+            $stmt->bindParam(':accroche', $accroche);
+            $stmt->bindParam(':nb_pers_max', $nb_pers_max);
+            $stmt->bindParam(':nb_chambre', $nb_chambre);
+            $stmt->bindParam(':nb_salle_de_bain', $nb_salle_de_bain);
+            $stmt->bindParam(':code_postal', $code_postal);
+            $stmt->bindParam(':departement', $departement);
+            $stmt->bindParam(':localisation', $localisation);
+            $stmt->bindParam(':info_arrivee', $info_arrivee);
+            $stmt->bindParam(':info_depart', $info_depart);
+            $stmt->bindParam(':reglement_interieur', $reglement_interieur);
+            $stmt->bindParam(':id_compte', $id_compte);
+
+            try {
+                // Exécuter la requête
+                $stmt->execute();
+
+
+            } catch (PDOException $e) {
+                // Afficher l'erreur en cas d'échec de la requête
+                echo "Erreur lors de l'insertion : " . $e->getMessage();
+            }
+
+
+            /* Récupération de l'id du logement qu'on crée */
+
+            $i=0;
+
+            foreach($dbh->query("SELECT DISTINCT id_logement from test.logement ORDER BY id_logement DESC", PDO::FETCH_ASSOC) as $row) {
+            
+                $log[$i]=$row;
+                $i++;
+            }
+
+            $id_log=$log[0]["id_logement"];
+
+
+            /* Ajout des aménagements */
+
+
+            foreach ($info["amena"] as $ind => $val){
+                $stmt = $dbh->prepare("
+                    INSERT INTO test.amenagement (
+                        nom_amenagement,
+                        id_logement
+                    ) VALUES (
+                        :nom_amenagement,
+                        :id_logement
+                    )
+                ");
+
+                $stmt->bindParam(':nom_amenagement', $val);
+                $stmt->bindParam(':id_logement', $id_log);
+
+
+                try {
+                    // Exécuter la requête
+                    $stmt->execute();
+
+                } catch (PDOException $e) { 
+                    // Afficher l'erreur en cas d'échec de la requête
+                    echo "Erreur lors de l'insertion : " . $e->getMessage();
+                }
+            }
+
+
+
+
+
+
+            /* Ajout des installations */
+
+            foreach ($info["instal"] as $ind => $val){
+                $stmt = $dbh->prepare("
+                    INSERT INTO test.installation (
+                        nom_installation,
+                        id_logement
+                    ) VALUES (
+                        :nom_installation,
+                        :id_logement
+                    )
+                ");
+
+                $stmt->bindParam(':nom_installation', $val);
+                $stmt->bindParam(':id_logement', $id_log);
+
+
+                try {
+                    // Exécuter la requête
+                    $stmt->execute();
+                } catch (PDOException $e) { 
+                    // Afficher l'erreur en cas d'échec de la requête
+                    echo "Erreur lors de l'insertion : " . $e->getMessage();
+                }
+            }
+
+
+
+            /* Ajout des services */
+
+
+            foreach ($info["service"] as $ind => $val){
+                $stmt = $dbh->prepare("
+                    INSERT INTO test.service (
+                        nom_service,
+                        id_logement
+                    ) VALUES (
+                        :nom_service,
+                        :id_logement
+                    )
+                ");
+
+                $stmt->bindParam(':nom_service', $val);
+                $stmt->bindParam(':id_logement', $id_log);
+
+
+                try {
+                    // Exécuter la requête
+                    $stmt->execute();
+                } catch (PDOException $e) { 
+                    // Afficher l'erreur en cas d'échec de la requête
+                    echo "Erreur lors de l'insertion : " . $e->getMessage();
+                }
+            }
+
+
+            /* Suite du code */
+                        
+
+
             $j=0;
 
             if (isset($_FILES["photo"])) {
@@ -31,23 +275,13 @@
 
 
                         
-                        include('connect_params.php');
                         try {
-                            $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
-                            $id=$_GET["id"];
                             $i=0;
-                            foreach($dbh->query("SELECT DISTINCT id_image from test.photo_logement ORDER BY id_image DESC", PDO::FETCH_ASSOC) as $row) {
+                            foreach($dbh->query("SELECT DISTINCT id_image from test.image ORDER BY id_image DESC", PDO::FETCH_ASSOC) as $row) {
             
                                 $photo2[$i]=$row;
                                 $i++;
                             }
-                            foreach($dbh->query("SELECT DISTINCT id_logement from test.photo_logement ORDER BY id_logement DESC", PDO::FETCH_ASSOC) as $row) {
-            
-                                $log[$i]=$row;
-                                $i++;
-                            }
-                            $dbh = null;
-                            $dbh = null;
                         } catch (PDOException $e) {
                             print "Erreur !: " . $e->getMessage() . "<br/>";
                             die();
@@ -61,59 +295,80 @@
                         
                         $nom_photo = $_FILES["photo"]["name"][$key];
 
-                        echo "<pre>";
-                        print_r($info);
-                        echo "</pre>";
+
 
                         $id_p = $photo2[0]["id_image"]+1;
 
+                        $prev_photo[$j]=$id_p;
+                        $j++;
+
+
+                        $chemin = $img_dir . "/" . $id_p.".jpg";
+                        move_uploaded_file($tmpName, $chemin);
+
+                        $i=0;
+
+
+
+                        $stmt = $dbh->prepare("
+                            INSERT INTO test.image (
+                                id_image
+                            ) VALUES (
+                                :id_image
+                            )
+                        ");
+
+                        $stmt->bindParam(':id_image', $id_p);
+
+
+                        try {
+                            // Exécuter la requête
+                            $stmt->execute();
+
+
+                        } catch (PDOException $e) { 
+                            // Afficher l'erreur en cas d'échec de la requête
+                            echo "Erreur lors de l'insertion : " . $e->getMessage();
+                        }
 
 
 
 
+                        $stmt = $dbh->prepare("
+                            INSERT INTO test.photo_logement (
+                                id_logement,
+                                id_image
+                            ) VALUES (
+                                :id_logement,
+                                :id_image
+                            )
+                        ");
+
+                        $stmt->bindParam(':id_image', $id_p);
+                        $stmt->bindParam(':id_logement', $id_log);
 
 
-
-                        /* liste de toutes les données à mettre dans la bdd dans l'ordre de l'insert dans la bdd*/ 
-
-
-                        $prix_TTC = $info["prix"]*1.1;
-
-                        $note_logement=0; // pas def
-                        $en_ligne=true;   // à def en fonction de si le boug veux ou ne veux pas le mettre en ligne
-
-                        $type_logement="T".$info["Pieces"];
-                        $nature_logement = $info["type"];
-                        $localisation = $info["ville"];
-                        $descriptif = $info["description"];
-
-                        $surface = 20; // pas def
-        
-                        $disponible_defaut = true; // pas encore def
+                        try {
+                            // Exécuter la requête
+                            $stmt->execute();
 
 
-                        $prix_base_HT = $info["prix"];
+                        } catch (PDOException $e) {
+                            // Afficher l'erreur en cas d'échec de la requête
+                            echo "Erreur lors de l'insertion : " . $e->getMessage();
+                        }
 
-
-                        $delai_annul_defaut = 8;  // pas def
-                        $pourcentage_retenu_defaut = 15; // je sais pas ce que c'est
-
-
-                        $libelle_logement = $info["titre"];
-                        $nb_pers_max = $info["Personne"];
-                        $nb_chambre = $info["nbChambre"];
-                        $nb_salle_de_bain = $info["nbSalle_bain"];
-                        $code_postal = $info["code_postal"];
-                        $departement = $info["dep"];
-                        $info_arrivee = $info["info_arrive"];
-                        $info_depart = $info["info_depart"];
-                        $reglement_interieur = $info["Règlement"];
-
-                        $id_compte = 4; // besoin de taf de martin 
 
 
                     }
                 }
+
+
+
+
+                        $dbh = null;
+
+
             }
 
             
@@ -577,7 +832,7 @@
                 </div>
 
                 <div class="button_valider">
-                    <a href="sae_martin/index.php">Crée le logement</a>
+                    <a href="index.php">Crée le logement</a>
                 </div>
                 <div class="button_refuser">
                     <a href="#" onclick="afficherPopup()">Annuler</a>
@@ -590,7 +845,7 @@
                     <div class="button_confirmation">
 
                         <a href="#" id="annuler" onclick="cacherPopup()">Non</a>
-                        <a href="sae_martin/index.php" id="confirmer" onclick="confirmerRefus()">Oui</a>
+                        <a href="index.php" id="confirmer" onclick="confirmerRefus()">Oui</a>
                     </div>
                 </div>
 
