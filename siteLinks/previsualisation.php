@@ -1,6 +1,21 @@
 <?php
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        
+        include('connect_params.php');
+        try {
+            $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
+            $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+
+            $query = "DELETE FROM test.photo_logement WHERE test.photo_logement.id_logement = :id_log";
+            
+            $stmt = $dbh->prepare($query);
+            $stmt->bindParam('id_log', $_POST["id_log"], PDO::PARAM_STR);
+            $stmt->execute();
+            
+            $dbh = null;
+        } catch (PDOException $e) {
+            print "Erreur !: " . $e->getMessage() . "<br/>";
+            die();
+        }
     }
 ?>
 
@@ -850,7 +865,7 @@
                     <a href="index.php">Crée le logement</a>
                 </div>
                 <div class="button_refuser">
-                    <a href="index.php" onclick="afficherPopup()">Annuler</a>
+                    <a href="#" onclick="afficherPopup()">Annuler</a>
                 </div>
                     
                     
@@ -860,7 +875,13 @@
                     <div class="button_confirmation">
                         
                         <a href="#" id="annuler" onclick="cacherPopup()">Non</a>
-                        <a href="index.php" id="confirmer" onclick="confirmerRefus()"><form method="post"><input type="submit" value="Oui" /></form></a>
+                        <a href="index.php" id="confirmer" onclick="confirmerRefus()">
+                            <?php $id_log=2; ?>
+                            <form method="post">
+                                <input type="text" value="<?php echo htmlentities($id_log) ?>" style='display:"none"' id="id_log">
+                                <input type="submit" value="Oui" />
+                            </form>
+                        </a>
                     </div>
                 </div>
 
