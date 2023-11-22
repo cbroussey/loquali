@@ -1107,6 +1107,8 @@ h2 span{
 }
 
 /******************************************** DEMANDE DEVIS ********************************************/
+.main-devis {
+  display: flex;
 
 .retour{
   width: 50px;
@@ -1123,17 +1125,36 @@ margin-right: 20px;
 
 .demande {
   width: 60%;
-  margin-top: 50px;
+
 }
 
 .demande h1 {
   color: var(--textColor);
 
+}
+
+.boutonRetour {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  border: none;
+  width: 60px;
+  height: 60px;
+  cursor: grab;
+  flex-shrink: 0;
+  background-color: #2072BC;
+}
+
+.main-devis,
+h1 {
+  color: #1D4C77;
   font-family: Inter;
   font-size: 40px;
   font-style: normal;
   font-weight: 800;
   line-height: normal;
+  margin: 20px;
 }
 
 .voyage h2 {
@@ -1144,6 +1165,22 @@ margin-right: 20px;
   font-style: normal;
   font-weight: 600;
   line-height: normal;
+  margin-bottom: 20px;
+}
+
+.voyage_container {
+  border-radius: 25px;
+  border: 2px solid #1D4C77;
+  width: 650px;
+}
+
+.voyage_container p {
+  color: #1D4C77;
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
 .voyage {
@@ -1151,30 +1188,30 @@ margin-right: 20px;
   margin: 20px;
 }
 
-.voyage h2 {
-  margin-bottom: 10px;
-}
 
-.voyage_container {
-  border-radius: 25px;
-  border: 2px solid #1D4C77;
-  width: 731px;
-
-}
-
-.demande .date {
+.voyage_container .date {
   display: flex;
-  justify-content: center;
-  align-items: center;
+
 }
 
-.demande .date .date_arrivee,
+.voyage_container .date p {
+  padding: 10px;
+}
+
+.voyage_container .date .date_arrivee,
 .date_depart {
   display: flex;
-  justify-content: center;
+}
+
+.voyage_container .personne {
+  display: flex;
   align-items: center;
-  border-bottom: 2px solid #1D4C77;
-  width: 100%;
+  border-top: 2px solid #1D4C77;
+
+}
+
+.voyage_container .personne p {
+  margin: 20px;
 }
 
 .demande .date .date_arrivee {
@@ -1185,19 +1222,13 @@ margin-right: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 10px;
-  margin-top: 10px;
+
+
 }
 
 
-/* ICI MOMO J'AI CHANGER UN TRUC */
-
-
-.test{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: nowrap;
+.icons_info {
+  margin-left: 20px;
 }
 
 .recap {
@@ -1319,16 +1350,12 @@ margin-right: 20px;
 .icons_info h2 {
   color: var(--textColor);
   font-family: Inter;
-  font-size: 2.1875rem;
+  font-size: 35px;
   font-style: normal;
   font-weight: 600;
   line-height: normal;
+  margin-bottom: 20px;
 }
-
-.icons_info {
-  margin: 20px;
-}
-
 
 .icons {
   display: flex;
@@ -1339,14 +1366,15 @@ margin-right: 20px;
   margin-left: 20px;
 }
 
-.icons>div {
-  width: 48%;
+.icons div {
+  width: 50%;
   margin-bottom: 20px;
+
   display: flex;
   text-align: center;
 }
 
-.icons>div>p {
+.icons div p {
   display: flex;
   align-items: center;
   align-items: center;
@@ -1359,12 +1387,12 @@ margin-right: 20px;
   line-height: normal;
 }
 
-#check_box_info {
-  margin: 20px;
-}
+
+
 
 #input_check_box_info {
   margin: 20px;
+
 }
 
 #check_box_info input[type="checkbox"] {
@@ -1386,11 +1414,9 @@ margin-right: 20px;
 #check_box_info input[type="checkbox"]:checked::before {
   content: '';
   width: 4px;
-  /* Taille du cercle intérieur */
   height: 4px;
   border-radius: 50%;
   background-color: #fff;
-  /* Couleur du cercle intérieur (blanc) */
   position: absolute;
   top: 50%;
   left: 50%;
@@ -1415,6 +1441,10 @@ margin-right: 20px;
   line-height: normal;
 }
 
+#check_box_info {
+
+  margin: 20px;
+}
 
 #check_box_info p {
   color: var(--textColor);
@@ -1563,14 +1593,24 @@ margin-right: 20px;
 }
 
 .recap-info {
-  width: 625px;
-  margin: 20px auto;
-  height: 650px;
+  width: 100%;
+  margin-top: 20px;
+
+
   flex-shrink: 0;
+
   border-radius: 25px;
   background: var(--secondBG);
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
-  
+
+
+
+}
+
+.sticky_recap {
+  position: sticky;
+  top: 0;
+  z-index: 1;
 }
 
 
@@ -1636,6 +1676,10 @@ margin-right: 20px;
   margin: 25px;
 }
 
+
+
+
+
 .label,
 .value {
   color: var(--textColor);
@@ -1655,10 +1699,10 @@ margin-right: 20px;
   line-height: normal;
 }
 
-.button_valider a {
+.main-devis .button_valider a {
   display: inline-block;
   margin-top: 10px;
-  width: 625px;
+  width: 90%;
   height: 62px;
   background-color: var(--mainColor);
   color: #fff;
@@ -1794,8 +1838,10 @@ margin-right: 20px;
   height: 272px;
   background-color: var(--secondBG);
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  height: 272px;
+  background: #F5F5F5;
 }
 
 .conditions_anulations h2 {
@@ -1817,13 +1863,19 @@ margin-right: 20px;
   line-height: normal;
 }
 
+.conditions_plus {
+  margin: 20px auto;
+  padding: 50px;
 
-.button_refuser a{
+}
+
+.main-devis .button_refuser a {
+  display: none;
   display: inline-block;
   margin-top: 10px;
-  width: 625px;
+  width: 90%;
   height: 62px;
-  background-color: #8A3443;;
+  background-color: #8A3443;
   color: #fff;
   text-align: center;
   line-height: 62px;
@@ -1836,8 +1888,13 @@ margin-right: 20px;
 }
 
 
-#popup {
+.hidden {
   display: none;
+
+}
+
+#popup {
+  visibility: hidden;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -1860,14 +1917,14 @@ margin-right: 20px;
   z-index: 999;
 }
 
-#popup p{
+#popup p {
   margin: 20px;
 }
 
-.button_confirmation{
+.button_confirmation {
   display: flex;
   justify-content: space-between;
-  
+
 }
 
 #popup a {
@@ -1883,8 +1940,9 @@ margin-right: 20px;
 }
 
 #popup a#annuler {
-  background-color: #1D4C77; 
+  background-color: #1D4C77;
 }
+
 #popup a#confirmer {
   background-color: #8A3443;
 }
@@ -1906,10 +1964,20 @@ margin-right: 20px;
 
 
 
-.demande {
 
-  width: 60%;
-  margin-top: 50px;
+
+@media (max-width: 1300px) {
+  main {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .recap {
+    margin-left: 100px;
+    width: 50vw;
+  }
+
+
 
 }
 
@@ -3444,7 +3512,7 @@ margin:10% 0 5% 0;
     flex-wrap: wrap;
 
     padding: 0;
-    margin: 0 100px;
+    margin: 0 15%;
 }
 
 .pageAccueil a {
@@ -3500,15 +3568,15 @@ margin:10% 0 5% 0;
     align-items: center;
 }
 
-@media screen and (min-width: 750px) and (max-width: 1300px) { 
+@media screen and (min-width: 750px) and (max-width: 1400px) { 
   .pageAccueil{
-    margin: 0px;
+    margin: 0 10%;
   }
 }
 
 
 
-@media screen and (min-width: 0px) and (max-width: 750px) { 
+@media screen and (min-width: 0px) and (max-width: 740px) { 
 
     #svgBack{
         display: none;
@@ -3593,7 +3661,7 @@ margin:10% 0 5% 0;
 
 }
 
-/************************** COMPTE - INFOS **************************/
+/************************** COMPTE - PAGES **************************/
 
 .nav {
     width: 16vw;
@@ -3647,13 +3715,11 @@ margin:10% 0 5% 0;
 }
 
 #compteInfosPerso {
-  background-color: red;
   height:92vh;
   width:84vw;
 }
 
 #compteConnection {
-  background-color: green;
   height:92vh;
   width:84vw;
   display:none;
@@ -3694,8 +3760,85 @@ margin:10% 0 5% 0;
   display:none;
 }
 
+/********* PAGE INFOS PERSO **********/
 
-@media screen and (min-width: 0px) and (max-width: 400px) { 
+#compteInfosPerso {
+  position: absolute;
+  color: #1D4C77;
+  top: 12%;
+  left: 25%;
+  width: 65%;
+  height: auto;
+
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.lignes {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  margin:  0 10%;
+}
+
+.displayInfos{
+  color: #97ADC1;
+  margin-top: 15px;
+}
+
+
+
+.modifications{
+  float: right;
+  right: 0;
+  margin-top: -20px;
+  margin-bottom: 10px;
+  
+  color: #1d4c77;
+  text-decoration: underline;
+  border: none;
+  background: none;
+  font-size: 20px;
+  font-weight: 400;
+
+  cursor: pointer;
+}
+
+#compteInfosPerso input {
+  width: 250px;
+  padding: 5px;
+  margin-right: 10px;
+  margin-top: 15px;
+
+  color: #1D4C77;
+}
+
+.separateurgenre{
+  background: #97ADC1;
+  height: 2px;
+  width: 100%;
+}
+
+/********* PAGE CONNEXION SECURITE **********/
+
+#compteConnection {
+  position: absolute;
+  color: #1D4C77;
+  top: 12%;
+  left: 25%;
+  width: 65%;
+  height: auto;
+
+  font-size: 20px;
+  font-weight: 500;
+}
+
+
+#quit {
+  color: #771D2D;
+  text-decoration: #771D2D underline;
+}
+
+@media screen and (min-width: 0px) and (max-width: 1100px) { 
 
     .nav {
         width: 100%;
@@ -3740,3 +3883,5 @@ margin:10% 0 5% 0;
     
 
 }
+
+

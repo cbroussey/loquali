@@ -135,13 +135,73 @@
         </div>
       </div>
     </div>
-
+<!--  INFORMATION  -->
     <div id="compteInfosPerso">
-      <!-- Informations personnelles -->
-    </div>
+      <div class="lignes">
+        <p>Nom légal</p>
+        <p class="displayInfos" id="nom">Jane Doe</p>
+        <button class="modifications" onclick="modifierInfos(this, 'nom')">Modifier</button>
+      </div>
 
+
+      <div class="separateurgenre"></div>
+
+      <div class="lignes">
+        <p>Adresse e-mail</p>
+        <p class="displayInfos" id="mail">pop.sauce@gmail.com</p>
+        <button class="modifications" onclick="modifierInfos(this, 'mail')">Modifier</button>
+      </div>
+
+      <div class="separateurgenre"></div>
+
+      <div class="lignes">
+        <p>Numéros de téléphone</p>
+        <p class="displayInfos" id="tel">Information non fournie</p>
+        <button class="modifications" onclick="modifierInfos(this, 'tel')">Modifier</button>
+      </div>
+
+      <div class="separateurgenre"></div>
+
+      <div class="lignes">
+        <p>Adresse</p>
+        <p class="displayInfos" id="adresse">Rue Édouard Branly, 22300 Lannion</p>
+        <button class="modifications" onclick="modifierInfos(this, 'adresse')">Modifier</button>
+      </div>
+
+      <div class="separateurgenre"></div>
+
+      <div class="lignes">
+        <p>Pièce d’identité</p>
+        <p class="displayInfos" id="pieceIdentiteText">Non fournie</p>
+        <input type="file" id="pieceIdentiteInput" style="display: none;">
+        <button class="modifications" onclick="modifierPieceIdentite(this)">Modifier</button>
+      </div>
+
+
+    </div>
+<!--  CONNEXION  -->
     <div id="compteConnection">
-      <!-- Informations de connection et de sécurité -->
+      <div class="lignes">
+        <p>Mot de passe</p>
+        <p class="displayInfos">Mis à jour le 9 Septembre 2023</p>
+        <button class="modifications">Mettre à jour</button>
+      </div>
+
+      <div class="separateurgenre"></div>
+
+      <div class="lignes">
+        <p>Historique de l’appareil</p>
+        <p class="displayInfos">Session en cours</p>
+        <button class="modifications">Se déconnecter</button>
+      </div>
+
+      <div class="separateurgenre"></div>
+
+      <div class="lignes">
+        <p>Compte</p>
+        <p class="displayInfos">Désativez votre compte</p>
+        <button class="modifications"><span id="quit">Désactiver</span></button>
+      </div>
     </div>
 
     <div id="compteFavoris">
@@ -168,5 +228,7 @@
 
   <script src="asset/js/header.js"></script>
   <script src="asset/js/account.js"></script>
+  <script src="asset/js/modifInfosCompte.js"></script>
+  <script src="asset/js/modifIdCompte.js"></script>
 </body>
 </html>
