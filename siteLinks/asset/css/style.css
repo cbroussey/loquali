@@ -3432,7 +3432,7 @@ margin:10% 0 5% 0;
     flex-wrap: wrap;
 
     padding: 0;
-    margin: 0 100px;
+    margin: 0 15%;
 }
 
 .pageAccueil a {
@@ -3488,15 +3488,15 @@ margin:10% 0 5% 0;
     align-items: center;
 }
 
-@media screen and (min-width: 750px) and (max-width: 1300px) { 
+@media screen and (min-width: 750px) and (max-width: 1400px) { 
   .pageAccueil{
-    margin: 0px;
+    margin: 0 10%;
   }
 }
 
 
 
-@media screen and (min-width: 0px) and (max-width: 750px) { 
+@media screen and (min-width: 0px) and (max-width: 740px) { 
 
     #svgBack{
         display: none;
@@ -3581,7 +3581,7 @@ margin:10% 0 5% 0;
 
 }
 
-/************************** COMPTE - INFOS **************************/
+/************************** COMPTE - PAGES **************************/
 
 .nav {
     width: 16vw;
@@ -3635,13 +3635,11 @@ margin:10% 0 5% 0;
 }
 
 #compteInfosPerso {
-  background-color: red;
   height:92vh;
   width:84vw;
 }
 
 #compteConnection {
-  background-color: green;
   height:92vh;
   width:84vw;
   display:none;
@@ -3682,8 +3680,85 @@ margin:10% 0 5% 0;
   display:none;
 }
 
+/********* PAGE INFOS PERSO **********/
 
-@media screen and (min-width: 0px) and (max-width: 400px) { 
+#compteInfosPerso {
+  position: absolute;
+  color: #1D4C77;
+  top: 12%;
+  left: 25%;
+  width: 65%;
+  height: auto;
+
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.lignes {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  margin:  0 10%;
+}
+
+.displayInfos{
+  color: #97ADC1;
+  margin-top: 15px;
+}
+
+
+
+.modifications{
+  float: right;
+  right: 0;
+  margin-top: -20px;
+  margin-bottom: 10px;
+  
+  color: #1d4c77;
+  text-decoration: underline;
+  border: none;
+  background: none;
+  font-size: 20px;
+  font-weight: 400;
+
+  cursor: pointer;
+}
+
+#compteInfosPerso input {
+  width: 250px;
+  padding: 5px;
+  margin-right: 10px;
+  margin-top: 15px;
+
+  color: #1D4C77;
+}
+
+.separateurgenre{
+  background: #97ADC1;
+  height: 2px;
+  width: 100%;
+}
+
+/********* PAGE CONNEXION SECURITE **********/
+
+#compteConnection {
+  position: absolute;
+  color: #1D4C77;
+  top: 12%;
+  left: 25%;
+  width: 65%;
+  height: auto;
+
+  font-size: 20px;
+  font-weight: 500;
+}
+
+
+#quit {
+  color: #771D2D;
+  text-decoration: #771D2D underline;
+}
+
+@media screen and (min-width: 0px) and (max-width: 1100px) { 
 
     .nav {
         width: 100%;
@@ -3728,3 +3803,5 @@ margin:10% 0 5% 0;
     
 
 }
+
+
