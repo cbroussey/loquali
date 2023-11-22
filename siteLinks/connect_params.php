@@ -1,62 +1,7 @@
 <?php
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 $server = 'servbdd';
 $driver = 'pgsql';
-$dbname = 'pg_mpineau';
-$user   = 'mpineau';
-$pass	= '';
+$dbname = 'pg_moukhouyaali';
+$user   = 'moukhouyaali';
+$pass	= 'Rycikave123.';
 ?>
