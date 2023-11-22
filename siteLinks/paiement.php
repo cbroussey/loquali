@@ -21,7 +21,7 @@
 <body>
     <header>
         <a href="">
-            <img src="../asset/img/logo.png" alt="logo">
+            <img src="asset/img/logo.png" alt="logo">
         </a>
         <div></div>
         <div id="headerEmptyDiv"></div>
@@ -149,7 +149,7 @@
     <footer>
         <div>
             <div id="footerCercleLogo">
-                <img src="../asset/img/logo.png" alt="logo">
+                <img src="asset/img/logo.png" alt="logo">
             </div>
             <div id="footerText">
                 <div>
