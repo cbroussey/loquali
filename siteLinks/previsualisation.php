@@ -1,3 +1,9 @@
+<?php
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -366,7 +372,16 @@
 
 
 
-                        $dbh = null;
+
+                $i=0;
+                foreach($dbh->query("SELECT * from test.photo_logement WHERE id_logement =$id_log", PDO::FETCH_ASSOC) as $row) {
+
+                    $photo3[$i]=$row;
+                    $i++;
+                }
+
+
+                $dbh = null;
 
 
             }
@@ -474,11 +489,11 @@
             <div class="images_log"> <!-- Partie pour montrer les images (il manque le carrousel) -->
 
             <?php  
-                $i = 0;
+                $i =     0;
                 $div = 0;
                 $lig=1;
                 $delai=-2;
-                foreach ($prev_photo as $ind => $nom) {
+                foreach ($photo3 as $ind => $nom) {
 
                     if ($i == 1) {
                         $div = 1;
@@ -502,7 +517,7 @@
                     if ($i < 5) {
                     ?>
 
-                    <img src="asset/img/logements/<?php echo($id_p); ?>.jpg" alt="img1">
+                    <img src="asset/img/logements/<?php echo($nom["id_image"]); ?>.jpg" alt="problème">
 
                     <?php
                     }
@@ -835,7 +850,7 @@
                     <a href="index.php">Crée le logement</a>
                 </div>
                 <div class="button_refuser">
-                    <a href="#" onclick="afficherPopup()">Annuler</a>
+                    <a href="index.php" onclick="afficherPopup()">Annuler</a>
                 </div>
                     
                     
@@ -843,9 +858,9 @@
                 <div id="popup">
                     <p>Etes-vous sûr de vouloir annuler la création du logement ?</p>
                     <div class="button_confirmation">
-
+                        
                         <a href="#" id="annuler" onclick="cacherPopup()">Non</a>
-                        <a href="index.php" id="confirmer" onclick="confirmerRefus()">Oui</a>
+                        <a href="index.php" id="confirmer" onclick="confirmerRefus()"><form method="post"><input type="submit" value="Oui" /></form></a>
                     </div>
                 </div>
 
