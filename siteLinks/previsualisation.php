@@ -38,7 +38,7 @@
                             $i=0;
                             foreach($dbh->query("SELECT DISTINCT id_image from test.photo_logement ORDER BY id_image DESC", PDO::FETCH_ASSOC) as $row) {
             
-                                $photo[$i]=$row;
+                                $photo2[$i]=$row;
                                 $i++;
                             }
                             foreach($dbh->query("SELECT DISTINCT id_logement from test.photo_logement ORDER BY id_logement DESC", PDO::FETCH_ASSOC) as $row) {
@@ -61,14 +61,56 @@
                         
                         $nom_photo = $_FILES["photo"]["name"][$key];
 
-                        $id_p=$log[0]+1;
+                        echo "<pre>";
+                        print_r($info);
+                        echo "</pre>";
 
-                        $prev_photo[$j]=$id_p;
-                        $j++;
+                        $id_p = $photo2[0]["id_image"]+1;
 
 
-                        $chemin = $img_dir . "/" . $id_p.".jpg";
-                        move_uploaded_file($tmpName, $chemin);
+
+
+
+
+
+
+                        /* liste de toutes les données à mettre dans la bdd dans l'ordre de l'insert dans la bdd*/ 
+
+
+                        $prix_TTC = $info["prix"]*1.1;
+
+                        $note_logement=0; // pas def
+                        $en_ligne=true;   // à def en fonction de si le boug veux ou ne veux pas le mettre en ligne
+
+                        $type_logement="T".$info["Pieces"];
+                        $nature_logement = $info["type"];
+                        $localisation = $info["ville"];
+                        $descriptif = $info["description"];
+
+                        $surface = 20; // pas def
+        
+                        $disponible_defaut = true; // pas encore def
+
+
+                        $prix_base_HT = $info["prix"];
+
+
+                        $delai_annul_defaut = 8;  // pas def
+                        $pourcentage_retenu_defaut = 15; // je sais pas ce que c'est
+
+
+                        $libelle_logement = $info["titre"];
+                        $nb_pers_max = $info["Personne"];
+                        $nb_chambre = $info["nbChambre"];
+                        $nb_salle_de_bain = $info["nbSalle_bain"];
+                        $code_postal = $info["code_postal"];
+                        $departement = $info["dep"];
+                        $info_arrivee = $info["info_arrive"];
+                        $info_depart = $info["info_depart"];
+                        $reglement_interieur = $info["Règlement"];
+
+                        $id_compte = 4; // besoin de taf de martin 
+
 
                     }
                 }

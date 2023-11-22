@@ -377,6 +377,7 @@ a {
 
 .barre_fin_header_log{
   margin-top: -8px;
+  margin-bottom: -17px;
 }
 
 h2 span{
@@ -401,6 +402,17 @@ h2 span{
 
 .txt_info_petit_log{
   font-size: 15px;
+}
+
+.txt_descr_log{
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#bg h4{
+  font-size: 20;
+  font-weight: bold;
+  text-decoration: underline;
 }
 
 .blanc{
@@ -557,7 +569,8 @@ h2 span{
 
 .note_proprio_log{
   display: flex;
-  align-items: center;
+  align-items: flex-end;
+  justify-content: flex-start;
 }
 
 .info_proprio_log p{
@@ -566,7 +579,12 @@ h2 span{
 
 .contact_proprio_log{
   display: flex;
-  align-items: center;
+  align-items: flex-end;
+  justify-content: flex-start;
+}
+
+.contact_proprio_log p{
+  margin-left: 5%;
 }
 
 .details_log{
@@ -3414,7 +3432,7 @@ margin:10% 0 5% 0;
     flex-wrap: wrap;
 
     padding: 0;
-    margin: 0 240px;
+    margin: 0 100px;
 }
 
 .pageAccueil a {
@@ -3470,10 +3488,15 @@ margin:10% 0 5% 0;
     align-items: center;
 }
 
+@media screen and (min-width: 750px) and (max-width: 1300px) { 
+  .pageAccueil{
+    margin: 0px;
+  }
+}
 
 
 
-@media screen and (min-width: 0px) and (max-width: 400px) { 
+@media screen and (min-width: 0px) and (max-width: 750px) { 
 
     #svgBack{
         display: none;
@@ -3513,7 +3536,7 @@ margin:10% 0 5% 0;
     }
     
     .pageAccueil{
-        margin: 0px;
+        margin: 10px;
     }
     
     .pageAccueil a {
