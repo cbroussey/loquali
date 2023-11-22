@@ -10,7 +10,7 @@
   <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
   <link rel="stylesheet" href="asset/css/headerAndFooter.css">
   <link rel="stylesheet" href="asset/css/style.css">
-  <title>Document</title>
+  <title>Quoicoubeh</title>
 </head>
 
 <body>

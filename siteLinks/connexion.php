@@ -24,7 +24,6 @@
         } catch (PDOException $e) {
             print "Erreur !: " . $e->getMessage() . "<br/>";
             die();
-            
         }
     }
 ?>
@@ -52,7 +51,10 @@
             <form method="post">
                 <?php
                 if ($mailInconnu) {
-
+                    ?>
+                    <input type="email" id="email" name="email" placeholder="Adresse-mail" value=<?php echo $_POST['email'] ?>>
+                    <p class="adresseInconnue">Adresse mail  ou mot de passe incorrect !</p>
+                    <?php
                 } else {
                     ?>
                     <input type="email" id="email" name="email" placeholder="Adresse-mail"/>
