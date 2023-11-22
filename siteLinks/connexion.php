@@ -1,3 +1,34 @@
+<?php
+    session_start();
+    $mailInconnu = false;
+
+    if (isset($_POST['email'])) {
+        include('connect_params.php');
+        try {
+            $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
+            $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+
+            $email = $_POST["email"];
+            $query = "SELECT * FROM test.compte WHERE test.compte.adresse_mail = :email";
+            
+            $stmt = $dbh->prepare($query);
+            $stmt->bindParam('email', $email, PDO::PARAM_STR);
+            $stmt->execute();
+            $post = $stmt->fetch();
+
+            if ($post == null) {
+                $mailInconnu = true;
+            }
+
+            $dbh = null;
+        } catch (PDOException $e) {
+            print "Erreur !: " . $e->getMessage() . "<br/>";
+            die();
+            
+        }
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,7 +50,16 @@
             </a>
             <img src="asset/img/logo.png" alt="logo">
             <form method="post">
-                <input type="email" id="email" name="email" placeholder="Adresse-mail"/>
+                <?php
+                if ($mailInconnu) {
+
+                } else {
+                    ?>
+                    <input type="email" id="email" name="email" placeholder="Adresse-mail"/>
+                    <?php
+                }
+                ?>
+
                 <div>
                     <input type="password" id="passwordInput" placeholder="Mot de passe" name="passwordInput" required/>
                     <svg width="57" height="43" viewBox="0 0 57 43" fill="none" xmlns="http://www.w3.org/2000/svg">
