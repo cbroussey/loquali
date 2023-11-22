@@ -1,3 +1,30 @@
+@font-face {
+  font-family: 'inter';
+  src: url('asset/font/inter-bold-webfont.woff2') format('woff2'),
+       url('asset/font/inter-bold-webfont.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+
+}
+
+@font-face {
+  font-family: 'inter';
+  src: url('asset/font/inter-light-webfont.woff2') format('woff2'),
+       url('asset/font/inter-light-webfont.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+
+}
+
+@font-face {
+  font-family: 'inter';
+  src: url('asset/font/inter-semibold-webfont.woff2') format('woff2'),
+       url('asset/font/inter-semibold-webfont.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+
+}
+
 :root {
   --lightColor: #97ADC1;
   --mainColor: #2072BC;
@@ -1109,6 +1136,7 @@ h2 span{
 /******************************************** DEMANDE DEVIS ********************************************/
 .main-devis {
   display: flex;
+}
 
 .retour{
   width: 50px;
