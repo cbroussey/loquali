@@ -149,7 +149,6 @@
                 // Exécuter la requête
                 $stmt->execute();
 
-                echo "Les données ont été insérées avec succès.";
 
             } catch (PDOException $e) {
                 // Afficher l'erreur en cas d'échec de la requête
@@ -157,7 +156,109 @@
             }
 
 
+            /* Récupération de l'id du logement qu'on crée */
 
+            $i=0;
+
+            foreach($dbh->query("SELECT DISTINCT id_logement from test.logement ORDER BY id_logement DESC", PDO::FETCH_ASSOC) as $row) {
+            
+                $log[$i]=$row;
+                $i++;
+            }
+
+            $id_log=$log[0]["id_logement"];
+
+
+            /* Ajout des aménagements */
+
+
+            foreach ($info["amena"] as $ind => $val){
+                $stmt = $dbh->prepare("
+                    INSERT INTO test.amenagement (
+                        nom_amenagement,
+                        id_logement
+                    ) VALUES (
+                        :nom_amenagement,
+                        :id_logement
+                    )
+                ");
+
+                $stmt->bindParam(':nom_amenagement', $val);
+                $stmt->bindParam(':id_logement', $id_log);
+
+
+                try {
+                    // Exécuter la requête
+                    $stmt->execute();
+
+                } catch (PDOException $e) { 
+                    // Afficher l'erreur en cas d'échec de la requête
+                    echo "Erreur lors de l'insertion : " . $e->getMessage();
+                }
+            }
+
+
+
+
+
+
+            /* Ajout des installations */
+
+            foreach ($info["instal"] as $ind => $val){
+                $stmt = $dbh->prepare("
+                    INSERT INTO test.installation (
+                        nom_installation,
+                        id_logement
+                    ) VALUES (
+                        :nom_installation,
+                        :id_logement
+                    )
+                ");
+
+                $stmt->bindParam(':nom_installation', $val);
+                $stmt->bindParam(':id_logement', $id_log);
+
+
+                try {
+                    // Exécuter la requête
+                    $stmt->execute();
+                } catch (PDOException $e) { 
+                    // Afficher l'erreur en cas d'échec de la requête
+                    echo "Erreur lors de l'insertion : " . $e->getMessage();
+                }
+            }
+
+
+
+            /* Ajout des services */
+
+
+            foreach ($info["service"] as $ind => $val){
+                $stmt = $dbh->prepare("
+                    INSERT INTO test.service (
+                        nom_service,
+                        id_logement
+                    ) VALUES (
+                        :nom_service,
+                        :id_logement
+                    )
+                ");
+
+                $stmt->bindParam(':nom_service', $val);
+                $stmt->bindParam(':id_logement', $id_log);
+
+
+                try {
+                    // Exécuter la requête
+                    $stmt->execute();
+                } catch (PDOException $e) { 
+                    // Afficher l'erreur en cas d'échec de la requête
+                    echo "Erreur lors de l'insertion : " . $e->getMessage();
+                }
+            }
+
+
+            /* Suite du code */
                         
 
 
@@ -198,16 +299,16 @@
 
                         $id_p = $photo2[0]["id_image"]+1;
 
+                        $prev_photo[$j]=$id_p;
+                        $j++;
+
+
+                        $chemin = $img_dir . "/" . $id_p.".jpg";
+                        move_uploaded_file($tmpName, $chemin);
+
                         $i=0;
-                        foreach($dbh->query("SELECT DISTINCT id_logement from test.logement ORDER BY id_logement DESC", PDO::FETCH_ASSOC) as $row) {
-            
-                            $log[$i]=$row;
-                            $i++;
-                        }
 
-                        $id_log=$log[0]["id_logement"];
 
-                        echo($id_log);
 
                         $stmt = $dbh->prepare("
                             INSERT INTO test.image (
@@ -224,7 +325,6 @@
                             // Exécuter la requête
                             $stmt->execute();
 
-                            echo "Les données ont été insérées avec succès.";
 
                         } catch (PDOException $e) { 
                             // Afficher l'erreur en cas d'échec de la requête
@@ -252,7 +352,6 @@
                             // Exécuter la requête
                             $stmt->execute();
 
-                            echo "Les données ont été insérées avec succès.";
 
                         } catch (PDOException $e) {
                             // Afficher l'erreur en cas d'échec de la requête
@@ -733,7 +832,7 @@
                 </div>
 
                 <div class="button_valider">
-                    <a href="sae_martin/index.php">Crée le logement</a>
+                    <a href="index.php">Crée le logement</a>
                 </div>
                 <div class="button_refuser">
                     <a href="#" onclick="afficherPopup()">Annuler</a>
@@ -746,7 +845,7 @@
                     <div class="button_confirmation">
 
                         <a href="#" id="annuler" onclick="cacherPopup()">Non</a>
-                        <a href="sae_martin/index.php" id="confirmer" onclick="confirmerRefus()">Oui</a>
+                        <a href="index.php" id="confirmer" onclick="confirmerRefus()">Oui</a>
                     </div>
                 </div>
 
