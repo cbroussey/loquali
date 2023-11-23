@@ -74,14 +74,14 @@ p > .h3 {
     margin-right: 1em;
 }
 
-#infosPaiement > div {
+/*#infosPaiement > div:not(.contextMenu) {
     background-color: #F5F5F5;
     padding: 16px 30px;
     border: var(--textColor) 1px solid;
     border-radius: 10px;
-}
+}*/
 
-#infosPaiement > input, #infosPaiement > div > input {
+#infosPaiement > input, #infosPaiement > div > input, #paymentType {
     background-color: #F5F5F5;
     padding: 16px 30px;
     border: var(--textColor) 1px solid;
@@ -126,7 +126,8 @@ p > .h3 {
     align-self: center;
 }
 
-#infosPaiement > div > input.inputImg {
+#infosPaiement > div > input.inputImg, td > input.inputImg {
+    background-color: var(--secondBG);
     background-repeat: no-repeat;
     background-position: left;
     background-size: 4em;
@@ -135,6 +136,10 @@ p > .h3 {
     font-size: 16px;
     border: none;
     border-radius: 0;
+}
+
+td > input.inputImg {
+    background-color: var(--CMbg);
 }
 
 #paymentType > img:last-of-type {
@@ -212,3 +217,4 @@ p > .h3 {
     border: none;
     cursor: pointer;
 }
+
