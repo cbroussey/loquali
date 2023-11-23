@@ -39,7 +39,7 @@
       ?>
       <h4><a href="">Messagerie</a></h4>
       <h4><a href="">Mes réservations</a></h4>
-      <h4><a href="account.php">Mon compte</a></h4>
+      <h4><a href="compteAccueil.php">Mon compte</a></h4>
       <?php } else {
         ?>
           <h4><a href="connexion.php">Se connecter</a></h4>
