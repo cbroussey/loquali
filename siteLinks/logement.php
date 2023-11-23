@@ -317,9 +317,12 @@
                 <div class="rerservation_log">
                     <div class="haut_rerservation_log">
                         <h2><span><?php echo($info["prix_ttc"]); ?> €</span>  / nuit</h2>
-                        <a class="bouton_res_log" href="demandeDevis.php?id=<?php echo($id);?>">
-                            <h1>Réserver</h1>
-                        </a>
+                        <form action="demandeDevis.php" method="POST">
+                            <input name="id" value="<?php echo($id);?>" hidden readonly>
+                            <button class="bouton_res_log">
+                                <h1>Réserver</h1>
+                            </button>
+                        </form>
                     </div>
                     <div class="bare_res"></div>
                     <div class="detail_reservation_log">

@@ -1,3 +1,24 @@
+<?php
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        include('connect_params.php');
+        try {
+            $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
+            $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+
+            $query = "DELETE FROM test.photo_logement WHERE test.photo_logement.id_logement = :id_log";
+            
+            $stmt = $dbh->prepare($query);
+            $stmt->bindParam('id_log', $_POST["id_log"], PDO::PARAM_STR);
+            $stmt->execute();
+            
+            $dbh = null;
+        } catch (PDOException $e) {
+            print "Erreur !: " . $e->getMessage() . "<br/>";
+            die();
+        }
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -366,7 +387,16 @@
 
 
 
-                        $dbh = null;
+
+                $i=0;
+                foreach($dbh->query("SELECT * from test.photo_logement WHERE id_logement =$id_log", PDO::FETCH_ASSOC) as $row) {
+
+                    $photo3[$i]=$row;
+                    $i++;
+                }
+
+
+                $dbh = null;
 
 
             }
@@ -474,11 +504,11 @@
             <div class="images_log"> <!-- Partie pour montrer les images (il manque le carrousel) -->
 
             <?php  
-                $i = 0;
+                $i =     0;
                 $div = 0;
                 $lig=1;
                 $delai=-2;
-                foreach ($prev_photo as $ind => $nom) {
+                foreach ($photo3 as $ind => $nom) {
 
                     if ($i == 1) {
                         $div = 1;
@@ -502,7 +532,7 @@
                     if ($i < 5) {
                     ?>
 
-                    <img src="asset/img/logements/<?php echo($id_p); ?>.jpg" alt="img1">
+                    <img src="asset/img/logements/<?php echo($nom["id_image"]); ?>.jpg" alt="problème">
 
                     <?php
                     }
@@ -843,9 +873,15 @@
                 <div id="popup">
                     <p>Etes-vous sûr de vouloir annuler la création du logement ?</p>
                     <div class="button_confirmation">
-
+                        
                         <a href="#" id="annuler" onclick="cacherPopup()">Non</a>
-                        <a href="index.php" id="confirmer" onclick="confirmerRefus()">Oui</a>
+                        <a href="index.php" id="confirmer" onclick="confirmerRefus()">
+                            <?php $id_log=2; ?>
+                            <form method="post">
+                                <input type="text" value="<?php echo htmlentities($id_log) ?>" style='display:"none"' id="id_log">
+                                <input type="submit" value="Oui" />
+                            </form>
+                        </a>
                     </div>
                 </div>
 
