@@ -10,7 +10,7 @@
   <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
   <link rel="stylesheet" href="asset/css/headerAndFooter.css">
   <link rel="stylesheet" href="asset/css/style.css">
-  <title>Document</title>
+  <title>Quoicoubeh</title>
 </head>
 
 <body>
@@ -149,7 +149,7 @@
     include('connect_params.php');
     try {
         $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
-        foreach($dbh->query("SELECT * from test.logement", PDO::FETCH_ASSOC) as $row) {
+        foreach($dbh->query("SELECT * from test.logement WHERE en_ligne=true", PDO::FETCH_ASSOC) as $row) {
             $i=0;
             $id=$row["id_logement"];
             $info=$row;
