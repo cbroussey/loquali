@@ -1,7 +1,7 @@
 body {
     color: var(--textColor);
-    padding-top: 80px;
-    padding-bottom: 320px;
+    /*padding-top: 80px;
+    /*padding-bottom: 320px;*/
     font-family: 'inter';
     font-weight: 300;
 }
@@ -88,6 +88,14 @@ p > .h3 {
     border-radius: 10px;
 }
 
+#paymentType, #paymentType > input {
+    cursor: pointer;
+}
+
+#paymentType > input {
+    flex-grow: 1;
+}
+
 #infosPaiement > input::placeholder, #infosPaiement > div > input::placeholder {
     color: var(--textColor);
     font-size: 16px;
@@ -140,7 +148,7 @@ p > .h3 {
 
 td > input.inputImg {
     background-color: var(--CMbg);
-    width: 6em;
+    flex-grow: 1;
 }
 
 .contextMenu > table > tbody > tr > td {
@@ -222,3 +230,4 @@ td > input.inputImg {
     border: none;
     cursor: pointer;
 }
+
