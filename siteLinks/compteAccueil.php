@@ -1,5 +1,10 @@
 <?php
     session_start();
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    session_destroy();
+    header("Location: index.php");
+    exit();
+  }
 ?>
 
 <!DOCTYPE html>
@@ -32,7 +37,7 @@
                 <rect y="13.6523" width="28" height="3.52174" rx="1" fill="#F5F5F5"/>
                 <rect y="26.5645" width="28" height="3.52174" rx="1" fill="#F5F5F5"/>
             </svg>
-            <h4><a href="account.php">Se déconnecter</a></h4>
+            <h4><a id="accountDisconnect">Se déconnecter</a></h4>
         </nav>
         <div id="headerPopup">
         <ul>
@@ -126,19 +131,17 @@
 
     </div>
 
-<!--
 
-    <form action="" class="popUpDeco">
+
+    <form method="post" id="popUpDeco">
         <div class="popUpDecoChoix">
             <h2>Êtes-vous sûr de vouloir <br>vous déconnecter ?</h2>
             <div class="button-container">
-                <button class="cancel-button">Annuler</button>
-                <button class="confirm-button" id="deco">Se déconnecter</button>
+                <input class="cancel-button" id="cancelDisconnect" type="button" value="Annuler"/>
+                <input class="confirm-button" id="confirmDisconnect" type="submit" value="Se déconnecter"/>
             </div>
         </div>
-    </form>
-
--->
+  </form>
 
     <footer>
 
@@ -183,5 +186,6 @@
 </footer>
 
     <script src="asset/js/header.js"></script>
+    <script src="asset/js/accountAccueil.js"></script>
 </body>
 </html>
