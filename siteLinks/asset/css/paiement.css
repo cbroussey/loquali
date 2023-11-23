@@ -10,6 +10,10 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: bold;
 }
 
+a {
+    color: var(--textColor)
+}
+
 .flexTop {
     display: flex;
     flex-direction: row;
@@ -17,7 +21,6 @@ h1, h2, h3, h4, h5, h6 {
     padding: 50px 50px;
     flex-wrap: wrap;
     gap: 3em;
-    align-items: ce;
 }
 
 .backButton {
@@ -48,6 +51,7 @@ h1, h2, h3, h4, h5, h6 {
     flex-direction: column;
     justify-content: space-around;
     flex-basis: 35em;
+    /*gap: 3em;*/
 }
 
 #paiement > * {

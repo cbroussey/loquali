@@ -56,7 +56,8 @@
     //print_r($_POST);
     if (isset($_POST["devis"]) && is_numeric($_POST["devis"])) {
         //include("../data/dbImport.php");
-        $db = new PDO(`$driver:host=$server; dbname=$dbname', '$user', '$pass`);
+        require_once("connect_params.php");
+        $db = new PDO("$driver:host=$server;dbname=$dbname", "$user", "$pass");
         $res = $db->prepare(
             'SELECT * FROM test.devis
             JOIN test.reservation ON test.devis.id_reservation = test.reservation.id_reservation
