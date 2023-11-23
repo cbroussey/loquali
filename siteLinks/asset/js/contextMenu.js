@@ -23,7 +23,7 @@ class contextMenu {
                 this.ref.value = e.innerHTML
                 this.ref.innerHTML = e.innerHTML
                 this.display((this.ref.tagName == "INPUT" && !this.ref.readOnly) ? this.ref.value : "");
-                if (this.ref.tagName != "INPUT") toggleCM(this.CM.id, this)
+                if (this.ref.tagName != "INPUT" && this.parentNode.parentNode.parentNode.parentNode.parentNode != this.CM) toggleCM(this.CM.id, this)
             })
         })
     }

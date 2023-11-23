@@ -11,9 +11,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="asset/css/headerAndFooter.css">
-    <link rel="stylesheet" href="asset/css/style.css">
     <link rel="stylesheet" href="asset/css/CSSreset.css">
+    <link rel="stylesheet" href="asset/css/style.css">
+    <link rel="stylesheet" href="asset/css/headerAndFooter.css">
     <link rel="stylesheet" href="asset/css/paiement.css">
     <title>Paiement de la réservation</title>
 </head>
@@ -72,11 +72,11 @@
                             <input onclick="toggleCM('CM', this.parentElement)" readonly>
                         </div>-->
                         <div id="paymentType" name="paymentType" href="#" onclick="toggleCM('CM', this)">
-                        <input class="inputImg" onclick="toggleCM('CM', this.parentElement)" style="background-image: url('asset/img/mastercard.png');" value="MasterCard" readonly><img src="asset/img/arrow-down.svg">
+                            <input class="inputImg" onclick="toggleCM('CM', document.querySelector('#paymentType'))" style="background-image: url('asset/img/mastercard.png');" value="MasterCard" readonly><img class="cmHideElem" src="asset/img/arrow-down.svg" onclick="toggleCM('CM', document.querySelector('#paymentType'))">
                         </div>
                         <div id="CM" class="contextMenu">
-                            <input class="inputImg" onclick="toggleCM('CM', this.parentElement)" style="background-image: url('asset/img/mastercard.png');" value="MasterCard" readonly><img class="cmHideElem" src="asset/img/arrow-down.svg">|
-                            <input class="inputImg" onclick="toggleCM('CM', this.parentElement)" style="background-image: url('asset/img/paypal.png');" value="PayPal" readonly><img class="cmHideElem" src="asset/img/arrow-down.svg">
+                            <input class="inputImg" onclick="toggleCM('CM', document.querySelector('#paymentType'))" style="background-image: url('asset/img/mastercard.png');" value="MasterCard" readonly><img class="cmHideElem" src="asset/img/arrow-down.svg" onclick="toggleCM('CM', document.querySelector('#paymentType'))">|
+                            <input class="inputImg" onclick="toggleCM('CM', document.querySelector('#paymentType'))" style="background-image: url('asset/img/paypal.png');" value="PayPal" readonly><img class="cmHideElem" src="asset/img/arrow-down.svg" onclick="toggleCM('CM', document.querySelector('#paymentType'))">
                         </div>
                         <!-- <div id="paymentType"><img src="asset/img/mastercard.png"><a>MasterCard</a><img src="asset/img/arrow-down.svg"></div> -->
                         <input id="cardNumber" placeholder="Numéro de carte" pattern="^(5[1-5][0-9]{14}|2(22[1-9][0-9]{12}|2[3-9][0-9]{13}|[3-6][0-9]{14}|7[0-1][0-9]{13}|720[0-9]{12}))$" required> <!-- Pattern actuel uniquement pour mastercard -->
