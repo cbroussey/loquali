@@ -62,7 +62,7 @@
 
         <div class="pageAccueil">
             
-            <a href="comptesInfos.php">
+            <a href="compte.php">
                 <div>
                     
                     <figure>
