@@ -228,7 +228,7 @@
 
   <footer>
 
-<div id="infosFooter">
+  <div id="infosFooter">
     <div id="footerCercleLogo" class="portableDroite">
         <img src="asset/img/logo.png" alt="logo">
     </div>
