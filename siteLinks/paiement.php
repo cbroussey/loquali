@@ -59,7 +59,7 @@
         require_once("connect_params.php");
         $db = new PDO("$driver:host=$server;dbname=$dbname", "$user", "$pass");
         $res = $db->prepare(
-            'SELECT * FROM test.devis
+            'SELECT *, DATE_PART(\'day\', reservation.fin_reservation::timestamp - reservation.debut_reservation::timestamp) AS nbJours FROM test.devis
             JOIN test.reservation ON test.devis.id_reservation = test.reservation.id_reservation
             JOIN test.logement ON test.reservation.id_logement = test.logement.id_logement
             WHERE id_devis = :devis'
@@ -67,7 +67,7 @@
         $res->bindParam('devis', $_POST['devis'], PDO::PARAM_INT);
         $res->execute();
         $res = $res->fetchAll();
-        print_r($res);
+        ?><pre><?php print_r($res) ?></pre><?php
         /*
             SELECT test.charges_selectionnees.nom_charge, test.prix_charge.prix_charge FROM test.reservation
             INNER JOIN test.prix_charge ON test.reservation.id_logement = test.prix_charge.id_logement
@@ -103,11 +103,11 @@
                             <input onclick="toggleCM('CM', this.parentElement)" readonly>
                         </div>-->
                         <div id="paymentType" name="paymentType" href="#" onclick="toggleCM('CM', this)">
-                            <input class="inputImg" onclick="toggleCM('CM', this.parentElement)" style="background-image: url('asset/img/mastercard.png');" readonly>
+                        <input class="inputImg" onclick="toggleCM('CM', this.parentElement)" style="background-image: url('asset/img/mastercard.png');" value="MasterCard" readonly><img src="asset/img/arrow-down.svg">
                         </div>
                         <div id="CM" class="contextMenu">
-                            <input class="inputImg" onclick="toggleCM('CM', this.parentElement)" style="background-image: url('asset/img/mastercard.png');" value="MasterCard" readonly><img src="asset/img/arrow-down.svg">|
-                            <input class="inputImg" onclick="toggleCM('CM', this.parentElement)" style="background-image: url('asset/img/paypal.png');" value="PayPal" readonly><img src="asset/img/arrow-down.svg">
+                            <input class="inputImg" onclick="toggleCM('CM', this.parentElement)" style="background-image: url('asset/img/mastercard.png');" value="MasterCard" readonly><img class="cmHideElem" src="asset/img/arrow-down.svg">|
+                            <input class="inputImg" onclick="toggleCM('CM', this.parentElement)" style="background-image: url('asset/img/paypal.png');" value="PayPal" readonly><img class="cmHideElem" src="asset/img/arrow-down.svg">
                         </div>
                         <!-- <div id="paymentType"><img src="asset/img/mastercard.png"><a>MasterCard</a><img src="asset/img/arrow-down.svg"></div> -->
                         <input id="cardNumber" placeholder="Numéro de carte" pattern="^(5[1-5][0-9]{14}|2(22[1-9][0-9]{12}|2[3-9][0-9]{13}|[3-6][0-9]{14}|7[0-1][0-9]{13}|720[0-9]{12}))$" required> <!-- Pattern actuel uniquement pour mastercard -->
@@ -127,7 +127,7 @@
                         <figcaption><?php echo $res["descriptif"] ?><!--Appartement avec vue imprenable sur la mer--></figcaption>
                     </figure>
                     <div>
-                        <p><a>320€ x 3 nuits</a><a>960€</a></p>
+                        <p><a><?php echo $res["prix_base_ht"] ?>€ x <?php echo $res["nbjours"] ?> nuits</a><a><?php echo $res["prix_base_ht"] * $res["nbjours"] ?>€</a></p> <!-- prix incorrect, extraire le prix réel plus tard avec les plages -->
                         
                         <?php
                             foreach($charges as $charge) { ?>

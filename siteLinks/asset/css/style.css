@@ -1,3 +1,8 @@
+/*NE METTEZ PAS VOTRE STYLE DE PAGE ENTIERE ICI, SEULEMENT LES TRUCS EN COMMUN GENRE LES BOUTONS !!!*/
+/*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
+/*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
+/*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
+/*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
 @font-face {
   font-family: 'inter';
   src: url('../font/inter-bold-webfont.woff2') format('woff2'),
@@ -3007,195 +3012,6 @@ input[type="checkbox"]:checked + label {
   font-weight: 700;
  }
 
-/******************************************** PAIEMENT ********************************************/
-
-.flexTop {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  padding: 50px 50px;
-  flex-wrap: wrap;
-  gap: 3em;
-  align-items: ce;
-}
-
-.backButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--mainColor);
-  border-radius: 10px;
-  width: 50px;
-  height: 50px;
-  justify-self: flex-start;
-  border: none;
-  cursor: pointer;
-}
-
-.backButton:hover, #devis > button:hover {
-  background-color: var(--textColor);
-}
-
-.backButton > img {
-  transform: rotate(90deg);
-  max-height: 2em;
-  filter: invert(100%) sepia(70%) saturate(0%) hue-rotate(28deg) brightness(107%) contrast(101%);
-}
-
-#paiement {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  flex-basis: 35em;
-}
-
-#paiement > * {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-#paiement > * > h2 {
-  font-size: 30px;
-}
-
-#paiement > * > p {
-  font-size: 20px;
-}
-
-p > .h3 {
-  font-size: 20px;
-  font-weight: 600;
-  margin-right: 1em;
-}
-
-#infosPaiement > div {
-  background-color: var(--secondBG);
-  padding: 16px 30px;
-  border: var(--textColor) 1px solid;
-  border-radius: 10px;
-}
-
-#infosPaiement > input, #infosPaiement > div > input {
-  background-color: var(--secondBG);
-  padding: 16px 30px;
-  border: var(--textColor) 1px solid;
-  border-radius: 10px;
-}
-
-#infosPaiement > input::placeholder, #infosPaiement > div > input::placeholder {
-  color: var(--textColor);
-  font-size: 16px;
-}
-
-#cardNumber + div, #cardNumber + div + div {
-  display: flex;
-  border: none;
-  gap: 5px;
-  background-color: var(--bgColor);
-  padding: 0;
-}
-
-#infosPaiement > div > div {
-  background-color: var(--secondBG);
-  padding: 16px 30px;
-  border: var(--textColor) 1px solid;
-  border-radius: 10px;
-}
-
-#infosPaiement > #paymentType {
-  display: flex;
-  padding: .5em 30px;
-  justify-content: space-between;
-  gap: 1em;
-}
-
-#paymentType > a {
-  align-self: center;
-  flex-grow: 1;
-}
-
-#paymentType > img {
-  max-height: 2em;
-  align-self: center;
-}
-
-#paymentType > img:last-of-type {
-  max-height: 1em;
-}
-
-#expiry, #postalCode, #country {
-  flex-grow: 1;
-}
-
-#country {
-  display: flex;
-}
-
-#country > a {
-  align-self: center;
-  flex-grow: 1;
-}
-
-#devis {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  background-color: var(--secondBG);
-  padding: 1em;
-  border-radius: 1em;
-  flex-basis: 25em;
-}
-
-#devis > figure {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 10px;
-  align-self: center;
-  text-align: center;
-  font-size: 14px;
-  padding-bottom: 1em;
-}
-
-#devis > figure > img {
-  border-radius: 10px;
-}
-
-#devis > div {
-  padding: 2em;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  border-top: var(--lightColor) 2px solid;
-  gap: 1.5em;
-}
-
-#devis > div > p {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-}
-
-#devis > div > p > a:nth-child(2) {
-  flex-grow: 1;
-  text-align: right;
-  align-self: center;
-}
-
-#devis > button {
-  background-color: var(--mainColor);
-  border-radius: 5px;
-  padding: .5em 3em;
-  color: #FFFFFF;
-  font-size: 20px;
-  font-weight: bold;
-  text-align: center;
-  align-self: center;
-  border: none;
-  cursor: pointer;
-}
-
 /******************************************** CONNEXION ********************************************/
 
 #connexion {
@@ -3700,7 +3516,7 @@ margin:10% 0 5% 0;
 /************************** COMPTE - PAGES **************************/
 
 .nav {
-    width: 16vw;
+    width: 20%;
     height: 92vh;
     background-color: #7297B8;
     display: flex;
@@ -3720,10 +3536,9 @@ margin:10% 0 5% 0;
     color: var(--secondBG);
     font-size: 20px;
     font-weight: 500;;
-    padding-left: 28px;
+    padding-left: 30px;
     display: flex;
     align-items: center;
-
 }
 
 .img-area{
@@ -3796,13 +3611,37 @@ margin:10% 0 5% 0;
   display:none;
 }
 
+@media screen and (min-width: 0px) and (max-width: 1300px) { 
+  .nav figcaption {
+    font-size: 18px;
+    font-weight: 500;
+    padding-left: 20px;
+  }
+
+  .nav {
+    width: 22%;
+    height: 92vh;
+  }
+
+  .img-area img{
+    height: 40px;
+    width: 40px;
+  }
+
+  .nav figure {
+    margin: 0 20px;
+  }
+
+}
+
+
 /********* PAGE INFOS PERSO **********/
 
 #compteInfosPerso {
-  position: absolute;
+  position: relative;
   color: #1D4C77;
-  top: 12%;
-  left: 25%;
+  margin-left: auto;
+  margin-right: auto;
   width: 65%;
   height: auto;
 
@@ -3821,12 +3660,10 @@ margin:10% 0 5% 0;
   margin-top: 15px;
 }
 
-
-
 .modifications{
   float: right;
   right: 0;
-  margin-top: -20px;
+  margin-top: -45px;
   margin-bottom: 10px;
   
   color: #1d4c77;
@@ -3854,13 +3691,50 @@ margin:10% 0 5% 0;
   width: 100%;
 }
 
+@media screen and (min-width: 0px) and (max-width: 1300px) { 
+  
+  .lignes {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    margin:  0 10%;
+  }
+
+  .modifications{
+    font-size: 20px;
+    font-weight: 400;
+  }
+
+  .displayInfos{
+    margin-top: 10px;
+  }
+
+  #compteInfosPerso {
+    margin-top: 4%;
+  }
+  
+  #compteInfosPerso input {
+    width: 250px;
+    padding: 5px;
+    margin-right: 10px;
+    margin-top: 15px;
+  }
+  
+  .separateurgenre{
+    background: #97ADC1;
+    height: 2px;
+    width: 100%;
+  }
+
+}
+
+
 /********* PAGE CONNEXION SECURITE **********/
 
 #compteConnection {
-  position: absolute;
+  position: relative;
   color: #1D4C77;
-  top: 12%;
-  left: 25%;
+  margin-left: auto;
+  margin-right: auto;
   width: 65%;
   height: auto;
 
@@ -3873,6 +3747,13 @@ margin:10% 0 5% 0;
   color: #771D2D;
   text-decoration: #771D2D underline;
 }
+
+@media screen and (min-width: 0px) and (max-width: 1300px) { 
+  #compteConnection {
+    margin-top: 4%;
+  }
+}
+
 
 @media screen and (min-width: 0px) and (max-width: 1100px) { 
 
@@ -4304,3 +4185,26 @@ margin:10% 0 5% 0;
 }
 
 
+
+
+
+
+
+
+.popUpDeco {
+  position: absolute;
+  background-color: rgb(0 00 00 / 0.5);
+  height: 100vh;
+  width: 100%;
+}
+
+.popUpDecoChoix {
+  position: absolute;
+
+  margin: 20% 25%;
+  border-radius: 10px;
+  background: #F5F5F5;
+
+  width: 50%;
+  height: 30%;
+}

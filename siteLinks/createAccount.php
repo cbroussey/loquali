@@ -37,22 +37,6 @@
         header("Location: isOwner.php");
         exit();
     }
-    /*$_SESSION['username'] = $_POST['nom'];
-    $_SESSION['email'] = $_POST['email'];
-    $_SESSION['password'] = $_POST['motdepasse'];
-    include('connect_params.php');
-    try {
-        $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
-        $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-
-        $req = $dbh->prepare('INSERT INTO test.compte VALUES(?, );');
-        $req->execute("client3@email.com");
-        
-        $dbh = null;
-    } catch (PDOException $e) {
-        print "Erreur !: " . $e->getMessage() . "<br/>";
-        die();
-    }*/ 
 ?>
 
 <!DOCTYPE html>
