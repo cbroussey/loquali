@@ -1,7 +1,7 @@
 <?php
 $server = 'servbdd';
 $driver = 'pgsql';
-$dbname = 'pg_marlemoal';
-$user   = 'marlemoal';
+$dbname = 'pg_emclugery';
+$user   = 'emclugery';
 $pass	= '!';
 ?>
