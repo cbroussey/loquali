@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="asset/css/headerAndFooter.css">
     <link rel="stylesheet" href="asset/css/style.css">
     <title>Document</title>
 </head>
@@ -38,36 +39,58 @@
     </div>
     <div></div>
   </header>
+
+    
+  <?php
+
+    include('connect_params.php');
+    try {
+        $id=4; // à revoir une fois que les comptes sont fait
+        $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
+        $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+        $query = "SELECT * FROM test.proprietaire NATURAL JOIN test.compte WHERE id_compte = :id_compte";
+
+        $stmt = $dbh->prepare($query);
+        $stmt->bindParam('id_compte', $id, PDO::PARAM_STR);
+        $stmt->execute();
+        $photo = $stmt->fetch();
+        $proprio=$photo;
+    }   catch (PDOException $e) {
+        print "Erreur !: " . $e->getMessage() . "<br/>";
+        die();
+    }
+
+    ?>
     
     <a href="index.php">
-        <img src="asset/img/svgPagePerso/toBack.svg" alt="" id="svgBack">
+        <img src="asset/icons/bleu/toBack.svg" alt="" id="svgBack">
     </a>
     <div id="ensemble">
         <div class="infosProprio">
             <div id="infosTous">
                 <div>
                     <figure>
-                        <img src="asset/img/svgPagePerso/photoProfil.svg" alt="" id="photoProfil">
+                        <img src="asset/img/profils/Tom.png" alt="" id="photoProfil">
                     </figure>
                 </div>
                 <div class = "infos">
-                    <h2>MOMOA Jason</h2>
+                    <h2><?php echo strtoupper($proprio["nom"]) ?> Jason</h2>
                     <figure class="star">
-                        <img src="asset/img/svgPagePerso/star.svg" alt="">
+                        <img src="asset/icons/bleu/star.svg" alt="">
                         <figcaption>4.9</figcaption>
                     </figure>
                     <figure class="tel">
-                        <img src="asset/img/svgPagePerso/tel.svg" alt="">
+                        <img src="asset/icons/bleu/tel.svg" alt="">
                         <figcaption>06 06 06 06 06</figcaption>
                     </figure>
                     <figure class="mail">
-                        <img src="asset/img/svgPagePerso/mail.svg" alt="">
+                        <img src="asset/icons/bleu/mail.svg" alt="">
                         <figcaption>pop.sauce@popsauce.sauce</figcaption>
                     </figure>
                 </div>
 
             </div>
-
+            proprietaire
                 <div class="separateur">
                 </div>
 
@@ -75,7 +98,7 @@
                     <div>
                         <h2>À propos de moi</h2>
                         <figure>
-                            <img src="asset/img/svgPagePerso/modification.svg" alt="modifier">
+                            <img src="asset/icons/bleu/modification.svg" alt="modifier">
                         </figure>
                     </div>
                     
@@ -88,84 +111,55 @@
         <div id="logementPropo">
             <h2 id="titreLogement">Logements proposés</h2>
             <div id="listeLogements">
-                <div class="listeUnLogement">
-                    <div>
-                        <img src="asset/img/svgPagePerso/photo1.svg" alt="">
-                    </div>
-                    
-                    <div class="unLogement">
-                        <h2>Appartement T2, Perros-Guirec</h2>
-                        <p>22700, <U>Côte-d’Armor</U></p>
-                        <div class="noteAvis">
-                            <img src="asset/img/svgPagePerso/star.svg" alt="">
-                            <p>5, 24 avis</p>
+
+
+
+            <?php
+
+            try {
+                foreach($dbh->query("SELECT * FROM test.logement", PDO::FETCH_ASSOC) as $row) {
+            
+                    $info=$row;
+                    $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+                    $query = "SELECT min(id_image) FROM test.photo_logement WHERE id_logement = :id_logement;";
+            
+                    $stmt = $dbh->prepare($query);
+                    $stmt->bindParam('id_logement', $info["id_logement"], PDO::PARAM_STR);
+                    $stmt->execute();
+                    $photo = $stmt->fetch();
+                    ?>
+
+                    <div class="listeUnLogement">
+                        <div>
+                            <img src="asset/img/logements/<?php echo($photo["min"]); ?>.jpg" width="100%" alt="">
                         </div>
-                        <p class="consulterLogement"><em>Consulter le logement</em></p>
-                    </div>
-                    
-                </div>
-
-                <div class="separateur1">
-                </div>
-
-                <div class="listeUnLogement">
-                    <div>
-                        <img src="asset/img/svgPagePerso/photo1.svg" alt="">
-                    </div>
-                    
-                    <div class="unLogement">
-                        <h2>Appartement T2, Perros-Guirec</h2>
-                        <p>22700, <U>Côte-d’Armor</U></p>
-                        <div class="noteAvis">
-                            <img src="asset/img/svgPagePerso/star.svg" alt="">
-                            <p>5, 24 avis</p>
+                        
+                        <div class="unLogement">
+                            <h2><?php echo($info["nature_logement"]); ?> <?php echo($info["type_logement"]); ?>, <?php echo($info["localisation"]); ?></h2>
+                            <p><?php echo($info["code_postal"]); ?>, <U><?php echo($info["departement"]); ?></U></p>
+                            <div class="noteAvis">
+                                <img src="asset/icons/bleu/star.svg" alt="">
+                                <p><?php echo($info["note_logement"]); ?>, 24 avis</p>
+                            </div>
+                            <a class="consulterLogement" href="logement.php?id=<?php echo $info["id_logement"] ?>"><em>Consulter le logement</em></a>
                         </div>
-                        <p class="consulterLogement"><em>Consulter le logement</em></p>
+                        
                     </div>
-                    
-                </div>
 
-                <div class="separateur1">                    
-                </div>
+                    <div class="separateur1">                    
+                    </div>
+
+                    <?php
+                }
                 
-                <div class="listeUnLogement">
-                    <div>
-                        <img src="asset/img/svgPagePerso/photo1.svg" alt="">
-                    </div>
-                    
-                    <div class="unLogement">
-                        <h2>Appartement T2, Perros-Guirec</h2>
-                        <p>22700, <U>Côte-d’Armor</U></p>
-                        <div class="noteAvis">
-                            <img src="asset/img/svgPagePerso/star.svg" alt="">
-                            <p>5, 24 avis</p>
-                        </div>
-                        <p class="consulterLogement"><em>Consulter le logement</em></p>
-                    </div>
-                    
-                </div>
+            } catch (PDOException $e) {
+                print "Erreur !: " . $e->getMessage() . "<br/>";
+                die();
+            }
 
-                <div class="separateur1">                    
-                </div>
+            $dbh = null;
 
-                <div class="listeUnLogement">
-                    <div>
-                        <img src="asset/img/svgPagePerso/photo1.svg" alt="">
-                    </div>
-                    
-                    <div class="unLogement">
-                        <h2>Appartement T2, Perros-Guirec</h2>
-                        <p>22700, <U>Côte-d’Armor</U></p>
-                        <div class="noteAvis">
-                            <img src="asset/img/svgPagePerso/star.svg" alt="">
-                            <p>5, 24 avis</p>
-                        </div>
-                        <p class="consulterLogement"><em>Consulter le logement</em></p>
-                    </div>
-                    
-                </div>
-
-        
+                    ?>
 
             </div>
         </div>

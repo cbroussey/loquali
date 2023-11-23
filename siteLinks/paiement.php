@@ -127,14 +127,14 @@
                         <figcaption><?php echo $res["descriptif"] ?><!--Appartement avec vue imprenable sur la mer--></figcaption>
                     </figure>
                     <div>
-                        <p><a><?php echo $res["prix_base_ht"] ?>€ x <?php echo $res["nbjours"] ?> nuits</a><a><?php echo $res["prix_base_ht"] * $res["nbjours"] ?>€</a></p> <!-- prix incorrect, extraire le prix réel plus tard avec les plages -->
+                        <p><a><?php echo $res["prix_base_ht"] ?>€ x <?php echo $res["nbjours"] ?> nuits</a><a><?php $prixFin = $res["prix_base_ht"] * $res["nbjours"]; echo $prixFin ?>€</a></p> <!-- prix incorrect, extraire le prix réel plus tard avec les plages -->
                         
                         <?php
                             foreach($charges as $charge) { ?>
                                 <p><a><?php echo $charge["nom_charge"] ?></a><a><?php echo $charge["prix_charge"] ?>€</a></p>
                             <?php }
                         ?>
-                        <p><a>Taxes</a><a>20€</a></p>
+                        <p><a>Taxes</a><a><?php $tva = $prixFin*1/100; echo $tva ?>€</a></p>
                     </div>
                     <div><p><a class="h3">Total</a><a>EUR</a><a class="h3"><?php echo $res["prix_devis"] ?>€</a></p></div>
                     <button type="submit">Payer</button>
