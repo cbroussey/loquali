@@ -262,7 +262,7 @@
     </div>
 </div>
 
-<div>
+<div class="basFooter">
     <p>Copyright @ 2023 LoQuali.com</p>
 </div>
 
