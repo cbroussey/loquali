@@ -134,49 +134,240 @@ main {
 
 /******************************************** FOOTER ********************************************/
 
-footer {
+#infosFooter {
+  height: 319px;
   width:100%;
-    height:320px;
-  }
+  background-color: #43688A;
+  display: flex;
+  align-items: center;
+}
+
+#footerCercleLogo {
+  margin: 0 5%;
+  width: 10%;
+  height: 170px;
+  border-radius: 50%;
+  background-color: #F5F5F5;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#footerCercleLogo img {
+  width: 149px;
+}
   
-  footer h4, address {
-    color:#F5F5F5;
+#textefooter {
+  width: 90%;
+  display: flex;
+  justify-content: space-evenly;
+  color: #F5F5F5;
+}
+
+.gauche {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+}
+
+#textefooter h2 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 25px;
+}
+
+#textefooter a , p{
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 150%;
+}
+
+.centrer{
+  text-align: center;
+}
+
+#logoReseaux img{
+  width: 40px;
+  height: 40px;
+}
+
+.droite {
+  text-align: right;
+}
+
+footer > div:last-of-type {
+  height: 65px;
+  width:100%;
+  background-color: #1D4C77;
+  font-size: 20px;
+  font-weight: 300;
+  color:#F5F5F5;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+#infosFooter {
+  height: 319px;
+  width: 100%;
+  background-color: #43688A;
+  display: flex;
+  align-items: center;
+}
+
+#footerCercleLogo {
+  margin: 0 5%;
+  width: 10%;
+  height: 170px;
+  border-radius: 50%;
+  background-color: #F5F5F5;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#footerCercleLogo img {
+  width: 149px;
+}
+
+#textefooter {
+  width: 90%;
+  display: flex;
+  justify-content: space-evenly;
+  color: #F5F5F5;
+}
+
+.gauche {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+}
+
+#textefooter h2 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 25px;
+}
+
+#textefooter a, #textefooter p {
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 150%;
+}
+
+.centrer {
+  text-align: center;
+}
+
+#logoReseaux img {
+  width: 40px;
+  height: 40px;
+}
+
+.droite {
+  text-align: right;
+}
+
+footer > div:last-of-type {
+  height: 65px;
+  width: 100%;
+  background-color: #1D4C77;
+  font-size: 20px;
+  font-weight: 300;
+  color: #F5F5F5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media screen and (max-width: 1300px) {
+  footer a,
+  #textefooter div a {
+    font-size: 15px;
   }
-  
-  footer > div:first-of-type {
-    height:280px;
-    width:100%;
-    background-color: #43688A;
-    display: flex;
-    align-items: center;
+
+  #textefooter h2,
+  #textefooter p {
+    font-size: 15px;
   }
-  
+
   #footerCercleLogo {
-    margin: 0 6% 0 6%;
-    height:220px;
-    width:220px;
+    margin: 0 5%;
+    width: 10%;
+    height: 150px;
     border-radius: 50%;
     background-color: #F5F5F5;
-    display: flex;
-    align-items: center;
   }
   
   #footerCercleLogo img {
-    width:220px;
+    width: 130px;
   }
-  
-  #footerText {
-    flex: 1;
-    display:flex;
-    justify-content: space-around;
+
+}
+
+@media screen and (max-width: 800px) {
+  footer a,
+  #textefooter div a {
+    font-size: 10px;
   }
-  
-  footer > div:last-of-type {
-    height: 40px;
-    width:100%;
-    background-color: #1D4C77;
-    display:flex;
-    align-items: center;
-    color:#F5F5F5;
-    justify-content: space-around;
+
+  #textefooter {
+    flex-direction: row; /* Changez à row pour avoir les éléments côte à côte */
+    align-items: flex-start;
+    font-size: 10px;
+    justify-content: space-between; /* Ajoutez cet ajustement pour espacer les éléments */
+    flex-wrap: wrap; /* Permettre aux éléments de passer à la ligne si nécessaire */
   }
+
+  #textefooter h2 {
+    margin-bottom: 10px;
+  }
+
+  #infosLegal, #contact, #support, #reseaux {
+    width: 48%; /* Définissez la largeur pour occuper la moitié de l'espace */
+    font-size: 10px;
+  }
+
+  #infosLegal {
+    order: 2;
+    text-align: left;
+  }
+
+  #contact {
+    order: 1;
+    text-align: left;
+  }
+
+  #support {
+    order: 4;
+    text-align: right;
+  }
+
+  #reseaux {
+    order: 3;
+    text-align: right;
+  }
+
+  #footerCercleLogo {
+    width: 48%; /* Définissez la largeur pour occuper la moitié de l'espace */
+    height: 70px;
+    order: 5;
+  }
+
+  #footerCercleLogo img {
+    width: 60px;
+  }
+
+  #logoReseaux img {
+    width: 20px;
+    height: 20px;
+  }
+
+  #textefooter h2,
+  #textefooter p {
+    font-size: 10px;
+  }
+}
