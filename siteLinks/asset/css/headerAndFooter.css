@@ -271,7 +271,7 @@ footer > div:last-of-type {
   text-align: right;
 }
 
-footer > div:last-of-type {
+.basFooter {
   height: 65px;
   width: 100%;
   background-color: #1D4C77;
@@ -294,18 +294,20 @@ footer > div:last-of-type {
     font-size: 15px;
   }
 
+  #infosFooter {
+    height: 280px;
+    width:100%;
+  }
+
   #footerCercleLogo {
     margin: 0 5%;
-    width: 10%;
-    height: 150px;
-    border-radius: 50%;
-    background-color: #F5F5F5;
+    width: 13%;
+    height: 140px;
   }
   
   #footerCercleLogo img {
-    width: 130px;
+    width: 90%;
   }
-
 }
 
 @media screen and (max-width: 800px) {
