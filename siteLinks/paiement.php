@@ -59,7 +59,7 @@
         require_once("connect_params.php");
         $db = new PDO("$driver:host=$server;dbname=$dbname", "$user", "$pass");
         $res = $db->prepare(
-            'SELECT * FROM test.devis
+            'SELECT *, DATE_PART(\'day\', reservation.fin_reservation::timestamp - reservation.debut_reservation::timestamp) AS nbJours FROM test.devis
             JOIN test.reservation ON test.devis.id_reservation = test.reservation.id_reservation
             JOIN test.logement ON test.reservation.id_logement = test.logement.id_logement
             WHERE id_devis = :devis'
@@ -67,7 +67,7 @@
         $res->bindParam('devis', $_POST['devis'], PDO::PARAM_INT);
         $res->execute();
         $res = $res->fetchAll();
-        print_r($res);
+        ?><pre><?php print_r($res) ?></pre><?php
         /*
             SELECT test.charges_selectionnees.nom_charge, test.prix_charge.prix_charge FROM test.reservation
             INNER JOIN test.prix_charge ON test.reservation.id_logement = test.prix_charge.id_logement
@@ -103,11 +103,11 @@
                             <input onclick="toggleCM('CM', this.parentElement)" readonly>
                         </div>-->
                         <div id="paymentType" name="paymentType" href="#" onclick="toggleCM('CM', this)">
-                            <input class="inputImg" onclick="toggleCM('CM', this.parentElement)" style="background-image: url('asset/img/mastercard.png');" readonly>
+                        <input class="inputImg" onclick="toggleCM('CM', this.parentElement)" style="background-image: url('asset/img/mastercard.png');" value="MasterCard" readonly><img src="asset/img/arrow-down.svg">
                         </div>
                         <div id="CM" class="contextMenu">
-                            <input class="inputImg" onclick="toggleCM('CM', this.parentElement)" style="background-image: url('asset/img/mastercard.png');" value="MasterCard" readonly><img src="asset/img/arrow-down.svg">|
-                            <input class="inputImg" onclick="toggleCM('CM', this.parentElement)" style="background-image: url('asset/img/paypal.png');" value="PayPal" readonly><img src="asset/img/arrow-down.svg">
+                            <input class="inputImg" onclick="toggleCM('CM', this.parentElement)" style="background-image: url('asset/img/mastercard.png');" value="MasterCard" readonly><img class="cmHideElem" src="asset/img/arrow-down.svg">|
+                            <input class="inputImg" onclick="toggleCM('CM', this.parentElement)" style="background-image: url('asset/img/paypal.png');" value="PayPal" readonly><img class="cmHideElem" src="asset/img/arrow-down.svg">
                         </div>
                         <!-- <div id="paymentType"><img src="asset/img/mastercard.png"><a>MasterCard</a><img src="asset/img/arrow-down.svg"></div> -->
                         <input id="cardNumber" placeholder="Numéro de carte" pattern="^(5[1-5][0-9]{14}|2(22[1-9][0-9]{12}|2[3-9][0-9]{13}|[3-6][0-9]{14}|7[0-1][0-9]{13}|720[0-9]{12}))$" required> <!-- Pattern actuel uniquement pour mastercard -->
@@ -127,7 +127,7 @@
                         <figcaption><?php echo $res["descriptif"] ?><!--Appartement avec vue imprenable sur la mer--></figcaption>
                     </figure>
                     <div>
-                        <p><a>320€ x 3 nuits</a><a>960€</a></p>
+                        <p><a><?php echo $res["prix_base_ht"] ?>€ x <?php echo $res["nbjours"] ?> nuits</a><a><?php echo $res["prix_base_ht"] * $res["nbjours"] ?>€</a></p> <!-- prix incorrect, extraire le prix réel plus tard avec les plages -->
                         
                         <?php
                             foreach($charges as $charge) { ?>
@@ -148,45 +148,32 @@
     } ?>
     <script src="asset/js/contextMenu.js"></script>
     <footer>
-
-<div id="infosFooter">
-<div id="footerCercleLogo" class="portableDroite">
-    <img src="asset/img/logo.png" alt="logo">
-</div>
-<div id="textefooter">
-  <div class="gauche" class="portableGauche" id="infosLegal">
-      <h2>Informations légales</h2>
-      <a href="">Plan du site</a>
-      <a href="">Mentions légales</a>
-      <a href="">Conditions générales de ventes</a>
-      <a href="">Données personnelles</a>
-      <a href="">Gestions des cookies</a>
-  </div>
-  <div class="centrer" class="portableDroite" id="support">
-      <h2>Support client</h2>
-      <a href="">Contacter le support</a>
-  </div>
-  <div class="centrer" class="portableDroite" id="reseaux">
-      <h2>Suivez nous</h2>
-      <div id="logoReseaux">
-          <a href=""><img src="asset/icons/blanc/facebook.svg" alt=""></a>
-          <a href=""><img src="asset/icons/blanc/instagram.svg" alt=""></a>
-          <a href=""><img src="asset/icons/blanc/steam.svg" alt=""></a>
-      </div>
-  </div>
-  <div class="droite" class="portableGauche" id="contact">
-      <h2>Nous contacter</h2>
-      <p>Rue Édouard Branly, 22300 Lannion</p>
-      <p>02 96 46 93 00</p>
-      <p>iut-lannion.univ-rennes.fr</p>
-  </div>
-</div>
-</div>
-
-<div class="basFooter">
-<p>Copyright @ 2023 LoQuali.com</p>
-</div>
-
-</footer>
+        <div>
+            <div id="footerCercleLogo">
+                <img src="asset/img/logo.png" alt="logo">
+            </div>
+            <div id="footerText">
+                <div>
+                    <h4>Nous contacter</h4>
+                    <address>1, Rue édouard Branly, 22300 Lannion</address><br>
+                    <a href="tel:+33296469300">02 96 46 93 00</a><br>
+                    <a href="mailto:iut-lannion.univ-rennes.fr">iut-lannion.univ-rennes.fr</a>
+                </div>
+                <div>
+                    <h4>Informations légales</h4>
+                    <a href="">Plan du site</a><br>
+                    <a href="">Mention légales</a><br>
+                    <a href="">Condition générales de ventes</a><br>
+                    <a href="">Données personnelles</a><br>
+                    <a href="">Gestion de cookies</a><br>
+                </div>
+            </div>
+        </div>
+        <div>
+            <p>texte random</p>
+            <p>Copyright @ 2023 LoQuali.com</p>
+            <p>Suivez-nous !</p>
+        </div>
+    </footer>
 </body>
 </html>

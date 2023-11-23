@@ -140,6 +140,11 @@ p > .h3 {
 
 td > input.inputImg {
     background-color: var(--CMbg);
+    width: 6em;
+}
+
+.contextMenu > table > tbody > tr > td {
+    width: 33em;
 }
 
 #paymentType > img:last-of-type {
