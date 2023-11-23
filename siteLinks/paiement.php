@@ -71,7 +71,7 @@
                         <!--<div id="paymentType" name="paymentType" href="#" onclick="toggleCM('CM', this)">
                             <input onclick="toggleCM('CM', this.parentElement)" readonly>
                         </div>-->
-                        <div id="paymentType" name="paymentType" href="#" onclick="toggleCM('CM', this)">
+                        <div id="paymentType" href="#" onclick="toggleCM('CM', this)"> <!-- Faut faire passer à la requête POST, déplacer le name sur UN input -->
                             <input class="inputImg" onclick="toggleCM('CM', document.querySelector('#paymentType'))" style="background-image: url('asset/img/mastercard.png');" value="MasterCard" readonly><img class="cmHideElem" src="asset/img/arrow-down.svg" onclick="toggleCM('CM', document.querySelector('#paymentType'))">
                         </div>
                         <div id="CM" class="contextMenu">
@@ -86,7 +86,10 @@
                         </div>
                         <div>
                             <input id="postalCode" placeholder="Code postal" minlength=2 maxlength=11 required>
-                            <div id="country"><a>Pays/région</a><img src="asset/img/arrow-down.svg"></div>
+                            <div id="country"><input name="country" placeholder="Pays/région" onclick="toggleCM('CM2', this)"><img src="asset/img/arrow-down.svg"></div>
+                            <div id="CM2" class="contextMenu">
+                                France|Amérique|Asie|Afrique|JSP
+                            </div>
                         </div>
                     </div>
                 </div>
