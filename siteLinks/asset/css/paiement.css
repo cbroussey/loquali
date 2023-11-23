@@ -1,7 +1,7 @@
 body {
     color: var(--textColor);
-    padding-top: 80px;
-    padding-bottom: 320px;
+    /*padding-top: 80px;
+    padding-bottom: 320px;*/
     font-family: 'inter';
     font-weight: 300;
 }
