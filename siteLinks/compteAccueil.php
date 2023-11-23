@@ -126,15 +126,19 @@
 
     </div>
 
+<!--
+
     <form action="" class="popUpDeco">
         <div class="popUpDecoChoix">
-            <h2>Êtes-vous sûr de vouloir vous déconnecter ?</h2>
+            <h2>Êtes-vous sûr de vouloir <br>vous déconnecter ?</h2>
             <div class="button-container">
                 <button class="cancel-button">Annuler</button>
-                <button class="confirm-button">Valider</button>
+                <button class="confirm-button" id="deco">Se déconnecter</button>
             </div>
         </div>
     </form>
+
+-->
 
     <footer>
 

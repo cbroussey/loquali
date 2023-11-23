@@ -47,3 +47,7 @@
 .contextMenu > table > tbody > tr > td > .cmHideElem {
     visibility: collapse;
 }
+
+.contextMenu > table > tbody > tr, .contextMenu > table > tbody > tr > td > input {
+    cursor: pointer;
+}
