@@ -23,7 +23,7 @@ class contextMenu {
                 this.ref.value = e.innerHTML
                 this.ref.innerHTML = e.innerHTML
                 this.display((this.ref.tagName == "INPUT" && !this.ref.readOnly) ? this.ref.value : "");
-                if (this.ref.tagName != "INPUT" && this.parentNode.parentNode.parentNode.parentNode.parentNode != this.CM) toggleCM(this.CM.id, this)
+                if (this.ref.tagName != "INPUT" && e.parentNode.tagName != "TR") toggleCM(this.CM.id, this)
             })
         })
     }
@@ -47,6 +47,7 @@ function toggleCM(id, caller, x = -1, y = -1) {
     else {
         CM.style.top = `calc(${y}px)`
         CM.style.left = `${x}px`
+        CM.style.width = `${caller.offsetWidth}px`
         CM.style.visibility = "visible"
         CM.style.opacity = 1
     }

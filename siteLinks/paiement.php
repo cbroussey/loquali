@@ -87,9 +87,7 @@
                         <div>
                             <input id="postalCode" placeholder="Code postal" minlength=2 maxlength=11 required>
                             <div id="country"><input name="country" placeholder="Pays/région" onclick="toggleCM('CM2', this)"><img src="asset/img/arrow-down.svg"></div>
-                            <div id="CM2" class="contextMenu">
-                                France|Amérique|Asie|Afrique|JSP
-                            </div>
+                            <div id="CM2" class="contextMenu">France|Amérique|Asie|Afrique|JSP</div>
                         </div>
                     </div>
                 </div>

@@ -3,7 +3,6 @@
     --DPselbg: #7297B8;
     --DPhovbg: #2072BC;
     --CMhovbg: #C7C7C7;
-    --animSpeed: .1s;
 }
 
 .contextMenu {
@@ -27,6 +26,7 @@
     border-radius: 10px;
     overflow: hidden;
     background-color: var(--DPbg);
+    width: inherit;
 }
 
 .contextMenu > table > tbody > tr > td {
