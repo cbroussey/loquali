@@ -35,7 +35,7 @@
           <rect y="26.5645" width="28" height="3.52174" rx="1" fill="#F5F5F5"/>
       </svg>
       <?php 
-      if (isset($_SESSION['username'])) {
+      if (isset($_SESSION['userId'])) {
       ?>
       <h4><a href="">Messagerie</a></h4>
       <h4><a href="">Mes réservations</a></h4>
@@ -233,7 +233,6 @@
 <div class="basFooter">
 <p>Copyright @ 2023 LoQuali.com</p>
 </div>
-
 </footer>
   <script src="asset/js/header.js"></script>
   <script src="asset/js/index.js"></script>
