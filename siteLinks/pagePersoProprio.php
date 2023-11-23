@@ -39,6 +39,7 @@
     </div>
     <div></div>
   </header>
+  <main id="ensemble">
 
     
   <?php
@@ -48,13 +49,12 @@
         $id=4; // à revoir une fois que les comptes sont fait
         $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
         $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-        $query = "SELECT * FROM test.proprietaire NATURAL JOIN test.compte WHERE id_compte = :id_compte";
+        $query = "SELECT * FROM test.proprietaire NATURAL JOIN test.compte NATURAL JOIN test.telephone WHERE id_compte = :id_compte";
 
         $stmt = $dbh->prepare($query);
         $stmt->bindParam('id_compte', $id, PDO::PARAM_STR);
         $stmt->execute();
-        $photo = $stmt->fetch();
-        $proprio=$photo;
+        $proprio = $stmt->fetch();
     }   catch (PDOException $e) {
         print "Erreur !: " . $e->getMessage() . "<br/>";
         die();
@@ -62,10 +62,9 @@
 
     ?>
     
-    <a href="index.php">
-        <img src="asset/icons/bleu/toBack.svg" alt="" id="svgBack">
-    </a>
-    <div id="ensemble">
+      <a href="index.php">
+          <img src="asset/icons/bleu/toBack.svg" alt="" id="svgBack">
+      </a>
         <div class="infosProprio">
             <div id="infosTous">
                 <div>
@@ -74,23 +73,22 @@
                     </figure>
                 </div>
                 <div class = "infos">
-                    <h2><?php echo strtoupper($proprio["nom"]) ?> Jason</h2>
+                    <h2><?php echo strtoupper($proprio["nom"]) ?> <?php echo $proprio["prenom"];?></h2>
                     <figure class="star">
                         <img src="asset/icons/bleu/star.svg" alt="">
-                        <figcaption>4.9</figcaption>
+                        <figcaption><?php echo $proprio["note_proprio"]; ?></figcaption>
                     </figure>
                     <figure class="tel">
                         <img src="asset/icons/bleu/tel.svg" alt="">
-                        <figcaption>06 06 06 06 06</figcaption>
+                        <figcaption><?php echo wordwrap($proprio["numero"], 2, " ", 1); ?></figcaption>
                     </figure>
                     <figure class="mail">
                         <img src="asset/icons/bleu/mail.svg" alt="">
-                        <figcaption>pop.sauce@popsauce.sauce</figcaption>
+                        <figcaption><?php echo $proprio["adresse_mail"]; ?></figcaption>
                     </figure>
                 </div>
 
             </div>
-            proprietaire
                 <div class="separateur">
                 </div>
 
@@ -102,7 +100,7 @@
                         </figure>
                     </div>
                     
-                    <p id="textProposDeMoi">J’utilise la plateforme depuis longtemps et j’ai proposé plusieurs logement de qualité aux fils des années. Avec des logements toujours au bord de la mer je propose des baignades matinales pour bien vous rafraichir.</p>
+                    <p id="textProposDeMoi"><?php echo $proprio["description"] ?></p>
 
                 </div>
         
@@ -117,7 +115,7 @@
             <?php
 
             try {
-                foreach($dbh->query("SELECT * FROM test.logement", PDO::FETCH_ASSOC) as $row) {
+                foreach($dbh->query("SELECT * FROM test.logement WHERE id_compte = $id", PDO::FETCH_ASSOC) as $row) {
             
                     $info=$row;
                     $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
@@ -146,8 +144,7 @@
                         
                     </div>
 
-                    <div class="separateur1">                    
-                    </div>
+                    <div class="separateur1">a</div>
 
                     <?php
                 }
@@ -163,34 +160,46 @@
 
             </div>
         </div>
-    </div>    
+    </main>    
     <footer>
-    <div>
-      <div id="footerCercleLogo">
-        <img src="asset/img/logo.png" alt="logo">
-      </div>
-      <div id="footerText">
-        <div>
-          <h4>Nous contacter</h4>
-          <address>1, Rue édouard Branly, 22300 Lannion</address><br>
-          <a href="tel:+33296469300">02 96 46 93 00</a><br>
-          <a href="mailto:iut-lannion.univ-rennes.fr">iut-lannion.univ-rennes.fr</a>
+
+      <div id="infosFooter">
+        <div id="footerCercleLogo" class="portableDroite">
+            <img src="asset/img/logo.png" alt="logo">
         </div>
-        <div>
-          <h4>Informations légales</h4>
-          <a href="">Plan du site</a><br>
-          <a href="">Mention légales</a><br>
-          <a href="">Condition générales de ventes</a><br>
-          <a href="">Données personnelles</a><br>
-          <a href="">Gestion de cookies</a><br>
+        <div id="textefooter">
+          <div class="gauche" class="portableGauche" id="infosLegal">
+              <h2>Informations légales</h2>
+              <a href="">Plan du site</a>
+              <a href="">Mentions légales</a>
+              <a href="">Conditions générales de ventes</a>
+              <a href="">Données personnelles</a>
+              <a href="">Gestions des cookies</a>
+          </div>
+          <div class="centrer" class="portableDroite" id="support">
+              <h2>Support client</h2>
+              <a href="">Contacter le support</a>
+          </div>
+          <div class="centrer" class="portableDroite" id="reseaux">
+              <h2>Suivez nous</h2>
+              <div id="logoReseaux">
+                  <a href=""><img src="asset/icons/blanc/facebook.svg" alt=""></a>
+                  <a href=""><img src="asset/icons/blanc/instagram.svg" alt=""></a>
+                  <a href=""><img src="asset/icons/blanc/steam.svg" alt=""></a>
+              </div>
+          </div>
+          <div class="droite" class="portableGauche" id="contact">
+              <h2>Nous contacter</h2>
+              <p>Rue Édouard Branly, 22300 Lannion</p>
+              <p>02 96 46 93 00</p>
+              <p>iut-lannion.univ-rennes.fr</p>
+          </div>
         </div>
+        </div>
+
+        <div class="basFooter">
+        <p>Copyright @ 2023 LoQuali.com</p>
       </div>
-    </div>
-    <div>
-      <p>texte random</p>
-      <p>Copyright @ 2023 LoQuali.com</p>
-      <p>Suivez-nous !</p>
-    </div>
-  </footer>
+    </footer>
 </body>
 </html>

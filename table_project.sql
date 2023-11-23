@@ -348,6 +348,7 @@ VALUES
     ('0234567894', 'Téléphone principal', 1),
     ('0876543210', 'Téléphone secondaire', 2),
     ('0111222333', 'Numéro de contact', 3);
+    ('0606060606', 'Numéro de contact', 4);
     
 INSERT INTO amenagement (nom_amenagement, id_logement)
 VALUES
