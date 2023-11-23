@@ -125,6 +125,17 @@
         <a href="" id="comptePro">Passer à un compte propriétaire</a>
 
     </div>
+
+    <form action="" class="popUpDeco">
+        <div class="popUpDecoChoix">
+            <h2>Êtes-vous sûr de vouloir vous déconnecter ?</h2>
+            <div class="button-container">
+                <button class="cancel-button">Annuler</button>
+                <button class="confirm-button">Valider</button>
+            </div>
+        </div>
+    </form>
+
     <footer>
 
     <div id="infosFooter">
