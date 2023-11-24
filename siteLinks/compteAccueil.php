@@ -45,6 +45,28 @@
         </div>
         <div></div>
     </header>
+
+    <?php
+
+    include('connect_params.php');
+    try {
+        $id=5; // à revoir une fois que les comptes sont fait
+        $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
+        $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+        $query = "SELECT * FROM test.proprietaire NATURAL JOIN test.compte WHERE id_compte = :id_compte";
+
+        $stmt = $dbh->prepare($query);
+        $stmt->bindParam('id_compte', $id, PDO::PARAM_STR);
+        $stmt->execute();
+        $infos = $stmt->fetch();
+    }   catch (PDOException $e) {
+        print "Erreur !: " . $e->getMessage() . "<br/>";
+        die();
+    }
+
+    ?>
+
+
     <a href="index.php">
         <img src="asset/icons/bleu/toBack.svg" alt="" id="svgBack">
     </a>
@@ -53,7 +75,8 @@
 
         <h2>Accueil</h2>
         <div class="container">
-            <img src="asset/img/profils/photoProfil.png" alt="" id="photoProfil">
+        
+        <img src="asset/img/profils/<?php echo($infos['photo_de_profil']) ?>.jpeg" alt="" id="photoProfil">
             <div class="middle">
                 <img src="asset/icons/blanc/photo.svg" alt="" id="">
             </div>
