@@ -7,5 +7,61 @@ $dbname = 'pg_salabiven';
 $user   = 'salabiven';
 
 
-$pass	= '!';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+$pass	= 'Pgkslrd22';
 ?>

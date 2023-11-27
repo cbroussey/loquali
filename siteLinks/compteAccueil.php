@@ -94,13 +94,10 @@
 
         <div class="pageAccueil">
             
-            <a href="compte.php"  data-color="account" class="nav-item0">
+            <a href="compte.php">
                 <div>
-                    <figure>
-                        <div class="img-area0">
-                            <img src="asset/icons/bleu/accountBlue.svg" alt="Infos Persos" class="img-back">
-                            <img src="asset/icons/blanc/account.svg" alt="Infos Persos" class="img-front">
-                        </div>
+                    <figure> 
+                        <img src="asset/icons/blanc/account.svg" alt="">
                         <figcaption>Informations personnelles</figcaption>
                     </figure>
                 </div>
