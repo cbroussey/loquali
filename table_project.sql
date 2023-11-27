@@ -4,7 +4,8 @@ set schema 'test';
 
 
 create table image(
-    id_image integer not null,
+    id_image SERIAL not null,
+    extension_image VARCHAR(5),
     constraint image_pk primary key (id_image)
 );
 
@@ -70,8 +71,10 @@ create table logement(
     info_depart varchar(255),
     reglement_interieur varchar(255),
     id_compte integer,
+    id_image_couv integer,
     constraint logement_pk primary key(id_logement),
-    constraint logement_fk_proprietaire foreign key (id_compte) references proprietaire(id_compte)ON DELETE CASCADE  
+    constraint logement_fk_proprietaire foreign key (id_compte) references proprietaire(id_compte) ON DELETE CASCADE,
+    constraint logement_fk_couverture foreign key (id_image_couv) references image(id_image)
 ); 
 
 create table photo_logement(
@@ -268,14 +271,19 @@ create table facture(
 -- TESTS
 
 
-INSERT INTO image (id_image)
+INSERT INTO image (extension_image)
 VALUES
-    (1),
-    (2),
-    (3),
-    (4),
-    (5),
-    (6);
+    ('jpg'),
+    ('jpg'),
+    ('jpg'),
+    ('jpg'),
+    ('jpg'),
+    ('png'),
+    ('jpg'),
+    ('jpg'),
+    ('jpg'),
+    ('jpg'),
+    ('jpg');
 
 INSERT INTO compte (mdp, nom_affichage, date_creation, derniere_operation, adresse_postale, adresse_mail, nom, prenom, photo_de_profil, piece_identite) 
 VALUES
@@ -301,11 +309,11 @@ VALUES
     (6, 'Description Propriétaire 3', 4.7,'M','FR7630002032531234567890168');
 
 
-INSERT INTO logement (prix_TTC, note_logement, en_ligne, type_logement, nature_logement, localisation, descriptif, surface, disponible_defaut, prix_base_HT, delai_annul_defaut, pourcentage_retenu_defaut, libelle_logement, accroche, nb_pers_max, nb_chambre, nb_salle_de_bain, code_postal,departement, info_arrivee, info_depart, reglement_interieur, id_compte)
+INSERT INTO logement (prix_TTC, note_logement, en_ligne, type_logement, nature_logement, localisation, descriptif, surface, disponible_defaut, prix_base_HT, delai_annul_defaut, pourcentage_retenu_defaut, libelle_logement, accroche, nb_pers_max, nb_chambre, nb_salle_de_bain, code_postal,departement, info_arrivee, info_depart, reglement_interieur, id_compte, id_image_couv)
 VALUES
-    (150.00, 4.3, TRUE,'T1', 'Appartement', 'Paris', 'Bel appartement au coeur de Paris', 80, TRUE, 120.00, 5, 10.00, 'Appartement Parisien', 'Vue magnifique sur la Tour Eiffel', 4, 2, 1, '2A', 'Finistère', 'boite à clé près de la porte d''entrée', 'veuillez ranger les clés dans la boite à clés', 'veuillez ne pas abimer le mobilier', 4),
-    (200.00, 4.5, TRUE, 'T3', 'Maison', 'Nice', 'Charmante maison à Nice', 120, TRUE, 180.00, 6, 15.00, 'Maison Niçoise', 'Jardin privé et piscine', 6, 3, 2, 22000, 'Finistère', 'boite à clé près de la porte d''entrée', 'veuillez ranger les clés dans la boite à clés', 'veuillez ne pas abimer le mobilier', 5),
-    (100.00, 4.0, TRUE, 'T5', 'Studio', 'Marseille', 'Studio ensoleillé à Marseille', 45, TRUE, 80.00, 3, 8.00, 'Studio Lumineux', 'Proche de la plage', 2, 3, 1, 22000, 'Finistère', 'boite à clé près de la porte d''entrée', 'veuillez ranger les clés dans la boite à clés', 'veuillez ne pas abimer le mobilier', 6);
+    (150.00, 4.3, TRUE,'T1', 'Appartement', 'Paris', 'Bel appartement au coeur de Paris', 80, TRUE, 120.00, 5, 10.00, 'Appartement Parisien', 'Vue magnifique sur la Tour Eiffel', 4, 2, 1, '2A', 'Finistère', 'boite à clé près de la porte d''entrée', 'veuillez ranger les clés dans la boite à clés', 'veuillez ne pas abimer le mobilier', 4, 1),
+    (200.00, 4.5, TRUE, 'T3', 'Maison', 'Nice', 'Charmante maison à Nice', 120, TRUE, 180.00, 6, 15.00, 'Maison Niçoise', 'Jardin privé et piscine', 6, 3, 2, 22000, 'Finistère', 'boite à clé près de la porte d''entrée', 'veuillez ranger les clés dans la boite à clés', 'veuillez ne pas abimer le mobilier', 5, 5),
+    (100.00, 4.0, TRUE, 'T5', 'Studio', 'Marseille', 'Studio ensoleillé à Marseille', 45, TRUE, 80.00, 3, 8.00, 'Studio Lumineux', 'Proche de la plage', 2, 3, 1, 22000, 'Finistère', 'boite à clé près de la porte d''entrée', 'veuillez ranger les clés dans la boite à clés', 'veuillez ne pas abimer le mobilier', 6, 8);
     
 
 INSERT INTO photo_logement(id_logement, id_image)
@@ -314,10 +322,10 @@ VALUES
     (1,4),
     (1,2),
     (1,3),
-    (2,3),
-    (2,1),
-    (2,2),
-    (3,4);
+    (2,7),
+    (2,5),
+    (2,6),
+    (3,8);
 
 INSERT INTO CB (numero_carte, date_validite, cryptogramme, id_compte)
 VALUES
