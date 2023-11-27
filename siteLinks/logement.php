@@ -64,14 +64,6 @@
             die();
         }
 
-        /* Manque : code postal, nombre de pièce, nombre de lit, information d'arriver et de départ, règlement intérieur
-        
-        à supprimé : accroche
-        */
-
-        echo "<pre>";
-        echo "</pre>"; 
-
     ?>
 
 
@@ -297,279 +289,288 @@
 
 
 
-
-            <div class="res_and_map_log">
-
+            <div class="info_and_res_and_map">
 
 
-                <div class="dispo_date_log">
-                    <p><span> Disponibilité de réservation : </span></p>
-                    <a class="bouton_date_log" href="">
-                        <svg width="26" height="31" viewBox="0 0 26 31" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M8.43766 17.2659H6.15721C5.78094 17.2659 5.47307 16.9499 5.47307 16.5638V14.2237C5.47307 13.8376 5.78094 13.5217 6.15721 13.5217H8.43766C8.81393 13.5217 9.12179 13.8376 9.12179 14.2237V16.5638C9.12179 16.9499 8.81393 17.2659 8.43766 17.2659ZM14.5949 16.5638V14.2237C14.5949 13.8376 14.287 13.5217 13.9107 13.5217H11.6303C11.254 13.5217 10.9461 13.8376 10.9461 14.2237V16.5638C10.9461 16.9499 11.254 17.2659 11.6303 17.2659H13.9107C14.287 17.2659 14.5949 16.9499 14.5949 16.5638ZM20.0679 16.5638V14.2237C20.0679 13.8376 19.7601 13.5217 19.3838 13.5217H17.1034C16.7271 13.5217 16.4192 13.8376 16.4192 14.2237V16.5638C16.4192 16.9499 16.7271 17.2659 17.1034 17.2659H19.3838C19.7601 17.2659 20.0679 16.9499 20.0679 16.5638ZM14.5949 22.1801V19.84C14.5949 19.4539 14.287 19.1379 13.9107 19.1379H11.6303C11.254 19.1379 10.9461 19.4539 10.9461 19.84V22.1801C10.9461 22.5662 11.254 22.8821 11.6303 22.8821H13.9107C14.287 22.8821 14.5949 22.5662 14.5949 22.1801ZM9.12179 22.1801V19.84C9.12179 19.4539 8.81393 19.1379 8.43766 19.1379H6.15721C5.78094 19.1379 5.47307 19.4539 5.47307 19.84V22.1801C5.47307 22.5662 5.78094 22.8821 6.15721 22.8821H8.43766C8.81393 22.8821 9.12179 22.5662 9.12179 22.1801ZM20.0679 22.1801V19.84C20.0679 19.4539 19.7601 19.1379 19.3838 19.1379H17.1034C16.7271 19.1379 16.4192 19.4539 16.4192 19.84V22.1801C16.4192 22.5662 16.7271 22.8821 17.1034 22.8821H19.3838C19.7601 22.8821 20.0679 22.5662 20.0679 22.1801ZM25.541 6.96933V27.5624C25.541 29.1127 24.3153 30.3705 22.8045 30.3705H2.73654C1.22574 30.3705 0 29.1127 0 27.5624V6.96933C0 5.419 1.22574 4.16118 2.73654 4.16118H5.47307V1.11903C5.47307 0.732908 5.78094 0.416992 6.15721 0.416992H8.43766C8.81393 0.416992 9.12179 0.732908 9.12179 1.11903V4.16118H16.4192V1.11903C16.4192 0.732908 16.7271 0.416992 17.1034 0.416992H19.3838C19.7601 0.416992 20.0679 0.732908 20.0679 1.11903V4.16118H22.8045C24.3153 4.16118 25.541 5.419 25.541 6.96933ZM22.8045 27.2114V9.77747H2.73654V27.2114C2.73654 27.4044 2.89047 27.5624 3.0786 27.5624H22.4624C22.6505 27.5624 22.8045 27.4044 22.8045 27.2114Z"
-                                fill="#F5F5F5" />
-                        </svg>
-                        <p>Dates</p>
-                    </a>
-                </div>
+                <div class="res_and_map_log">
 
-                <div class="rerservation_log">
-                    <div class="haut_rerservation_log">
-                        <h2><span><?php echo($info["prix_ttc"]); ?> €</span>  / nuit</h2>
-                        <form action="demandeDevis.php" method="POST">
-                            <input name="id" value="<?php echo($id);?>" hidden readonly>
-                            <button class="bouton_res_log">
-                                <h1>Réserver</h1>
-                            </button>
-                        </form>
+
+
+                    <div class="dispo_date_log">
+                        <p><span> Disponibilité de réservation : </span></p>
+                        <a class="bouton_date_log" href="">
+                            <svg width="26" height="31" viewBox="0 0 26 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M8.43766 17.2659H6.15721C5.78094 17.2659 5.47307 16.9499 5.47307 16.5638V14.2237C5.47307 13.8376 5.78094 13.5217 6.15721 13.5217H8.43766C8.81393 13.5217 9.12179 13.8376 9.12179 14.2237V16.5638C9.12179 16.9499 8.81393 17.2659 8.43766 17.2659ZM14.5949 16.5638V14.2237C14.5949 13.8376 14.287 13.5217 13.9107 13.5217H11.6303C11.254 13.5217 10.9461 13.8376 10.9461 14.2237V16.5638C10.9461 16.9499 11.254 17.2659 11.6303 17.2659H13.9107C14.287 17.2659 14.5949 16.9499 14.5949 16.5638ZM20.0679 16.5638V14.2237C20.0679 13.8376 19.7601 13.5217 19.3838 13.5217H17.1034C16.7271 13.5217 16.4192 13.8376 16.4192 14.2237V16.5638C16.4192 16.9499 16.7271 17.2659 17.1034 17.2659H19.3838C19.7601 17.2659 20.0679 16.9499 20.0679 16.5638ZM14.5949 22.1801V19.84C14.5949 19.4539 14.287 19.1379 13.9107 19.1379H11.6303C11.254 19.1379 10.9461 19.4539 10.9461 19.84V22.1801C10.9461 22.5662 11.254 22.8821 11.6303 22.8821H13.9107C14.287 22.8821 14.5949 22.5662 14.5949 22.1801ZM9.12179 22.1801V19.84C9.12179 19.4539 8.81393 19.1379 8.43766 19.1379H6.15721C5.78094 19.1379 5.47307 19.4539 5.47307 19.84V22.1801C5.47307 22.5662 5.78094 22.8821 6.15721 22.8821H8.43766C8.81393 22.8821 9.12179 22.5662 9.12179 22.1801ZM20.0679 22.1801V19.84C20.0679 19.4539 19.7601 19.1379 19.3838 19.1379H17.1034C16.7271 19.1379 16.4192 19.4539 16.4192 19.84V22.1801C16.4192 22.5662 16.7271 22.8821 17.1034 22.8821H19.3838C19.7601 22.8821 20.0679 22.5662 20.0679 22.1801ZM25.541 6.96933V27.5624C25.541 29.1127 24.3153 30.3705 22.8045 30.3705H2.73654C1.22574 30.3705 0 29.1127 0 27.5624V6.96933C0 5.419 1.22574 4.16118 2.73654 4.16118H5.47307V1.11903C5.47307 0.732908 5.78094 0.416992 6.15721 0.416992H8.43766C8.81393 0.416992 9.12179 0.732908 9.12179 1.11903V4.16118H16.4192V1.11903C16.4192 0.732908 16.7271 0.416992 17.1034 0.416992H19.3838C19.7601 0.416992 20.0679 0.732908 20.0679 1.11903V4.16118H22.8045C24.3153 4.16118 25.541 5.419 25.541 6.96933ZM22.8045 27.2114V9.77747H2.73654V27.2114C2.73654 27.4044 2.89047 27.5624 3.0786 27.5624H22.4624C22.6505 27.5624 22.8045 27.4044 22.8045 27.2114Z"
+                                    fill="#F5F5F5" />
+                            </svg>
+                            <p>Dates</p>
+                        </a>
                     </div>
-                    <div class="bare_res"></div>
-                    <div class="detail_reservation_log">
 
-                    <?php
-                    $t=0;
-                    if (count($amena)>0) {
-                        $t=1;
-                    }
-                    
-                    if ($t==1) {
-
-                    ?>
-                    
-
-                        <p>Aménagments proposés : </p>
-                        <div class="amenagement_log">
-
-
-                            <?php
-                            $i=0;
-                            $magouille='<div class="ligne_elem_res_log">';
-                            
-                            foreach($amena as $ind => $key) {
-
-                            ?>
-
-
-                                
-                                <?php
-                                    if ($i==0){
-                                        echo($magouille);
-                                    }
-                                ?> 
-
-
-                                <div class="elem_reservation_log">
-                                    <img src="asset/icons/blanc/<?php echo($key["nom_amenagement"]);?>.svg" alt="">
-                                    <p><?php echo($key["nom_amenagement"]);?></p>
-                                </div>
-
-
-
-                                <?php 
-                                
-                                    $i++;
-                                    if ($i>=2){
-                                        echo("</div>");
-                                        $i=0;
-                                    }
-
-                                ?>
-                            
-                            <?php } 
-                            
-                                if ($i!=0){
-                                    echo("</div>");
-                                }
-
-                            ?>
+                    <div class="rerservation_log">
+                        <div class="haut_rerservation_log">
+                            <h2><span><?php echo($info["prix_ttc"]); ?> €</span>  / nuit</h2>
+                            <form action="demandeDevis.php" method="POST">
+                                <input name="id" value="<?php echo($id);?>" hidden readonly>
+                                <button class="bouton_res_log">
+                                    <h1>Réserver</h1>
+                                </button>
+                            </form>
                         </div>
-                    <?php } else {
-                        echo("<br/><p>Aucun aménagement</p><br/>");
-                    } ?>
+                        <div class="bare_res"></div>
+                        <div class="detail_reservation_log">
 
+                        <?php
+                        $t=0;
+                        if (count($amena)>0) {
+                            $t=1;
+                        }
+                        
+                        if ($t==1) {
 
-                    <?php
-                    $t=0;
+                        ?>
+                        
 
-                    if (count($instal)>0) {
-                        $t=1;
-                    }
-        
-                    
-                    if ($t==1) {
-
-                    ?>
-
-                        <p>Installations : </p>
-                        <div class="installations_log">
-
-                            <?php
-                            $i=0;
-                            $magouille='<div class="ligne_elem_res_log">';
-                            
-                            foreach($instal as $ind => $key) {
-
-                            ?>
-
+                            <p>Aménagments proposés : </p>
+                            <div class="amenagement_log">
 
 
                                 <?php
-                                    if ($i==0){
-                                        echo($magouille);
-                                    }
-                                ?> 
+                                $i=0;
+                                $magouille='<div class="ligne_elem_res_log">';
                                 
-                                
-
-                                <div class="elem_reservation_log">
-                                    <img src="asset/icons/blanc/<?php echo($key["nom_installation"]);?>.svg" alt="">
-                                    <p> <?php echo($key["nom_installation"]);?> </p>
-                                </div>
-
-
-                                
-                                <?php 
-                                
-                                    $i++;
-                                    if ($i>=2){
-                                        echo("</div>");
-                                        $i=0;
-                                    }
+                                foreach($amena as $ind => $key) {
 
                                 ?>
 
-                            <?php } 
-                            
-                                if ($i!=0){
-                                    echo("</div>");
-                                }
 
-                            ?>
+                                    
+                                    <?php
+                                        if ($i==0){
+                                            echo($magouille);
+                                        }
+                                    ?> 
 
-                        </div>
 
+                                    <div class="elem_reservation_log">
+                                        <img src="asset/icons/blanc/<?php echo($key["nom_amenagement"]);?>.svg" alt="">
+                                        <p><?php echo($key["nom_amenagement"]);?></p>
+                                    </div>
+
+
+
+                                    <?php 
+                                    
+                                        $i++;
+                                        if ($i>=2){
+                                            echo("</div>");
+                                            $i=0;
+                                        }
+
+                                    ?>
+                                
+                                <?php } 
+                                
+                                    if ($i!=0){
+                                        echo("</div>");
+                                    }
+
+                                ?>
+                            </div>
                         <?php } else {
-                        echo("<br/><p>Aucune instalation</p><br/>");
-                    } ?>
+                            echo("<br/><p>Aucun aménagement</p><br/>");
+                        } ?>
 
 
                         <?php
-                            $t=0;
-                            if (count($service)>0) {
-                                $t=1;
-                            }
-                            
-                            if ($t==1) {
+                        $t=0;
+
+                        if (count($instal)>0) {
+                            $t=1;
+                        }
+            
+                        
+                        if ($t==1) {
 
                         ?>
-                        
-                        <p>Services compris : </p>
-                        <div class="services_log">
 
-                            <?php
-                            $i=0;
-                            $magouille='<div class="ligne_elem_res_log">';
-                            foreach($service as $ind => $key) {
-
-                            ?>
+                            <p>Installations : </p>
+                            <div class="installations_log">
 
                                 <?php
-                                    if ($i==0){
-                                        echo($magouille);
-                                    }
+                                $i=0;
+                                $magouille='<div class="ligne_elem_res_log">';
+                                
+                                foreach($instal as $ind => $key) {
+
                                 ?>
 
-                                <div class="elem_reservation_log">
-
-                                <img src="asset/icons/blanc/<?php echo($key["nom_service"]);?>.svg" alt="">
-                                <p> <?php echo($key["nom_service"]);?> </p>
 
 
+                                    <?php
+                                        if ($i==0){
+                                            echo($magouille);
+                                        }
+                                    ?> 
+                                    
+                                    
 
-                                </div>
+                                    <div class="elem_reservation_log">
+                                        <img src="asset/icons/blanc/<?php echo($key["nom_installation"]);?>.svg" alt="">
+                                        <p> <?php echo($key["nom_installation"]);?> </p>
+                                    </div>
 
-                                <?php 
+
+                                    
+                                    <?php 
+                                    
+                                        $i++;
+                                        if ($i>=2){
+                                            echo("</div>");
+                                            $i=0;
+                                        }
+
+                                    ?>
+
+                                <?php } 
                                 
-                                $i++;
-                                if ($i>=2){
+                                    if ($i!=0){
+                                        echo("</div>");
+                                    }
+
+                                ?>
+
+                            </div>
+
+                            <?php } else {
+                            echo("<br/><p>Aucune instalation</p><br/>");
+                        } ?>
+
+
+                            <?php
+                                $t=0;
+                                if (count($service)>0) {
+                                    $t=1;
+                                }
+                                
+                                if ($t==1) {
+
+                            ?>
+                            
+                            <p>Services compris : </p>
+                            <div class="services_log">
+
+                                <?php
+                                $i=0;
+                                $magouille='<div class="ligne_elem_res_log">';
+                                foreach($service as $ind => $key) {
+
+                                ?>
+
+                                    <?php
+                                        if ($i==0){
+                                            echo($magouille);
+                                        }
+                                    ?>
+
+                                    <div class="elem_reservation_log">
+
+                                    <img src="asset/icons/blanc/<?php echo($key["nom_service"]);?>.svg" alt="">
+                                    <p> <?php echo($key["nom_service"]);?> </p>
+
+
+
+                                    </div>
+
+                                    <?php 
+                                    
+                                    $i++;
+                                    if ($i>=2){
+                                        echo("</div>");
+                                        $i=0;
+                                    }
+
+                                ?>
+
+                            <?php } 
+                            
+                                if ($i!=0){
                                     echo("</div>");
-                                    $i=0;
                                 }
 
                             ?>
+                            </div>
 
-                        <?php } 
-                        
-                            if ($i!=0){
-                                echo("</div>");
-                            }
+    
+                            <?php } else {
+                            echo("<br/><p>Aucun service proposé</p><br/>");
+                        } ?>
 
-                        ?>
+                            
                         </div>
-
-  
-                        <?php } else {
-                        echo("<br/><p>Aucun service proposé</p><br/>");
-                    } ?>
-
                         
                     </div>
-                    
+
+                    <div class="carte_box_log">
+                        <iframe class="carte"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d732.4316018976493!2d-3.4382072588383696!3d48.81599683120846!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48122e111e0af8b1%3A0xea441f7b7d2e6646!2sManila%20-%20PERROS-GUIREC%20C%C3%B4tes%20d&#39;Armor%20Bretagne!5e0!3m2!1sfr!2sfr!4v1697553231993!5m2!1sfr!2sfr"
+                        style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
                 </div>
 
-                <div class="carte_box_log">
-                    <iframe class="carte"
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d732.4316018976493!2d-3.4382072588383696!3d48.81599683120846!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48122e111e0af8b1%3A0xea441f7b7d2e6646!2sManila%20-%20PERROS-GUIREC%20C%C3%B4tes%20d&#39;Armor%20Bretagne!5e0!3m2!1sfr!2sfr!4v1697553231993!5m2!1sfr!2sfr"
-                    style="border:0;" allowfullscreen="" loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+                <div class="info_detail_logement">
+
+
+
+                    <div class="description_log">
+                        <h4>Description :</h4>
+                        <p class="txt_descr_log"><?php echo($info["descriptif"]); ?></p>
+
+                    </div>
+
+                    <div class="sep_descri_regle_log">
+                        <svg width="473" height="2" viewBox="0 0 473 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="473" height="2" fill="#1D4C77" />
+                        </svg>
+                    </div>
+
+
+                    <div class="reglement_log">
+                        <h4>Réglement intérieur : </h4>
+                        <p class="txt_descr_log"><?php echo($info["reglement_interieur"]); ?></p>
+
+                    </div>
+
+                    <div class="sep_descri_regle_log">
+                        <svg width="473" height="2" viewBox="0 0 473 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="473" height="2" fill="#1D4C77" />
+                        </svg>
+                    </div>
+
+
+                    <div class="info_arrive_log">
+                        <h4>Informations d’arrivée :</h4>
+                        <p class="txt_descr_log"><?php echo($info["info_arrivee"]);?></p>
+
+                    </div>
+
+                    <div class="sep_descri_regle_log">
+                        <svg width="473" height="2" viewBox="0 0 473 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="473" height="2" fill="#1D4C77" />
+                        </svg>
+                    </div>
+
+
+                    <div class="info_depart_log">
+                        <h4>Informations de départ :</h4>
+                        <p class="txt_descr_log"><?php echo($info["info_depart"]);?></p>
+
+                    </div>
+
                 </div>
-            </div>
-
-
-            <div class="description_log">
-                <h4>Description :</h4>
-                <p class="txt_descr_log"><?php echo($info["descriptif"]); ?></p>
-
-            </div>
-
-            <div class="sep_descri_regle_log">
-                <svg width="473" height="2" viewBox="0 0 473 2" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="473" height="2" fill="#1D4C77" />
-                </svg>
-            </div>
-
-
-            <div class="reglement_log">
-                <h4>Réglement intérieur : </h4>
-                <p class="txt_descr_log"><?php echo($info["reglement_interieur"]); ?></p>
-
-            </div>
-
-            <div class="sep_descri_regle_log">
-                <svg width="473" height="2" viewBox="0 0 473 2" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="473" height="2" fill="#1D4C77" />
-                </svg>
-            </div>
-
-
-            <div class="info_arrive_log">
-                <h4>Informations d’arrivée :</h4>
-                <p class="txt_descr_log"><?php echo($info["info_arrivee"]);?></p>
-
-            </div>
-
-            <div class="sep_descri_regle_log">
-                <svg width="473" height="2" viewBox="0 0 473 2" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="473" height="2" fill="#1D4C77" />
-                </svg>
-            </div>
-
-
-            <div class="info_depart_log">
-                <h4>Informations de départ :</h4>
-                <p class="txt_descr_log"><?php echo($info["info_depart"]);?></p>
-
             </div>
         </div>
 

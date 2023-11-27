@@ -548,6 +548,11 @@ h2 span{
 }
 
 
+.sticky_res_and_map_log{
+  width: 100%;
+}
+
+
 .barre_info_log{
   padding-top: 3.5%;
   display: flex;
@@ -566,7 +571,8 @@ h2 span{
 }
 
 .img_proprio_log{
-  width: 130px;
+  width: 30%;
+  height: auto;
   transform: scale(1);
 }
 
@@ -583,8 +589,8 @@ h2 span{
   box-sizing: border-box;
 
   position: absolute;
-  width: 100%;
-  height: 130px;
+  width: 50%;
+  height: 120px;
 
   border: 4px solid var(--mainColor);
   border-radius: 50%;
@@ -1131,6 +1137,36 @@ h2 span{
   margin-top: -10px;
   margin-left: 3px;
   font-size: 15px;
+}
+
+
+
+@media screen and (min-width: 0px) and (max-width: 740px) { 
+
+  #bg p{
+    font-size: 10px;
+  }
+
+  #bg h3{
+    font-size: 12px;
+  }
+
+  #bg h2, #bg h2 span{
+    font-size: 15px;
+  }
+
+  #bg h1{
+    font-size: 15px;
+  }
+
+  .res_and_map_log{
+    float: center;
+    margin-top: 0;
+    position: static;
+    width: 100%;
+  }
+
+
 }
 
 /******************************************** DEMANDE DEVIS ********************************************/
