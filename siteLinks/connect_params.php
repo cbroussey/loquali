@@ -4,56 +4,6 @@
 $server = 'servbdd';
 $driver = 'pgsql';
 $dbname = 'pg_emclugery';
-$user   = 'emclugery';
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-$pass	= 'Chouchig2/';
+$user = 'emclugery';
+$pass = '';
 ?>

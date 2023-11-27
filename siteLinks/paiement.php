@@ -36,14 +36,8 @@
         $res->bindParam('devis', $_POST['devis'], PDO::PARAM_INT);
         $res->execute();
         $res = $res->fetchAll();
-        ?><pre><?php print_r($res) ?></pre><?php
-        /*
-            SELECT test.charges_selectionnees.nom_charge, test.prix_charge.prix_charge FROM test.reservation
-            INNER JOIN test.prix_charge ON test.reservation.id_logement = test.prix_charge.id_logement
-            INNER JOIN test.charges_selectionnees ON test.charges_selectionnees.nom_charge = test.prix_charge.nom_charge
-            WHERE test.charges_selectionnees.id_reservation = 1 AND test.prix_charge.id_logement = 1
-        */
-        if ($res && $res[0]["acceptation"]) {
+        ?><pre style="padding-left: 1em;"><?php print_r($res) ?></pre><?php
+        if (/*isset($_SESSION["userId"]) && $_SESSION["userId"] == $res["id_compte"] &&*/ $res && $res[0]["acceptation"]) {
             $res = $res[0];
             $charges = $db->prepare(
                 'SELECT test.charges_selectionnees.nom_charge, test.prix_charge.prix_charge FROM test.reservation
@@ -57,7 +51,7 @@
             $charges = $charges->fetchAll();
             
             ?>
-            <form method="post" action="paiement.php" class="flexTop">
+            <form method="post" action="devis.php" class="flexTop">
                 <button class="backButton" onclick="history.back()"><img src="asset/img/arrow-down.svg"></button>
                 <div id="paiement">
                     <div id="infosVoyage">
@@ -68,24 +62,20 @@
                     <div id="infosPaiement">
                         <h2>Validez et payez</h2>
                         <p>Payez avec</p>
-                        <!--<div id="paymentType" name="paymentType" href="#" onclick="toggleCM('CM', this)">
-                            <input onclick="toggleCM('CM', this.parentElement)" readonly>
-                        </div>-->
-                        <div id="paymentType" href="#" onclick="toggleCM('CM', this)"> <!-- Faut faire passer à la requête POST, déplacer le name sur UN input -->
-                            <input class="inputImg" onclick="toggleCM('CM', document.querySelector('#paymentType'))" style="background-image: url('asset/img/mastercard.png');" value="MasterCard" readonly><img class="cmHideElem" src="asset/img/arrow-down.svg" onclick="toggleCM('CM', document.querySelector('#paymentType'))">
-                        </div>
                         <div id="CM" class="contextMenu">
-                            <input class="inputImg" onclick="toggleCM('CM', document.querySelector('#paymentType'))" style="background-image: url('asset/img/mastercard.png');" value="MasterCard" readonly><img class="cmHideElem" src="asset/img/arrow-down.svg" onclick="toggleCM('CM', document.querySelector('#paymentType'))">|
-                            <input class="inputImg" onclick="toggleCM('CM', document.querySelector('#paymentType'))" style="background-image: url('asset/img/paypal.png');" value="PayPal" readonly><img class="cmHideElem" src="asset/img/arrow-down.svg" onclick="toggleCM('CM', document.querySelector('#paymentType'))">
+                            <input name="paymentType" class="inputImg" onclick="toggleCM('CM', document.querySelector('#paymentType'))" style="background-image: url('asset/img/mastercard.png');" value="MasterCard" readonly><img class="cmHideElem" src="asset/img/arrow-down.svg" onclick="toggleCM('CM', document.querySelector('#paymentType'))">|
+                            <input name="paymentType" class="inputImg" onclick="toggleCM('CM', document.querySelector('#paymentType'))" style="background-image: url('asset/img/paypal.png');" value="PayPal" readonly><img class="cmHideElem" src="asset/img/arrow-down.svg" onclick="toggleCM('CM', document.querySelector('#paymentType'))">
                         </div>
-                        <!-- <div id="paymentType"><img src="asset/img/mastercard.png"><a>MasterCard</a><img src="asset/img/arrow-down.svg"></div> -->
+                        <div id="paymentType" href="#" onclick="toggleCM('CM', this)">
+                            <input name="paymentType" class="inputImg" onclick="toggleCM('CM', document.querySelector('#paymentType'))" style="background-image: url('asset/img/mastercard.png');" value="MasterCard" readonly><img class="cmHideElem" src="asset/img/arrow-down.svg" onclick="toggleCM('CM', document.querySelector('#paymentType'))">
+                        </div>
                         <input id="cardNumber" placeholder="Numéro de carte" pattern="^(5[1-5][0-9]{14}|2(22[1-9][0-9]{12}|2[3-9][0-9]{13}|[3-6][0-9]{14}|7[0-1][0-9]{13}|720[0-9]{12}))$" required> <!-- Pattern actuel uniquement pour mastercard -->
                         <div>
-                            <input id="expiry" placeholder="Expiration" minlength=5 maxlength=5 pattern="(0[1-9]|1[0-9]|3[01])/(0[1-9]|1[0-2])" required>
-                            <input id="crypto" placeholder="Cryptogramme" minlength=3 maxlength=3 pattern="\d{3}" required>
+                            <input id="expiry" name="expiry" placeholder="Expiration" minlength=5 maxlength=5 pattern="(0[1-9]|1[0-2])/\d{2}" required>
+                            <input id="crypto" name="crypto" placeholder="Cryptogramme" minlength=3 maxlength=3 pattern="\d{3}" required>
                         </div>
                         <div>
-                            <input id="postalCode" placeholder="Code postal" minlength=2 maxlength=11 required>
+                            <input id="postalCode" name="postalCode" placeholder="Code postal" minlength=2 maxlength=11 required>
                             <div id="country"><input name="country" placeholder="Pays/région" onclick="toggleCM('CM2', this)"><img src="asset/img/arrow-down.svg"></div>
                             <div id="CM2" class="contextMenu">France|Amérique|Asie|Afrique|JSP</div>
                         </div>
