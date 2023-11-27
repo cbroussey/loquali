@@ -9,11 +9,17 @@
             //requêtes d'insertion d'un compte propriétaire
             $insert = "INSERT INTO test.telephone (numero, id_compte) VALUES (:num, :idCompte)";
             $stmt = $dbh->prepare($insert);
-            $stmt->bindParam(':num', trim($_POST['telephone']), PDO::PARAM_STR);
+            $stmt->bindParam(':num', str_replace(' ', '', $_POST['telephone']), PDO::PARAM_STR);
             $stmt->bindParam(':idCompte', $_SESSION['userId'], PDO::PARAM_STR);
             $stmt->execute();
 
-            $insert = "UPDATE test.compte SET pays = :newValue WHERE id_compte = :id_compte;";
+            $insert = "UPDATE test.compte SET ville = :ville, adresse = :adresse, code_postal = :codePostal WHERE id_compte = :userId;";
+            $stmt = $dbh->prepare($insert);
+            $stmt->bindParam(':ville', $_POST['ville'], PDO::PARAM_STR);
+            $stmt->bindParam(':adresse', $_POST['adresse'], PDO::PARAM_STR);
+            $stmt->bindParam(':codePostal', $_POST['codePostal'], PDO::PARAM_STR);
+            $stmt->bindParam(':userId', $_SESSION['userId']);
+            $stmt->execute();
 
             $dbh = null;
 
@@ -52,7 +58,9 @@
             <img src="asset/img/logo.png" alt="logo">
             <form method="post" enctype="multipart/form-data">
                 <input type="text" id="pays" name="pays" placeholder="Pays" required />
-                <input type="text" id="region" name="region" placeholder="Région" required />
+                <input type="text" id="ville" name="ville" placeholder="Ville" required />
+                <input type="text" id="adresse" name="adresse" placeholder="Adresse" required />
+                <input type="text" id="codePostal" name="codePostal" placeholder="Code Postal" required />
                 <input type="tel" id="telephone" name="telephone" placeholder="Numéro de tel." required />
                 <input type="file" id="fichier" name="fichier" required/>
                 <input type="submit" value="Créer votre compte"/>
