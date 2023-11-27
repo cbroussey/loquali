@@ -3910,7 +3910,6 @@ margin:10% 0 5% 0;
 }
 
 #modificationDescription {
-  background-image: url(../icons/bleu/modification.svg);
   width: 30px;
   height: 30px;
   border: none;
@@ -3920,7 +3919,22 @@ margin:10% 0 5% 0;
   position: absolute;
   top: 229px;
   left: 220px;
+
+  display: none;
 }
+
+#modificationDescription.active{
+  display: block;
+}
+
+#testBouton{
+  display: block;
+}
+
+#testBouton.active{
+  display: none;
+}
+
 
 #textProposDeMoi {
   
@@ -4045,6 +4059,25 @@ margin:10% 0 5% 0;
   
   color: transparent;
   margin: 25px 0;
+}
+
+
+
+
+#description{
+  display: none;
+}
+
+#description.active{
+  display: block;
+}
+
+#descriptionCompte{
+  display: block;
+}
+
+#descriptionCompte.active {
+  display: none;
 }
 
 @media screen and (min-width: 0px) and (max-width: 400px) {
