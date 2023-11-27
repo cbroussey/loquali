@@ -1,5 +1,5 @@
 function inputClipping(value){
-    return value.replace(/[^a-zA-Z]/g, '');
+    return value.replace(/[^a-zA-Z ]/g, '');
 }
 
 //vérification de la conformité du nom
