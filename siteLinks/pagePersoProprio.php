@@ -11,7 +11,7 @@
             
             $stmt = $dbh->prepare($query);
             $stmt->bindParam('newValue', $_POST['description'], PDO::PARAM_STR);
-            $stmt->bindParam('id_compte', $_SESSION['userId'], PDO::PARAM_STR);
+            $stmt->bindParam('id_compte', $id, PDO::PARAM_STR);
             $stmt->execute();
             $post = $stmt->fetch();
 

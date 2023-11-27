@@ -1,24 +1,3 @@
-<?php
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        include('connect_params.php');
-        try {
-            $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
-            $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-
-            $query = "DELETE FROM test.photo_logement WHERE test.photo_logement.id_logement = :id_log";
-            
-            $stmt = $dbh->prepare($query);
-            $stmt->bindParam('id_log', $_POST["id_log"], PDO::PARAM_STR);
-            $stmt->execute();
-            
-            $dbh = null;
-        } catch (PDOException $e) {
-            print "Erreur !: " . $e->getMessage() . "<br/>";
-            die();
-        }
-    }
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,9 +14,13 @@
 <body>
         <?php
 
-            $info=$_POST;
 
+
+            $info=$_POST;
+            $id=$info["id_loge"];
             $photo=$_FILES;
+
+
 
 
             include('connect_params.php');
@@ -84,74 +67,38 @@
 
             $id_compte = 4; // besoin de taf de martin 
 
-
             // Préparer la requête d'insertion
             $stmt = $dbh->prepare("
-                INSERT INTO test.logement (
-                    prix_TTC,
-                    note_logement,
-                    en_ligne,
-                    ouvert,
-                    type_logement,
-                    nature_logement,
-                    descriptif,
-                    surface,
-                    disponible_defaut,
-                    prix_base_HT,
-                    delai_annul_defaut,
-                    pourcentage_retenu_defaut,
-                    libelle_logement,
-                    accroche,
-                    nb_pers_max,
-                    nb_chambre,
-                    nb_salle_de_bain,
-                    code_postal,
-                    departement,
-                    localisation,
-                    info_arrivee,
-                    info_depart,
-                    reglement_interieur,
-                    id_compte
-                ) VALUES (
-                    :prix_TTC,
-                    :note_logement,
-                    :en_ligne,
-                    :ouvert,
-                    :type_logement,
-                    :nature_logement,
-                    :descriptif,
-                    :surface,
-                    :disponible_defaut,
-                    :prix_base_HT,
-                    :delai_annul_defaut,
-                    :pourcentage_retenu_defaut,
-                    :libelle_logement,
-                    :accroche,
-                    :nb_pers_max,
-                    :nb_chambre,
-                    :nb_salle_de_bain,
-                    :code_postal,
-                    :departement,
-                    :localisation,
-                    :info_arrivee,
-                    :info_depart,
-                    :reglement_interieur,
-                    :id_compte
-                )
+                UPDATE test.logement SET
+                    prix_TTC=:prix_TTC,
+                    type_logement=:type_logement,
+                    nature_logement=:nature_logement,
+                    descriptif=:descriptif,
+                    surface=:surface,
+                    prix_base_HT=:prix_base_HT,
+                    pourcentage_retenu_defaut=:pourcentage_retenu_defaut,
+                    libelle_logement=:libelle_logement,
+                    accroche=:accroche,
+                    nb_pers_max=:nb_pers_max,
+                    nb_chambre=:nb_chambre,
+                    nb_salle_de_bain=:nb_salle_de_bain,
+                    code_postal=:code_postal,
+                    departement=:departement,
+                    localisation=:localisation,
+                    info_arrivee=:info_arrivee,
+                    info_depart=:info_depart,
+                    reglement_interieur=:reglement_interieur,
+                    id_compte=:id_compte
+                WHERE id_logement=:id_logement
             ");
 
             // Binder les valeurs
             $stmt->bindParam(':prix_TTC', $prix_TTC);
-            $stmt->bindParam(':note_logement', $note_logement);
-            $stmt->bindParam(':en_ligne', $en_ligne, PDO::PARAM_INT);
-            $stmt->bindParam(':ouvert', $ouvert, PDO::PARAM_INT);
             $stmt->bindParam(':type_logement', $type_logement);
             $stmt->bindParam(':nature_logement', $nature_logement);
             $stmt->bindParam(':descriptif', $descriptif);
             $stmt->bindParam(':surface', $surface);
-            $stmt->bindParam(':disponible_defaut', $disponible_defaut, PDO::PARAM_INT);
             $stmt->bindParam(':prix_base_HT', $prix_base_HT);
-            $stmt->bindParam(':delai_annul_defaut', $delai_annul_defaut);
             $stmt->bindParam(':pourcentage_retenu_defaut', $pourcentage_retenu_defaut);
             $stmt->bindParam(':libelle_logement', $libelle_logement);
             $stmt->bindParam(':accroche', $accroche);
@@ -165,6 +112,7 @@
             $stmt->bindParam(':info_depart', $info_depart);
             $stmt->bindParam(':reglement_interieur', $reglement_interieur);
             $stmt->bindParam(':id_compte', $id_compte);
+            $stmt->bindParam(':id_logement', $id);
 
             try {
                 // Exécuter la requête
@@ -174,6 +122,7 @@
             } catch (PDOException $e) {
                 // Afficher l'erreur en cas d'échec de la requête
                 echo "Erreur lors de l'insertion : " . $e->getMessage();
+                echo("\n\n\n\n\n\n\n");
             }
 
 
@@ -181,16 +130,25 @@
 
             $i=0;
 
-            foreach($dbh->query("SELECT DISTINCT id_logement from test.logement ORDER BY id_logement DESC", PDO::FETCH_ASSOC) as $row) {
-            
-                $log[$i]=$row;
-                $i++;
-            }
-
-            $id_log=$log[0]["id_logement"];
+            $id_log=$id;
 
 
             /* Ajout des aménagements */
+
+
+            try {
+                $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+                $query = "DELETE FROM test.amenagement WHERE test.amenagement.id_logement = :id_log";
+                
+                $stmt = $dbh->prepare($query);
+                $stmt->bindParam('id_log', $id_log, PDO::PARAM_STR);
+                $stmt->execute();
+                
+                $dbh = null;
+            } catch (PDOException $e) {
+                print "Erreur !: " . $e->getMessage() . "<br/>";
+                die();
+            }
 
 
             foreach ($info["amena"] as $ind => $val){
@@ -223,7 +181,25 @@
 
 
 
+
             /* Ajout des installations */
+
+
+
+            try {
+                $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+                $query = "DELETE FROM test.installation WHERE test.installation.id_logement = :id_log";
+                
+                $stmt = $dbh->prepare($query);
+                $stmt->bindParam('id_log', $id_log, PDO::PARAM_STR);
+                $stmt->execute();
+                
+                $dbh = null;
+            } catch (PDOException $e) {
+                print "Erreur !: " . $e->getMessage() . "<br/>";
+                die();
+            }
+            
 
             foreach ($info["instal"] as $ind => $val){
                 $stmt = $dbh->prepare("
@@ -252,6 +228,22 @@
 
 
             /* Ajout des services */
+
+
+
+            try {
+                $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+                $query = "DELETE FROM test.service WHERE test.service.id_logement = :id_log";
+                
+                $stmt = $dbh->prepare($query);
+                $stmt->bindParam('id_log', $id_log, PDO::PARAM_STR);
+                $stmt->execute();
+                
+                $dbh = null;
+            } catch (PDOException $e) {
+                print "Erreur !: " . $e->getMessage() . "<br/>";
+                die();
+            }
 
 
             foreach ($info["service"] as $ind => $val){
@@ -379,7 +371,6 @@
                             // Afficher l'erreur en cas d'échec de la requête
                             echo "Erreur lors de l'insertion : " . $e->getMessage();
                         }
-
 
 
                     }

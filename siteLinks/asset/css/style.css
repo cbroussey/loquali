@@ -3007,6 +3007,10 @@ input[type="checkbox"]:checked + label {
   font-weight: 700;
  }
 
+
+#id_loge{
+  display: none;
+}
 /******************************************** CONNEXION ********************************************/
 
 #connexion {

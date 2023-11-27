@@ -2,7 +2,7 @@
 <?php
 $server = 'servbdd';
 $driver = 'pgsql';
-$dbname = 'pg_emclugery';
-$user = 'emclugery';
-$pass = '!';
+$dbname = 'pg_mpineau';
+$user = 'mpineau';
+$pass = 'Julio_129';
 ?>
