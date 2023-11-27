@@ -3941,7 +3941,6 @@ font-weight: 500;
 }
 
 #modificationDescription {
-  background-image: url(../icons/bleu/modification.svg);
   width: 30px;
   height: 30px;
   border: none;
@@ -3951,7 +3950,11 @@ font-weight: 500;
   position: absolute;
   top: 229px;
   left: 220px;
+
+
 }
+
+
 
 #textProposDeMoi {
   
@@ -4076,6 +4079,42 @@ font-weight: 500;
   
   color: transparent;
   margin: 25px 0;
+}
+
+
+/* truc pour les modif */
+
+.modifBtn {
+  display: none;
+}
+
+.modifBtn.active{
+  display: block;
+}
+
+.testBouton{
+  display: block;
+}
+
+.testBouton.active{
+  display: none;
+}
+
+
+.descriptionModif{
+  display: none;
+}
+
+.descriptionModif.active{
+  display: block;
+}
+
+.descriptionCompte{
+  display: block;
+}
+
+.descriptionCompte.active {
+  display: none;
 }
 
 @media screen and (min-width: 0px) and (max-width: 400px) {
