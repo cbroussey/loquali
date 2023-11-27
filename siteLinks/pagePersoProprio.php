@@ -1,7 +1,7 @@
 <?php
     session_start();
     if (isset($_POST['description'])) {
-        
+        $id=4;
         include('connect_params.php');
         try {
             $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
@@ -87,9 +87,10 @@
 
     ?>
     
-      <a href="index.php">
-          <img src="asset/icons/bleu/toBack.svg" alt="" id="svgBack">
-      </a>
+    <a href="index.php">
+        <img src="asset/icons/bleu/toBack.svg" alt="" id="pagePersoSvgBack">
+    </a>
+    <div id="ensemble">
         <div class="infosProprio">
             <div id="infosTous">
                 <div id="photo_Profil">
@@ -139,11 +140,12 @@
                     <div>
                         <h2>À propos de moi</h2>
                     </div>
-                    <p id="textProposDeMoi">a</p>
                     <div class="lignes">
                         <form method="post">
-                            <input type="submit" value="" id="modificationDescription">
-                            <input type="text" id="description" name="description" value=<?php echo htmlentities($proprio["description"]) ?>>
+                            <a href="#" class="testBouton"><img src="asset/icons/bleu/modification.svg" alt=""></a>
+                            <input type="submit" value="Enregistrer" id="modificationDescription" class="modifBtn">
+                            <p class="descriptionCompte"><?php echo htmlentities($proprio["description"]) ?></p>
+                            <input type="text" id="description" class="descriptionModif" name="description" value=<?php echo htmlentities($proprio["description"]) ?>>
                         </form>
                     </div>
 
