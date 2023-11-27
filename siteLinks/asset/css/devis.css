@@ -113,6 +113,11 @@ h1 {
 }
 
 
+.incons img{
+    max-width: 48px;
+    max-height: auto;
+}
+
 .icons_info {
     margin-left: 20px;
 }

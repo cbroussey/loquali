@@ -3065,7 +3065,7 @@ input[type="checkbox"]:checked + label {
   border:0;
 }
 
-.adresseInconnue {
+.invalidInput {
   color:#771D2D;
 }
 
