@@ -1,3 +1,28 @@
+<?php
+    session_start();
+    if (isset($_POST['description'])) {
+        
+        include('connect_params.php');
+        try {
+            $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
+            $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+
+            $query = "UPDATE test.proprietaire SET description = :newValue WHERE id_compte = :id_compte;";
+            
+            $stmt = $dbh->prepare($query);
+            $stmt->bindParam('newValue', $_POST['description'], PDO::PARAM_STR);
+            $stmt->bindParam('id_compte', $_SESSION['userId'], PDO::PARAM_STR);
+            $stmt->execute();
+            $post = $stmt->fetch();
+
+            $dbh = null;
+        } catch (PDOException $e) {
+            print "Erreur !: " . $e->getMessage() . "<br/>";
+            die();
+        }
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -67,10 +92,28 @@
       </a>
         <div class="infosProprio">
             <div id="infosTous">
-                <div>
-                    <figure>
-                        <img src="asset/img/profils/Tom.png" alt="" id="photoProfil">
-                    </figure>
+                <div id="photo_Profil">
+                    <style>
+                        #photo_Profil {
+                            width:160px;
+                            height:160px;
+                            border-radius: 93.5px;
+
+                            background: url("asset/img/profils/<?php echo($proprio["photo_de_profil"]) ?>.png") center/cover;
+                        }
+
+                        @media screen and (min-width: 0px) and (max-width: 400px) {
+                            #photo_Profil {
+                                width: 110px;
+                                height: 110px;
+                                border-radius: 110px;
+                                position: relative;
+                                left: -20px;
+                                
+
+                            }
+                        }
+                    </style>
                 </div>
                 <div class = "infos">
                     <h2><?php echo strtoupper($proprio["nom"]) ?> <?php echo $proprio["prenom"];?></h2>
@@ -95,12 +138,14 @@
                 <div id="aProposDeMoi">
                     <div>
                         <h2>À propos de moi</h2>
-                        <figure>
-                            <img src="asset/icons/bleu/modification.svg" alt="modifier">
-                        </figure>
                     </div>
-                    
-                    <p id="textProposDeMoi"><?php echo $proprio["description"] ?></p>
+                    <p id="textProposDeMoi">a</p>
+                    <div class="lignes">
+                        <form method="post">
+                            <input type="submit" value="" id="modificationDescription">
+                            <input type="text" id="description" name="description" value=<?php echo htmlentities($proprio["description"]) ?>>
+                        </form>
+                    </div>
 
                 </div>
         
@@ -201,5 +246,10 @@
         <p>Copyright @ 2023 LoQuali.com</p>
       </div>
     </footer>
+
+    <script src="asset/js/header.js"></script>
+    <script src="asset/js/descriptionCompte.js"></script>
+
+
 </body>
 </html>

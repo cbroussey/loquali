@@ -3822,8 +3822,8 @@ margin:10% 0 5% 0;
 .infosProprio{
   position: relative;
   float: left;
-  left: 140px;
-  top: 80px;
+  left: 40px;
+  top: 100px;
   height: 463px;
   width: 620px;
   color: #1D4C77;
@@ -3847,11 +3847,7 @@ margin:10% 0 5% 0;
   margin-top: 230px;
 }
 
-#photoProfil {
-  width:160px;
-  height:160px;
-  border-radius: 93.5px;
-}
+
 
 
 #infosTous {
@@ -3913,6 +3909,19 @@ margin:10% 0 5% 0;
   margin-top: 10px;
 }
 
+#modificationDescription {
+  background-image: url(../icons/bleu/modification.svg);
+  width: 30px;
+  height: 30px;
+  border: none;
+  background-color: transparent;
+  background-repeat: no-repeat;
+
+  position: absolute;
+  top: 229px;
+  left: 220px;
+}
+
 #textProposDeMoi {
   
   text-align: justify;
@@ -3930,7 +3939,7 @@ margin:10% 0 5% 0;
   color: #1D4C77;
   position: initial;
   margin-top: 80px;
-  margin-left: 15%;
+  margin-left: 10%;
   margin-right: 8px;
   margin-bottom: 50px;
 }
@@ -4041,38 +4050,34 @@ margin:10% 0 5% 0;
 @media screen and (min-width: 0px) and (max-width: 400px) {
 
   #svgBack {
+    left: 50px;
     width: 50px;
     height: 37.778px;
   }
 
-  .infosProprio {
-    top: 10px;
-    margin-left: -170px;
-    width: 100%;
+  #infosTous {
+    width: 400px;
+  }
 
+  .infosProprio {
+    top: 70px;
+    width: 100%;
+  
   }
 
   .infos h2 {
-    margin-top: -28px;
+    margin-top: -20px;
     margin-left: -45px;
     margin-bottom: 30px;
 
 
   }
 
-  #photoProfil {
-    width: 110px;
-    height: 110px;
-    border-radius: 110px;
-    margin-left: -30px;
-    margin-top: -20px;
-   
-  
-  }
 
   .infos {
     font-size: 15px;
-    margin-top: -60px;
+    margin-top: -40px;
+    margin-left: 10px;
   }
 
   .star {
@@ -4129,6 +4134,11 @@ margin:10% 0 5% 0;
     margin-top: -5px;
   }
 
+  #modificationDescription {
+    top: 190px;
+    left: 120px;
+  }
+
   #textProposDeMoi {
     width: 355px;
     height: 88px;
@@ -4140,14 +4150,15 @@ margin:10% 0 5% 0;
   }
 
   #logementPropo {
-    margin-top: 100px;
-    margin-left: -10px;
+    top: 150px;
+    position: relative;
+    margin-left: -20px;
   }
 
   #titreLogement {
     margin-top: -115px;
     margin-bottom: 14px;
-    margin-left: 113px;
+    margin-left: 100px;
     font-size: 20px;
   }
 
@@ -4182,12 +4193,13 @@ margin:10% 0 5% 0;
   }
 
   .unLogement .noteAvis {
-    margin-top: 15px;
+    margin-top: -10px;
   }
 
   .unLogement .noteAvis img {
     width: 35px;
     height: 35px;
+    margin-top: 1px;
   }
 
   .consulterLogement {
@@ -4198,7 +4210,8 @@ margin:10% 0 5% 0;
     background-color: #97ADC1;
     width: 600px;
     height: 2px;
-    margin-bottom: 20px;
+    margin-left: -50px;
+    margin-top: -30px;
 }
 
 
