@@ -1,5 +1,31 @@
 <?php
-
+    if (isset($_POST['type'])) {
+        if ($_POST['type'] == 'client') {
+            header("Location: index.php");
+            exit;
+        } else {
+            session_start();
+            try {
+                include('connect_params.php');
+                $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
+                $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+        
+                //préparation des requêtes d'insertion d'un compte propriétaire
+                $insert = "INSERT INTO test.proprietaire (id_compte) VALUES (:idCompte)";
+                $stmt = $dbh->prepare($insert);
+                $stmt->bindParam(':idCompte', $_SESSION['userId'], PDO::PARAM_STR);
+                //exécution de la requête d'insertion
+                $stmt->execute();
+                $dbh = null;
+                
+            } catch (PDOException $e) {
+                print "Erreur : " . $e->getMessage() . "<br/>";
+                die();
+            }
+            header("Location: createOwner.php");
+            exit; 
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -28,7 +54,7 @@
                 </button>
             </a>
             <img src="asset/img/logo.png" alt="logo">
-            <form id="formIsOwner" action='createOwner.php' method="post">
+            <form id="formIsOwner" method="post">
                 <div>
                     <div>
                         <input type="radio" id="owner" name="type" value="owner" />
