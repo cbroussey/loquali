@@ -55,7 +55,7 @@
             //initialise les variables de session
             $query = "SELECT id_compte FROM test.compte WHERE test.compte.adresse_mail = :email";
             $stmt = $dbh->prepare($query);
-            $stmt->bindParam('email', $_POST["email"], PDO::PARAM_STR);
+            $stmt->bindParam(':email', $_POST["email"], PDO::PARAM_STR);
             $stmt->execute();
             $post = $stmt->fetch();
 
