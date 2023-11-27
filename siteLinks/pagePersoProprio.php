@@ -1,7 +1,7 @@
 <?php
     session_start();
     if (isset($_POST['description'])) {
-        
+        $id=4;
         include('connect_params.php');
         try {
             $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
@@ -143,7 +143,9 @@
                     <p id="textProposDeMoi">a</p>
                     <div class="lignes">
                         <form method="post">
-                            <input type="submit" value="" id="modificationDescription">
+                            <a href="#" id="testBouton"><img src="asset/icons/bleu/modification.svg" alt=""></a>
+                            <input type="submit" value="Enregistrer" id="modificationDescription">
+                            <p id="descriptionCompte"><?php echo htmlentities($proprio["description"]) ?></p>
                             <input type="text" id="description" name="description" value=<?php echo htmlentities($proprio["description"]) ?>>
                         </form>
                     </div>

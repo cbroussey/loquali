@@ -15,3 +15,21 @@
     }
 }
  */
+
+
+
+
+function changementBouton (){
+    var element = document.getElementById("modificationDescription");
+    element.classList.add("active");
+    var element2 = document.getElementById("testBouton");
+    element2.classList.add("active");
+    var element3 = document.getElementById("description");
+    element3.classList.add("active");
+    var element4 = document.getElementById("descriptionCompte");
+    element4.classList.add("active");
+
+
+}
+
+document.getElementById("testBouton").addEventListener("click", changementBouton);
