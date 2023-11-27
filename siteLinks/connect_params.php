@@ -5,53 +5,5 @@ $dbname = 'pg_salabiven';
 $user   = 'salabiven';
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-$pass	= 'Pgkslrd22';
+$pass	= '!';
 ?>
