@@ -407,8 +407,8 @@ VALUES
 INSERT INTO plage (disponibilite, prix_hT, delai_annul, pourcentage_retenu, date_debut, date_fin, id_logement)
 VALUES
     (TRUE, 80.00, 5, 5.00, '2023-11-18', '2023-11-30', 1),
-    (TRUE, 100.00, 5, 6.00, '2023-11-1', '2023-11-14', 2),
-    (TRUE, 120.00, 3, 8.00, '2023-11-15', '2023-11-30', 2),
+    (TRUE, 120.00, 3, 8.00, '2023-11-15', '2023-11-30', 2), -- Les plages ne doivent pas se superposer entre elles pour un même logement, les nouvelles plages remplacent certaines parties des anciennes
+    (TRUE, 100.00, 5, 6.00, '2023-11-1', '2023-11-14', 2), -- Donc si la plage du dessus faisait du 1-30, sa date de début a été modifiée pour ne pas la superposer avec celle ci qui fait du 1-14
     (TRUE, 70.00, 1, 7.00, '2023-12-01', '2023-12-31', 3);
     
 INSERT INTO prix_charge (prix_charge, id_logement, nom_charge)
@@ -457,7 +457,3 @@ BEGIN
   END IF;
 END;
 $$ LANGUAGE plpgsql;
-
-SELECT * FROM getCurrentData(1);
-SELECT * FROM getCurrentData(2);
-SELECT * FROM getCurrentData(3);
