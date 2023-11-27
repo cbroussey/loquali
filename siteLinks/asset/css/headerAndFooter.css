@@ -146,8 +146,8 @@ flex: 1;
 #infosFooter {
   height: 319px;
   width:100%;
-  background-color: #43688A;width: 60%;
-  margin: 20px 0;
+  background-color: #43688A;
+  margin: 0;
   display: flex;
   align-items: center;
 }
@@ -155,7 +155,7 @@ flex: 1;
 #footerCercleLogo {
   margin: 0 5%;
   width: 10%;
-  height: 170px;
+  height: 55%;
   border-radius: 50%;
   background-color: #F5F5F5;
 
@@ -165,7 +165,7 @@ flex: 1;
 }
 
 #footerCercleLogo img {
-  width: 149px;
+  width: 90%;
 }
   
 #textefooter {
@@ -216,4 +216,43 @@ footer > div:last-of-type {
   display:flex;
   align-items: center;
   justify-content: center;
+}
+
+@media screen and (min-width: 0px) and (max-width: 1545px) { 
+
+  #footerCercleLogo {
+    width: 12%;
+    height: 55%;
+  }
+
+  #textefooter h2 {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 25px;
+  }
+  
+  #textefooter a , p{
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 150%;
+  }
+
+}
+
+@media screen and (min-width: 0px) and (max-width: 1245px) { 
+
+  #footerCercleLogo {
+    width: 15%;
+    height: 50%;
+  }
+
+}
+
+@media screen and (min-width: 0px) and (max-width: 900px) { 
+
+  #footerCercleLogo {
+    width: 18%;
+    height: 45%;
+  }
+
 }
