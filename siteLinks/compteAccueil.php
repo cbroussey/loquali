@@ -1,5 +1,10 @@
 <?php
     session_start();
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    session_destroy();
+    header("Location: index.php");
+    exit();
+  }
 ?>
 
 <!DOCTYPE html>
@@ -32,7 +37,7 @@
                 <rect y="13.6523" width="28" height="3.52174" rx="1" fill="#F5F5F5"/>
                 <rect y="26.5645" width="28" height="3.52174" rx="1" fill="#F5F5F5"/>
             </svg>
-            <h4><a href="account.php">Se déconnecter</a></h4>
+            <h4><a id="accountDisconnect">Se déconnecter</a></h4>
         </nav>
         <div id="headerPopup">
         <ul>
@@ -55,14 +60,14 @@
         <div class="container">
             <img src="asset/img/profils/photoProfil.png" alt="" id="photoProfil">
             <div class="middle">
-                <img src="asset/icons/photo.svg" alt="">
+                <img src="asset/icons/blanc/photo.svg" alt="" id="">
             </div>
         </div>
         <p class="bienvenue">Bienvenue ! Accédez à votre <a href="" class="lienPagePerso">page personnel</a>.</p>
 
         <div class="pageAccueil">
             
-            <a href="comptesInfos.php">
+            <a href="compte.php">
                 <div>
                     
                     <figure>
@@ -125,6 +130,62 @@
         <a href="" id="comptePro">Passer à un compte propriétaire</a>
 
     </div>
+
+
+
+    <form method="post" id="popUpDeco">
+        <div class="popUpDecoChoix">
+            <h2>Êtes-vous sûr de vouloir <br>vous déconnecter ?</h2>
+            <div class="button-container">
+                <input class="cancel-button" id="cancelDisconnect" type="button" value="Annuler"/>
+                <input class="confirm-button" id="confirmDisconnect" type="submit" value="Se déconnecter"/>
+            </div>
+        </div>
+  </form>
+
+    <footer>
+
+    <div id="infosFooter">
+    <div id="footerCercleLogo" class="portableDroite">
+        <img src="asset/img/logo.png" alt="logo">
+    </div>
+    <div id="textefooter">
+      <div class="gauche" class="portableGauche" id="infosLegal">
+          <h2>Informations légales</h2>
+          <a href="">Plan du site</a>
+          <a href="">Mentions légales</a>
+          <a href="">Conditions générales de ventes</a>
+          <a href="">Données personnelles</a>
+          <a href="">Gestions des cookies</a>
+      </div>
+      <div class="centrer" class="portableDroite" id="support">
+          <h2>Support client</h2>
+          <a href="">Contacter le support</a>
+      </div>
+      <div class="centrer" class="portableDroite" id="reseaux">
+          <h2>Suivez nous</h2>
+          <div id="logoReseaux">
+              <a href=""><img src="asset/icons/blanc/facebook.svg" alt=""></a>
+              <a href=""><img src="asset/icons/blanc/instagram.svg" alt=""></a>
+              <a href=""><img src="asset/icons/blanc/steam.svg" alt=""></a>
+          </div>
+      </div>
+      <div class="droite" class="portableGauche" id="contact">
+          <h2>Nous contacter</h2>
+          <p>Rue Édouard Branly, 22300 Lannion</p>
+          <p>02 96 46 93 00</p>
+          <p>iut-lannion.univ-rennes.fr</p>
+      </div>
+  </div>
+</div>
+
+<div class="basFooter">
+  <p>Copyright @ 2023 LoQuali.com</p>
+</div>
+
+</footer>
+
     <script src="asset/js/header.js"></script>
+    <script src="asset/js/accountAccueil.js"></script>
 </body>
 </html>

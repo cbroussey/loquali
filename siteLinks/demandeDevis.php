@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap">
-    <link rel="stylesheet" href="asset/css/style.css">
+    <link rel="stylesheet" href="asset/css/devis.css">
 
 </head>
 
@@ -45,19 +45,23 @@
  </div>
  </header>-->
 
-    <main class ="main-devis    ">
+    <main class="main-devis    ">
         <?php
         include('connect_params.php');
         try {
             $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
-            $id = $_GET["id"];
-            $qui = $_GET["qui"];
+            $id = $_POST["id"];
+            $qui = $_POST["qui"];
 
-            foreach ($dbh->query("SELECT * from test.devis WHERE id_reservation =$id", PDO::FETCH_ASSOC) as $row) {
-                $devis = $row;
-            }
-            foreach ($dbh->query("SELECT * from test.reservation WHERE id_reservation =$id", PDO::FETCH_ASSOC) as $row) {
+            
+            foreach ($dbh->query("SELECT * from test.reservation WHERE id_logement =$id", PDO::FETCH_ASSOC) as $row) {
                 $reserv = $row;
+            }
+            
+            $id_reserv = $reserv["id_reservation"];
+            echo($id_reserv);
+            foreach ($dbh->query("SELECT * from test.devis WHERE id_reservation =$id_reserv", PDO::FETCH_ASSOC) as $row) {
+                $devis = $row;
             }
             foreach ($dbh->query("SELECT * from test.logement WHERE id_logement =$id", PDO::FETCH_ASSOC) as $row) {
                 $info = $row;
@@ -88,10 +92,17 @@
                 $i++;
             }
             $i = 0;
-            foreach ($dbh->query("SELECT * from test.charges_selectionnees WHERE id_reservation =$id", PDO::FETCH_ASSOC) as $row) {
+            foreach ($dbh->query("SELECT * from test.prix_charge WHERE id_logement =$id", PDO::FETCH_ASSOC) as $row) {
                 $charge[$i] = $row;
                 $i++;
             }
+            $i = 0;
+            foreach ($dbh->query("SELECT * from test.photo_logement WHERE id_logement =$id", PDO::FETCH_ASSOC) as $row) {
+                $photo[$i] = $row;
+                $i++;
+            }
+            
+            
         } catch (PDOException $e) {
             print "Erreur !: " . $e->getMessage() . "<br/>";
             die();
@@ -100,34 +111,71 @@
         ?>
         <div class="demande">
             <div class="retour">
-                <button class="boutonRetour" onclick="history.back()"><img src="asset/icons/blanc/arrow_retour.svg"></button>
+                <button class="boutonRetour" onclick="history.back()"><img src="asset/icons/blanc/retour.svg"></button>
 
                 <h1 class="h1-mobile">Demande de réservation</h1>
             </div>
             <div class="voyage">
                 <h2 class="h2-mobile">Votre Voyage</h2>
-                <div class="voyage_container">
-                    <div class="date"  <?php if ($qui == "proprietaire" || $qui == "client") { echo 'id="block_date"'; } ?>>
+                <div class="voyage_container" <?php if ($qui == "proprietaire" || $qui == "client") {
+                                                    echo 'id="block_date"';
+                                                } ?>>
+                    <div class="date">
+                        <?php
+                        $dateDebut = $reserv["debut_reservation"];
+                        $dateDebutFormat = strtotime($dateDebut);
+                        $dateArrive = date("l d-m-Y", $dateDebutFormat);
+
+                        $dateFin = $reserv["fin_reservation"];
+                        $dateFinFormat = strtotime($dateFin);
+                        $dateDepart = date("l d-m-Y", $dateFinFormat);
+
+                        function convertirJourEnFrancais($jourEnAnglais)
+                        {
+                            switch ($jourEnAnglais) {
+                                case 'Monday':
+                                    return 'Lundi';
+                                case 'Tuesday':
+                                    return 'Mardi';
+                                case 'Wednesday':
+                                    return 'Mercredi';
+                                case 'Thursday':
+                                    return 'Jeudi';
+                                case 'Friday':
+                                    return 'Vendredi';
+                                case 'Saturday':
+                                    return 'Samedi';
+                                case 'Sunday':
+                                    return 'Dimanche';
+                                default:
+                                    return $jourEnAnglais;
+                            }
+                        }
+
+                        
+                        $jourArrivee = convertirJourEnFrancais(date('l', $dateDebutFormat));
+                        $jourDepart = convertirJourEnFrancais(date('l', $dateFinFormat));
+                        ?>
+
                         <div class="date_arrivee">
-                            <img src="asset/icons/bleu/date.svg" alt="">
-                            <p><?php echo ($reserv["debut_reservation"]);  ?></p>
+                            <img src="asset/icons/<?php echo ($qui == "proprietaire" || $qui == "client") ? "blanc" : "bleu"; ?>/date.svg" alt="">
+                            <p><?php echo ($jourArrivee . date(" d-m-Y", $dateDebutFormat)); ?></p>
                         </div>
                         <div class="date_depart">
-                            <img src="asset/icons/bleu/date.svg" alt="">
-                            <p><?php echo ($reserv["fin_reservation"]);  ?></p>
+                            <img src="asset/icons/<?php echo ($qui == "proprietaire" || $qui == "client") ? "blanc" : "bleu"; ?>/date.svg" alt="">
+                            <p><?php echo ($jourDepart . date(" d-m-Y", $dateFinFormat)); ?></p>
                         </div>
                     </div>
 
                     <div class="personne">
-                        <img src="asset/icons/bleu/personne.svg" alt="">
-                        <p><?php echo ($reserv["nb_personne"]);  ?> pers. (2 adultes, 0 enfants)</p>
-                        <img src="asset/icons/bleu/fleche_bas.svg" alt="">
+                        <img src="asset/icons/<?php echo ($qui == "proprietaire" || $qui == "client") ? "blanc" : "bleu"; ?>/personne.svg" alt="">
+                        <p><?php echo ($reserv["nb_personne"]); ?> pers. (2 adultes, 0 enfants)</p>
+                        <img src="asset/icons/bleu/arrow-down.svg" style="<?php echo ($qui == "proprietaire" || $qui == "client") ? "display:none;" : ""; ?>" alt="">
+
                     </div>
                 </div>
-
-
-
             </div>
+
             <div class="icons_info">
 
 
@@ -135,27 +183,27 @@
                     <h2 class="h2-mobile">Type de logement</h2>
                     <div class="icons">
                         <div>
-                            <img src="icons/appart_bleu.svg" alt="">
+                            <img src="asset/icons/bleu/appart_bleu.svg" alt="">
                             <p><?php echo ($info["nature_logement"]);  ?> </p>
                         </div>
                         <div>
-                            <img src="icons/salon_bleu.svg" alt="">
+                            <img src="asset/icons/bleu/salon.svg" alt="">
                             <p>Salon</p>
                         </div>
                         <div>
-                            <img src="icons/chambre_bleu.svg" alt="">
+                            <img src="asset/icons/bleu/chambre.svg" alt="">
                             <p><?php echo ($info["nb_chambre"]);  ?> chambres</p>
                         </div>
                         <div>
-                            <img src="icons/salle_bain_bleu.svg" alt="">
+                            <img src="asset/icons/bleu/salle_bain.svg" alt="">
                             <p>Salle de bain</p>
                         </div>
                         <div>
-                            <img src="icons/cusine_bleu.svg" alt="">
+                            <img src="asset/icons/bleu/cusine.svg" alt="">
                             <p>Cusine</p>
                         </div>
                         <div>
-                            <img src="icons/wifi_bleu.svg" alt="">
+                            <img src="asset/icons/bleu/chambre.svg" alt="">
 
                             <p>Wi-fi comprise</p>
                         </div>
@@ -265,7 +313,7 @@
             <div class="sticky_recap">
                 <div class="recap-info">
                     <div class="info_logoment">
-                        <img src="../asset/test_img/<?php echo ($photo["photo"]["name"][0]); ?>" width="183px" height="124px">
+                        <img src="asset/img/logements/<?php echo ($photo[0]["id_image"]); ?>.jpg" width="183px" height="124px">
                         <div>
                             <span>
                                 <p class="info">Logement : <?php echo ($info["nature_logement"]) ?></p>
@@ -291,7 +339,7 @@
                             foreach ($charge as $elemnt => $value) { ?>
                                 <div class="row">
                                     <div class="label"><?php echo ($value["nom_charge"]); ?></div>
-                                    <div class="value">80€</div>
+                                    <div class="value"><?php echo ($value["prix_charge"]); ?>€</div>
                                 </div>
                         <?php }
                         } ?>
@@ -316,17 +364,22 @@
                 </div><?php
                         if ($qui == null) {
                         ?>
-                    <div class="button_valider">
-                        <a href="http://localhost:8888/devis/demande.php?qui=proprietaire&id=1">Envoyer une demande de devis</a>
-                    </div>
+                    <form action="demandeDevis.php" class="button_valider" method="POST">
+                        <input name="id" value="<?php echo($id);?>" hidden readonly>
+                        <input name="qui" value="proprietaire" hidden readonly>
+                        <button class="devisButton">Envoyer une demande de devis</button>
+                        </form >
+                        
                 <?php } ?>
 
                 <?php
                 if ($qui == "proprietaire") {
                 ?>
-                    <div class="button_valider">
-                        <a href="http://localhost:8888/devis/demande.php?qui=client&id=1">Envoyer le de devis</a>
-                    </div>
+                    <form action="demandeDevis.php" class="button_valider" method="POST">
+                        <input name="id" value="<?php echo($id);?>" hidden readonly>
+                        <input name="qui" value="client" hidden readonly>
+                        <button class="devisButton">Envoyer le devis</button>
+                        </form >
                     <div class="button_refuser">
                         <a href="#" onclick="afficherPopup()">Refuser le devis</a>
                     </div>
@@ -344,9 +397,10 @@
                 <?php } ?>
                 <?php
                 if ($qui == "client") { ?>
-                    <div class="button_valider">
-                        <a href="https://www.youtube.com/watch?v=utcaWkuy7Ko">Payer le devis</a>
-                    </div>
+                   <form action="paiement.php" class="button_valider" method="POST">
+                        <input name="id" value="<?php echo($id);?>" hidden readonly>
+                        <button class="devisButton">Payer le devis</button>
+                        </form >
                     <div class="button_refuser">
                         <a href="#" onclick="afficherPopup()">Refuser le devis</a>
                     </div>
@@ -378,35 +432,49 @@
         </div>
 
 
-    </div><!--
+    </div>
+    <!--
     <footer>
- <div>
- <div id="footerCercleLogo">
- <img src="../asset/img/logo.png" alt="logo">
- </div>
- <div id="footerText">
- <div>
- <h4>Nous contacter</h4>
- <address>1, Rue édouard Branly, 22300 Lannion</address><br>
- <a href="tel:+33296469300">02 96 46 93 00</a><br>
- <a href="mailto:iut-lannion.univ-rennes.fr">iut-lannion.univ-rennes.fr</a>
- </div>
- <div>
- <h4>Informations légales</h4>
- <a href="">Plan du site</a><br>
- <a href="">Mention légales</a><br>
- <a href="">Condition générales de ventes</a><br>
- <a href="">Données personnelles</a><br>
- <a href="">Gestion de cookies</a><br>
- </div>
- </div>
- </div>
- <div>
- <p>texte random</p>
- <p>Copyright @ 2023 LoQuali.com</p>
- <p>Suivez-nous !</p>
- </div>
- </footer>-->
+
+        <div id="infosFooter">
+        <div id="footerCercleLogo" class="portableDroite">
+            <img src="asset/img/logo.png" alt="logo">
+        </div>
+        <div id="textefooter">
+        <div class="gauche" class="portableGauche" id="infosLegal">
+            <h2>Informations légales</h2>
+            <a href="">Plan du site</a>
+            <a href="">Mentions légales</a>
+            <a href="">Conditions générales de ventes</a>
+            <a href="">Données personnelles</a>
+            <a href="">Gestions des cookies</a>
+        </div>
+        <div class="centrer" class="portableDroite" id="support">
+            <h2>Support client</h2>
+            <a href="">Contacter le support</a>
+        </div>
+        <div class="centrer" class="portableDroite" id="reseaux">
+            <h2>Suivez nous</h2>
+            <div id="logoReseaux">
+                <a href=""><img src="asset/icons/blanc/facebook.svg" alt=""></a>
+                <a href=""><img src="asset/icons/blanc/instagram.svg" alt=""></a>
+                <a href=""><img src="asset/icons/blanc/steam.svg" alt=""></a>
+            </div>
+        </div>
+        <div class="droite" class="portableGauche" id="contact">
+            <h2>Nous contacter</h2>
+            <p>Rue Édouard Branly, 22300 Lannion</p>
+            <p>02 96 46 93 00</p>
+            <p>iut-lannion.univ-rennes.fr</p>
+        </div>
+        </div>
+        </div>
+
+        <div class="basFooter">
+        <p>Copyright @ 2023 LoQuali.com</p>
+        </div>
+
+    </footer>-->
 </body>
 
 </html>

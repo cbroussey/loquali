@@ -35,11 +35,11 @@
           <rect y="26.5645" width="28" height="3.52174" rx="1" fill="#F5F5F5"/>
       </svg>
       <?php 
-      if (isset($_SESSION['username'])) {
+      if (isset($_SESSION['userId'])) {
       ?>
       <h4><a href="">Messagerie</a></h4>
       <h4><a href="">Mes réservations</a></h4>
-      <h4><a href="account.php">Mon compte</a></h4>
+      <h4><a href="compteAccueil.php">Mon compte</a></h4>
       <?php } else {
         ?>
           <h4><a href="connexion.php">Se connecter</a></h4>
@@ -195,33 +195,45 @@
 
     ?>
   <footer>
-    <div>
-      <div id="footerCercleLogo">
-        <img src="asset/img/logo.png" alt="logo">
+
+<div id="infosFooter">
+<div id="footerCercleLogo" class="portableDroite">
+    <img src="asset/img/logo.png" alt="logo">
+</div>
+<div id="textefooter">
+  <div class="gauche" class="portableGauche" id="infosLegal">
+      <h2>Informations légales</h2>
+      <a href="">Plan du site</a>
+      <a href="">Mentions légales</a>
+      <a href="">Conditions générales de ventes</a>
+      <a href="">Données personnelles</a>
+      <a href="">Gestions des cookies</a>
+  </div>
+  <div class="centrer" class="portableDroite" id="support">
+      <h2>Support client</h2>
+      <a href="">Contacter le support</a>
+  </div>
+  <div class="centrer" class="portableDroite" id="reseaux">
+      <h2>Suivez nous</h2>
+      <div id="logoReseaux">
+          <a href=""><img src="asset/icons/blanc/facebook.svg" alt=""></a>
+          <a href=""><img src="asset/icons/blanc/instagram.svg" alt=""></a>
+          <a href=""><img src="asset/icons/blanc/steam.svg" alt=""></a>
       </div>
-      <div id="footerText">
-        <div>
-          <h4>Nous contacter</h4>
-          <address>1, Rue édouard Branly, 22300 Lannion</address><br>
-          <a href="tel:+33296469300">02 96 46 93 00</a><br>
-          <a href="mailto:iut-lannion.univ-rennes.fr">iut-lannion.univ-rennes.fr</a>
-        </div>
-        <div>
-          <h4>Informations légales</h4>
-          <a href="">Plan du site</a><br>
-          <a href="">Mention légales</a><br>
-          <a href="">Condition générales de ventes</a><br>
-          <a href="">Données personnelles</a><br>
-          <a href="">Gestion de cookies</a><br>
-        </div>
-      </div>
-    </div>
-    <div>
-      <p>texte random</p>
-      <p>Copyright @ 2023 LoQuali.com</p>
-      <p>Suivez-nous !</p>
-    </div>
-  </footer>
+  </div>
+  <div class="droite" class="portableGauche" id="contact">
+      <h2>Nous contacter</h2>
+      <p>Rue Édouard Branly, 22300 Lannion</p>
+      <p>02 96 46 93 00</p>
+      <p>iut-lannion.univ-rennes.fr</p>
+  </div>
+</div>
+</div>
+
+<div class="basFooter">
+<p>Copyright @ 2023 LoQuali.com</p>
+</div>
+</footer>
   <script src="asset/js/header.js"></script>
   <script src="asset/js/index.js"></script>
 </body>

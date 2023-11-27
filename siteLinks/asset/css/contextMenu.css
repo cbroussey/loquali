@@ -3,7 +3,6 @@
     --DPselbg: #7297B8;
     --DPhovbg: #2072BC;
     --CMhovbg: #C7C7C7;
-    --animSpeed: .1s;
 }
 
 .contextMenu {
@@ -11,6 +10,7 @@
     position: absolute;
     visibility: collapse;
     opacity: 0;
+    padding: 0;
     flex-direction: column;
     align-items: center;
     font-family: "Inter";
@@ -26,9 +26,12 @@
     border-radius: 10px;
     overflow: hidden;
     background-color: var(--DPbg);
+    width: inherit;
 }
 
 .contextMenu > table > tbody > tr > td {
+    display: flex;
+    align-items: center;
     padding: .6em 1em;
     color: #545454;
     -webkit-user-select: none; /* Safari */
@@ -39,4 +42,12 @@
 
 .contextMenu > table > tbody > tr > td:hover {
     background-color: var(--CMhovbg);
+}
+
+.contextMenu > table > tbody > tr > td > .cmHideElem {
+    visibility: collapse;
+}
+
+.contextMenu > table > tbody > tr, .contextMenu > table > tbody > tr > td > input {
+    cursor: pointer;
 }
