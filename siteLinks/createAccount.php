@@ -23,8 +23,7 @@
             die();
         }
     } 
-    // && emailIsInDB($_POST['email'])
-    if (isset($_POST['nom']) && ($_POST['passwordInput'] == $_POST['passwordInput2'])) {
+    if (isset($_POST['nom']) && ($_POST['passwordInput'] == $_POST['passwordInput2']) && !emailIsInDB($_POST['email'])) {
 
         session_start();
         include('connect_params.php');
