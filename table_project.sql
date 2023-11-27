@@ -17,7 +17,9 @@ create table compte(
     nom varchar(255),
     prenom varchar(255),
     adresse_mail varchar(255) check (adresse_mail ~ '^[a-zA-Z0-9\._%+-]+@[a-zA-Z0-9\.-]+\.\w{2,4}$'),
-    adresse_postale varchar(255),
+    code_postal integer,
+    ville varchar(255),
+    adresse varchar(255),
     derniere_operation timestamp,
     photo_de_profil integer,
     piece_identite integer,
@@ -66,8 +68,6 @@ create table logement(
     code_postal varchar(255) check (code_postal ~ '^[0-9]{5}$|^2[AB]$'),
     departement varchar(255) check (departement in ('Finistère', 'Morbihan', 'Côte-d''Armor', 'Ile-et-Vilaine')), -- JSP si c'est très utile, on a déjà le code postal faut juste déduire
     localisation varchar(255), -- = commune/ville
-    adresse VARCHAR(255),
-    complement_adresse VARCHAR(255),
     info_arrivee varchar(255),
     info_depart varchar(255),
     reglement_interieur varchar(255),
@@ -448,10 +448,3 @@ VALUES
     (2, 350.00, 'Facture pour la réservation 2', 200.00, 2),
     (3, 150.00, 'Facture pour la réservation 3', 60.00, 3);
     
-CREATE FUNCTION getCurrentData(id_logement) RETURNS TABLE(disponibilite BOOLEAN, prix_ht numeric(10,2), delai_annul integer, pourcentage_retenu numeric(10,2), date_debut date, date_fin date, id_logement integer) AS $$
-DECLARE
-  plage = CURRENT_DATE;
-BEGIN
-  SELECT * FROM plage WHERE date_debut >= CURRENT_DATE && date_fin <= CURRENT_DATE;
-END;
-$$ LANGUAGE plpgsql;
