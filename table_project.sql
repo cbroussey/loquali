@@ -4,264 +4,264 @@ set schema 'test';
 
 
 create table image(
-    id_image INTEGER NOT NULL,
+    id_image integer not null,
     constraint image_pk primary key (id_image)
 );
 
-CREATE TABLE compte(
-    id_compte SERIAL NOT NULL,
-    identifiant VARCHAR(255) UNIQUE,
-    mdp VARCHAR(255),
-    nom_affichage VARCHAR(255),
-    date_creation DATE,
-    nom VARCHAR(255),
-    prenom VARCHAR(255),
-    adresse_mail VARCHAR(255) CHECK (adresse_mail ~ '^[a-zA-Z0-9\._%+-]+@[a-zA-Z0-9\.-]+\.\w{2,4}$'),
-    adresse_postale VARCHAR(255),
-    derniere_operation TIMESTAMP,
-    photo_de_profil INTEGER,
-    piece_identite INTEGER,
-    constraint compte_pk PRIMARY KEY(id_compte),
-    CONSTRAINT compte_fk_pfp FOREIGN KEY(photo_de_profil) REFERENCES image(id_image),
-    CONSTRAINT compte_fk_identite FOREIGN KEY(piece_identite) REFERENCES image(id_image)
+create table compte(
+    id_compte serial not null,
+    identifiant varchar(255) unique,
+    mdp varchar(255),
+    nom_affichage varchar(255),
+    date_creation date,
+    nom varchar(255),
+    prenom varchar(255),
+    adresse_mail varchar(255) check (adresse_mail ~ '^[a-zA-Z0-9\._%+-]+@[a-zA-Z0-9\.-]+\.\w{2,4}$'),
+    adresse_postale varchar(255),
+    derniere_operation timestamp,
+    photo_de_profil integer,
+    piece_identite integer,
+    constraint compte_pk primary key(id_compte),
+    constraint compte_fk_pfp foreign key(photo_de_profil) references image(id_image)ON DELETE CASCADE,
+    constraint compte_fk_identite foreign key(piece_identite) references image(id_image)ON DELETE CASCADE
 );  
 
-CREATE TABLE client(
-    id_compte INTEGER NOT NULL,
-    note_client NUMERIC(3,2) CHECK (note_client >= 0 AND note_client <= 5),
-    -- civilite VARCHAR(255), -- Non-précisé pour le client, on peut empêcher la discrimination
-    CONSTRAINT client_pk PRIMARY KEY (id_compte),
-    CONSTRAINT client_fk_compte FOREIGN KEY (id_compte) REFERENCES compte(id_compte)
+create table client(
+    id_compte integer not null,
+    note_client numeric(3,2) check (note_client >= 0 and note_client <= 5),
+    -- civilite varchar(255), -- non-précisé pour le client, on peut empêcher la discrimination
+    constraint client_pk primary key (id_compte),
+    constraint client_fk_compte foreign key (id_compte) references compte(id_compte)ON DELETE CASCADE
 );
 
-CREATE TABLE proprietaire(
-    id_compte INTEGER NOT NULL,
-    description VARCHAR(255),
-    note_proprio NUMERIC(3,2) CHECK (note_proprio >= 0 AND note_proprio <= 5),
-    civilite VARCHAR(255) CHECK (civilite IN ('M', 'F', 'Mme')), -- Nécessaire ici pcq précisé
-    RIB VARCHAR(34) CHECK (RIB ~ '^\w{2}\d{2}[a-zA-Z0-9]{1,30}$'),
+create table proprietaire(
+    id_compte integer not null,
+    description varchar(255),
+    note_proprio numeric(3,2) check (note_proprio >= 0 and note_proprio <= 5),
+    civilite varchar(255) check (civilite in ('M', 'F', 'Mme')), -- nécessaire ici pcq précisé
+    rib varchar(34) check (rib ~ '^\w{2}\d{2}[a-zA-Z0-9]{1,30}$'),
     constraint proprietaire_pk primary key (id_compte),
-    constraint proprietaire_fk_compte Foreign Key (id_compte) REFERENCES compte(id_compte)
+    constraint proprietaire_fk_compte foreign key (id_compte) references compte(id_compte)ON DELETE CASCADE
 );
 
-create TABLE logement(
-    id_logement SERIAL NOT NULL,
-    prix_TTC FLOAT,
-    note_logement FLOAT CHECK (note_logement >= 0 AND note_logement <= 5),
-    en_ligne BOOLEAN DEFAULT FALSE,
+create table logement(
+    id_logement serial not null,
+    prix_ttc float,
+    note_logement float check (note_logement >= 0 and note_logement <= 5),
+    en_ligne boolean,
     ouvert BOOLEAN DEFAULT FALSE,
-    type_logement VARCHAR(255),
-    nature_logement VARCHAR(255),
-    descriptif VARCHAR(255),
-    surface INTEGER,
-    disponible_defaut BOOLEAN,
-    prix_base_HT FLOAT,
+    type_logement varchar(255),
+    nature_logement varchar(255),
+    descriptif varchar(255),
+    surface integer,
+    disponible_defaut boolean,
+    prix_base_ht float,
     delai_annul_defaut int, -- en jours
-    pourcentage_retenu_defaut NUMERIC(3),
-    libelle_logement VARCHAR(80),
+    pourcentage_retenu_defaut numeric(3),
+    libelle_logement varchar(255),
     accroche VARCHAR(255),
-    nb_pers_max INTEGER,
+    nb_pers_max integer,
     nb_chambre integer,
     nb_salle_de_bain integer,
-    code_postal VARCHAR(5) CHECK (code_postal ~ '^[0-9]{5}$|^2[AB]$'),
-    departement VARCHAR(255) CHECK (departement IN ('Finistère', 'Morbihan', 'Côte-d''Armor', 'Ile-et-Vilaine')), -- JSP si c'est très utile, on a déjà le code postal faut juste déduire
-    localisation VARCHAR(255), -- = commune/ville
-    info_arrivee VARCHAR(255),
-    info_depart VARCHAR(255),
-    reglement_interieur VARCHAR(255),
-    id_compte INTEGER,
-    constraint logement_pk PRIMARY KEY(id_logement),
-    constraint logement_fk_proprietaire foreign key (id_compte) references proprietaire(id_compte)  
+    code_postal varchar(255) check (code_postal ~ '^[0-9]{5}$|^2[AB]$'),
+    departement varchar(255) check (departement in ('Finistère', 'Morbihan', 'Côte-d''Armor', 'Ile-et-Vilaine')), -- JSP si c'est très utile, on a déjà le code postal faut juste déduire
+    localisation varchar(255), -- = commune/ville
+    info_arrivee varchar(255),
+    info_depart varchar(255),
+    reglement_interieur varchar(255),
+    id_compte integer,
+    constraint logement_pk primary key(id_logement),
+    constraint logement_fk_proprietaire foreign key (id_compte) references proprietaire(id_compte)ON DELETE CASCADE  
 ); 
 
 create table photo_logement(
     id_image integer,
     id_logement integer,
     constraint photo_logement_pk primary key (id_image, id_logement),
-    constraint photo_logement_fk_image foreign key (id_image) references image(id_image),
-    constraint photo_logement_fk_logement foreign key (id_logement) references logement(id_logement)
+    constraint photo_logement_fk_image foreign key (id_image) references image(id_image)ON DELETE CASCADE,
+    constraint photo_logement_fk_logement foreign key (id_logement) references logement(id_logement)ON DELETE CASCADE
 );
 
-CREATE TABLE CB(
-    numero_carte Varchar(16) CHECK (numero_carte ~ '^[0-9]{16}$'),
-    date_validite DATE,
-    cryptogramme INTEGER,
-    id_compte INTEGER,
-    constraint CB_pk PRIMARY Key(numero_carte),
-    constraint CB_fk_client foreign key (id_compte) REFERENCES client(id_compte)
+create table cb(
+    numero_carte varchar(16) check (numero_carte ~ '^[0-9]{16}$'),
+    date_validite date,
+    cryptogramme integer,
+    id_compte integer,
+    constraint cb_pk primary key(numero_carte),
+    constraint cb_fk_client foreign key (id_compte) references client(id_compte)ON DELETE CASCADE
 );
 
 create table langue(
-    nom_langue VARCHAR(255),
-    id_compte INTEGER,
-    constraint langue_pk primary key(nom_langue, id_compte),
-    constraint langue_fk_compte foreign key (id_compte) references compte(id_compte)
+    nom_langue varchar(255),
+    id_compte integer,
+    constraint langue_pk primary key(nom_langue,id_compte),
+    constraint langue_fk_compte foreign key (id_compte) references compte(id_compte)ON DELETE CASCADE
 );
 
 create table message(
-    id_dest INTEGER,
-    id_msg INTEGER,
-    contenu VARCHAR(255),
-    date_msg TIMESTAMP,
-    id_compte INTEGER,
+    id_dest integer,
+    id_msg integer,
+    contenu varchar(255),
+    date_msg timestamp,
+    id_compte integer,
     constraint message_pk primary key (id_dest,id_msg,id_compte),
-    constraint message_fk_compte foreign key (id_compte) references compte(id_compte),
-    constraint message_fk_dest foreign key (id_dest) references compte(id_compte)
+    constraint message_fk_compte foreign key (id_compte) references compte(id_compte) ON DELETE CASCADE,
+    constraint message_fk_dest foreign key (id_dest) references compte(id_compte) ON DELETE CASCADE
 );
 
 create table message_type(
-    titre_message VARCHAR(255),
-    contenu_type VARCHAR(255),
-    nb_jours_auto INT,
-    relativite VARCHAR(10) CHECK (relativite IN ('arrivee', 'depart')),
-    id_compte INTEGER,
+    titre_message varchar(255),
+    contenu_type varchar(255),
+    nb_jours_auto int,
+    relativite varchar(10) check (relativite in ('arrivee', 'depart')),
+    id_compte integer,
     constraint message_type_pk primary key (id_compte, titre_message),
-    constraint message_type_fk_compte foreign key (id_compte) references compte(id_compte)  
+    constraint message_type_fk_compte foreign key (id_compte) references compte(id_compte)ON DELETE CASCADE
 );
 
 create table telephone(
-    numero VARCHAR(10) CHECK (numero ~ '^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$'), -- Inclut les indicatifs, nécessaire pour les téléphones étrangers
-    info VARCHAR(255),
-    id_compte INTEGER,
+    numero varchar(10) check (numero ~ '^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$'), -- Inclut les indicatifs, nécessaire pour les téléphones étrangers
+    info varchar(255),
+    id_compte integer,
     constraint telephone_pk primary key (numero),
-    constraint telephone_fk_compte foreign key (id_compte) references compte(id_compte)
+    constraint telephone_fk_compte foreign key (id_compte) references compte(id_compte)ON DELETE CASCADE
 );
 
 create table amenagement(
-    nom_amenagement VARCHAR(255),
-    id_logement INTEGER,
-    CONSTRAINT amenagement_pk PRIMARY KEY(nom_amenagement, id_logement),
-    constraint amenagement_fk_logement foreign key (id_logement) references logement(id_logement)
+    nom_amenagement varchar(255),
+    id_logement integer,
+    constraint amenagement_pk primary key(nom_amenagement, id_logement),
+    constraint amenagement_fk_logement foreign key (id_logement) references logement(id_logement)ON DELETE CASCADE
 );
 
 create table equipement(
-    nom_equipement VARCHAR(255),
-    id_logement INTEGER,
-    CONSTRAINT equipement_pk PRIMARY KEY(nom_equipement, id_logement),
-    constraint equipement_fk_logement foreign key (id_logement) references logement(id_logement)
+    nom_equipement varchar(255),
+    id_logement integer,
+    constraint equipement_pk primary key(nom_equipement, id_logement),
+    constraint equipement_fk_logement foreign key (id_logement) references logement(id_logement)ON DELETE CASCADE
 );
 
 create table service(
-    nom_service VARCHAR(255),
-    id_logement INTEGER,
-    CONSTRAINT service_pk PRIMARY KEY(nom_service, id_logement),
-    constraint service_fk_logement foreign key (id_logement) references logement(id_logement)
+    nom_service varchar(255),
+    id_logement integer,
+    constraint service_pk primary key(nom_service, id_logement),
+    constraint service_fk_logement foreign key (id_logement) references logement(id_logement)ON DELETE CASCADE
 );
 
 create table installation(
-    nom_installation VARCHAR(255),
-    id_logement INTEGER,
-    CONSTRAINT installation_pk PRIMARY KEY(nom_installation, id_logement),
-    constraint installation_fk_logement foreign key (id_logement) references logement(id_logement)
+    nom_installation varchar(255),
+    id_logement integer,
+    constraint installation_pk primary key(nom_installation, id_logement),
+    constraint installation_fk_logement foreign key (id_logement) references logement(id_logement)ON DELETE CASCADE
 );
 create table reservation(
-    id_reservation INTEGER NOT NULL,
+    id_reservation integer not null,
     debut_reservation date,
     fin_reservation date,
-    nb_personne INTEGER,
-    id_compte INTEGER,
-    id_logement INTEGER,
+    nb_personne integer,
+    id_compte integer,
+    id_logement integer,
     constraint reservation_pk primary key(id_reservation),
-    constraint reservation_fk_client foreign Key (id_compte) references client(id_compte),
-    constraint reservation_fk_logement foreign key (id_logement) references logement(id_logement)
+    constraint reservation_fk_client foreign key (id_compte) references client(id_compte)ON DELETE CASCADE,
+    constraint reservation_fk_logement foreign key (id_logement) references logement(id_logement)ON DELETE CASCADE
 );
 
 create table avis(
-    id_avis INTEGER NOT NULL,
-    id_parent INTEGER,
-    titre VARCHAR(255),
-    contenu VARCHAR(255),
-    date_avis TIMESTAMP,
-    id_logement INTEGER,
-    note_avis NUMERIC(3, 2) CHECK (note_avis >= 0 AND note_avis <= 5),
+    id_avis SERIAL not null,
+    id_parent integer,
+    titre varchar(255),
+    contenu varchar(255),
+    date_avis timestamp,
+    id_logement integer,
+    note_avis numeric(3, 2) check (note_avis >= 0 and note_avis <= 5),
     constraint avis_pk primary key(id_avis),
-    constraint avis_fk_logement foreign key (id_logement) references logement(id_logement)
+    constraint avis_fk_logement foreign key (id_logement) references logement(id_logement)ON DELETE CASCADE
 );
 
 create table signalement(
-    id_signalement INTEGER NOT NULL,
-    justification VARCHAR(255),
-    type_signalement VARCHAR(255),
-    id_compte INTEGER, -- personne qui a signalé
+    id_signalement integer not null,
+    justification varchar(255),
+    type_signalement varchar(255),
+    id_compte integer, -- personne qui a signalé
     id_objet int,
-    classe_objet varchar(255) CHECK (classe_objet IN ('compte', 'logement', 'avis', 'message')),
+    classe_objet varchar(255) check (classe_objet in ('compte', 'logement', 'avis', 'message')),
     constraint signalement_pk primary key(id_signalement)
-    -- Contrainte pour classe objet : ne peut être que "compte", "avis", "logement" ou "message"
+    -- contrainte pour classe objet : ne peut être que "compte", "avis", "logement" ou "message"
 );
 
 
 
 create table charge_additionnelle(
-    nom_charge VARCHAR(255),
+    nom_charge varchar(255),
     constraint charge_additionnelle_pk primary key(nom_charge)
 );
 
 create table prix_charge(
-    prix_charge NUMERIC(10,2),
-    id_logement INTEGER,
-    nom_charge VARCHAR(255),
-    constraint prix_charge_pk primary key (nom_charge, id_logement),
-    constraint prix_charge_fk_logement foreign key (id_logement) references logement(id_logement),
-    constraint prix_charge_fk_charge_additionnelle foreign key (nom_charge) references  charge_additionnelle(nom_charge)
+    prix_charge numeric(10,2),
+    id_logement integer,
+    nom_charge varchar(255),
+    constraint prix_charge_pk primary key (prix_charge, id_logement),
+    constraint prix_charge_fk_logement foreign key (id_logement) references logement(id_logement)ON DELETE CASCADE,
+    constraint prix_charge_fk_charge_additionnelle foreign key (nom_charge) references  charge_additionnelle(nom_charge)ON DELETE CASCADE
 );
 
-create table charges_selectionnees(
-    id_reservation INTEGER,
-    nom_charge VARCHAR(255),
-    constraint charges_selectionnees_pk primary key (nom_charge, id_reservation),
-    constraint charges_selectionnees_fk_reservation foreign key (id_reservation) references reservation(id_reservation),
-    constraint charges_selectionnees_fk_charge_additionnelle foreign key (nom_charge) references  charge_additionnelle(nom_charge)
-);
+  create table charges_selectionnees(
+      id_reservation integer,
+      nom_charge varchar(255),
+      constraint charges_selectionnees_pk primary key (nom_charge, id_reservation),
+      constraint charges_selectionnees_fk_reservation foreign key (id_reservation) references reservation(id_reservation)ON DELETE CASCADE,
+      constraint charges_selectionnees_fk_charge_additionnelle foreign key (nom_charge) references  charge_additionnelle(nom_charge)ON DELETE CASCADE
+  );
 
 create table plage(
-    disponibilite BOOLEAN,
-    prix_HT NUMERIC(10,2),
-    delai_annul INT,
-    pourcentage_retenu NUMERIC(10,2),
+    disponibilite boolean,
+    prix_ht numeric(10,2),
+    delai_annul int,
+    pourcentage_retenu numeric(10,2),
     date_debut date,
     date_fin date,
-    id_logement INTEGER,
-    constraint plage_fk_logement foreign key (id_logement) references logement(id_logement)
+    id_logement integer,
+    constraint plage_fk_logement foreign key (id_logement) references logement(id_logement)ON DELETE CASCADE
 );
 
 
 
 create table devis(
-    id_devis INTEGER NOT NULL,
-    prix_devis FLOAT,
+    id_devis integer not null,
+    prix_devis float,
     delai_acceptation date,
-    acceptation BOOLEAN,
-    date_devis TIMESTAMP,
-    id_reservation INTEGER,
+    acceptation boolean,
+    date_devis timestamp,
+    id_reservation integer,
     constraint devis_pk primary key (id_devis),
-    constraint devis_fk_reservation foreign key (id_reservation) references reservation(id_reservation)
+    constraint devis_fk_reservation foreign key (id_reservation) references reservation(id_reservation)ON DELETE CASCADE
 );
 
 create table contrainte_reservation(
-    duree_min_reservation INT NOT NULL, -- en jours
-    duree_max_reservation INT NOT NULL, -- en jours
-    delai_min_resa_arrive INT NOT NULL, -- en jours, valeur par défaut à rajouter dans logement
-    id_logement INTEGER,
+    duree_min_reservation int not null, -- en jours
+    duree_max_reservation int not null, -- en jours
+    delai_min_resa_arrive int not null, -- en jours, valeur par défaut à rajouter dans logement
+    id_logement integer,
     constraint contrainte_reservation_pk primary key (id_logement),
-    constraint contrainte_reservation_fk_logement foreign key (id_logement) references logement(id_logement)
+    constraint contrainte_reservation_fk_logement foreign key (id_logement) references logement(id_logement)ON DELETE CASCADE
 );
 
 create table lit(
-    type_lit VARCHAR(255),
-    nombre_lit INTEGER,
-    detail_lit VARCHAR(255),
-    id_logement INTEGER,
-    constraint lit_fk_logement foreign key (id_logement) references logement(id_logement)
+    type_lit varchar(255),
+    nombre_lit integer,
+    detail_lit varchar(255),
+    id_logement integer,
+    constraint lit_fk_logement foreign key (id_logement) references logement(id_logement)ON DELETE CASCADE
 );
 
 create table facture(
-    id_facture INTEGER NOT NULL,
-    prix_facture FLOAT,
-    info_facture VARCHAR(255),
-    payement FLOAT, -- Ce qui a déjà été payé par rapport au prix de la facture
-    id_devis INTEGER,
+    id_facture integer not null,
+    prix_facture float,
+    info_facture varchar(255),
+    payement float, -- Ce qui a déjà été payé par rapport au prix de la facture
+    id_devis integer,
     constraint facture_pk primary key(id_facture),
-    constraint facture_fk_devis foreign key (id_devis) references devis(id_devis)
+    constraint facture_fk_devis foreign key (id_devis) references devis(id_devis)ON DELETE CASCADE
 );
 
 
@@ -347,7 +347,7 @@ INSERT INTO telephone (numero, info, id_compte)
 VALUES
     ('0234567894', 'Téléphone principal', 1),
     ('0876543210', 'Téléphone secondaire', 2),
-    ('0111222333', 'Numéro de contact', 3);
+    ('0111222333', 'Numéro de contact', 3),
     ('0606060606', 'Numéro de contact', 4);
     
 INSERT INTO amenagement (nom_amenagement, id_logement)
@@ -453,4 +453,3 @@ BEGIN
   SELECT * FROM plage WHERE date_debut >= CURRENT_DATE && date_fin <= CURRENT_DATE;
 END;
 $$ LANGUAGE plpgsql;
-
