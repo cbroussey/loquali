@@ -66,6 +66,8 @@ create table logement(
     code_postal varchar(255) check (code_postal ~ '^[0-9]{5}$|^2[AB]$'),
     departement varchar(255) check (departement in ('Finistère', 'Morbihan', 'Côte-d''Armor', 'Ile-et-Vilaine')), -- JSP si c'est très utile, on a déjà le code postal faut juste déduire
     localisation varchar(255), -- = commune/ville
+    adresse VARCHAR(255),
+    complement_adresse VARCHAR(255),
     info_arrivee varchar(255),
     info_depart varchar(255),
     reglement_interieur varchar(255),
