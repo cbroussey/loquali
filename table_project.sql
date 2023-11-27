@@ -5,6 +5,7 @@ set schema 'test';
 
 create table image(
     id_image integer not null,
+    extension_image VARCHAR(5),
     constraint image_pk primary key (id_image)
 );
 
@@ -70,8 +71,10 @@ create table logement(
     info_depart varchar(255),
     reglement_interieur varchar(255),
     id_compte integer,
+    id_image_couv integer,
     constraint logement_pk primary key(id_logement),
-    constraint logement_fk_proprietaire foreign key (id_compte) references proprietaire(id_compte)ON DELETE CASCADE  
+    constraint logement_fk_proprietaire foreign key (id_compte) references proprietaire(id_compte) ON DELETE CASCADE,
+    constraint logement_fk_couverture foreign key (id_image_couv) references image(id_image)
 ); 
 
 create table photo_logement(
@@ -268,14 +271,14 @@ create table facture(
 -- TESTS
 
 
-INSERT INTO image (id_image)
+INSERT INTO image (id_image, extension_image)
 VALUES
-    (1),
-    (2),
-    (3),
-    (4),
-    (5),
-    (6);
+    (1, 'png'),
+    (2, 'jpg'),
+    (3, 'jpeg'),
+    (4, 'png'),
+    (5, 'jpeg'),
+    (6, 'png');
 
 INSERT INTO compte (mdp, nom_affichage, date_creation, derniere_operation, adresse_postale, adresse_mail, nom, prenom, photo_de_profil, piece_identite) 
 VALUES
