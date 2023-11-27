@@ -20,16 +20,14 @@
 
 
 function changementBouton (){
-    var element = document.getElementById("modificationDescription");
+    var element = document.querySelector(".modifBtn");
     element.classList.add("active");
-    var element2 = document.getElementById("testBouton");
+    var element2 = document.querySelector(".testBouton");
     element2.classList.add("active");
-    var element3 = document.getElementById("description");
+    var element3 = document.querySelector(".descriptionModif");
     element3.classList.add("active");
-    var element4 = document.getElementById("descriptionCompte");
+    var element4 = document.querySelector(".descriptionCompte");
     element4.classList.add("active");
-
-
 }
 
-document.getElementById("testBouton").addEventListener("click", changementBouton);
+document.querySelector(".testBouton").addEventListener("click", changementBouton);

@@ -140,13 +140,12 @@
                     <div>
                         <h2>À propos de moi</h2>
                     </div>
-                    <p id="textProposDeMoi">a</p>
                     <div class="lignes">
                         <form method="post">
-                            <a href="#" id="testBouton"><img src="asset/icons/bleu/modification.svg" alt=""></a>
-                            <input type="submit" value="Enregistrer" id="modificationDescription">
-                            <p id="descriptionCompte"><?php echo htmlentities($proprio["description"]) ?></p>
-                            <input type="text" id="description" name="description" value=<?php echo htmlentities($proprio["description"]) ?>>
+                            <a href="#" class="testBouton"><img src="asset/icons/bleu/modification.svg" alt=""></a>
+                            <input type="submit" value="Enregistrer" id="modificationDescription" class="modifBtn">
+                            <p class="descriptionCompte"><?php echo htmlentities($proprio["description"]) ?></p>
+                            <input type="text" id="description" class="descriptionModif" name="description" value=<?php echo htmlentities($proprio["description"]) ?>>
                         </form>
                     </div>
 

@@ -3932,20 +3932,9 @@ text-decoration: #771D2D underline;
   top: 229px;
   left: 220px;
 
-  display: none;
+
 }
 
-#modificationDescription.active{
-  display: block;
-}
-
-#testBouton{
-  display: block;
-}
-
-#testBouton.active{
-  display: none;
-}
 
 
 #textProposDeMoi {
@@ -4074,21 +4063,38 @@ text-decoration: #771D2D underline;
 }
 
 
+/* truc pour les modif */
 
-
-#description{
+.modifBtn {
   display: none;
 }
 
-#description.active{
+.modifBtn.active{
   display: block;
 }
 
-#descriptionCompte{
+.testBouton{
   display: block;
 }
 
-#descriptionCompte.active {
+.testBouton.active{
+  display: none;
+}
+
+
+.descriptionModif{
+  display: none;
+}
+
+.descriptionModif.active{
+  display: block;
+}
+
+.descriptionCompte{
+  display: block;
+}
+
+.descriptionCompte.active {
   display: none;
 }
 
