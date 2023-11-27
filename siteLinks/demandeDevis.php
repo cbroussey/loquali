@@ -53,13 +53,13 @@
             $id = $_POST["id"];
             $qui = $_POST["qui"];
 
-            
+
             foreach ($dbh->query("SELECT * from test.reservation WHERE id_logement =$id", PDO::FETCH_ASSOC) as $row) {
                 $reserv = $row;
             }
-            
+
             $id_reserv = $reserv["id_reservation"];
-            echo($id_reserv);
+           
             foreach ($dbh->query("SELECT * from test.devis WHERE id_reservation =$id_reserv", PDO::FETCH_ASSOC) as $row) {
                 $devis = $row;
             }
@@ -101,8 +101,6 @@
                 $photo[$i] = $row;
                 $i++;
             }
-            
-            
         } catch (PDOException $e) {
             print "Erreur !: " . $e->getMessage() . "<br/>";
             die();
@@ -152,7 +150,7 @@
                             }
                         }
 
-                        
+
                         $jourArrivee = convertirJourEnFrancais(date('l', $dateDebutFormat));
                         $jourDepart = convertirJourEnFrancais(date('l', $dateFinFormat));
                         ?>
@@ -365,25 +363,25 @@
                         if ($qui == null) {
                         ?>
                     <form action="demandeDevis.php" class="button_valider" method="POST">
-                        <input name="id" value="<?php echo($id);?>" hidden readonly>
+                        <input name="id" value="<?php echo ($id); ?>" hidden readonly>
                         <input name="qui" value="proprietaire" hidden readonly>
-                        <button class="devisButton">Envoyer une demande de devis</button>
-                        </form >
-                        
+                        <button type="submit" class="devisButton">Envoyer une demande de devis</button>
+                    </form>
+
                 <?php } ?>
 
                 <?php
                 if ($qui == "proprietaire") {
                 ?>
                     <form action="demandeDevis.php" class="button_valider" method="POST">
-                        <input name="id" value="<?php echo($id);?>" hidden readonly>
+                        <input name="id" value="<?php echo ($id); ?>" hidden readonly>
                         <input name="qui" value="client" hidden readonly>
-                        <button class="devisButton">Envoyer le devis</button>
-                        </form >
+                        <button type="submit" class="devisButton">Envoyer le devis</button>
+                    </form>
+
                     <div class="button_refuser">
                         <a href="#" onclick="afficherPopup()">Refuser le devis</a>
                     </div>
-
 
                     <div id="overlay"></div>
                     <div id="popup">
@@ -397,10 +395,54 @@
                 <?php } ?>
                 <?php
                 if ($qui == "client") { ?>
-                   <form action="paiement.php" class="button_valider" method="POST">
-                        <input name="id" value="<?php echo($id);?>" hidden readonly>
-                        <button class="devisButton">Payer le devis</button>
-                        </form >
+                <?php
+                    
+
+                    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                        $prix_devis = $info["prix_base_ht"];
+                        $delai_acceptation = date("Y-m-d");
+                        $acceptation = true;
+                        $date_devis = date("Y-m-d H:i:s");
+                        $id_reser = $id_reserv;
+
+                        try {
+                           
+                            $stmt = $dbh->prepare("
+                                INSERT INTO test.devis (
+                                    id_reservation,
+                                    prix_devis,
+                                    delai_acceptation,
+                                    acceptation,
+                                    date_devis
+                                ) VALUES (
+                                    :id_reservation,
+                                    :prix_devis,
+                                    :delai_acceptation,
+                                    :acceptation,
+                                    :date_devis
+                                )
+                            ");
+
+                            
+                            $stmt->bindParam(':id_reservation', $id_reser);
+                            $stmt->bindParam(':prix_devis', $prix_devis);
+                            $stmt->bindParam(':delai_acceptation', $delai_acceptation);
+                            $stmt->bindParam(':acceptation', $acceptation, PDO::PARAM_BOOL);
+                            $stmt->bindParam(':date_devis', $date_devis);
+
+                            
+                            $stmt->execute();                       
+
+                        } catch (PDOException $e) {
+                            echo "Erreur lors de l'insertion du devis : " . $e->getMessage();
+                        }
+                    }
+                    ?>
+                    
+                    <form action="paiement.php" class="button_valider" method="POST">
+                        <input name="devis" value="<?php echo ($devis["id_devis"]); ?>" hidden readonly>
+                        <button type="submit" class="devisButton">Payer le devis</button>
+                    </form>
                     <div class="button_refuser">
                         <a href="#" onclick="afficherPopup()">Refuser le devis</a>
                     </div>
