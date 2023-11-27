@@ -55,9 +55,9 @@ create table logement(
     descriptif varchar(255),
     surface integer,
     disponible_defaut boolean,
-    prix_base_ht float,
+    prix_base_ht numeric(10,2),
     delai_annul_defaut int, -- en jours
-    pourcentage_retenu_defaut numeric(3),
+    pourcentage_retenu_defaut numeric(10,2),
     libelle_logement varchar(255),
     accroche VARCHAR(255),
     nb_pers_max integer,
@@ -406,7 +406,8 @@ VALUES
 
 INSERT INTO plage (disponibilite, prix_hT, delai_annul, pourcentage_retenu, date_debut, date_fin, id_logement)
 VALUES
-    (TRUE, 80.00, 5, 5.00, '2023-11-14', '2023-11-30', 1),
+    (TRUE, 80.00, 5, 5.00, '2023-11-18', '2023-11-30', 1),
+    (TRUE, 100.00, 5, 6.00, '2023-11-1', '2023-11-14', 2),
     (TRUE, 120.00, 3, 8.00, '2023-11-15', '2023-11-30', 2),
     (TRUE, 70.00, 1, 7.00, '2023-12-01', '2023-12-31', 3);
     
@@ -446,10 +447,17 @@ VALUES
     (2, 350.00, 'Facture pour la réservation 2', 200.00, 2),
     (3, 150.00, 'Facture pour la réservation 3', 60.00, 3);
     
-CREATE FUNCTION getCurrentData(id_logement) RETURNS TABLE(disponibilite BOOLEAN, prix_ht numeric(10,2), delai_annul integer, pourcentage_retenu numeric(10,2), date_debut date, date_fin date, id_logement integer) AS $$
-DECLARE
-  plage = CURRENT_DATE;
+CREATE FUNCTION getCurrentData(id_log INT) RETURNS TABLE(disponibilite BOOLEAN, prix_ht numeric(10,2), delai_annul integer, pourcentage_retenu numeric(10,2), date_debut date, date_fin date, id_logement integer) AS $$
 BEGIN
-  SELECT * FROM plage WHERE date_debut >= CURRENT_DATE && date_fin <= CURRENT_DATE;
+  PERFORM * FROM plage WHERE plage.date_debut <= CURRENT_DATE AND plage.date_fin >= CURRENT_DATE AND plage.id_logement = id_log;
+  IF NOT FOUND THEN
+    RETURN QUERY SELECT disponible_defaut, prix_base_ht, delai_annul_defaut, pourcentage_retenu_defaut, DATE('1970-01-01'), DATE('1970-01-01'), logement.id_logement FROM logement WHERE logement.id_logement = id_log;
+  ELSE
+    RETURN QUERY SELECT * FROM plage WHERE plage.date_debut <= CURRENT_DATE AND plage.date_fin >= CURRENT_DATE AND plage.id_logement = id_log;
+  END IF;
 END;
 $$ LANGUAGE plpgsql;
+
+SELECT * FROM getCurrentData(1);
+SELECT * FROM getCurrentData(2);
+SELECT * FROM getCurrentData(3);
