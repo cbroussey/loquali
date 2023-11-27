@@ -52,6 +52,20 @@
             //exécution de la requête d'insertion
             $stmt->execute();
 
+            //initialise les variables de session
+            $query = "SELECT id_compte FROM test.compte WHERE test.compte.adresse_mail = :email";
+            $stmt = $dbh->prepare($query);
+            $stmt->bindParam('email', $_POST["email"], PDO::PARAM_STR);
+            $stmt->execute();
+            $post = $stmt->fetch();
+
+            $_SESSION['userId'] = $post['id_compte']; 
+            $_SESSION['displayName'] = $nomAffichage;
+            $_SESSION['name'] = $_POST['nom'];
+            $_SESSION['surname'] = $_POST['prenom'];
+            $_SESSION['email'] = $_POST['adresse_mail'];
+            $_SESSION['userType'] = 'client';
+
             $dbh = null;
         } catch (PDOException $e) {
             print "Erreur !: " . $e->getMessage() . "<br/>";

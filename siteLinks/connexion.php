@@ -24,6 +24,21 @@
                     $_SESSION['name'] = $post['nom'];
                     $_SESSION['surname'] = $post['prenom'];
                     $_SESSION['email'] = $post['adresse_mail'];
+
+                    //récupération du type d'utilisateur (client, proprietaire)
+                    $query = "SELECT id_compte FROM test.proprietaire WHERE test.proprietaire.id_compte = :idCompte";
+            
+                    $stmt = $dbh->prepare($query);
+                    $stmt->bindParam('idCompte', $post['id_compte'], PDO::PARAM_STR);
+                    $stmt->execute();
+                    $post = $stmt->fetch();
+
+                    if ($post == null) {
+                        $_SESSION['userType'] = 'client';
+                    } else {
+                        $_SESSION['userType'] = 'proprietaire';
+                    }
+
                     header("Location: index.php");
                     exit();
                 } else {

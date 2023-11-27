@@ -187,7 +187,7 @@ flex: 1;
   margin-bottom: 25px;
 }
 
-#textefooter a , p{
+#textefooter a , #textefooter p{
   font-size: 20px;
   font-weight: 300;
   line-height: 150%;
