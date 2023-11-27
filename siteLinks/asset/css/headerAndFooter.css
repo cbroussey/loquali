@@ -116,25 +116,29 @@ main {
 flex: 1;
 }
 
-@media screen and (max-width: 1100px) {
-header nav h4, header nav svg {
-  display: none;
+@media screen and (min-width: 0px) and (max-width: 1100px) {
+
+  header {
+    height: 8vh; 
+  }
+
+
+  header nav h4, header nav svg {
+    display: none;
+  }
+
+  #headerHamburger {
+    display:block;
+  }
+
 }
 
-#headerHamburger {
-  display:block;
-}
-}
+@media screen and (min-width: 0px) and (max-width: 400px) {
 
-@media screen and (max-width: 800px) {
-header > div:first-of-type {
-  border-top: 60px solid #1D4C77;
-}
+  header {
+    height: 6.6vh; 
+  }
 
-header img {
-  height:50px;
-  top:5px;
-}
 }
 
 /******************************************** FOOTER ********************************************/
