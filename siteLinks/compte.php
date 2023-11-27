@@ -50,105 +50,132 @@
     </div>
     <div></div>
   </header>
+
+
+  <?php
+
+    include('connect_params.php');
+    try {
+        $id=5; // à revoir une fois que les comptes sont fait
+        $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
+        $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+        $query = "SELECT * FROM test.proprietaire NATURAL JOIN test.compte WHERE id_compte = :id_compte";
+
+        $stmt = $dbh->prepare($query);
+        $stmt->bindParam('id_compte', $id, PDO::PARAM_STR);
+        $stmt->execute();
+        $infos = $stmt->fetch();
+    }   catch (PDOException $e) {
+        print "Erreur !: " . $e->getMessage() . "<br/>";
+        die();
+    }
+    try {
+      $id=2; // à revoir une fois que les comptes sont fait
+
+        $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+        $query = "SELECT * FROM test.telephone WHERE id_compte = :id_compte";
+
+        $stmt = $dbh->prepare($query);
+        $stmt->bindParam('id_compte', $id, PDO::PARAM_STR);
+        $stmt->execute();
+        $telephone = $stmt->fetch();
+    }   catch (PDOException $e) {
+        print "Erreur !: " . $e->getMessage() . "<br/>";
+        die();
+    }
+  ?>
   <div id="compteContainer">
-    <div class = "nav">
-      <div>
-        <div>
-          <figure>
-            <div class="img-area">
-              <img src="asset/icons/bleu/accountBlue.svg" alt="Infos Persos" class="img-back">
-              <img src="asset/icons/blanc/account.svg" alt="Infos Persos" class="img-front">
-            </div>
-            <figcaption>Accueil</figcaption>
-          </figure>
-        </div>
+    <div class="nav">
+
+      <div class="nav-item" data-color="account">
+        <figure>
+          <div class="img-area">
+            <img src="asset/icons/bleu/accountBlue.svg" alt="Infos Persos" class="img-back">
+            <img src="asset/icons/blanc/account.svg" alt="Infos Persos" class="img-front">
+          </div>
+          <figcaption>Accueil</figcaption>
+        </figure>
       </div>
 
-      <div>
-        <div>
-          <figure>
-            <div class="img-area">
-              <img src="asset/icons/bleu/personalInfosBlue.svg" alt="Infos Persos" class="img-back">
-              <img src="asset/icons/blanc/personalInfos.svg" alt="Infos Persos" class="img-front">
-            </div>            
-            <figcaption>Informations personnelles</figcaption>
-          </figure>
-        </div>
-      </div>
-      <div>
-        <div>
-          <figure>
-            <div class="img-area">
-              <img src="asset/icons/bleu/connexionBlue.svg" alt="Infos Persos" class="img-back">
-              <img src="asset/icons/blanc/connexion.svg" alt="Infos Persos" class="img-front">
-            </div> 
-            <figcaption>Connexion et sécurité</figcaption>
-          </figure>
-        </div>
-      </div>
-      <div>
-        <div>
-          <figure>
-            <div class="img-area">
-              <img src="asset/icons/bleu/favoriteBlue.svg" alt="Infos Persos" class="img-back">
-              <img src="asset/icons/blanc/favorite.svg" alt="Infos Persos" class="img-front">
-            </div> 
-            <figcaption>Favoris</figcaption>
-          </figure>
-        </div>
-      </div>
-      <div>
-        <div>
-          <figure>
-            <div class="img-area">
-                <img src="asset/icons/bleu/logementBlue.svg" alt="Infos Persos" class="img-back">
-                <img src="asset/icons/blanc/logement.svg" alt="Infos Persos" class="img-front">
-            </div> 
-            <figcaption>Mes logements</figcaption>
-          </figure>
-        </div>
-      </div>
-      <div>
-        <div>
-          <figure>
-            <div class="img-area">
-              <img src="asset/icons/bleu/reservationsBlue.svg" alt="Infos Persos" class="img-back">
-              <img src="asset/icons/blanc/reservations.svg" alt="Infos Persos" class="img-front">
-            </div> 
-            <figcaption>Mes réservations</figcaption>
-          </figure>
-        </div>
+
+      <div class="nav-item" data-color="account">
+        <figure>
+          <div class="img-area">
+            <img src="asset/icons/bleu/personalInfosBlue.svg" alt="Infos Persos" class="img-back">
+            <img src="asset/icons/blanc/personalInfos.svg" alt="Infos Persos" class="img-front">
+          </div>            
+          <figcaption>Informations personnelles</figcaption>
+        </figure>
       </div>
 
-      <div>
-        <div>
-          <figure>
-            <div class="img-area">
-              <img src="asset/icons/bleu/messageBlue.svg" alt="Infos Persos" class="img-back">
-              <img src="asset/icons/blanc/message.svg" alt="Infos Persos" class="img-front">
-            </div> 
-            <figcaption>Messagerie</figcaption>
-          </figure>
-        </div>
+
+      <div class="nav-item" data-color="account">
+        <figure>
+          <div class="img-area">
+            <img src="asset/icons/bleu/connexionBlue.svg" alt="Infos Persos" class="img-back">
+            <img src="asset/icons/blanc/connexion.svg" alt="Infos Persos" class="img-front">
+          </div> 
+          <figcaption>Connexion et sécurité</figcaption>
+        </figure>
+      </div>
+
+      <div class="nav-item" data-color="account">
+        <figure>
+          <div class="img-area">
+            <img src="asset/icons/bleu/favoriteBlue.svg" alt="Infos Persos" class="img-back">
+            <img src="asset/icons/blanc/favorite.svg" alt="Infos Persos" class="img-front">
+          </div> 
+          <figcaption>Favoris</figcaption>
+        </figure>
+      </div>
+
+      <div class="nav-item" data-color="account">
+        <figure>
+          <div class="img-area">
+              <img src="asset/icons/bleu/logementBlue.svg" alt="Infos Persos" class="img-back">
+              <img src="asset/icons/blanc/logement.svg" alt="Infos Persos" class="img-front">
+          </div> 
+          <figcaption>Mes logements</figcaption>
+        </figure>
+      </div>
+
+      <div class="nav-item" data-color="account">
+        <figure>
+          <div class="img-area">
+            <img src="asset/icons/bleu/reservationsBlue.svg" alt="Infos Persos" class="img-back">
+            <img src="asset/icons/blanc/reservations.svg" alt="Infos Persos" class="img-front">
+          </div> 
+          <figcaption>Mes réservations</figcaption>
+        </figure>
+      </div>
+
+      <div class="nav-item" data-color="account">
+        <figure>
+          <div class="img-area">
+            <img src="asset/icons/bleu/messageBlue.svg" alt="Infos Persos" class="img-back">
+            <img src="asset/icons/blanc/message.svg" alt="Infos Persos" class="img-front">
+          </div> 
+          <figcaption>Messagerie</figcaption>
+        </figure>
       </div>  
       
-      <div>
-        <div>
-          <figure>
-            <div class="img-area">
-              <img src="asset/icons/bleu/paiementBlue.svg" alt="Infos Persos" class="img-back">
-              <img src="asset/icons/blanc/paiement.svg" alt="Infos Persos" class="img-front">
-            </div> 
-            <figcaption>Paiement</figcaption>
-          </figure>
-        </div>
+      <div class="nav-item" data-color="account">
+        <figure>
+          <div class="img-area">
+            <img src="asset/icons/bleu/paiementBlue.svg" alt="Infos Persos" class="img-back">
+            <img src="asset/icons/blanc/paiement.svg" alt="Infos Persos" class="img-front">
+          </div> 
+          <figcaption>Paiement</figcaption>
+        </figure>
       </div>
+
+
     </div>
 <!--  INFORMATION  -->
     <div id="compteInfosPerso">
       <div class="lignes">
         <p>Nom légal</p>
-        <p class="displayInfos" id="nom">Jane Doe</p>
+        <p class="displayInfos" id="nom"><?php echo($infos['nom']) ?> <?php echo($infos['prenom']) ?></p>
         <button class="modifications" onclick="modifierInfos(this, 'nom')">Modifier</button>
       </div>
 
@@ -157,7 +184,7 @@
 
       <div class="lignes">
         <p>Adresse e-mail</p>
-        <p class="displayInfos" id="mail">pop.sauce@gmail.com</p>
+        <p class="displayInfos" id="mail"><?php echo($infos['adresse_mail']) ?></p>
         <button class="modifications" onclick="modifierInfos(this, 'mail')">Modifier</button>
       </div>
 
@@ -165,7 +192,7 @@
 
       <div class="lignes">
         <p>Numéros de téléphone</p>
-        <p class="displayInfos" id="tel">Information non fournie</p>
+        <p class="displayInfos" id="tel"><?php echo($telephone["numero"]); ?></p>
         <button class="modifications" onclick="modifierInfos(this, 'tel')">Modifier</button>
       </div>
 
@@ -173,19 +200,9 @@
 
       <div class="lignes">
         <p>Adresse</p>
-        <p class="displayInfos" id="adresse">Rue Édouard Branly, 22300 Lannion</p>
+        <p class="displayInfos" id="adresse"><?php echo($infos['adresse_postale']) ?></p>
         <button class="modifications" onclick="modifierInfos(this, 'adresse')">Modifier</button>
       </div>
-
-      <div class="separateurgenre"></div>
-
-      <div class="lignes">
-        <p>Pièce d’identité</p>
-        <p class="displayInfos" id="pieceIdentiteText">Non fournie</p>
-        <input type="file" id="pieceIdentiteInput" style="display: none;">
-        <button class="modifications" onclick="modifierPieceIdentite(this)">Modifier</button>
-      </div>
-
 
     </div>
 <!--  CONNEXION  -->
@@ -290,6 +307,7 @@
   <script src="asset/js/header.js"></script>
   <script src="asset/js/account.js"></script>
   <script src="asset/js/modifInfosCompte.js"></script>
-  <script src="asset/js/modifIdCompte.js"></script>
+  <script src="asset/js/couleurNavCompte.js"></script>
+
 </body>
 </html>

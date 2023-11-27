@@ -50,31 +50,59 @@
         </div>
         <div></div>
     </header>
-    <a href="index.php">
+
+    <?php
+
+    include('connect_params.php');
+    try {
+        $id=5; // à revoir une fois que les comptes sont fait
+        $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
+        $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+        $query = "SELECT * FROM test.proprietaire NATURAL JOIN test.compte WHERE id_compte = :id_compte";
+
+        $stmt = $dbh->prepare($query);
+        $stmt->bindParam('id_compte', $id, PDO::PARAM_STR);
+        $stmt->execute();
+        $infos = $stmt->fetch();
+    }   catch (PDOException $e) {
+        print "Erreur !: " . $e->getMessage() . "<br/>";
+        die();
+    }
+
+    ?>
+
+
+    <a id="compteAccueilLink" href="index.php">
         <img src="asset/icons/bleu/toBack.svg" alt="" id="svgBack">
     </a>
 
     <div class="accueil">
 
         <h2>Accueil</h2>
+
         <div class="container">
-            <img src="asset/img/profils/photoProfil.png" alt="" id="photoProfil">
-            <div class="middle">
-                <img src="asset/icons/blanc/photo.svg" alt="" id="">
-            </div>
+            <label for="fileInput">
+                <img src="asset/img/profils/<?php echo($infos['photo_de_profil']) ?>.jpeg" alt="" id="photoProfil">
+                <div class="middle">
+                    <img src="asset/icons/blanc/photo.svg" alt="">
+                </div>
+            </label>
+            <input type="file" id="fileInput" style="display: none;" accept="image/jpeg, image/png" onchange="changeProfilePhoto(event)">
         </div>
-        <p class="bienvenue">Bienvenue ! Accédez à votre <a href="" class="lienPagePerso">page personnel</a>.</p>
+
+        <p class="bienvenue">Bienvenue ! Accédez à votre <a href="pagePersoProprio.php" class="lienPagePerso">page personnel</a>.</p>
 
         <div class="pageAccueil">
             
-            <a href="compte.php">
+            <a href="compte.php"  data-color="account" class="nav-item0">
                 <div>
-                    
                     <figure>
-                        <img src="asset/icons/blanc/personalInfos.svg" alt="">
+                        <div class="img-area0">
+                            <img src="asset/icons/bleu/accountBlue.svg" alt="Infos Persos" class="img-back">
+                            <img src="asset/icons/blanc/account.svg" alt="Infos Persos" class="img-front">
+                        </div>
                         <figcaption>Informations personnelles</figcaption>
                     </figure>
-                    
                 </div>
             </a>
 
