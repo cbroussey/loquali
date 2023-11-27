@@ -1,9 +1,23 @@
 <?php
-    session_start();
-    $_SESSION['userType'] = $_POST['type'];
-    if ($_POST['type'] === 'client') {
-        header("Location: index.php");
-        exit;
+    if (isset($_POST['pays'])) {
+        try {
+            $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
+            $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+
+            $insert = "INSERT INTO test.telephone (numero, id_compte) VALUES (:num, :idCompte)";
+            $stmt = $dbh->prepare($insert);
+            $stmt->bindParam(':numero', $_SESSION['userId'], PDO::PARAM_STR);
+            $stmt->bindParam(':idCompte', $_SESSION['userId'], PDO::PARAM_STR);
+
+            //exécution de la requête d'insertion
+            $stmt->execute();
+
+            $dbh = null;
+
+        } catch (PDOException $e) {
+            print "Erreur : " . $e->getMessage() . "<br/>";
+            die();
+        }
     }
 ?>
 
