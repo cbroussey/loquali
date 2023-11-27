@@ -230,7 +230,7 @@ create table plage(
 
 
 create table devis(
-    id_devis integer not null,
+    id_devis SERIAL not null,
     prix_devis float,
     delai_acceptation date,
     acceptation boolean,
@@ -258,7 +258,7 @@ create table lit(
 );
 
 create table facture(
-    id_facture integer not null,
+    id_facture SERIAL not null,
     prix_facture float,
     info_facture varchar(255),
     payement float, -- Ce qui a déjà été payé par rapport au prix de la facture
@@ -431,11 +431,11 @@ VALUES
     (2,'Frais de piscine'),
     (3,'Frais de petit-déjeuner');
     
-INSERT INTO devis (id_devis, prix_devis, delai_acceptation, acceptation, date_devis, id_reservation)
+INSERT INTO devis (prix_devis, delai_acceptation, acceptation, date_devis, id_reservation)
 VALUES
-    (1, 250.00, '2023-10-30', TRUE,'2023-10-28 10:41', 1),
-    (2, 350.00, '2023-11-05', TRUE,'2023-11-01 13:15', 2),
-    (3, 150.00, '2023-11-20', FALSE,'2023-10-30 10:58', 3);
+    (250.00, '2023-10-30', TRUE,'2023-10-28 10:41', 1),
+    (350.00, '2023-11-05', TRUE,'2023-11-01 13:15', 2),
+    (150.00, '2023-11-20', FALSE,'2023-10-30 10:58', 3);
     
 INSERT INTO contrainte_reservation (duree_min_reservation, duree_max_reservation, delai_min_resa_arrive, id_logement)
 VALUES
@@ -449,11 +449,11 @@ VALUES
     ('Lit double', 2, 'Queen size', 2),
     ('Lit simple', 2, 'Simple', 3);
     
-INSERT INTO facture (id_facture, prix_facture, info_facture, payement, id_devis)
+INSERT INTO facture (prix_facture, info_facture, payement, id_devis)
 VALUES
-    (1, 250.00, 'Facture pour la réservation 1', 139.00, 1),
-    (2, 350.00, 'Facture pour la réservation 2', 200.00, 2),
-    (3, 150.00, 'Facture pour la réservation 3', 60.00, 3);
+    (250.00, 'Facture pour la réservation 1', 139.00, 1),
+    (350.00, 'Facture pour la réservation 2', 200.00, 2),
+    (150.00, 'Facture pour la réservation 3', 60.00, 3);
     
 CREATE FUNCTION getCurrentData(id_log INT) RETURNS TABLE(disponibilite BOOLEAN, prix_ht numeric(10,2), delai_annul integer, pourcentage_retenu numeric(10,2), date_debut date, date_fin date, id_logement integer) AS $$
 BEGIN

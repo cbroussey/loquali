@@ -3406,7 +3406,7 @@ opacity: 1;
   color: white;
 }
 
-.separateur {
+.separateurCompte {
   width: 319px;
   height: 2px;
   background: var(--lightColor);
@@ -3437,7 +3437,7 @@ opacity: 1;
 
 @media screen and (min-width: 0px) and (max-width: 740px) { 
 
-  #svgBack{
+  #compteAccueilLink{
       display: none;
   }
 
@@ -3500,7 +3500,7 @@ opacity: 1;
       padding: 0 10px;
   }
   
-  .separateur {
+  .separateurCompte {
       width: 60%;
       margin: 30px 0;
   }
@@ -3627,25 +3627,25 @@ display:none;
 }
 
 @media screen and (min-width: 0px) and (max-width: 1300px) { 
-.nav figcaption {
-  font-size: 18px;
-  font-weight: 500;
-  padding-left: 20px;
-}
+  .nav figcaption {
+    font-size: 18px;
+    font-weight: 500;
+    padding-left: 20px;
+  }
 
-.nav {
-  width: 22%;
-  height: 92vh;
-}
+  .nav {
+    width: 22%;
+    height: 92vh;
+  }
 
-.img-area img{
-  height: 40px;
-  width: 40px;
-}
+  .img-area img{
+    height: 40px;
+    width: 40px;
+  }
 
-.nav figure {
-  margin: 0 20px;
-}
+  .nav figure {
+    margin: 0 20px;
+  }
 
 }
 
@@ -3678,7 +3678,7 @@ margin-top: 15px;
 .modifications{
 float: right;
 right: 0;
-margin-top: -45px;
+margin-top: -60px;
 margin-bottom: 10px;
 
 color: #1d4c77;
@@ -3688,14 +3688,22 @@ background: none;
 font-size: 20px;
 font-weight: 400;
 
+
+background-color: #2072BC;
+color: #F5F5F5;
+text-decoration: none;
+padding: 10px 15px;
+border-radius: 5px;
+
 cursor: pointer;
 }
 
 #compteInfosPerso input {
 width: 250px;
-padding: 5px;
+padding: 15px;
 margin-right: 10px;
-margin-top: 15px;
+border-radius: 10px;
+border: 1px solid #1D4C77;
 
 color: #1D4C77;
 }
@@ -3706,39 +3714,56 @@ height: 2px;
 width: 100%;
 }
 
-@media screen and (min-width: 0px) and (max-width: 1300px) { 
+@media screen and (min-width: 0px) and (max-width: 1100px) { 
 
-.lignes {
-  padding-top: 40px;
-  padding-bottom: 40px;
-  margin:  0 10%;
-}
+  #compteInfosPerso {
+    position: absolute;
+    top: 25%;
+    left: 15%;
+    right: 15%;
 
-.modifications{
-  font-size: 20px;
-  font-weight: 400;
-}
+    }
+    
+    .lignes {
+      padding-top: 40px;
+      padding-bottom: 40px;
+      margin:  0 -10%;
+    }
 
-.displayInfos{
-  margin-top: 10px;
-}
+    .lignes p{
+      font-size: 15px;
+    }
+    
+    .displayInfos{
+      margin-top: 10px;
+    }
+    
+    .modifications{
+      margin-top: -50px;
+      margin-bottom: 10px;
+      
+      font-weight: 400;
+      font-size: 15px;
 
-#compteInfosPerso {
-  margin-top: 4%;
-}
-
-#compteInfosPerso input {
-  width: 250px;
-  padding: 5px;
-  margin-right: 10px;
-  margin-top: 15px;
-}
-
-.separateurgenre{
-  background: #97ADC1;
-  height: 2px;
-  width: 100%;
-}
+      background-color: #2072BC;
+      color: #F5F5F5;
+      text-decoration: none;
+      padding: 10px;
+      border-radius: 5px;
+      
+      cursor: pointer;
+    }
+    
+    #compteInfosPerso input {
+    width: 150px;
+    padding: 5px;
+    margin-right: 10px;
+    margin-top: 0px;
+    
+    color: #1D4C77;
+    }
+    
+  
 
 }
 
@@ -3754,12 +3779,6 @@ height: 50%;
 
 font-size: 20px;
 font-weight: 500;
-}
-
-
-#quit {
-color: #771D2D;
-text-decoration: #771D2D underline;
 }
 
 @media screen and (min-width: 0px) and (max-width: 1300px) { 
