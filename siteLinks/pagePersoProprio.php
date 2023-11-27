@@ -11,7 +11,7 @@
             
             $stmt = $dbh->prepare($query);
             $stmt->bindParam('newValue', $_POST['description'], PDO::PARAM_STR);
-            $stmt->bindParam('id_compte', $_SESSION['userId'], PDO::PARAM_STR);
+            $stmt->bindParam('id_compte', $id, PDO::PARAM_STR);
             $stmt->execute();
             $post = $stmt->fetch();
 
@@ -140,12 +140,12 @@
                     <div>
                         <h2>À propos de moi</h2>
                     </div>
-                    <div class="lignes">
+                    <div class="descriptionPersonne">
                         <form method="post">
-                            <a href="#" class="testBouton"><img src="asset/icons/bleu/modification.svg" alt=""></a>
+                            <a href="#" id="boutonDescription" class="testBouton"><img src="asset/icons/bleu/modification.svg" alt=""></a>
                             <input type="submit" value="Enregistrer" id="modificationDescription" class="modifBtn">
-                            <p class="descriptionCompte"><?php echo htmlentities($proprio["description"]) ?></p>
-                            <input type="text" id="description" class="descriptionModif" name="description" value=<?php echo htmlentities($proprio["description"]) ?>>
+                            <p id="champsDescription" class="descriptionCompte"><?php echo htmlentities($proprio["description"].PHP_EOL) ?></p>
+                            <textarea type="text" id="description" class="descriptionModif" name="description" value=<?php echo htmlentities($proprio["description"]) ?>></textarea>
                         </form>
                     </div>
 
@@ -208,47 +208,7 @@
             </div>
         </div>
     </main>    
-    <footer>
-
-      <div id="infosFooter">
-        <div id="footerCercleLogo" class="portableDroite">
-            <img src="asset/img/logo.png" alt="logo">
-        </div>
-        <div id="textefooter">
-          <div class="gauche" class="portableGauche" id="infosLegal">
-              <h2>Informations légales</h2>
-              <a href="">Plan du site</a>
-              <a href="">Mentions légales</a>
-              <a href="">Conditions générales de ventes</a>
-              <a href="">Données personnelles</a>
-              <a href="">Gestions des cookies</a>
-          </div>
-          <div class="centrer" class="portableDroite" id="support">
-              <h2>Support client</h2>
-              <a href="">Contacter le support</a>
-          </div>
-          <div class="centrer" class="portableDroite" id="reseaux">
-              <h2>Suivez nous</h2>
-              <div id="logoReseaux">
-                  <a href=""><img src="asset/icons/blanc/facebook.svg" alt=""></a>
-                  <a href=""><img src="asset/icons/blanc/instagram.svg" alt=""></a>
-                  <a href=""><img src="asset/icons/blanc/steam.svg" alt=""></a>
-              </div>
-          </div>
-          <div class="droite" class="portableGauche" id="contact">
-              <h2>Nous contacter</h2>
-              <p>Rue Édouard Branly, 22300 Lannion</p>
-              <p>02 96 46 93 00</p>
-              <p>iut-lannion.univ-rennes.fr</p>
-          </div>
-        </div>
-        </div>
-
-        <div class="basFooter">
-        <p>Copyright @ 2023 LoQuali.com</p>
-      </div>
-    </footer>
-
+    
     <script src="asset/js/header.js"></script>
     <script src="asset/js/descriptionCompte.js"></script>
 
