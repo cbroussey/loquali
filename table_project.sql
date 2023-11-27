@@ -16,7 +16,7 @@ CREATE TABLE compte(
     date_creation DATE,
     nom VARCHAR(255),
     prenom VARCHAR(255),
-    adresse_mail VARCHAR(255) CHECK (adresse_mail ~ '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.\w{2,4}$'),
+    adresse_mail VARCHAR(255) CHECK (adresse_mail ~ '^[a-zA-Z0-9\._%+-]+@[a-zA-Z0-9\.-]+\.\w{2,4}$'),
     adresse_postale VARCHAR(255),
     derniere_operation TIMESTAMP,
     photo_de_profil INTEGER,
@@ -406,7 +406,7 @@ VALUES
 
 INSERT INTO plage (disponibilite, prix_hT, delai_annul, pourcentage_retenu, date_debut, date_fin, id_logement)
 VALUES
-    (TRUE, 80.00, 5, 5.00, '2023-11-01', '2023-11-30', 1),
+    (TRUE, 80.00, 5, 5.00, '2023-11-14', '2023-11-30', 1),
     (TRUE, 120.00, 3, 8.00, '2023-11-15', '2023-11-30', 2),
     (TRUE, 70.00, 1, 7.00, '2023-12-01', '2023-12-31', 3);
     
@@ -446,3 +446,11 @@ VALUES
     (2, 350.00, 'Facture pour la réservation 2', 200.00, 2),
     (3, 150.00, 'Facture pour la réservation 3', 60.00, 3);
     
+CREATE FUNCTION getCurrentData(id_logement) RETURNS TABLE(disponibilite BOOLEAN, prix_ht numeric(10,2), delai_annul integer, pourcentage_retenu numeric(10,2), date_debut date, date_fin date, id_logement integer) AS $$
+DECLARE
+  plage = CURRENT_DATE;
+BEGIN
+  SELECT * FROM plage WHERE date_debut >= CURRENT_DATE && date_fin <= CURRENT_DATE;
+END;
+$$ LANGUAGE plpgsql;
+
