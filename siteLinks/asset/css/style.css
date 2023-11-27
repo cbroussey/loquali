@@ -3427,7 +3427,7 @@ opacity: 1;
   align-items: center;
 }
 
-@media screen and (min-width: 750px) and (max-width: 1400px) { 
+@media screen and (min-width: 750px) and (max-width: 1545px) { 
 .pageAccueil{
   margin: 0 10%;
 }
