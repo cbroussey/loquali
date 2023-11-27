@@ -63,7 +63,7 @@
     ?>
     
     <a href="index.php">
-        <img src="asset/icons/bleu/toBack.svg" alt="" id="svgBack">
+        <img src="asset/icons/bleu/toBack.svg" alt="" id="pagePersoSvgBack">
     </a>
     <div id="ensemble">
         <div class="infosProprio">

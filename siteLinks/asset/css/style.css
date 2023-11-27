@@ -3292,11 +3292,16 @@ margin:10% 0 5% 0;
 
 /************************ COMPTE - ACCUEIL **************************/
 
+#compteAccueilLink {
+  width: 45px;
+  height: 45px;
+  margin:40px;
+  
+}
+
 #svgBack {
     width: 45px;
     height: 45px;
-    flex-shrink: 0;
-    margin: 40px;
 }
 
 .accueil {
@@ -3316,38 +3321,40 @@ margin:10% 0 5% 0;
 }
 
 #photoProfil {
-    border-radius: 93.5px;
-    width: 160px;
-    height: 160px;
-
-    opacity: 1;
-    display: block;
-    transition: .5s ease;
-    backface-visibility: hidden;
+  border-radius: 93.5px;
+  width: 160px;
+  height: 160px;
+  object-fit: cover;
+  object-position: center;
+  opacity: 1;
+  display: block;
+  transition: .5s ease;
+  backface-visibility: hidden;
 }
 
 .container {
-  display: flex;
-  align-items: center;
+display: flex;
+align-items: center;
+position: relative;
 }
 
 .middle {
-    transition: .5s ease;
-    opacity: 0;
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-    text-align: center;
-    margin-bottom: -2.5%;
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
 }
-  
+
 .container:hover #photoProfil {
-    opacity: 0.3;
+  opacity: 0.3;
 }
-  
+
 .container:hover .middle {
-    opacity: 1;
+  opacity: 1;
 }
 
 .bienvenue {
@@ -3403,6 +3410,32 @@ margin:10% 0 5% 0;
 .pageAccueil figcaption {
     color: white;
 }
+
+
+
+.nav-item0 {
+  cursor: pointer;
+}
+
+.nav-item0:hover figcaption {
+  color: var(--textColor);
+}
+  /************************************************************************y a un truc a faire la rappel********************/
+
+.img-area0 {
+  position: relative;
+}
+
+.img-area0 img {
+  position: absolute;
+  left: 42.5%;
+}
+
+.nav-item0:hover .img-area0 img.img-front {
+  opacity: 0;
+}
+
+
 
 .separateur {
     width: 319px;
@@ -3521,49 +3554,57 @@ margin:10% 0 5% 0;
 /************************** COMPTE - PAGES **************************/
 
 .nav {
-    width: 20%;
-    height: 92vh;
-    background-color: #7297B8;
-    display: flex;
-    justify-content: space-evenly;
-    flex-direction: column;
+  width: 20%;
+  height: 92vh;
+  background-color: #7297B8;
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
 }
-  
+
+.nav-item {
+  cursor: pointer;
+}
+
+.nav-item:hover {
+  background-color: var(--hoverColor);
+}
+
+.nav-item:hover figcaption {
+  color: var(--textColor);
+}
+
 .nav figure {
-    display: flex;
-    flex-direction: row;
-
-    margin: 0 30px;
+  display: flex;
+  flex-direction: row;
+  margin: 0 30px;
 }
-
 
 .nav figcaption {
-    color: var(--secondBG);
-    font-size: 20px;
-    font-weight: 500;;
-    padding-left: 30px;
-    display: flex;
-    align-items: center;
+  color: var(--secondBG);
+  font-size: 20px;
+  font-weight: 500;
+  padding-left: 30px;
+  display: flex;
+  align-items: center;
 }
 
-.img-area{
-    position: relative;
-    height: 50px;
-    width: 50px;
-}
-.img-area img{
-    position: absolute;
-    left: 0;
-    transition: opacity 0.2s ease-in-out;
+.img-area {
+  position: relative;
+  height: 50px;
+  width: 50px;
 }
 
-.nav figcaption:hover{
-    color: var(--textColor);
+.img-area img {
+  position: absolute;
+  left: 0;
 }
 
-.img-area img.img-front:hover {
-    opacity: 0;
+.nav-item:hover .img-area img.img-front {
+  opacity: 0;
 }
+
+
 
 #compteContainer {
   display:flex;
@@ -3806,7 +3847,7 @@ margin:10% 0 5% 0;
 }
 
 /****************************PAGE PERSO PROPRIETAIRE*****************************/
-#svgBack {
+#pagePersoSvgBack {
   width: 45px;
   height: 45px;
   flex-shrink: 0;

@@ -76,98 +76,91 @@
     }
   ?>
   <div id="compteContainer">
-    <div class = "nav">
-      <div>
-        <div>
-          <figure>
-            <div class="img-area">
-              <img src="asset/icons/bleu/accountBlue.svg" alt="Infos Persos" class="img-back">
-              <img src="asset/icons/blanc/account.svg" alt="Infos Persos" class="img-front">
-            </div>
-            <figcaption>Accueil</figcaption>
-          </figure>
-        </div>
+    <div class="nav">
+
+      <div class="nav-item" data-color="account">
+        <figure>
+          <div class="img-area">
+            <img src="asset/icons/bleu/accountBlue.svg" alt="Infos Persos" class="img-back">
+            <img src="asset/icons/blanc/account.svg" alt="Infos Persos" class="img-front">
+          </div>
+          <figcaption>Accueil</figcaption>
+        </figure>
       </div>
 
-      <div>
-        <div>
-          <figure>
-            <div class="img-area">
-              <img src="asset/icons/bleu/personalInfosBlue.svg" alt="Infos Persos" class="img-back">
-              <img src="asset/icons/blanc/personalInfos.svg" alt="Infos Persos" class="img-front">
-            </div>            
-            <figcaption>Informations personnelles</figcaption>
-          </figure>
-        </div>
-      </div>
-      <div>
-        <div>
-          <figure>
-            <div class="img-area">
-              <img src="asset/icons/bleu/connexionBlue.svg" alt="Infos Persos" class="img-back">
-              <img src="asset/icons/blanc/connexion.svg" alt="Infos Persos" class="img-front">
-            </div> 
-            <figcaption>Connexion et sécurité</figcaption>
-          </figure>
-        </div>
-      </div>
-      <div>
-        <div>
-          <figure>
-            <div class="img-area">
-              <img src="asset/icons/bleu/favoriteBlue.svg" alt="Infos Persos" class="img-back">
-              <img src="asset/icons/blanc/favorite.svg" alt="Infos Persos" class="img-front">
-            </div> 
-            <figcaption>Favoris</figcaption>
-          </figure>
-        </div>
-      </div>
-      <div>
-        <div>
-          <figure>
-            <div class="img-area">
-                <img src="asset/icons/bleu/logementBlue.svg" alt="Infos Persos" class="img-back">
-                <img src="asset/icons/blanc/logement.svg" alt="Infos Persos" class="img-front">
-            </div> 
-            <figcaption>Mes logements</figcaption>
-          </figure>
-        </div>
-      </div>
-      <div>
-        <div>
-          <figure>
-            <div class="img-area">
-              <img src="asset/icons/bleu/reservationsBlue.svg" alt="Infos Persos" class="img-back">
-              <img src="asset/icons/blanc/reservations.svg" alt="Infos Persos" class="img-front">
-            </div> 
-            <figcaption>Mes réservations</figcaption>
-          </figure>
-        </div>
+
+      <div class="nav-item" data-color="account">
+        <figure>
+          <div class="img-area">
+            <img src="asset/icons/bleu/personalInfosBlue.svg" alt="Infos Persos" class="img-back">
+            <img src="asset/icons/blanc/personalInfos.svg" alt="Infos Persos" class="img-front">
+          </div>            
+          <figcaption>Informations personnelles</figcaption>
+        </figure>
       </div>
 
-      <div>
-        <div>
-          <figure>
-            <div class="img-area">
-              <img src="asset/icons/bleu/messageBlue.svg" alt="Infos Persos" class="img-back">
-              <img src="asset/icons/blanc/message.svg" alt="Infos Persos" class="img-front">
-            </div> 
-            <figcaption>Messagerie</figcaption>
-          </figure>
-        </div>
+
+      <div class="nav-item" data-color="account">
+        <figure>
+          <div class="img-area">
+            <img src="asset/icons/bleu/connexionBlue.svg" alt="Infos Persos" class="img-back">
+            <img src="asset/icons/blanc/connexion.svg" alt="Infos Persos" class="img-front">
+          </div> 
+          <figcaption>Connexion et sécurité</figcaption>
+        </figure>
+      </div>
+
+      <div class="nav-item" data-color="account">
+        <figure>
+          <div class="img-area">
+            <img src="asset/icons/bleu/favoriteBlue.svg" alt="Infos Persos" class="img-back">
+            <img src="asset/icons/blanc/favorite.svg" alt="Infos Persos" class="img-front">
+          </div> 
+          <figcaption>Favoris</figcaption>
+        </figure>
+      </div>
+
+      <div class="nav-item" data-color="account">
+        <figure>
+          <div class="img-area">
+              <img src="asset/icons/bleu/logementBlue.svg" alt="Infos Persos" class="img-back">
+              <img src="asset/icons/blanc/logement.svg" alt="Infos Persos" class="img-front">
+          </div> 
+          <figcaption>Mes logements</figcaption>
+        </figure>
+      </div>
+
+      <div class="nav-item" data-color="account">
+        <figure>
+          <div class="img-area">
+            <img src="asset/icons/bleu/reservationsBlue.svg" alt="Infos Persos" class="img-back">
+            <img src="asset/icons/blanc/reservations.svg" alt="Infos Persos" class="img-front">
+          </div> 
+          <figcaption>Mes réservations</figcaption>
+        </figure>
+      </div>
+
+      <div class="nav-item" data-color="account">
+        <figure>
+          <div class="img-area">
+            <img src="asset/icons/bleu/messageBlue.svg" alt="Infos Persos" class="img-back">
+            <img src="asset/icons/blanc/message.svg" alt="Infos Persos" class="img-front">
+          </div> 
+          <figcaption>Messagerie</figcaption>
+        </figure>
       </div>  
       
-      <div>
-        <div>
-          <figure>
-            <div class="img-area">
-              <img src="asset/icons/bleu/paiementBlue.svg" alt="Infos Persos" class="img-back">
-              <img src="asset/icons/blanc/paiement.svg" alt="Infos Persos" class="img-front">
-            </div> 
-            <figcaption>Paiement</figcaption>
-          </figure>
-        </div>
+      <div class="nav-item" data-color="account">
+        <figure>
+          <div class="img-area">
+            <img src="asset/icons/bleu/paiementBlue.svg" alt="Infos Persos" class="img-back">
+            <img src="asset/icons/blanc/paiement.svg" alt="Infos Persos" class="img-front">
+          </div> 
+          <figcaption>Paiement</figcaption>
+        </figure>
       </div>
+
+
     </div>
 <!--  INFORMATION  -->
     <div id="compteInfosPerso">
@@ -295,6 +288,7 @@
   <script src="asset/js/header.js"></script>
   <script src="asset/js/account.js"></script>
   <script src="asset/js/modifInfosCompte.js"></script>
-  <script src="asset/js/modifIdCompte.js"></script>
+  <script src="asset/js/couleurNavCompte.js"></script>
+
 </body>
 </html>
