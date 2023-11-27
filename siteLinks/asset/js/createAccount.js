@@ -1,19 +1,23 @@
 function inputClipping(value){
-    return value.replace(/[^a-zA-Z ]/g, '');
+    return value.replace(/[^a-zA-ZÀ-ÿ -]/g, '');
+}
+
+function surnameFormat(value) {
+    return value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
 }
 
 //vérification de la conformité du nom
 const nom = document.getElementById("nom");
 
 nom.addEventListener('input', function() {
-    this.value = inputClipping(this.value);
+    this.value = inputClipping(this.value).toUpperCase();
 });
 
 //vérification de la conformité du prénom
 const prenom = document.getElementById("prenom");
 
 prenom.addEventListener('input', function() {
-    this.value = inputClipping(this.value);
+    this.value = surnameFormat(inputClipping(this.value));
 });
 
 //visibilité des mots de passe
