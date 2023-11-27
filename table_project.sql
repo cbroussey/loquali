@@ -283,7 +283,7 @@ VALUES
     ('jpg'),
     ('jpg'),
     ('jpg'),
-    ('jpg'),;
+    ('jpg');
 
 INSERT INTO compte (mdp, nom_affichage, date_creation, derniere_operation, adresse_postale, adresse_mail, nom, prenom, photo_de_profil, piece_identite) 
 VALUES
