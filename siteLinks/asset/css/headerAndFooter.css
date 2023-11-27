@@ -139,53 +139,77 @@ header img {
 
 /******************************************** FOOTER ********************************************/
 
-footer {
-width:100%;
-  height:320px;
-}
-
-footer h4, address {
-  color:#F5F5F5;
-}
-
-footer > div:first-of-type {
-  height:280px;
+#infosFooter {
+  height: 319px;
   width:100%;
-  background-color: #43688A;
+  background-color: #43688A;width: 60%;
+  margin: 20px 0;
   display: flex;
   align-items: center;
 }
 
 #footerCercleLogo {
-  margin: 0 6% 0 6%;
-  height:220px;
-  width:220px;
+  margin: 0 5%;
+  width: 10%;
+  height: 170px;
   border-radius: 50%;
   background-color: #F5F5F5;
+
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 #footerCercleLogo img {
-  width:220px;
+  width: 149px;
+}
+  
+#textefooter {
+  width: 90%;
+  display: flex;
+  justify-content: space-evenly;
+  color: #F5F5F5;
 }
 
-#footerText {
-  flex: 1;
-  display:flex;
-  justify-content: space-around;
+.gauche {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
 }
 
-#footerText > div > a {
-  color: var(--secondBG);
+#textefooter h2 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 25px;
+}
+
+#textefooter a , p{
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 150%;
+}
+
+.centrer{
+  text-align: center;
+}
+
+#logoReseaux img{
+  width: 40px;
+  height: 40px;
+}
+
+.droite {
+  text-align: right;
 }
 
 footer > div:last-of-type {
-  height: 40px;
+  height: 65px;
   width:100%;
   background-color: #1D4C77;
+  font-size: 20px;
+  font-weight: 300;
+  color:#F5F5F5;
   display:flex;
   align-items: center;
-  color:#F5F5F5;
-  justify-content: space-around;
+  justify-content: center;
 }
