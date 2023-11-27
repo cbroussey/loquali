@@ -3,7 +3,65 @@
 <?php
 $server = 'servbdd';
 $driver = 'pgsql';
-$dbname = 'pg_emclugery';
-$user   = 'emclugery';
-$pass	= '!';
+$dbname = 'pg_salabiven';
+$user   = 'salabiven';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+$pass	= 'Pgkslrd22';
 ?>
