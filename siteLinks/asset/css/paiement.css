@@ -1,7 +1,7 @@
 body {
     color: var(--textColor);
-    padding-top: 80px;
-    padding-bottom: 320px;
+    /*padding-top: 80px;
+    /*padding-bottom: 320px;*/
     font-family: 'inter';
     font-weight: 300;
 }
@@ -88,6 +88,14 @@ p > .h3 {
     border-radius: 10px;
 }
 
+#paymentType, #paymentType > input {
+    cursor: pointer;
+}
+
+#paymentType > input {
+    flex-grow: 1;
+}
+
 #infosPaiement > input::placeholder, #infosPaiement > div > input::placeholder {
     color: var(--textColor);
     font-size: 16px;
@@ -103,7 +111,6 @@ p > .h3 {
 
 #infosPaiement > div > div {
     background-color: #F5F5F5;
-    padding: 16px 30px;
     border: var(--textColor) 1px solid;
     border-radius: 10px;
 }
@@ -138,13 +145,19 @@ p > .h3 {
     border-radius: 0;
 }
 
-td > input.inputImg {
-    background-color: var(--CMbg);
-    width: 6em;
+#country > input {
+    background-color: var(--secondBG);
+    color: var(--textColor);
+    font-size: 16px;
+    border: none;
+    border-radius: 0;
+    align-self: center;
+    flex-grow: 1;
 }
 
-.contextMenu > table > tbody > tr > td {
-    width: 33em;
+td > input.inputImg {
+    background-color: var(--CMbg);
+    flex-grow: 1;
 }
 
 #paymentType > img:last-of-type {
@@ -157,11 +170,9 @@ td > input.inputImg {
 
 #country {
     display: flex;
-}
-
-#country > a {
-    align-self: center;
-    flex-grow: 1;
+    padding: .5em 30px;
+    justify-content: space-between;
+    gap: 1em;
 }
 
 #devis {
@@ -183,10 +194,14 @@ td > input.inputImg {
     text-align: center;
     font-size: 14px;
     padding-bottom: 1em;
+    overflow: hidden;
+    max-height: 300px;
 }
 
 #devis > figure > img {
+    max-height: 230px;
     border-radius: 10px;
+    overflow: hidden;
 }
 
 #devis > div {
@@ -222,3 +237,4 @@ td > input.inputImg {
     border: none;
     cursor: pointer;
 }
+

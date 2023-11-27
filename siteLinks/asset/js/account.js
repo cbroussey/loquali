@@ -1,5 +1,20 @@
 /* PAGE DE GESTION DES COMPTES */
 
+//header
+const accountDisconnect = document.getElementById("accountDisconnect");
+const popUpDeco = document.getElementById("popUpDeco");
+
+accountDisconnect.addEventListener('click', function() {
+    popUpDeco.style.display = "block";
+});
+
+//popup Disconnect
+const cancelDisconnect = document.getElementById("cancelDisconnect");
+
+cancelDisconnect.addEventListener('click', function() {
+    popUpDeco.style.display = "none";
+});
+
 const compteInfosPerso = document.getElementById("compteInfosPerso");
 const compteConnection = document.getElementById("compteConnection");
 const compteFavoris = document.getElementById("compteFavoris");

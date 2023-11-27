@@ -3854,11 +3854,19 @@ position: relative;
   margin: 40px;
 }
 
+#ensemble {
+  min-height: 92vh;
+  float: right;
+  display: flex;
+  justify-content: row;
+  margin-top: 20px;
+}
+
 .infosProprio{
   position: relative;
   float: left;
-  left: 180px;
-  top: -30px;
+  left: 140px;
+  top: 80px;
   height: 463px;
   width: 620px;
   color: #1D4C77;
@@ -3921,7 +3929,7 @@ position: relative;
 }
 
 .star {
-  
+
   margin-left: -8px;
 }
 
@@ -3959,18 +3967,15 @@ position: relative;
   margin-top: 10px;
 }
 
-#ensemble {
-  float: right;
-  display: flex;
-  justify-content: row;
-}
+
 
 #logementPropo {
   color: #1D4C77;
-  position: relative;
-  top: -50px;
-  margin-left: 22%;
+  position: initial;
+  margin-top: 80px;
+  margin-left: 15%;
   margin-right: 8px;
+  margin-bottom: 50px;
 }
 
 
@@ -4019,7 +4024,7 @@ position: relative;
 .unLogement p {
   height: 32px;
   width: 250px;
-  margin-top: 10px;
+  margin-top: 15px;
   margin-bottom: -10px;
   margin-left: 20px;
 }
@@ -4031,13 +4036,23 @@ position: relative;
 
 .consulterLogement {
   color: #97ADC1;
+  margin-left: 20px;
+ 
 }
 
 .noteAvis{
  display: flex;
  justify-content: row;
+  margin-top: 5px;
+ margin-bottom: 90px;
+}
 
- margin-bottom: 20px;
+.noteAvis img {
+  margin-top: 10px;
+}
+
+.noteAvis p {
+  margin-top: 13px;
 }
 
 .listeUnLogement {
@@ -4045,6 +4060,10 @@ position: relative;
   flex-direction: row;
 
 }
+
+.listeUnLogement div img {
+  border-radius: 5px;
+} 
 
 .separateur {
   background-color: #97ADC1;
@@ -4058,8 +4077,8 @@ position: relative;
   width: 600px;
   height: 2px;
   
-  
-  margin: 10px;
+  color: transparent;
+  margin: 25px 0;
 }
 
 @media screen and (min-width: 0px) and (max-width: 400px) {
@@ -4229,14 +4248,8 @@ position: relative;
   
 }
 
-
-
-
-
-
-/*
-
-.popUpDeco {
+#popUpDeco {
+  display:none;
   position: absolute;
   background-color: rgb(0 00 00 / 0.5);
   height: 100vh;
@@ -4274,7 +4287,7 @@ position: relative;
   
 }
 
-.button-container button{
+.button-container button, .button-container input{
   width: 200px;
   height: 45px;
   background-color: #1D4C77;
@@ -4290,10 +4303,7 @@ position: relative;
   border-radius: 5px;
 }
 
-#deco {
+#confirmDisconnect {
   color: white;
   background-color: #8A3443;
 }
-
-
-*/
