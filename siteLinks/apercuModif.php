@@ -321,15 +321,12 @@
 
                         $stmt = $dbh->prepare("
                             INSERT INTO test.image (
-                                id_image,
                                 extension_image
                             ) VALUES (
-                                :id_image,
                                 :extension_image
                             )
                         ");
 
-                        $stmt->bindParam(':id_image', $id_p);
                         $stmt->bindParam(':extension_image', $extention[1]);
 
 
@@ -391,36 +388,6 @@
 
 
             }
-
-            
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
             
         ?>

@@ -285,20 +285,22 @@
                             <h2><?php echo($proprio["nom_affichage"]) ?></h2>
                         </div>
                         <div class="block_info_log">
+                            <?php
+                                if ($proprio["note_proprio"]!=""){
+                            ?>
                             <div class="note_proprio_log">
+
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path
                                         d="M10.3646 1.22353L7.5304 7.12042L1.18926 8.06909C0.052104 8.23834 -0.403625 9.67693 0.421028 10.5009L5.0087 15.0884L3.92363 21.5687C3.72832 22.7401 4.93058 23.6175 5.93752 23.0696L11.6103 20.0099L17.283 23.0696C18.29 23.613 19.4922 22.7401 19.2969 21.5687L18.2118 15.0884L22.7995 10.5009C23.6242 9.67693 23.1684 8.23834 22.0313 8.06909L15.6901 7.12042L12.8559 1.22353C12.3481 0.172417 10.8768 0.159056 10.3646 1.22353Z"
                                         fill="#F5F5F5" />
                                 </svg>
-                                <?php
-                                    if ($proprio["note_proprio"]!=""){
-                                ?>
                                 <p><?php echo($proprio["note_proprio"]) ?></p>
-                                <?php
-                                    }
-                                ?>
+
                             </div>
+                            <?php
+                                }
+                            ?>
                         </div>
                         <div class="block_info_log">
                             <div class="contact_proprio_log">
@@ -607,7 +609,11 @@
         </div>
 
 
-        
+
+        <?php 
+            if ($_SESSION['userId']==$info["id_compte"]){
+
+        ?>
         <button class="delete-button" onclick="openModal()">Supprimer le logement</button>
 
         <div class="confirmation-modal" id="myModal">
@@ -621,7 +627,9 @@
         
         </div>
         </div>
-
+        <?php
+           }
+        ?>
 
         <div class="barre_log">
             <svg width="100%" height="10" viewBox="0 0 1920 9" fill="none" xmlns="http://www.w3.org/2000/svg">

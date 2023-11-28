@@ -2566,6 +2566,12 @@ margin-right: 20px;
   display: none;
 }
 
+/* input[type="radio"]:checked + label > img {
+  border: var(--mainColor) 20px solid; 
+  color: #fff; 
+} */
+
+
 .btn_choix_ajlog {
   display: inline-flex;
   justify-content: center;

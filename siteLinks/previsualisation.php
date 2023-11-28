@@ -1,4 +1,7 @@
 <?php
+  session_start();
+?>
+<?php
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         include('connect_params.php');
         try {
@@ -19,6 +22,8 @@
     }
 ?>
 
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -38,6 +43,8 @@
             $info=$_POST;
 
             $photo=$_FILES;
+
+            
 
 
             include('connect_params.php');
@@ -83,23 +90,19 @@
             $reglement_interieur = $info["Règlement"];
 
             $id_compte = $_SESSION['userId'];
+            echo ($_SESSION['userId']."||||");
 
 
             // Préparer la requête d'insertion
             $stmt = $dbh->prepare("
                 INSERT INTO test.logement (
                     prix_TTC,
-                    note_logement,
                     en_ligne,
-                    ouvert,
                     type_logement,
                     nature_logement,
                     descriptif,
                     surface,
-                    disponible_defaut,
                     prix_base_HT,
-                    delai_annul_defaut,
-                    pourcentage_retenu_defaut,
                     libelle_logement,
                     accroche,
                     nb_pers_max,
@@ -114,17 +117,12 @@
                     id_compte
                 ) VALUES (
                     :prix_TTC,
-                    :note_logement,
                     :en_ligne,
-                    :ouvert,
                     :type_logement,
                     :nature_logement,
                     :descriptif,
                     :surface,
-                    :disponible_defaut,
                     :prix_base_HT,
-                    :delai_annul_defaut,
-                    :pourcentage_retenu_defaut,
                     :libelle_logement,
                     :accroche,
                     :nb_pers_max,
@@ -142,17 +140,12 @@
 
             // Binder les valeurs
             $stmt->bindParam(':prix_TTC', $prix_TTC);
-            $stmt->bindParam(':note_logement', $note_logement);
             $stmt->bindParam(':en_ligne', $en_ligne, PDO::PARAM_INT);
-            $stmt->bindParam(':ouvert', $ouvert, PDO::PARAM_INT);
             $stmt->bindParam(':type_logement', $type_logement);
             $stmt->bindParam(':nature_logement', $nature_logement);
             $stmt->bindParam(':descriptif', $descriptif);
             $stmt->bindParam(':surface', $surface);
-            $stmt->bindParam(':disponible_defaut', $disponible_defaut, PDO::PARAM_INT);
             $stmt->bindParam(':prix_base_HT', $prix_base_HT);
-            $stmt->bindParam(':delai_annul_defaut', $delai_annul_defaut);
-            $stmt->bindParam(':pourcentage_retenu_defaut', $pourcentage_retenu_defaut);
             $stmt->bindParam(':libelle_logement', $libelle_logement);
             $stmt->bindParam(':accroche', $accroche);
             $stmt->bindParam(':nb_pers_max', $nb_pers_max);
@@ -177,18 +170,20 @@
             }
 
 
+
             /* Récupération de l'id du logement qu'on crée */
 
             $i=0;
 
-            foreach($dbh->query("SELECT DISTINCT id_logement from test.logement ORDER BY id_logement DESC", PDO::FETCH_ASSOC) as $row) {
-            
-                $log[$i]=$row;
-                $i++;
-            }
-
-            $id_log=$log[0]["id_logement"];
-
+            $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
+            $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+            $query = "SELECT DISTINCT id_logement FROM test.logement ORDER BY id_logement DESC LIMIT 1";
+    
+            $stmt = $dbh->prepare($query);
+            $stmt->execute();
+            $id_log_T = $stmt->fetch();
+            $id_log=$id_log_T["id_logement"];
+            echo $id_log."||||";
 
             /* Ajout des aménagements */
 
@@ -306,24 +301,31 @@
                         
                         try {
                             $i=0;
-                            $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
-                            $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-                            $query = "SELECT DISTINCT id_image FROM test.image ORDER BY id_image DESC LIMIT 1";
-                    
-                            $stmt = $dbh->prepare($query);
-                            $stmt->execute();
-                            $photo2 = $stmt->fetch();
+                            foreach($dbh->query("SELECT DISTINCT id_image from test.image ORDER BY id_image DESC", PDO::FETCH_ASSOC) as $row) {
+            
+                                $photo2[$i]=$row;
+                                $i++;
+                            }
                         } catch (PDOException $e) {
                             print "Erreur !: " . $e->getMessage() . "<br/>";
                             die();
                         }
                 
+                        
+                    
+
+
+
+                        
                         $nom_photo = $_FILES["photo"]["name"][$key];
                         $extention=explode(".",$nom_photo);
 
 
 
-                        $id_p = $photo2+1;
+                        $id_p = $photo2[0]["id_image"]+1;
+
+                        $prev_photo[$j]=$id_p;
+                        $j++;
 
 
                         $chemin = $img_dir . "/" . $id_p.".".$extention[1];
@@ -335,16 +337,14 @@
 
                         $stmt = $dbh->prepare("
                             INSERT INTO test.image (
-                                id_image
                                 extension_image
                             ) VALUES (
-                                :id_image
                                 :extension_image
                             )
                         ");
 
-                        $stmt->bindParam(':id_image', $id_p);
                         $stmt->bindParam(':extension_image', $extention[1]);
+
 
 
                         try {
@@ -383,6 +383,8 @@
                             // Afficher l'erreur en cas d'échec de la requête
                             echo "Erreur lors de l'insertion : " . $e->getMessage();
                         }
+
+
                     }
                 }
 
@@ -398,6 +400,8 @@
                 }
 
 
+
+            
                 try {
                     $id=4; // à revoir une fois que les comptes sont fait
                     $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
@@ -413,7 +417,6 @@
                     die();
                 }
 
-                print_r($proprio);
 
                 $dbh = null;
 
