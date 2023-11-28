@@ -152,11 +152,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         </div>
 
-        <div class="separateurCompte"></div>
+        
 
         <?php
         if ($_SESSION['userType'] === 'client') {
             ?>
+            <div class="separateurCompte"></div>
             <a href="" id="comptePro">Passer à un compte propriétaire</a>
             <?php
         }

@@ -287,7 +287,7 @@ VALUES
     ('jpg'),
     ('jpg');
 
-INSERT INTO compte (mdp, nom_affichage, date_creation, derniere_operation, adresse_postale, adresse_mail, nom, prenom, photo_de_profil, piece_identite) 
+INSERT INTO compte (mdp, nom_affichage, date_creation, derniere_operation, adresse, adresse_mail, nom, prenom, photo_de_profil, piece_identite) 
 VALUES
     ('motdepasse1', 'Utilisateur 1', '2023-10-19', now(),'789 Rue Client 3', 'client3@email.com', 'Durand', 'Jean',1,1),
     ('motdepasse2', 'Utilisateur 2', '2023-10-20','2023-11-03 00:42','123 Rue Client 1', 'client1@email.com', 'Dubois', 'Roger',2,2),
