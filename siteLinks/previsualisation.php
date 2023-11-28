@@ -82,7 +82,7 @@
             $info_depart = $info["info_depart"];
             $reglement_interieur = $info["Règlement"];
 
-            $id_compte = 4; // besoin de taf de martin 
+            $id_compte = $_SESSION['userId'];
 
 
             // Préparer la requête d'insertion
@@ -396,6 +396,25 @@
                     $i++;
                 }
 
+
+                try {
+                    $id=4; // à revoir une fois que les comptes sont fait
+                    $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
+                    $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+                    $query = "SELECT * FROM test.compte NATURAL JOIN test.telephone WHERE id_compte = :id_compte";
+            
+                    $stmt = $dbh->prepare($query);
+                    $stmt->bindParam('id_compte', $id_compte, PDO::PARAM_STR);
+                    $stmt->execute();
+                    $proprio = $stmt->fetch();
+                }   catch (PDOException $e) {
+                    print "Erreur !: " . $e->getMessage() . "<br/>";
+                    die();
+                }
+
+                echo "<pre>";
+                print_r($proprio);
+                echo"<pre>";
 
                 $dbh = null;
 

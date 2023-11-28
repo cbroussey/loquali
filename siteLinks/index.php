@@ -120,6 +120,8 @@
      
     </div>
     <?php
+                echo($_SESSION['userId']);
+
     if ($_SESSION['userType'] == 'proprietaire') {
       ?>
         <div class="ajout_log">
@@ -186,7 +188,6 @@
                     
                           <p class="ville"><?php  echo($info["libelle_logement"]);  ?>, <?php echo($info["localisation"]); ?></p>
                           <p class="prix"><strong><?php  echo($info["prix_ttc"]."€");  ?></strong> par nuit</p>
-                          <p class="date">11 - 25 sept.</p>
                       </a>
 
             <?php
