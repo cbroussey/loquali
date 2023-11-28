@@ -144,16 +144,9 @@ header {
   align-items: center;
 }
 
-#footerCercleLogo {
-  margin: 0 5%;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-#footerCercleLogo img {
-  width: 90%;
+#footerCercleLogo img{
+  margin: 0 20%;
+  width: 100%;
 }
   
 #textefooter {
@@ -163,10 +156,8 @@ header {
   color: #F5F5F5;
 }
 
-.gauche {
-  text-align: left;
-  display: flex;
-  flex-direction: column;
+#infosLegal li{
+  list-style: none;
 }
 
 #textefooter h2 {
@@ -181,17 +172,9 @@ header {
   line-height: 150%;
 }
 
-.centrer{
-  text-align: center;
-}
-
 #logoReseaux img{
   width: 40px;
   height: 40px;
-}
-
-.droite {
-  text-align: right;
 }
 
 footer > div:last-of-type {
@@ -206,11 +189,10 @@ footer > div:last-of-type {
   justify-content: center;
 }
 
-@media screen and (min-width: 0px) and (max-width: 1545px) { 
+@media screen and (min-width: 400px) and (max-width: 1545px) { 
 
-  #footerCercleLogo {
-    width: 12%;
-    height: 55%;
+  #footerCercleLogo img{
+    display: none;
   }
 
   #textefooter h2 {
@@ -227,33 +209,19 @@ footer > div:last-of-type {
 
 }
 
-@media screen and (min-width: 0px) and (max-width: 1245px) { 
+@media screen and (min-width: 0px) and (max-width: 1100px) {
 
-  #footerCercleLogo {
-    width: 15%;
-    height: 50%;
-  }
-
-}
-  @media screen and (min-width: 0px) and (max-width: 1100px) { 
-
-    #footerCercleLogo {
-      width: 15%;
-      height: 50%;
-    }x
     #textefooter{
       display: flex;
       flex-wrap: wrap;
     }
 
-  
-  }
+}
 
-@media screen and (min-width: 0px) and (max-width: 900px) { 
+@media screen and (min-width: 0px) and (max-width: 900px) {
 
-  #footerCercleLogo {
-    width: 18%;
-    height: 45%;
+  #footerCercleLogo img{
+    width: 70%;
   }
 
   footer > div:last-of-type {
@@ -263,12 +231,7 @@ footer > div:last-of-type {
 
 }
 
-@media screen and (min-width: 0px) and (max-width: 700px) { 
-
-  #footerCercleLogo {
-    width: 20%;
-    height: 25%;
-  }
+@media screen and (min-width: 0px) and (max-width: 700px) {
 
   #textefooter h2 {
     font-size: 10px;
@@ -292,13 +255,84 @@ footer > div:last-of-type {
     font-size: 10px;
   }
 
+  #footerCercleLogo img{
+    position: absolute;
+
+    top: 128%;
+    right: 15%;
+
+    margin: 0;
+    width: 20%;
+  }
+
+  #logoReseaux img{
+    width: 25px;
+    height: 25px;
+  }
+
+
+  #infosLegal{
+    order: 3;
+  }
+
+  #support {
+    order: 4;
+  }
+
+  #reseaux {
+    order: 2;
+  }
+
+  #contact {
+    order: 1;
+  }
+
 }
 
 @media screen and (min-width: 0px) and (max-width: 400px) { 
 
-  #footerCercleLogo {
+#textefooter {
+  margin: 0 5%;
+}
+
+  #textefooter h2 {
+    font-size: 10px;
+    font-weight: 600;
+    margin: 20px 0 5px 0;
+  }
+
+  #footerCercleLogo img{
+    position: absolute;
+
+    top: 128%;
+    right: 15%;
+
+    margin: 0;
     width: 20%;
-    height: 10%;
+  }
+
+  #logoReseaux img{
+    width: 25px;
+    height: 25px;
+  }
+
+
+  #infosLegal{
+    order: 3;
+  }
+
+  #support {
+    order: 4;
+    text-align: right;
+  }
+
+  #reseaux {
+    order: 2;
+    text-align: center;
+  }
+
+  #contact {
+    order: 1;
   }
 
 }

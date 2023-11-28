@@ -319,6 +319,7 @@
                         <h2><span><?php echo($info["prix_ttc"]); ?> €</span>  / nuit</h2>
                         <form action="demandeDevis.php" method="POST">
                             <input name="id" value="<?php echo($id);?>" hidden readonly>
+                            <input name = "qui" value="" hidden readonly> 
                             <button class="bouton_res_log">
                                 <h1>Réserver</h1>
                             </button>
