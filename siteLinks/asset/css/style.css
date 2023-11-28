@@ -75,6 +75,10 @@ a {
   text-decoration: none;
 }
 
+pre {
+  padding-left: .5em;
+}
+
 .HTTPstatus {
   text-align: center;
   font-size: 5em;
