@@ -1,4 +1,5 @@
 <?php
+  session_start();
     include('connect_params.php');
     $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
     $query = $dbh->prepare("SELECT * FROM test.logement WHERE id_logement = :idlog");
@@ -18,6 +19,7 @@
         }
         header("Location: index.php");
     }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,18 +31,17 @@
     <title>Document</title>
     <link rel="stylesheet" href="asset/css/headerAndFooter.css">
     <link rel="stylesheet" href="asset/css/style.css">
-    <script src= "asset/js/boutonSupprimer.js"></script>
+    <script src = "asset/js/boutonSupprimer.js"></script>
 </head>
 <body  id="bg">
 
     <?php
-        $id=$_GET["id"];
+        include('connect_params.php');
         try {
-            
+            $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
+            $id=$_GET["id"];
             foreach($dbh->query("SELECT * from test.logement WHERE id_logement =$id", PDO::FETCH_ASSOC) as $row) {
-                echo "<pre>";
                 $info=$row;
-                echo "</pre>";
                 $i=0;
                 foreach($dbh->query("SELECT * from test.photo_logement NATURAL JOIN test.image WHERE id_logement =$id", PDO::FETCH_ASSOC) as $row) {
 
@@ -50,36 +51,27 @@
                 $i=0;
                 foreach($dbh->query("SELECT * from test.amenagement WHERE id_logement =$id", PDO::FETCH_ASSOC) as $row) {
 
-                    echo "<pre>";
                     $amena[$i]=$row;
                     $i++;
-                    echo "</pre>";
                 }
                 $i=0;
                 foreach($dbh->query("SELECT * from test.installation WHERE id_logement =$id", PDO::FETCH_ASSOC) as $row) {
 
-                    echo "<pre>";
                     $instal[$i]=$row;
                     $i++;
-                    echo "</pre>";
                 }
                 $i=0;
                 foreach($dbh->query("SELECT * from test.service WHERE id_logement =$id", PDO::FETCH_ASSOC) as $row) {
 
-                    echo "<pre>";
                     $service[$i]=$row;
                     $i++;
-                    echo "</pre>";
                 }
                 foreach($dbh->query("SELECT * from test.lit WHERE id_logement =$id", PDO::FETCH_ASSOC) as $row) {
 
-                    echo "<pre>";
                     $lit=$row;
-                    echo "</pre>";
                 }
             }
-            echo "<pre>";
-            echo "</pre>"; 
+   
         } catch (PDOException $e) {
             print "Erreur !: " . $e->getMessage() . "<br/>";
             die();
@@ -90,9 +82,26 @@
         à supprimé : accroche
         */
 
-        echo "<pre>";
-        echo "</pre>"; 
 
+
+        try {
+            $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+            $query = "SELECT * FROM test.compte NATURAL JOIN test.telephone NATURAL JOIN test.proprietaire WHERE id_compte = :id_compte";
+    
+            $stmt = $dbh->prepare($query);
+            $stmt->bindParam('id_compte', $info["id_compte"], PDO::PARAM_STR);
+            $stmt->execute();
+            $proprio = $stmt->fetch();
+        }   catch (PDOException $e) {
+            print "Erreur !: " . $e->getMessage() . "<br/>";
+            die();
+        }
+
+        if ($info["id_compte"]==$_SESSION['userId']){
+            echo("OUIIZUIZURIZUIRUIZREUR");
+        }
+
+        $dbh = null;
     ?>
 
 
@@ -239,8 +248,6 @@
 
         </div> <!-- Fin du div pour le background blanc -->
 
-
-
         <div class="barre_log">  <!-- Barre de séparation -->
             <svg width="100%" height="10" viewBox="0 0 1920 9" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g filter="url(#filter0_d_60_122)">
@@ -274,7 +281,7 @@
                     </a>
                     <div class="info_proprio_log">
                         <div class="block_info_log">
-                            <h2>Jason Momoa</h2>
+                            <h2><?php echo($proprio["nom_affichage"]) ?></h2>
                         </div>
                         <div class="block_info_log">
                             <div class="note_proprio_log">
@@ -283,7 +290,13 @@
                                         d="M10.3646 1.22353L7.5304 7.12042L1.18926 8.06909C0.052104 8.23834 -0.403625 9.67693 0.421028 10.5009L5.0087 15.0884L3.92363 21.5687C3.72832 22.7401 4.93058 23.6175 5.93752 23.0696L11.6103 20.0099L17.283 23.0696C18.29 23.613 19.4922 22.7401 19.2969 21.5687L18.2118 15.0884L22.7995 10.5009C23.6242 9.67693 23.1684 8.23834 22.0313 8.06909L15.6901 7.12042L12.8559 1.22353C12.3481 0.172417 10.8768 0.159056 10.3646 1.22353Z"
                                         fill="#F5F5F5" />
                                 </svg>
-                                <p>4.9</p>
+                                <?php
+                                    if ($proprio["note_proprio"]!=""){
+                                ?>
+                                <p><?php echo($proprio["note_proprio"]) ?></p>
+                                <?php
+                                    }
+                                ?>
                             </div>
                         </div>
                         <div class="block_info_log">
@@ -293,7 +306,7 @@
                                         d="M20.4011 16.0445L15.8073 14.0242C15.611 13.9384 15.3929 13.9203 15.1858 13.9727C14.9787 14.0251 14.7937 14.1451 14.6588 14.3146L12.6244 16.8653C9.4316 15.3205 6.86212 12.6838 5.35673 9.40742L7.84232 7.31978C8.0079 7.18159 8.12509 6.9918 8.17615 6.77916C8.22722 6.56651 8.20938 6.34258 8.12534 6.14127L6.15655 1.42723C6.06431 1.21022 5.90117 1.03304 5.69526 0.92624C5.48935 0.819439 5.25358 0.789713 5.0286 0.842188L0.762904 1.85234C0.545997 1.90374 0.352472 2.02906 0.213915 2.20786C0.0753574 2.38666 -4.99665e-05 2.60837 2.48403e-08 2.83681C2.48403e-08 13.6328 8.5273 22.3664 19.0316 22.3664C19.2543 22.3665 19.4704 22.2892 19.6447 22.147C19.8191 22.0048 19.9413 21.8062 19.9914 21.5835L20.9758 17.2062C21.0266 16.9742 20.997 16.7313 20.8921 16.5193C20.7872 16.3073 20.6136 16.1394 20.4011 16.0445Z"
                                         fill="#F5F5F5" />
                                 </svg>
-                                <p>06.06.06.06.06</p>
+                                <p><?php echo($proprio["numero"]) ?></p>
                             </div>
                         </div>
                     </div>
@@ -592,7 +605,6 @@
             </div>
         </div>
 
-
         <button class="delete-button" onclick="openModal()">Supprimer le logement</button>
 
         <div class="confirmation-modal" id="myModal">
@@ -603,12 +615,9 @@
                 <input type="hidden" name="confirmDelete" value="<?php echo $id ?>">
                 <button class="confirm-button">Confirmer</button>
             </form>
-           
-        </div>
-        </div>
-
         
-
+        </div>
+        </div>
 
 
         <div class="barre_log">

@@ -7,7 +7,7 @@ function closeModal() {
 }
 
 function deleteLogement() {
-    // Ajoutez ici votre logique PHP pour supprimer le logement de la base de données
+    
     alert('Logement supprimé avec succès !');
     closeModal();
 }
