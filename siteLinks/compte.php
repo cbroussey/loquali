@@ -218,7 +218,6 @@
     <div id="compteConnection">
       <div class="lignes">
         <p>Mot de passe</p>
-        <p class="displayInfos">Mis à jour le 9 Septembre 2023</p>
         <button class="modifications">Mettre à jour</button>
       </div>
 
