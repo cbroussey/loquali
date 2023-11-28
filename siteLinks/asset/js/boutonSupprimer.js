@@ -7,7 +7,7 @@ function closeModal() {
 }
 
 function deleteLogement() {
-    
+     
     alert('Logement supprimé avec succès !');
     closeModal();
 }
