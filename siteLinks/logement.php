@@ -1,6 +1,27 @@
 <?php
   session_start();
-?>
+    include('connect_params.php');
+    $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
+    $query = $dbh->prepare("SELECT * FROM test.logement WHERE id_logement = :idlog");
+    $query->bindParam('idlog', $_GET["confirmDelete"], PDO::PARAM_INT);
+    $query->execute();
+    $query = $query->fetchAll();
+    if (isset($_GET["confirmDelete"]) /*&& $_SESSION["userId"] == $query["id_compte"]*/) {
+        try {
+            $query = "DELETE FROM test.logement WHERE test.logement.id_logement = :id_log";
+            $stmt = $dbh->prepare($query);
+            $stmt->bindParam('id_log', $_GET["confirmDelete"], PDO::PARAM_INT);
+            $stmt->execute();
+            
+        } catch (PDOException $e) {
+            print "Erreur !: " . $e->getMessage() . "<br/>";
+            die();
+        }
+        header("Location: index.php");
+    }
+
+?> 
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,6 +32,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="asset/css/headerAndFooter.css">
     <link rel="stylesheet" href="asset/css/style.css">
+    <script src = "asset/js/boutonSupprimer.js"></script>
 </head>
 <body  id="bg">
 
@@ -533,7 +555,7 @@
                 </div>
 
                 <div class="modif_log_btn">
-                    <a href="modifLogement.php?id=<?php echo($id) ?>">Modifier</a>
+                    <a href="modifLogement.php?id=<?php echo($id) ?>"><h2>Modifier</h2></a>
                 </div>
             </div>
 
@@ -585,6 +607,20 @@
         </div>
 
 
+        
+        <button class="delete-button" onclick="openModal()">Supprimer le logement</button>
+
+        <div class="confirmation-modal" id="myModal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <p>Êtes-vous sûr de vouloir supprimer ce logement ?</p>
+            <form method="GET" action="logement.php">
+                <input type="hidden" name="confirmDelete" value="<?php echo $id ?>">
+                <button class="confirm-button">Confirmer</button>
+            </form>
+        
+        </div>
+        </div>
 
 
         <div class="barre_log">
