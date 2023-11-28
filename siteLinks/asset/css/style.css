@@ -75,6 +75,10 @@ a {
   text-decoration: none;
 }
 
+pre {
+  padding-left: .5em;
+}
+
 .HTTPstatus {
   text-align: center;
   font-size: 5em;
@@ -735,13 +739,17 @@ h2 span{
   margin: 3% 0;
 }
 
+.bouton_res_log h1 {
+  color: #fff;
+}
+
 .bouton_res_log{
   display: flex;
   background-color: var(--mainColor);
   color: var(--secondBG);
   border-radius: 5px;
   height: 60px;
-  width: 60%;
+  width: 95%;
   justify-content: center;
   align-items: center;
   transform: scale(1);
@@ -1133,6 +1141,36 @@ h2 span{
   font-size: 15px;
 }
 
+
+@media screen and (min-width: 0px) and (max-width: 740px) { 
+
+  #bg p{
+  font-size: 10px;
+  }
+ 
+  #bg h3{
+  font-size: 12px;
+  }
+ 
+  #bg h2, #bg h2 span{
+  font-size: 15px;
+  }
+ 
+  #bg h1{
+  font-size: 15px;
+  }
+ 
+  .res_and_map_log{
+  float: center;
+  margin-top: 0;
+  position: static;
+  width: 100%;
+  }
+ 
+ 
+ }
+
+ 
 /******************************************** DEMANDE DEVIS ********************************************/
 .main-devis {
   display: flex;
