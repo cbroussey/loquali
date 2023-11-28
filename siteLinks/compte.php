@@ -1,10 +1,10 @@
 <?php
   session_start();
-  if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  /* if ($_SERVER["REQUEST_METHOD"] == "POST") {
     session_destroy();
     header("Location: index.php");
-    exit();
-  }
+    exit(); }*/
+  
 ?>
 
 <!DOCTYPE html>
@@ -55,10 +55,50 @@
   <?php
 
     include('connect_params.php');
+    $id=$_SESSION['userId'];
     try {
         $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
         $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+        if (isset($_POST['prenom'])) {
+          $query = "UPDATE test.compte SET prenom=:newValue WHERE id_compte = :id_compte;";
+            
+            $stmt = $dbh->prepare($query);
+            $stmt->bindParam('newValue', $_POST['prenom'], PDO::PARAM_STR);
 
+            $stmt->bindParam('id_compte', $id, PDO::PARAM_STR);
+            $stmt->execute();
+            $infos2 = $stmt->fetch();
+            $_SESSION['prenom']=$_POST['prenom'];
+
+        }
+
+        if (isset($_POST['nom'])) {
+          $query = "UPDATE test.compte SET nom=:newValue WHERE id_compte = :id_compte;";
+            
+            $stmt = $dbh->prepare($query);
+            $stmt->bindParam('newValue', $_POST['nom'], PDO::PARAM_STR);
+
+            $stmt->bindParam('id_compte', $id, PDO::PARAM_STR);
+            $stmt->execute();
+            $infos2 = $stmt->fetch();
+            $_SESSION['nom']=$_POST['nom'];
+
+        }
+
+        if (isset($_POST['adresse_mail'])) {
+          $query = "UPDATE test.compte SET adresse_mail=:newValue WHERE id_compte = :id_compte;";
+            
+            $stmt = $dbh->prepare($query);
+            $stmt->bindParam('newValue', $_POST['adresse_mail'], PDO::PARAM_STR);
+
+            $stmt->bindParam('id_compte', $id, PDO::PARAM_STR);
+            $stmt->execute();
+            $infos2 = $stmt->fetch();
+            $_SESSION['adresse_mail']=$_POST['adresse_mail'];
+
+        }
+        
+        
         if ($_SESSION['userType'] == 'client') {
           $query = "SELECT * FROM test.compte WHERE id_compte = :id_compte";
         } else {
@@ -75,10 +115,15 @@
         $stmt->bindParam('id_compte', $_SESSION['userId'], PDO::PARAM_STR);
         $stmt->execute();
         $telephone = $stmt->fetch();
+
+
+
+        
     }   catch (PDOException $e) {
         print "Erreur !: " . $e->getMessage() . "<br/>";
         die();
     }
+  
   ?>
   <div id="compteContainer">
     <div class="nav">
@@ -170,27 +215,38 @@
 <!--  INFORMATION  -->
     <div id="compteInfosPerso">
       <div class="lignes">
+        <form method="post" action="compte.php">
         <p>Nom</p>
-        <p class="displayInfos" id="nom"><?php echo($infos['nom']) ?></p>
-        <button class="modifications" onclick="modifierInfos(this, 'nom')">Modifier</button>
+        <p id="nom" class="displayInfos" ><?php echo($infos['nom']) ?></p>
+        <input type="text" name="nom" id="nom" class="modifInfos" cols="30" rows="10" value="<?php echo($infos['nom']) ?>">
+        <a href="#" id="boutonInfos" class="modificationsBtn boutonInfosstyle" alt="">Modifier</a>
+        <input type="submit" name="submit" value="Enregistrer" id="modifEnregistrer" class="modifBouton">
+        </form> 
       </div>
 
       <div class="separateurgenre"></div>
 
       <div class="lignes">
+        <form method="post" action="compte.php">
         <p>Prénom</p>
-        <p class="displayInfos" id="nom"><?php echo($infos['prenom']) ?></p>
-        <button class="modifications" onclick="modifierInfos(this, 'nom')">Modifier</button>
+        <p id="prenom" class="displayInfos2" ><?php echo($infos['prenom']) ?></p>
+        <input type="text" name="prenom" id="prenom" class="modifInfos2" cols="30" rows="10" value="<?php echo($infos['prenom']) ?>">
+        <a href="#" id="boutonInfos" class="modificationsBtn2 boutonInfosstyle" alt="">Modifier</a>
+        <input type="submit" name="submit" value="Enregistrer" id="modifEnregistrer" class="modifBouton2">
+        </form> 
       </div>
 
       <div class="separateurgenre"></div>
 
       <div class="lignes">
+        <form method="post" action="compte.php">
         <p>Adresse e-mail</p>
-        <p class="displayInfos" id="mail"><?php echo($infos['adresse_mail']) ?></p>
-        <button class="modifications" onclick="modifierInfos(this, 'mail')">Modifier</button>
+        <p id="adresse_mail" class="displayInfos3" ><?php echo($infos['adresse_mail']) ?></p>
+        <input type="text" name="adresse_mail" id="adresse_mail" class="modifInfos3" cols="30" rows="10" value="<?php echo($infos['adresse_mail']) ?>">
+        <a href="#" id="boutonInfos" class="modificationsBtn3 boutonInfosstyle" alt="">Modifier</a>
+        <input type="submit" name="submit" value="Enregistrer" id="modifEnregistrer" class="modifBouton3">
+        </form> 
       </div>
-
       <div class="separateurgenre"></div>
 
       <div class="lignes">
