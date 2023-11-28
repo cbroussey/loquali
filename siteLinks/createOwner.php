@@ -23,7 +23,14 @@
 
             $dbh = null;
 
+            //enregistrement de l'image de la carte d'identité
+            print_r($_FILES["fichier"]);
+            $tmpData = file_get_contents($_FILES["fichier"]["tmp_name"]);
+            print_r($tmpData);
+            exit();
+
             $_SESSION['userType'] = 'proprietaire';
+
             header("Location: index.php");
             exit();
 

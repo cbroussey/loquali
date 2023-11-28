@@ -38,6 +38,7 @@
 
             //hashage du mot de passe avant l'insertion dans la base de donnée
             $hash = password_hash($_POST['motdepasse'], PASSWORD_DEFAULT);
+            print_r("$hash");
 
             $nomAffichage = $_POST['prenom'] . " " . $_POST['nom'];
 

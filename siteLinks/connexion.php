@@ -18,8 +18,6 @@
             if ($post == null) {
                 $inconnu = true;
             } else {
-                
-
                 if (password_verify($_POST['passwordInput'], $post['mdp'])) {
                     
                     $_SESSION['userId'] = $post['id_compte']; 
@@ -92,7 +90,7 @@
                     ?>
                     <input type="email" id="email" name="email" placeholder="Adresse-mail"/>
                     <div>
-                        <input type="password" id="passwordInput" placeholder="Mot de passe" name="passwordInput" autocomplete="current-password" required/>
+                        <input type="password" id="passwordInput" placeholder="Mot de passe" name="passwordInput" required/>
                         <img id="eyesPasswordVisible" src="asset/icons/bleu/eye-open.svg" alt="eye">              
                     </div>
                     <?php
