@@ -64,13 +64,14 @@
                 <input type="text" id="pays" name="pays" placeholder="Pays" required />
                 <input type="text" id="ville" name="ville" placeholder="Ville" required />
                 <input type="text" id="adresse" name="adresse" placeholder="Adresse" required />
-                <input type="text" id="codePostal" name="codePostal" placeholder="Code Postal" required />
+                <!-- <input type="text" id="codePostal" name="codePostal" placeholder="Code Postal" required /> -->
                 <input type="tel" id="telephone" name="telephone" placeholder="Numéro de tel." required />
-                <input type="file" id="fichier" name="fichier" required/>
+                <input type="file" id="fichier" name="fichier" accept="image/*" required/>
                 <input type="submit" value="Créer votre compte"/>
             </form>
             <p>En créant ou en vous connectant à un compte, vous acceptez nos <a href="">conditions générales</a> et notre <a href="">charte de confidentialité</a>.</p>
         </section>
     </main>
+    <script src="asset/js/createOwner.js"></script>
 </body>
 </html>
