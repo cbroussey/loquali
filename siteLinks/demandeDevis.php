@@ -59,7 +59,7 @@
             }
 
             $id_reserv = $reserv["id_reservation"];
-           
+
             foreach ($dbh->query("SELECT * from test.devis WHERE id_reservation =$id_reserv", PDO::FETCH_ASSOC) as $row) {
                 $devis = $row;
             }
@@ -194,16 +194,16 @@
                         </div>
                         <div>
                             <img src="asset/icons/bleu/salle_bain.svg" alt="">
-                            <p>Salle de bain</p>
+                            <p><?php echo ($info["nb_salle_de_bain"]);  ?> Salle de bain</p>
                         </div>
                         <div>
                             <img src="asset/icons/bleu/cusine.svg" alt="">
                             <p>Cusine</p>
                         </div>
                         <div>
-                            <img src="asset/icons/bleu/chambre.svg" alt="">
+                            <img src="asset/icons/bleu/wifi.svg" alt="">
 
-                            <p>Wi-fi comprise</p>
+                            <p>Wi-fi</p>
                         </div>
                     </div>
                 </div>
@@ -286,13 +286,21 @@
             </div>
             <div id="check_box_info">
                 <h2 class="h2-mobile">Options supplémentaires</h2>
-                <div id="input_check_box_info">
-                    <label>
-                        <input type="checkbox" name="menage" id="menage">
-                        Ménage
-                    </label>
+                <?php
+                foreach ($service as $elemnt => $value) {
+                    if ($value["nom_service"] == "menage") {
+                ?>
+                        <div id="input_check_box_info">
+                            <label>
+                                <input type="checkbox" name="menage" id="menage">
+                                Ménage
+                            </label>
 
-                </div>
+                        </div>
+                <?php }
+                }
+                ?>
+
                 <div id="input_check_box_info">
                     <label>
                         <input type="checkbox" name="animaux" id="animaux">
@@ -395,8 +403,8 @@
                 <?php } ?>
                 <?php
                 if ($qui == "client") { ?>
-                <?php
-                    
+                    <?php
+
 
                     if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         $prix_devis = $info["prix_base_ht"];
@@ -406,7 +414,7 @@
                         $id_reser = $id_reserv;
 
                         try {
-                           
+
                             $stmt = $dbh->prepare("
                                 INSERT INTO test.devis (
                                     id_reservation,
@@ -423,22 +431,21 @@
                                 )
                             ");
 
-                            
+
                             $stmt->bindParam(':id_reservation', $id_reser);
                             $stmt->bindParam(':prix_devis', $prix_devis);
                             $stmt->bindParam(':delai_acceptation', $delai_acceptation);
                             $stmt->bindParam(':acceptation', $acceptation, PDO::PARAM_BOOL);
                             $stmt->bindParam(':date_devis', $date_devis);
 
-                            
-                            $stmt->execute();                       
 
+                            $stmt->execute();
                         } catch (PDOException $e) {
                             echo "Erreur lors de l'insertion du devis : " . $e->getMessage();
                         }
                     }
                     ?>
-                    
+
                     <form action="paiement.php" class="button_valider" method="POST">
                         <input name="devis" value="<?php echo ($devis["id_devis"]); ?>" hidden readonly>
                         <button type="submit" class="devisButton">Payer le devis</button>
