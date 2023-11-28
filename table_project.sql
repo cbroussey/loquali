@@ -4,7 +4,8 @@ set schema 'test';
 
 
 create table image(
-    id_image integer not null,
+    id_image SERIAL not null,
+    extension_image VARCHAR(5),
     constraint image_pk primary key (id_image)
 );
 
@@ -55,9 +56,9 @@ create table logement(
     descriptif varchar(255),
     surface integer,
     disponible_defaut boolean,
-    prix_base_ht float,
+    prix_base_ht numeric(10,2),
     delai_annul_defaut int, -- en jours
-    pourcentage_retenu_defaut numeric(3),
+    pourcentage_retenu_defaut numeric(10,2),
     libelle_logement varchar(255),
     accroche VARCHAR(255),
     nb_pers_max integer,
@@ -66,14 +67,14 @@ create table logement(
     code_postal varchar(255) check (code_postal ~ '^[0-9]{5}$|^2[AB]$'),
     departement varchar(255) check (departement in ('Finistère', 'Morbihan', 'Côte-d''Armor', 'Ile-et-Vilaine')), -- JSP si c'est très utile, on a déjà le code postal faut juste déduire
     localisation varchar(255), -- = commune/ville
-    adresse VARCHAR(255),
-    complement_adresse VARCHAR(255),
     info_arrivee varchar(255),
     info_depart varchar(255),
     reglement_interieur varchar(255),
     id_compte integer,
+    id_image_couv integer,
     constraint logement_pk primary key(id_logement),
-    constraint logement_fk_proprietaire foreign key (id_compte) references proprietaire(id_compte)ON DELETE CASCADE  
+    constraint logement_fk_proprietaire foreign key (id_compte) references proprietaire(id_compte) ON DELETE CASCADE,
+    constraint logement_fk_couverture foreign key (id_image_couv) references image(id_image)
 ); 
 
 create table photo_logement(
@@ -229,7 +230,7 @@ create table plage(
 
 
 create table devis(
-    id_devis integer not null,
+    id_devis SERIAL not null,
     prix_devis float,
     delai_acceptation date,
     acceptation boolean,
@@ -257,7 +258,7 @@ create table lit(
 );
 
 create table facture(
-    id_facture integer not null,
+    id_facture SERIAL not null,
     prix_facture float,
     info_facture varchar(255),
     payement float, -- Ce qui a déjà été payé par rapport au prix de la facture
@@ -270,16 +271,21 @@ create table facture(
 -- TESTS
 
 
-INSERT INTO image (id_image)
+INSERT INTO image (extension_image)
 VALUES
-    (1),
-    (2),
-    (3),
-    (4),
-    (5),
-    (6);
+    ('jpg'),
+    ('jpg'),
+    ('jpg'),
+    ('jpg'),
+    ('jpg'),
+    ('png'),
+    ('jpg'),
+    ('jpg'),
+    ('jpg'),
+    ('jpg'),
+    ('jpg');
 
-INSERT INTO compte (mdp, nom_affichage, date_creation, derniere_operation, adresse, adresse_mail, nom, prenom, photo_de_profil, piece_identite) 
+INSERT INTO compte (mdp, nom_affichage, date_creation, derniere_operation, adresse_postale, adresse_mail, nom, prenom, photo_de_profil, piece_identite) 
 VALUES
     ('motdepasse1', 'Utilisateur 1', '2023-10-19', now(),'789 Rue Client 3', 'client3@email.com', 'Durand', 'Jean',1,1),
     ('motdepasse2', 'Utilisateur 2', '2023-10-20','2023-11-03 00:42','123 Rue Client 1', 'client1@email.com', 'Dubois', 'Roger',2,2),
@@ -303,11 +309,11 @@ VALUES
     (6, 'Description Propriétaire 3', 4.7,'M','FR7630002032531234567890168');
 
 
-INSERT INTO logement (prix_TTC, note_logement, en_ligne, type_logement, nature_logement, localisation, descriptif, surface, disponible_defaut, prix_base_HT, delai_annul_defaut, pourcentage_retenu_defaut, libelle_logement, accroche, nb_pers_max, nb_chambre, nb_salle_de_bain, code_postal,departement, info_arrivee, info_depart, reglement_interieur, id_compte)
+INSERT INTO logement (prix_TTC, note_logement, en_ligne, type_logement, nature_logement, localisation, descriptif, surface, disponible_defaut, prix_base_HT, delai_annul_defaut, pourcentage_retenu_defaut, libelle_logement, accroche, nb_pers_max, nb_chambre, nb_salle_de_bain, code_postal,departement, info_arrivee, info_depart, reglement_interieur, id_compte, id_image_couv)
 VALUES
-    (150.00, 4.3, TRUE,'T1', 'Appartement', 'Paris', 'Bel appartement au coeur de Paris', 80, TRUE, 120.00, 5, 10.00, 'Appartement Parisien', 'Vue magnifique sur la Tour Eiffel', 4, 2, 1, '2A', 'Finistère', 'boite à clé près de la porte d''entrée', 'veuillez ranger les clés dans la boite à clés', 'veuillez ne pas abimer le mobilier', 4),
-    (200.00, 4.5, TRUE, 'T3', 'Maison', 'Nice', 'Charmante maison à Nice', 120, TRUE, 180.00, 6, 15.00, 'Maison Niçoise', 'Jardin privé et piscine', 6, 3, 2, 22000, 'Finistère', 'boite à clé près de la porte d''entrée', 'veuillez ranger les clés dans la boite à clés', 'veuillez ne pas abimer le mobilier', 5),
-    (100.00, 4.0, TRUE, 'T5', 'Studio', 'Marseille', 'Studio ensoleillé à Marseille', 45, TRUE, 80.00, 3, 8.00, 'Studio Lumineux', 'Proche de la plage', 2, 3, 1, 22000, 'Finistère', 'boite à clé près de la porte d''entrée', 'veuillez ranger les clés dans la boite à clés', 'veuillez ne pas abimer le mobilier', 6);
+    (150.00, 4.3, TRUE,'T1', 'Appartement', 'Paris', 'Bel appartement au coeur de Paris', 80, TRUE, 120.00, 5, 10.00, 'Appartement Parisien', 'Vue magnifique sur la Tour Eiffel', 4, 2, 1, '2A', 'Finistère', 'boite à clé près de la porte d''entrée', 'veuillez ranger les clés dans la boite à clés', 'veuillez ne pas abimer le mobilier', 4, 1),
+    (200.00, 4.5, TRUE, 'T3', 'Maison', 'Nice', 'Charmante maison à Nice', 120, TRUE, 180.00, 6, 15.00, 'Maison Niçoise', 'Jardin privé et piscine', 6, 3, 2, 22000, 'Finistère', 'boite à clé près de la porte d''entrée', 'veuillez ranger les clés dans la boite à clés', 'veuillez ne pas abimer le mobilier', 5, 5),
+    (100.00, 4.0, TRUE, 'T5', 'Studio', 'Marseille', 'Studio ensoleillé à Marseille', 45, TRUE, 80.00, 3, 8.00, 'Studio Lumineux', 'Proche de la plage', 2, 3, 1, 22000, 'Finistère', 'boite à clé près de la porte d''entrée', 'veuillez ranger les clés dans la boite à clés', 'veuillez ne pas abimer le mobilier', 6, 8);
     
 
 INSERT INTO photo_logement(id_logement, id_image)
@@ -316,10 +322,10 @@ VALUES
     (1,4),
     (1,2),
     (1,3),
-    (2,3),
-    (2,1),
-    (2,2),
-    (3,4);
+    (2,7),
+    (2,5),
+    (2,6),
+    (3,8);
 
 INSERT INTO CB (numero_carte, date_validite, cryptogramme, id_compte)
 VALUES
@@ -408,8 +414,9 @@ VALUES
 
 INSERT INTO plage (disponibilite, prix_hT, delai_annul, pourcentage_retenu, date_debut, date_fin, id_logement)
 VALUES
-    (TRUE, 80.00, 5, 5.00, '2023-11-14', '2023-11-30', 1),
-    (TRUE, 120.00, 3, 8.00, '2023-11-15', '2023-11-30', 2),
+    (TRUE, 80.00, 5, 5.00, '2023-11-18', '2023-11-30', 1),
+    (TRUE, 120.00, 3, 8.00, '2023-11-15', '2023-11-30', 2), -- Les plages ne doivent pas se superposer entre elles pour un même logement, les nouvelles plages remplacent certaines parties des anciennes
+    (TRUE, 100.00, 5, 6.00, '2023-11-1', '2023-11-14', 2), -- Donc si la plage du dessus faisait du 1-30, sa date de début a été modifiée pour ne pas la superposer avec celle ci qui fait du 1-14
     (TRUE, 70.00, 1, 7.00, '2023-12-01', '2023-12-31', 3);
     
 INSERT INTO prix_charge (prix_charge, id_logement, nom_charge)
@@ -424,11 +431,11 @@ VALUES
     (2,'Frais de piscine'),
     (3,'Frais de petit-déjeuner');
     
-INSERT INTO devis (id_devis, prix_devis, delai_acceptation, acceptation, date_devis, id_reservation)
+INSERT INTO devis (prix_devis, delai_acceptation, acceptation, date_devis, id_reservation)
 VALUES
-    (1, 250.00, '2023-10-30', TRUE,'2023-10-28 10:41', 1),
-    (2, 350.00, '2023-11-05', TRUE,'2023-11-01 13:15', 2),
-    (3, 150.00, '2023-11-20', FALSE,'2023-10-30 10:58', 3);
+    (250.00, '2023-10-30', TRUE,'2023-10-28 10:41', 1),
+    (350.00, '2023-11-05', TRUE,'2023-11-01 13:15', 2),
+    (150.00, '2023-11-20', FALSE,'2023-10-30 10:58', 3);
     
 INSERT INTO contrainte_reservation (duree_min_reservation, duree_max_reservation, delai_min_resa_arrive, id_logement)
 VALUES
@@ -442,16 +449,19 @@ VALUES
     ('Lit double', 2, 'Queen size', 2),
     ('Lit simple', 2, 'Simple', 3);
     
-INSERT INTO facture (id_facture, prix_facture, info_facture, payement, id_devis)
+INSERT INTO facture (prix_facture, info_facture, payement, id_devis)
 VALUES
-    (1, 250.00, 'Facture pour la réservation 1', 139.00, 1),
-    (2, 350.00, 'Facture pour la réservation 2', 200.00, 2),
-    (3, 150.00, 'Facture pour la réservation 3', 60.00, 3);
+    (250.00, 'Facture pour la réservation 1', 139.00, 1),
+    (350.00, 'Facture pour la réservation 2', 200.00, 2),
+    (150.00, 'Facture pour la réservation 3', 60.00, 3);
     
-CREATE FUNCTION getCurrentData(id_logement) RETURNS TABLE(disponibilite BOOLEAN, prix_ht numeric(10,2), delai_annul integer, pourcentage_retenu numeric(10,2), date_debut date, date_fin date, id_logement integer) AS $$
-DECLARE
-  plage = CURRENT_DATE;
+CREATE FUNCTION getCurrentData(id_log INT) RETURNS TABLE(disponibilite BOOLEAN, prix_ht numeric(10,2), delai_annul integer, pourcentage_retenu numeric(10,2), date_debut date, date_fin date, id_logement integer) AS $$
 BEGIN
-  SELECT * FROM plage WHERE date_debut >= CURRENT_DATE && date_fin <= CURRENT_DATE;
+  PERFORM * FROM plage WHERE plage.date_debut <= CURRENT_DATE AND plage.date_fin >= CURRENT_DATE AND plage.id_logement = id_log;
+  IF NOT FOUND THEN
+    RETURN QUERY SELECT disponible_defaut, prix_base_ht, delai_annul_defaut, pourcentage_retenu_defaut, DATE('1970-01-01'), DATE('1970-01-01'), logement.id_logement FROM logement WHERE logement.id_logement = id_log;
+  ELSE
+    RETURN QUERY SELECT * FROM plage WHERE plage.date_debut <= CURRENT_DATE AND plage.date_fin >= CURRENT_DATE AND plage.id_logement = id_log;
+  END IF;
 END;
 $$ LANGUAGE plpgsql;

@@ -17,6 +17,7 @@
                 //exécution de la requête d'insertion
                 $stmt->execute();
                 $dbh = null;
+                
             } catch (PDOException $e) {
                 print "Erreur : " . $e->getMessage() . "<br/>";
                 die();

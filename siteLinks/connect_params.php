@@ -2,53 +2,7 @@
 <?php
 $server = 'servbdd';
 $driver = 'pgsql';
-$dbname = 'pg_salabiven';
-$user = 'salabiven';
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-$pass = '!';
+$dbname = 'pg_mpineau';
+$user = 'mpineau';
+$pass = '';
 ?>
