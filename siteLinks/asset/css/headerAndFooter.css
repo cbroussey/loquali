@@ -142,8 +142,6 @@ header {
   margin: 0;
   display: flex;
   align-items: center;
-
-  margin-top: 5%;
 }
 
 #footerCercleLogo img{
@@ -349,9 +347,7 @@ footer > div:last-of-type {
   }
 
   #infosFooter {
-    width: 430px;
     height: 230px;
-
   }
 
 }
