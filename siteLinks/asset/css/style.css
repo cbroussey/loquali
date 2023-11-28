@@ -3413,7 +3413,7 @@ opacity: 1;
   flex-wrap: wrap;
 
   padding: 0;
-  margin: 0 15%;
+  margin: 0 15% 5% 15%;
 }
 
 .pageAccueil a {
@@ -3471,7 +3471,7 @@ opacity: 1;
 
 @media screen and (min-width: 750px) and (max-width: 1545px) { 
 .pageAccueil{
-  margin: 0 10%;
+  margin: 0 10% 5% 10%;
 }
 }
 
