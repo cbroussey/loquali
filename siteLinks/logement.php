@@ -533,7 +533,7 @@
                 </div>
 
                 <div class="modif_log_btn">
-                    <a href="modifLogement.php?id=<?php echo($id) ?>">Modifier</a>
+                    <a href="modifLogement.php?id=<?php echo($id) ?>"><h2>Modifier</h2></a>
                 </div>
             </div>
 
