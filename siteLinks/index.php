@@ -59,22 +59,18 @@ session_start();
     </div>
     <div></div>
   </header>
+
   <div class="slider-container slider1">
     <div class="barreRecherche">
-
       <div class="bar">
         <div class="gauche-bar">
-
-
           <svg width="29" height="39" viewBox="0 0 29 39" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M12.8497 37.4203C2.01173 21.7084 0 20.0959 0 14.3216C0 6.41195 6.41195 0 14.3216 0C22.2312 0 28.6431 6.41195 28.6431 14.3216C28.6431 20.0959 26.6314 21.7084 15.7934 37.4203C15.0822 38.4477 13.5609 38.4476 12.8497 37.4203ZM14.3216 20.2889C17.6172 20.2889 20.2889 17.6172 20.2889 14.3216C20.2889 11.0259 17.6172 8.35424 14.3216 8.35424C11.0259 8.35424 8.35424 11.0259 8.35424 14.3216C8.35424 17.6172 11.0259 20.2889 14.3216 20.2889Z" fill="#1D4C77" />
           </svg>
-
           <input id="searchbar" type="text" placeholder="Rechercher une destination ...">
         </div>
         <a class="search" href="#">Rechercher</a>
       </div>
-
     </div>
     <div class="point">
       <span class="dot"></span>
@@ -82,16 +78,15 @@ session_start();
       <span class="dot"></span>
       <span class="dot"></span>
     </div>
-
     <div class="slider" id="slider">
       <img src="asset/img/indexSlider1.jpg" alt="d">
       <img src="asset/img/indexSlider2.jpg" alt="">
       <img src="asset/img/indexSlider3.jpg" alt="">
       <img src="asset/img/indexSlider4.jpg" alt="tets">
       <img src="asset/img/indexSlider1.jpg" alt="d">
-
     </div>
   </div>
+
   <div class="filter-container">
     <div id="gauche">
       <a class="button" href="#">
@@ -104,7 +99,6 @@ session_start();
         <svg width="26" height="30" viewBox="0 0 26 30" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M8.43766 16.4192H6.15721C5.78094 16.4192 5.47307 16.1114 5.47307 15.7351V13.4546C5.47307 13.0784 5.78094 12.7705 6.15721 12.7705H8.43766C8.81393 12.7705 9.12179 13.0784 9.12179 13.4546V15.7351C9.12179 16.1114 8.81393 16.4192 8.43766 16.4192ZM14.5949 15.7351V13.4546C14.5949 13.0784 14.287 12.7705 13.9107 12.7705H11.6303C11.254 12.7705 10.9461 13.0784 10.9461 13.4546V15.7351C10.9461 16.1114 11.254 16.4192 11.6303 16.4192H13.9107C14.287 16.4192 14.5949 16.1114 14.5949 15.7351ZM20.0679 15.7351V13.4546C20.0679 13.0784 19.7601 12.7705 19.3838 12.7705H17.1034C16.7271 12.7705 16.4192 13.0784 16.4192 13.4546V15.7351C16.4192 16.1114 16.7271 16.4192 17.1034 16.4192H19.3838C19.7601 16.4192 20.0679 16.1114 20.0679 15.7351ZM14.5949 21.2082V18.9277C14.5949 18.5514 14.287 18.2436 13.9107 18.2436H11.6303C11.254 18.2436 10.9461 18.5514 10.9461 18.9277V21.2082C10.9461 21.5844 11.254 21.8923 11.6303 21.8923H13.9107C14.287 21.8923 14.5949 21.5844 14.5949 21.2082ZM9.12179 21.2082V18.9277C9.12179 18.5514 8.81393 18.2436 8.43766 18.2436H6.15721C5.78094 18.2436 5.47307 18.5514 5.47307 18.9277V21.2082C5.47307 21.5844 5.78094 21.8923 6.15721 21.8923H8.43766C8.81393 21.8923 9.12179 21.5844 9.12179 21.2082ZM20.0679 21.2082V18.9277C20.0679 18.5514 19.7601 18.2436 19.3838 18.2436H17.1034C16.7271 18.2436 16.4192 18.5514 16.4192 18.9277V21.2082C16.4192 21.5844 16.7271 21.8923 17.1034 21.8923H19.3838C19.7601 21.8923 20.0679 21.5844 20.0679 21.2082ZM25.541 6.38525V26.4532C25.541 27.964 24.3153 29.1897 22.8045 29.1897H2.73654C1.22574 29.1897 0 27.964 0 26.4532V6.38525C0 4.87446 1.22574 3.64872 2.73654 3.64872H5.47307V0.684134C5.47307 0.30786 5.78094 0 6.15721 0H8.43766C8.81393 0 9.12179 0.30786 9.12179 0.684134V3.64872H16.4192V0.684134C16.4192 0.30786 16.7271 0 17.1034 0H19.3838C19.7601 0 20.0679 0.30786 20.0679 0.684134V3.64872H22.8045C24.3153 3.64872 25.541 4.87446 25.541 6.38525ZM22.8045 26.1111V9.12179H2.73654V26.1111C2.73654 26.2993 2.89047 26.4532 3.0786 26.4532H22.4624C22.6505 26.4532 22.8045 26.2993 22.8045 26.1111Z" fill="#F5F5F5" />
         </svg>
-
         <p>Dates</p>
       </a>
     </div>
@@ -112,7 +106,6 @@ session_start();
       <div id="ps">
         <p>Des logements pour tout les goûts </p>
       </div>
-
     </div>
     <?php
     if ($_SESSION['userType'] == 'proprietaire') {
@@ -129,7 +122,7 @@ session_start();
     }
     ?>
     <div id="trier">
-      <a class="button" id="trier" href="#">
+      <a class="button" id="" href="#">
         <svg width="24" height="13" viewBox="0 0 24 13" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M10.7897 11.7363C11.4591 12.3249 12.5462 12.3249 13.2157 11.7363L23.4979 2.69556C24.1674 2.10697 24.1674 1.1511 23.4979 0.562509C22.8285 -0.0260811 21.7414 -0.0260811 21.072 0.562509L12 8.53907L2.92804 0.567217C2.25862 -0.0213728 1.17148 -0.0213728 0.502064 0.567217C-0.167355 1.15581 -0.167355 2.11168 0.502064 2.70026L10.7843 11.741L10.7897 11.7363Z" fill="#F5F5F5" />
         </svg>
@@ -139,10 +132,9 @@ session_start();
     </div>
   </div>
 
+
+
   <div class="box">
-
-
-
     <?php
 
     include('connect_params.php');
@@ -189,55 +181,55 @@ session_start();
     }
 
     ?>
-</div>
-   
+  </div>
 
-<footer>
 
-      <div id="infosFooter">
-        <div id="footerCercleLogo">
-          <img src="asset/img/logoRond.svg" alt="logo">
+  <footer>
+
+    <div id="infosFooter">
+      <div id="footerCercleLogo">
+        <img src="asset/img/logoRond.svg" alt="logo">
+      </div>
+      <div id="textefooter">
+        <div id="infosLegal">
+          <h2>Informations légales</h2>
+          <ul>
+            <li><a href="">Plan du site</a></li>
+            <li><a href="">Mentions légales</a></li>
+            <li><a href="">Conditions générales de ventes</a></li>
+            <li><a href="">Données personnelles</a></li>
+            <li><a href="">Gestions des cookies</a></li>
+          </ul>
         </div>
-        <div id="textefooter">
-          <div id="infosLegal">
-            <h2>Informations légales</h2>
-            <ul>
-              <li><a href="">Plan du site</a></li>
-              <li><a href="">Mentions légales</a></li>
-              <li><a href="">Conditions générales de ventes</a></li>
-              <li><a href="">Données personnelles</a></li>
-              <li><a href="">Gestions des cookies</a></li>
-            </ul>
-          </div>
-          <div id="support">
-            <h2>Support client</h2>
-            <a href="">Contacter le support</a>
-          </div>
-          <div id="reseaux">
-            <h2>Suivez nous</h2>
-            <div id="logoReseaux">
-              <a href=""><img src="asset/icons/blanc/facebook.svg" alt=""></a>
-              <a href=""><img src="asset/icons/blanc/instagram.svg" alt=""></a>
-              <a href=""><img src="asset/icons/blanc/steam.svg" alt=""></a>
-            </div>
-          </div>
-          <div id="contact">
-            <h2>Nous contacter</h2>
-            <p>Rue Édouard Branly, 22300 Lannion</p>
-            <p>02 96 46 93 00</p>
-            <p>iut-lannion.univ-rennes.fr</p>
+        <div id="support">
+          <h2>Support client</h2>
+          <a href="">Contacter le support</a>
+        </div>
+        <div id="reseaux">
+          <h2>Suivez nous</h2>
+          <div id="logoReseaux">
+            <a href=""><img src="asset/icons/blanc/facebook.svg" alt=""></a>
+            <a href=""><img src="asset/icons/blanc/instagram.svg" alt=""></a>
+            <a href=""><img src="asset/icons/blanc/steam.svg" alt=""></a>
           </div>
         </div>
+        <div id="contact">
+          <h2>Nous contacter</h2>
+          <p>Rue Édouard Branly, 22300 Lannion</p>
+          <p>02 96 46 93 00</p>
+          <p>iut-lannion.univ-rennes.fr</p>
+        </div>
       </div>
+    </div>
 
-      <div class="basFooter">
-        <p>Copyright @ 2023 LoQuali.com</p>
-      </div>
+    <div class="basFooter">
+      <p>Copyright @ 2023 LoQuali.com</p>
+    </div>
 
-    </footer>
+  </footer>
 
-    <script src="asset/js/header.js"></script>
-    <script src="asset/js/index.js"></script>
+  <script src="asset/js/header.js"></script>
+  <script src="asset/js/index.js"></script>
 </body>
- 
+
 </html>

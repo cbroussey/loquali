@@ -185,14 +185,17 @@ pre {
   width: 100%;
 }
 
+/*********************************************************/
+
 .filter-container {
   background: var(--secondBG);
-  display: flex;
-  align-items: center;
   box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.25);
   height: 108px;
   width: 100%;
   padding: 0;
+
+  display: flex;
+  align-items: center;
   justify-content: space-around;
 }
 
@@ -203,49 +206,59 @@ pre {
   border-radius: 5px;
   font-style: italic;
   height: 40px;
-  width: 100%;
-  margin: 0 10px;
+  width: auto;
   padding: 0 10px;
+
   display: flex;
   justify-content: space-between;
-  /*justify-content: center;*/
+  justify-content: center;
   align-items: center;
 }
 
-.filter-container .button p {
-  margin-left: 5px;
-  padding-right: 5px;
+.filter-container svg{
+  width: 30px;
+  height: 25px;
+  margin: 0 15px;
 }
 
-.filter-container .button svg {
-  margin-right: 5px;
-  padding-left: 5px;
+#trier, #gauche, #slogant {
+  width: 300px;
 }
 
-#trier,
 #gauche {
-  width: 20%;
-  margin: 0 5%;
-}
-#gacuhe {
   display: flex;
-  justify-content: space-around;
+  flex-direction: row;
+  width: 10%;
+}
+
+#gauche p {
+  margin: 0 15px 0 0;
+}
+
+#gauche .button{
+  margin-right: 30px;
+  width: 100%;
+}
+
+#slogan {
+  border-radius: 5px;
+  background: #1d4c77;
+  color: white;
+  height: 40px;
+  width: 30%;
+
+  display: flex;
   align-items: center;
+  justify-content: center;
+}
+
+#trier {
   width: 10%;
 }
 
 .maison img{
   width: 300px;
   border-radius: 5px;
-}
-
-#trier {
-  float: right;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 30%;
-  margin: 0;
 }
 
 .ajout_log{
@@ -273,26 +286,6 @@ pre {
 
 .ajout_log a svg{
   margin-right: 5px;
-}
-
-#slogan {
-  border-radius: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #1d4c77;
-  color: white;
-  height: 40px;
-  width: 30%;
-  margin-right: 5%;
-}
-
-#slogan p {
-  margin: 20px;
-}
-
-#gauche {
-  display: flex;
 }
 
 .box {
@@ -404,6 +397,204 @@ pre {
   justify-content: center;
   align-items: center;
 }
+
+@media screen and (min-width: 0px) and (max-width: 1275px) {
+  #gauche {
+    float: right;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+    margin: 0;
+}
+
+  #trier {
+    float: right;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+    margin: 0;
+    margin-right: -5%;
+}
+}
+
+@media screen and (min-width: 0px) and (max-width: 1100px) {
+
+  #slogan {
+    display: none;
+  }
+
+  .filter-container {
+    height: 108px;
+    width: 100%;
+    padding: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #trier, #gauche, #slogant {
+    width: 240px;
+  }
+
+  #gauche {
+    margin-left: 5%;
+  }
+  
+  #gauche p {
+    margin: 0 10px 0 0;
+  }
+  
+}
+
+@media screen and (min-width: 0px) and (max-width: 900px) {
+
+
+  .slider1 {
+    position: relative;
+    max-width: 100%;
+    margin: auto;
+    overflow: hidden;
+  }
+  
+  .barreRecherche {
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 1;
+  }
+  
+  .barreRecherche h2 {
+    margin-bottom: 0px;
+  }
+  
+  .gauche-bar {
+    width: 300px;
+  }
+
+  
+  .search {
+    border-radius: 10px;
+    margin-left: 10px;
+    padding: 10px;
+    height: 38px;
+    font-size: 15px;
+    width: 120px;
+  }
+  
+  .dot {
+    display: none;
+  }
+  .dot.active {
+    display: none;
+  }
+  
+  .point {
+    display: none;
+  }
+  
+  .filter-container {
+    height: 80px;
+  }
+
+  .filter-container svg{
+    width: 20px;
+    height: 20px;
+  }
+
+  .filter-container .button {
+    
+    font-size: 15px;
+    border-radius: 5px;
+    font-style: italic;
+    height: 35px;
+    width: auto;
+    padding: 0 10px;
+  }
+
+
+  #trier, #gauche, #slogant {
+    width: 200px;
+  }
+
+  #gauche {
+    margin-left: 5%;
+  }
+  
+  #gauche p {
+    margin: 0 10px 0 0;
+  }
+}
+
+@media screen and (min-width: 0px) and (max-width: 500px) {
+
+  .gauche-bar {
+    width: 200px;
+  }
+  
+  .search {
+    border-radius: 10px;
+    margin-left: 10px;
+    padding: 10px;
+    height: 38px;
+    font-size: 15px;
+    width: 120px;
+  }
+  
+  .dot {
+    display: none;
+  }
+  .dot.active {
+    display: none;
+  }
+  
+  .point {
+    display: none;
+  }
+  
+  .filter-container {
+    height: 80px;
+  }
+
+  .filter-container svg{
+    display: none;
+  }
+
+  .filter-container .button {
+    
+    font-size: 15px;
+    border-radius: 5px;
+    font-style: italic;
+    height: 35px;
+    width: auto;
+    padding: 0 10px;
+  }
+
+
+  #trier, #gauche, #slogant {
+    width: 130px;
+  }
+
+  #gauche {
+    margin-left: 10%;
+  }
+  
+  #gauche p {
+    margin: 0 10px 0 0;
+  }
+
+
+  .filter-container .button {
+    width: 50px;
+    padding: 0 10px;
+  }
+
+
+}
+
 
 /******************************************** LOGEMENT ********************************************/
 
