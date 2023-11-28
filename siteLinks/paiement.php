@@ -31,6 +31,7 @@
             'SELECT *, DATE_PART(\'day\', reservation.fin_reservation::timestamp - reservation.debut_reservation::timestamp) AS nbJours FROM test.devis
             JOIN test.reservation ON test.devis.id_reservation = test.reservation.id_reservation
             JOIN test.logement ON test.reservation.id_logement = test.logement.id_logement
+            JOIN test.image ON test.logement.id_image_couv = test.image.id_image
             WHERE id_devis = :devis'
         );
         $res->bindParam('devis', $_POST['devis'], PDO::PARAM_INT);
@@ -83,7 +84,7 @@
                 </div>
                 <div id="devis">
                     <figure>
-                        <img src="asset/img/appart.png">
+                        <img src="asset/img/logements/<?php echo $res["id_image_couv"] ?>.<?php echo $res["extension_image"] ?>">
                         <figcaption><?php echo $res["descriptif"] ?><!--Appartement avec vue imprenable sur la mer--></figcaption>
                     </figure>
                     <div>
