@@ -2,14 +2,10 @@ function inputAlphanumeric(value){
     return value.replace(/[^a-zA-ZÀ-ÿ -]/g, '');
 }
 
-/* function inputNumber(value){
-    value = value.replace(/\D/g, '').trim();
-    if (value.length % 3 === 0 && value.length > 0) {
-        value += ' ';
-    }
-    return value;
+function inputNumber(value){
+    return value.replace(/\D/g, '');
 }
- */
+ 
 function surnameFormat(value) {
     return value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
 }
@@ -20,7 +16,7 @@ function addSpaces(value) {
 
 const pays = document.getElementById("pays");
 const ville = document.getElementById("ville");
-//const telephone = document.getElementById("telephone");
+const telephone = document.getElementById("telephone");
 
 pays.addEventListener('input', function() {
     this.value = surnameFormat(inputAlphanumeric(this.value));
@@ -30,13 +26,10 @@ ville.addEventListener('input', function() {
     this.value = surnameFormat(inputAlphanumeric(this.value));
 });
 
-/* telephone.addEventListener('input', function() {
-    this.value = addSpaces(inputNumber(this.value));
-});
-
-document.addEventListener('keydown', function(event) {
-    if ((event.key === 'Delete' || event.key === 'Backspace') && event.target.id === 'telephone') {
-        telephone.value = telephone.value.slice(0, -1);
+telephone.addEventListener('input', function() {
+    this.value = inputNumber(this.value);
+    if (this.value.length > 10) {
+        this.value = this.value.slice(0, -1);
+        return;
     }
 });
- */

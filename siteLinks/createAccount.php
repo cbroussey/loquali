@@ -37,7 +37,7 @@
             $stmt = $dbh->prepare($insert);
 
             //hashage du mot de passe avant l'insertion dans la base de donnée
-            $hash = password_hash($_POST['motdepasse'], PASSWORD_DEFAULT);
+            $hash = password_hash($_POST['passwordInput'], PASSWORD_DEFAULT);
 
             $nomAffichage = $_POST['prenom'] . " " . $_POST['nom'];
 
