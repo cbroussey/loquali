@@ -18,6 +18,8 @@
             if ($post == null) {
                 $inconnu = true;
             } else {
+                
+
                 if (password_verify($_POST['passwordInput'], $post['mdp'])) {
                     
                     $_SESSION['userId'] = $post['id_compte']; 
