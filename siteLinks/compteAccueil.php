@@ -154,7 +154,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <div class="separateurCompte"></div>
 
-        <a href="" id="comptePro">Passer à un compte propriétaire</a>
+        <?php
+        if ($_SESSION['userType'] == 'client') {
+            ?>
+            <a href="" id="comptePro">Passer à un compte propriétaire</a>
+            <?php
+        }
+        ?>
 
     </div>
 
@@ -171,11 +177,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <footer>
 
         <div id="infosFooter">
-            <div id="footerCercleLogo" class="portableDroite">
+            <div id="footerCercleLogo">
                 <img src="asset/img/logoRond.svg" alt="logo">
             </div>
             <div id="textefooter">
-                <div class="gauche" class="portableGauche" id="infosLegal">
+                <div id="infosLegal">
                     <h2>Informations légales</h2>
                     <ul>
                         <li><a href="">Plan du site</a></li>
@@ -185,11 +191,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <li><a href="">Gestions des cookies</a></li>
                     </ul>
                 </div>
-                <div class="centrer" class="portableDroite" id="support">
+                <div id="support">
                     <h2>Support client</h2>
                     <a href="">Contacter le support</a>
                 </div>
-                <div class="centrer" class="portableDroite" id="reseaux">
+                <div  id="reseaux">
                     <h2>Suivez nous</h2>
                     <div id="logoReseaux">
                         <a href=""><img src="asset/icons/blanc/facebook.svg" alt=""></a>
@@ -197,7 +203,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <a href=""><img src="asset/icons/blanc/steam.svg" alt=""></a>
                     </div>
                 </div>
-                <div class="droite" class="portableGauche" id="contact">
+                <div id="contact">
                     <h2>Nous contacter</h2>
                     <p>Rue Édouard Branly, 22300 Lannion</p>
                     <p>02 96 46 93 00</p>

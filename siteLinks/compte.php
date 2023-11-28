@@ -56,27 +56,23 @@
 
     include('connect_params.php');
     try {
-        $id=5; // à revoir une fois que les comptes sont fait
         $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
         $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-        $query = "SELECT * FROM test.proprietaire NATURAL JOIN test.compte WHERE id_compte = :id_compte";
 
+        if ($_SESSION['userType'] == 'client') {
+          $query = "SELECT * FROM test.compte WHERE id_compte = :id_compte";
+        } else {
+          $query = "SELECT * FROM test.proprietaire NATURAL JOIN test.compte WHERE id_compte = :id_compte";
+        }
+        
         $stmt = $dbh->prepare($query);
-        $stmt->bindParam('id_compte', $id, PDO::PARAM_STR);
+        $stmt->bindParam('id_compte', $_SESSION['userId'], PDO::PARAM_STR);
         $stmt->execute();
         $infos = $stmt->fetch();
-    }   catch (PDOException $e) {
-        print "Erreur !: " . $e->getMessage() . "<br/>";
-        die();
-    }
-    try {
-      $id=2; // à revoir une fois que les comptes sont fait
-
-        $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
         $query = "SELECT * FROM test.telephone WHERE id_compte = :id_compte";
 
         $stmt = $dbh->prepare($query);
-        $stmt->bindParam('id_compte', $id, PDO::PARAM_STR);
+        $stmt->bindParam('id_compte', $_SESSION['userId'], PDO::PARAM_STR);
         $stmt->execute();
         $telephone = $stmt->fetch();
     }   catch (PDOException $e) {
@@ -174,11 +170,18 @@
 <!--  INFORMATION  -->
     <div id="compteInfosPerso">
       <div class="lignes">
-        <p>Nom légal</p>
-        <p class="displayInfos" id="nom"><?php echo($infos['nom']) ?> <?php echo($infos['prenom']) ?></p>
+        <p>Nom</p>
+        <p class="displayInfos" id="nom"><?php echo($infos['nom']) ?></p>
         <button class="modifications" onclick="modifierInfos(this, 'nom')">Modifier</button>
       </div>
 
+      <div class="separateurgenre"></div>
+
+      <div class="lignes">
+        <p>Prénom</p>
+        <p class="displayInfos" id="nom"><?php echo($infos['prenom']) ?></p>
+        <button class="modifications" onclick="modifierInfos(this, 'nom')">Modifier</button>
+      </div>
 
       <div class="separateurgenre"></div>
 
@@ -192,7 +195,10 @@
 
       <div class="lignes">
         <p>Numéros de téléphone</p>
-        <p class="displayInfos" id="tel"><?php echo($telephone["numero"]); ?></p>
+        <?php 
+        $tel = isset($telephone['numero']) ? $telephone["numero"] :  'Information non renseignée'; 
+        ?>
+        <p class="displayInfos" id="tel"><?php echo htmlentities($tel) ?></p>
         <button class="modifications" onclick="modifierInfos(this, 'tel')">Modifier</button>
       </div>
 
@@ -200,7 +206,10 @@
 
       <div class="lignes">
         <p>Adresse</p>
-        <p class="displayInfos" id="adresse"><?php echo($infos['adresse_postale']) ?></p>
+        <?php 
+        $adresse = isset($infos['adresse']) ? $infos["adresse"] :  'Information non renseignée'; 
+        ?>
+        <p class="displayInfos" id="adresse"><?php echo htmlentities($adresse) ?></p>
         <button class="modifications" onclick="modifierInfos(this, 'adresse')">Modifier</button>
       </div>
 
