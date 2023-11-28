@@ -90,7 +90,7 @@ create table photo_logement(
 create table cb(
     numero_carte varchar(16) check (numero_carte ~ '^[0-9]{16}$'),
     date_validite date,
-    cryptogramme integer,
+    cryptogramme VARCHAR(3),
     id_compte integer,
     constraint cb_pk primary key(numero_carte),
     constraint cb_fk_client foreign key (id_compte) references client(id_compte)ON DELETE CASCADE
