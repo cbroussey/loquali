@@ -23,6 +23,10 @@
 
             $dbh = null;
 
+            $_SESSION['userType'] = 'proprietaire';
+            header("Location: index.php");
+            exit();
+
         } catch (PDOException $e) {
             print "Erreur : " . $e->getMessage() . "<br/>";
             die();
