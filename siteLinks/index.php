@@ -155,7 +155,7 @@
     include('connect_params.php');
     try {
         $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
-        foreach($dbh->query("SELECT * from test.logement WHERE en_ligne=true", PDO::FETCH_ASSOC) as $row) {
+        foreach($dbh->query("SELECT * from test.logement WHERE en_ligne=true ORDER BY id_logement", PDO::FETCH_ASSOC) as $row) {
             $i=0;
             $id=$row["id_logement"];
             $info=$row;

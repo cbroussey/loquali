@@ -144,7 +144,6 @@
                 $stmt->bindParam('id_log', $id_log, PDO::PARAM_STR);
                 $stmt->execute();
                 
-                $dbh = null;
             } catch (PDOException $e) {
                 print "Erreur !: " . $e->getMessage() . "<br/>";
                 die();
@@ -194,7 +193,6 @@
                 $stmt->bindParam('id_log', $id_log, PDO::PARAM_STR);
                 $stmt->execute();
                 
-                $dbh = null;
             } catch (PDOException $e) {
                 print "Erreur !: " . $e->getMessage() . "<br/>";
                 die();
@@ -239,7 +237,6 @@
                 $stmt->bindParam('id_log', $id_log, PDO::PARAM_STR);
                 $stmt->execute();
                 
-                $dbh = null;
             } catch (PDOException $e) {
                 print "Erreur !: " . $e->getMessage() . "<br/>";
                 die();
@@ -326,13 +323,17 @@
 
                         $stmt = $dbh->prepare("
                             INSERT INTO test.image (
-                                id_image
+                                id_image,
+                                extension_image
                             ) VALUES (
-                                :id_image
+                                :id_image,
+                                :extension_image
                             )
                         ");
 
                         $stmt->bindParam(':id_image', $id_p);
+                        $stmt->bindParam(':id_image', $extention[1]);
+
 
 
                         try {
