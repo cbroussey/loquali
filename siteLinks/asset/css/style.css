@@ -3981,10 +3981,7 @@ padding-bottom: 50px;
 margin:  0 10%;
 }
 
-.displayInfos{
-color: #97ADC1;
-margin-top: 15px;
-}
+
 
 .modifications{
 float: right;
@@ -4009,21 +4006,247 @@ border-radius: 5px;
 cursor: pointer;
 }
 
-#compteInfosPerso input {
-width: 250px;
-padding: 15px;
-margin-right: 10px;
-border-radius: 10px;
-border: 1px solid #1D4C77;
-
-color: #1D4C77;
-}
 
 .separateurgenre{
 background: #97ADC1;
 height: 2px;
 width: 100%;
 }
+
+.lignes #modifEnregistrer{
+  float: right;
+  right: 0;
+  margin-top: -60px;
+  margin-bottom: 10px;
+
+  color: #1d4c77;
+  text-decoration: underline;
+  border: none;
+  background: none;
+  font-size: 20px;
+  font-weight: 400;
+  width: 130px;
+
+
+  background-color: #2072BC;
+  color: #F5F5F5;
+  text-decoration: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+
+  cursor: pointer;
+}
+
+.boutonInfosstyle {
+  float: right;
+  right: 0;
+  margin-top: -60px;
+  margin-bottom: 10px;
+
+  color: #1d4c77;
+  text-decoration: underline;
+  border: none;
+  background: none;
+  font-size: 20px;
+  font-weight: 400;
+ 
+
+  background-color: #2072BC;
+  color: #F5F5F5;
+  text-decoration: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+
+  cursor: pointer;
+}
+
+
+.displayInfos{
+  color: #97ADC1;
+  margin-top: 15px;
+  display: block;
+  }
+  
+.displayInfos.active {
+  display: none;
+}
+
+.displayInfos2{
+  color: #97ADC1;
+  margin-top: 15px;
+  display: block;
+  }
+  
+.displayInfos2.active {
+  display: none;
+}
+
+.displayInfos3{
+  color: #97ADC1;
+  margin-top: 15px;
+  display: block;
+  }
+  
+.displayInfos3.active {
+  display: none;
+}
+
+.displayInfos4{
+  color: #97ADC1;
+  margin-top: 15px;
+  display: block;
+  }
+  
+.displayInfos4.active {
+  display: none;
+}
+
+.displayInfos5{
+  color: #97ADC1;
+  margin-top: 15px;
+  display: block;
+  }
+  
+.displayInfos5.active {
+  display: none;
+}
+
+.modifBouton {
+  display: none;
+  
+}
+
+.modifBouton.active{
+  display: block;
+}
+
+.modifBouton2 {
+  display: none;
+}
+
+.modifBouton2.active{
+  display: block;
+}
+
+.modifBouton3 {
+  display: none;
+}
+
+.modifBouton3.active{
+  display: block;
+}
+
+.modifBouton4 {
+  display: none;
+}
+
+.modifBouton4.active{
+  display: block;
+}
+
+.modifBouton5 {
+  display: none;
+}
+
+.modifBouton5.active{
+  display: block;
+}
+ 
+.modificationsBtn{
+  display: block;
+}
+
+.modificationsBtn.active{
+  display: none;
+}
+
+.modificationsBtn2{
+  display: block;
+}
+
+.modificationsBtn2.active{
+  display: none;
+}
+
+.modificationsBtn3{
+  display: block;
+}
+
+.modificationsBtn3.active{
+  display: none;
+}
+
+.modificationsBtn4{
+  display: block;
+}
+
+.modificationsBtn4.active{
+  display: none;
+}
+
+.modificationsBtn5{
+  display: block;
+}
+
+.modificationsBtn5.active{
+  display: none;
+}
+
+.modifInfos{
+  display: none;
+  margin-top: 15px;
+}
+
+.modifInfos.active{
+  display: block;
+}
+
+.modifInfos2{
+  display: none;
+  margin-top: 15px;
+}
+
+.modifInfos2.active{
+  display: block;
+}
+
+.modifInfos3{
+  display: none;
+  margin-top: 15px;
+}
+
+.modifInfos3.active{
+  display: block;
+}
+
+.modifInfos4{
+  display: none;
+  margin-top: 15px;
+}
+
+.modifInfos4.active{
+  display: block;
+}
+
+.modifInfos5{
+  display: none;
+  margin-top: 15px;
+}
+
+.modifInfos5.active{
+  display: block;
+}
+
+#adressePersonne {
+  width: 40%;
+}
+
+
+
+
+
+
+
 
 @media screen and (min-width: 0px) and (max-width: 1100px) { 
 
@@ -4048,6 +4271,8 @@ width: 100%;
     .displayInfos{
       margin-top: 10px;
     }
+
+    
     
     .modifications{
       margin-top: -50px;
@@ -4073,6 +4298,9 @@ width: 100%;
     
     color: #1D4C77;
     }
+
+   
+
     
   
 
@@ -4443,7 +4671,7 @@ font-weight: 500;
   background-repeat: no-repeat;
 
   position: absolute;
-  top: 229px;
+  top: 211px;
   left: 220px;
 
   transition: all 0.2s ease-in-out;
@@ -4458,7 +4686,7 @@ font-weight: 500;
 #modificationDescription {
 
   position: absolute;
-  top: 230px;
+  top: 210px;
   left: 220px;
 
   background-color: #2072BC;
@@ -4630,7 +4858,7 @@ font-weight: 500;
     }
 
     #modificationDescription {
-      top: 41%;
+      top: 34%;
       left: 35%;
     }
 
@@ -4734,7 +4962,7 @@ font-weight: 500;
       align-content: center;
       flex-wrap: wrap;
       margin-top: 30%;
-      margin-left: 5%;
+      margin-left: 25%;
       
     }
 
@@ -4748,7 +4976,7 @@ font-weight: 500;
     
     padding: 15px 25px 46px 30px;
     width: 1056px;
-    left: -55%;
+    left: -50%;
     top: 10%;
     position: relative;
       
