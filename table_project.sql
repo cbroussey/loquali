@@ -494,6 +494,15 @@ FOR EACH ROW
 WHEN (NEW.date_debut < OLD.date_debut OR NEW.date_fin > OLD.date_fin)
 EXECUTE PROCEDURE ajoutPlage();
 
+CREATE FUNCTION deleteOldPlage() RETURNS INTEGER AS $$
+DECLARE
+  lignes RECORD;
+BEGIN
+  WITH deleted AS (DELETE FROM plage WHERE plage.date_fin < CURRENT_DATE RETURNING *) SELECT count(*) AS deleted FROM deleted INTO lignes;
+  RETURN lignes(deleted);
+END;
+$$ LANGUAGE plpgsql;
+
 INSERT INTO plage(disponibilite, prix_hT, delai_annul, pourcentage_retenu, date_debut, date_fin, id_logement)
 VALUES
     (TRUE, 80.00, 5, 5.00, '2023-11-18', '2023-11-30', 1),
