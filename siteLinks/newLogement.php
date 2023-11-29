@@ -205,7 +205,7 @@
                         <a href="#" class="Suivant" id="suivantBtn1">Suivant</a>
                     </div>
                     
-
+    
 
                 </div>
 
@@ -323,7 +323,7 @@
                         <h2>Description du logement</h2>
 
 
-                        <textarea id="description" class="txt_area_ajlog" name="description" rows="7" cols="100" placeholder="Magnifique maison en bord de mer"></textarea>
+                        <textarea id="description2" class="txt_area_ajlog" name="description" rows="7" cols="100" placeholder="Magnifique maison en bord de mer"></textarea>
 
                     </div>
 
