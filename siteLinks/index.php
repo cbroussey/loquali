@@ -120,7 +120,6 @@
      
     </div>
     <?php
-                echo($_SESSION['userId']);
 
     if ($_SESSION['userType'] == 'proprietaire') {
       ?>

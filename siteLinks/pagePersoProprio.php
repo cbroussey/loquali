@@ -71,7 +71,7 @@
 
     include('connect_params.php');
     try {
-        $id=4; // à revoir une fois que les comptes sont fait
+        $id=$_SESSION['userId'];
         $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
         $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
         $query = "SELECT * FROM test.proprietaire NATURAL JOIN test.compte NATURAL JOIN test.telephone WHERE id_compte = :id_compte";
