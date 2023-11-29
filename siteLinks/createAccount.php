@@ -63,7 +63,7 @@
             $_SESSION['displayName'] = $nomAffichage;
             $_SESSION['name'] = $_POST['nom'];
             $_SESSION['surname'] = $_POST['prenom'];
-            $_SESSION['email'] = $_POST['adresse_mail'];
+            $_SESSION['email'] = $_POST['email'];
             $_SESSION['userType'] = 'client';
 
             $dbh = null;

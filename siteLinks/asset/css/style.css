@@ -4487,7 +4487,6 @@ font-weight: 500;
   margin-left: 30px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   height: 160px;
 
   font-size: 17px;
@@ -4500,6 +4499,7 @@ font-weight: 500;
   display: flex;
   justify-content: row;
   align-items: center;
+  margin-top: 15px;
 
 }
 
@@ -4557,6 +4557,7 @@ font-weight: 500;
   margin-right: 8px;
   margin-bottom: 50px;
 }
+
 
 
 #titreLogement {
