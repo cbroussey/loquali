@@ -55,18 +55,31 @@
             $qui = $_POST["qui"];
 
 
-            foreach ($dbh->query("SELECT * from test.reservation WHERE id_logement =$id", PDO::FETCH_ASSOC) as $row) {
-                $reserv = $row;
-            }
+            $query = "SELECT * FROM test.reservation WHERE id_logement = :id_logement";
+            $stmt = $dbh->prepare($query);
+            $stmt->bindParam(':id_logement', $id, PDO::PARAM_INT); 
+            $stmt->execute();
+
+            $reserv = $stmt->fetch(PDO::FETCH_ASSOC);
 
             $id_reserv = $reserv["id_reservation"];
 
-            foreach ($dbh->query("SELECT * from test.devis WHERE id_reservation =$id_reserv", PDO::FETCH_ASSOC) as $row) {
-                $devis = $row;
-            }
-            foreach ($dbh->query("SELECT * from test.logement WHERE id_logement =$id", PDO::FETCH_ASSOC) as $row) {
-                $info = $row;
-            }
+           
+            $queryDevis = "SELECT * FROM test.devis WHERE id_reservation = :id_reservation";
+            $stmtDevis = $dbh->prepare($queryDevis);
+            $stmtDevis->bindParam(':id_reserv', $id_reserv, PDO::PARAM_INT);
+            $stmtDevis->execute();
+            $devis = $stmtDevis->fetch(PDO::FETCH_ASSOC);
+
+           
+            $queryLogement = "SELECT * FROM test.logement WHERE id_logement = :id_logement";
+            $stmtLogement = $dbh->prepare($queryLogement);
+            $stmtLogement->bindParam(':id_logement', $id, PDO::PARAM_INT); 
+            $stmtLogement->execute();
+            $info = $stmtLogement->fetch(PDO::FETCH_ASSOC);
+
+
+
             $i = 0;
             foreach ($dbh->query("SELECT * from test.photo_logement WHERE id_logement =$id", PDO::FETCH_ASSOC) as $row) {
 
@@ -97,15 +110,12 @@
                 $charge[$i] = $row;
                 $i++;
             }
-          
+
             $query = "SELECT * FROM test.image WHERE id_image = :id_image";
             $stmt = $dbh->prepare($query);
             $stmt->bindParam(':id_image', $photo[0]["id_image"], PDO::PARAM_INT);
             $stmt->execute();
             $current = $stmt->fetch();
-                
-            
-           
         } catch (PDOException $e) {
             print "Erreur !: " . $e->getMessage() . "<br/>";
             die();
@@ -406,7 +416,7 @@
                         <div class="button_confirmation">
 
                             <a href="#" id="annuler" onclick="cacherPopup()">Annuler</a>
-                            <a href="logement.php?id=<?php echo ($id)?>" id="confirmer" onclick="confirmerRefus()">Confirmer</a>
+                            <a href="logement.php?id=<?php echo ($id) ?>" id="confirmer" onclick="confirmerRefus()">Confirmer</a>
                         </div>
                     </div>
                 <?php } ?>
@@ -470,7 +480,7 @@
                         <div class="button_confirmation">
 
                             <a href="#" id="annuler" onclick="cacherPopup()">Annuler</a>
-                            <a href="logement.php?id=<?php echo ($id)?>" id="confirmer" onclick="confirmerRefus()">Confirmer</a>
+                            <a href="logement.php?id=<?php echo ($id) ?>" id="confirmer" onclick="confirmerRefus()">Confirmer</a>
                         </div>
                     </div>
                 <?php } ?>
