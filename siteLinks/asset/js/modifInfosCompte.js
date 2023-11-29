@@ -25,7 +25,10 @@ function changementBouton (){
     element4.classList.add("active");
 }
 
-document.querySelector(".modificationsBtn").addEventListener("click", changementBouton);
+document.querySelector(".modificationsBtn").addEventListener("click", changementBouton); 
+
+
+
 
 
 function changementBouton2 (){
@@ -42,6 +45,8 @@ function changementBouton2 (){
 document.querySelector(".modificationsBtn2").addEventListener("click", changementBouton2);
 
 
+
+
 function changementBouton3 (){
     var element = document.querySelector(".modifBouton3");
     element.classList.add("active");
@@ -54,3 +59,35 @@ function changementBouton3 (){
 }
 
 document.querySelector(".modificationsBtn3").addEventListener("click", changementBouton3);
+
+
+
+
+function changementBouton4 (){
+    var element = document.querySelector(".modifBouton4");
+    element.classList.add("active");
+    var element2 = document.querySelector(".modificationsBtn4");
+    element2.classList.add("active");
+    var element3 = document.querySelector(".modifInfos4");
+    element3.classList.add("active");
+    var element4 = document.querySelector(".displayInfos4");
+    element4.classList.add("active");
+}
+
+document.querySelector(".modificationsBtn4").addEventListener("click", changementBouton4);
+
+
+
+
+function changementBouton5 (){
+    var element = document.querySelector(".modifBouton5");
+    element.classList.add("active");
+    var element2 = document.querySelector(".modificationsBtn5");
+    element2.classList.add("active");
+    var element3 = document.querySelector(".modifInfos5");
+    element3.classList.add("active");
+    var element4 = document.querySelector(".displayInfos5");
+    element4.classList.add("active");
+}
+
+document.querySelector(".modificationsBtn5").addEventListener("click", changementBouton5);
