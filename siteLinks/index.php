@@ -137,56 +137,56 @@ session_start();
 
 
   <div class="box">
-    <?php
+  <?php
 
-    include('connect_params.php');
-    try {
-      $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
-      foreach ($dbh->query("SELECT * from test.logement WHERE en_ligne=true ORDER BY id_logement", PDO::FETCH_ASSOC) as $row) {
-        $i = 0;
-        $id = $row["id_logement"];
-        $info = $row;
-    ?>
+include('connect_params.php');
+try {
+    $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
+    foreach($dbh->query("SELECT * from test.logement WHERE en_ligne=true ORDER BY id_logement", PDO::FETCH_ASSOC) as $row) {
+        $i=0;
+        $id=$row["id_logement"];
+        $info=$row;
+        ?>
 
-        <a href="logement.php?id=<?php echo ($id); ?>" class="maison">
-          <div id="triangle"></div>
-          <div class="etoile">
-            <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M7.5 0L9.18386 5.52786H14.6329L10.2245 8.94427L11.9084 14.4721L7.5 11.0557L3.09161 14.4721L4.77547 8.94427L0.367076 5.52786H5.81614L7.5 0Z" fill="white" />
-            </svg>
-            <p>5.0</p>
+        <a href="logement.php?id=<?php echo($id);?>" class="maison">
+                      <div id="triangle"></div>
+                      <div class="etoile">
+                        <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M7.5 0L9.18386 5.52786H14.6329L10.2245 8.94427L11.9084 14.4721L7.5 11.0557L3.09161 14.4721L4.77547 8.94427L0.367076 5.52786H5.81614L7.5 0Z"
+                            fill="white" />
+                        </svg>
+                        <p>5.0</p>
+                
+                      </div>
+                      <?php
+                        foreach($dbh->query("SELECT * from test.photo_logement WHERE id_logement=$id", PDO::FETCH_ASSOC) as $row) {
 
-          </div>
-          <?php
-          foreach ($dbh->query("SELECT * from test.photo_logement WHERE id_logement=$id", PDO::FETCH_ASSOC) as $row) {
+                          $photo[$i]=$row;
+                          $i++;
+                          
+                      }
 
-                          ?>
-                    
-                          <img src="asset/img/logements/<?php echo($photo[0]["id_image"]); ?>.jpg" withd="300" height="225" alt="img">
-                    
-                          <p class="ville"><?php  echo($info["libelle_logement"]);  ?>, <?php echo($info["localisation"]); ?></p>
-                          <p class="prix"><strong><?php  echo($info["prix_ttc"]."€");  ?></strong> par nuit</p>
-                      </a>
+                      ?>
+                
+                      <img src="asset/img/logements/<?php echo($photo[0]["id_image"]); ?>.jpg" withd="300" height="225" alt="img">
+                
+                      <p class="ville"><?php  echo($info["libelle_logement"]);  ?>, <?php echo($info["localisation"]); ?></p>
+                      <p class="prix"><strong><?php  echo($info["prix_ttc"]."€");  ?></strong> par nuit</p>
+                  </a>
 
-          ?>
-
-          <img src="asset/img/logements/<?php echo ($photo[0]["id_image"]); ?>.jpg" withd="300" height="225" alt="img">
-
-          <p class="ville"><?php echo ($info["libelle_logement"]);  ?>, <?php echo ($info["localisation"]); ?></p>
-          <p class="prix"><strong><?php echo ($info["prix_ttc"] . "€");  ?></strong> par nuit</p>
-        </a>
-
-    <?php
-        $info = [];
-        $photo = [];
-      }
-      $dbh = null;
-    } catch (PDOException $e) {
-      print "Erreur !: " . $e->getMessage() . "<br/>";
-      die();
+        <?php
+        $info=[];
+        $photo=[];
     }
+      $dbh = null;
+} catch (PDOException $e) {
+    print "Erreur !: " . $e->getMessage() . "<br/>";
+    die();
+}
 
-    ?>
+?>
+
   </div>
 
 
