@@ -261,11 +261,6 @@ retour3.addEventListener("click", function () {
 
 
 
-
-
-
-
-
 document.getElementById('photo').addEventListener('change', function (event) {
     const imageContainer = document.getElementById('liste_img_ajlog');
     
@@ -281,6 +276,28 @@ document.getElementById('photo').addEventListener('change', function (event) {
 });
   
 
+
+
+
+
+/* document.getElementById('photo').addEventListener('change', function (event) {
+    const imageContainer = document.getElementById('liste_img_ajlog');
+    
+    const files = event.target.files;
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      if (file.type.startsWith('image/')) {
+        let img =  `<input type='radio' name='couverture'/><label class="btn_choix_ajlog"><img src=${URL.createObjectURL(file)}></label>`
+        imageContainer.innerHTML += img
+      }
+    }
+}); */
+  
+/*
+
+<input type="radio" id="type2" name="type" value="Appartement" />
+<label for="type2" class="btn_choix_ajlog">Appartement</label>
+                            */
 
 
 

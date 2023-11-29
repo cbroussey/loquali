@@ -108,6 +108,8 @@ session_start();
       </div>
     </div>
     <?php
+                echo($_SESSION['userId']);
+
     if ($_SESSION['userType'] == 'proprietaire') {
     ?>
       <div class="ajout_log">
@@ -158,9 +160,13 @@ session_start();
           <?php
           foreach ($dbh->query("SELECT * from test.photo_logement WHERE id_logement=$id", PDO::FETCH_ASSOC) as $row) {
 
-            $photo[$i] = $row;
-            $i++;
-          }
+                          ?>
+                    
+                          <img src="asset/img/logements/<?php echo($photo[0]["id_image"]); ?>.jpg" withd="300" height="225" alt="img">
+                    
+                          <p class="ville"><?php  echo($info["libelle_logement"]);  ?>, <?php echo($info["localisation"]); ?></p>
+                          <p class="prix"><strong><?php  echo($info["prix_ttc"]."€");  ?></strong> par nuit</p>
+                      </a>
 
           ?>
 

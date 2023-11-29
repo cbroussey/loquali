@@ -1,4 +1,7 @@
 <?php
+  session_start();
+?>
+<?php
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         include('connect_params.php');
         try {
@@ -19,6 +22,8 @@
     }
 ?>
 
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -38,6 +43,8 @@
             $info=$_POST;
 
             $photo=$_FILES;
+
+            
 
 
             include('connect_params.php');
@@ -82,24 +89,20 @@
             $info_depart = $info["info_depart"];
             $reglement_interieur = $info["Règlement"];
 
-            $id_compte = 4; // besoin de taf de martin 
+            $id_compte = $_SESSION['userId'];
+            echo ($_SESSION['userId']."||||");
 
 
             // Préparer la requête d'insertion
             $stmt = $dbh->prepare("
                 INSERT INTO test.logement (
                     prix_TTC,
-                    note_logement,
                     en_ligne,
-                    ouvert,
                     type_logement,
                     nature_logement,
                     descriptif,
                     surface,
-                    disponible_defaut,
                     prix_base_HT,
-                    delai_annul_defaut,
-                    pourcentage_retenu_defaut,
                     libelle_logement,
                     accroche,
                     nb_pers_max,
@@ -114,17 +117,12 @@
                     id_compte
                 ) VALUES (
                     :prix_TTC,
-                    :note_logement,
                     :en_ligne,
-                    :ouvert,
                     :type_logement,
                     :nature_logement,
                     :descriptif,
                     :surface,
-                    :disponible_defaut,
                     :prix_base_HT,
-                    :delai_annul_defaut,
-                    :pourcentage_retenu_defaut,
                     :libelle_logement,
                     :accroche,
                     :nb_pers_max,
@@ -142,17 +140,12 @@
 
             // Binder les valeurs
             $stmt->bindParam(':prix_TTC', $prix_TTC);
-            $stmt->bindParam(':note_logement', $note_logement);
             $stmt->bindParam(':en_ligne', $en_ligne, PDO::PARAM_INT);
-            $stmt->bindParam(':ouvert', $ouvert, PDO::PARAM_INT);
             $stmt->bindParam(':type_logement', $type_logement);
             $stmt->bindParam(':nature_logement', $nature_logement);
             $stmt->bindParam(':descriptif', $descriptif);
             $stmt->bindParam(':surface', $surface);
-            $stmt->bindParam(':disponible_defaut', $disponible_defaut, PDO::PARAM_INT);
             $stmt->bindParam(':prix_base_HT', $prix_base_HT);
-            $stmt->bindParam(':delai_annul_defaut', $delai_annul_defaut);
-            $stmt->bindParam(':pourcentage_retenu_defaut', $pourcentage_retenu_defaut);
             $stmt->bindParam(':libelle_logement', $libelle_logement);
             $stmt->bindParam(':accroche', $accroche);
             $stmt->bindParam(':nb_pers_max', $nb_pers_max);
@@ -177,105 +170,116 @@
             }
 
 
+
             /* Récupération de l'id du logement qu'on crée */
 
             $i=0;
 
-            foreach($dbh->query("SELECT DISTINCT id_logement from test.logement ORDER BY id_logement DESC", PDO::FETCH_ASSOC) as $row) {
-            
-                $log[$i]=$row;
-                $i++;
-            }
-
-            $id_log=$log[0]["id_logement"];
-
+            $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
+            $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+            $query = "SELECT DISTINCT id_logement FROM test.logement ORDER BY id_logement DESC LIMIT 1";
+    
+            $stmt = $dbh->prepare($query);
+            $stmt->execute();
+            $id_log_T = $stmt->fetch();
+            $id_log=$id_log_T["id_logement"];
+            echo $id_log."||||";
 
             /* Ajout des aménagements */
 
-
-            foreach ($info["amena"] as $ind => $val){
-                $stmt = $dbh->prepare("
-                    INSERT INTO test.amenagement (
-                        nom_amenagement,
-                        id_logement
-                    ) VALUES (
-                        :nom_amenagement,
-                        :id_logement
-                    )
-                ");
-
-                $stmt->bindParam(':nom_amenagement', $val);
-                $stmt->bindParam(':id_logement', $id_log);
-
-
-                try {
-                    // Exécuter la requête
-                    $stmt->execute();
-
-                } catch (PDOException $e) { 
-                    // Afficher l'erreur en cas d'échec de la requête
-                    echo "Erreur lors de l'insertion : " . $e->getMessage();
+            if (isset($_POST["amena"])){
+                foreach ($info["amena"] as $ind => $val){
+                    $stmt = $dbh->prepare("
+                        INSERT INTO test.amenagement (
+                            nom_amenagement,
+                            id_logement
+                        ) VALUES (
+                            :nom_amenagement,
+                            :id_logement
+                        )
+                    ");
+    
+                    $stmt->bindParam(':nom_amenagement', $val);
+                    $stmt->bindParam(':id_logement', $id_log);
+    
+    
+                    try {
+                        // Exécuter la requête
+                        $stmt->execute();
+    
+                    } catch (PDOException $e) { 
+                        // Afficher l'erreur en cas d'échec de la requête
+                        echo "Erreur lors de l'insertion : " . $e->getMessage();
+                    }
                 }
+    
             }
 
 
-
-
-
-
+            if (isset($_POST["instal"])){
             /* Ajout des installations */
 
-            foreach ($info["instal"] as $ind => $val){
-                $stmt = $dbh->prepare("
-                    INSERT INTO test.installation (
-                        nom_installation,
-                        id_logement
-                    ) VALUES (
-                        :nom_installation,
-                        :id_logement
-                    )
-                ");
+                foreach ($info["instal"] as $ind => $val){
+                    $stmt = $dbh->prepare("
+                        INSERT INTO test.installation (
+                            nom_installation,
+                            id_logement
+                        ) VALUES (
+                            :nom_installation,
+                            :id_logement
+                        )
+                    ");
 
-                $stmt->bindParam(':nom_installation', $val);
-                $stmt->bindParam(':id_logement', $id_log);
+                    $stmt->bindParam(':nom_installation', $val);
+                    $stmt->bindParam(':id_logement', $id_log);
 
 
-                try {
-                    // Exécuter la requête
-                    $stmt->execute();
-                } catch (PDOException $e) { 
-                    // Afficher l'erreur en cas d'échec de la requête
-                    echo "Erreur lors de l'insertion : " . $e->getMessage();
+                    try {
+                        // Exécuter la requête
+                        $stmt->execute();
+                    } catch (PDOException $e) { 
+                        // Afficher l'erreur en cas d'échec de la requête
+                        echo "Erreur lors de l'insertion : " . $e->getMessage();
+                    }
                 }
             }
+
+
+
+
+
+
 
 
 
             /* Ajout des services */
 
-
-            foreach ($info["service"] as $ind => $val){
-                $stmt = $dbh->prepare("
-                    INSERT INTO test.service (
-                        nom_service,
-                        id_logement
-                    ) VALUES (
-                        :nom_service,
-                        :id_logement
-                    )
-                ");
-
-                $stmt->bindParam(':nom_service', $val);
-                $stmt->bindParam(':id_logement', $id_log);
-
-
-                try {
-                    // Exécuter la requête
-                    $stmt->execute();
-                } catch (PDOException $e) { 
-                    // Afficher l'erreur en cas d'échec de la requête
-                    echo "Erreur lors de l'insertion : " . $e->getMessage();
+            if (isset($_POST["service"])){
+                foreach ($info["service"] as $ind => $val){
+                    $stmt = $dbh->prepare("
+                        INSERT INTO test.service (
+                            nom_service,
+                            id_logement
+                        ) VALUES (
+                            :nom_service,
+                            :id_logement
+                        )
+                    ");
+    
+                    $stmt->bindParam(':nom_service', $val);
+                    $stmt->bindParam(':id_logement', $id_log);
+    
+    
+                    try {
+                        // Exécuter la requête
+                        $stmt->execute();
+                    } catch (PDOException $e) { 
+                        // Afficher l'erreur en cas d'échec de la requête
+                        echo "Erreur lors de l'insertion : " . $e->getMessage();
+                    }
                 }
+
+       
             }
 
 
@@ -283,7 +287,6 @@
                         
 
 
-            $j=0;
 
             if (isset($_FILES["photo"])) {
                 $img_dir = "asset/img/logements";
@@ -334,13 +337,14 @@
 
                         $stmt = $dbh->prepare("
                             INSERT INTO test.image (
-                                id_image
+                                extension_image
                             ) VALUES (
-                                :id_image
+                                :extension_image
                             )
                         ");
 
-                        $stmt->bindParam(':id_image', $id_p);
+                        $stmt->bindParam(':extension_image', $extention[1]);
+
 
 
                         try {
@@ -381,7 +385,6 @@
                         }
 
 
-
                     }
                 }
 
@@ -390,10 +393,28 @@
 
 
                 $i=0;
-                foreach($dbh->query("SELECT * from test.photo_logement WHERE id_logement =$id_log", PDO::FETCH_ASSOC) as $row) {
+                foreach($dbh->query("SELECT * from test.photo_logement NATURAL JOIN test.image WHERE id_logement =$id_log", PDO::FETCH_ASSOC) as $row) {
 
                     $photo3[$i]=$row;
                     $i++;
+                }
+
+
+
+            
+                try {
+                    $id=4; // à revoir une fois que les comptes sont fait
+                    $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
+                    $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+                    $query = "SELECT * FROM test.compte NATURAL JOIN test.telephone WHERE id_compte = :id_compte";
+            
+                    $stmt = $dbh->prepare($query);
+                    $stmt->bindParam('id_compte', $id_compte, PDO::PARAM_STR);
+                    $stmt->execute();
+                    $proprio = $stmt->fetch();
+                }   catch (PDOException $e) {
+                    print "Erreur !: " . $e->getMessage() . "<br/>";
+                    die();
                 }
 
 
@@ -533,7 +554,7 @@
                     if ($i < 5) {
                     ?>
 
-                    <img src="asset/img/logements/<?php echo($nom["id_image"]); ?>.jpg" alt="problème">
+                    <img src="asset/img/logements/<?php echo($nom["id_image"]); ?>.<?php echo($nom["extension_image"]); ?>" alt="problème">
 
                     <?php
                     }
@@ -594,7 +615,7 @@
                     </a>
                     <div class="info_proprio_log">
                         <div class="block_info_log">
-                            <h2><?php echo $_SESSION['username'] ?></h2>
+                            <h2><?php echo ($proprio["nom_affichage"]) ?></h2>
                         </div>
                         <div class="block_info_log">
                             <div class="note_proprio_log">
@@ -603,7 +624,7 @@
                                         d="M10.3646 1.22353L7.5304 7.12042L1.18926 8.06909C0.052104 8.23834 -0.403625 9.67693 0.421028 10.5009L5.0087 15.0884L3.92363 21.5687C3.72832 22.7401 4.93058 23.6175 5.93752 23.0696L11.6103 20.0099L17.283 23.0696C18.29 23.613 19.4922 22.7401 19.2969 21.5687L18.2118 15.0884L22.7995 10.5009C23.6242 9.67693 23.1684 8.23834 22.0313 8.06909L15.6901 7.12042L12.8559 1.22353C12.3481 0.172417 10.8768 0.159056 10.3646 1.22353Z"
                                         fill="#F5F5F5" />
                                 </svg>
-                                <p>4.9</p>
+                                <p><?php echo($proprio["note_proprio"]) ?></p>
                             </div>
                         </div>
                         <div class="block_info_log">
@@ -613,7 +634,7 @@
                                         d="M20.4011 16.0445L15.8073 14.0242C15.611 13.9384 15.3929 13.9203 15.1858 13.9727C14.9787 14.0251 14.7937 14.1451 14.6588 14.3146L12.6244 16.8653C9.4316 15.3205 6.86212 12.6838 5.35673 9.40742L7.84232 7.31978C8.0079 7.18159 8.12509 6.9918 8.17615 6.77916C8.22722 6.56651 8.20938 6.34258 8.12534 6.14127L6.15655 1.42723C6.06431 1.21022 5.90117 1.03304 5.69526 0.92624C5.48935 0.819439 5.25358 0.789713 5.0286 0.842188L0.762904 1.85234C0.545997 1.90374 0.352472 2.02906 0.213915 2.20786C0.0753574 2.38666 -4.99665e-05 2.60837 2.48403e-08 2.83681C2.48403e-08 13.6328 8.5273 22.3664 19.0316 22.3664C19.2543 22.3665 19.4704 22.2892 19.6447 22.147C19.8191 22.0048 19.9413 21.8062 19.9914 21.5835L20.9758 17.2062C21.0266 16.9742 20.997 16.7313 20.8921 16.5193C20.7872 16.3073 20.6136 16.1394 20.4011 16.0445Z"
                                         fill="#F5F5F5" />
                                 </svg>
-                                <p><?php echo $_SESSION['tel'] ?></p>
+                                <p><?php echo($proprio["numero"]) ?></p>
                             </div>
                         </div>
                     </div>

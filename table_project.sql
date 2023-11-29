@@ -67,7 +67,7 @@ create table logement(
     nb_chambre integer,
     nb_salle_de_bain integer,
     code_postal varchar(255) check (code_postal ~ '^[0-9]{5}$|^2[AB]$'),
-    departement varchar(255) check (departement in ('Finistère', 'Morbihan', 'Côte-d''Armor', 'Ile-et-Vilaine')), -- JSP si c'est très utile, on a déjà le code postal faut juste déduire
+    departement varchar(255) check (departement in ('Finistère', 'Morbihan', 'Côte-d''Armor', 'Ille-et-Vilaine')), -- JSP si c'est très utile, on a déjà le code postal faut juste déduire
     localisation varchar(255), -- = commune/ville
     info_arrivee varchar(255),
     info_depart varchar(255),
@@ -90,7 +90,7 @@ create table photo_logement(
 create table cb(
     numero_carte varchar(16) check (numero_carte ~ '^[0-9]{16}$'),
     date_validite date,
-    cryptogramme integer,
+    cryptogramme VARCHAR(3),
     id_compte integer,
     constraint cb_pk primary key(numero_carte),
     constraint cb_fk_client foreign key (id_compte) references client(id_compte)ON DELETE CASCADE

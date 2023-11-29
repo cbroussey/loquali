@@ -22,7 +22,6 @@
 
 
 
-
             include('connect_params.php');
             $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
 
@@ -134,7 +133,6 @@
 
 
             /* Ajout des aménagements */
-
 
             try {
                 $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
@@ -323,16 +321,13 @@
 
                         $stmt = $dbh->prepare("
                             INSERT INTO test.image (
-                                id_image,
                                 extension_image
                             ) VALUES (
-                                :id_image,
                                 :extension_image
                             )
                         ");
 
-                        $stmt->bindParam(':id_image', $id_p);
-                        $stmt->bindParam(':id_image', $extention[1]);
+                        $stmt->bindParam(':extension_image', $extention[1]);
 
 
 
@@ -382,7 +377,7 @@
 
 
                 $i=0;
-                foreach($dbh->query("SELECT * from test.photo_logement WHERE id_logement =$id_log", PDO::FETCH_ASSOC) as $row) {
+                foreach($dbh->query("SELECT * from test.photo_logement NATURAL JOIN test.image WHERE id_logement =$id_log", PDO::FETCH_ASSOC) as $row) {
 
                     $photo3[$i]=$row;
                     $i++;
@@ -395,8 +390,6 @@
             }
 
             
-
-
         ?>
 
 
@@ -525,7 +518,7 @@
                     if ($i < 5) {
                     ?>
 
-                    <img src="asset/img/logements/<?php echo($nom["id_image"]); ?>.jpg" alt="problème">
+                    <img src="asset/img/logements/<?php echo($nom["id_image"]); ?>.<?php echo($nom['extension_image']); ?>" alt="problème">
 
                     <?php
                     }
@@ -845,13 +838,6 @@
                         
                     </div>
                     
-                </div>
-
-                <div class="carte_box_log">
-                    <iframe class="carte"
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d732.4316018976493!2d-3.4382072588383696!3d48.81599683120846!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48122e111e0af8b1%3A0xea441f7b7d2e6646!2sManila%20-%20PERROS-GUIREC%20C%C3%B4tes%20d&#39;Armor%20Bretagne!5e0!3m2!1sfr!2sfr!4v1697553231993!5m2!1sfr!2sfr"
-                    style="border:0;" allowfullscreen="" loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
 
                 <div class="button_valider">
