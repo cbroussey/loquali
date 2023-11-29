@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
     <header>
-        <a href="">
+        <a href="index.php">
             <img src="asset/img/logo.png" alt="logo">
         </a>
         <div></div>
@@ -152,14 +152,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         </div>
 
-        
+
 
         <?php
         if ($_SESSION['userType'] === 'client') {
-            ?>
+        ?>
             <div class="separateurCompte"></div>
             <a href="" id="comptePro">Passer à un compte propriétaire</a>
-            <?php
+        <?php
         }
         ?>
 
@@ -196,7 +196,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <h2>Support client</h2>
                     <a href="">Contacter le support</a>
                 </div>
-                <div  id="reseaux">
+                <div id="reseaux">
                     <h2>Suivez nous</h2>
                     <div id="logoReseaux">
                         <a href=""><img src="asset/icons/blanc/facebook.svg" alt=""></a>

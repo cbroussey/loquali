@@ -1,10 +1,10 @@
 <?php
   session_start();
-  if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  /* if ($_SERVER["REQUEST_METHOD"] == "POST") {
     session_destroy();
     header("Location: index.php");
-    exit();
-  }
+    exit(); }*/
+  
 ?>
 
 <!DOCTYPE html>
@@ -18,7 +18,7 @@
 </head>
 <body>
   <header>
-    <a href="">
+    <a href="index.php">
       <img src="asset/img/logo.png" alt="logo">
     </a>
     <div></div>
@@ -55,10 +55,119 @@
   <?php
 
     include('connect_params.php');
+    $id=$_SESSION['userId'];
+    
     try {
         $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
         $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+        if (isset($_POST['prenom'])) {
+          $query = "UPDATE test.compte SET prenom=:newValue WHERE id_compte = :id_compte;";
+            
+            $stmt = $dbh->prepare($query);
+            $stmt->bindParam('newValue', $_POST['prenom'], PDO::PARAM_STR);
 
+            $stmt->bindParam('id_compte', $id, PDO::PARAM_STR);
+            $stmt->execute();
+            $infos2 = $stmt->fetch();
+            $_SESSION['prenom']=$_POST['prenom'];
+
+        }
+
+        if (isset($_POST['nom'])) {
+          $query = "UPDATE test.compte SET nom=:newValue WHERE id_compte = :id_compte;";
+            
+            $stmt = $dbh->prepare($query);
+            $stmt->bindParam('newValue', $_POST['nom'], PDO::PARAM_STR);
+
+            $stmt->bindParam('id_compte', $id, PDO::PARAM_STR);
+            $stmt->execute();
+            $infos2 = $stmt->fetch();
+            $_SESSION['nom']=$_POST['nom'];
+
+        }
+
+        if (isset($_POST['adresse_mail'])) {
+          $query = "UPDATE test.compte SET adresse_mail=:newValue WHERE id_compte = :id_compte;";
+            
+            $stmt = $dbh->prepare($query);
+            $stmt->bindParam('newValue', $_POST['adresse_mail'], PDO::PARAM_STR);
+
+            $stmt->bindParam('id_compte', $id, PDO::PARAM_STR);
+            $stmt->execute();
+            $infos2 = $stmt->fetch();
+            $_SESSION['adresse_mail']=$_POST['adresse_mail'];
+
+        }
+
+
+ 
+
+        if (isset($_POST['numero'])) {
+
+
+          $query = "SELECT * FROM test.telephone WHERE id_compte = :id_compte";
+
+          $stmt = $dbh->prepare($query);
+          $stmt->bindParam('id_compte', $_SESSION['userId'], PDO::PARAM_STR);
+          $stmt->execute();
+          $telephone = $stmt->fetch();
+          $rowCount = $stmt->rowCount();
+          
+          if ($rowCount==0){
+
+
+
+            $stmt = $dbh->prepare("
+            INSERT INTO test.telephone (
+              numero,
+              id_compte
+            ) VALUES (
+              :numero,
+              :id_compte
+            )");
+
+            $stmt->bindParam(':numero', $_POST["numero"]);
+            $stmt->bindParam(':id_compte', $id);
+
+
+            try {
+                // Exécuter la requête
+                $stmt->execute();
+            } catch (PDOException $e) { 
+                // Afficher l'erreur en cas d'échec de la requête
+                echo "Erreur lors de l'insertion : " . $e->getMessage();
+            }
+
+          } else {
+
+
+
+          $query = "UPDATE test.telephone SET numero=:newValue WHERE id_compte = :id_compte;";
+            
+            $stmt = $dbh->prepare($query);
+            $stmt->bindParam('newValue', $_POST['numero'], PDO::PARAM_STR);
+            $stmt->bindParam('id_compte', $id, PDO::PARAM_STR);
+            $stmt->execute();
+            $tel1 = $stmt->fetch();
+            $_SESSION['numero']=$_POST['numero'];
+          }
+
+        }
+
+        if (isset($_POST['adresse'])) {
+          $query = "UPDATE test.compte SET adresse=:newValue WHERE id_compte = :id_compte;";
+            
+            $stmt = $dbh->prepare($query);
+            $stmt->bindParam('newValue', $_POST['adresse'], PDO::PARAM_STR);
+
+            $stmt->bindParam('id_compte', $id, PDO::PARAM_STR);
+            $stmt->execute();
+            $tel2 = $stmt->fetch();
+            $_SESSION['adresse']=$_POST['adresse'];
+
+        }
+        
+        
         if ($_SESSION['userType'] == 'client') {
           $query = "SELECT * FROM test.compte WHERE id_compte = :id_compte";
         } else {
@@ -75,10 +184,16 @@
         $stmt->bindParam('id_compte', $_SESSION['userId'], PDO::PARAM_STR);
         $stmt->execute();
         $telephone = $stmt->fetch();
+
+
+
+
+        
     }   catch (PDOException $e) {
         print "Erreur !: " . $e->getMessage() . "<br/>";
         die();
     }
+  
   ?>
   <div id="compteContainer">
     <div class="nav">
@@ -170,50 +285,70 @@
 <!--  INFORMATION  -->
     <div id="compteInfosPerso">
       <div class="lignes">
+        <form method="post" action="compte.php">
         <p>Nom</p>
-        <p class="displayInfos" id="nom"><?php echo($infos['nom']) ?></p>
-        <button class="modifications" onclick="modifierInfos(this, 'nom')">Modifier</button>
+        <p id="nom" class="displayInfos" ><?php echo($infos['nom']) ?></p>
+        <input type="text" name="nom" id="nom" class="modifInfos" cols="30" rows="10" value="<?php echo($infos['nom']) ?>">
+        <a href="#" id="boutonInfos" class="modificationsBtn boutonInfosstyle" alt="">Modifier</a>
+        <input type="submit" name="submit" value="Enregistrer" id="modifEnregistrer" class="modifBouton">
+        </form> 
       </div>
 
       <div class="separateurgenre"></div>
 
       <div class="lignes">
+        <form method="post" action="compte.php">
         <p>Prénom</p>
-        <p class="displayInfos" id="nom"><?php echo($infos['prenom']) ?></p>
-        <button class="modifications" onclick="modifierInfos(this, 'nom')">Modifier</button>
+        <p id="prenom" class="displayInfos2" ><?php echo($infos['prenom']) ?></p>
+        <input type="text" name="prenom" id="prenom" class="modifInfos2" cols="30" rows="10" value="<?php echo($infos['prenom']) ?>">
+        <a href="#" id="boutonInfos" class="modificationsBtn2 boutonInfosstyle" alt="">Modifier</a>
+        <input type="submit" name="submit" value="Enregistrer" id="modifEnregistrer" class="modifBouton2">
+        </form> 
       </div>
 
       <div class="separateurgenre"></div>
 
       <div class="lignes">
+        <form method="post" action="compte.php">
         <p>Adresse e-mail</p>
-        <p class="displayInfos" id="mail"><?php echo($infos['adresse_mail']) ?></p>
-        <button class="modifications" onclick="modifierInfos(this, 'mail')">Modifier</button>
+        <p id="adresse_mail" class="displayInfos3" ><?php echo($infos['adresse_mail']) ?></p>
+        <input type="text" name="adresse_mail" id="adresse_mail" class="modifInfos3" cols="30" rows="10" value="<?php echo($infos['adresse_mail']) ?>">
+        <a href="#" id="boutonInfos" class="modificationsBtn3 boutonInfosstyle" alt="">Modifier</a>
+        <input type="submit" name="submit" value="Enregistrer" id="modifEnregistrer" class="modifBouton3">
+        </form> 
       </div>
-
       <div class="separateurgenre"></div>
 
       <div class="lignes">
-        <p>Numéros de téléphone</p>
-        <?php 
-        $tel = isset($telephone['numero']) ? $telephone["numero"] :  'Information non renseignée'; 
-        ?>
-        <p class="displayInfos" id="tel"><?php echo htmlentities($tel) ?></p>
-        <button class="modifications" onclick="modifierInfos(this, 'tel')">Modifier</button>
+        <form method="post" action="compte.php">
+          <p>Numéros de téléphone</p>
+          <?php 
+          $tel = isset($telephone['numero']) ? $telephone["numero"] :  'Information non renseignée'; 
+          ?>
+          <p id="numero" class="displayInfos4" ><?php echo htmlentities($tel) ?></p>
+          <input type="text" name="numero" id="numero" class="modifInfos4" cols="30" rows="10" value="<?php echo($telephone['numero']) ?>">
+          <a href="#" id="boutonInfos" class="modificationsBtn4 boutonInfosstyle" alt="">Modifier</a>
+          <input type="submit" name="submit" value="Enregistrer" id="modifEnregistrer" class="modifBouton4">
+        </form>
       </div>
-
+      
       <div class="separateurgenre"></div>
 
       <div class="lignes">
-        <p>Adresse</p>
-        <?php 
-        $adresse = isset($infos['adresse']) ? $infos["adresse"] :  'Information non renseignée'; 
-        ?>
-        <p class="displayInfos" id="adresse"><?php echo htmlentities($adresse) ?></p>
-        <button class="modifications" onclick="modifierInfos(this, 'adresse')">Modifier</button>
+        <form method="post" action="compte.php">
+          <p>Adresse</p>
+          <?php 
+          $adresse = isset($infos['adresse']) ? $infos["adresse"] :  'Information non renseignée'; 
+          ?>
+          <p id="adresse" class="displayInfos5" ><?php echo htmlentities($adresse) ?></p>
+          <input type="text" name="adressePersonne" id="adressePersonne" class="modifInfos5" cols="30" rows="10" value="<?php echo($infos['adresse']) ?>">
+          <a href="#" id="boutonInfos" class="modificationsBtn5 boutonInfosstyle" alt="">Modifier</a>
+          <input type="submit" name="submit" value="Enregistrer" id="modifEnregistrer" class="modifBouton5">
+        </form>
       </div>
-
     </div>
+      
+  </div>
 <!--  CONNEXION  -->
     <div id="compteConnection">
       <div class="lignes">

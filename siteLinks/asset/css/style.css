@@ -185,14 +185,17 @@ pre {
   width: 100%;
 }
 
+/*********************************************************/
+
 .filter-container {
   background: var(--secondBG);
-  display: flex;
-  align-items: center;
   box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.25);
   height: 108px;
   width: 100%;
   padding: 0;
+
+  display: flex;
+  align-items: center;
   justify-content: space-around;
 }
 
@@ -203,49 +206,59 @@ pre {
   border-radius: 5px;
   font-style: italic;
   height: 40px;
-  width: 100%;
-  margin: 0 10px;
+  width: auto;
   padding: 0 10px;
+
   display: flex;
   justify-content: space-between;
-  /*justify-content: center;*/
+  justify-content: center;
   align-items: center;
 }
 
-.filter-container .button p {
-  margin-left: 5px;
-  padding-right: 5px;
+.filter-container svg{
+  width: 30px;
+  height: 25px;
+  margin: 0 15px;
 }
 
-.filter-container .button svg {
-  margin-right: 5px;
-  padding-left: 5px;
+#trier, #gauche, #slogant {
+  width: 300px;
 }
 
-#trier,
 #gauche {
-  width: 20%;
-  margin: 0 5%;
-}
-#gacuhe {
   display: flex;
-  justify-content: space-around;
+  flex-direction: row;
+  width: 10%;
+}
+
+#gauche p {
+  margin: 0 15px 0 0;
+}
+
+#gauche .button{
+  margin-right: 30px;
+  width: 100%;
+}
+
+#slogan {
+  border-radius: 5px;
+  background: #1d4c77;
+  color: white;
+  height: 40px;
+  width: 30%;
+
+  display: flex;
   align-items: center;
+  justify-content: center;
+}
+
+#trier {
   width: 10%;
 }
 
 .maison img{
   width: 300px;
   border-radius: 5px;
-}
-
-#trier {
-  float: right;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 30%;
-  margin: 0;
 }
 
 .ajout_log{
@@ -273,26 +286,6 @@ pre {
 
 .ajout_log a svg{
   margin-right: 5px;
-}
-
-#slogan {
-  border-radius: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #1d4c77;
-  color: white;
-  height: 40px;
-  width: 30%;
-  margin-right: 5%;
-}
-
-#slogan p {
-  margin: 20px;
-}
-
-#gauche {
-  display: flex;
 }
 
 .box {
@@ -404,6 +397,204 @@ pre {
   justify-content: center;
   align-items: center;
 }
+
+@media screen and (min-width: 0px) and (max-width: 1275px) {
+  #gauche {
+    float: right;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+    margin: 0;
+}
+
+  #trier {
+    float: right;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+    margin: 0;
+    margin-right: -5%;
+}
+}
+
+@media screen and (min-width: 0px) and (max-width: 1100px) {
+
+  #slogan {
+    display: none;
+  }
+
+  .filter-container {
+    height: 108px;
+    width: 100%;
+    padding: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #trier, #gauche, #slogant {
+    width: 240px;
+  }
+
+  #gauche {
+    margin-left: 5%;
+  }
+  
+  #gauche p {
+    margin: 0 10px 0 0;
+  }
+  
+}
+
+@media screen and (min-width: 0px) and (max-width: 900px) {
+
+
+  .slider1 {
+    position: relative;
+    max-width: 100%;
+    margin: auto;
+    overflow: hidden;
+  }
+  
+  .barreRecherche {
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 1;
+  }
+  
+  .barreRecherche h2 {
+    margin-bottom: 0px;
+  }
+  
+  .gauche-bar {
+    width: 300px;
+  }
+
+  
+  .search {
+    border-radius: 10px;
+    margin-left: 10px;
+    padding: 10px;
+    height: 38px;
+    font-size: 15px;
+    width: 120px;
+  }
+  
+  .dot {
+    display: none;
+  }
+  .dot.active {
+    display: none;
+  }
+  
+  .point {
+    display: none;
+  }
+  
+  .filter-container {
+    height: 80px;
+  }
+
+  .filter-container svg{
+    width: 20px;
+    height: 20px;
+  }
+
+  .filter-container .button {
+    
+    font-size: 15px;
+    border-radius: 5px;
+    font-style: italic;
+    height: 35px;
+    width: auto;
+    padding: 0 10px;
+  }
+
+
+  #trier, #gauche, #slogant {
+    width: 200px;
+  }
+
+  #gauche {
+    margin-left: 5%;
+  }
+  
+  #gauche p {
+    margin: 0 10px 0 0;
+  }
+}
+
+@media screen and (min-width: 0px) and (max-width: 500px) {
+
+  .gauche-bar {
+    width: 200px;
+  }
+  
+  .search {
+    border-radius: 10px;
+    margin-left: 10px;
+    padding: 10px;
+    height: 38px;
+    font-size: 15px;
+    width: 120px;
+  }
+  
+  .dot {
+    display: none;
+  }
+  .dot.active {
+    display: none;
+  }
+  
+  .point {
+    display: none;
+  }
+  
+  .filter-container {
+    height: 80px;
+  }
+
+  .filter-container svg{
+    display: none;
+  }
+
+  .filter-container .button {
+    
+    font-size: 15px;
+    border-radius: 5px;
+    font-style: italic;
+    height: 35px;
+    width: auto;
+    padding: 0 10px;
+  }
+
+
+  #trier, #gauche, #slogant {
+    width: 130px;
+  }
+
+  #gauche {
+    margin-left: 10%;
+  }
+  
+  #gauche p {
+    margin: 0 10px 0 0;
+  }
+
+
+  .filter-container .button {
+    width: 50px;
+    padding: 0 10px;
+  }
+
+
+}
+
 
 /******************************************** LOGEMENT ********************************************/
 
@@ -3607,7 +3798,7 @@ opacity: 1;
   flex-wrap: wrap;
 
   padding: 0;
-  margin: 0 15%;
+  margin: 0 15% 5% 15%;
 }
 
 .pageAccueil a {
@@ -3665,7 +3856,7 @@ opacity: 1;
 
 @media screen and (min-width: 750px) and (max-width: 1545px) { 
 .pageAccueil{
-  margin: 0 10%;
+  margin: 0 10% 5% 10%;
 }
 }
 
@@ -3906,10 +4097,7 @@ padding-bottom: 50px;
 margin:  0 10%;
 }
 
-.displayInfos{
-color: #97ADC1;
-margin-top: 15px;
-}
+
 
 .modifications{
 float: right;
@@ -3934,21 +4122,247 @@ border-radius: 5px;
 cursor: pointer;
 }
 
-#compteInfosPerso input {
-width: 250px;
-padding: 15px;
-margin-right: 10px;
-border-radius: 10px;
-border: 1px solid #1D4C77;
-
-color: #1D4C77;
-}
 
 .separateurgenre{
 background: #97ADC1;
 height: 2px;
 width: 100%;
 }
+
+.lignes #modifEnregistrer{
+  float: right;
+  right: 0;
+  margin-top: -60px;
+  margin-bottom: 10px;
+
+  color: #1d4c77;
+  text-decoration: underline;
+  border: none;
+  background: none;
+  font-size: 20px;
+  font-weight: 400;
+  width: 130px;
+
+
+  background-color: #2072BC;
+  color: #F5F5F5;
+  text-decoration: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+
+  cursor: pointer;
+}
+
+.boutonInfosstyle {
+  float: right;
+  right: 0;
+  margin-top: -60px;
+  margin-bottom: 10px;
+
+  color: #1d4c77;
+  text-decoration: underline;
+  border: none;
+  background: none;
+  font-size: 20px;
+  font-weight: 400;
+ 
+
+  background-color: #2072BC;
+  color: #F5F5F5;
+  text-decoration: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+
+  cursor: pointer;
+}
+
+
+.displayInfos{
+  color: #97ADC1;
+  margin-top: 15px;
+  display: block;
+  }
+  
+.displayInfos.active {
+  display: none;
+}
+
+.displayInfos2{
+  color: #97ADC1;
+  margin-top: 15px;
+  display: block;
+  }
+  
+.displayInfos2.active {
+  display: none;
+}
+
+.displayInfos3{
+  color: #97ADC1;
+  margin-top: 15px;
+  display: block;
+  }
+  
+.displayInfos3.active {
+  display: none;
+}
+
+.displayInfos4{
+  color: #97ADC1;
+  margin-top: 15px;
+  display: block;
+  }
+  
+.displayInfos4.active {
+  display: none;
+}
+
+.displayInfos5{
+  color: #97ADC1;
+  margin-top: 15px;
+  display: block;
+  }
+  
+.displayInfos5.active {
+  display: none;
+}
+
+.modifBouton {
+  display: none;
+  
+}
+
+.modifBouton.active{
+  display: block;
+}
+
+.modifBouton2 {
+  display: none;
+}
+
+.modifBouton2.active{
+  display: block;
+}
+
+.modifBouton3 {
+  display: none;
+}
+
+.modifBouton3.active{
+  display: block;
+}
+
+.modifBouton4 {
+  display: none;
+}
+
+.modifBouton4.active{
+  display: block;
+}
+
+.modifBouton5 {
+  display: none;
+}
+
+.modifBouton5.active{
+  display: block;
+}
+ 
+.modificationsBtn{
+  display: block;
+}
+
+.modificationsBtn.active{
+  display: none;
+}
+
+.modificationsBtn2{
+  display: block;
+}
+
+.modificationsBtn2.active{
+  display: none;
+}
+
+.modificationsBtn3{
+  display: block;
+}
+
+.modificationsBtn3.active{
+  display: none;
+}
+
+.modificationsBtn4{
+  display: block;
+}
+
+.modificationsBtn4.active{
+  display: none;
+}
+
+.modificationsBtn5{
+  display: block;
+}
+
+.modificationsBtn5.active{
+  display: none;
+}
+
+.modifInfos{
+  display: none;
+  margin-top: 15px;
+}
+
+.modifInfos.active{
+  display: block;
+}
+
+.modifInfos2{
+  display: none;
+  margin-top: 15px;
+}
+
+.modifInfos2.active{
+  display: block;
+}
+
+.modifInfos3{
+  display: none;
+  margin-top: 15px;
+}
+
+.modifInfos3.active{
+  display: block;
+}
+
+.modifInfos4{
+  display: none;
+  margin-top: 15px;
+}
+
+.modifInfos4.active{
+  display: block;
+}
+
+.modifInfos5{
+  display: none;
+  margin-top: 15px;
+}
+
+.modifInfos5.active{
+  display: block;
+}
+
+#adressePersonne {
+  width: 40%;
+}
+
+
+
+
+
+
+
 
 @media screen and (min-width: 0px) and (max-width: 1100px) { 
 
@@ -3973,6 +4387,8 @@ width: 100%;
     .displayInfos{
       margin-top: 10px;
     }
+
+    
     
     .modifications{
       margin-top: -50px;
@@ -3998,6 +4414,9 @@ width: 100%;
     
     color: #1D4C77;
     }
+
+   
+
     
   
 
@@ -4184,7 +4603,6 @@ font-weight: 500;
   margin-left: 30px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   height: 160px;
 
   font-size: 17px;
@@ -4197,6 +4615,7 @@ font-weight: 500;
   display: flex;
   justify-content: row;
   align-items: center;
+  margin-top: 15px;
 
 }
 
@@ -4254,6 +4673,7 @@ font-weight: 500;
   margin-right: 8px;
   margin-bottom: 50px;
 }
+
 
 
 #titreLogement {
@@ -4368,7 +4788,7 @@ font-weight: 500;
   background-repeat: no-repeat;
 
   position: absolute;
-  top: 229px;
+  top: 211px;
   left: 220px;
 
   transition: all 0.2s ease-in-out;
@@ -4383,7 +4803,7 @@ font-weight: 500;
 #modificationDescription {
 
   position: absolute;
-  top: 230px;
+  top: 210px;
   left: 220px;
 
   background-color: #2072BC;
@@ -4555,7 +4975,7 @@ font-weight: 500;
     }
 
     #modificationDescription {
-      top: 41%;
+      top: 34%;
       left: 35%;
     }
 
@@ -4659,7 +5079,7 @@ font-weight: 500;
       align-content: center;
       flex-wrap: wrap;
       margin-top: 30%;
-      margin-left: 5%;
+      margin-left: 25%;
       
     }
 
@@ -4673,7 +5093,7 @@ font-weight: 500;
     
     padding: 15px 25px 46px 30px;
     width: 1056px;
-    left: -55%;
+    left: -50%;
     top: 10%;
     position: relative;
       
