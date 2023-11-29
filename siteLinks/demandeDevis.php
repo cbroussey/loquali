@@ -47,6 +47,7 @@
 
     <main class="main-devis    ">
         <?php
+
         include('connect_params.php');
         try {
             $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
@@ -96,11 +97,15 @@
                 $charge[$i] = $row;
                 $i++;
             }
-            $i = 0;
-            foreach ($dbh->query("SELECT * from test.photo_logement WHERE id_logement =$id", PDO::FETCH_ASSOC) as $row) {
-                $photo[$i] = $row;
-                $i++;
-            }
+          
+            $query = "SELECT * FROM test.image WHERE id_image = :id_image";
+            $stmt = $dbh->prepare($query);
+            $stmt->bindParam(':id_image', $photo[0]["id_image"], PDO::PARAM_INT);
+            $stmt->execute();
+            $current = $stmt->fetch();
+                
+            
+           
         } catch (PDOException $e) {
             print "Erreur !: " . $e->getMessage() . "<br/>";
             die();
@@ -111,7 +116,7 @@
             <div class="retour">
                 <button class="boutonRetour" onclick="history.back()"><img src="asset/icons/blanc/retour.svg"></button>
 
-                <h1 class="h1-mobile">Demande de réservation</h1>
+                <h1 class="h1-mobile"><?php echo ($qui == "proprietaire" || $qui == "client") ? "Demande de réservation" : "Demande de devis"; ?></h1>
             </div>
             <div class="voyage">
                 <h2 class="h2-mobile">Votre Voyage</h2>
@@ -286,40 +291,40 @@
             </div>
             <div id="check_box_info">
                 <h2 class="h2-mobile">Options supplémentaires</h2>
-                <?php
-                foreach ($service as $elemnt => $value) {
-                    if ($value["nom_service"] == "menage") {
-                ?>
+
+                <form id="formCheckBox" action="demandeDevis.php" method="post">
+                    <?php
+                    if ($value["nom_service"] != "ménage") {
+                    ?>
                         <div id="input_check_box_info">
                             <label>
-                                <input type="checkbox" name="menage" id="menage">
+                                <input type="checkbox" name="menage" value="" <?php echo ($qui == "proprietaire" || $qui == "client") ? ' disabled="disabled"' : ""; ?>>
                                 Ménage
                             </label>
-
                         </div>
-                <?php }
-                }
-                ?>
+                    <?php
+                    }
+                    ?>
 
-                <div id="input_check_box_info">
-                    <label>
-                        <input type="checkbox" name="animaux" id="animaux">
-                        Animaux de compagnie
-                    </label>
-                </div>
-                <p>En cas de détérioration du logement, toutes charges supplémentaires <br> seront vues directement avec
-                    le
-                    propriétaire</p>
+                    <div id="input_check_box_info">
+                        <label>
+                            <input type="checkbox" name="animaux" value="1" <?php echo ($qui == "proprietaire" || $qui == "client") ? ' disabled="disabled"' : ""; ?>>
+                            Animaux de compagnie
+                        </label>
+                    </div>
+                    <p>En cas de détérioration du logement, toutes charges supplémentaires <br> seront vues directement avec
+                        le propriétaire</p>
 
+
+                </form>
             </div>
-
         </div>
 
         <div class="recap">
             <div class="sticky_recap">
                 <div class="recap-info">
                     <div class="info_logoment">
-                        <img src="asset/img/logements/<?php echo ($photo[0]["id_image"]); ?>.jpg" width="183px" height="124px">
+                        <img src="asset/img/logements/<?php echo ($photo[0]["id_image"]); ?>.<?php echo ($current["extension_image"]); ?>" width="183px" height="124px">
                         <div>
                             <span>
                                 <p class="info">Logement : <?php echo ($info["nature_logement"]) ?></p>
@@ -340,6 +345,7 @@
                             <div class="value"><?php echo ($info["prix_base_ht"]) * 14;  ?>€</div>
                         </div>
                         <?php
+                        $somme = 0;
                         if (empty($charge) == false) {
 
                             foreach ($charge as $elemnt => $value) { ?>
@@ -347,7 +353,8 @@
                                     <div class="label"><?php echo ($value["nom_charge"]); ?></div>
                                     <div class="value"><?php echo ($value["prix_charge"]); ?>€</div>
                                 </div>
-                        <?php }
+                        <?php $somme = $somme +  $value["prix_charge"];
+                            }
                         } ?>
                         <div class="row">
                             <div class="label">Taxe de séjour</div>
@@ -361,23 +368,25 @@
 
                         <div class="row">
                             <div class="label_t">Total</div>
-                            <div class="value">EUR <?php echo ($info["prix_base_ht"]) * 14 * 1.10 + 80 + 29.96 ?>€</div>
+                            <div class="value">EUR <?php echo ($info["prix_base_ht"]) * 14 * 1.10 + $somme + 29.96 ?>€</div>
                         </div>
                     </div>
 
 
 
-                </div><?php
-                        if ($qui == null) {
-                        ?>
-                    <form action="demandeDevis.php" class="button_valider" method="POST">
+                </div>
+                <?php if ($qui == null) {
+                ?>
+
+
+                    <form id="test" action="demandeDevis.php" class="button_valider" method="POST">
                         <input name="id" value="<?php echo ($id); ?>" hidden readonly>
                         <input name="qui" value="proprietaire" hidden readonly>
                         <button type="submit" class="devisButton">Envoyer une demande de devis</button>
                     </form>
 
-                <?php } ?>
 
+                <?php } ?>
                 <?php
                 if ($qui == "proprietaire") {
                 ?>
@@ -397,7 +406,7 @@
                         <div class="button_confirmation">
 
                             <a href="#" id="annuler" onclick="cacherPopup()">Annuler</a>
-                            <a href="#" id="confirmer" onclick="confirmerRefus()">Confirmer</a>
+                            <a href="logement.php?id=<?php echo ($id)?>" id="confirmer" onclick="confirmerRefus()">Confirmer</a>
                         </div>
                     </div>
                 <?php } ?>
@@ -461,7 +470,7 @@
                         <div class="button_confirmation">
 
                             <a href="#" id="annuler" onclick="cacherPopup()">Annuler</a>
-                            <a href="#" id="confirmer" onclick="confirmerRefus()">Confirmer</a>
+                            <a href="logement.php?id=<?php echo ($id)?>" id="confirmer" onclick="confirmerRefus()">Confirmer</a>
                         </div>
                     </div>
                 <?php } ?>
@@ -524,6 +533,7 @@
         </div>
 
     </footer>-->
+    <script src="asset/js/popUpDevis.js"></script>
 </body>
 
 </html>

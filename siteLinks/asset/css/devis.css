@@ -143,8 +143,6 @@ h1 {
 
 .icons div {
     width: 50%;
-    margin-bottom: 20px;
-
     display: flex;
     text-align: center;
 }
@@ -423,19 +421,6 @@ h1 {
 
 }
 
-#popup {
-    visibility: hidden;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-    border-radius: 10px;
-}
-
 #overlay {
     display: none;
     position: fixed;
@@ -443,39 +428,55 @@ h1 {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    z-index: 999;
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
-#popup p {
-    margin: 20px;
+#popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    text-align: center;
+    z-index: 1;
+    border-radius: 15px;
 }
 
 .button_confirmation {
-    display: flex;
-    justify-content: space-between;
-
+    margin-top: 20px;
 }
 
-#popup a {
+#popup p {
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+#popup #annuler {
     display: inline-block;
     padding: 10px 20px;
-    margin: 0 20px;
-    text-align: center;
+    margin: 0 10px;
     text-decoration: none;
-    cursor: pointer;
-    border-radius: 5px;
-    font-weight: bold;
     color: #fff;
-}
-
-#popup a#annuler {
-    background-color: #1D4C77;
-}
-
-#popup a#confirmer {
     background-color: #8A3443;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 20px;
 }
+
+#popup #confirmer {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 0 10px;
+    text-decoration: none;
+    color: #fff;
+    background-color: #2072BC;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
 
 .main-devis .devisButton{
     border: none;

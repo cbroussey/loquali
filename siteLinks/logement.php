@@ -6,7 +6,7 @@
     $query->bindParam('idlog', $_GET["confirmDelete"], PDO::PARAM_INT);
     $query->execute();
     $query = $query->fetchAll();
-    if (isset($_GET["confirmDelete"]) /*&& $_SESSION["userId"] == $query["id_compte"]*/) {
+    if (isset($_GET["confirmDelete"]) ) {
         try {
             $query = "DELETE FROM test.logement WHERE test.logement.id_logement = :id_log";
             $stmt = $dbh->prepare($query);

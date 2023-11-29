@@ -71,6 +71,7 @@
 
     include('connect_params.php');
     try {
+        $id=$_SESSION['userId'];
         $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
         $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
