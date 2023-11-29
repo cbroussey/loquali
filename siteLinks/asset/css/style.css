@@ -2572,18 +2572,27 @@ margin-right: 20px;
 } */
 
 
+.barre_btn_choix_type_ajlog{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
 .btn_choix_ajlog {
   display: inline-flex;
   justify-content: center;
   align-items: center;
   padding: 5px 10px;
+  margin: 30px 20px;
   background-color: var(--secondBG);
   border: 1px solid #1D4C77;
   border-radius: 5px;
   cursor: pointer;
   color: var(--textColor);
-  width: 350px;
+  width: 18%;
   height: 90px;
+  max-width: 350px;
 }
 
 /* Lorsque le label est cliqué, cocher le bouton radio associé */
@@ -2597,6 +2606,7 @@ margin-right: 20px;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  width: 100%;
 }
 
 .ligne_select_info_log_ajlog{
@@ -2675,7 +2685,7 @@ margin-right: 20px;
   align-items: center;
   flex-direction: column;
   background-color: #fff;
-  
+  width: 100%;
 }
 
 .ligne_champ_nombre_ajlog{
@@ -2722,10 +2732,6 @@ margin-right: 20px;
   transform: translateX(0);
 }
 
-.testdelamort{
-  width: 400%;
-  transition: all 0.8s ease-in-out;
-}
 
 .page {
   width: 25%; 
@@ -2740,6 +2746,17 @@ input[type="checkbox"] {
   display: none;
 }
 
+.barre_btn_choix_aménagement_ajlog{
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: nowrap;
+
+  margin: 0 10%;
+}
+
 .btn_choix2_ajlog {
   display: inline-flex;
   justify-content: center;
@@ -2750,7 +2767,8 @@ input[type="checkbox"] {
   border-radius: 5px;
   cursor: pointer;
   color: #000000;
-  width: 150px;
+  width: 15%;
+  max-width: 150px;
   height: 80px;
   margin: 11px 11px;
 
@@ -3126,6 +3144,104 @@ input[type="checkbox"]:checked + label {
 
 #id_loge{
   display: none;
+}
+
+
+.testdelamort{
+  width: 400%;
+  transition: all 0.8s ease-in-out;
+}
+
+#page3{
+  display: none;
+}
+
+
+
+@media screen and (min-width: 1051px) and (max-width: 1545px) { 
+  #gros_div{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 100%;
+  }
+
+  .page{
+    width: 100%;
+  }
+
+  #newLog .barre_btn_fin_form{
+    display: none;
+  }
+
+  #newLog .ajout_nombre_piece_ajlog{
+    height: 390px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  #newLog .ligne_champ_nombre_ajlog{
+    width: 50%;
+    margin: 8px 0;
+  }
+
+  #newLog p{
+    font-size: 15px;
+  }
+
+  
+
+}
+
+
+@media screen and (min-width: 0px) and (max-width: 1050px) { 
+  #gros_div{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 100%;
+  }
+
+  .page{
+    width: 100%;
+  }
+
+  #newLog .barre_btn_fin_form{
+    display: none;
+  }
+
+  #newLog .ajout_nombre_piece_ajlog{
+    height: 390px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  #newLog .ligne_champ_nombre_ajlog{
+    width: 50%;
+    margin: 8px 0;
+  }
+  
+
+  #newLog p{
+    font-size: 15px;
+  }
+
+  #newLog h2{
+    font-size: 20px;
+  }
+
+  #newLog label{
+    font-size: 15px;
+  }
+
+  #newLog .btn_choix2_ajlog{
+    height: 55px;
+  }
+
 }
 /******************************************** CONNEXION ********************************************/
 
