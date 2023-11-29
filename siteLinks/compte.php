@@ -18,7 +18,7 @@
 </head>
 <body>
   <header>
-    <a href="">
+    <a href="index.php">
       <img src="asset/img/logo.png" alt="logo">
     </a>
     <div></div>
