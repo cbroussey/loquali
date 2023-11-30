@@ -4126,7 +4126,7 @@ opacity: 1;
 
 .nav {
 width: 20%;
-height: 100vh;
+height: 95vh;
 background-color: #7297B8;
 display: flex;
 justify-content: space-evenly;
@@ -4201,7 +4201,6 @@ display:none;
 }
 
 #compteLogements {
-background-color: blue;
 height:92vh;
 width:84vw;
 display:none;
