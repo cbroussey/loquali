@@ -3,8 +3,6 @@
 const accountDisconnect = document.getElementById("accountDisconnect");
 const popUpDeco = document.getElementById("popUpDeco");
 
-console.log("caca");
-
 accountDisconnect.addEventListener('click', function() {
     popUpDeco.style.display = "block";
 });
@@ -27,7 +25,7 @@ function changeProfilePhoto(event) {
 
         reader.onload = function (e) {
             document.getElementById('photoProfil').src = e.target.result;
-            // Vous pouvez ajouter ici le code pour envoyer la nouvelle photo au serveur si nécessaire.
+            
         };
 
         reader.readAsDataURL(newPhoto);
