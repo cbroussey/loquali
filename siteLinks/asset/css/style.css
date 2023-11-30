@@ -817,7 +817,7 @@ h2 span{
   font-weight: bold;
 }
 
-#bg h4{
+#bg .description_log h4{
   font-size: 20;
   font-weight: bold;
   text-decoration: underline;
@@ -4939,7 +4939,7 @@ font-weight: 500;
   min-height: 92vh;
   float: right;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   flex-direction: row;
   margin-top: 20px;
 }
@@ -5149,6 +5149,10 @@ font-weight: 500;
   border-radius: 5px;
 } 
 
+.imgListeLogementProprio {
+  max-width: 290px;
+}
+
 .separateur {
   background-color: #97ADC1;
   width: 600px;
@@ -5332,7 +5336,7 @@ font-weight: 500;
     #aProposDeMoi {
       background-color: #F5F5F5;
       box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
-      margin-left: -50px;
+      margin-left: -15%;
       padding: 15px 25px 46px 30px;
       width:100%;
       
@@ -5345,10 +5349,6 @@ font-weight: 500;
 
     }
 
-    #aProposDeMoi div img {
-      margin-left: -20px;
-      margin-top: -5px;
-    }
 
     #boutonDescription {
       top: 163px;
@@ -5386,7 +5386,7 @@ font-weight: 500;
     #titreLogement {
       margin-top: -115px;
       margin-bottom: 14px;
-      margin-left: 100px;
+      margin-left: 35%;
       font-size: 20px;
     }
 

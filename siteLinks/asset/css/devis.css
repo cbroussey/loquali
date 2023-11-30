@@ -1,6 +1,17 @@
+    
+    
+a {
+    color: var(--secondBG);
+    text-decoration: none;
+}
+
 .main-devis {
     display: flex;
 
+}
+
+footer ul {
+    padding: 0;
 }
 
 .retour {
