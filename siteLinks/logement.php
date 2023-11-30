@@ -278,9 +278,22 @@
 
                 <div class="proprio_log">
                     
-                    <a class="img_proprio_log" href=""><div class="photo_profil_proprio_log"></div>
+                    <a class="img_proprio_log" href="pageProprio.php?id=<?php echo ($proprio["id_compte"]); ?>&id_log=<?php echo($id) ?>">
+                        <div class="photo_profil_proprio_log">
+                            <style>
+                                .photo_profil_proprio_log {
+                                    background: url("asset/img/profils/<?php echo $proprio['id_compte'] ?>.png") center/cover;
+                                }
+                            </style>
+                        </div>
+
                     </a>
+
+                    
                     <div class="info_proprio_log">
+
+
+
                         <div class="block_info_log">
                             <h2><?php echo($proprio["nom_affichage"]) ?></h2>
                         </div>
@@ -309,7 +322,7 @@
                                         d="M20.4011 16.0445L15.8073 14.0242C15.611 13.9384 15.3929 13.9203 15.1858 13.9727C14.9787 14.0251 14.7937 14.1451 14.6588 14.3146L12.6244 16.8653C9.4316 15.3205 6.86212 12.6838 5.35673 9.40742L7.84232 7.31978C8.0079 7.18159 8.12509 6.9918 8.17615 6.77916C8.22722 6.56651 8.20938 6.34258 8.12534 6.14127L6.15655 1.42723C6.06431 1.21022 5.90117 1.03304 5.69526 0.92624C5.48935 0.819439 5.25358 0.789713 5.0286 0.842188L0.762904 1.85234C0.545997 1.90374 0.352472 2.02906 0.213915 2.20786C0.0753574 2.38666 -4.99665e-05 2.60837 2.48403e-08 2.83681C2.48403e-08 13.6328 8.5273 22.3664 19.0316 22.3664C19.2543 22.3665 19.4704 22.2892 19.6447 22.147C19.8191 22.0048 19.9413 21.8062 19.9914 21.5835L20.9758 17.2062C21.0266 16.9742 20.997 16.7313 20.8921 16.5193C20.7872 16.3073 20.6136 16.1394 20.4011 16.0445Z"
                                         fill="#F5F5F5" />
                                 </svg>
-                                <p><?php echo($proprio["numero"]) ?></p>
+                                <p><?php  echo wordwrap($proprio["numero"], 2, " ", 1); ?></p>
                             </div>
                         </div>
                     </div>
@@ -658,9 +671,7 @@
 
 
 
-
-        les commentaires là ou quoi xDDDDDDDD
-
+            Emplacement des commentaires dans le futur
 
 
         </div>
