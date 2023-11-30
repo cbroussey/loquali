@@ -369,3 +369,15 @@ function afficherPopup() {
    function confirmerRefus() {
     cacherPopup();
    }
+
+
+   const code_postal = document.getElementById("code_postal");
+
+
+code_postal.addEventListener('input', function() {
+    this.value = this.value.replace(/\D/g, '');
+    if (this.value.length > 5) {
+        this.value = this.value.substring(0, this.value.length - 1);
+    }
+})
+   

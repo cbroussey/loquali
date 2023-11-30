@@ -1,25 +1,27 @@
 <?php
-session_start();
-include('connect_params.php');
-$dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
-$query = $dbh->prepare("SELECT * FROM test.logement WHERE id_logement = :idlog");
-$query->bindParam('idlog', $_GET["confirmDelete"], PDO::PARAM_INT);
-$query->execute();
-$query = $query->fetchAll();
-if (isset($_GET["confirmDelete"])) {
-    try {
-        $query = "DELETE FROM test.logement WHERE test.logement.id_logement = :id_log";
-        $stmt = $dbh->prepare($query);
-        $stmt->bindParam('id_log', $_GET["confirmDelete"], PDO::PARAM_INT);
-        $stmt->execute();
-    } catch (PDOException $e) {
-        print "Erreur !: " . $e->getMessage() . "<br/>";
-        die();
+  session_start();
+    include('connect_params.php');
+    $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
+    $query = $dbh->prepare("SELECT * FROM test.logement WHERE id_logement = :idlog");
+    $query->bindParam('idlog', $_GET["confirmDelete"], PDO::PARAM_INT);
+    $query->execute();
+    $query = $query->fetchAll();
+    if (isset($_GET["confirmDelete"]) ) {
+        try {
+            $query = "DELETE FROM test.logement WHERE test.logement.id_logement = :id_log";
+            $stmt = $dbh->prepare($query);
+            $stmt->bindParam('id_log', $_GET["confirmDelete"], PDO::PARAM_INT);
+            $stmt->execute();
+            
+        } catch (PDOException $e) {
+            print "Erreur !: " . $e->getMessage() . "<br/>";
+            die();
+        }
+        
+        header("Location: index.php");
     }
-    header("Location: index.php");
-}
 
-?>
+?> 
 
 <!DOCTYPE html>
 <html lang="en">
@@ -616,36 +618,38 @@ if (isset($_GET["confirmDelete"])) {
 
 
 
+  
                         <?php
                         if ($_SESSION['userId'] == $info["id_compte"]) {
 
                         ?>
+        <div class="barre_btn_ajustement_log">
+            <div class="button_valider2">
+                <a href="modifLogement.php?id=<?php echo($id) ?>"><h2>Modifier</h2></a>
+            </div>
+
+            <div class="button_refuser2">
+                <button  onclick="openModal()">supprimer</button>
+            </div>
+        </div>
 
 
-                            <div class="modif_log_btn">
-                                <a href="modifLogement.php?id=<?php echo ($id) ?>">
-                                    <h2>Modifier</h2>
-                                </a>
-                            </div>
 
+        <div class="confirmation-modal" id="myModal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <p>Êtes-vous sûr de vouloir supprimer ce logement ?</p>
+                <form method="GET" action="logement.php">
+                    <input type="hidden" name="confirmDelete" value="<?php echo $id ?>">
 
-                            <button class="delete-button" onclick="openModal()">Supprimer le logement</button>
-
-                            <div class="confirmation-modal" id="myModal">
-                                <div class="modal-content">
-                                    <span class="close" onclick="closeModal()">&times;</span>
-                                    <p>Êtes-vous sûr de vouloir supprimer ce logement ?</p>
-                                    <form method="GET" action="logement.php">
-                                        <input type="hidden" name="confirmDelete" value="<?php echo $id ?>">
-                                        <button class="confirm-button">Confirmer</button>
-                                    </form>
-
-                                </div>
-                            </div>
-                        <?php
-                        }
-                        ?>
-
+                    <button class="confirm-button">Confirmer</button>
+                </form>
+            
+            </div>
+        </div>
+        <?php
+           }
+        ?>  
                         <div class="barre_log">
                             <svg width="100%" height="10" viewBox="0 0 1920 9" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <g filter="url(#filter0_d_60_122)">
