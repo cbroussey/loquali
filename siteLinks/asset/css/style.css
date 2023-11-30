@@ -4179,7 +4179,7 @@ opacity: 0;
 
 #compteContainer {
 display:flex;
-flex-direction: row;
+flex-direction: row !important;
 }
 
 #compteInfosPerso {
@@ -4315,7 +4315,7 @@ width: 100%;
   border: none;
   background: none;
   font-size: 20px;
-  font-weight: 400;
+  font-weight: 600;
   width: 130px;
 
 
@@ -4350,7 +4350,6 @@ width: 100%;
 
   cursor: pointer;
 }
-
 
 .displayInfos{
   color: #97ADC1;
@@ -4653,7 +4652,7 @@ width: 100%;
 #compteConnection {
 position: relative;
 color: #1D4C77;
-margin: auto;
+margin:auto;
 width: 65%;
 height: 50%;
 
