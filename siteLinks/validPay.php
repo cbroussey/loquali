@@ -1,12 +1,12 @@
 <?php
     session_start();
-    echo date("m-y") ."\n";
+    //echo date("m-y") ."\n";
     if (
         (isset($_POST["paymentType"]) && $_POST["paymentType"] == "MasterCard" && preg_match('/^(5[1-5][0-9]{14}|2(22[1-9][0-9]{12}|2[3-9][0-9]{13}|[3-6][0-9]{14}|7[0-1][0-9]{13}|720[0-9]{12}))$/', $_POST["cardNumber"]))
         && intval(explode("/", $_POST["expiry"])[1]) > intval(date("y")) || (intval(explode("/", $_POST["expiry"])[1]) == intval(date("y")) && intval(explode("/", $_POST["expiry"])[0]) > intval(date("m")))
         && strlen($_POST["crypto"]) == 3
         ) {
-            echo "aoihaefaehfoaifaàera,";
+            //echo "aoihaefaehfoaifaàera,";
             require_once("connect_params.php");
             $db = new PDO("$driver:host=$server;dbname=$dbname", "$user", "$pass");
             $res = $db->prepare(

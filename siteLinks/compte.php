@@ -414,12 +414,112 @@
       </div>
     </div>
 
-    <div id="compteFavoris">
+  </div> 
+
+  <div id="compteFavoris">
       <!-- Favoris -->
     </div>
 
     <div id="compteLogements">
       <!-- logements -->
+
+
+   
+      <div id="logementPropo">
+                    <h2 id="titreLogement">Mes Logements</h2>
+                    <div id="listeLogements">
+
+
+
+                    <?php
+
+                    try {
+                        $id = $_SESSION['userId'];
+                        $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+
+                        $query = "SELECT COUNT(*) FROM test.logement WHERE id_compte = $id;";
+                        $stmt = $dbh->prepare($query);
+                        $stmt->execute();
+                        $nbLogements = $stmt->fetch();
+
+                        if ($nbLogements['count'] == 0) {
+                            ?>
+                            <p id="AucunLogement">Vous n'avez aucun logement en ligne</p>
+                            <?php
+                        }
+                        
+
+                        foreach($dbh->query("SELECT * FROM test.logement WHERE id_compte = $id", PDO::FETCH_ASSOC) as $row) {
+                    
+                            $info=$row;
+                            $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+                            $query = "SELECT min(id_image) FROM test.photo_logement NATURAL JOIN test.image WHERE id_logement = :id_logement;";
+                    
+                            $stmt = $dbh->prepare($query);
+                            $stmt->bindParam('id_logement', $info["id_logement"], PDO::PARAM_STR);
+                            $stmt->execute();
+                            $photo = $stmt->fetch();
+
+                            $query = "SELECT extension_image FROM test.image WHERE id_image = :id_image;";
+                    
+                            $stmt = $dbh->prepare($query);
+                            $stmt->bindParam('id_image', $photo["min"], PDO::PARAM_STR);
+                            $stmt->execute();
+                            $extention = $stmt->fetch();
+
+
+                            ?>
+
+                            <div class="listeUnLogement">
+
+                                <div class="toutLogement">
+
+
+                                  <div>
+                                      <img src="asset/img/logements/<?php echo($photo["min"]); ?>.<?php echo $extention["extension_image"] ?>" width="100%" height="100%" alt="" class="imgListeLogementProprio">
+                                  </div>
+                                  
+                                  <div class="unLogement">
+                                      <div class="log_info_liste">
+                                      <h2><?php echo($info["nature_logement"]); ?> <?php echo($info["type_logement"]); ?>, <?php echo($info["localisation"]); ?></h2>
+                                      <p><?php echo($info["code_postal"]); ?>, <U><?php echo($info["departement"]); ?></U></p>
+                                      <div class="noteAvis">
+                                          <img src="asset/icons/bleu/star.svg" alt="">
+                                          <p><?php echo($info["note_logement"]); ?>, 24 avis</p>
+                                      </div>
+                                      <a class="consulterLogement" href="logement.php?id=<?php echo $info["id_logement"] ?>"><em>Consulter le logement</em></a>
+                                    </div>
+                                  
+                                  </div>
+
+                                </div>
+
+                                <div class="btnListeLogement">
+                                  <a href="modifLogement.php?id=<?php echo($info["id_logement"]) ?>"><img src="asset/icons/bleu/modification.svg" alt=""></a>
+
+
+
+                                  <a href="logement.php?confirmDelete=<?php echo   $info["id_logement"] ?>"><img src="asset/icons/bleu/poubelle.svg" alt=""></a>
+
+                                </div>
+
+                                
+                            </div>
+
+                            <div class="separateur1">a</div>
+
+                            <?php
+                        }
+                        
+                    } catch (PDOException $e) {
+                        print "Erreur !: " . $e->getMessage() . "<br/>";
+                        die();
+                    }
+
+                    $dbh = null;
+
+                            ?>
+
     </div>
 
     <div id="compteReservations">
@@ -433,8 +533,6 @@
     <div id="comptePaiement">
       <!-- payement -->
     </div>
-
-  </div> 
 
   <form method="post" id="popUpDeco">
         <div class="popUpDecoChoix">
@@ -466,49 +564,7 @@
   </div>
 
   
-  <footer>
-
-        <div id="infosFooter">
-            <div id="footerCercleLogo">
-                <img src="asset/img/logoRond.svg" alt="logo">
-            </div>
-            <div id="textefooter">
-                <div id="infosLegal">
-                    <h2>Informations légales</h2>
-                    <ul>
-                        <li><a href="">Plan du site</a></li>
-                        <li><a href="">Mentions légales</a></li>
-                        <li><a href="">Conditions générales de ventes</a></li>
-                        <li><a href="">Données personnelles</a></li>
-                        <li><a href="">Gestions des cookies</a></li>
-                    </ul>
-                </div>
-                <div id="support">
-                    <h2>Support client</h2>
-                    <a href="">Contacter le support</a>
-                </div>
-                <div  id="reseaux">
-                    <h2>Suivez nous</h2>
-                    <div id="logoReseaux">
-                        <a href=""><img src="asset/icons/blanc/facebook.svg" alt=""></a>
-                        <a href=""><img src="asset/icons/blanc/instagram.svg" alt=""></a>
-                        <a href=""><img src="asset/icons/blanc/steam.svg" alt=""></a>
-                    </div>
-                </div>
-                <div id="contact">
-                    <h2>Nous contacter</h2>
-                    <p>Rue Édouard Branly, 22300 Lannion</p>
-                    <p>02 96 46 93 00</p>
-                    <p>iut-lannion.univ-rennes.fr</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="basFooter">
-            <p>Copyright @ 2023 LoQuali.com</p>
-        </div>
-
-    </footer>
+  
 
   <script src="asset/js/header.js"></script>
   <script src="asset/js/modifInfosCompte.js"></script>

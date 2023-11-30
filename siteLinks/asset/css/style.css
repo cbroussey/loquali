@@ -1801,6 +1801,45 @@ text-decoration: underline;
 
 
 }
+
+
+
+.button_valider2 a {
+  float: right;
+  display: inline-block;
+  margin-top: -50px;
+  width: 10%;
+  height: 62px;
+  background-color: var(--mainColor);
+  color: #fff;
+  text-align: center;
+  line-height: 62px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 700;
+  margin-right: 5%;
+}
+
+.button_refuser2 button{
+  float: right;
+  display: inline-block;
+  margin-top: -50px;
+  width: 10%;
+  height: 62px;
+  background-color: #8A3443;;
+  color: #fff;
+  text-align: center;
+  line-height: 62px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 700;
+  margin-bottom: 20px;
+  margin-right: 5%;
+}
  
 /******************************************** DEMANDE DEVIS ********************************************/
 .main-devis {
@@ -5769,3 +5808,20 @@ font-weight: 500;
   color: white;
   background-color: #8A3443;
 }
+
+
+.toutLogement{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+.btnListeLogement{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+}
+
+

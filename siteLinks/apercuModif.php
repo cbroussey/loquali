@@ -64,7 +64,6 @@
             $info_depart = $info["info_depart"];
             $reglement_interieur = $info["Règlement"];
 
-            $id_compte = 4; // besoin de taf de martin 
 
             // Préparer la requête d'insertion
             $stmt = $dbh->prepare("
@@ -86,8 +85,7 @@
                     localisation=:localisation,
                     info_arrivee=:info_arrivee,
                     info_depart=:info_depart,
-                    reglement_interieur=:reglement_interieur,
-                    id_compte=:id_compte
+                    reglement_interieur=:reglement_interieur
                 WHERE id_logement=:id_logement
             ");
 
@@ -110,7 +108,6 @@
             $stmt->bindParam(':info_arrivee', $info_arrivee);
             $stmt->bindParam(':info_depart', $info_depart);
             $stmt->bindParam(':reglement_interieur', $reglement_interieur);
-            $stmt->bindParam(':id_compte', $id_compte);
             $stmt->bindParam(':id_logement', $id);
 
             try {
@@ -841,10 +838,10 @@
                 </div>
 
                 <div class="button_valider">
-                    <a href="index.php">Crée le logement</a>
+                    <a href="index.php">Modifier le logement</a>
                 </div>
                 <div class="button_refuser">
-                    <a href="#" onclick="afficherPopup()">Annuler</a>
+                    <a href="modifLogement.php?id=<?php echo ($id) ?>" onclick="afficherPopup()">Annuler</a>
                 </div>
                     
                     
@@ -874,9 +871,7 @@
             </div>
 
             <div class="sep_descri_regle_log">
-                <svg width="473" height="2" viewBox="0 0 473 2" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="473" height="2" fill="#1D4C77" />
-                </svg>
+
             </div>
 
 
@@ -887,9 +882,7 @@
             </div>
 
             <div class="sep_descri_regle_log">
-                <svg width="473" height="2" viewBox="0 0 473 2" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="473" height="2" fill="#1D4C77" />
-                </svg>
+
             </div>
 
 
@@ -900,9 +893,7 @@
             </div>
 
             <div class="sep_descri_regle_log">
-                <svg width="473" height="2" viewBox="0 0 473 2" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="473" height="2" fill="#1D4C77" />
-                </svg>
+
             </div>
 
 
