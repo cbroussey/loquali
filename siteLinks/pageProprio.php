@@ -164,17 +164,24 @@
             
                     $info=$row;
                     $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-                    $query = "SELECT min(id_image) FROM test.photo_logement WHERE id_logement = :id_logement;";
+                    $query = "SELECT min(id_image) FROM test.photo_logement NATURAL JOIN test.image WHERE id_logement = :id_logement;";
             
                     $stmt = $dbh->prepare($query);
                     $stmt->bindParam('id_logement', $info["id_logement"], PDO::PARAM_STR);
                     $stmt->execute();
                     $photo = $stmt->fetch();
+
+                    $query = "SELECT extension_image FROM test.image WHERE id_image = :id_image;";
+            
+                    $stmt = $dbh->prepare($query);
+                    $stmt->bindParam('id_image', $photo["min"], PDO::PARAM_STR);
+                    $stmt->execute();
+                    $extention = $stmt->fetch();
                     ?>
 
                     <div class="listeUnLogement">
                         <div>
-                            <img src="asset/img/logements/<?php echo($photo["min"]); ?>.jpg" width="100%" alt="">
+                        <img src="asset/img/logements/<?php echo($photo["min"]); ?>.<?php echo $extention["extension_image"] ?>" width="100%" height="100%" alt="">
                         </div>
                         
                         <div class="unLogement">
