@@ -282,7 +282,7 @@ VALUES
     ('jpg'),
     ('png'),
     ('jpg'),
-    ('jpg'),
+    ('png'),
     ('jpg'),
     ('jpg'),
     ('jpg');
@@ -414,12 +414,14 @@ VALUES
     ('Frais de piscine'),
     ('Frais de petit-déjeuner');
 
+/*
 INSERT INTO plage (disponibilite, prix_hT, delai_annul, pourcentage_retenu, date_debut, date_fin, id_logement)
 VALUES
     (TRUE, 80.00, 5, 5.00, '2023-11-18', '2023-11-30', 1),
     (TRUE, 120.00, 3, 8.00, '2023-11-15', '2023-11-30', 2), -- Les plages ne doivent pas se superposer entre elles pour un même logement, les nouvelles plages remplacent certaines parties des anciennes
     (TRUE, 100.00, 5, 6.00, '2023-11-1', '2023-11-14', 2), -- Donc si la plage du dessus faisait du 1-30, sa date de début a été modifiée pour ne pas la superposer avec celle ci qui fait du 1-14
     (TRUE, 70.00, 1, 7.00, '2023-12-01', '2023-12-31', 3);
+*/
     
 INSERT INTO prix_charge (prix_charge, id_logement, nom_charge)
 VALUES
@@ -456,14 +458,54 @@ VALUES
     (250.00, 'Facture pour la réservation 1', 139.00, 1),
     (350.00, 'Facture pour la réservation 2', 200.00, 2),
     (150.00, 'Facture pour la réservation 3', 60.00, 3);
-    
-CREATE FUNCTION getCurrentData(id_log INT) RETURNS TABLE(disponibilite BOOLEAN, prix_ht numeric(10,2), delai_annul integer, pourcentage_retenu numeric(10,2), date_debut date, date_fin date, id_logement integer) AS $$
+
+
+CREATE FUNCTION getCurrentData(id_log INT)
+  RETURNS TABLE(disponibilite BOOLEAN, prix_ht numeric(10,2), delai_annul integer, pourcentage_retenu numeric(10,2), date_debut date, date_fin date, id_logement integer) AS $$
 BEGIN
   PERFORM * FROM plage WHERE plage.date_debut <= CURRENT_DATE AND plage.date_fin >= CURRENT_DATE AND plage.id_logement = id_log;
   IF NOT FOUND THEN
-    RETURN QUERY SELECT disponible_defaut, prix_base_ht, delai_annul_defaut, pourcentage_retenu_defaut, DATE('1970-01-01'), DATE('1970-01-01'), logement.id_logement FROM logement WHERE logement.id_logement = id_log;
+    RETURN QUERY SELECT disponible_defaut, prix_base_ht, delai_annul_defaut, pourcentage_retenu_defaut, DATE('1970-01-01'), DATE('1970-01-01'), logement.id_logement FROM logement
+      WHERE logement.id_logement = id_log;
   ELSE
     RETURN QUERY SELECT * FROM plage WHERE plage.date_debut <= CURRENT_DATE AND plage.date_fin >= CURRENT_DATE AND plage.id_logement = id_log;
   END IF;
 END;
 $$ LANGUAGE plpgsql;
+
+
+CREATE FUNCTION ajoutPlage() RETURNS TRIGGER AS $$
+BEGIN
+  DELETE FROM plage WHERE plage.date_debut >= NEW.date_debut AND plage.date_fin <= NEW.date_fin AND plage.id_logement = NEW.id_logement;
+  UPDATE plage SET date_fin = NEW.date_debut-1 WHERE plage.date_fin >= NEW.date_debut AND plage.id_logement = NEW.id_logement;
+  UPDATE plage SET date_debut = NEW.date_fin+1 WHERE plage.date_debut <= NEW.date_fin AND plage.id_logement = NEW.id_logement;
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER noPlageOverlap
+BEFORE INSERT
+ON plage FOR EACH ROW
+EXECUTE PROCEDURE ajoutPlage();
+
+CREATE TRIGGER plageUpdate
+BEFORE UPDATE ON plage
+FOR EACH ROW
+WHEN (NEW.date_debut < OLD.date_debut OR NEW.date_fin > OLD.date_fin)
+EXECUTE PROCEDURE ajoutPlage();
+
+CREATE FUNCTION deleteOldPlage() RETURNS INTEGER AS $$
+DECLARE
+  lignes RECORD;
+BEGIN
+  WITH deleted AS (DELETE FROM plage WHERE plage.date_fin < CURRENT_DATE RETURNING *) SELECT count(*) AS deleted FROM deleted INTO lignes;
+  RETURN lignes(deleted);
+END;
+$$ LANGUAGE plpgsql;
+
+INSERT INTO plage(disponibilite, prix_hT, delai_annul, pourcentage_retenu, date_debut, date_fin, id_logement)
+VALUES
+    (TRUE, 80.00, 5, 5.00, '2023-11-18', '2023-11-30', 1),
+    (TRUE, 120.00, 3, 8.00, '2023-11-1', '2023-11-30', 2), -- Les plages ne doivent pas se superposer entre elles pour un même logement, les nouvelles plages remplacent certaines parties des anciennes
+    (TRUE, 100.00, 5, 6.00, '2023-11-1', '2023-11-14', 2), -- Donc si la plage du dessus faisait du 1-30, sa date de début a été modifiée pour ne pas la superposer avec celle ci qui fait du 1-14
+    (TRUE, 70.00, 1, 7.00, '2023-12-01', '2023-12-31', 3);

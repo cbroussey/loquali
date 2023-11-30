@@ -71,15 +71,21 @@
 
     include('connect_params.php');
     try {
-        $id=4; // à revoir une fois que les comptes sont fait
+        $id=$_SESSION['userId'];
         $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
         $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+
+        if ($_SESSION['userType'] == 'proprietaire') {
         $query = "SELECT * FROM test.proprietaire NATURAL JOIN test.compte NATURAL JOIN test.telephone WHERE id_compte = :id_compte";
+        } else {
+        $query = "SELECT * FROM test.client NATURAL JOIN test.compte WHERE id_compte = :id_compte";
+        }
 
         $stmt = $dbh->prepare($query);
-        $stmt->bindParam('id_compte', $id, PDO::PARAM_STR);
+        $stmt->bindParam('id_compte', $_SESSION['userId'], PDO::PARAM_STR);
         $stmt->execute();
-        $proprio = $stmt->fetch();
+        $current = $stmt->fetch();
+
     }   catch (PDOException $e) {
         print "Erreur !: " . $e->getMessage() . "<br/>";
         die();
@@ -100,7 +106,7 @@
                             height:160px;
                             border-radius: 93.5px;
 
-                            background: url("asset/img/profils/<?php echo($proprio["photo_de_profil"]) ?>.png") center/cover;
+                            background: url("asset/img/profils/<?php echo $_SESSION['userId'] ?>.png") center/cover;
                         }
 
                         @media screen and (min-width: 0px) and (max-width: 400px) {
@@ -117,18 +123,32 @@
                     </style>
                 </div>
                 <div class = "infos">
-                    <h2><?php echo strtoupper($proprio["nom"]) ?> <?php echo $proprio["prenom"];?></h2>
-                    <figure class="star">
-                        <img src="asset/icons/bleu/star.svg" alt="">
-                        <figcaption><?php echo $proprio["note_proprio"]; ?></figcaption>
-                    </figure>
-                    <figure class="tel">
+                    <h2><?php echo $_SESSION['displayName'] ?></h2>
+                    <?php
+                        $note = ($_SESSION['userType'] == 'proprietaire') ? $current['note_proprio'] : $current['note_client'];
+                        if (isset($note)) {
+                            ?>
+                            <figure class="star">
+                                <img src="asset/icons/bleu/star.svg" alt="">
+                                <figcaption><?php echo htmlentities($note) ?></figcaption>
+                            </figure>
+                            <?php
+                        }
+                    ?>
+                    
+                    <?php
+                    if ($_SESSION['userType'] == 'proprietaire') {
+                        ?>
+                        <figure class="tel">
                         <img src="asset/icons/bleu/tel.svg" alt="">
-                        <figcaption><?php echo wordwrap($proprio["numero"], 2, " ", 1); ?></figcaption>
-                    </figure>
+                        <figcaption><?php echo wordwrap($current["numero"], 2, " ", 1); ?></figcaption>
+                        </figure>
+                        <?php
+                    } 
+                    ?>
                     <figure class="mail">
                         <img src="asset/icons/bleu/mail.svg" alt="">
-                        <figcaption><?php echo $proprio["adresse_mail"]; ?></figcaption>
+                        <figcaption><?php echo $_SESSION['email'] ?></figcaption>
                     </figure>
                 </div>
 
@@ -154,7 +174,7 @@
         
         </div>
         <div id="logementPropo">
-            <h2 id="titreLogement">Logements proposés</h2>
+            <h2 id="titreLogement">Mes Logements</h2>
             <div id="listeLogements">
 
 
@@ -162,6 +182,21 @@
             <?php
 
             try {
+                $id = $_SESSION['userId'];
+                $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+
+                $query = "SELECT COUNT(*) FROM test.logement WHERE id_compte = $id;";
+                $stmt = $dbh->prepare($query);
+                $stmt->execute();
+                $nbLogements = $stmt->fetch();
+
+                if ($nbLogements['count'] == 0) {
+                    ?>
+                    <p id="AucunLogement">Vous n'avez aucun logement en ligne</p>
+                    <?php
+                }
+                
+
                 foreach($dbh->query("SELECT * FROM test.logement WHERE id_compte = $id", PDO::FETCH_ASSOC) as $row) {
             
                     $info=$row;
