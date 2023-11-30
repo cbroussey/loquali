@@ -1,4 +1,46 @@
 
+@font-face {
+  font-family: 'inter';
+  src: url('../font/inter-bold-webfont.woff2') format('woff2'),
+       url('../font/inter-bold-webfont.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+
+}
+
+@font-face {
+  font-family: 'inter';
+  src: url('../font/inter-light-webfont.woff2') format('woff2'),
+       url('../font/inter-light-webfont.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+
+}
+
+@font-face {
+  font-family: 'inter';
+  src: url('../font/inter-semibold-webfont.woff2') format('woff2'),
+       url('../font/inter-semibold-webfont.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+
+}
+
+html {
+  font-family: "Inter", sans-serif;
+}
+
+
+body {
+  margin: 0;
+}
+
+nav > h4 > a {
+  color: var(--secondBG);
+  text-decoration: none;
+}
+
+
 /******************************************* SCROLLBAR ********************************************/
 
 ::-webkit-scrollbar {
@@ -39,7 +81,9 @@ header {
   border-left: 10vw solid transparent;
   border-top: 8vh solid #1D4C77;
   z-index: 1;
+
   }
+
   
   #headerEmptyDiv {
   width:45%;

@@ -817,7 +817,7 @@ h2 span{
   font-weight: bold;
 }
 
-#bg h4{
+#bg .description_log h4{
   font-size: 20;
   font-weight: bold;
   text-decoration: underline;
