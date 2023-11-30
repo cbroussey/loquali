@@ -160,7 +160,7 @@ create table installation(
     constraint installation_fk_logement foreign key (id_logement) references logement(id_logement)ON DELETE CASCADE
 );
 create table reservation(
-    id_reservation integer not null,
+    id_reservation SERIAL not null,
     debut_reservation date,
     fin_reservation date,
     nb_personne integer,
@@ -388,11 +388,11 @@ VALUES
     ('hammam', 2),
     ('sauna', 3);
     
-INSERT INTO reservation (id_reservation, debut_reservation, fin_reservation, nb_personne, id_compte, id_logement)
+INSERT INTO reservation (debut_reservation, fin_reservation, nb_personne, id_compte, id_logement)
 VALUES
-    (1,'2023-11-01', '2023-11-07', 2, 1, 1),
-    (2,'2023-11-15', '2023-11-20', 4, 2, 2),
-    (3,'2023-12-10', '2023-12-15', 1, 3, 3);
+    ('2023-11-01', '2023-11-07', 2, 1, 1),
+    ('2023-11-15', '2023-11-20', 4, 2, 2),
+    ('2023-12-10', '2023-12-15', 1, 3, 3);
     
 INSERT INTO avis (id_avis, id_parent, titre, contenu, date_avis, id_logement)
 VALUES
