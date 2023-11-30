@@ -18,7 +18,7 @@ a {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    padding: 50px 50px;
+    padding: 5%;
     flex-wrap: wrap;
     gap: 3em;
 }
@@ -51,7 +51,8 @@ a {
     flex-direction: column;
     justify-content: space-around;
     flex-basis: 35em;
-    /*gap: 3em;*/
+    gap: 3em;
+    max-width: 100%;
 }
 
 #paiement > * {
@@ -83,7 +84,7 @@ p > .h3 {
 
 #infosPaiement > input, #infosPaiement > div > input, #paymentType {
     background-color: #F5F5F5;
-    padding: 16px 30px;
+    padding: 16px 0px 16px 30px;
     border: var(--textColor) 1px solid;
     border-radius: 10px;
 }
@@ -138,11 +139,12 @@ p > .h3 {
     background-repeat: no-repeat;
     background-position: left;
     background-size: 4em;
-    padding: .5em 5em;
+    padding: .5em 0px .5em 5em;
     color: var(--textColor);
     font-size: 16px;
     border: none;
     border-radius: 0;
+    max-width: 50%;
 }
 
 #country > input {
@@ -170,7 +172,7 @@ td > input.inputImg {
 
 #country {
     display: flex;
-    padding: .5em 30px;
+    /*padding: .5em 30px;*/
     justify-content: space-between;
     gap: 1em;
 }
@@ -200,6 +202,7 @@ td > input.inputImg {
 
 #devis > figure > img {
     max-height: 230px;
+    max-width: 100%;
     border-radius: 10px;
     overflow: hidden;
 }
@@ -245,7 +248,7 @@ input[type="checkbox"] {
 }
 
 #input_check_box_info {
-    margin: 20px;
+    margin: 0px;
 }
 
 #check_box_info label {
@@ -283,4 +286,13 @@ input[type="checkbox"] {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+input[type="checkbox"]:checked + label {
+    background-color: var(--bgColor);
+    color: var(--textColor)
+}
+
+#expiry, #crypto {
+    width: 50%;
 }

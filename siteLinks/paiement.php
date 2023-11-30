@@ -37,7 +37,7 @@
         $res->bindParam('devis', $_POST['devis'], PDO::PARAM_INT);
         $res->execute();
         $res = $res->fetchAll();
-        ?><pre style="padding-left: 1em;"><?php print_r($res) ?></pre><?php
+        /*?><pre style="padding-left: 1em;"><?php print_r($res) ?></pre><?php*/
         if (isset($_SESSION["userId"]) && $_SESSION["userId"] == $res[0]["id_compte"] && $res && $res[0]["acceptation"]) {
             $res = $res[0];
             $charges = $db->prepare(
@@ -60,29 +60,31 @@
                 <div id="paiement">
                     <div id="infosVoyage">
                         <h2>Votre voyage</h2>
-                        <p><a class="h3">Dates</a><a><?php echo explode("-", $res["debut_reservation"])[2] . ($res["debut_reservation"][1] != $res["fin_reservation"][1] ? substr(strftime("%B"), 0, 3) . "." : "")?> - <?php echo explode("-", $res["debut_reservation"])[2] . ' ' . substr(strftime("%B"), 0, 3) . "." ?> </a></p> <!-- PB avec juin et juillet : Jui et Jui -->
+                        <!-- <p><a class="h3">Dates</a><a><?php /*echo explode("-", $res["debut_reservation"])[2] . ($res["debut_reservation"][1] != $res["fin_reservation"][1] ? substr(strftime("%B"), 0, 3) . "." : "")?> - <?php echo explode("-", $res["debut_reservation"])[2] . ' ' . substr(strftime("%B"), 0, 3) . "."*/ ?> </a></p> -->
+                        <p><a class="h3">Dates</a><a><?php echo explode("-", $res["debut_reservation"])[2] . "/" . explode("-", $res["debut_reservation"])[1]?> - <?php echo explode("-", $res["fin_reservation"])[2] . '/' . explode("-", $res["fin_reservation"])[1] ?> </a></p> <!-- PB avec juin et juillet : Jui et Jui -->
                         <p><a class="h3">Voyageurs</a><a><?php echo $res["nb_personne"] ?> voyageur<?php echo ($res["nb_personne"] > 1) ? "s" : " " ?></a></p>
                     </div>
                     <div id="infosPaiement">
                         <h2>Validez et payez</h2>
                         <p>Payez avec</p>
                         <div id="CM" class="contextMenu">
-                            <input name="paymentType" class="inputImg" onclick="toggleCM('CM', document.querySelector('#paymentType'))" style="background-image: url('asset/img/mastercard.png');" value="MasterCard" readonly><img class="cmHideElem" src="asset/img/arrow-down.svg" onclick="toggleCM('CM', document.querySelector('#paymentType'))">|
-                            <input name="paymentType" class="inputImg" onclick="toggleCM('CM', document.querySelector('#paymentType'))" style="background-image: url('asset/img/paypal.png');" value="PayPal" readonly><img class="cmHideElem" src="asset/img/arrow-down.svg" onclick="toggleCM('CM', document.querySelector('#paymentType'))">
+                            <input name="paymentType" class="inputImg" onclick="toggleCM('CM', document.querySelector('#paymentType'))" style="background-image: url('asset/img/mastercard.png');" value="MasterCard" readonly><img class="cmHideElem mastercard" src="asset/img/arrow-down.svg" onclick="toggleCM('CM', document.querySelector('#paymentType'))">|
+                            <input name="paymentType" class="inputImg" onclick="toggleCM('CM', document.querySelector('#paymentType'))" style="background-image: url('asset/img/paypal.png');" value="PayPal" readonly><img class="cmHideElem paypal" src="asset/img/arrow-down.svg" onclick="toggleCM('CM', document.querySelector('#paymentType'))">
                         </div>
                         <div id="paymentType" href="#" onclick="toggleCM('CM', this)">
                             <input name="paymentType" class="inputImg" onclick="toggleCM('CM', document.querySelector('#paymentType'))" style="background-image: url('asset/img/mastercard.png');" value="MasterCard" readonly><img class="cmHideElem" src="asset/img/arrow-down.svg" onclick="toggleCM('CM', document.querySelector('#paymentType'))">
                         </div>
-                        <input id="cardNumber" name="cardNumber" placeholder="Numéro de carte" pattern="^(5[1-5][0-9]{14}|2(22[1-9][0-9]{12}|2[3-9][0-9]{13}|[3-6][0-9]{14}|7[0-1][0-9]{13}|720[0-9]{12}))$" required> <!-- Pattern actuel uniquement pour mastercard -->
+                        <input id="cardNumber" name="cardNumber" placeholder="Numéro de carte" class="mastercard" pattern="^(5[1-5][0-9]{14}|2(22[1-9][0-9]{12}|2[3-9][0-9]{13}|[3-6][0-9]{14}|7[0-1][0-9]{13}|720[0-9]{12}))$" required> <!-- Pattern actuel uniquement pour mastercard -->
                         <div>
-                            <input id="expiry" name="expiry" placeholder="Expiration" minlength=5 maxlength=5 pattern="(0[1-9]|1[0-2])/\d{2}" required>
-                            <input id="crypto" name="crypto" placeholder="Cryptogramme" minlength=3 maxlength=3 pattern="\d{3}" required>
+                            <input id="expiry" name="expiry" placeholder="Expiration" minlength=5 maxlength=5 class="mastercard" pattern="(0[1-9]|1[0-2])/\d{2}" required>
+                            <input id="crypto" name="crypto" placeholder="Cryptogramme" minlength=3 maxlength=3 class="mastercard" pattern="\d{3}" required>
                         </div>
-                        <div>
+                        <div style="display: none;">
                             <input id="postalCode" name="postalCode" placeholder="Code postal" minlength=2 maxlength=11 hidden>
                             <div id="country" style="display: none;"><input name="country" placeholder="Pays/région" onclick="toggleCM('CM2', this)"><img src="asset/img/arrow-down.svg"></div>
                             <div id="CM2" class="contextMenu">France|Amérique|Asie|Afrique|JSP</div>
                         </div>
+                        <input id="paypalMail" name="paypalMail" class="paypal" placeholder="Adresse email PayPal" hidden>
                         <div id="input_check_box_info">
                             <input type="checkbox" name="savePay" id="savePay">
                             <label for="savePay">
