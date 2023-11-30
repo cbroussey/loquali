@@ -25,7 +25,7 @@
 
             //enregistrement de l'image de la carte d'identité
             $imageName = $_SESSION['userId'] . "." . explode('/', $_FILES["fichier"]['type'])[1];
-            move_uploaded_file($_FILES["fichier"]["tmp_name"], "asset/img/profils/$imageName");
+            move_uploaded_file($_FILES["fichier"]["tmp_name"], "asset/img/identite/$imageName");
 
             //changement du userType dans les variables de session
             $_SESSION['userType'] = 'proprietaire';

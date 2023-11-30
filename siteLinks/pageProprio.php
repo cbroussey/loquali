@@ -1,28 +1,3 @@
-<?php
-    session_start();
-    if (isset($_POST['description'])) {
-    
-        include('connect_params.php');
-        try {
-            $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
-            $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-
-            $query = "UPDATE test.proprietaire SET description = :newValue WHERE id_compte = :id_compte;";
-            
-            $stmt = $dbh->prepare($query);
-            $stmt->bindParam('newValue', $_POST['description'], PDO::PARAM_STR);
-            $stmt->bindParam('id_compte', $_SESSION['userId'], PDO::PARAM_STR);
-            $stmt->execute();
-            $post = $stmt->fetch();
-
-            $dbh = null;
-        } catch (PDOException $e) {
-            print "Erreur !: " . $e->getMessage() . "<br/>";
-            die();
-        }
-    }
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -69,20 +44,15 @@
     
   <?php
 
+    $id = $_GET["id"];
+    $id_log = $_GET["id_log"];
     include('connect_params.php');
     try {
-        $id=$_SESSION['userId'];
         $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
         $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-
-        if ($_SESSION['userType'] == 'proprietaire') {
         $query = "SELECT * FROM test.proprietaire NATURAL JOIN test.compte NATURAL JOIN test.telephone WHERE id_compte = :id_compte";
-        } else {
-        $query = "SELECT * FROM test.client NATURAL JOIN test.compte WHERE id_compte = :id_compte";
-        }
-
         $stmt = $dbh->prepare($query);
-        $stmt->bindParam('id_compte', $_SESSION['userId'], PDO::PARAM_STR);
+        $stmt->bindParam('id_compte', $id, PDO::PARAM_STR);
         $stmt->execute();
         $current = $stmt->fetch();
 
@@ -93,7 +63,7 @@
 
     ?>
     
-    <a href="index.php">
+    <a href="logement.php?id=<?php echo($id_log); ?>">
         <img src="asset/icons/bleu/toBack.svg" alt="" id="pagePersoSvgBack">
     </a>
     <div id="ensemble">
@@ -106,7 +76,7 @@
                             height:160px;
                             border-radius: 93.5px;
 
-                            background: url("asset/img/profils/<?php echo $_SESSION['userId'] ?>.png") center/cover;
+                            background: url("asset/img/profils/<?php echo $current['id_compte'] ?>.png") center/cover;
                         }
 
                         @media screen and (min-width: 0px) and (max-width: 400px) {
@@ -123,9 +93,9 @@
                     </style>
                 </div>
                 <div class = "infos">
-                    <h2><?php echo $_SESSION['displayName'] ?></h2>
+                    <h2><?php echo $current['nom_affichage'] ?></h2>
                     <?php
-                        $note = ($_SESSION['userType'] == 'proprietaire') ? $current['note_proprio'] : $current['note_client'];
+                        $note = $current['note_proprio'];
                         if (isset($note)) {
                             ?>
                             <figure class="star">
@@ -136,19 +106,16 @@
                         }
                     ?>
                     
-                    <?php
-                    if ($_SESSION['userType'] == 'proprietaire') {
-                        ?>
                         <figure class="tel">
                         <img src="asset/icons/bleu/tel.svg" alt="">
                         <figcaption><?php echo wordwrap($current["numero"], 2, " ", 1); ?></figcaption>
                         </figure>
                         <?php
-                    } 
+                
                     ?>
                     <figure class="mail">
                         <img src="asset/icons/bleu/mail.svg" alt="">
-                        <figcaption><?php echo $_SESSION['email'] ?></figcaption>
+                        <figcaption><?php echo $current['adresse_mail'] ?></figcaption>
                     </figure>
                 </div>
 
@@ -161,11 +128,8 @@
                         <h2>À propos de moi</h2>
                     </div>
                     <div class="descriptionPersonne">
-                        <form method="post">
-                            <a href="#" id="boutonDescription" class="testBouton"><img src="asset/icons/bleu/modification.svg" alt=""></a>
                             <input type="submit" value="Enregistrer" id="modificationDescription" class="modifBtn">
-                            <p id="champsDescription" class="descriptionCompte"><?php echo htmlentities($current["description"].PHP_EOL) ?></p>
-                            <textarea type="text" id="description" class="descriptionModif" name="description" value=<?php echo htmlentities($proprio["description"]) ?>></textarea>
+                            <p id="champsDescription" class="descriptionCompte"><?php echo htmlentities($proprio["description"].PHP_EOL) ?></p>
                         </form>
                     </div>
 
@@ -174,7 +138,7 @@
         
         </div>
         <div id="logementPropo">
-            <h2 id="titreLogement">Mes Logements</h2>
+            <h2 id="titreLogement">Logements Proposé</h2>
             <div id="listeLogements">
 
 
@@ -182,7 +146,6 @@
             <?php
 
             try {
-                $id = $_SESSION['userId'];
                 $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
                 $query = "SELECT COUNT(*) FROM test.logement WHERE id_compte = $id;";
@@ -214,13 +177,11 @@
                     $stmt->bindParam('id_image', $photo["min"], PDO::PARAM_STR);
                     $stmt->execute();
                     $extention = $stmt->fetch();
-
-
                     ?>
 
                     <div class="listeUnLogement">
                         <div>
-                            <img src="asset/img/logements/<?php echo($photo["min"]); ?>.<?php echo $extention["extension_image"] ?>" width="100%" height="100%" alt="">
+                        <img src="asset/img/logements/<?php echo($photo["min"]); ?>.<?php echo $extention["extension_image"] ?>" width="100%" height="100%" alt="">
                         </div>
                         
                         <div class="unLogement">
