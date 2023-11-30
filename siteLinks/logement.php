@@ -205,6 +205,153 @@ if (isset($_GET["confirmDelete"])) {
 
                     if ($i == 1) {
                         $div = 1;
+                    ?>
+
+                    <div class="images_log_droite">
+
+                    <?php
+                    }
+
+                    if ($lig==2){
+                        $delai=0;
+                        $lig=0;
+                    ?>
+
+                    <div class="lig_images_log_droite">
+
+                    <?php
+                    }
+
+                    if ($i < 5) {
+                    ?>
+
+                    <img src="asset/img/logements/<?php echo($nom['id_image'].".".$nom['extension_image']); ?>" alt="problème">
+
+                    <?php
+                    }
+
+
+                    if ($delai==1){
+                        echo("</div>");
+                    }
+
+                    $lig++;
+                    $delai++;
+                    $i++;
+                }
+
+                if ($div == 1) {
+                    echo("</div>");
+                }
+
+            ?>
+            </div>
+
+
+
+        </div> <!-- Fin du div pour le background blanc -->
+
+        <div class="barre_log">  <!-- Barre de séparation -->
+            <svg width="100%" height="10" viewBox="0 0 1920 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g filter="url(#filter0_d_60_122)">
+                    <rect width="1920" height="1" transform="matrix(1 0 0 -1 0 4)" fill="#D9D9D9" />
+                </g>
+                <defs>
+                    <filter id="filter0_d_60_122" x="-4" y="0" width="1928" height="9" filterUnits="userSpaceOnUse"
+                        color-interpolation-filters="sRGB">
+                        <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                        <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                            result="hardAlpha" />
+                        <feOffset dy="1" />
+                        <feGaussianBlur stdDeviation="2" />
+                        <feComposite in2="hardAlpha" operator="out" />
+                        <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
+                        <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_60_122" />
+                        <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_60_122" result="shape" />
+                    </filter>
+                </defs>
+            </svg>
+        </div>
+
+
+        <div class="sticky_res_and_map_log">  <!-- Div pour rendre faire glisser la map et la case réservation -->
+
+            <div class="barre_info_log">
+
+                <div class="proprio_log">
+                    
+                    <a class="img_proprio_log" href="pageProprio.php?id=<?php echo ($proprio["id_compte"]); ?>&id_log=<?php echo($id) ?>">
+                        <div class="photo_profil_proprio_log">
+                        <?php //récupération du nom de l'image (avec extension)
+            
+                        if ($images = opendir('asset/img/profils/')) {
+                            while (false !== ($fichier = readdir($images))) {
+                                $imgInfos = pathinfo($fichier);
+                                if ($imgInfos['filename'] == $_SESSION['userId']) {
+                                    $pathName = 'asset/img/profils/' . $fichier;
+                                    break;
+                                }
+
+                            }
+                            print_r($pathName);
+                            if ($pathName == '') {
+                                $pathName = 'asset/img/profils/default.jpg';
+                            }
+                            closedir($images);
+                        }
+                        ?>
+                            <style>
+                                .photo_profil_proprio_log {
+                                    background: url(<?php echo $pathName ?> ) center/cover;
+                                }
+                            </style>
+                        </div>
+
+                    </a>
+
+                    
+                    <div class="info_proprio_log">
+
+
+
+                        <div class="block_info_log">
+                            <h2><?php echo($proprio["nom_affichage"]) ?></h2>
+                        </div>
+                        <div class="block_info_log">
+                            <?php
+                                if ($proprio["note_proprio"]!=""){
+                            ?>
+                            <div class="note_proprio_log">
+
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M10.3646 1.22353L7.5304 7.12042L1.18926 8.06909C0.052104 8.23834 -0.403625 9.67693 0.421028 10.5009L5.0087 15.0884L3.92363 21.5687C3.72832 22.7401 4.93058 23.6175 5.93752 23.0696L11.6103 20.0099L17.283 23.0696C18.29 23.613 19.4922 22.7401 19.2969 21.5687L18.2118 15.0884L22.7995 10.5009C23.6242 9.67693 23.1684 8.23834 22.0313 8.06909L15.6901 7.12042L12.8559 1.22353C12.3481 0.172417 10.8768 0.159056 10.3646 1.22353Z"
+                                        fill="#F5F5F5" />
+                                </svg>
+                                <p><?php echo($proprio["note_proprio"]) ?></p>
+
+                            </div>
+                            <?php
+                                }
+                            ?>
+                        </div>
+                        <div class="block_info_log">
+                            <div class="contact_proprio_log">
+                                <svg width="21" height="23" viewBox="0 0 21 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M20.4011 16.0445L15.8073 14.0242C15.611 13.9384 15.3929 13.9203 15.1858 13.9727C14.9787 14.0251 14.7937 14.1451 14.6588 14.3146L12.6244 16.8653C9.4316 15.3205 6.86212 12.6838 5.35673 9.40742L7.84232 7.31978C8.0079 7.18159 8.12509 6.9918 8.17615 6.77916C8.22722 6.56651 8.20938 6.34258 8.12534 6.14127L6.15655 1.42723C6.06431 1.21022 5.90117 1.03304 5.69526 0.92624C5.48935 0.819439 5.25358 0.789713 5.0286 0.842188L0.762904 1.85234C0.545997 1.90374 0.352472 2.02906 0.213915 2.20786C0.0753574 2.38666 -4.99665e-05 2.60837 2.48403e-08 2.83681C2.48403e-08 13.6328 8.5273 22.3664 19.0316 22.3664C19.2543 22.3665 19.4704 22.2892 19.6447 22.147C19.8191 22.0048 19.9413 21.8062 19.9914 21.5835L20.9758 17.2062C21.0266 16.9742 20.997 16.7313 20.8921 16.5193C20.7872 16.3073 20.6136 16.1394 20.4011 16.0445Z"
+                                        fill="#F5F5F5" />
+                                </svg>
+                                <p><?php  echo wordwrap($proprio["numero"], 2, " ", 1); ?></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <?php
+                    $nb_piece=$info["type_logement"];
+                    $test=explode("T", $nb_piece);
                 ?>
 
                         <div class="images_log_droite">
@@ -674,7 +821,65 @@ if (isset($_GET["confirmDelete"])) {
                             Emplacement des commentaires dans le futur
 
 
-                        </div>
+        <div class="barre_btn_ajustement_log">
+            <div class="button_valider2">
+                <a href="modifLogement.php?id=<?php echo($id) ?>"><h2>Modifier</h2></a>
+            </div>
+
+            <div class="button_refuser2">
+                <button  onclick="openModal()">Supprimer</button>
+            </div>
+        </div>
+
+
+
+        <div class="confirmation-modal" id="myModal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <p>Êtes-vous sûr de vouloir supprimer ce logement ?</p>
+                <form method="GET" action="logement.php">
+                    <input type="hidden" name="confirmDelete" value="<?php echo $id ?>">
+
+                    <button class="confirm-button">Confirmer</button>
+                </form>
+            
+            </div>
+        </div>
+        <?php
+           }
+        ?>
+
+        <div class="barre_log">
+            <svg width="100%" height="10" viewBox="0 0 1920 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g filter="url(#filter0_d_60_122)">
+                    <rect width="1920" height="1" transform="matrix(1 0 0 -1 0 4)" fill="#D9D9D9" />
+                </g>
+                <defs>
+                    <filter id="filter0_d_60_122" x="-4" y="0" width="1928" height="9" filterUnits="userSpaceOnUse"
+                        color-interpolation-filters="sRGB">
+                        <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                        <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                            result="hardAlpha" />
+                        <feOffset dy="1" />
+                        <feGaussianBlur stdDeviation="2" />
+                        <feComposite in2="hardAlpha" operator="out" />
+                        <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
+                        <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_60_122" />
+                        <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_60_122" result="shape" />
+                    </filter>
+                </defs>
+            </svg>
+        </div>
+
+
+        <div class="blanc2">
+
+
+
+            Emplacement des commentaires dans le futur
+
+
+        </div>
     </main>
     
 

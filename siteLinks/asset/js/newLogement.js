@@ -252,7 +252,7 @@ retour2.addEventListener("click", function () {
 });
 
 retour3.addEventListener("click", function () {
-    gros_div.style.transform = "translateX(-50%)";
+    gros_div.style.transform = "translateX(-25%)"; // faudra changer quans ajout des dates
 });
 
 
@@ -369,3 +369,16 @@ function afficherPopup() {
    function confirmerRefus() {
     cacherPopup();
    }
+
+
+
+const code_postal = document.getElementById("code_postal");
+
+
+code_postal.addEventListener('input', function() {
+    this.value = this.value.replace(/\D/g, '');
+    if (this.value.length > 5) {
+        this.value = this.value.substring(0, this.value.length - 1);
+    }
+})
+   

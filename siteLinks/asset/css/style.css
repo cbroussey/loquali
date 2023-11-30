@@ -4520,7 +4520,7 @@ opacity: 0;
 
 #compteContainer {
 display:flex;
-flex-direction: row !important;
+flex-direction: row;
 }
 
 #compteInfosPerso {
@@ -5768,4 +5768,19 @@ font-weight: 500;
 #confirmDisconnect {
   color: white;
   background-color: #8A3443;
+}
+
+
+.toutLogement{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+.btnListeLogement{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 10%;
 }
