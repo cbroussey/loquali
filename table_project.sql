@@ -282,7 +282,7 @@ VALUES
     ('jpg'),
     ('png'),
     ('jpg'),
-    ('jpg'),
+    ('png'),
     ('jpg'),
     ('jpg'),
     ('jpg');
