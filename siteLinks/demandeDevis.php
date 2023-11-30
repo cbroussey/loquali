@@ -67,7 +67,7 @@
            
             $queryDevis = "SELECT * FROM test.devis WHERE id_reservation = :id_reservation";
             $stmtDevis = $dbh->prepare($queryDevis);
-            $stmtDevis->bindParam(':id_reserv', $id_reserv, PDO::PARAM_INT);
+            $stmtDevis->bindParam(':id_reservation', $id_reserv, PDO::PARAM_INT);
             $stmtDevis->execute();
             $devis = $stmtDevis->fetch(PDO::FETCH_ASSOC);
 
@@ -116,6 +116,8 @@
             $stmt->bindParam(':id_image', $photo[0]["id_image"], PDO::PARAM_INT);
             $stmt->execute();
             $current = $stmt->fetch();
+
+            
         } catch (PDOException $e) {
             print "Erreur !: " . $e->getMessage() . "<br/>";
             die();
