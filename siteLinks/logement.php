@@ -50,22 +50,20 @@
                     $i++;
                 }
                 $i=0;
+                $amena=[];
                 foreach($dbh->query("SELECT * from test.amenagement WHERE id_logement =$id", PDO::FETCH_ASSOC) as $row) {
 
-                    $amena[$i]=$row;
-                    $i++;
+                    $amena[]=$row;
                 }
-                $i=0;
+                $instal=[];
                 foreach($dbh->query("SELECT * from test.installation WHERE id_logement =$id", PDO::FETCH_ASSOC) as $row) {
 
-                    $instal[$i]=$row;
-                    $i++;
+                    $instal[]=$row;
                 }
-                $i=0;
+                $service=[];
                 foreach($dbh->query("SELECT * from test.service WHERE id_logement =$id", PDO::FETCH_ASSOC) as $row) {
 
-                    $service[$i]=$row;
-                    $i++;
+                    $service[]=$row;
                 }
                 foreach($dbh->query("SELECT * from test.lit WHERE id_logement =$id", PDO::FETCH_ASSOC) as $row) {
 
@@ -96,10 +94,6 @@
         }   catch (PDOException $e) {
             print "Erreur !: " . $e->getMessage() . "<br/>";
             die();
-        }
-
-        if ($info["id_compte"]==$_SESSION['userId']){
-            echo("OUIIZUIZURIZUIRUIZREUR");
         }
 
         $dbh = null;
@@ -384,7 +378,8 @@
                         $t=1;
                     }
                     
-                    if ($t==1) {
+
+                    if ($amena!=null) {
 
                     ?>
                     
@@ -395,7 +390,7 @@
 
                             <?php
                             $i=0;
-                            $magouille='<div class="ligne_elem_res_log">';
+                            $div_ligne_elem='<div class="ligne_elem_res_log">';
                             
                             foreach($amena as $ind => $key) {
 
@@ -405,7 +400,7 @@
                                 
                                 <?php
                                     if ($i==0){
-                                        echo($magouille);
+                                        echo($div_ligne_elem);
                                     }
                                 ?> 
 
@@ -443,7 +438,7 @@
                     <?php
                     $t=0;
 
-                    if (count($instal)>0) {
+                    if ($instal!=null) {
                         $t=1;
                     }
         
@@ -457,7 +452,7 @@
 
                             <?php
                             $i=0;
-                            $magouille='<div class="ligne_elem_res_log">';
+                            $div_ligne_elem='<div class="ligne_elem_res_log">';
                             
                             foreach($instal as $ind => $key) {
 
@@ -467,7 +462,7 @@
 
                                 <?php
                                     if ($i==0){
-                                        echo($magouille);
+                                        echo($div_ligne_elem);
                                     }
                                 ?> 
                                 
@@ -507,7 +502,7 @@
 
                         <?php
                             $t=0;
-                            if (count($service)>0) {
+                            if ($service!=null) {
                                 $t=1;
                             }
                             
@@ -520,14 +515,14 @@
 
                             <?php
                             $i=0;
-                            $magouille='<div class="ligne_elem_res_log">';
+                            $div_ligne_elem='<div class="ligne_elem_res_log">';
                             foreach($service as $ind => $key) {
 
                             ?>
 
                                 <?php
                                     if ($i==0){
-                                        echo($magouille);
+                                        echo($div_ligne_elem);
                                     }
                                 ?>
 
@@ -569,9 +564,7 @@
                     
                 </div>
 
-                <div class="modif_log_btn">
-                    <a href="modifLogement.php?id=<?php echo($id) ?>"><h2>Modifier</h2></a>
-                </div>
+
             </div>
 
 
@@ -627,6 +620,11 @@
             if ($_SESSION['userId']==$info["id_compte"]){
 
         ?>
+
+
+        <div class="modif_log_btn">
+            <a href="modifLogement.php?id=<?php echo($id) ?>"><h2>Modifier</h2></a>
+        </div>
         <button class="delete-button" onclick="openModal()">Supprimer le logement</button>
 
         <div class="confirmation-modal" id="myModal">

@@ -66,7 +66,6 @@
     <a href="logement.php?id=<?php echo($id_log); ?>">
         <img src="asset/icons/bleu/toBack.svg" alt="" id="pagePersoSvgBack">
     </a>
-    <div id="ensemble">
         <div class="infosProprio">
             <div id="infosTous">
                 <div id="photo_Profil">
