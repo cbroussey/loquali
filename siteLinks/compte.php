@@ -4,6 +4,27 @@
     session_destroy();
     header("Location: index.php");
     exit(); }*/
+      include('connect_params.php');
+      $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
+      $query = $dbh->prepare("SELECT * FROM test.compte WHERE id_compte = :idcompte");
+      $query->bindParam('idcompte', $_GET["confirmDelete"], PDO::PARAM_INT);
+      $query->execute();
+      $query = $query->fetchAll();
+      if (isset($_GET["confirmDelete"]) ) {
+          try {
+              $query = "DELETE FROM test.compte WHERE test.compte.id_compte = :id_compte";
+              $stmt = $dbh->prepare($query);
+              $stmt->bindParam('id_compte', $_GET["confirmDelete"], PDO::PARAM_INT);
+              $stmt->execute();
+              
+          } catch (PDOException $e) {
+              print "Erreur !: " . $e->getMessage() . "<br/>";
+              die();
+          }
+          session_destroy();
+          header("Location: index.php");
+          exit();
+      }
   
 ?>
 
@@ -14,6 +35,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="asset/css/headerAndFooter.css">
     <link rel="stylesheet" href="asset/css/style.css">
+    <script src = "asset/js/boutonSupprimer.js"></script>
     <title>Comptes - Infos personnelles</title>
 </head>
 <body>
@@ -378,9 +400,23 @@
 
       <div class="lignes">
         <p>Compte</p>
-        <p class="displayInfos">Désativez votre compte</p>
-        <button class="modifications">Désactiver</button>
+        <p class="displayInfos">Désactivez votre compte</p>
+        <button class="modifications" onclick="openModal()">Désactiver</button>
+
+        <div class="confirmation-modal" id="myModal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <p>Êtes-vous sûr de vouloir supprimer ce compte ?</p>
+            <form method="GET" action="compte.php">
+                <input type="hidden" name="confirmDelete" value="<?php echo $id ?>">
+                <button class="confirm-button">Confirmer</button>
+                <?php
+                  
+                ?>
+            </form>
+        
       </div>
+      FIORJFOIERFREIO
     </div>
 
     <div id="compteFavoris">
@@ -388,27 +424,78 @@
     </div>
 
     <div id="compteLogements">
-      <div class="lignes">
-          <p>Mot de passe</p>
-          <button class="modifications" id="modifmaj">Mettre à jour</button>
-        </div>
+      
+      <?php
 
-        <div class="separateurgenre"></div>
+        try {
+            $id_compte = 4;
+            $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
-        <div class="lignes">
-          <p>Historique de l’appareil</p>
-          <p class="displayInfos">Session en cours</p>
-          <button class="modifications">Se déconnecter</button>
-        </div>
+            $query = "SELECT COUNT(*) FROM test.logement WHERE id_compte = $id_compte;";
+            $stmt = $dbh->prepare($query);
+            $stmt->execute();
+            $nbLogements = $stmt->fetch();
 
-        <div class="separateurgenre"></div>
+            if ($nbLogements['count'] == 0) {
+                ?>
+                <p id="AucunLogement">Vous n'avez aucun logement en ligne</p>
+                <?php
+            }
+            
 
-        <div class="lignes">
-          <p>Compte</p>
-          <p class="displayInfos">Désativez votre compte</p>
-          <button class="modifications">Désactiver</button>
-        </div>
-      </div>
+            foreach($dbh->query("SELECT * FROM test.logement WHERE id_compte = $id_compte", PDO::FETCH_ASSOC) as $row) {
+
+                $info=$row;
+                $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+                $query = "SELECT min(id_image) FROM test.photo_logement NATURAL JOIN test.image WHERE id_logement = :id_logement;";
+
+                $stmt = $dbh->prepare($query);
+                $stmt->bindParam('id_logement', $info["id_logement"], PDO::PARAM_STR);
+                $stmt->execute();
+                $photo = $stmt->fetch();
+
+                $query = "SELECT extension_image FROM test.image WHERE id_image = :id_image;";
+
+                $stmt = $dbh->prepare($query);
+                $stmt->bindParam('id_image', $photo["min"], PDO::PARAM_STR);
+                $stmt->execute();
+                $extention = $stmt->fetch();
+
+
+                ?>
+
+                <div class="listeUnLogement">
+                    <div>
+                        <img src="asset/img/logements/<?php echo($photo["min"]); ?>.<?php echo $extention["extension_image"] ?>" width="100%" height="100%" alt="">
+                    </div>
+                    
+                    <div class="unLogement">
+                        <h2><?php echo($info["nature_logement"]); ?> <?php echo($info["type_logement"]); ?>, <?php echo($info["localisation"]); ?></h2>
+                        <p><?php echo($info["code_postal"]); ?>, <U><?php echo($info["departement"]); ?></U></p>
+                        <div class="noteAvis">
+                            <img src="asset/icons/bleu/star.svg" alt="">
+                            <p><?php echo($info["note_logement"]); ?>, 24 avis</p>
+                        </div>
+                        <a class="consulterLogement" href="logement.php?id=<?php echo $info["id_logement"] ?>"><em>Consulter le logement</em></a>
+                    </div>
+                    
+                </div>
+
+                <div class="separateur1">a</div>
+
+                <?php
+            }
+            
+        } catch (PDOException $e) {
+            print "Erreur !: " . $e->getMessage() . "<br/>";
+            die();
+        }
+
+        $dbh = null;
+
+        ?>
+
+
     </div>
 
     <div id="compteReservations">
