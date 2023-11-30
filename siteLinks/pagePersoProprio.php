@@ -100,13 +100,31 @@
         <div class="infosProprio">
             <div id="infosTous">
                 <div id="photo_Profil">
+                <?php //récupération du nom de l'image (avec extension)
+            
+                if ($images = opendir('asset/img/profils/')) {
+                    while (false !== ($fichier = readdir($images))) {
+                        $imgInfos = pathinfo($fichier);
+                        if ($imgInfos['filename'] == $_SESSION['userId']) {
+                            $pathName = 'asset/img/profils/' . $fichier;
+                            break;
+                        }
+
+                    }
+                    print_r($pathName);
+                    if ($pathName == '') {
+                        $pathName = 'asset/img/profils/default.jpg';
+                    }
+                    closedir($images);
+                }
+                ?>
                     <style>
                         #photo_Profil {
                             width:160px;
                             height:160px;
                             border-radius: 93.5px;
 
-                            background: url("asset/img/profils/<?php echo $_SESSION['userId'] ?>.jpeg") center/cover;
+                            background: url(<?php echo $pathName ?>) center/cover;
                         }
 
                         @media screen and (min-width: 0px) and (max-width: 400px) {

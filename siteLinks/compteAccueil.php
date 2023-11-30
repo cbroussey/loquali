@@ -95,7 +95,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         }
 
                     }
-
+                    print_r($pathName);
                     if ($pathName == '') {
                         $pathName = 'asset/img/profils/default.jpg';
                     }
