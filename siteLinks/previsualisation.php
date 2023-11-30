@@ -886,12 +886,14 @@
                     <a href="index.php">Crée le logement</a>
                 </div>
                     
-                <button class="delete-button" onclick="openModal()">Supprimer le logement</button>
+                <div class="button_refuser">
+                    <button  onclick="openModal()">Annuler</button>
+                </div>
 
-                <div class="confirmation-modal" id="myModal">
+                <div class="confirmation-modal button_annuler" id="myModal">
                     <div class="modal-content">
                         <span class="close" onclick="closeModal()">&times;</span>
-                        <p>Êtes-vous sûr de vouloir supprimer ce logement ?</p>
+                        <p>Êtes-vous sûr de vouloir annuler la création de ce logement ?</p>
                         <form method="GET" action="logement.php">
                             <input type="hidden" name="confirmDelete" value="<?php echo $id ?>">
                             <button class="confirm-button">Confirmer</button>
@@ -1031,6 +1033,7 @@
 
 </footer>
     <script src="asset/js/script.js"></script>
+    <script src = "asset/js/boutonSupprimer.js"></script>
 
 </body>
 </html>
