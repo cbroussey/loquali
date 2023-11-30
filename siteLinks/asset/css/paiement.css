@@ -292,3 +292,7 @@ input[type="checkbox"]:checked + label {
     background-color: var(--bgColor);
     color: var(--textColor)
 }
+
+#expiry, #crypto {
+    width: 50%;
+}
