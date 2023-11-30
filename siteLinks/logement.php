@@ -625,18 +625,20 @@
         <div class="modif_log_btn">
             <a href="modifLogement.php?id=<?php echo($id) ?>"><h2>Modifier</h2></a>
         </div>
+
+        
         <button class="delete-button" onclick="openModal()">Supprimer le logement</button>
 
         <div class="confirmation-modal" id="myModal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <p>Êtes-vous sûr de vouloir supprimer ce logement ?</p>
-            <form method="GET" action="logement.php">
-                <input type="hidden" name="confirmDelete" value="<?php echo $id ?>">
-                <button class="confirm-button">Confirmer</button>
-            </form>
-        
-        </div>
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <p>Êtes-vous sûr de vouloir supprimer ce logement ?</p>
+                <form method="GET" action="logement.php">
+                    <input type="hidden" name="confirmDelete" value="<?php echo $id ?>">
+                    <button class="confirm-button">Confirmer</button>
+                </form>
+            
+            </div>
         </div>
         <?php
            }
