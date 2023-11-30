@@ -1,27 +1,26 @@
 <?php
   session_start();
-?>
-<?php
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        include('connect_params.php');
+    include('connect_params.php');
+    $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
+    $query = $dbh->prepare("SELECT * FROM test.logement WHERE id_logement = :idlog");
+    $query->bindParam('idlog', $_GET["confirmDelete"], PDO::PARAM_INT);
+    $query->execute();
+    $query = $query->fetchAll();
+    if (isset($_GET["confirmDelete"]) ) {
         try {
-            $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
-            $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-
-            $query = "DELETE FROM test.photo_logement WHERE test.photo_logement.id_logement = :id_log";
-            
+            $query = "DELETE FROM test.logement WHERE test.logement.id_logement = :id_log";
             $stmt = $dbh->prepare($query);
-            $stmt->bindParam('id_log', $_POST["id_log"], PDO::PARAM_STR);
+            $stmt->bindParam('id_log', $_GET["confirmDelete"], PDO::PARAM_INT);
             $stmt->execute();
             
-            $dbh = null;
         } catch (PDOException $e) {
             print "Erreur !: " . $e->getMessage() . "<br/>";
             die();
         }
+        header("Location: index.php");
     }
-?>
 
+?> 
 
 
 <!DOCTYPE html>
@@ -84,7 +83,7 @@
             $nb_chambre = $info["nbChambre"];
             $nb_salle_de_bain = $info["nbSalle_bain"];
             $code_postal = 29370;
-            $departement = $info["dep"];
+            $departement = htmlentities($info["dep"]);
             $info_arrivee = $info["info_arrive"];
             $info_depart = $info["info_depart"];
             $reglement_interieur = $info["Règlement"];
@@ -617,16 +616,22 @@
                         <div class="block_info_log">
                             <h2><?php echo ($proprio["nom_affichage"]) ?></h2>
                         </div>
-                        <div class="block_info_log">
+                        <?php
+                        if ($proprio["note_proprio"]!=""){
+                            ?>
                             <div class="note_proprio_log">
+
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path
                                         d="M10.3646 1.22353L7.5304 7.12042L1.18926 8.06909C0.052104 8.23834 -0.403625 9.67693 0.421028 10.5009L5.0087 15.0884L3.92363 21.5687C3.72832 22.7401 4.93058 23.6175 5.93752 23.0696L11.6103 20.0099L17.283 23.0696C18.29 23.613 19.4922 22.7401 19.2969 21.5687L18.2118 15.0884L22.7995 10.5009C23.6242 9.67693 23.1684 8.23834 22.0313 8.06909L15.6901 7.12042L12.8559 1.22353C12.3481 0.172417 10.8768 0.159056 10.3646 1.22353Z"
                                         fill="#F5F5F5" />
                                 </svg>
                                 <p><?php echo($proprio["note_proprio"]) ?></p>
+
                             </div>
-                        </div>
+                            <?php
+                                }
+                            ?>
                         <div class="block_info_log">
                             <div class="contact_proprio_log">
                                 <svg width="21" height="23" viewBox="0 0 21 23" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -634,7 +639,7 @@
                                         d="M20.4011 16.0445L15.8073 14.0242C15.611 13.9384 15.3929 13.9203 15.1858 13.9727C14.9787 14.0251 14.7937 14.1451 14.6588 14.3146L12.6244 16.8653C9.4316 15.3205 6.86212 12.6838 5.35673 9.40742L7.84232 7.31978C8.0079 7.18159 8.12509 6.9918 8.17615 6.77916C8.22722 6.56651 8.20938 6.34258 8.12534 6.14127L6.15655 1.42723C6.06431 1.21022 5.90117 1.03304 5.69526 0.92624C5.48935 0.819439 5.25358 0.789713 5.0286 0.842188L0.762904 1.85234C0.545997 1.90374 0.352472 2.02906 0.213915 2.20786C0.0753574 2.38666 -4.99665e-05 2.60837 2.48403e-08 2.83681C2.48403e-08 13.6328 8.5273 22.3664 19.0316 22.3664C19.2543 22.3665 19.4704 22.2892 19.6447 22.147C19.8191 22.0048 19.9413 21.8062 19.9914 21.5835L20.9758 17.2062C21.0266 16.9742 20.997 16.7313 20.8921 16.5193C20.7872 16.3073 20.6136 16.1394 20.4011 16.0445Z"
                                         fill="#F5F5F5" />
                                 </svg>
-                                <p><?php echo($proprio["numero"]) ?></p>
+                                <p><?php  echo wordwrap($proprio["numero"], 2, " ", 1); ?></p>
                             </div>
                         </div>
                     </div>
@@ -880,24 +885,18 @@
                 <div class="button_valider">
                     <a href="index.php">Crée le logement</a>
                 </div>
-                <div class="button_refuser">
-                    <a href="#" onclick="afficherPopup()">Annuler</a>
-                </div>
                     
+                <button class="delete-button" onclick="openModal()">Supprimer le logement</button>
+
+                <div class="confirmation-modal" id="myModal">
+                    <div class="modal-content">
+                        <span class="close" onclick="closeModal()">&times;</span>
+                        <p>Êtes-vous sûr de vouloir supprimer ce logement ?</p>
+                        <form method="GET" action="logement.php">
+                            <input type="hidden" name="confirmDelete" value="<?php echo $id ?>">
+                            <button class="confirm-button">Confirmer</button>
+                        </form>
                     
-                <div id="overlay"></div>
-                <div id="popup">
-                    <p>Etes-vous sûr de vouloir annuler la création du logement ?</p>
-                    <div class="button_confirmation">
-                        
-                        <a href="#" id="annuler" onclick="cacherPopup()">Non</a>
-                        <a href="index.php" id="confirmer" onclick="confirmerRefus()">
-                            <?php $id_log=2; ?>
-                            <form method="post">
-                                <input type="text" value="<?php echo htmlentities($id_log) ?>" style='display:"none"' id="id_log">
-                                <input type="submit" value="Oui" />
-                            </form>
-                        </a>
                     </div>
                 </div>
 

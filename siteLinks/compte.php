@@ -240,15 +240,26 @@
         </figure>
       </div>
 
-      <div class="nav-item" data-color="account">
-        <figure>
-          <div class="img-area">
-              <img src="asset/icons/bleu/logementBlue.svg" alt="Infos Persos" class="img-back">
-              <img src="asset/icons/blanc/logement.svg" alt="Infos Persos" class="img-front">
-          </div> 
-          <figcaption>Mes logements</figcaption>
-        </figure>
-      </div>
+
+      <?php
+            if ($_SESSION['userType'] === 'proprietaire') {
+            ?>
+
+              <div class="nav-item" data-color="account">
+                <figure>
+                  <div class="img-area">
+                      <img src="asset/icons/bleu/logementBlue.svg" alt="Infos Persos" class="img-back">
+                      <img src="asset/icons/blanc/logement.svg" alt="Infos Persos" class="img-front">
+                  </div> 
+                  <figcaption>Mes logements</figcaption>
+                </figure>
+              </div>
+
+            <?php
+            }
+            ?>
+
+      
 
       <div class="nav-item" data-color="account">
         <figure>
@@ -348,7 +359,6 @@
       </div>
     </div>
       
-  </div>
 <!--  CONNEXION  -->
     <div id="compteConnection">
       <div class="lignes">
@@ -378,7 +388,7 @@
     </div>
 
     <div id="compteLogements">
-      <!-- Logements -->
+      <!-- logements -->
     </div>
 
     <div id="compteReservations">
@@ -404,7 +414,7 @@
             </div>
         </div>
   </form>
-
+  
   <footer>
 
         <div id="infosFooter">

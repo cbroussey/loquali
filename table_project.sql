@@ -67,7 +67,7 @@ create table logement(
     nb_chambre integer,
     nb_salle_de_bain integer,
     code_postal varchar(255) check (code_postal ~ '^[0-9]{5}$|^2[AB]$'),
-    departement varchar(255) check (departement in ('Finistère', 'Morbihan', 'Côte-d''Armor', 'Ille-et-Vilaine')), -- JSP si c'est très utile, on a déjà le code postal faut juste déduire
+    departement varchar(255),
     localisation varchar(255), -- = commune/ville
     info_arrivee varchar(255),
     info_depart varchar(255),
@@ -498,8 +498,9 @@ CREATE FUNCTION deleteOldPlage() RETURNS INTEGER AS $$
 DECLARE
   lignes RECORD;
 BEGIN
-  WITH deleted AS (DELETE FROM plage WHERE plage.date_fin < CURRENT_DATE RETURNING *) SELECT count(*) AS deleted FROM deleted INTO lignes;
-  RETURN lignes(deleted);
+  UPDATE plage SET date_debut = CURRENT_DATE WHERE date_debut < CURRENT_DATE;
+  WITH deleted AS (DELETE FROM plage WHERE plage.date_fin < plage.date_debut RETURNING *) SELECT count(*) AS nbDel FROM deleted INTO lignes;
+  RETURN lignes(nbDel);
 END;
 $$ LANGUAGE plpgsql;
 

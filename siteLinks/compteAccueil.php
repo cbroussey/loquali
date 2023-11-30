@@ -137,6 +137,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
             </a>
 
+            <?php
+            if ($_SESSION['userType'] === 'proprietaire') {
+            ?>
+                <a href="">
+                    <div>
+                        <figure>
+                            <img src="asset/icons/blanc/logement.svg" alt="">
+                            <figcaption>Mes logements</figcaption>
+                        </figure>
+                    </div>
+                </a>
+
+            <?php
+            }
+            ?>
+
             <a href="">
                 <div>
                     <figure>
@@ -169,12 +185,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
         <?php
-        if ($_SESSION['userType'] === 'client') {
+            if ($_SESSION['userType'] === 'client') {
+            ?>
+                <div class="separateurCompte"></div>
+                <a href="" id="comptePro">Passer à un compte propriétaire</a>
+            <?php
+            }
         ?>
-            <div class="separateurCompte"></div>
-            <a href="" id="comptePro">Passer à un compte propriétaire</a>
+
         <?php
-        }
+            if ($_SESSION['userType'] === 'proprietaire') {
+            ?>
+                <div class="separateurCompte"></div>
+                <a href="" id="comptePro">Créer une annonce</a>
+            <?php
+            }
         ?>
 
     </div>
