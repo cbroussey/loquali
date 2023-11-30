@@ -766,6 +766,25 @@
 
         </div>
 
+        <div id="menu">
+            <div id="choix">
+                <a href="compteAccueil.php" class="bouton">Mon compte</a>
+
+                <a href="" class="bouton">Mes réservation</a>
+
+                <a href="" class="bouton">Messagerie</a>
+                
+            <div id="separe"></div>
+
+                <p>Changer la langue</p>
+                <div id="langues">
+                    <a href="">Français</a>
+                    <div id="separe2"></div>
+                    <a href="">Anglais</a>
+                </div>
+            </div>
+        </div>
+
     </main>
 
     <footer>

@@ -7,9 +7,10 @@
             $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
             
             //requêtes d'insertion d'un compte propriétaire
+            $numtel = str_replace(' ', '', $_POST['telephone']);
             $insert = "INSERT INTO test.telephone (numero, id_compte) VALUES (:num, :idCompte)";
             $stmt = $dbh->prepare($insert);
-            $stmt->bindParam(':num', str_replace(' ', '', $_POST['telephone']), PDO::PARAM_STR);
+            $stmt->bindParam(':num', $numtel, PDO::PARAM_STR);
             $stmt->bindParam(':idCompte', $_SESSION['userId'], PDO::PARAM_STR);
             $stmt->execute();
 

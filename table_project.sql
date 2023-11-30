@@ -69,6 +69,8 @@ create table logement(
     code_postal varchar(255) check (code_postal ~ '^[0-9]{5}$|^2[AB]$'),
     departement varchar(255),
     localisation varchar(255), -- = commune/ville
+    adresse varchar(255), -- cacher pour les utlisateurs
+    complement_adresse varchar(255),
     info_arrivee varchar(255),
     info_depart varchar(255),
     reglement_interieur varchar(255),
@@ -170,6 +172,7 @@ create table reservation(
     constraint reservation_fk_client foreign key (id_compte) references client(id_compte)ON DELETE CASCADE,
     constraint reservation_fk_logement foreign key (id_logement) references logement(id_logement)ON DELETE CASCADE
 );
+
 
 create table avis(
     id_avis SERIAL not null,
@@ -289,12 +292,12 @@ VALUES
 
 INSERT INTO compte (mdp, nom_affichage, date_creation, derniere_operation, adresse, adresse_mail, nom, prenom, photo_de_profil, piece_identite) 
 VALUES
-    ('motdepasse1', 'Utilisateur 1', '2023-10-19', now(),'789 Rue Client 3', 'client3@email.com', 'Durand', 'Jean',1,1),
-    ('motdepasse2', 'Utilisateur 2', '2023-10-20','2023-11-03 00:42','123 Rue Client 1', 'client1@email.com', 'Dubois', 'Roger',2,2),
-    ('motdepasse3', 'Utilisateur 3', '2023-10-21','2023-10-25 09:37','456 Rue Client 2', 'client2@email.com', 'Petit', 'Damien',3,3),
-    ('motdepasse4', 'Utilisateur 4', '2023-10-22','2023-11-09 08:57','789 Rue vanier', 'proprio3@email.com', 'Moreau', 'François',4,4),
-    ('motdepasse5', 'Utilisateur 5', '2023-10-23','2023-10-29 11:18','123 Rue de la lys','proprio1@email.com','Roux', 'Robert',5,5),
-    ('motdepasse6', 'Utilisateur 6', '2023-10-24','2023-11-01 10:28','456 Rue du jardin','proprio2@email.com', 'Simon', 'Richard',6,6);
+    ('$2y$10$6EJNz9joPL2uTtNky.PZVOZAZzCOd9tSHOedzkmhZxhkDuxGTT.rS', 'Utilisateur 1', '2023-10-19', now(),'789 Rue Client 3', 'client3@email.com', 'Durand', 'Jean',1,1),--mot de passe: 1234
+    ('$2y$10$qHok/P3X6bmge2vlQ4SQwuCDLxOoRbhtjlJYNsIYWzYqwrOaFJXPS', 'Utilisateur 2', '2023-10-20','2023-11-03 00:42','123 Rue Client 1', 'client1@email.com', 'Dubois', 'Roger',2,2),--mot de passe: galette35
+    ('$2y$10$a6BMR7TZjF5lbLJ090lmD.CPSxGtr97UWpukjp0ODOnL0DuGbjR22', 'Utilisateur 3', '2023-10-21','2023-10-25 09:37','456 Rue Client 2', 'client2@email.com', 'Petit', 'Damien',3,3),--mot de passe: JaimeLesClients
+    ('$2y$10$qj/hnUrUwJp2Q2A1d8Kzouj3UzOkpqLrulVxR/B3PTC1gfURNOpaO', 'Utilisateur 4', '2023-10-22','2023-11-09 08:57','789 Rue vanier', 'proprio3@email.com', 'Moreau', 'François',4,4),--mot de passe: loquali
+    ('$2y$10$aYirKQ2NApXf/bOxtCxh6OIaImA48sgggNY8ewJ2h4BLlK/H4J4qa', 'Utilisateur 5', '2023-10-23','2023-10-29 11:18','123 Rue de la lys','proprio1@email.com','Roux', 'Robert',5,5),--mot de passe: azerty35
+    ('$2y$10$AcFOc8L3wBPwoqWvXgI23OVMVAiXK98WRnJtqXSK2LD.XBphuymLq', 'Utilisateur 6', '2023-10-24','2023-11-01 10:28','456 Rue du jardin','proprio2@email.com', 'Simon', 'Richard',6,6);--mot de passe: quoicoubeh
 
 
 INSERT INTO client (id_compte, note_client)
@@ -308,14 +311,14 @@ INSERT INTO proprietaire (id_compte, description, note_proprio, civilite, RIB)
 VALUES
     (4, 'Description Propriétaire 1', 4.9,'M','FR7611315000011234567890134'),
     (5, 'Description Propriétaire 2', 4.2,'Mme','FR7611315000011234567890138'),
-    (6, 'Description Propriétaire 3', 4.7,'M','FR7630002032531234567890168');
+    (6, 'Description Propriétaire 3', 4.7,'F','FR7630002032531234567890168');
 
 
 INSERT INTO logement (prix_TTC, note_logement, en_ligne, type_logement, nature_logement, localisation, descriptif, surface, disponible_defaut, prix_base_HT, delai_annul_defaut, pourcentage_retenu_defaut, libelle_logement, accroche, nb_pers_max, nb_chambre, nb_salle_de_bain, code_postal,departement, info_arrivee, info_depart, reglement_interieur, id_compte, id_image_couv)
 VALUES
-    (150.00, 4.3, TRUE,'T1', 'Appartement', 'Paris', 'Bel appartement au coeur de Paris', 80, TRUE, 120.00, 5, 10.00, 'Appartement Parisien', 'Vue magnifique sur la Tour Eiffel', 4, 2, 1, '2A', 'Finistère', 'boite à clé près de la porte d''entrée', 'veuillez ranger les clés dans la boite à clés', 'veuillez ne pas abimer le mobilier', 4, 1),
-    (200.00, 4.5, TRUE, 'T3', 'Maison', 'Nice', 'Charmante maison à Nice', 120, TRUE, 180.00, 6, 15.00, 'Maison Niçoise', 'Jardin privé et piscine', 6, 3, 2, 22000, 'Finistère', 'boite à clé près de la porte d''entrée', 'veuillez ranger les clés dans la boite à clés', 'veuillez ne pas abimer le mobilier', 5, 5),
-    (100.00, 4.0, TRUE, 'T5', 'Studio', 'Marseille', 'Studio ensoleillé à Marseille', 45, TRUE, 80.00, 3, 8.00, 'Studio Lumineux', 'Proche de la plage', 2, 3, 1, 22000, 'Finistère', 'boite à clé près de la porte d''entrée', 'veuillez ranger les clés dans la boite à clés', 'veuillez ne pas abimer le mobilier', 6, 8);
+    (150.00, 4.3, TRUE,'T4', 'Appartement', 'Brest', 'Bel appartement au coeur de Brest', 80, TRUE, 120.00, 5, 10.00, 'Appartement Brestois', 'Vue magnifique sur le port', 4, 2, 1, 29200 , 'Finistère', 'boite à clé près de la porte d''entrée', 'veuillez ranger les clés dans la boite à clés', 'veuillez ne pas abimer le mobilier', 4, 1),
+    (200.00, 4.5, TRUE, 'T3', 'Maison', 'Quimper', 'Charmante maison à Quimper', 120, TRUE, 180.00, 6, 15.00, 'Maison Quimpéroise', 'Proche de la plage', 6, 3, 2, 29000, 'Finistère', 'boite à clé près de la porte d''entrée', 'veuillez ranger les clés dans la boite à clés', 'veuillez ne pas abimer le mobilier', 5, 5),
+    (100.00, 4.0, TRUE, 'T1', 'Studio', 'Morlaix', 'Studio ensoleillé à Morlaix', 45, TRUE, 80.00, 3, 8.00, 'Studio Lumineux', 'Jardin privé et piscine', 2, 3, 1, 29600, 'Finistère', 'boite à clé près de la porte d''entrée', 'veuillez ranger les clés dans la boite à clés', 'veuillez ne pas abimer le mobilier', 6, 8);
     
 
 INSERT INTO photo_logement(id_logement, id_image)
