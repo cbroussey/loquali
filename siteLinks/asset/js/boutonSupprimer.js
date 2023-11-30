@@ -1,5 +1,7 @@
+
 function openModal() {
     document.getElementById('myModal').style.display = 'block';
+    console.log("ivugbqeuvbgpqiyvgqp");
 }
 
 function closeModal() {

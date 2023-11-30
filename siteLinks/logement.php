@@ -287,9 +287,27 @@
                     
                     <a class="img_proprio_log" href="pageProprio.php?id=<?php echo ($proprio["id_compte"]); ?>&id_log=<?php echo($id) ?>">
                         <div class="photo_profil_proprio_log">
+                        <?php //récupération du nom de l'image (avec extension)
+            
+                        if ($images = opendir('asset/img/profils/')) {
+                            while (false !== ($fichier = readdir($images))) {
+                                $imgInfos = pathinfo($fichier);
+                                if ($imgInfos['filename'] == $_SESSION['userId']) {
+                                    $pathName = 'asset/img/profils/' . $fichier;
+                                    break;
+                                }
+
+                            }
+                            print_r($pathName);
+                            if ($pathName == '') {
+                                $pathName = 'asset/img/profils/default.jpg';
+                            }
+                            closedir($images);
+                        }
+                        ?>
                             <style>
                                 .photo_profil_proprio_log {
-                                    background: url("asset/img/profils/<?php echo $proprio['id_compte'] ?>.png") center/cover;
+                                    background: url(<?php echo $pathName ?> ) center/cover;
                                 }
                             </style>
                         </div>
@@ -636,12 +654,17 @@
         ?>
 
 
-        <div class="modif_log_btn">
-            <a href="modifLogement.php?id=<?php echo($id) ?>"><h2>Modifier</h2></a>
+        <div class="barre_btn_ajustement_log">
+            <div class="button_valider2">
+                <a href="modifLogement.php?id=<?php echo($id) ?>"><h2>Modifier</h2></a>
+            </div>
+
+            <div class="button_refuser2">
+                <button  onclick="openModal()">Supprimer</button>
+            </div>
         </div>
 
-        
-        <button class="delete-button" onclick="openModal()">Supprimer le logement</button>
+
 
         <div class="confirmation-modal" id="myModal">
             <div class="modal-content">

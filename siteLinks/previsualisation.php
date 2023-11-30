@@ -881,7 +881,7 @@
 
             
                 <div class="button_valider">
-                    <a href="index.php">Crée le logement</a>
+                    <a href="index.php">Créer le logement</a>
                 </div>
                     
                 <div class="button_refuser">
