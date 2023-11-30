@@ -1,6 +1,7 @@
 <?php
     session_start();
     $mailInconnu = false;
+    $inconnu = false;
 
     if (isset($_POST['email'])) {
         include('connect_params.php');

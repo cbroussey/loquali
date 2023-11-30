@@ -62,7 +62,6 @@
 
         include('connect_params.php');
         try {
-
             $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
             $id = $_POST["id"];
             $qui = $_POST["qui"];
@@ -123,6 +122,11 @@
             $stmt->bindParam(':id_image', $photo[0]["id_image"], PDO::PARAM_INT);
             $stmt->execute();
             $current = $stmt->fetch();
+            $query = 'SELECT DATE_PART(\'day\', plage.date_fin::timestamp - plage.date_debut::timestamp) AS nbJours from test.plage  ';
+            $stmt = $dbh->prepare($query);
+            $stmt->execute();
+            $nbJours = $stmt->fetch();
+           
         } catch (PDOException $e) {
             print "Erreur !: " . $e->getMessage() . "<br/>";
             die();
@@ -190,14 +194,15 @@
 
                     <div class="personne">
                         <img src="asset/icons/<?php echo ($qui == "proprietaire" || $qui == "client") ? "blanc" : "bleu"; ?>/personne.svg" alt="">
-                        <div class="ligne_champ_nombre_ajlog">
+                        <div class=<?php echo ($qui == "proprietaire" || $qui == "client") ? "ligne_champ_nombre_ajlog1" : "ligne_champ_nombre_ajlog"; ?>>
 
-                            <div class="number-input">
+                            <div class=<?php echo ($qui == "proprietaire" || $qui == "client") ? "number-input1" : "number-input"; ?> >
                                 <?php if ($qui != "client") { ?> <form id="test" action="demandeDevis.php" class="" method="POST"> <?php } ?>
-                                    <button type="button" onclick="decrement('Personne')" class="minus">-</button>
+                                    <button type="button" onclick="decrement('Personne')" class="minus" style=<?php echo ($qui == "proprietaire" || $qui == "client") ? "display:none" : ""; ?>>-</button>
 
-                                    <input class="quantity" id="Personne" name="Personne" value="1" type="text">
-                                    <button type="button" onclick="increment('Personne')" class="plus">+</button>
+                                    <input class="quantity" id="Personne" name="Personne" value="<?php echo ($qui == "proprietaire" || $qui == "client") ? htmlspecialchars($_POST["Personne"]) : "1"; ?>" readonly type="text">
+
+                                    <button type="button" onclick="increment('Personne')" class="plus" style=<?php echo ($qui == "proprietaire" || $qui == "client") ? "display:none" : ""; ?>>+</button>
                             </div>
                             <label for="Personne">Personnes</label>
                         </div>
@@ -327,7 +332,7 @@
                 ?>
                     <div id="input_check_box_info">
                         <label>
-                            <input type="checkbox" name="menage" value="1" <?php echo ($qui == "proprietaire" || $qui == "client") ? ' disabled="disabled"' : ""; ?><?php echo ($_POST["menage"] == "1") ? 'checked' : ""; ?>>
+                            <input type="checkbox" name="menage" value="1" <?php echo ($qui == "proprietaire" || $qui == "client") ? ' disabled="disabled"' : ""; ?><?php echo (isset($_POST["menage"]) && $_POST["menage"] == "1") ? 'checked' : ""; ?>>
                             Ménage
                         </label>
                     </div>
@@ -337,7 +342,7 @@
 
                 <div id="input_check_box_info">
                     <label>
-                        <input type="checkbox" name="animaux" value="1" <?php echo ($qui == "proprietaire" || $qui == "client") ? ' disabled="disabled"' : ""; ?><?php echo ($_POST["menage"] == "1") ? 'checked' : ""; ?>>
+                        <input type="checkbox" name="animaux" value="1" <?php echo ($qui == "proprietaire" || $qui == "client") ? ' disabled="disabled"' : ""; ?><?php echo (isset($_POST["animaux"]) && $_POST["animaux"] == "1") ? 'checked' : ""; ?>>
 
                         Animaux de compagnie
                     </label>
@@ -370,8 +375,8 @@
                     <div class="info_prix">
 
                         <div class="row">
-                            <div class="label"><?php echo ($info["prix_base_ht"]); ?>€ x 14 nuits</div>
-                            <div class="value"><?php echo ($info["prix_base_ht"]) * 14; ?>€</div>
+                            <div class="label"><?php echo ($info["prix_base_ht"]); ?>€ x <?php echo ($nbJours["nbjours"]); ?> nuits</div>
+                            <div class="value"><?php echo ($info["prix_base_ht"]) * ($nbJours["nbjours"]); ?>€</div>
                         </div>
                         <?php
                         $somme = 0;
@@ -391,13 +396,14 @@
                         </div>
                         <div class="row">
                             <div class="label">TVA</div>
-                            <div class="value"><?php echo ($info["prix_base_ht"]) * 14 * 1.10 - ($info["prix_base_ht"]) * 14; ?>€</div>
+                            <div class="value"><?php echo ($info["prix_base_ht"]) * ($nbJours["nbjours"]) * 1.10 - ($info["prix_base_ht"]) * ($nbJours["nbjours"]); ?>€</div>
                         </div>
                         <hr>
 
                         <div class="row">
                             <div class="label_t">Total</div>
-                            <div class="value">EUR <?php echo ($info["prix_base_ht"]) * 14 * 1.10 + $somme + 29.96 ?>€</div>
+                            <?php $prixFinal = ($info["prix_base_ht"]) * ($nbJours["nbjours"]) * 1.10 + $somme + 29.96  ?>
+                            <div class="value">EUR <?php echo($prixFinal) ?>€</div>
                         </div>
                     </div>
 
@@ -419,7 +425,7 @@
 
 
                 if ($qui == "proprietaire") {
-                    echo ("proprietaire");
+                  
 
                     if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         $deb = $plage["date_debut"];
@@ -487,12 +493,12 @@
                 <?php
                 if ($qui == "client") { ?>
                     <?php
-                    echo ("clientFinal");
+                  
 
 
                     $id_reserv = $_POST["reservation"];
                     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                        $prix_devis = $info["prix_base_ht"];
+                        $prix_devis = $prixFinal;
                         $delai_acceptation = date("Y-m-d");
                         $acceptation = true;
                         $date_devis = date("Y-m-d H:i:s");
