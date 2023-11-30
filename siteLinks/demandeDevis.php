@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -56,39 +57,34 @@
     <div></div>
   </header>
 
-    <main class="main-devis    ">
+    <main class="main-devis ">
         <?php
 
         include('connect_params.php');
         try {
+
             $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
             $id = $_POST["id"];
             $qui = $_POST["qui"];
 
 
-            $query = "SELECT * FROM test.reservation WHERE id_logement = :id_logement";
-            $stmt = $dbh->prepare($query);
-            $stmt->bindParam(':id_logement', $id, PDO::PARAM_INT); 
+
+
+            $query1 = "SELECT * FROM test.plage WHERE id_logement = (:id_logement);";
+            $stmt = $dbh->prepare($query1);
+            $stmt->bindParam(':id_logement', $id, PDO::PARAM_INT);
             $stmt->execute();
+            $plage = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            $reserv = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            $id_reserv = $reserv["id_reservation"];
 
-           
-            $queryDevis = "SELECT * FROM test.devis WHERE id_reservation = :id_reservation";
-            $stmtDevis = $dbh->prepare($queryDevis);
-            $stmtDevis->bindParam(':id_reservation', $id_reserv, PDO::PARAM_INT);
-            $stmtDevis->execute();
-            $devis = $stmtDevis->fetch(PDO::FETCH_ASSOC);
 
-           
+
             $queryLogement = "SELECT * FROM test.logement WHERE id_logement = :id_logement";
             $stmtLogement = $dbh->prepare($queryLogement);
-            $stmtLogement->bindParam(':id_logement', $id, PDO::PARAM_INT); 
+            $stmtLogement->bindParam(':id_logement', $id, PDO::PARAM_INT);
             $stmtLogement->execute();
             $info = $stmtLogement->fetch(PDO::FETCH_ASSOC);
-
 
 
             $i = 0;
@@ -127,14 +123,13 @@
             $stmt->bindParam(':id_image', $photo[0]["id_image"], PDO::PARAM_INT);
             $stmt->execute();
             $current = $stmt->fetch();
-
-            
         } catch (PDOException $e) {
             print "Erreur !: " . $e->getMessage() . "<br/>";
             die();
         }
 
         ?>
+
         <div class="demande">
             <div class="retour">
                 <button class="boutonRetour" onclick="history.back()"><img src="asset/icons/blanc/retour.svg"></button>
@@ -148,11 +143,11 @@
                                                 } ?>>
                     <div class="date">
                         <?php
-                        $dateDebut = $reserv["debut_reservation"];
+                        $dateDebut = $plage["date_debut"];
                         $dateDebutFormat = strtotime($dateDebut);
                         $dateArrive = date("l d-m-Y", $dateDebutFormat);
 
-                        $dateFin = $reserv["fin_reservation"];
+                        $dateFin = $plage["date_fin"];
                         $dateFinFormat = strtotime($dateFin);
                         $dateDepart = date("l d-m-Y", $dateFinFormat);
 
@@ -195,8 +190,18 @@
 
                     <div class="personne">
                         <img src="asset/icons/<?php echo ($qui == "proprietaire" || $qui == "client") ? "blanc" : "bleu"; ?>/personne.svg" alt="">
-                        <p><?php echo ($reserv["nb_personne"]); ?> pers. (2 adultes, 0 enfants)</p>
-                        <img src="asset/icons/bleu/arrow-down.svg" style="<?php echo ($qui == "proprietaire" || $qui == "client") ? "display:none;" : ""; ?>" alt="">
+                        <div class="ligne_champ_nombre_ajlog">
+
+                            <div class="number-input">
+                                <?php if ($qui != "client") { ?> <form id="test" action="demandeDevis.php" class="" method="POST"> <?php } ?>
+                                    <button type="button" onclick="decrement('Personne')" class="minus">-</button>
+
+                                    <input class="quantity" id="Personne" name="Personne" value="1" type="text">
+                                    <button type="button" onclick="increment('Personne')" class="plus">+</button>
+                            </div>
+                            <label for="Personne">Personnes</label>
+                        </div>
+                        <img src="asset/icons/bleu/arrow-down.svg" style="<?php echo ($qui == "proprietaire" || $qui == "client") ? "display:none;" : "display:none"; ?>" alt="">
 
                     </div>
                 </div>
@@ -210,7 +215,7 @@
                     <div class="icons">
                         <div>
                             <img src="asset/icons/bleu/appart_bleu.svg" alt="">
-                            <p><?php echo ($info["nature_logement"]);  ?> </p>
+                            <p><?php echo ($info["nature_logement"]); ?> </p>
                         </div>
                         <div>
                             <img src="asset/icons/bleu/salon.svg" alt="">
@@ -218,11 +223,11 @@
                         </div>
                         <div>
                             <img src="asset/icons/bleu/chambre.svg" alt="">
-                            <p><?php echo ($info["nb_chambre"]);  ?> chambres</p>
+                            <p><?php echo ($info["nb_chambre"]); ?> chambres</p>
                         </div>
                         <div>
                             <img src="asset/icons/bleu/salle_bain.svg" alt="">
-                            <p><?php echo ($info["nb_salle_de_bain"]);  ?> Salle de bain</p>
+                            <p><?php echo ($info["nb_salle_de_bain"]); ?> Salle de bain</p>
                         </div>
                         <div>
                             <img src="asset/icons/bleu/cusine.svg" alt="">
@@ -252,8 +257,8 @@
 
                             ?>
                                 <div>
-                                    <img src="asset/icons/bleu/<?php echo (strtolower($value["nom_amenagement"]));  ?>.svg" alt="">
-                                    <p><?php echo ($value["nom_amenagement"]);  ?></p>
+                                    <img src="asset/icons/bleu/<?php echo (strtolower($value["nom_amenagement"])); ?>.svg" alt="">
+                                    <p><?php echo ($value["nom_amenagement"]); ?></p>
                                 </div>
                         <?php }
                         } ?>
@@ -275,7 +280,7 @@
                             ?>
                                 <div>
                                     <img src="asset/icons/bleu/<?php echo (strtolower($value["nom_installation"])); ?>.svg" alt="">
-                                    <p><?php echo ($value["nom_installation"]);  ?></p>
+                                    <p><?php echo ($value["nom_installation"]); ?></p>
                                 </div>
                         <?php }
                         } ?>
@@ -298,8 +303,8 @@
 
                             ?>
                                 <div>
-                                    <img src="asset/icons/bleu/<?php echo ($value["nom_service"]);  ?>.svg" alt="">
-                                    <p><?php echo ($value["nom_service"]);  ?></p>
+                                    <img src="asset/icons/bleu/<?php echo ($value["nom_service"]); ?>.svg" alt="">
+                                    <p><?php echo ($value["nom_service"]); ?></p>
                                 </div>
                         <?php }
                         } ?>
@@ -315,31 +320,32 @@
             <div id="check_box_info">
                 <h2 class="h2-mobile">Options supplémentaires</h2>
 
-                <form id="formCheckBox" action="demandeDevis.php" method="post">
-                    <?php
-                    if ($value["nom_service"] != "ménage") {
-                    ?>
-                        <div id="input_check_box_info">
-                            <label>
-                                <input type="checkbox" name="menage" value="" <?php echo ($qui == "proprietaire" || $qui == "client") ? ' disabled="disabled"' : ""; ?>>
-                                Ménage
-                            </label>
-                        </div>
-                    <?php
-                    }
-                    ?>
 
+                <?php
+
+                if ($value["nom_service"] != "ménage") {
+                ?>
                     <div id="input_check_box_info">
                         <label>
-                            <input type="checkbox" name="animaux" value="1" <?php echo ($qui == "proprietaire" || $qui == "client") ? ' disabled="disabled"' : ""; ?>>
-                            Animaux de compagnie
+                            <input type="checkbox" name="menage" value="1" <?php echo ($qui == "proprietaire" || $qui == "client") ? ' disabled="disabled"' : ""; ?><?php echo ($_POST["menage"] == "1") ? 'checked' : ""; ?>>
+                            Ménage
                         </label>
                     </div>
-                    <p>En cas de détérioration du logement, toutes charges supplémentaires <br> seront vues directement avec
-                        le propriétaire</p>
+                <?php
+                }
+                ?>
+
+                <div id="input_check_box_info">
+                    <label>
+                        <input type="checkbox" name="animaux" value="1" <?php echo ($qui == "proprietaire" || $qui == "client") ? ' disabled="disabled"' : ""; ?><?php echo ($_POST["menage"] == "1") ? 'checked' : ""; ?>>
+
+                        Animaux de compagnie
+                    </label>
+                </div>
+                <p>En cas de détérioration du logement, toutes charges supplémentaires <br> seront vues directement avec
+                    le propriétaire</p>
 
 
-                </form>
             </div>
         </div>
 
@@ -353,7 +359,7 @@
                                 <p class="info">Logement : <?php echo ($info["nature_logement"]) ?></p>
                             </span>
                             <span>
-                                <p class="more_info"> <?php echo ($info["nature_logement"]) ?> <?php echo ($info["type_logement"]); ?>, <?php echo ($info["localisation"]);  ?></p>
+                                <p class="more_info"> <?php echo ($info["nature_logement"]) ?> <?php echo ($info["type_logement"]); ?>, <?php echo ($info["localisation"]); ?></p>
                             </span>
                         </div>
 
@@ -364,8 +370,8 @@
                     <div class="info_prix">
 
                         <div class="row">
-                            <div class="label"><?php echo ($info["prix_base_ht"]);  ?>€ x 14 nuits</div>
-                            <div class="value"><?php echo ($info["prix_base_ht"]) * 14;  ?>€</div>
+                            <div class="label"><?php echo ($info["prix_base_ht"]); ?>€ x 14 nuits</div>
+                            <div class="value"><?php echo ($info["prix_base_ht"]) * 14; ?>€</div>
                         </div>
                         <?php
                         $somme = 0;
@@ -376,7 +382,7 @@
                                     <div class="label"><?php echo ($value["nom_charge"]); ?></div>
                                     <div class="value"><?php echo ($value["prix_charge"]); ?>€</div>
                                 </div>
-                        <?php $somme = $somme +  $value["prix_charge"];
+                        <?php $somme = $somme + $value["prix_charge"];
                             }
                         } ?>
                         <div class="row">
@@ -385,7 +391,7 @@
                         </div>
                         <div class="row">
                             <div class="label">TVA</div>
-                            <div class="value"><?php echo ($info["prix_base_ht"]) * 14 * 1.10 - ($info["prix_base_ht"]) * 14;  ?>€</div>
+                            <div class="value"><?php echo ($info["prix_base_ht"]) * 14 * 1.10 - ($info["prix_base_ht"]) * 14; ?>€</div>
                         </div>
                         <hr>
 
@@ -402,21 +408,65 @@
                 ?>
 
 
-                    <form id="test" action="demandeDevis.php" class="button_valider" method="POST">
-                        <input name="id" value="<?php echo ($id); ?>" hidden readonly>
-                        <input name="qui" value="proprietaire" hidden readonly>
-                        <button type="submit" class="devisButton">Envoyer une demande de devis</button>
+                    <input name="id" value="<?php echo ($id); ?>" hidden readonly>
+                    <input name="qui" value="proprietaire" hidden readonly>
+                    <button type="submit" class="devisButton">Envoyer une demande de devis</button>
                     </form>
 
 
                 <?php } ?>
                 <?php
+
+
                 if ($qui == "proprietaire") {
+                    echo ("proprietaire");
+
+                    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                        $deb = $plage["date_debut"];
+                        $fin = $plage["date_fin"];
+                        $id_compte = $_SESSION['userId'];;
+                        $nb_personne = intval($_POST["Personne"]);
+
+                        try {
+
+                            $stmt = $dbh->prepare("
+                                INSERT INTO test.reservation (
+                                debut_reservation,
+                                fin_reservation,
+                                nb_personne,
+                                id_compte,
+                                id_logement
+                                ) VALUES (
+                                :debut_reservation,
+                                :fin_reservation,
+                                :nb_personne    ,
+                                :id_compte,
+                                :id_logement
+                                )
+                                returning id_reservation");
+
+
+                            $stmt->bindParam(':debut_reservation', $deb);
+                            $stmt->bindParam(':fin_reservation', $fin);
+                            $stmt->bindParam(':nb_personne', $nb_personne);
+                            $stmt->bindParam(':id_compte', $id_compte);
+                            $stmt->bindParam(':id_logement', $id);
+
+
+                            $stmt->execute();
+                            $Idres = $stmt->fetchAll()[0];
+                        } catch (PDOException $e) {
+                            echo "Erreur lors de l'insertion du devis : " . $e->getMessage();
+                        }
+                    }
+
+
                 ?>
-                    <form action="demandeDevis.php" class="button_valider" method="POST">
-                        <input name="id" value="<?php echo ($id); ?>" hidden readonly>
-                        <input name="qui" value="client" hidden readonly>
-                        <button type="submit" class="devisButton">Envoyer le devis</button>
+
+                    <input name="id" value="<?php echo ($id); ?>" hidden readonly>
+                    <input name="qui" value="client" hidden readonly>
+                    <input name="reservation" value="<?php echo ($Idres["id_reservation"]); ?>" hidden readonly>
+                    <button type="submit" class="devisButton">Envoyer le devis</button>
                     </form>
 
                     <div class="button_refuser">
@@ -432,39 +482,42 @@
                             <a href="logement.php?id=<?php echo ($id) ?>" id="confirmer" onclick="confirmerRefus()">Confirmer</a>
                         </div>
                     </div>
+
                 <?php } ?>
                 <?php
                 if ($qui == "client") { ?>
                     <?php
+                    echo ("clientFinal");
 
 
+                    $id_reserv = $_POST["reservation"];
                     if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         $prix_devis = $info["prix_base_ht"];
                         $delai_acceptation = date("Y-m-d");
                         $acceptation = true;
                         $date_devis = date("Y-m-d H:i:s");
-                        $id_reser = $id_reserv;
+
 
                         try {
 
                             $stmt = $dbh->prepare("
                                 INSERT INTO test.devis (
-                                    id_reservation,
-                                    prix_devis,
-                                    delai_acceptation,
-                                    acceptation,
-                                    date_devis
+                                id_reservation,
+                                prix_devis,
+                                delai_acceptation,
+                                acceptation,
+                                date_devis
                                 ) VALUES (
-                                    :id_reservation,
-                                    :prix_devis,
-                                    :delai_acceptation,
-                                    :acceptation,
-                                    :date_devis
+                                :id_reservation,
+                                :prix_devis,
+                                :delai_acceptation,
+                                :acceptation,
+                                :date_devis
                                 )
-                            ");
+                                ");
 
 
-                            $stmt->bindParam(':id_reservation', $id_reser);
+                            $stmt->bindParam(':id_reservation', $id_reserv, PDO::PARAM_INT);
                             $stmt->bindParam(':prix_devis', $prix_devis);
                             $stmt->bindParam(':delai_acceptation', $delai_acceptation);
                             $stmt->bindParam(':acceptation', $acceptation, PDO::PARAM_BOOL);
@@ -476,12 +529,19 @@
                             echo "Erreur lors de l'insertion du devis : " . $e->getMessage();
                         }
                     }
+
+                    $queryDevis = "SELECT * FROM test.devis WHERE id_reservation = :id_reservation";
+                    $stmtDevis = $dbh->prepare($queryDevis);
+                    $stmtDevis->bindParam(':id_reservation', $id_reserv, PDO::PARAM_INT);
+                    $stmtDevis->execute();
+                    $devis = $stmtDevis->fetch(PDO::FETCH_ASSOC);
                     ?>
 
-                    <form action="paiement.php" class="button_valider" method="POST">
+                    <form id="payer" action="paiement.php" class="button_valider" method="POST">
                         <input name="devis" value="<?php echo ($devis["id_devis"]); ?>" hidden readonly>
                         <button type="submit" class="devisButton">Payer le devis</button>
                     </form>
+
                     <div class="button_refuser">
                         <a href="#" onclick="afficherPopup()">Refuser le devis</a>
                     </div>
@@ -558,6 +618,7 @@
 
 </footer>
     <script src="asset/js/popUpDevis.js"></script>
+    <script src="asset/js/devisNbPersonnne.js"></script>
 </body>
 
 </html>
