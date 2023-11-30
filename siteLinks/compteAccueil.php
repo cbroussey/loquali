@@ -57,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     include('connect_params.php');
     try {
-        $id = 5; // à revoir une fois que les comptes sont fait
+        $id = $_SESSION['userId'];
         $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
         $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
         $query = "SELECT * FROM test.proprietaire NATURAL JOIN test.compte WHERE id_compte = :id_compte";
@@ -84,7 +84,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <div class="container">
             <label for="fileInput">
-                <img src="asset/img/profils/<?php echo ($infos['photo_de_profil']) ?>.jpeg" alt="" id="photoProfil">
+                <?php //récupération du nom de l'image (avec extension)
+            
+                if ($images = opendir('asset/img/profils/')) {
+                    while (false !== ($fichier = readdir($images))) {
+                        $imgInfos = pathinfo($fichier);
+                        if ($imgInfos['filename'] == $_SESSION['userId']) {
+                            $pathName = 'asset/img/profils/' . $fichier;
+                            break;
+                        }
+
+                    }
+                    print_r($pathName);
+                    if ($pathName == '') {
+                        $pathName = 'asset/img/profils/default.jpg';
+                    }
+                    closedir($images);
+                }
+                ?>
+                <img src=<?php echo $pathName ?> alt="" id="photoProfil">
                 <div class="middle">
                     <img src="asset/icons/blanc/photo.svg" alt="">
                 </div>

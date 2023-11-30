@@ -93,20 +93,38 @@
 
     ?>
     
+
     <a href="index.php">
         <img src="asset/icons/bleu/toBack.svg" alt="" id="pagePersoSvgBack">
     </a>
-    <div id="ensemble">
         <div class="infosProprio">
             <div id="infosTous">
                 <div id="photo_Profil">
+                <?php //récupération du nom de l'image (avec extension)
+            
+                if ($images = opendir('asset/img/profils/')) {
+                    while (false !== ($fichier = readdir($images))) {
+                        $imgInfos = pathinfo($fichier);
+                        if ($imgInfos['filename'] == $_SESSION['userId']) {
+                            $pathName = 'asset/img/profils/' . $fichier;
+                            break;
+                        }
+
+                    }
+                    print_r($pathName);
+                    if ($pathName == '') {
+                        $pathName = 'asset/img/profils/default.jpg';
+                    }
+                    closedir($images);
+                }
+                ?>
                     <style>
                         #photo_Profil {
                             width:160px;
                             height:160px;
                             border-radius: 93.5px;
 
-                            background: url("asset/img/profils/<?php echo $_SESSION['userId'] ?>.png") center/cover;
+                            background: url(<?php echo $pathName ?>) center/cover;
                         }
 
                         @media screen and (min-width: 0px) and (max-width: 400px) {
@@ -164,8 +182,18 @@
                         <form method="post">
                             <a href="#" id="boutonDescription" class="testBouton"><img src="asset/icons/bleu/modification.svg" alt=""></a>
                             <input type="submit" value="Enregistrer" id="modificationDescription" class="modifBtn">
-                            <p id="champsDescription" class="descriptionCompte"><?php echo htmlentities($current["description"].PHP_EOL) ?></p>
-                            <textarea type="text" id="description" class="descriptionModif" name="description" value=<?php echo htmlentities($proprio["description"]) ?>></textarea>
+                            <?php 
+                                if (!empty($current["description"])) {
+                            ?>
+                                <p id="champsDescription" class="descriptionCompte"><?php echo htmlentities($current["description"].PHP_EOL) ?></p>
+                            <?php 
+                                } else {
+                            ?>
+                                <p id="champsDescription" class="descriptionCompte">Description non saisie.</p>
+                            <?php 
+                                }
+                            ?>
+                            <textarea type="text" id="description" class="descriptionModif" name="description" value=<?php echo htmlentities($current["description"]) ?>></textarea>
                         </form>
                     </div>
 
@@ -173,84 +201,173 @@
         
         
         </div>
-        <div id="logementPropo">
-            <h2 id="titreLogement">Mes Logements</h2>
-            <div id="listeLogements">
+        <?php
+            if ($_SESSION['userType'] == 'proprietaire') {
+                ?>
+                    <div id="logementPropo">
+                    <h2 id="titreLogement">Mes Logements</h2>
+                    <div id="listeLogements">
 
 
 
-            <?php
-
-            try {
-                $id = $_SESSION['userId'];
-                $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-
-                $query = "SELECT COUNT(*) FROM test.logement WHERE id_compte = $id;";
-                $stmt = $dbh->prepare($query);
-                $stmt->execute();
-                $nbLogements = $stmt->fetch();
-
-                if ($nbLogements['count'] == 0) {
-                    ?>
-                    <p id="AucunLogement">Vous n'avez aucun logement en ligne</p>
                     <?php
-                }
-                
 
-                foreach($dbh->query("SELECT * FROM test.logement WHERE id_compte = $id", PDO::FETCH_ASSOC) as $row) {
-            
-                    $info=$row;
-                    $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-                    $query = "SELECT min(id_image) FROM test.photo_logement NATURAL JOIN test.image WHERE id_logement = :id_logement;";
-            
-                    $stmt = $dbh->prepare($query);
-                    $stmt->bindParam('id_logement', $info["id_logement"], PDO::PARAM_STR);
-                    $stmt->execute();
-                    $photo = $stmt->fetch();
+                    try {
+                        $id = $_SESSION['userId'];
+                        $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
-                    $query = "SELECT extension_image FROM test.image WHERE id_image = :id_image;";
-            
-                    $stmt = $dbh->prepare($query);
-                    $stmt->bindParam('id_image', $photo["min"], PDO::PARAM_STR);
-                    $stmt->execute();
-                    $extention = $stmt->fetch();
+                        $query = "SELECT COUNT(*) FROM test.logement WHERE id_compte = $id;";
+                        $stmt = $dbh->prepare($query);
+                        $stmt->execute();
+                        $nbLogements = $stmt->fetch();
 
-
-                    ?>
-
-                    <div class="listeUnLogement">
-                        <div>
-                            <img src="asset/img/logements/<?php echo($photo["min"]); ?>.<?php echo $extention["extension_image"] ?>" width="100%" height="100%" alt="">
-                        </div>
+                        if ($nbLogements['count'] == 0) {
+                            ?>
+                            <p id="AucunLogement">Vous n'avez aucun logement en ligne</p>
+                            <?php
+                        }
                         
-                        <div class="unLogement">
-                            <h2><?php echo($info["nature_logement"]); ?> <?php echo($info["type_logement"]); ?>, <?php echo($info["localisation"]); ?></h2>
-                            <p><?php echo($info["code_postal"]); ?>, <U><?php echo($info["departement"]); ?></U></p>
-                            <div class="noteAvis">
-                                <img src="asset/icons/bleu/star.svg" alt="">
-                                <p><?php echo($info["note_logement"]); ?>, 24 avis</p>
+
+                        foreach($dbh->query("SELECT * FROM test.logement WHERE id_compte = $id", PDO::FETCH_ASSOC) as $row) {
+                    
+                            $info=$row;
+                            $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+                            $query = "SELECT min(id_image) FROM test.photo_logement NATURAL JOIN test.image WHERE id_logement = :id_logement;";
+                    
+                            $stmt = $dbh->prepare($query);
+                            $stmt->bindParam('id_logement', $info["id_logement"], PDO::PARAM_STR);
+                            $stmt->execute();
+                            $photo = $stmt->fetch();
+
+                            $query = "SELECT extension_image FROM test.image WHERE id_image = :id_image;";
+                    
+                            $stmt = $dbh->prepare($query);
+                            $stmt->bindParam('id_image', $photo["min"], PDO::PARAM_STR);
+                            $stmt->execute();
+                            $extention = $stmt->fetch();
+
+
+                            ?>
+
+                            <div class="listeUnLogement">
+                                <div>
+                                    <img src="asset/img/logements/<?php echo($photo["min"]); ?>.<?php echo $extention["extension_image"] ?>" width="100%" height="100%" alt="" class="imgListeLogementProprio">
+                                </div>
+                                
+                                <div class="unLogement">
+                                    <h2><?php echo($info["nature_logement"]); ?> <?php echo($info["type_logement"]); ?>, <?php echo($info["localisation"]); ?></h2>
+                                    <p><?php echo($info["code_postal"]); ?>, <U><?php echo($info["departement"]); ?></U></p>
+                                    <div class="noteAvis">
+                                        <img src="asset/icons/bleu/star.svg" alt="">
+                                        <p><?php echo($info["note_logement"]); ?>, 24 avis</p>
+                                    </div>
+                                    <a class="consulterLogement" href="logement.php?id=<?php echo $info["id_logement"] ?>"><em>Consulter le logement</em></a>
+                                </div>
+                                
                             </div>
-                            <a class="consulterLogement" href="logement.php?id=<?php echo $info["id_logement"] ?>"><em>Consulter le logement</em></a>
-                        </div>
-                        
-                    </div>
 
-                    <div class="separateur1">a</div>
+                            <div class="separateur1">a</div>
+
+                            <?php
+                        }
+                        
+                    } catch (PDOException $e) {
+                        print "Erreur !: " . $e->getMessage() . "<br/>";
+                        die();
+                    }
+
+                    $dbh = null;
+
+                            ?>
+
+                    </div>
+                </div>
+                <?php
+            }
+            else {
+                ?>
+                    <div id="logementPropo">
+                    <h2 id="titreLogement">Avis Postés</h2>
+                    <div id="listeLogements">
+
+
 
                     <?php
-                }
-                
-            } catch (PDOException $e) {
-                print "Erreur !: " . $e->getMessage() . "<br/>";
-                die();
+
+                    try {
+                        $id = $_SESSION['userId'];
+                        $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+
+                        $query = "SELECT COUNT(*) FROM test.logement WHERE id_compte = $id;";
+                        $stmt = $dbh->prepare($query);
+                        $stmt->execute();
+                        $nbLogements = $stmt->fetch();
+
+                        if ($nbLogements['count'] == 0) {
+                            ?>
+                            <p id="AucunLogement">Vous n'avez aucun commentaires postés pour le moment</p>
+                            <?php
+                        }
+                        
+
+                        foreach($dbh->query("SELECT * FROM test.logement WHERE id_compte = $id", PDO::FETCH_ASSOC) as $row) {
+                    
+                            $info=$row;
+                            $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+                            $query = "SELECT min(id_image) FROM test.photo_logement NATURAL JOIN test.image WHERE id_logement = :id_logement;";
+                    
+                            $stmt = $dbh->prepare($query);
+                            $stmt->bindParam('id_logement', $info["id_logement"], PDO::PARAM_STR);
+                            $stmt->execute();
+                            $photo = $stmt->fetch();
+
+                            $query = "SELECT extension_image FROM test.image WHERE id_image = :id_image;";
+                    
+                            $stmt = $dbh->prepare($query);
+                            $stmt->bindParam('id_image', $photo["min"], PDO::PARAM_STR);
+                            $stmt->execute();
+                            $extention = $stmt->fetch();
+
+
+                            ?>
+
+                            <div class="listeUnLogement">
+                                <div>
+                                    <img src="asset/img/logements/<?php echo($photo["min"]); ?>.<?php echo $extention["extension_image"] ?>" width="100%" height="100%" alt="" class="imgListeLogementProprio">
+                                </div>
+                                
+                                <div class="unLogement">
+                                    <h2><?php echo($info["nature_logement"]); ?> <?php echo($info["type_logement"]); ?>, <?php echo($info["localisation"]); ?></h2>
+                                    <p><?php echo($info["code_postal"]); ?>, <U><?php echo($info["departement"]); ?></U></p>
+                                    <div class="noteAvis">
+                                        <img src="asset/icons/bleu/star.svg" alt="">
+                                        <p><?php echo($info["note_logement"]); ?>, 24 avis</p>
+                                    </div>
+                                    <a class="consulterLogement" href="logement.php?id=<?php echo $info["id_logement"] ?>"><em>Consulter le logement</em></a>
+                                </div>
+                                
+                            </div>
+
+                            <div class="separateur1">a</div>
+
+                            <?php
+                        }
+                        
+                    } catch (PDOException $e) {
+                        print "Erreur !: " . $e->getMessage() . "<br/>";
+                        die();
+                    }
+
+                    $dbh = null;
+
+                            ?>
+
+                    </div>
+                </div>
+                <?php
             }
-
-            $dbh = null;
-
-                    ?>
-
-            </div>
-        </div>
+        ?>
+        
     </main>    
     
     <script src="asset/js/header.js"></script>

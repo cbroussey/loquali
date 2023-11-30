@@ -10,6 +10,8 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 
+
+
 function increment(id) {
     const input = document.getElementById(id);
     let value = parseInt(input.value, 10) || 0;
@@ -32,10 +34,24 @@ function decrement(id) {
 }
 
 
+document.getElementById('code_postal').addEventListener('input', function() {
+    var codePostal = this.value;
+    var regexBretagne = /^(29|35|22|56)[0-9]{3}$/;
 
-// Valider l'entrée pour les champs de texte
+    var message = document.getElementById('message');
+
+    if (regexBretagne.test(codePostal)) {
+      message.textContent = 'Code postal valide en Bretagne.';
+      message.style.color = 'green';
+    } else {
+      message.textContent = 'Veuillez entrer un code postal valide en Bretagne.';
+      message.style.color = 'red';
+    }
+  });
+
+
 document.getElementById('nbChambre').addEventListener('input', function () {
-    this.value = this.value.replace(/\D/g, ''); // Remplace tout ce qui n'est pas un chiffre par une chaîne vide
+    this.value = this.value.replace(/\D/g, ''); 
     if (this.value === "") {
         this.value = "0";
     }
@@ -49,20 +65,9 @@ document.getElementById('nbChambre').addEventListener('input', function () {
     this.value = parseInt(this.value).toString();
 });
 
-document.getElementById('nbLit').addEventListener('input', function () {
-    this.value = this.value.replace(/\D/g, '');
-    if (this.value === "") {
-        this.value = "0";
-    }
-    if (parseInt(this.value) > 99) {
-        this.value = "99";
-    }
-    if (parseInt(this.value) < 0) {
-        this.value = "0";
-    }
-    // Supprimer les zéros en tête
-    this.value = parseInt(this.value).toString();
-});
+
+
+
 
 document.getElementById('nbSalle_bain').addEventListener('input', function () {
     this.value = this.value.replace(/\D/g, '');
@@ -75,7 +80,6 @@ document.getElementById('nbSalle_bain').addEventListener('input', function () {
     if (parseInt(this.value) < 0) {
         this.value = "0";
     }
-    // Supprimer les zéros en tête
     this.value = parseInt(this.value).toString();
 });
 
@@ -91,7 +95,6 @@ document.getElementById('Pieces').addEventListener('input', function () {
     if (parseInt(this.value) < 0) {
         this.value = "0";
     }
-    // Supprimer les zéros en tête
     this.value = parseInt(this.value).toString();
 });
 
@@ -107,7 +110,6 @@ document.getElementById('Personne').addEventListener('input', function () {
     if (parseInt(this.value) < 0) {
         this.value = "0";
     }
-    // Supprimer les zéros en tête
     this.value = parseInt(this.value).toString();
 });
 
@@ -260,6 +262,7 @@ retour3.addEventListener("click", function () {
 /* Fin de Partie */
 
 
+/* ajout des photos */
 
 document.getElementById('photo').addEventListener('change', function (event) {
     const imageContainer = document.getElementById('liste_img_ajlog');
@@ -302,6 +305,8 @@ document.getElementById('photo').addEventListener('change', function (event) {
 
 
 
+    /* calcul des prix */
+
 
   function calculerPrix() {
     const inputElement = document.getElementById("prix");
@@ -326,8 +331,8 @@ document.getElementById('photo').addEventListener('change', function (event) {
 }
 
 window.onload = function () {
-    document.getElementById("prix").value = '0'; // Initialiser la valeur du champ à 0 lors du chargement de la page
-    calculerPrix(); // Appeler la fonction de calcul pour mettre à jour les autres champs
+    document.getElementById("prix").value = '0';
+    calculerPrix();
 };
 
 document.getElementById('prix').addEventListener('input', function () {

@@ -817,8 +817,7 @@ h2 span{
   font-weight: bold;
 }
 
-#bg h4{
-  font-size: 20;
+#bg .description_log h4{
   font-weight: bold;
   text-decoration: underline;
 }
@@ -1048,7 +1047,7 @@ h2 span{
   border-radius: 5px;
   margin-left: 20px;
   transform: scale(1);
-  transition: all 0.2 ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 
 .bouton_date_log:hover{
@@ -1526,7 +1525,6 @@ h2 span{
   }
  
   .res_and_map_log{
-  float: center;
   margin-top: 0;
   position: static;
   width: 100%;
@@ -3473,7 +3471,7 @@ input[type="checkbox"]:checked + label {
   background-color: #8A3443;
 }
 
-.button_refuser a{
+.button_refuser button{
   display: inline-block;
   margin-top: 10px;
   width: 100%;
@@ -3697,6 +3695,7 @@ input[type="checkbox"]:checked + label {
   max-width: 500px;
   text-align: center;
   margin-bottom: 15px;
+  font-weight: lighter;
 }
 
 #connexion > section:last-of-type {
@@ -3708,6 +3707,7 @@ input[type="checkbox"]:checked + label {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 
 #connexion > section:last-of-type > button, #creation > section:first-of-type > a > button {
@@ -3735,6 +3735,69 @@ margin:100px 0 20px 0;
 
 #forbiddenPassword {
   margin:15px;
+}
+
+@media screen and (max-width: 950px) { 
+  #connexion {
+    flex-direction: column;
+  }
+
+  #connexion > section:first-of-type {
+    width:auto;
+  }
+
+  #connexion > section:last-of-type {
+    width:auto;
+  }
+
+  #connexion > section:first-of-type > a > button {
+    top: 10px;
+    left: 10px;
+    width: 40px;
+    height: 40px;
+  }
+
+  #connexion > section:first-of-type > img {
+    width: 180px;
+    margin-top: 50px;
+  }
+
+  #connexion > section:first-of-type > form > input,
+  #connexion > section:first-of-type > form > div >input  {
+    width:293px;
+    height:50px;
+    font-size: 20px;
+    
+  }
+
+  #connexion > section:first-of-type > form > div {
+    margin:10px;
+  }
+
+  #connexion > section:first-of-type > form > div > input {
+    width:236px;
+  }
+
+  #connexion > section:last-of-type > h1,
+  #connexion > section:last-of-type > h2 {
+    display:none;
+  }
+
+  #connexion > section:first-of-type > p, #creation > section:last-of-type > p {
+    position:relative;
+    bottom:0;
+    text-align: center;
+    margin-top:3vh;
+    margin-bottom: 15px;
+  }
+
+  #connexion > section:last-of-type {
+    position:absolute;
+    vertical-align: middle;
+    height:25vh;
+    width:100%;
+    bottom:0;
+  }
 }
 
 /******************************************** CREATION ********************************************/
@@ -3786,6 +3849,10 @@ margin:100px 0 20px 0;
   font-style: italic;
   font-weight: 300;
   padding-left: 30px;
+}
+
+#creation > section:last-of-type > form > #confirmIsOwner {
+  margin-top: 20vh;
 }
 
 #creation > section:last-of-type > form > div > input {
@@ -3840,6 +3907,7 @@ margin:100px 0 20px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 
 #creation > section:first-of-type > a > button > h2 {
@@ -3868,6 +3936,7 @@ margin:10% 0 5% 0;
   display:flex;
   flex-direction: row;
   align-items: center;
+  margin:15px;
 }
 
 #formIsOwner > div > div > input[type="radio"] {
@@ -3882,8 +3951,84 @@ margin:10% 0 5% 0;
   outline: none; /* Supprime la bordure de sélection par défaut */
 }
 
+#formIsOwner > div > div > input[type="radio"]:checked {
+  background-color: #2072BC;
+}
+
 #formIsOwner > div > p {
   max-width: 400px;
+}
+
+@media screen and (max-width: 950px) { 
+  main {
+    flex:0;
+  }
+
+  #creation {
+    flex-direction: column-reverse;
+
+  }
+
+  #creation > section:first-of-type {
+    width:auto;
+  }
+
+  #creation > section:last-of-type {
+    width:auto;
+  }
+
+  #creation > section:last-of-type > a > button {
+    top: 10px;
+    left: 10px;
+    width: 40px;
+    height: 40px;
+  }
+
+  #creation > section:last-of-type > img {
+    width: 180px;
+    margin-top:50px;
+  }
+
+  #creation > section:last-of-type > form > input,
+  #creation > section:last-of-type > form > div >input  {
+    width:293px;
+    height:50px;
+    font-size: 20px;
+    
+  }
+
+  #creation > section:last-of-type > form > #confirmIsOwner {
+    margin-top: 20vh;
+  }
+
+  #creation > section:last-of-type > form > div {
+    margin:10px;
+  }
+
+  #creation > section:last-of-type > form > div > input {
+    width:236px;
+  }
+
+  #creation > section:first-of-type > h1,
+  #creation > section:first-of-type > h2 {
+    display:none;
+  }
+
+  #creation > section:last-of-type > p, #creation > section:first-of-type > p {
+    position:relative;
+    bottom:0;
+    text-align: center;
+    margin-top:3vh;
+    margin-bottom: 15px;
+  }
+
+  #creation > section:first-of-type {
+    position:relative;
+    vertical-align: middle;
+    height:25vh;
+    width:100%;
+    bottom:0;
+  }
 }
 
 /************************ COMPTE - ACCUEIL **************************/
@@ -4126,7 +4271,7 @@ opacity: 1;
 
 .nav {
 width: 20%;
-height: 92vh;
+height: 95vh;
 background-color: #7297B8;
 display: flex;
 justify-content: space-evenly;
@@ -4201,7 +4346,6 @@ display:none;
 }
 
 #compteLogements {
-background-color: blue;
 height:92vh;
 width:84vw;
 display:none;
@@ -4533,16 +4677,11 @@ width: 100%;
 
 
 
-
-
-
-
-
 @media screen and (min-width: 0px) and (max-width: 1100px) { 
 
   #compteInfosPerso {
     position: absolute;
-    top: 25%;
+    top: 20%;
     left: 15%;
     right: 15%;
 
@@ -4561,8 +4700,6 @@ width: 100%;
     .displayInfos{
       margin-top: 10px;
     }
-
-    
     
     .modifications{
       margin-top: -50px;
@@ -4588,11 +4725,6 @@ width: 100%;
     
     color: #1D4C77;
     }
-
-   
-
-    
-  
 
 }
 
@@ -4643,6 +4775,72 @@ width: 100%;
       color: var(--textColor);
   }
 
+  @media screen and (min-width: 0px) and (max-width: 500px) { 
+
+    #compteInfosPerso {
+      top: 25%;
+    }
+
+    .lignes {
+      padding-top: 30px;
+      padding-bottom: 30px;
+      margin:  0 -10%;
+    }
+
+    .lignes p{
+      font-size: 12px;
+    }
+    
+    .displayInfos{
+      margin-top: 10px;
+    }
+
+    .modifications{
+      margin-top: -50px;
+      margin-bottom: 10px;
+      
+      font-weight: 400;
+      font-size: 15px;
+
+      background-color: #2072BC;
+      color: #F5F5F5;
+      text-decoration: none;
+      padding: 10px;
+      border-radius: 5px;
+      
+      cursor: pointer;
+    }
+    
+    #compteInfosPerso input {
+    width: 150px;
+    padding: 5px;
+    margin-right: 10px;
+    margin-top: 0px;
+    
+    color: #1D4C77;
+    }
+
+
+
+    .boutonInfosstyle {
+      margin-top: -40px;
+      color: #1d4c77;
+      text-decoration: underline;
+      border: none;
+      background: none;
+      font-size: 15px;
+      font-weight: 400;
+      background-color: #2072BC;
+      color: #F5F5F5;
+      text-decoration: none;
+      padding: 10px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  
+
+  }
+
   
 
 }
@@ -4675,21 +4873,21 @@ font-weight: 500;
 
     }
     
-    .lignes {
+    #compteConnection  .lignes {
       padding-top: 40px;
       padding-bottom: 40px;
       margin:  0 -10%;
     }
 
-    .lignes p{
+    #compteConnection .lignes p{
       font-size: 15px;
     }
     
-    .displayInfos{
+    #compteConnection .displayInfos{
       margin-top: 10px;
     }
     
-    .modifications{
+    #compteConnection .modifications{
       margin-top: -50px;
       margin-bottom: 10px;
       
@@ -4718,6 +4916,14 @@ font-weight: 500;
 
 }
 
+@media screen and (min-width: 0px) and (max-width: 500px) {
+
+  #compteConnection .modifications{
+    margin-top: -40px;
+
+  }
+}
+
 
 /****************************PAGE PERSO PROPRIETAIRE*****************************/
 #pagePersoSvgBack {
@@ -4731,7 +4937,7 @@ font-weight: 500;
   min-height: 92vh;
   float: right;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   flex-direction: row;
   margin-top: 20px;
 }
@@ -4772,7 +4978,6 @@ font-weight: 500;
 
 #infosTous {
   display: flex;
-  justify-content: row;
   align-items: center;
   margin-bottom: 20px;
 }
@@ -4791,7 +4996,6 @@ font-weight: 500;
 
 .infos figure{
   display: flex;
-  justify-content: row;
   align-items: center;
   margin-top: 15px;
 
@@ -4824,8 +5028,6 @@ font-weight: 500;
 
 #aProposDeMoi div {
   display: flex;
-  justify-content: row;
-
   margin-top: 10px;
 }
 
@@ -4874,7 +5076,6 @@ font-weight: 500;
   padding: 40px 55px 20px;
   display: flex;
   justify-content:flex-start;
-  align-items: space-around;
   flex-direction: column;
 }
 
@@ -4940,6 +5141,10 @@ font-weight: 500;
 .listeUnLogement div img {
   border-radius: 5px;
 } 
+
+.imgListeLogementProprio {
+  max-width: 290px;
+}
 
 .separateur {
   background-color: #97ADC1;
@@ -5124,7 +5329,7 @@ font-weight: 500;
     #aProposDeMoi {
       background-color: #F5F5F5;
       box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
-      margin-left: -50px;
+      margin-left: -15%;
       padding: 15px 25px 46px 30px;
       width:100%;
       
@@ -5137,10 +5342,6 @@ font-weight: 500;
 
     }
 
-    #aProposDeMoi div img {
-      margin-left: -20px;
-      margin-top: -5px;
-    }
 
     #boutonDescription {
       top: 163px;
@@ -5178,7 +5379,7 @@ font-weight: 500;
     #titreLogement {
       margin-top: -115px;
       margin-bottom: 14px;
-      margin-left: 100px;
+      margin-left: 35%;
       font-size: 20px;
     }
 
