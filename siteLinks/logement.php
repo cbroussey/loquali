@@ -367,13 +367,13 @@
                                             <h2><span><?php echo ($info["prix_ttc"]); ?> €</span> / nuit</h2>
                                             <?php // (isset($_SESSION['userType']) ? 'demandeDevis.php' : 'connexion.php') 
                                             ?>
-                                            <form action="demandeDevis.php" method="POST">
-                                                <input name="id" value="<?php echo ($id); ?>" hidden readonly>
-                                                <input name="qui" value="" hidden readonly>
-                                                <button class="bouton_res_log">
-                                                    <h1>Réserver</h1>
-                                                </button>
-                                            </form>
+                                        <form action="<?php if ($_SESSION['userType']){?>demandeDevis.php<?php } else {?>connexion.php<?php } ?>" method="POST">
+                                            <input name="id" value="<?php echo($id);?>" hidden readonly>
+                                            <input name = "qui" value="" hidden readonly> 
+                                            <button class="bouton_res_log">
+                                                <h1>Réserver</h1>
+                                            </button>
+                                        </form>
                                         </div>
                                         <div class="bare_res"></div>
                                         <div class="detail_reservation_log">
