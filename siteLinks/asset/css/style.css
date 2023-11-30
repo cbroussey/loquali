@@ -115,15 +115,6 @@ pre {
   width: 600px;
 }
 
-#searchbar {
-  width: 100%;
-  border: none;
-  outline: none;
-  padding: 10px;
-  font-size: 16px;
-  color: black;
-}
-
 .bar {
   display: flex;
   align-items: flex-start;
@@ -146,6 +137,15 @@ pre {
   font-weight: 500;
   line-height: normal;
   width: 180px;
+}
+
+#searchbar {
+  width: 100%;
+  border: none;
+  outline: none;
+  padding: 10px;
+  font-size: 16px;
+  color: black;
 }
 
 .dot {
@@ -184,8 +184,6 @@ pre {
   object-fit: cover;
   width: 100%;
 }
-
-/*********************************************************/
 
 .filter-container {
   background: var(--secondBG);
@@ -302,14 +300,6 @@ pre {
   width: 300px;
 }
 
-.date {
-  color: #000;
-  font-family: Inter;
-  font-size: 15px;
-  font-style: normal;
-  font-weight: 300;
-  line-height: normal;
-}
 
 .ville {
   color: #000;
@@ -320,7 +310,6 @@ pre {
   line-height: normal;
 }
 
-.date,
 .prix {
   margin-top: 5px;
   margin-left: 5px;
@@ -356,7 +345,7 @@ pre {
   position: absolute;
   top: 15px;
   right: -8px;
-  z-index: 1;
+  z-index: 0;
 }
 
 .etoile p {
@@ -527,7 +516,102 @@ pre {
   #gauche p {
     margin: 0 10px 0 0;
   }
+
+
+
+
+  .maison {
+    margin: 20px auto;
+    position: relative;
+    width: 250px;
+  }
+
+  .maison img{
+    width: 250px;
+    height: auto;
+  }
+
+
+
+
 }
+
+
+@media screen and (min-width: 0px) and (max-width: 600px) {
+
+  .maison {
+    margin: 20px auto;
+    position: relative;
+    width: 250px;
+  }
+
+  .maison img{
+    width: 250px;
+    height: auto;
+  }
+  
+  
+  .ville {
+    color: #000;
+    font-family: Inter;
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+  
+  .prix {
+    margin-top: 5px;
+    margin-left: 5px;
+    color: #000;
+  }
+  
+  
+  .ville {
+    margin-bottom: 5px;
+    margin-left: 5px;
+  }
+  
+  .etoile {
+    background-color: var(--mainColor);
+    display: flex;
+    color: white;
+    width: 120px;
+    height: 27px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px 0px 0px 5px;
+    position: absolute;
+    top: 20px;
+    right: -8px;
+  }
+  
+  #triangle {
+    display: inline-block;
+    height: 0;
+    width: 0;
+    border-right: 8px solid transparent;
+    border-bottom: 5px solid #1D4C77;
+    position: absolute;
+    top: 15px;
+    right: -8px;
+    z-index: 0;
+  }
+  
+  .etoile p {
+    color: #fff;
+    font-family: Inter;
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin-left: 10px;
+  }
+
+}
+
+
+
 
 @media screen and (min-width: 0px) and (max-width: 500px) {
 
@@ -541,7 +625,7 @@ pre {
     padding: 10px;
     height: 38px;
     font-size: 15px;
-    width: 120px;
+    width: 100px;
   }
   
   .dot {
@@ -593,7 +677,98 @@ pre {
   }
 
 
+
 }
+
+
+@media screen and (min-width: 0px) and (max-width: 500px) {
+
+  .maison {
+    margin: 20px auto;
+    position: relative;
+    width: 150px;
+  }
+
+  .maison img{
+    width: 150px;
+    height: auto;
+  }
+  
+  
+  .ville {
+    color: #000;
+    font-family: Inter;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+  
+  .prix {
+    margin-top: 5px;
+    margin-left: 5px;
+    color: #000;
+    font-size: 12px;
+  }
+  
+  
+  .ville {
+    margin-bottom: 5px;
+    margin-left: 5px;
+  }
+  
+  .etoile {
+    background-color: var(--mainColor);
+    display: flex;
+    color: white;
+    width: 70px;
+    height: 27px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px 0px 0px 5px;
+    position: absolute;
+    top: 20px;
+    right: -8px;
+  }
+  
+  #triangle {
+    display: inline-block;
+    height: 0;
+    width: 0;
+    border-right: 8px solid transparent;
+    border-bottom: 5px solid #1D4C77;
+    position: absolute;
+    top: 15px;
+    right: -8px;
+    z-index: 0;
+  }
+  
+  .etoile p {
+    color: #fff;
+    font-family: Inter;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin-left: 10px;
+  }
+
+  .box {
+    align-items: flex-start;
+  }
+
+
+  #searchbar {
+    font-size: 12px;
+  }
+
+  .gauche-bar svg{
+    width: 20px;
+    height: auto;
+}
+}
+
+
 
 
 /******************************************** LOGEMENT ********************************************/
