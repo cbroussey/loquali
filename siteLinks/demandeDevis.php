@@ -13,7 +13,7 @@
 
 <body>
 <header>
-    <a href="">
+    <a href="index.php">
       <img src="asset/img/logo.png" alt="logo">
     </a>
     <div></div>
@@ -122,6 +122,11 @@
             $stmt->bindParam(':id_image', $photo[0]["id_image"], PDO::PARAM_INT);
             $stmt->execute();
             $current = $stmt->fetch();
+            $query = 'SELECT DATE_PART(\'day\', plage.date_fin::timestamp - plage.date_debut::timestamp) AS nbJours from test.plage  ';
+            $stmt = $dbh->prepare($query);
+            $stmt->execute();
+            $nbJours = $stmt->fetch();
+           
         } catch (PDOException $e) {
             print "Erreur !: " . $e->getMessage() . "<br/>";
             die();
@@ -370,8 +375,8 @@
                     <div class="info_prix">
 
                         <div class="row">
-                            <div class="label"><?php echo ($info["prix_base_ht"]); ?>€ x 14 nuits</div>
-                            <div class="value"><?php echo ($info["prix_base_ht"]) * 14; ?>€</div>
+                            <div class="label"><?php echo ($info["prix_base_ht"]); ?>€ x <?php echo ($nbJours["nbjours"]); ?> nuits</div>
+                            <div class="value"><?php echo ($info["prix_base_ht"]) * ($nbJours["nbjours"]); ?>€</div>
                         </div>
                         <?php
                         $somme = 0;
@@ -391,13 +396,14 @@
                         </div>
                         <div class="row">
                             <div class="label">TVA</div>
-                            <div class="value"><?php echo ($info["prix_base_ht"]) * 14 * 1.10 - ($info["prix_base_ht"]) * 14; ?>€</div>
+                            <div class="value"><?php echo ($info["prix_base_ht"]) * ($nbJours["nbjours"]) * 1.10 - ($info["prix_base_ht"]) * ($nbJours["nbjours"]); ?>€</div>
                         </div>
                         <hr>
 
                         <div class="row">
                             <div class="label_t">Total</div>
-                            <div class="value">EUR <?php echo ($info["prix_base_ht"]) * 14 * 1.10 + $somme + 29.96 ?>€</div>
+                            <?php $prixFinal = ($info["prix_base_ht"]) * ($nbJours["nbjours"]) * 1.10 + $somme + 29.96  ?>
+                            <div class="value">EUR <?php echo($prixFinal) ?>€</div>
                         </div>
                     </div>
 
@@ -492,7 +498,7 @@
 
                     $id_reserv = $_POST["reservation"];
                     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                        $prix_devis = $info["prix_base_ht"];
+                        $prix_devis = $prixFinal;
                         $delai_acceptation = date("Y-m-d");
                         $acceptation = true;
                         $date_devis = date("Y-m-d H:i:s");

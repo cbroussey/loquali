@@ -35,7 +35,7 @@
 <body>
 
 <header>
-    <a href="">
+    <a href="index.php">
       <img src="asset/img/logo.png" alt="logo">
     </a>
     <div></div>
@@ -94,7 +94,7 @@
     ?>
     
 
-    <a href="index.php">
+    <a href="compteAccueil.php">
         <img src="asset/icons/bleu/toBack.svg" alt="" id="pagePersoSvgBack">
     </a>
         <div class="infosProprio">
