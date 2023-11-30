@@ -419,7 +419,7 @@
 
 
                 if ($qui == "proprietaire") {
-                    echo ("proprietaire");
+                  
 
                     if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         $deb = $plage["date_debut"];
@@ -487,7 +487,7 @@
                 <?php
                 if ($qui == "client") { ?>
                     <?php
-                    echo ("clientFinal");
+                  
 
 
                     $id_reserv = $_POST["reservation"];
