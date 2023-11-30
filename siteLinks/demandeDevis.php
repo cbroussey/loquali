@@ -62,7 +62,6 @@
 
         include('connect_params.php');
         try {
-
             $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
             $id = $_POST["id"];
             $qui = $_POST["qui"];
@@ -190,14 +189,15 @@
 
                     <div class="personne">
                         <img src="asset/icons/<?php echo ($qui == "proprietaire" || $qui == "client") ? "blanc" : "bleu"; ?>/personne.svg" alt="">
-                        <div class="ligne_champ_nombre_ajlog">
+                        <div class=<?php echo ($qui == "proprietaire" || $qui == "client") ? "ligne_champ_nombre_ajlog1" : "ligne_champ_nombre_ajlog"; ?>>
 
-                            <div class="number-input">
+                            <div class=<?php echo ($qui == "proprietaire" || $qui == "client") ? "number-input1" : "number-input"; ?> >
                                 <?php if ($qui != "client") { ?> <form id="test" action="demandeDevis.php" class="" method="POST"> <?php } ?>
-                                    <button type="button" onclick="decrement('Personne')" class="minus">-</button>
+                                    <button type="button" onclick="decrement('Personne')" class="minus" style=<?php echo ($qui == "proprietaire" || $qui == "client") ? "display:none" : ""; ?>>-</button>
 
-                                    <input class="quantity" id="Personne" name="Personne" value="1" type="text">
-                                    <button type="button" onclick="increment('Personne')" class="plus">+</button>
+                                    <input class="quantity" id="Personne" name="Personne" value="<?php echo ($qui == "proprietaire" || $qui == "client") ? htmlspecialchars($_POST["Personne"]) : "1"; ?>" readonly type="text">
+
+                                    <button type="button" onclick="increment('Personne')" class="plus" style=<?php echo ($qui == "proprietaire" || $qui == "client") ? "display:none" : ""; ?>>+</button>
                             </div>
                             <label for="Personne">Personnes</label>
                         </div>
@@ -327,7 +327,7 @@
                 ?>
                     <div id="input_check_box_info">
                         <label>
-                            <input type="checkbox" name="menage" value="1" <?php echo ($qui == "proprietaire" || $qui == "client") ? ' disabled="disabled"' : ""; ?><?php echo ($_POST["menage"] == "1") ? 'checked' : ""; ?>>
+                            <input type="checkbox" name="menage" value="1" <?php echo ($qui == "proprietaire" || $qui == "client") ? ' disabled="disabled"' : ""; ?><?php echo (isset($_POST["menage"]) && $_POST["menage"] == "1") ? 'checked' : ""; ?>>
                             Ménage
                         </label>
                     </div>
@@ -337,7 +337,7 @@
 
                 <div id="input_check_box_info">
                     <label>
-                        <input type="checkbox" name="animaux" value="1" <?php echo ($qui == "proprietaire" || $qui == "client") ? ' disabled="disabled"' : ""; ?><?php echo ($_POST["menage"] == "1") ? 'checked' : ""; ?>>
+                        <input type="checkbox" name="animaux" value="1" <?php echo ($qui == "proprietaire" || $qui == "client") ? ' disabled="disabled"' : ""; ?><?php echo (isset($_POST["animaux"]) && $_POST["animaux"] == "1") ? 'checked' : ""; ?>>
 
                         Animaux de compagnie
                     </label>
