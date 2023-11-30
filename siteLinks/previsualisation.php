@@ -90,7 +90,6 @@
             $reglement_interieur = $info["Règlement"];
 
             $id_compte = $_SESSION['userId'];
-            echo ($_SESSION['userId']."||||");
 
 
             // Préparer la requête d'insertion
@@ -183,7 +182,6 @@
             $stmt->execute();
             $id_log_T = $stmt->fetch();
             $id_log=$id_log_T["id_logement"];
-            echo $id_log."||||";
 
             /* Ajout des aménagements */
 

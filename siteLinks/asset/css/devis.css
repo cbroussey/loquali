@@ -754,3 +754,56 @@ h1 {
         line-height: normal !important;
     }
 }
+
+
+.number-input {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  /* Style pour les boutons d'incrémentation et de décrémentation */
+  .number-input button {
+    color: var(--textColor);
+    font-weight: bolder;
+    background-color: var(--secondBG);
+    border: 1px solid #1D4C77;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    font-size: 11px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 20px;
+  }
+  
+  /* Style pour le champ number */
+  .number-input input[type="text"] {
+    padding: 5px;
+    font-size: 16px;
+    width: 40px; 
+    text-align: center;
+    border: none; 
+    -webkit-appearance: none; 
+    appearance: none;
+    background-color: #fff;
+    color: var(--textColor);
+  
+    margin: 0 5px;
+  }
+
+  .ligne_champ_nombre_ajlog{
+    display: flex;
+  }
+
+.ligne_champ_nombre_ajlog label {
+    color: #1D4C77;
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin: 20px;
+}

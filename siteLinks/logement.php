@@ -1,6 +1,5 @@
 <?php
   session_start();
-  print_r("$_GET");
     include('connect_params.php');
     $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
     $query = $dbh->prepare("SELECT * FROM test.logement WHERE id_logement = :idlog");
