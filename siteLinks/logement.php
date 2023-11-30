@@ -375,6 +375,7 @@
                 <div class="rerservation_log">
                     <div class="haut_rerservation_log">
                         <h2><span><?php echo($info["prix_ttc"]); ?> €</span>  / nuit</h2>
+                        <?php// (isset($_SESSION['userType']) ? 'demandeDevis.php' : 'connexion.php') ?>
                         <form action="demandeDevis.php" method="POST">
                             <input name="id" value="<?php echo($id);?>" hidden readonly>
                             <input name = "qui" value="" hidden readonly> 
@@ -739,7 +740,5 @@
 </div>
 
 </footer>
-    <script src="../asset/js/script.js"></script>
-
 </body>
 </html>
