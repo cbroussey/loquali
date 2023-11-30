@@ -59,6 +59,7 @@ nav > h4 > a {
 
 /******************************************* HEADER ********************************************/
 header {
+  z-index:50;
   background-color: #F5F5F5;
   height: 8vh; 
   display:flex;
@@ -394,4 +395,89 @@ footer > div:last-of-type {
     height: 230px;
   }
 
+}
+
+/* header popup format tel */
+
+#menu {
+  z-index:25;
+  display: none;
+  position: absolute;
+  background-color: #1D4C77;
+  width: 60%;
+  height: 100%;
+  right: 0;
+  color: white;
+  font-size: 15px;
+  font-weight: 800;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#choix{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  margin-top: 120px;
+}
+
+.bouton{
+  width: 85%;
+  height: 75px;
+  border-radius: 10px;
+  background: #97ADC1;
+  box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.25) inset;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin: 12px 0;
+}
+
+.bouton:hover {
+  background: #2072BC;
+}
+
+#separe {
+  background-color: white;
+  height: 2px;
+  width: 80%;
+  margin-top: 35px;
+}
+
+#menu p{
+  margin: 35px 0;
+}
+
+#langues{
+  width: 85%;
+  height: 156px;
+  border-radius: 10px;
+  background: #97ADC1;
+  box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.25) inset;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+#langues a{
+  width: 95%;
+  padding: 20px 0;
+  text-align: center;
+}
+
+#langues a:hover {
+  background: #2072BC;
+  border-radius: 10px;
+}
+
+#separe2 {
+  background-color: white;
+  height: 2px;
+  width: 80%;
 }
