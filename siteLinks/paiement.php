@@ -28,7 +28,7 @@
         require_once("connect_params.php");
         $db = new PDO("$driver:host=$server;dbname=$dbname", "$user", "$pass");
         $res = $db->prepare(
-            'SELECT *, DATE_PART(\'day\', reservation.fin_reservation::timestamp - reservation.debut_reservation::timestamp) AS nbJours FROM test.devis
+            'SELECT *, DATE_PART(\'day\', reservation.fin_reservation::timestamp - reservation.debut_reservation::timestamp) AS nbJours, test.reservation.id_compte AS resa_id_compte FROM test.devis
             JOIN test.reservation ON test.devis.id_reservation = test.reservation.id_reservation
             JOIN test.logement ON test.reservation.id_logement = test.logement.id_logement
             JOIN test.image ON test.logement.id_image_couv = test.image.id_image
@@ -38,7 +38,7 @@
         $res->execute();
         $res = $res->fetchAll();
         /*?><pre style="padding-left: 1em;"><?php print_r($res) ?></pre><?php*/
-        if (isset($_SESSION["userId"]) && $_SESSION["userId"] == $res[0]["id_compte"] && $res && $res[0]["acceptation"]) {
+        if (isset($_SESSION["userId"]) && $_SESSION["userId"] == $res[0]["resa_id_compte"] && $res && $res[0]["acceptation"]) {
             $res = $res[0];
             $charges = $db->prepare(
                 'SELECT test.charges_selectionnees.nom_charge, test.prix_charge.prix_charge FROM test.reservation

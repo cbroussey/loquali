@@ -818,7 +818,6 @@ h2 span{
 }
 
 #bg .description_log h4{
-  font-size: 20;
   font-weight: bold;
   text-decoration: underline;
 }
@@ -1048,7 +1047,7 @@ h2 span{
   border-radius: 5px;
   margin-left: 20px;
   transform: scale(1);
-  transition: all 0.2 ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 
 .bouton_date_log:hover{
@@ -1526,7 +1525,6 @@ h2 span{
   }
  
   .res_and_map_log{
-  float: center;
   margin-top: 0;
   position: static;
   width: 100%;
@@ -4980,7 +4978,6 @@ font-weight: 500;
 
 #infosTous {
   display: flex;
-  justify-content: row;
   align-items: center;
   margin-bottom: 20px;
 }
@@ -4999,7 +4996,6 @@ font-weight: 500;
 
 .infos figure{
   display: flex;
-  justify-content: row;
   align-items: center;
   margin-top: 15px;
 
@@ -5032,8 +5028,6 @@ font-weight: 500;
 
 #aProposDeMoi div {
   display: flex;
-  justify-content: row;
-
   margin-top: 10px;
 }
 
@@ -5082,7 +5076,6 @@ font-weight: 500;
   padding: 40px 55px 20px;
   display: flex;
   justify-content:flex-start;
-  align-items: space-around;
   flex-direction: column;
 }
 

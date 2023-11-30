@@ -42,9 +42,10 @@
             $nomAffichage = $_POST['prenom'] . " " . $_POST['nom'];
 
             //binding des données dans la requête
+            $date = date("Y-m-d H:i:s");
             $stmt->bindParam(':mdp', $hash, PDO::PARAM_STR);
             $stmt->bindParam(':nom_affichage', $nomAffichage, PDO::PARAM_STR);
-            $stmt->bindParam(':date_creation', date("Y-m-d H:i:s"), PDO::PARAM_STR);
+            $stmt->bindParam(':date_creation', $date, PDO::PARAM_STR);
             $stmt->bindParam(':nom', $_POST['nom'], PDO::PARAM_STR);
             $stmt->bindParam(':prenom', $_POST['prenom'], PDO::PARAM_STR);
             $stmt->bindParam(':adresse_mail', $_POST['email'], PDO::PARAM_STR);

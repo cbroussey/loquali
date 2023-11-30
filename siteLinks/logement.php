@@ -1,6 +1,5 @@
 <?php
   session_start();
-  print_r("$_GET");
     include('connect_params.php');
     $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
     $query = $dbh->prepare("SELECT * FROM test.logement WHERE id_logement = :idlog");
@@ -376,7 +375,7 @@
                     <div class="haut_rerservation_log">
                         <h2><span><?php echo($info["prix_ttc"]); ?> €</span>  / nuit</h2>
                         <?php// (isset($_SESSION['userType']) ? 'demandeDevis.php' : 'connexion.php') ?>
-                        <form action="demandeDevis.php" method="POST">
+                        <form action="<?php if ($_SESSION['userType']){?>demandeDevis.php<?php } else {?>connexion.php<?php } ?>" method="POST">
                             <input name="id" value="<?php echo($id);?>" hidden readonly>
                             <input name = "qui" value="" hidden readonly> 
                             <button class="bouton_res_log">
