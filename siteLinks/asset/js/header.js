@@ -30,3 +30,17 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
+
+const hamburger = document.getElementById("headerHamburger");
+const menu = document.getElementById("menu");
+var isToggle = false;
+
+hamburger.addEventListener('click', function() {
+    if (isToggle) {
+        isToggle = false;
+        menu.style.display = "none";
+    } else {
+        isToggle = true;
+        menu.style.display = "block";
+    }
+});
