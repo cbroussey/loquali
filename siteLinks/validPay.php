@@ -20,8 +20,9 @@
                 $res = $db->prepare(
                     'INSERT INTO test.cb VALUES (:num, DATE(:validite), :crypto, :compte);'
                 );
+                $validiteFDP = "01/" . $_POST['expiry'];
                 $res->bindParam('num', $_POST['cardNumber'], PDO::PARAM_STR);
-                $res->bindParam('validite', "01/" . $_POST['expiry'], PDO::PARAM_STR);
+                $res->bindParam('validite', $validiteFDP, PDO::PARAM_STR);
                 $res->bindParam('crypto', $_POST['crypto'], PDO::PARAM_STR);
                 $res->bindParam('compte', $_SESSION['userId'], PDO::PARAM_INT);
                 $res->execute();
