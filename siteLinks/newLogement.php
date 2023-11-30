@@ -132,7 +132,7 @@
 
                                 <input type="text" id="adresse" name="adresse" class="select_info_log_ajlog" required placeholder="Adresse postale"/>
 
-                                <input type="text" id="code_postal" name="code_postal" class="select_info_log_ajlog" required placeholder="Code postale"/>
+                                <input type="text" id="code_postal" name="code_postal" class="select_info_log_ajlog" required placeholder="Code postal" pattern="(29|35|22|56)[0-9]{3}" title="Veuillez entrer un code postal valide en Bretagne"/>
 
                             </div>
 

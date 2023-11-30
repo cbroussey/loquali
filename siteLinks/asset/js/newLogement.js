@@ -10,6 +10,8 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 
+
+
 function increment(id) {
     const input = document.getElementById(id);
     let value = parseInt(input.value, 10) || 0;
@@ -32,6 +34,21 @@ function decrement(id) {
 }
 
 
+document.getElementById('code_postal').addEventListener('input', function() {
+    var codePostal = this.value;
+    var regexBretagne = /^(29|35|22|56)[0-9]{3}$/;
+
+    var message = document.getElementById('message');
+
+    if (regexBretagne.test(codePostal)) {
+      message.textContent = 'Code postal valide en Bretagne.';
+      message.style.color = 'green';
+    } else {
+      message.textContent = 'Veuillez entrer un code postal valide en Bretagne.';
+      message.style.color = 'red';
+    }
+  });
+
 
 // Valider l'entrée pour les champs de texte
 document.getElementById('nbChambre').addEventListener('input', function () {
@@ -49,20 +66,9 @@ document.getElementById('nbChambre').addEventListener('input', function () {
     this.value = parseInt(this.value).toString();
 });
 
-document.getElementById('nbLit').addEventListener('input', function () {
-    this.value = this.value.replace(/\D/g, '');
-    if (this.value === "") {
-        this.value = "0";
-    }
-    if (parseInt(this.value) > 99) {
-        this.value = "99";
-    }
-    if (parseInt(this.value) < 0) {
-        this.value = "0";
-    }
-    // Supprimer les zéros en tête
-    this.value = parseInt(this.value).toString();
-});
+
+
+
 
 document.getElementById('nbSalle_bain').addEventListener('input', function () {
     this.value = this.value.replace(/\D/g, '');

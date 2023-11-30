@@ -84,7 +84,7 @@
             $nb_chambre = $info["nbChambre"];
             $nb_salle_de_bain = $info["nbSalle_bain"];
             $code_postal = 29370;
-            $departement = $info["dep"];
+            $departement = htmlentities($info["dep"]);
             $info_arrivee = $info["info_arrive"];
             $info_depart = $info["info_depart"];
             $reglement_interieur = $info["Règlement"];
