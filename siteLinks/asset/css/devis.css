@@ -756,7 +756,7 @@ h1 {
 }
 
 
-.number-input {
+.number-input, .number-input1 {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -794,11 +794,13 @@ h1 {
     margin: 0 5px;
   }
 
-  .ligne_champ_nombre_ajlog{
+  .ligne_champ_nombre_ajlog,   .ligne_champ_nombre_ajlog1{
     display: flex;
+
+    align-items: center;
   }
 
-.ligne_champ_nombre_ajlog label {
+  .ligne_champ_nombre_ajlog label {
     color: #1D4C77;
     font-family: Inter;
     font-size: 20px;
@@ -807,3 +809,41 @@ h1 {
     line-height: normal;
     margin: 20px;
 }
+
+
+#test{
+    display: flex;
+}
+
+#test .plus{
+    margin: 0;
+}
+
+
+.number-input1 input[type="text"] {
+    padding: 5px;
+    font-size: 20px;
+    width: 40px; 
+    text-align: center;
+    border: none; 
+    -webkit-appearance: none; 
+    appearance: none;
+    background-color: #7297B8;
+    color: white;
+  
+    margin: 0 5px;
+  }
+
+  .number-input1 input[type="text"]:focus{
+    border: none;
+  }
+
+  .ligne_champ_nombre_ajlog1 {
+    color: #ffffff;
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin: 20px;
+  }

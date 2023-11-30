@@ -843,13 +843,20 @@ h2 span{
 
 .titre_log h3{
   margin-top: 0;
-  text-decoration: underline;
 }
 
 .titre_log_bas{
   display: flex;
   align-items: center;
   margin: 10px 0;
+}
+
+#detailgenre {
+  color: #1D4C77;
+  font-size: 20px;
+  font-weight: 500;
+  text-decoration-line: underline;
+  margin-left: 20px;
 }
 
 .titre_log_bas p{
@@ -1051,7 +1058,7 @@ h2 span{
 }
 
 .bouton_date_log:hover{
-  transform: scale(1.05);
+  background-color: #43688A;
   color: #fff;
   transition: all 0.2s ease-in-out;
 }
@@ -1105,6 +1112,7 @@ h2 span{
 
 .bouton_res_log h1 {
   color: #fff;
+  font-size: 25px;
 }
 
 .bouton_res_log{
@@ -1113,14 +1121,16 @@ h2 span{
   color: var(--secondBG);
   border-radius: 5px;
   height: 60px;
-  width: 95%;
+  width: 250px;
   justify-content: center;
   align-items: center;
   transform: scale(1);
+  border: none;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
 .bouton_res_log:hover{
-  transform: scale(1.05);
+  background-color:#7297B8;
   transition: all 0.2s ease-in-out;
 }
 
@@ -1176,6 +1186,9 @@ h2 span{
 }
 
 .sep_descri_regle_log{
+  background-color: #1D4C77;
+  width: 30%;
+  height: 2px;
   margin-left: 5%;
 }
 
@@ -1605,6 +1618,189 @@ h2 span{
 }
 
 
+
+@media screen and (min-width: 0px) and (max-width: 1100px) { 
+
+  #bg h3 {
+    font-size: 20px;
+  }
+
+ .titre_log_bas svg{
+  width: 15px;
+  height: auto;
+ }
+
+ .titre_log_bas p{
+  margin-top: 5px;
+ }
+
+ #detailgenre {
+  font-size: 15px;
+  margin-left: 10px;
+}
+
+.lig_images_log_droite img {
+  display: none;
+}
+
+.images_log img {
+  margin-left: 25%;
+}
+
+.barre_log {
+  display: none;
+}
+
+.sticky_res_and_map_log {
+  background-color: #F5F5F5;
+  border-top: 1px solid rgba(0, 0, 0, 0.20);
+
+
+}
+
+.proprio_log {
+  width: 153px;
+  height: 77px;
+  margin-left: 0%;
+  
+}
+
+.details_log {
+  width: 253px;
+height: 77px;
+}
+
+.photo_profil_proprio_log {
+  background: url(asset/img/profils/4.png) center/cover;
+  width: 40px;
+  height: 40px;
+  border-radius: 40px;
+  border: 1px solid #2072BC;
+
+  left: 25px;
+  margin-top: -15px;
+}
+
+.barre_info_log {
+  padding-top: 3.5%;
+  display: flex;
+  justify-content: space-around;
+  height: 100px;
+  margin: 0 2.5%;
+}
+
+
+
+.block_info_log h2 {
+  width: 110px;
+  height: 11px;
+  font-size: 15px;
+  font-weight: 700;
+
+  margin: 0;
+  margin-left: -20px;
+}
+
+#nomeuhgenre{
+
+  margin-left: 10px;
+}
+
+.info_proprio_log {
+  margin-left: 0;
+  margin-bottom: 0;
+
+}
+
+.info_proprio_log svg{
+  width: 10px;
+  height: auto;
+}
+
+.block_info_log{
+  margin-bottom: 10px;
+}
+
+.txt_details_log {
+  text-align: center;
+}
+
+.details_log p {
+  margin-left: 15%;
+}
+
+.txt_info_log {
+  margin: 10px 0;
+}
+
+.rerservation_log {
+  margin-bottom: 8%;
+  background-color: #1d4c77;
+  color: var(--secondBG);
+  width: 310px;
+  border-radius: 5px;
+
+  margin-right:   auto;
+  margin-left:auto;
+}
+
+.bouton_res_log h1 {
+  font-size: 20px;
+}
+
+.bouton_res_log{
+  width: 160px;
+  height: 40px;  
+}
+
+.rerservation_log>.detail_reservation_log>p {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.elem_reservation_log {
+  height: 27px;
+}
+
+.elem_reservation_log img {
+  width: 27px;
+  height: 27px;
+}
+
+.group_res_info_log{
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+#bg .description_log h4 {
+font-size: 15px;
+font-weight: 800;
+}
+
+.description_log p {
+  margin-bottom: 10px;
+  font-weight: 300;
+}
+
+.reglement_log h4 {
+  font-size: 15px;
+font-weight: 800;
+text-decoration: underline;
+  margin-bottom: 5%;
+}
+
+#bg p {
+  font-size: 10px;
+  font-weight: 300;
+}
+
+.sep_descri_regle_log {
+  width: 50%;
+  margin: 0;
+}
+
+
+}
  
 /******************************************** DEMANDE DEVIS ********************************************/
 .main-devis {
