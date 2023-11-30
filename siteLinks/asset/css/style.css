@@ -4126,7 +4126,7 @@ opacity: 1;
 
 .nav {
 width: 20%;
-height: 92vh;
+height: 100vh;
 background-color: #7297B8;
 display: flex;
 justify-content: space-evenly;
@@ -4533,16 +4533,11 @@ width: 100%;
 
 
 
-
-
-
-
-
 @media screen and (min-width: 0px) and (max-width: 1100px) { 
 
   #compteInfosPerso {
     position: absolute;
-    top: 25%;
+    top: 20%;
     left: 15%;
     right: 15%;
 
@@ -4561,8 +4556,6 @@ width: 100%;
     .displayInfos{
       margin-top: 10px;
     }
-
-    
     
     .modifications{
       margin-top: -50px;
@@ -4588,11 +4581,6 @@ width: 100%;
     
     color: #1D4C77;
     }
-
-   
-
-    
-  
 
 }
 
@@ -4643,6 +4631,72 @@ width: 100%;
       color: var(--textColor);
   }
 
+  @media screen and (min-width: 0px) and (max-width: 500px) { 
+
+    #compteInfosPerso {
+      top: 25%;
+    }
+
+    .lignes {
+      padding-top: 30px;
+      padding-bottom: 30px;
+      margin:  0 -10%;
+    }
+
+    .lignes p{
+      font-size: 12px;
+    }
+    
+    .displayInfos{
+      margin-top: 10px;
+    }
+
+    .modifications{
+      margin-top: -50px;
+      margin-bottom: 10px;
+      
+      font-weight: 400;
+      font-size: 15px;
+
+      background-color: #2072BC;
+      color: #F5F5F5;
+      text-decoration: none;
+      padding: 10px;
+      border-radius: 5px;
+      
+      cursor: pointer;
+    }
+    
+    #compteInfosPerso input {
+    width: 150px;
+    padding: 5px;
+    margin-right: 10px;
+    margin-top: 0px;
+    
+    color: #1D4C77;
+    }
+
+
+
+    .boutonInfosstyle {
+      margin-top: -40px;
+      color: #1d4c77;
+      text-decoration: underline;
+      border: none;
+      background: none;
+      font-size: 15px;
+      font-weight: 400;
+      background-color: #2072BC;
+      color: #F5F5F5;
+      text-decoration: none;
+      padding: 10px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  
+
+  }
+
   
 
 }
@@ -4675,21 +4729,21 @@ font-weight: 500;
 
     }
     
-    .lignes {
+    #compteConnection  .lignes {
       padding-top: 40px;
       padding-bottom: 40px;
       margin:  0 -10%;
     }
 
-    .lignes p{
+    #compteConnection .lignes p{
       font-size: 15px;
     }
     
-    .displayInfos{
+    #compteConnection .displayInfos{
       margin-top: 10px;
     }
     
-    .modifications{
+    #compteConnection .modifications{
       margin-top: -50px;
       margin-bottom: 10px;
       
@@ -4716,6 +4770,14 @@ font-weight: 500;
     
   
 
+}
+
+@media screen and (min-width: 0px) and (max-width: 500px) {
+
+  #compteConnection .modifications{
+    margin-top: -40px;
+
+  }
 }
 
 
