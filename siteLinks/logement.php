@@ -1,5 +1,6 @@
 <?php
   session_start();
+  print_r("$_GET");
     include('connect_params.php');
     $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
     $query = $dbh->prepare("SELECT * FROM test.logement WHERE id_logement = :idlog");
@@ -17,6 +18,7 @@
             print "Erreur !: " . $e->getMessage() . "<br/>";
             die();
         }
+        
         header("Location: index.php");
     }
 
@@ -109,7 +111,7 @@
 
 
     <header>
-    <a href="">
+    <a href="index.php">
       <img src="asset/img/logo.png" alt="logo">
     </a>
     <div></div>
@@ -647,6 +649,7 @@
                 <p>Êtes-vous sûr de vouloir supprimer ce logement ?</p>
                 <form method="GET" action="logement.php">
                     <input type="hidden" name="confirmDelete" value="<?php echo $id ?>">
+
                     <button class="confirm-button">Confirmer</button>
                 </form>
             
