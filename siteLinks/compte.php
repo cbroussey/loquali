@@ -1,10 +1,29 @@
 <?php
   session_start();
   /* if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  session_destroy();
+  header("Location: index.php");
+  exit(); }*/
+  include('connect_params.php');
+  $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
+  $query = $dbh->prepare("SELECT * FROM test.compte WHERE id_compte = :idcompte");
+  $query->bindParam('idcompte', $_GET["confirmDelete"], PDO::PARAM_INT);
+  $query->execute();
+  $query = $query->fetchAll();
+  if (isset($_GET["confirmDelete"]) ) {
+    try {
+      $query = "DELETE FROM test.compte WHERE test.compte.id_compte = :id_compte";
+      $stmt = $dbh->prepare($query);
+      $stmt->bindParam('id_compte', $_GET["confirmDelete"], PDO::PARAM_INT);
+      $stmt->execute();
+    } catch (PDOException $e) {
+      print "Erreur !: " . $e->getMessage() . "<br/>";
+      die();
+    }
     session_destroy();
     header("Location: index.php");
-    exit(); }*/
-  
+    exit();
+  }
 ?>
 
 <!DOCTYPE html>
@@ -14,6 +33,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="asset/css/headerAndFooter.css">
     <link rel="stylesheet" href="asset/css/style.css">
+    <script src = "asset/js/boutonSupprimer.js"></script>
     <title>Comptes - Infos personnelles</title>
 </head>
 <body>
@@ -378,8 +398,19 @@
 
       <div class="lignes">
         <p>Compte</p>
-        <p class="displayInfos">Désativez votre compte</p>
-        <button class="modifications">Désactiver</button>
+        <p class="displayInfos">Désactivez votre compte</p>
+        <button class="modifications" onclick="openModal()">Désactiver</button>
+          <div class="confirmation-modal" id="myModal">
+            <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <p>Êtes-vous sûr de vouloir supprimer ce compte ?</p>
+            <form method="GET" action="compte.php">
+            <input type="hidden" name="confirmDelete" value="<?php echo $id ?>">
+            <button class="confirm-button">Confirmer</button>
+            <?php
+            ?>
+            </form>
+          </div>
       </div>
     </div>
 
