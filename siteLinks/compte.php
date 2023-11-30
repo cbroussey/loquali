@@ -450,6 +450,7 @@
     </footer>
 
   <script src="asset/js/header.js"></script>
+  <script src="asset/js/modifInfosCompte.js"></script>
   <script src="asset/js/account.js"></script>
 
 </body>

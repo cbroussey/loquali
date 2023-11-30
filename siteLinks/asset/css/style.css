@@ -4557,9 +4557,13 @@ font-weight: 500;
   min-height: 92vh;
   float: right;
   display: flex;
-  justify-content: row;
+  justify-content: center;
+  flex-direction: row;
   margin-top: 20px;
 }
+
+
+
 
 .infosProprio{
   position: relative;
@@ -4669,8 +4673,7 @@ font-weight: 500;
   color: #1D4C77;
   position: initial;
   margin-top: 80px;
-  margin-left: 15%;
-  margin-right: 8px;
+  margin-left: 10%;
   margin-bottom: 50px;
 }
 
@@ -4680,8 +4683,7 @@ font-weight: 500;
 #titreLogement {
   margin-top: -30px;
   margin-bottom: 14px;
-  margin-left: 250px;
-
+  margin-left: 36%;
   font-size: 25px;
   
 }
@@ -4697,9 +4699,9 @@ font-weight: 500;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
   padding: 40px 55px 20px;
   display: flex;
-  justify-content:center;
+  justify-content:flex-start;
   align-items: space-around;
-  flex-direction: row;
+  flex-direction: column;
 }
 
 .unLogement {
@@ -4741,14 +4743,14 @@ font-weight: 500;
 
 
 .noteAvis{
- display: flex;
- justify-content: row;
+  display: flex;
+  flex-direction: row;
   margin-top: 5px;
- margin-bottom: 90px;
+  margin-bottom: 16%;
 }
 
 .noteAvis img {
-  margin-top: 10px;
+  margin-top: 5px;
 }
 
 .noteAvis p {
@@ -4758,7 +4760,7 @@ font-weight: 500;
 .listeUnLogement {
   display: flex;
   flex-direction: row;
-
+  height: 30%;
 }
 
 .listeUnLogement div img {
@@ -5080,7 +5082,7 @@ font-weight: 500;
       align-content: center;
       flex-wrap: wrap;
       margin-top: 30%;
-      margin-left: 25%;
+      margin-left: -0%;
       
     }
 
