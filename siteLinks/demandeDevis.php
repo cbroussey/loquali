@@ -13,7 +13,7 @@
 
 <body>
     <header>
-        <a href="">
+        <a href="index.php">
             <img src="asset/img/logo.png" alt="logo">
         </a>
         <div></div>
@@ -373,13 +373,8 @@
                         </div>
                         <?php
                         $somme = 0;
-
-
-
-
                         if (!empty($charge)) {
-                            if (($qui == "proprietaire" || $qui == "client") && ($_POST["charge"] == $value["nom_charge"])) {
-                               
+                        
                                 foreach ($charge as $elemnt => $value) { ?>
                                     <div class="row">
                                         <div class="label"><?php echo ($value["nom_charge"]); ?></div>
@@ -390,7 +385,7 @@
                                 }
                             }
                             $nom_Charge = $value["nom_charge"];
-                        } ?>
+                         ?>
                         <div class="row">
                             <div class="label">Taxe de séjour</div>
                             <div class="value">29.96€</div>
