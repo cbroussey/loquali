@@ -192,16 +192,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($_SESSION['userType'] === 'client') {
             ?>
                 <div class="separateurCompte"></div>
-                <a href="" id="comptePro">Passer à un compte propriétaire</a>
+                <a href="createOwner.php" id="comptePro">Passer à un compte propriétaire</a>
             <?php
-            }
+            }   
         ?>
 
         <?php
             if ($_SESSION['userType'] === 'proprietaire') {
             ?>
                 <div class="separateurCompte"></div>
-                <a href="" id="comptePro">Créer une annonce</a>
+                <a href="newLogement.php" id="comptePro">Créer une annonce</a>
             <?php
             }
         ?>

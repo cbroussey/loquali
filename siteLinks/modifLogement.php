@@ -90,10 +90,8 @@
 
         foreach($dbh->query("SELECT * from test.lit WHERE id_logement =$id", PDO::FETCH_ASSOC) as $row) {
 
-            $lit=$row;
+            $lit[]=$row;
         }
-
-      
 
 
 
@@ -126,7 +124,7 @@
 
     <div class="sticky_header_log">
     <header>
-    <a href="">
+    <a href="index.php">
       <img src="asset/img/logo.png" alt="logo">
     </a>
     <div></div>
@@ -261,6 +259,7 @@
                     </div>
 
 
+
                     <div class="ajout_nombre_piece_ajlog">
 
                         <h2>Informations du logement</h2>
@@ -278,7 +277,7 @@
                             <label for="nbLit">Lit</label>
                             <div class="number-input">
                                 <button type="button" onclick="decrement('nbLit')" class="minus">-</button>
-                                <input class="quantity" id="nbLit" name="nbLit" value="<?php echo($lit["nombre_lit"]); ?>" type="text">
+                                <input class="quantity" id="nbLit" name="nbLit" value="<?php echo($lit[0]["nombre_lit"]); ?>" type="text">
                                 <button type="button" onclick="increment('nbLit')" class="plus">+</button>
                             </div>
                         
@@ -509,7 +508,7 @@
                         <h2>Description du logement</h2>
 
 
-                        <textarea id="description" class="txt_area_ajlog" name="description" rows="7" cols="100" placeholder="Magnifique maison en bord de mer" ><?php echo($info["descriptif"]); ?></textarea>
+                        <textarea id="description2" class="txt_area_ajlog" name="description" rows="7" cols="100" placeholder="Magnifique maison en bord de mer" ><?php echo($info["descriptif"]); ?></textarea>
 
                     </div>
 

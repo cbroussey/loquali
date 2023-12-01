@@ -415,6 +415,30 @@
                 }
 
 
+                $stmt = $dbh->prepare("
+                INSERT INTO test.lit (
+                    nombre_lit,
+                    id_logement
+                ) VALUES (
+                    :nombre_lit,
+                    :id_logement
+                )
+                ");
+
+                $stmt->bindParam(':nombre_lit', $info["nbLit"]);
+                $stmt->bindParam(':id_logement', $id_log);
+
+
+                try {
+                    // Exécuter la requête
+                    $stmt->execute();
+
+                } catch (PDOException $e) { 
+                    // Afficher l'erreur en cas d'échec de la requête
+                    echo "Erreur lors de l'insertion : " . $e->getMessage();
+                }
+
+
                 $dbh = null;
 
 
