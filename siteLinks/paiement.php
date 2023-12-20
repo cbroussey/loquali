@@ -43,7 +43,7 @@
             $charges = $db->prepare(
                 'SELECT test.charges_selectionnees.nom_charge, test.prix_charge.prix_charge FROM test.reservation
                 INNER JOIN test.prix_charge ON test.reservation.id_logement = test.prix_charge.id_logement
-                INNER JOIN test.charges_selectionnees ON test.charges_selectionnees.nom_charge = test.prix_charge.nom_charge
+                INNER JOIN test.charges_selectionnees ON test.reservation.id_reservation = test.charges_selectionnees.id_reservation
                 WHERE test.charges_selectionnees.id_reservation = :idres AND test.prix_charge.id_logement = :idlog'
             );
             $charges->bindParam('idres', $res["id_reservation"], PDO::PARAM_INT);
