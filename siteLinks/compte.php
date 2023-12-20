@@ -279,8 +279,6 @@ if (isset($_GET["confirmDelete"])) {
       }
       ?>
 
-
-
       <div class="nav-item" data-color="account">
         <figure>
           <div class="img-area">
@@ -291,6 +289,9 @@ if (isset($_GET["confirmDelete"])) {
         </figure>
       </div>
 
+      <?php
+      if ($_SESSION['userType'] === 'client') {
+      ?>
       <div class="nav-item" data-color="account">
         <figure>
           <div class="img-area">
@@ -300,6 +301,9 @@ if (isset($_GET["confirmDelete"])) {
           <figcaption>Paiement</figcaption>
         </figure>
       </div>
+      <?php
+      }
+      ?>
 
 
       <div id="compteAcc">
@@ -313,6 +317,62 @@ if (isset($_GET["confirmDelete"])) {
 <!-- ACCUEIL -->
 
 <div id="compteAccueil">
+
+  <div class="accueil">
+  <p id="bonjour">Bonjour <?php echo ($infos['nom']) ?> !</p>
+    <div class="container">
+    
+        <label for="fileInput">
+            <?php //récupération du nom de l'image (avec extension)
+        
+            if ($images = opendir('asset/img/profils/')) {
+                while (false !== ($fichier = readdir($images))) {
+                    $imgInfos = pathinfo($fichier);
+                    if ($imgInfos['filename'] == $_SESSION['userId']) {
+                        $pathName = 'asset/img/profils/' . $fichier;
+                        break;
+                    }
+
+                }
+                print_r($pathName);
+                if ($pathName == '') {
+                    $pathName = 'asset/img/profils/default.jpg';
+                }
+                closedir($images);
+            }
+            ?>
+            <img src=<?php echo $pathName ?> alt="" id="photoProfil">
+            <div class="middle">
+                <img src="asset/icons/blanc/photo.svg" alt="">
+            </div>
+        </label>
+        <input type="file" id="fileInput" style="display: none;" accept="image/jpeg, image/png" onchange="changeProfilePhoto(event)">
+    </div>
+    <p id="textchange">changer votre photo de profil</p>
+    
+
+    <div id="caseAccueil">
+      <p class="bienvenue">Accédez à votre <a href="pagePersoProprio.php" class="lienPagePerso">page personnel</a>.</p>
+      <?php
+                if ($_SESSION['userType'] === 'client') {
+                ?>
+                    <div class="separateurCompte"></div>
+                    <a href="createOwner.php" id="comptePro">Passer à un compte propriétaire</a>
+                <?php
+                }   
+            ?>
+
+            <?php
+                if ($_SESSION['userType'] === 'proprietaire') {
+                ?>
+                    <div class="separateurCompte"></div>
+                    <a href="newLogement.php" id="comptePro">Créer une annonce</a>
+                <?php
+                }
+            ?>
+    </div>
+
+</div>
 </div>
 
 <!--  INFORMATION  -->
@@ -381,7 +441,7 @@ if (isset($_GET["confirmDelete"])) {
       </div>
     </div>
 
-    <!--  CONNEXION  -->
+<!--  CONNEXION  -->
     <div id="compteConnection">
       <div class="lignes">
         <p>Mot de passe</p>
@@ -421,7 +481,7 @@ if (isset($_GET["confirmDelete"])) {
   </div> 
 
     <div id="compteLogements">
-      <!-- logements -->
+<!-- logements -->
       <div id="logementPropo">
 
           <div class="ajout_log">
@@ -447,7 +507,7 @@ if (isset($_GET["confirmDelete"])) {
 
             if ($nbLogements['count'] == 0) {
           ?>
-              <p id="AucunLogement">Vous n'avez aucun logement en ligne</p>
+              <p id="AucunLogementCompte">Vous n'avez aucun logement en ligne</p>
             <?php
             }
 

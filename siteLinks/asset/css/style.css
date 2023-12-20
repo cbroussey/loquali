@@ -268,8 +268,6 @@ pre {
   align-items: center;
   justify-content: center;
   border-radius: 5px;
-  float: right;
-  margin-right: 5rem;
 }
 
 .ajout_log a{
@@ -4270,16 +4268,8 @@ margin:10% 0 5% 0;
 
 /************************ COMPTE - ACCUEIL **************************/
 
-#compteAccueilLink {
-  width: 45px;
-  height: 45px;
-  margin: 40px;
-  
-}
-
-#svgBack {
-  width: 45px;
-  height: 45px;
+#compteAccueil{
+  margin: auto;
 }
 
 .accueil {
@@ -4287,15 +4277,13 @@ margin:10% 0 5% 0;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  
-  margin-top: -3rem;
 }
 
-.accueil h2{
-  color: var(--textColor);
-  font-size: 35px;
+#bonjour{
+  color: #1D4C77;
+  font-size: 25px;
   font-weight: 700;
-  margin-bottom: 20px;
+  margin-bottom: 2rem;
 }
 
 #photoProfil {
@@ -4335,11 +4323,35 @@ opacity: 0.3;
 opacity: 1;
 }
 
+#textchange{
+  color: #1D4C77;
+  font-size: 20px;
+  font-style: italic;
+  font-weight: 200;
+  margin-top: 1rem;
+}
+
+#caseAccueil{
+  border-radius: 20px;
+  background: #F5F5F5;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
+  width: 650px;
+  height: 278px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  margin-top: 5rem;
+}
+
 .bienvenue {
   font-size: 25px;
   font-weight: 400;
   margin: 20px 0 40px 0;
   color: var(--textColor);
+
+  margin-top: 5rem;
 }
 
 .lienPagePerso  {
@@ -4347,53 +4359,11 @@ opacity: 1;
   text-decoration: underline;
 }
 
-.pageAccueil{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-
-  padding: 0;
-  margin: 0 15% 5% 15%;
-}
-
-.pageAccueil a {
-  margin: 10px;
-}
-
-.pageAccueil div {
-  width: 340px;
-  height: 140px;
-  background: #7297B8;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.pageAccueil figure{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-
-.pageAccueil img{
-  width: 50px;
-  height: 40px;
-
-  margin-bottom: 15px;
-}
-
-.pageAccueil figcaption {
-  color: white;
-}
-
 .separateurCompte {
-  width: 319px;
+  width: 600px;
   height: 2px;
   background: var(--lightColor);
-  margin-top: -30px;
+  margin-top: -20px;
   margin-bottom: 40px;
 }
 
@@ -4402,106 +4372,12 @@ opacity: 1;
   background: var(--mainColor);
   width: 435px;
   height: 55px;
-  margin: 0 0 80px 0;
   color: var(--secondBG);
   font-size: 25px;
   font-weight: 700;
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-@media screen and (min-width: 750px) and (max-width: 1545px) { 
-.pageAccueil{
-  margin: 0 10% 5% 10%;
-}
-}
-
-
-
-@media screen and (min-width: 0px) and (max-width: 740px) { 
-
-  #compteAccueilLink{
-      display: none;
-  }
-
-  .accueil {
-      margin-top: 2rem;
-  }
-  
-  .accueil h2{
-      font-size: 25px;
-      font-weight: 700;
-      margin-bottom: 10px;
-  }
-  
-  #photoProfil {
-      width: 130px;
-      height: 130px;
-  }pop
-
-  .middle {
-      display: none;
-  }
-
-  .container:hover #photoProfil {
-      display: none;
-  }
-    
-  .container:hover .middle {
-      display: none;
-  }
-  
-  .bienvenue {
-      font-size: 15px;
-      font-weight: 400;
-      margin: 20px 0 25px 0;
-  }
-  
-  .pageAccueil{
-      margin: 10px;
-  }
-  
-  .pageAccueil a {
-      margin: 0 2px 5px 5px;
-  }
-  
-  .pageAccueil div {
-      width: 175px;
-      height: 110px;
-  }
-
-  .pageAccueil img{
-      width: 40px;
-      height: 30px;
-      margin-bottom: 10px;
-  }
-  
-  .pageAccueil figcaption {
-      display: flex;
-      flex-wrap: wrap;
-      text-align: center;
-      padding: 0 10px;
-  }
-  
-  .separateurCompte {
-      width: 60%;
-      margin: 30px 0;
-  }
-  
-  #comptePro {
-      border-radius: 5px;
-      background: var(--mainColor);
-      width: 275px;
-      height: 48px;
-
-      font-size: 15px;
-      font-weight: 700;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-  }
-
 }
 
 /************************** COMPTE - PAGES **************************/
@@ -5831,7 +5707,7 @@ font-weight: 500;
 /********* PAGE MES LOGEMENTS **********/
 
 
-#AucunLogement {
+#AucunLogementCompte {
   position: absolute;
   top: 50%;
   left: 45%;
