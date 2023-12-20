@@ -15,6 +15,7 @@ cancelDisconnect.addEventListener('click', function() {
     popUpDeco.style.display = "none";
 });
 
+const compteAccueil = document.getElementById("compteAccueil");
 const compteInfosPerso = document.getElementById("compteInfosPerso");
 const compteConnection = document.getElementById("compteConnection");
 const compteFavoris = document.getElementById("compteFavoris");
@@ -23,18 +24,20 @@ const compteReservations = document.getElementById("compteReservations");
 const compteMessagerie = document.getElementById("compteMessagerie");
 const comptePaiement = document.getElementById("comptePaiement");
 
-const listeLiens = [compteInfosPerso, compteConnection, compteFavoris, compteLogements, compteReservations, compteMessagerie, comptePaiement];
+const listeLiens = [compteAccueil, compteInfosPerso, compteConnection, compteFavoris, compteLogements, compteReservations, compteMessagerie, comptePaiement];
 
 // Sélectionnez tous les liens à l'intérieur de la div avec la classe 'nav'
 var links = document.querySelectorAll('.nav > div');
-var current = compteInfosPerso;
+var current = compteAccueil;
 
 links.forEach(function(link, index) {
     link.addEventListener('click', function() {
         console.log('Vous avez cliqué sur le lien avec l\'index : ' + index);
         switch (index) {
             case 0:
-                document.location.href = "compteAccueil.php";
+                current.style.display = "none";
+                current = compteAccueil;
+                current.style.display = "block";
                 break;
             case 1:
                 current.style.display = "none";
@@ -48,25 +51,20 @@ links.forEach(function(link, index) {
                 break;
             case 3:
                 current.style.display = "none";
-                current = compteFavoris;
+                current = compteLogements;
                 current.style.display = "block";
                 break;
             case 4:
                 current.style.display = "none";
-                current = compteLogements;
+                current = compteReservations;
                 current.style.display = "block";
                 break;
             case 5:
                 current.style.display = "none";
-                current = compteReservations;
-                current.style.display = "block";
-                break;
-            case 6:
-                current.style.display = "none";
                 current = compteMessagerie;
                 current.style.display = "block";
                 break;
-            case 7:
+            case 6:
                 current.style.display = "none";
                 current = comptePaiement;
                 current.style.display = "block";

@@ -4563,8 +4563,14 @@ flex-direction: row !important;
 }
 
 #compteInfosPerso {
+  height:92vh;
+  width:84vw;
+}
+
+#compteInfosPerso {
 height:92vh;
 width:84vw;
+display:none;
 }
 
 #compteConnection {

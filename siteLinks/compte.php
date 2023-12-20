@@ -250,17 +250,6 @@
         </figure>
       </div>
 
-      <div class="nav-item" data-color="account">
-        <figure>
-          <div class="img-area">
-            <img src="asset/icons/bleu/favoriteBlue.svg" alt="Infos Persos" class="img-back">
-            <img src="asset/icons/blanc/favorite.svg" alt="Infos Persos" class="img-front">
-          </div> 
-          <figcaption>Favoris</figcaption>
-        </figure>
-      </div>
-
-
       <?php
             if ($_SESSION['userType'] === 'proprietaire') {
             ?>
@@ -313,6 +302,11 @@
 
 
     </div>
+<!-- ACCUEIL -->
+
+<div id="compteAccueil">
+</div>
+
 <!--  INFORMATION  -->
     <div id="compteInfosPerso">
       <div class="lignes">
@@ -415,10 +409,6 @@
     </div>
 
   </div> 
-
-  <div id="compteFavoris">
-      <!-- Favoris -->
-    </div>
 
     <div id="compteLogements">
       <!-- logements -->
