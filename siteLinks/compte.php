@@ -310,7 +310,12 @@ if (isset($_GET["confirmDelete"])) {
 
 
     </div>
-    <!--  INFORMATION  -->
+<!-- ACCUEIL -->
+
+<div id="compteAccueil">
+</div>
+
+<!--  INFORMATION  -->
     <div id="compteInfosPerso">
       <div class="lignes">
         <form method="post" action="compte.php">
@@ -413,9 +418,7 @@ if (isset($_GET["confirmDelete"])) {
 
     </div>
 
-    <div id="compteFavoris">
-      <!-- Favoris -->
-    </div>
+  </div> 
 
     <div id="compteLogements">
       <!-- logements -->
