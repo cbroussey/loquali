@@ -39,7 +39,7 @@ int main(int argc, char *argv[]) {
             {"help",    0,    0,  'h'}, // 0 = no_argument
             {0,         0,    0,  0}
         };
-        c = getopt_long(argc, argv, "av::h", long_options, &option_index); // o:
+        c = getopt_long(argc, argv, "v::h", long_options, &option_index); // o:
         if (c == -1)
             break;
 
@@ -112,6 +112,7 @@ int main(int argc, char *argv[]) {
     printf("%d\nSocket bind...\t ", addr.sin_port);
     ret = bind(sock, (struct sockaddr *)&addr, sizeof(addr));
     if (ret == -1) { printf("err: %s\n", strerror(errno)); return 1; }
+    while (1) {
     printf("%d\nSocket listen... ", ret);
     ret = listen(sock, 1);
     if (ret == -1) { printf("err: %s\n", strerror(errno)); return 1; }
@@ -154,6 +155,13 @@ int main(int argc, char *argv[]) {
                 memset(cmd, 0, strlen(cmd)); // Pas nécessaire car la longueur de la chaine est plus grande que "PING" au final
                 sprintf(cmd, "PONG N°%d\r\n", ping); // Mais ça permet d'être plus propre au niveau mémoire
                 write(cnx, cmd, strlen(cmd));
+            } else if (strcmp(cmd, "help\r") == 0) {
+                //printf("Writing...\n");
+                write(cnx, "Available commands :\r\n", 22);
+                write(cnx, "  hello\r\n", 10);
+                write(cnx, "  ping\r\n", 9);
+                write(cnx, "  help\r\n", 9);
+                write(cnx, "  exit\r\n", 9);
             } else if (strcmp(cmd, "exit\r") == 0) {
                 //printf("Writing...\n");
                 write(cnx, "ok bozo\r\n", 9);
