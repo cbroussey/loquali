@@ -20,7 +20,7 @@ void perrorOut() {
 }
 
 int main(int argc, char *argv[]) {
-    int soc, ret;
+    int sock, ret;
     struct sockaddr_in addr;
     int size;
     int cnx;
