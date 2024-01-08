@@ -221,13 +221,11 @@ create table prix_charge(
       constraint charges_selectionnees_fk_charge_additionnelle foreign key (nom_charge) references  charge_additionnelle(nom_charge)ON DELETE CASCADE
   );
 
-create table plage(
+create table planning(
     disponibilite boolean,
     prix_ht numeric(10,2),
-    delai_annul int,
-    pourcentage_retenu numeric(10,2),
-    date_debut date,
-    date_fin date,
+    jour date,
+    raison_indisponible varchar(255),
     id_logement integer,
     constraint plage_fk_logement foreign key (id_logement) references logement(id_logement)ON DELETE CASCADE
 );
@@ -271,6 +269,12 @@ create table facture(
     constraint facture_pk primary key(id_facture),
     constraint facture_fk_devis foreign key (id_devis) references devis(id_devis)ON DELETE CASCADE
 );
+
+create table api(
+    cle varchar(32),
+    privilegie boolean,
+    id_compte integer
+)
 
 
 -- TESTS
@@ -462,7 +466,7 @@ VALUES
     (350.00, 'Facture pour la réservation 2', 200.00, 2),
     (150.00, 'Facture pour la réservation 3', 60.00, 3);
 
-
+/*
 CREATE FUNCTION getCurrentData(id_log INT)
   RETURNS TABLE(disponibilite BOOLEAN, prix_ht numeric(10,2), delai_annul integer, pourcentage_retenu numeric(10,2), date_debut date, date_fin date, id_logement integer) AS $$
 BEGIN
@@ -506,10 +510,11 @@ BEGIN
   RETURN lignes(nbDel);
 END;
 $$ LANGUAGE plpgsql;
+*/
 
-INSERT INTO plage(disponibilite, prix_hT, delai_annul, pourcentage_retenu, date_debut, date_fin, id_logement)
+INSERT INTO planning(disponibilite, prix_hT, jour, id_logement)
 VALUES
-    (TRUE, 80.00, 5, 5.00, '2023-11-18', '2023-11-30', 1),
-    (TRUE, 120.00, 3, 8.00, '2023-11-1', '2023-11-30', 2), -- Les plages ne doivent pas se superposer entre elles pour un même logement, les nouvelles plages remplacent certaines parties des anciennes
-    (TRUE, 100.00, 5, 6.00, '2023-11-1', '2023-11-14', 2), -- Donc si la plage du dessus faisait du 1-30, sa date de début a été modifiée pour ne pas la superposer avec celle ci qui fait du 1-14
-    (TRUE, 70.00, 1, 7.00, '2023-12-01', '2023-12-31', 3);
+    (TRUE, 80.00, '2023-11-18', 1),
+    (TRUE, 120.00, '2023-11-1', 2), -- Les plages ne doivent pas se superposer entre elles pour un même logement, les nouvelles plages remplacent certaines parties des anciennes
+    (TRUE, 100.00, '2023-11-1', 2), -- Donc si la plage du dessus faisait du 1-30, sa date de début a été modifiée pour ne pas la superposer avec celle ci qui fait du 1-14
+    (TRUE, 70.00, '2023-12-01', 3);
