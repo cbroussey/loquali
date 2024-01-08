@@ -23,36 +23,39 @@
     <?php
     //print_r(pdo_drivers());
     //print_r($_POST);
-    if (isset($_POST["devis"]) && is_numeric($_POST["devis"])) {
+    if (isset($_POST["devis"]) && is_numeric($_POST["devis"])) { // Check si un numéro de devis a correctement été reçu
         //include("../data/dbImport.php");
         require_once("connect_params.php");
         $db = new PDO("$driver:host=$server;dbname=$dbname", "$user", "$pass");
         $res = $db->prepare(
-            'SELECT *, DATE_PART(\'day\', reservation.fin_reservation::timestamp - reservation.debut_reservation::timestamp) AS nbJours, test.reservation.id_compte AS resa_id_compte FROM test.devis
+            'SELECT *, DATE_PART(\'day\', reservation.fin_reservation::timestamp - reservation.debut_reservation::timestamp) AS nbJours, test.reservation.id_compte AS resa_id_compte
+            FROM test.devis
             JOIN test.reservation ON test.devis.id_reservation = test.reservation.id_reservation
             JOIN test.logement ON test.reservation.id_logement = test.logement.id_logement
             JOIN test.image ON test.logement.id_image_couv = test.image.id_image
             WHERE id_devis = :devis'
-        );
+        ); // Récupération des informations sur la réservation, le devis, le logement et l'image de couverture
+        // nbJours, calculé dans la requête SELECT, correspond à la durée de la réservation
         $res->bindParam('devis', $_POST['devis'], PDO::PARAM_INT);
         $res->execute();
         $res = $res->fetchAll();
         /*?><pre style="padding-left: 1em;"><?php print_r($res) ?></pre><?php*/
+        // Vérification d'accès au paiement (si l'utilisateur connecté est le bon et le devis a été accepté)
         if (isset($_SESSION["userId"]) && $_SESSION["userId"] == $res[0]["resa_id_compte"] && $res && $res[0]["acceptation"]) {
             $res = $res[0];
-            $charges = $db->prepare(
+            $charges = $db->prepare( // Fait après la vérification d'identitée pour éviter une requête potentiellement inutile
                 'SELECT test.charges_selectionnees.nom_charge, test.prix_charge.prix_charge FROM test.reservation
                 INNER JOIN test.prix_charge ON test.reservation.id_logement = test.prix_charge.id_logement
                 INNER JOIN test.charges_selectionnees ON test.reservation.id_reservation = test.charges_selectionnees.id_reservation
                 WHERE test.charges_selectionnees.id_reservation = :idres AND test.prix_charge.id_logement = :idlog'
-            );
+            ); // Récupération des charges additionnelles sélectionnées pour la réservation
             $charges->bindParam('idres', $res["id_reservation"], PDO::PARAM_INT);
             $charges->bindParam('idlog', $res["id_logement"], PDO::PARAM_INT);
             $charges->execute();
             $charges = $charges->fetchAll();
             $pay = $db->prepare(
                 'SELECT * FROM test.cb WHERE id_compte = :compte'
-            );
+            ); // Récupération des cartes bancaires enregistrées sur le compte
             $pay->bindParam("compte", $_SESSION["userId"], PDO::PARAM_INT);
             ?>
             <form method="post" action="validPay.php" class="flexTop">
@@ -102,6 +105,7 @@
                         <p><a><?php echo $res["prix_base_ht"] ?>€ x <?php echo $res["nbjours"] ?> nuits</a><a><?php $prixFin = $res["prix_base_ht"] * $res["nbjours"]; echo $prixFin ?>€</a></p> <!-- prix incorrect, extraire le prix réel plus tard avec les plages -->
                         
                         <?php
+                            // Affichage des charges additionnelles sélectionnées
                             foreach($charges as $charge) { ?>
                                 <p><a><?php echo $charge["nom_charge"] ?></a><a><?php echo $charge["prix_charge"] ?>€</a></p>
                             <?php }
@@ -113,9 +117,11 @@
                 </div>
             </form>
         <?php } else {
+            // Si la vérification d'identitée/de validation n'a pas réussi
             ?><h1 class="HTTPstatus">403 - Forbidden</h1><?php
         }
     } else {
+        // Si aucun numéro de devis ou un numéro de devis invalide a été fourni
         ?><h1 class="HTTPstatus">400 - Bad Request</h1><?php
     } ?>
     <script src="asset/js/contextMenu.js"></script>
