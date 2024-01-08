@@ -14,9 +14,13 @@
 
 #define MAXCMD 1024
 
+void perrorOut() {
+    printf("err: %s\n", strerror(errno));
+    exit(1);
+}
+
 int main(int argc, char *argv[]) {
-    int sock;
-    int ret;
+    int soc, ret;
     struct sockaddr_in addr;
     int size;
     int cnx;
@@ -25,10 +29,13 @@ int main(int argc, char *argv[]) {
     char c;
     char cmd[MAXCMD];
     int ping;
-    int i;
+    int i, j, n;
     bool verbose = false;
-    int foutput;
+    int foutput; // Fichier de sortie des logs si définit
     int port;
+
+    PGconn *db;
+    PGresult *res;
 
     opterr = 0; // Désactive le message d'erreur par défaut de getopt
     while (1) { // (c = getopt(argc, argv, "ah")) != -1
@@ -96,47 +103,78 @@ int main(int argc, char *argv[]) {
     port = atoi(argv[optind]);
     printf("Port : %d\n", atoi(argv[optind]));
     if (verbose) printf("verbose mode\n");
-    close(foutput);
     //return 0;
 
-    printf("Socket init...\t ");
-    sock = socket(AF_INET, SOCK_STREAM, 0);
-    if (sock == -1) { printf("err: %s\n", strerror(errno)); return 1; }
-    printf("%d\nSocket ip :\t ", sock);
-    addr.sin_addr.s_addr = inet_addr("127.0.0.1"); // INADDR_ANY;
-    if (addr.sin_addr.s_addr == -1) { printf("err: %s\n", strerror(errno)); return 1; }
-    printf("%d\nSocket family :\t ", addr.sin_addr.s_addr);
-    addr.sin_family = AF_INET;
-    printf("%d\nSocket port :\t ", addr.sin_family);
-    addr.sin_port = htons(port);
-    printf("%d\nSocket bind...\t ", addr.sin_port);
-    ret = bind(sock, (struct sockaddr *)&addr, sizeof(addr));
-    if (ret == -1) { printf("err: %s\n", strerror(errno)); return 1; }
-    while (1) {
-    printf("%d\nSocket listen... ", ret);
-    ret = listen(sock, 1);
-    if (ret == -1) { printf("err: %s\n", strerror(errno)); return 1; }
-    printf("%d\nSocket accept... ", ret);
-    cnx = accept(sock, (struct sockaddr *)&conn_addr, (socklen_t *)&size);
-    if (cnx == -1) { printf("err: %s\n", strerror(errno)); return 1; }
-    printf("%d\n", cnx);
-    //read(cnx, &c, 1024);
-    //printf("%s", c);
-    write(cnx, "API key > ", 10);
-    printf("Waiting for API key...\n");
-    read(cnx, &c, 1024);
-    if (strncmp(&c, "123456789ABCDEF", 15) == 0) {
-        printf("Valid API key\n");
-        write(cnx, "Authentication successful. Welcome :user:\r\n", 43);
-        write(cnx, "Type \"help\" to get a list of available commands\r\n", 49);
-        write(cnx, "LoQuali> ", 9);
-    } else {
-        printf("Invalid API key\n");
-        write(cnx, "Invalid API key\r\n", 4);
-        close(cnx);
+    // Partie BDD
+    db = PQconnectdb("dbname=servbdd user=aaa password=aaa"); // Connection à la BDD
+
+    if (PQstatus(db) != CONNECTION_OK) { // Vérification de la connexion
+        fprintf(stderr, "DB init error: %s", PQerrorMessage(db));
+        PQfinish(db);
+        close(foutput);
         return 1;
     }
+
+
+    // Partie Socket
+    printf("Socket init...\t ");
+    sock = socket(AF_INET, SOCK_STREAM, 0);
+    if (sock == -1) perrorOut();
+
+    printf("%d\nSocket ip :\t ", sock);
+    addr.sin_addr.s_addr = inet_addr("127.0.0.1"); // INADDR_ANY;
+    if (addr.sin_addr.s_addr == -1) perrorOut();
+
+    printf("%d\nSocket family :\t ", addr.sin_addr.s_addr);
+    addr.sin_family = AF_INET;
+
+    printf("%d\nSocket port :\t ", addr.sin_family);
+    addr.sin_port = htons(port);
+
+    printf("%d\nSocket bind...\t ", addr.sin_port);
+    ret = bind(sock, (struct sockaddr *)&addr, sizeof(addr));
+    if (ret == -1) perrorOut();
+
+    while (1) {
+        printf("%d\nSocket listen... ", ret);
+        ret = listen(sock, 1);
+        if (ret == -1) perrorOut();
+
+        printf("%d\nSocket accept... ", ret);
+        cnx = accept(sock, (struct sockaddr *)&conn_addr, (socklen_t *)&size);
+        if (cnx == -1) perrorOut();
+
+        printf("%d\n", cnx);
+        //read(cnx, &c, 1024);
+        //printf("%s", c);
+
+        memset(cmd, 0, strlen(cmd)); // Vider la variable cmd
+        write(cnx, "API key > ", 10);
+        printf("Waiting for API key...\n");
+        read(cnx, &cmd, MAXCMD);
+        res = PQexec(db, "SELECT  FROM test.api WHERE cle = ");
+        if (PQresultStatus(res) != PGRES_COMMAND_OK) {
+            printf("DB error: %s\nDisconnect\n", PQerrorMessage(db));
+            memset(cmd, 0, strlen(cmd));
+            sprintf(cmd, "DB error: %s\r\n", PQerrorMessage(db));
+            write(cnx, cmd, strlen(cmd));
+            close(cnx);
+        } else if (strncmp(&cmd, "0123456789ABCDEF", 16) == 0) { // PQntuples(res) > 0
+            printf("Valid API key\n");
+            write(cnx, "Authentication successful. Welcome :user:\r\n", 43);
+            write(cnx, "Type \"help\" to get a list of available commands\r\n", 49);
+            write(cnx, "LoQuali> ", 9);
+        } else {
+            printf("Invalid API key. Disconnect\n");
+            write(cnx, "Invalid API key\r\n", 4);
+            close(cnx);
+            //return 1;
+        }
+    }
+
+    memset(cmd, 0, strlen(cmd));
     printf("Reading...\n > ");
+
     while(strcmp(cmd, "exit\r")) { // le read() > 0 n'a pas l'air de faire grand chose
         read(cnx, &c, 1);
         if (i < MAXCMD && c != '\n') {
@@ -155,11 +193,42 @@ int main(int argc, char *argv[]) {
                 memset(cmd, 0, strlen(cmd)); // Pas nécessaire car la longueur de la chaine est plus grande que "PING" au final
                 sprintf(cmd, "PONG N°%d\r\n", ping); // Mais ça permet d'être plus propre au niveau mémoire
                 write(cnx, cmd, strlen(cmd));
+            } else if (strcmp(cmd, "list\r") == 0) {
+                //printf("Writing...\n");
+                res = PQexec(db, "SELECT * FROM test.logement");
+                if (PQresultStatus(res) != PGRES_COMMAND_OK) {
+                    memset(cmd, 0, strlen(cmd));
+                    sprintf(cmd, "Err: %s\r\n", PQerrorMessage(db));
+                    write(cnx, cmd, strlen(cmd));
+                } else {
+                    //write(cnx, "Liste de tous les biens :\r\n", 27);
+
+                    // Affichage des attributs
+                    n = PQnfields(res);
+                    for (i = 0; i < n; i++) {
+                        memset(cmd, 0, strlen(cmd));
+                        sprintf(cmd, "%-15s ", PQfname(res, i));
+                        write(cnx, cmd, strlen(cmd));
+                    }
+                    write(cnx, "\r\n\r\n", 4);
+
+                    // Affichage des lignes
+                    for (i = 0; i < PQntuples(res); i++)
+                    {
+                        for (j = 0; j < n; j++) {
+                            memset(cmd, 0, strlen(cmd));
+                            sprintf(cmd, "%-15s ", PQgetvalue(res, i, j));
+                            write(cnx, cmd, strlen(cmd));
+                        }
+                        write(cnx, "\r\n", 2);
+                    }
+                }
             } else if (strcmp(cmd, "help\r") == 0) {
                 //printf("Writing...\n");
                 write(cnx, "Available commands :\r\n", 22);
                 write(cnx, "  hello\r\n", 10);
                 write(cnx, "  ping\r\n", 9);
+                write(cnx, "  list\r\n", 9);
                 write(cnx, "  help\r\n", 9);
                 write(cnx, "  exit\r\n", 9);
             } else if (strcmp(cmd, "exit\r") == 0) {
@@ -174,6 +243,7 @@ int main(int argc, char *argv[]) {
             //printf("Done\n");
             //printf("%ld\n", strlen(cmd));
             memset(cmd, 0, strlen(cmd)); // plutôt qu'une boucle for
+            PQclear(res); // Vidage du résultat d'une potentielle requête SQL pour éviter les fuites de mémoire
             write(cnx, "LoQuali> ", 9);
             printf(" > ");
             i = 0;
@@ -182,6 +252,9 @@ int main(int argc, char *argv[]) {
     //printf("Writing...\n");
     //write(cnx, "Moi aussi j'aime les ananas\r\n", 29);
     //printf("Done\n");
+    PQclear(res);
+    PQfinish(db);
     close(cnx);
+    close(foutput);
     return 0;
 }
