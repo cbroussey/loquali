@@ -107,7 +107,7 @@ int main(int argc, char *argv[]) {
     //return 0;
 
     // Partie BDD
-    db = PQconnectdb("dbname=servbdd user=aaa password=aaa"); // Connection à la BDD
+    db = PQconnectdb("dbname=sae user=sae password=roh9oCh4xahj3tae"); // Connection à la BDD
 
     if (PQstatus(db) != CONNECTION_OK) { // Vérification de la connexion
         fprintf(stderr, "DB init error: %s", PQerrorMessage(db));
