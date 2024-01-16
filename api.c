@@ -11,6 +11,7 @@
 #include <stdbool.h>
 #include <fcntl.h>
 #include <sys/stat.h>
+#include <postgresql/libpq-fe.h>
 
 #define MAXCMD 1024
 
