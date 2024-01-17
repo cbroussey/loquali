@@ -29,11 +29,13 @@ int main(int argc, char *argv[]) {
     size = (int)sizeof(conn_addr);
     char c;
     char cmd[MAXCMD];
+    char tmp[(int)MAXCMD/2];
     int ping;
     int i, j, n;
     bool verbose = false;
     int foutput; // Fichier de sortie des logs si définit
     int port;
+    bool connected = false;
 
     PGconn *db;
     PGresult *res;
@@ -107,7 +109,7 @@ int main(int argc, char *argv[]) {
     //return 0;
 
     // Partie BDD
-    db = PQconnectdb("dbname=sae user=sae password=roh9oCh4xahj3tae"); // Connection à la BDD
+    db = PQconnectdb("host=localhost dbname=sae user=sae password=roh9oCh4xahj3tae"); // Connection à la BDD
 
     if (PQstatus(db) != CONNECTION_OK) { // Vérification de la connexion
         fprintf(stderr, "DB init error: %s", PQerrorMessage(db));
@@ -136,7 +138,9 @@ int main(int argc, char *argv[]) {
     ret = bind(sock, (struct sockaddr *)&addr, sizeof(addr));
     if (ret == -1) perrorOut();
 
-    while (1) {
+    connected = false;
+
+    while (!connected) {
         printf("%d\nSocket listen... ", ret);
         ret = listen(sock, 1);
         if (ret == -1) perrorOut();
@@ -149,22 +153,28 @@ int main(int argc, char *argv[]) {
         //read(cnx, &c, 1024);
         //printf("%s", c);
 
-        //memset(c, 0, strlen(c)); // Vider la variable cmd
+        memset(tmp, 0, strlen(tmp)); // Vider la variable tmp
         write(cnx, "API key > ", 10);
         printf("Waiting for API key...\n");
-        read(cnx, &c, MAXCMD);
-        res = PQexec(db, "SELECT  FROM test.api WHERE cle = ");
-        if (PQresultStatus(res) != PGRES_COMMAND_OK) {
+        read(cnx, &tmp, 16);
+        memset(cmd, 0, strlen(cmd));
+        sprintf(cmd, "SELECT FROM test.api WHERE cle = '%.16s';", tmp);
+        printf("%s\n", cmd);
+        res = PQexec(db, cmd);
+        if (PQresultStatus(res) != PGRES_TUPLES_OK) {
             printf("DB error: %s\nDisconnect\n", PQerrorMessage(db));
             memset(cmd, 0, strlen(cmd));
             sprintf(cmd, "DB error: %s\r\n", PQerrorMessage(db));
             write(cnx, cmd, strlen(cmd));
             close(cnx);
-        } else if (strncmp(&c, "0123456789ABCDEF", 16) == 0) { // PQntuples(res) > 0
+        } else if (PQntuples(res) > 0) { //strncmp(&cmd, "0123456789ABCDEF", 16) == 0
+            //memset(cmd, 0, strlen(cmd));
+            //sprintf(cmd, "SELECT FROM test.api WHERE cle = '%.16s';", tmp);
             printf("Valid API key\n");
             write(cnx, "Authentication successful. Welcome :user:\r\n", 43);
             write(cnx, "Type \"help\" to get a list of available commands\r\n", 49);
             write(cnx, "LoQuali> ", 9);
+            connected = true;
         } else {
             printf("Invalid API key. Disconnect\n");
             write(cnx, "Invalid API key\r\n", 4);
