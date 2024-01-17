@@ -274,7 +274,7 @@ create table api(
     cle varchar(32),
     privilegie boolean,
     id_compte integer
-)
+);
 
 
 -- TESTS
