@@ -149,10 +149,10 @@ int main(int argc, char *argv[]) {
         //read(cnx, &c, 1024);
         //printf("%s", c);
 
-        memset(cmd, 0, strlen(cmd)); // Vider la variable cmd
+        //memset(c, 0, strlen(c)); // Vider la variable cmd
         write(cnx, "API key > ", 10);
         printf("Waiting for API key...\n");
-        read(cnx, &cmd, MAXCMD);
+        read(cnx, &c, MAXCMD);
         res = PQexec(db, "SELECT  FROM test.api WHERE cle = ");
         if (PQresultStatus(res) != PGRES_COMMAND_OK) {
             printf("DB error: %s\nDisconnect\n", PQerrorMessage(db));
@@ -160,7 +160,7 @@ int main(int argc, char *argv[]) {
             sprintf(cmd, "DB error: %s\r\n", PQerrorMessage(db));
             write(cnx, cmd, strlen(cmd));
             close(cnx);
-        } else if (strncmp(&cmd, "0123456789ABCDEF", 16) == 0) { // PQntuples(res) > 0
+        } else if (strncmp(&c, "0123456789ABCDEF", 16) == 0) { // PQntuples(res) > 0
             printf("Valid API key\n");
             write(cnx, "Authentication successful. Welcome :user:\r\n", 43);
             write(cnx, "Type \"help\" to get a list of available commands\r\n", 49);
