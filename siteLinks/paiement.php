@@ -23,7 +23,7 @@
     <?php
     //print_r(pdo_drivers());
     //print_r($_POST);
-    if (isset($_GET["devis"]) && is_numeric($_GET["devis"])) { // Check si un numéro de devis a correctement été reçu
+    if (isset($_POST["devis"]) && is_numeric($_POST["devis"])) { // Check si un numéro de devis a correctement été reçu
         //include("../data/dbImport.php");
         require_once("connect_params.php");
         $db = new PDO("$driver:host=$server;dbname=$dbname", "$user", "$pass");
@@ -36,7 +36,7 @@
             WHERE id_devis = :devis'
         ); // Récupération des informations sur la réservation, le devis, le logement et l'image de couverture
         // nbJours, calculé dans la requête SELECT, correspond à la durée de la réservation
-        $res->bindParam('devis', $_GET['devis'], PDO::PARAM_INT);
+        $res->bindParam('devis', $_POST['devis'], PDO::PARAM_INT);
         $res->execute();
         $res = $res->fetchAll();
         /*?><pre style="padding-left: 1em;"><?php print_r($res) ?></pre><?php*/
