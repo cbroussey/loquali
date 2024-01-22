@@ -12,12 +12,26 @@
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <postgresql/libpq-fe.h>
+#include <ctype.h>
 
 #define MAXCMD 1024
 
 void perrorOut() {
     printf("err: %s\n", strerror(errno));
     exit(1);
+}
+
+char* strToUpper(char * lower) {
+  char * name;
+  name = strtok(lower,":");
+
+  // Convert to upper case
+  char *s = name;
+  while (*s) {
+    *s = toupper((unsigned char) *s);
+    s++;
+  }
+  return (char*)s;
 }
 
 int main(int argc, char *argv[]) {
@@ -36,9 +50,16 @@ int main(int argc, char *argv[]) {
     int foutput; // Fichier de sortie des logs si définit
     int port;
     bool connected = false;
+    int accID; // Identifiant du compte
+    char accNom[256]; // Nom du compte
+    bool accPriv; // Compte privilégié ?
 
     PGconn *db;
     PGresult *res;
+
+    memset(cmd, 0, sizeof(cmd));
+    memset(tmp, 0, sizeof(tmp));
+
 
     opterr = 0; // Désactive le message d'erreur par défaut de getopt
     while (1) { // (c = getopt(argc, argv, "ah")) != -1
@@ -156,9 +177,10 @@ int main(int argc, char *argv[]) {
         memset(tmp, 0, strlen(tmp)); // Vider la variable tmp
         write(cnx, "API key > ", 10);
         printf("Waiting for API key...\n");
-        read(cnx, &tmp, 16);
+        ret = read(cnx, &tmp, sizeof(tmp));
+        if (ret == -1) perrorOut();
         memset(cmd, 0, strlen(cmd));
-        sprintf(cmd, "SELECT FROM test.api WHERE cle = '%.16s';", tmp);
+        sprintf(cmd, "SELECT cle,privilegie,id_compte FROM test.api WHERE cle = '%.16s';", tmp);
         printf("%s\n", cmd);
         res = PQexec(db, cmd);
         if (PQresultStatus(res) != PGRES_TUPLES_OK) {
@@ -171,7 +193,12 @@ int main(int argc, char *argv[]) {
             //memset(cmd, 0, strlen(cmd));
             //sprintf(cmd, "SELECT FROM test.api WHERE cle = '%.16s';", tmp);
             printf("Valid API key\n");
-            write(cnx, "Authentication successful. Welcome :user:\r\n", 43);
+            accID = atoi(PQgetvalue(res, 0, 2));
+            strcpy(accNom, PQgetvalue(res, 0, 0));
+            accPriv = (PQgetvalue(res, 0, 1)[0] == 't');
+            memset(cmd, 0, strlen(cmd));
+            sprintf(cmd, "Authentication successful. Welcome %s\r\n", accNom);
+            write(cnx, cmd, strlen(cmd));
             write(cnx, "Type \"help\" to get a list of available commands\r\n", 49);
             write(cnx, "LoQuali> ", 9);
             connected = true;
@@ -183,31 +210,72 @@ int main(int argc, char *argv[]) {
         }
     }
 
-    memset(cmd, 0, strlen(cmd));
+    memset(cmd, 0, sizeof(cmd));
     printf("Reading...\n > ");
 
+    //c = ' ';
+    i = 0;
+    ping = 0;
     while(strcmp(cmd, "exit\r")) { // le read() > 0 n'a pas l'air de faire grand chose
         read(cnx, &c, 1);
-        if (i < MAXCMD && c != '\n') {
+        //printf("%d ", c);
+        if (i < MAXCMD && c != '\r' && c != '\n') {
             printf("%c", c);
             cmd[i] = c;
             i++;
         }
-        if (c == '\r') {
+        if ((c == '\r' || c == '\n') && i) {
             printf("\n");
-            if (strcmp(cmd, "hello\r") == 0) {
+            if (strcmp(cmd, "hello") == 0) {
                 //printf("Writing...\n");
                 write(cnx, "._.\r\n", 5);
-            } else if (strcmp(cmd, "ping\r") == 0) {
+            } else if (strcmp(cmd, "ping") == 0) {
                 //printf("Writing...\n");
                 ping++;
                 memset(cmd, 0, strlen(cmd)); // Pas nécessaire car la longueur de la chaine est plus grande que "PING" au final
                 sprintf(cmd, "PONG N°%d\r\n", ping); // Mais ça permet d'être plus propre au niveau mémoire
                 write(cnx, cmd, strlen(cmd));
-            } else if (strcmp(cmd, "list\r") == 0) {
+            } else if (strcmp(cmd, "list_all") == 0) {
                 //printf("Writing...\n");
-                res = PQexec(db, "SELECT * FROM test.logement");
-                if (PQresultStatus(res) != PGRES_COMMAND_OK) {
+                if (accPriv) {
+                    res = PQexec(db, "SELECT * FROM test.logement;");
+                    if (PQresultStatus(res) != PGRES_TUPLES_OK) {
+                        memset(cmd, 0, strlen(cmd));
+                        sprintf(cmd, "Err: %s\r\n", PQerrorMessage(db));
+                        write(cnx, cmd, strlen(cmd));
+                    } else {
+                        //write(cnx, "Liste de tous les biens :\r\n", 27);
+
+                        // Affichage des attributs
+                        n = PQnfields(res);
+                        for (i = 0; i < n; i++) {
+                            memset(cmd, 0, strlen(cmd));
+                            sprintf(cmd, "%-15s ", PQfname(res, i));
+                            write(cnx, cmd, strlen(cmd));
+                        }
+                        write(cnx, "\r\n\r\n", 4);
+
+                        // Affichage des lignes
+                        for (i = 0; i < PQntuples(res); i++)
+                        {
+                            for (j = 0; j < n; j++) {
+                                memset(cmd, 0, strlen(cmd));
+                                sprintf(cmd, "%-15s ", PQgetvalue(res, i, j));
+                                write(cnx, cmd, strlen(cmd));
+                            }
+                            write(cnx, "\r\n", 2);
+                        }
+                    }
+                    PQclear(res); // Vidage du résultat d'une potentielle requête SQL pour éviter les fuites de mémoire
+                } else {
+                    write(cnx, "You do not have permission to execute that command\r\n", 52);
+                }
+            } else if (strcmp(cmd, "list") == 0) {
+                //printf("Writing...\n");
+                memset(cmd, 0, strlen(cmd));
+                sprintf(cmd, "SELECT * FROM test.logement where id_compte = %d;", accID);
+                res = PQexec(db, cmd);
+                if (PQresultStatus(res) != PGRES_TUPLES_OK) {
                     memset(cmd, 0, strlen(cmd));
                     sprintf(cmd, "Err: %s\r\n", PQerrorMessage(db));
                     write(cnx, cmd, strlen(cmd));
@@ -234,7 +302,8 @@ int main(int argc, char *argv[]) {
                         write(cnx, "\r\n", 2);
                     }
                 }
-            } else if (strcmp(cmd, "help\r") == 0) {
+                PQclear(res); // Vidage du résultat d'une potentielle requête SQL pour éviter les fuites de mémoire
+            } else if (strcmp(cmd, "help") == 0) {
                 //printf("Writing...\n");
                 write(cnx, "Available commands :\r\n", 22);
                 write(cnx, "  hello\r\n", 10);
@@ -242,10 +311,10 @@ int main(int argc, char *argv[]) {
                 write(cnx, "  list\r\n", 9);
                 write(cnx, "  help\r\n", 9);
                 write(cnx, "  exit\r\n", 9);
-            } else if (strcmp(cmd, "exit\r") == 0) {
+            } else if (strcmp(cmd, "exit") == 0) {
                 //printf("Writing...\n");
                 write(cnx, "ok bozo\r\n", 9);
-                //close(cnx);
+                close(cnx);
                 break;
             } else {
                 //printf("Writing...\n");
@@ -253,8 +322,8 @@ int main(int argc, char *argv[]) {
             }
             //printf("Done\n");
             //printf("%ld\n", strlen(cmd));
+            //printf("aaaa\n");
             memset(cmd, 0, strlen(cmd)); // plutôt qu'une boucle for
-            PQclear(res); // Vidage du résultat d'une potentielle requête SQL pour éviter les fuites de mémoire
             write(cnx, "LoQuali> ", 9);
             printf(" > ");
             i = 0;
@@ -263,7 +332,7 @@ int main(int argc, char *argv[]) {
     //printf("Writing...\n");
     //write(cnx, "Moi aussi j'aime les ananas\r\n", 29);
     //printf("Done\n");
-    PQclear(res);
+    //PQclear(res);
     PQfinish(db);
     close(cnx);
     close(foutput);

@@ -43,6 +43,7 @@ create table proprietaire(
     note_proprio numeric(3,2) check (note_proprio >= 0 and note_proprio <= 5),
     civilite varchar(255) check (civilite in ('M', 'F', 'Mme')), -- nécessaire ici pcq précisé
     rib varchar(34) check (rib ~ '^\w{2}\d{2}[a-zA-Z0-9]{1,30}$'),
+    cle_API VARCHAR(255),
     constraint proprietaire_pk primary key (id_compte),
     constraint proprietaire_fk_compte foreign key (id_compte) references compte(id_compte)ON DELETE CASCADE
 );
