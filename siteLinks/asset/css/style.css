@@ -254,6 +254,15 @@ pre {
   width: 10%;
 }
 
+#div_Tri{
+  position: absolute;
+}
+
+#div_Tri ul{
+  list-style: none;
+  display: none;
+}
+
 .maison img{
   width: 300px;
   border-radius: 5px;

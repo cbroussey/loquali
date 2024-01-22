@@ -109,13 +109,26 @@ session_start();
     </div>
 
     <div id="trier">
-      <a class="button" id="" href="#">
-        <svg width="24" height="13" viewBox="0 0 24 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <form action="index.php" method="post" enctype="multipart/form-data">
+
+      </form>
+      <a class="button" id="Btn_Tri">
+        <svg id="fleche_Tri" width="24" height="13" viewBox="0 0 24 13" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M10.7897 11.7363C11.4591 12.3249 12.5462 12.3249 13.2157 11.7363L23.4979 2.69556C24.1674 2.10697 24.1674 1.1511 23.4979 0.562509C22.8285 -0.0260811 21.7414 -0.0260811 21.072 0.562509L12 8.53907L2.92804 0.567217C2.25862 -0.0213728 1.17148 -0.0213728 0.502064 0.567217C-0.167355 1.15581 -0.167355 2.11168 0.502064 2.70026L10.7843 11.741L10.7897 11.7363Z" fill="#F5F5F5" />
         </svg>
 
         <p>Trier</p>
       </a>
+      <div id="div_Tri">
+        <form action="index.php" method="get">
+          <ul id="Liste_Tri">
+            <li> <input type="submit" name="tri" value="Prix" /> </li>
+            <li> <input type="submit" name="tri" value="Récent" /> </li>
+            <li> <input type="submit" name="tri" value="Avis" /> </li>
+          </ul>
+        </form>
+      </div>
+
     </div>
   </div>
 
@@ -127,6 +140,149 @@ session_start();
 include('connect_params.php');
 try {
     $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
+    if (isset($_GET["tri"])){
+      switch ($_GET["tri"]) {
+
+
+        case "Prix":  // CAS POUR LE TRIX POUR LE PRIX
+
+
+          foreach($dbh->query("SELECT * from test.logement WHERE en_ligne=true ORDER BY prix_ttc", PDO::FETCH_ASSOC) as $row) {
+            $i=0;
+            $id=$row["id_logement"];
+            $info=$row;
+            ?>
+    
+            <a href="logement.php?id=<?php echo($id);?>" class="maison">
+                          <div id="triangle"></div>
+                          <div class="etoile">
+                            <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path
+                                d="M7.5 0L9.18386 5.52786H14.6329L10.2245 8.94427L11.9084 14.4721L7.5 11.0557L3.09161 14.4721L4.77547 8.94427L0.367076 5.52786H5.81614L7.5 0Z"
+                                fill="white" />
+                            </svg>
+                            <p></p>
+                    
+                          </div>
+                          <?php
+                            foreach($dbh->query("SELECT * from test.photo_logement NATURAL JOIN test.image WHERE id_logement=$id", PDO::FETCH_ASSOC) as $row) {
+    
+                              $photo[$i]=$row;
+                              $i++;
+                              
+                          }
+                          ?>
+                    
+                          <img src="asset/img/logements/<?php echo($photo[0]["id_image"]); ?>.<?php echo($photo[0]["extension_image"]) ?>" withd="300" height="225" alt="img">
+                    
+                          <p class="ville"><?php  echo($info["libelle_logement"]);  ?>, <?php echo($info["localisation"]); ?></p>
+                          <p class="prix"><strong><?php  echo($info["prix_ttc"]."€");  ?></strong> par nuit</p>
+                      </a>
+    
+            <?php
+            $info=[];
+            $photo=[];
+        }
+          $dbh = null;
+
+
+            break; // FIN DE CAS POUR TRI DU PRIX
+
+
+        case "Récent": // CAS POUR LE TRI EN FONCTION DES LOGEMENT LES PLUS RECENT
+
+
+          foreach($dbh->query("SELECT * from test.logement WHERE en_ligne=true ORDER BY id_logement DESC", PDO::FETCH_ASSOC) as $row) {
+            $i=0;
+            $id=$row["id_logement"];
+            $info=$row;
+            ?>
+    
+            <a href="logement.php?id=<?php echo($id);?>" class="maison">
+                          <div id="triangle"></div>
+                          <div class="etoile">
+                            <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path
+                                d="M7.5 0L9.18386 5.52786H14.6329L10.2245 8.94427L11.9084 14.4721L7.5 11.0557L3.09161 14.4721L4.77547 8.94427L0.367076 5.52786H5.81614L7.5 0Z"
+                                fill="white" />
+                            </svg>
+                            <p></p>
+                    
+                          </div>
+                          <?php
+                            foreach($dbh->query("SELECT * from test.photo_logement NATURAL JOIN test.image WHERE id_logement=$id", PDO::FETCH_ASSOC) as $row) {
+    
+                              $photo[$i]=$row;
+                              $i++;
+                              
+                          }
+                          ?>
+                    
+                          <img src="asset/img/logements/<?php echo($photo[0]["id_image"]); ?>.<?php echo($photo[0]["extension_image"]) ?>" withd="300" height="225" alt="img">
+                    
+                          <p class="ville"><?php  echo($info["libelle_logement"]);  ?>, <?php echo($info["localisation"]); ?></p>
+                          <p class="prix"><strong><?php  echo($info["prix_ttc"]."€");  ?></strong> par nuit</p>
+                      </a>
+    
+            <?php
+            $info=[];
+            $photo=[];
+        }
+          $dbh = null;
+            break; // FIN DU CAS EN FONCTION DES PLUS RECENT
+
+
+        case "Avis": // CAS EN FONCTION DE LA NOTE DU LOGEMENT
+
+
+          foreach($dbh->query("SELECT * from test.logement WHERE en_ligne=true ORDER BY note_logement", PDO::FETCH_ASSOC) as $row) {
+            $i=0;
+            $id=$row["id_logement"];
+            $info=$row;
+            ?>
+    
+            <a href="logement.php?id=<?php echo($id);?>" class="maison">
+                          <div id="triangle"></div>
+                          <div class="etoile">
+                            <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path
+                                d="M7.5 0L9.18386 5.52786H14.6329L10.2245 8.94427L11.9084 14.4721L7.5 11.0557L3.09161 14.4721L4.77547 8.94427L0.367076 5.52786H5.81614L7.5 0Z"
+                                fill="white" />
+                            </svg>
+                            <p></p>
+                    
+                          </div>
+                          <?php
+                            foreach($dbh->query("SELECT * from test.photo_logement NATURAL JOIN test.image WHERE id_logement=$id", PDO::FETCH_ASSOC) as $row) {
+    
+                              $photo[$i]=$row;
+                              $i++;
+                              
+                          }
+                          ?>
+                    
+                          <img src="asset/img/logements/<?php echo($photo[0]["id_image"]); ?>.<?php echo($photo[0]["extension_image"]) ?>" withd="300" height="225" alt="img">
+                    
+                          <p class="ville"><?php  echo($info["libelle_logement"]);  ?>, <?php echo($info["localisation"]); ?></p>
+                          <p class="prix"><strong><?php  echo($info["prix_ttc"]."€");  ?></strong> par nuit</p>
+                      </a>
+    
+            <?php
+            $info=[];
+            $photo=[];
+        }
+          $dbh = null;
+            break; // FIN DU CAS EN FONCTION DE LA NOTE DU LOGEMENT
+
+
+        default: // CAS ERREUR
+            echo "Erreur";
+        
+      }
+    }
+
+    else {
+
     foreach($dbh->query("SELECT * from test.logement WHERE en_ligne=true ORDER BY id_logement", PDO::FETCH_ASSOC) as $row) {
         $i=0;
         $id=$row["id_logement"];
@@ -135,7 +291,7 @@ try {
 
         <a href="logement.php?id=<?php echo($id);?>" class="maison">
                       <div id="triangle"></div>
-                      <div class="etoile">
+                      <div class="etoile">Se
                         <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path
                             d="M7.5 0L9.18386 5.52786H14.6329L10.2245 8.94427L11.9084 14.4721L7.5 11.0557L3.09161 14.4721L4.77547 8.94427L0.367076 5.52786H5.81614L7.5 0Z"
@@ -164,6 +320,7 @@ try {
         $photo=[];
     }
       $dbh = null;
+    }
 } catch (PDOException $e) {
     print "Erreur !: " . $e->getMessage() . "<br/>";
     die();
