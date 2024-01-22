@@ -227,7 +227,8 @@ create table planning(
     jour date,
     raison_indisponible varchar(255),
     id_logement integer,
-    constraint plage_fk_logement foreign key (id_logement) references logement(id_logement)ON DELETE CASCADE
+    constraint planning_pk primary key (jour, id_logement),
+    constraint planning_fk_logement foreign key (id_logement) references logement(id_logement) ON DELETE CASCADE
 );
 
 
@@ -274,7 +275,7 @@ create table api(
     cle varchar(32),
     privilegie boolean,
     id_compte integer
-)
+);
 
 
 -- TESTS
@@ -466,21 +467,52 @@ VALUES
     (350.00, 'Facture pour la réservation 2', 200.00, 2),
     (150.00, 'Facture pour la réservation 3', 60.00, 3);
 
-/*
-CREATE FUNCTION getCurrentData(id_log INT)
-  RETURNS TABLE(disponibilite BOOLEAN, prix_ht numeric(10,2), delai_annul integer, pourcentage_retenu numeric(10,2), date_debut date, date_fin date, id_logement integer) AS $$
+
+CREATE FUNCTION getDayData(id_log INT, day DATE)
+  RETURNS TABLE(disponibilite BOOLEAN, prix_ht numeric(10,2), delai_annul integer, pourcentage_retenu numeric(10,2), raison_indisponible VARCHAR(255), jour DATE, id_logement INT) AS $$
 BEGIN
-  PERFORM * FROM plage WHERE plage.date_debut <= CURRENT_DATE AND plage.date_fin >= CURRENT_DATE AND plage.id_logement = id_log;
+  PERFORM * FROM planning WHERE planning.jour = day AND planning.id_logement = id_log;
   IF NOT FOUND THEN
-    RETURN QUERY SELECT disponible_defaut, prix_base_ht, delai_annul_defaut, pourcentage_retenu_defaut, DATE('1970-01-01'), DATE('1970-01-01'), logement.id_logement FROM logement
-      WHERE logement.id_logement = id_log;
+    RETURN QUERY SELECT l.disponible_defaut, l.prix_base_ht, l.delai_annul_defaut, l.pourcentage_retenu_defaut, ''::varchar, day, id_log FROM logement l
+      WHERE l.id_logement = id_log;
   ELSE
-    RETURN QUERY SELECT * FROM plage WHERE plage.date_debut <= CURRENT_DATE AND plage.date_fin >= CURRENT_DATE AND plage.id_logement = id_log;
+    RETURN QUERY SELECT p.disponibilite, p.prix_ht, l.delai_annul_defaut, l.pourcentage_retenu_defaut, p.raison_indisponible, day, id_log FROM planning p NATURAL JOIN logement l WHERE p.jour = day AND p.id_logement = id_log;
   END IF;
 END;
 $$ LANGUAGE plpgsql;
 
+CREATE FUNCTION getPlageData(id_log INT, date_debut DATE, date_fin DATE)
+  RETURNS TABLE(disponibilite BOOLEAN, prix_ht numeric(10,2), delai_annul integer, pourcentage_retenu numeric(10,2), raison_indisponible VARCHAR(255), id_logement INT) AS $$
+DECLARE
+  disponibilite BOOLEAN = TRUE;
+  prix_ht NUMERIC(10,2) = 0;
+  delai_annul INTEGER;
+  pourcentage_retenu NUMERIC(10,2);
+  raison_indisponible VARCHAR(255);
+  jour DATE = date_debut;
+  ajout RECORD;
+BEGIN
+  IF date_debut > date_fin THEN
+    RAISE EXCEPTION 'La date de début de la plage doit être inférieure à sa date de fin';
+  END IF;
+  SELECT l.delai_annul_defaut FROM test.logement l WHERE l.id_logement = id_log INTO delai_annul;
+  SELECT l.pourcentage_retenu_defaut FROM test.logement l WHERE l.id_logement = id_log INTO pourcentage_retenu;
+  WHILE jour <= date_fin LOOP
+    SELECT * FROM getDayData(id_log, jour) INTO ajout;
+    disponibilite = (disponibilite AND ajout.disponibilite);
+    IF NOT disponibilite THEN
+      raison_indisponible = ajout.raison_indisponible;
+      RETURN QUERY SELECT disponibilite, prix_ht, delai_annul, pourcentage_retenu, raison_indisponible, id_log;
+      RETURN;
+    END IF;
+    prix_ht = prix_ht + ajout.prix_ht;
+    jour = jour + 1;
+  END LOOP;
+  RETURN QUERY SELECT disponibilite, prix_ht, delai_annul, pourcentage_retenu, raison_indisponible, id_log;
+END;
+$$ LANGUAGE plpgsql;
 
+/*
 CREATE FUNCTION ajoutPlage() RETURNS TRIGGER AS $$
 BEGIN
   DELETE FROM plage WHERE plage.date_debut >= NEW.date_debut AND plage.date_fin <= NEW.date_fin AND plage.id_logement = NEW.id_logement;
@@ -516,5 +548,6 @@ INSERT INTO planning(disponibilite, prix_hT, jour, id_logement)
 VALUES
     (TRUE, 80.00, '2023-11-18', 1),
     (TRUE, 120.00, '2023-11-1', 2), -- Les plages ne doivent pas se superposer entre elles pour un même logement, les nouvelles plages remplacent certaines parties des anciennes
-    (TRUE, 100.00, '2023-11-1', 2), -- Donc si la plage du dessus faisait du 1-30, sa date de début a été modifiée pour ne pas la superposer avec celle ci qui fait du 1-14
-    (TRUE, 70.00, '2023-12-01', 3);
+    --(TRUE, 100.00, '2023-11-1', 2), -- Donc si la plage du dessus faisait du 1-30, sa date de début a été modifiée pour ne pas la superposer avec celle ci qui fait du 1-14
+    (TRUE, 70.00, '2023-12-01', 3),
+    (FALSE, 0, '2023-11-20', 1);
