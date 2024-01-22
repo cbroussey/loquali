@@ -132,6 +132,39 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
+document.addEventListener("DOMContentLoaded", () => {
+    // flèche de changement de langue & affichage de la popup
+    const Btn_Filtre = document.getElementById("Btn_Filtre");
+    const Liste_Filtre = document.getElementById("Liste_Filtre");
+    const fleche_Filtre = document.getElementById("fleche_Filtre");
+
+    
+    if (Btn_Filtre) {
+         //si clic sur la flèche
+         Btn_Filtre.addEventListener("click", function(event) {
+            //ajout du délai de 0.5s
+            if (fleche_Filtre.style.transition === "") {
+                fleche_Filtre.style.transition = "transform 0.5s ease";
+            }
+            //inverse l'état de la popup
+            if (Liste_Filtre.style.display === "none" || Liste_Filtre.style.display === "") {
+                Liste_Filtre.style.display = "block";
+                fleche_Filtre.style.transform = "rotate(-180deg)";
+            } else {
+                fleche_Filtre.style.transform = "rotate(0deg)"
+            }
+            event.stopPropagation();
+        });
+    
+        //gestion du clic en dehors de la popup lorsqu'elle est ouverte
+        document.addEventListener("click", function() {
+            fleche_Filtre.style.transform = "rotate(0deg)"
+        });
+    }
+});
+
+
+
 
 
 
