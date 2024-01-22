@@ -48,7 +48,7 @@ session_start();
       }
       ?>
     </nav>
-    <div id="headerPopup">
+    <div >
       <ul>
         <li>français</li>
         <li>english</li>
@@ -89,12 +89,92 @@ session_start();
 
   <div class="filter-container">
     <div id="gauche">
-      <a class="button" href="#">
-        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
-          <path d="M23.827 0H1.17324C0.132319 0 -0.392925 1.26299 0.344624 2.00054L9.375 11.0323V21.0938C9.375 21.4761 9.56157 21.8345 9.87485 22.0538L13.7811 24.7872C14.5518 25.3267 15.625 24.7799 15.625 23.8271V11.0323L24.6556 2.00054C25.3916 1.26445 24.87 0 23.827 0Z" fill="#F5F5F5" />
-        </svg>
-        <p>Filtres</p>
-      </a>
+
+
+      <div class="filtrer">
+        <a class="button" id="Btn_Filtre">
+          <svg id="fleche_Filtre" xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
+            <path d="M23.827 0H1.17324C0.132319 0 -0.392925 1.26299 0.344624 2.00054L9.375 11.0323V21.0938C9.375 21.4761 9.56157 21.8345 9.87485 22.0538L13.7811 24.7872C14.5518 25.3267 15.625 24.7799 15.625 23.8271V11.0323L24.6556 2.00054C25.3916 1.26445 24.87 0 23.827 0Z" fill="#F5F5F5" />
+          </svg>
+          <p>Filtres</p>
+        </a>
+
+        <div id="Liste_Filtre">
+          <form action="index.php" method="post">
+
+            <h3>Nombre personne</h3>
+            <input class="quantity" id="Personne" name="Personne" type="number" pattern="(29|35|22|56)[0-9]{3}">
+
+
+            <h3>Type de votre logement</h3>
+            <div id="newLogementInput" class="barre_btn_choix_type_ajlog">
+                <input type="radio" id="type1" name="type" value="Maison" />
+                <label for="type1" class="btn_choix_ajlog">Maison</label>
+                <input type="radio" id="type2" name="type" value="Appartement" />
+                <label for="type2" class="btn_choix_ajlog">Appartement</label>
+            </div>
+    
+            <h3>Aménagement</h3>
+
+            <input type="checkbox" id="amena1" name="amena[]" value="jardin" />
+            <label for="amena1" class="btn_choix2_ajlog">jardin</label>
+
+
+            <input type="checkbox" id="amena2" name="amena[]" value="balcon" />
+            <label for="amena2" class="btn_choix2_ajlog">balcon</label>
+
+
+            <input type="checkbox" id="amena3" name="amena[]" value="terrasse" />
+            <label for="amena3" class="btn_choix2_ajlog">terrasse</label>
+
+
+            <input type="checkbox" id="amena4" name="amena[]" value="parking" />
+            <label for="amena4" class="btn_choix2_ajlog">parking</label>
+
+            <h3>Installation</h3>
+
+            <input type="checkbox" id="instal1" name="instal[]" value="climatisation" />
+            <label for="instal1" class="btn_choix2_ajlog">climatisation</label>
+
+
+            <input type="checkbox" id="instal2" name="instal[]" value="piscine" />
+            <label for="instal2" class="btn_choix2_ajlog">piscine</label>
+
+
+            <input type="checkbox" id="instal3" name="instal[]" value="jacuzzi" />
+            <label for="instal3" class="btn_choix2_ajlog">jacuzzi</label>
+
+
+            <input type="checkbox" id="instal4" name="instal[]" value="hammam" />
+            <label for="instal4" class="btn_choix2_ajlog">hammam</label>
+
+            <input type="checkbox" id="instal5" name="instal[]" value="sauna" />
+            <label for="instal5" class="btn_choix2_ajlog">sauna</label>
+
+            <h3>Service</h3>
+
+
+            <input type="checkbox" id="service1" name="service[]" value="linge" />
+            <label for="service1" class="btn_choix2_ajlog">linge</label>
+
+
+            <input type="checkbox" id="service2" name="service[]" value="ménage" />
+            <label for="service2" class="btn_choix2_ajlog">ménage</label>
+
+
+            <input type="checkbox" id="service3" name="service[]" value="taxi" />
+            <label for="service3" class="btn_choix2_ajlog">taxi</label>
+
+            <input type="checkbox" id="service4" name="service[]" value="repas" />
+            <label for="service4" class="btn_choix2_ajlog">repas</label>
+
+
+            <input type="submit" name="test" value="Confirmer">
+          </form>
+        </div>
+
+      </div>
+      
       <a class="button" href="#">
         <svg width="26" height="30" viewBox="0 0 26 30" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M8.43766 16.4192H6.15721C5.78094 16.4192 5.47307 16.1114 5.47307 15.7351V13.4546C5.47307 13.0784 5.78094 12.7705 6.15721 12.7705H8.43766C8.81393 12.7705 9.12179 13.0784 9.12179 13.4546V15.7351C9.12179 16.1114 8.81393 16.4192 8.43766 16.4192ZM14.5949 15.7351V13.4546C14.5949 13.0784 14.287 12.7705 13.9107 12.7705H11.6303C11.254 12.7705 10.9461 13.0784 10.9461 13.4546V15.7351C10.9461 16.1114 11.254 16.4192 11.6303 16.4192H13.9107C14.287 16.4192 14.5949 16.1114 14.5949 15.7351ZM20.0679 15.7351V13.4546C20.0679 13.0784 19.7601 12.7705 19.3838 12.7705H17.1034C16.7271 12.7705 16.4192 13.0784 16.4192 13.4546V15.7351C16.4192 16.1114 16.7271 16.4192 17.1034 16.4192H19.3838C19.7601 16.4192 20.0679 16.1114 20.0679 15.7351ZM14.5949 21.2082V18.9277C14.5949 18.5514 14.287 18.2436 13.9107 18.2436H11.6303C11.254 18.2436 10.9461 18.5514 10.9461 18.9277V21.2082C10.9461 21.5844 11.254 21.8923 11.6303 21.8923H13.9107C14.287 21.8923 14.5949 21.5844 14.5949 21.2082ZM9.12179 21.2082V18.9277C9.12179 18.5514 8.81393 18.2436 8.43766 18.2436H6.15721C5.78094 18.2436 5.47307 18.5514 5.47307 18.9277V21.2082C5.47307 21.5844 5.78094 21.8923 6.15721 21.8923H8.43766C8.81393 21.8923 9.12179 21.5844 9.12179 21.2082ZM20.0679 21.2082V18.9277C20.0679 18.5514 19.7601 18.2436 19.3838 18.2436H17.1034C16.7271 18.2436 16.4192 18.5514 16.4192 18.9277V21.2082C16.4192 21.5844 16.7271 21.8923 17.1034 21.8923H19.3838C19.7601 21.8923 20.0679 21.5844 20.0679 21.2082ZM25.541 6.38525V26.4532C25.541 27.964 24.3153 29.1897 22.8045 29.1897H2.73654C1.22574 29.1897 0 27.964 0 26.4532V6.38525C0 4.87446 1.22574 3.64872 2.73654 3.64872H5.47307V0.684134C5.47307 0.30786 5.78094 0 6.15721 0H8.43766C8.81393 0 9.12179 0.30786 9.12179 0.684134V3.64872H16.4192V0.684134C16.4192 0.30786 16.7271 0 17.1034 0H19.3838C19.7601 0 20.0679 0.30786 20.0679 0.684134V3.64872H22.8045C24.3153 3.64872 25.541 4.87446 25.541 6.38525ZM22.8045 26.1111V9.12179H2.73654V26.1111C2.73654 26.2993 2.89047 26.4532 3.0786 26.4532H22.4624C22.6505 26.4532 22.8045 26.2993 22.8045 26.1111Z" fill="#F5F5F5" />
@@ -109,13 +189,24 @@ session_start();
     </div>
 
     <div id="trier">
-      <a class="button" id="" href="#">
-        <svg width="24" height="13" viewBox="0 0 24 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <a class="button" id="Btn_Tri">
+        <svg id="fleche_Tri" width="24" height="13" viewBox="0 0 24 13" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M10.7897 11.7363C11.4591 12.3249 12.5462 12.3249 13.2157 11.7363L23.4979 2.69556C24.1674 2.10697 24.1674 1.1511 23.4979 0.562509C22.8285 -0.0260811 21.7414 -0.0260811 21.072 0.562509L12 8.53907L2.92804 0.567217C2.25862 -0.0213728 1.17148 -0.0213728 0.502064 0.567217C-0.167355 1.15581 -0.167355 2.11168 0.502064 2.70026L10.7843 11.741L10.7897 11.7363Z" fill="#F5F5F5" />
         </svg>
 
         <p>Trier</p>
       </a>
+      <div id="div_Tri">
+        <form action="index.php" method="get">
+          <ul id="Liste_Tri">
+            <li> <input type="submit" name="tri" value="Prix : Ordre Croissant"/> </li>
+            <li> <input type="submit" name="tri" value="Prix : Ordre Décroissant"/> </li>
+            <li> <input type="submit" name="tri" value="Récent" /> </li>
+            <li> <input type="submit" name="tri" value="Avis" /> </li>
+          </ul>
+        </form>
+      </div>
+
     </div>
   </div>
 
@@ -127,7 +218,219 @@ session_start();
 include('connect_params.php');
 try {
     $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
-    foreach($dbh->query("SELECT * from test.logement WHERE en_ligne=true ORDER BY id_logement", PDO::FETCH_ASSOC) as $row) {
+    if (isset($_GET["tri"])){
+      switch ($_GET["tri"]) {
+
+
+        case "Prix : Ordre Croissant":  // CAS POUR LE TRIX POUR LE PRIX
+
+          $tri="prix_ttc";
+          $sens="crois";
+
+          break; // FIN DE CAS POUR TRI DU PRIX
+
+        case "Prix : Ordre Décroissant":  // CAS POUR LE TRIX POUR LE PRIX
+
+          $tri="prix_ttc";
+          $sens="desc";
+
+          break; // FIN DE CAS POUR TRI DU PRIX
+
+
+
+
+        case "Récent": // CAS POUR LE TRI EN FONCTION DES LOGEMENT LES PLUS RECENT
+
+          $tri="id_logement";
+          $sens="desc";
+          break; // FIN DU CAS EN FONCTION DES PLUS RECENT
+
+
+        case "Avis": // CAS EN FONCTION DE LA NOTE DU LOGEMENT
+
+          $sens="crois";
+          $tri="note_logement";
+          break; // FIN DU CAS EN FONCTION DE LA NOTE DU LOGEMENT
+
+
+        default: // CAS ERREUR
+            echo "Erreur";
+        
+      }
+    } else {
+      $tri="id_logement";
+      $sens="crois";
+    }
+
+    if (isset($_POST["test"])){
+      $filtre="";
+      foreach ($_POST as $ind => $val){
+
+
+        if ($ind == "Personne" && $val !="") {
+          $filtre.="AND nb_pers_max=$val ";
+        }
+
+        if ($ind == "type"){
+          $filtre.="AND nature_logement='$val' ";
+        }
+
+        if ($ind == "amena"){
+          foreach($val as $amena){
+            $filtre.="AND nom_amenagement='$amena' ";
+          }
+        }
+
+        if ($ind == "service"){
+          foreach($val as $service){
+            $filtre.="AND nom_service='$service' ";
+          }  
+        }
+
+        if ($ind == "instal"){
+          foreach($val as $instal){
+            $filtre.="AND nom_installation='$instal' ";
+          }  
+        }
+
+      }
+    }
+
+    if ($sens=="crois"){
+
+      if ($filtre!=""){
+        foreach($dbh->query("SELECT DISTINCT id_logement from test.logement NATURAL JOIN test.amenagement NATURAL JOIN test.installation NATURAL JOIN test.service WHERE en_ligne=true $filtre ORDER BY $tri", PDO::FETCH_ASSOC) as $row) {
+
+          $id_log_req=$row['id_logement'];
+  
+          foreach($dbh->query("SELECT * from test.logement WHERE id_logement=$id_log_req ORDER BY $tri", PDO::FETCH_ASSOC) as $row){
+            $i=0;
+            $id=$row["id_logement"];
+            $info=$row;
+            ?>
+  
+            <a href="logement.php?id=<?php echo($id);?>" class="maison">
+                          <div id="triangle"></div>
+                          <div class="etoile">Se
+                            <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path
+                                d="M7.5 0L9.18386 5.52786H14.6329L10.2245 8.94427L11.9084 14.4721L7.5 11.0557L3.09161 14.4721L4.77547 8.94427L0.367076 5.52786H5.81614L7.5 0Z"
+                                fill="white" />
+                            </svg>
+                            <p></p>
+                    
+                          </div>
+                          <?php
+                            foreach($dbh->query("SELECT * from test.photo_logement NATURAL JOIN test.image WHERE id_logement=$id", PDO::FETCH_ASSOC) as $row) {
+  
+                              $photo[$i]=$row;
+                              $i++;
+                              
+                          }
+                          ?>
+                    
+                          <img src="asset/img/logements/<?php echo($photo[0]["id_image"]); ?>.<?php echo($photo[0]["extension_image"]) ?>" withd="300" height="225" alt="img">
+                    
+                          <p class="ville"><?php  echo($info["libelle_logement"]);  ?>, <?php echo($info["localisation"]); ?></p>
+                          <p class="prix"><strong><?php  echo($info["prix_ttc"]."€");  ?></strong> par nuit</p>
+                      </a>
+  
+            <?php
+            $info=[];
+            $photo=[];
+          }
+        }
+      } else {
+        foreach($dbh->query("SELECT DISTINCT * from test.logement WHERE en_ligne=true ORDER BY $tri", PDO::FETCH_ASSOC) as $row) {
+          $i=0;
+          $id=$row["id_logement"];
+          $info=$row;
+          ?>
+  
+          <a href="logement.php?id=<?php echo($id);?>" class="maison">
+                        <div id="triangle"></div>
+                        <div class="etoile">Se
+                          <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                              d="M7.5 0L9.18386 5.52786H14.6329L10.2245 8.94427L11.9084 14.4721L7.5 11.0557L3.09161 14.4721L4.77547 8.94427L0.367076 5.52786H5.81614L7.5 0Z"
+                              fill="white" />
+                          </svg>
+                          <p></p>
+                  
+                        </div>
+                        <?php
+                          foreach($dbh->query("SELECT * from test.photo_logement NATURAL JOIN test.image WHERE id_logement=$id", PDO::FETCH_ASSOC) as $row) {
+  
+                            $photo[$i]=$row;
+                            $i++;
+                            
+                        }
+                        ?>
+                  
+                        <img src="asset/img/logements/<?php echo($photo[0]["id_image"]); ?>.<?php echo($photo[0]["extension_image"]) ?>" withd="300" height="225" alt="img">
+                  
+                        <p class="ville"><?php  echo($info["libelle_logement"]);  ?>, <?php echo($info["localisation"]); ?></p>
+                        <p class="prix"><strong><?php  echo($info["prix_ttc"]."€");  ?></strong> par nuit</p>
+                    </a>
+  
+          <?php
+          $info=[];
+          $photo=[];
+      }
+      }
+
+      $dbh = null;
+    }  else if ($sens=="desc") {
+
+      if ($filtre!=""){
+
+        foreach($dbh->query("SELECT DISTINCT id_logement from test.logement NATURAL JOIN test.amenagement NATURAL JOIN test.installation NATURAL JOIN test.service WHERE en_ligne=true $filtre ORDER BY $tri", PDO::FETCH_ASSOC) as $row) {
+
+          $id_log_req=$row['id_logement'];
+  
+          foreach($dbh->query("SELECT * from test.logement WHERE id_logement=$id_log_req ORDER BY $tri", PDO::FETCH_ASSOC) as $row){
+            $i=0;
+            $id=$row["id_logement"];
+            $info=$row;
+            ?>
+  
+            <a href="logement.php?id=<?php echo($id);?>" class="maison">
+                          <div id="triangle"></div>
+                          <div class="etoile">Se
+                            <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path
+                                d="M7.5 0L9.18386 5.52786H14.6329L10.2245 8.94427L11.9084 14.4721L7.5 11.0557L3.09161 14.4721L4.77547 8.94427L0.367076 5.52786H5.81614L7.5 0Z"
+                                fill="white" />
+                            </svg>
+                            <p></p>
+                    
+                          </div>
+                          <?php
+                            foreach($dbh->query("SELECT * from test.photo_logement NATURAL JOIN test.image WHERE id_logement=$id", PDO::FETCH_ASSOC) as $row) {
+  
+                              $photo[$i]=$row;
+                              $i++;
+                              
+                          }
+                          ?>
+                    
+                          <img src="asset/img/logements/<?php echo($photo[0]["id_image"]); ?>.<?php echo($photo[0]["extension_image"]) ?>" withd="300" height="225" alt="img">
+                    
+                          <p class="ville"><?php  echo($info["libelle_logement"]);  ?>, <?php echo($info["localisation"]); ?></p>
+                          <p class="prix"><strong><?php  echo($info["prix_ttc"]."€");  ?></strong> par nuit</p>
+                      </a>
+  
+            <?php
+            $info=[];
+            $photo=[];
+          }
+        }
+        
+
+
+      } else {
+
+      foreach($dbh->query("SELECT DISTINCT * from test.logement WHERE en_ligne=true ORDER BY $tri DESC", PDO::FETCH_ASSOC) as $row) {
         $i=0;
         $id=$row["id_logement"];
         $info=$row;
@@ -135,7 +438,7 @@ try {
 
         <a href="logement.php?id=<?php echo($id);?>" class="maison">
                       <div id="triangle"></div>
-                      <div class="etoile">
+                      <div class="etoile">Se
                         <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path
                             d="M7.5 0L9.18386 5.52786H14.6329L10.2245 8.94427L11.9084 14.4721L7.5 11.0557L3.09161 14.4721L4.77547 8.94427L0.367076 5.52786H5.81614L7.5 0Z"
@@ -163,7 +466,13 @@ try {
         $info=[];
         $photo=[];
     }
-      $dbh = null;
+    $dbh = null;
+
+    }
+
+
+  }
+
 } catch (PDOException $e) {
     print "Erreur !: " . $e->getMessage() . "<br/>";
     die();
@@ -239,6 +548,7 @@ try {
 
   <script src="asset/js/header.js"></script>
   <script src="asset/js/index.js"></script>
+
 </body>
 
 </html>
