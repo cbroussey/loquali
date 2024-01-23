@@ -2,7 +2,55 @@
 <?php
 $server = 'servbdd';
 $driver = 'pgsql';
-$dbname = '';
-$user = '';
-$pass = '';
+$dbname = 'pg_salabiven';
+$user = 'salabiven';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+$pass = 'Pgkslrd22';
 ?>
