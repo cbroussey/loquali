@@ -119,7 +119,7 @@
                         <figcaption><?php echo $res["descriptif"] ?><!--Appartement avec vue imprenable sur la mer--></figcaption>
                     </figure>
                     <div>
-                        <p><a><?php echo $res["prix_base_ht"] ?>€ x <?php echo $res["nbjours"] ?> nuits</a><a><?php $prixFin = $res["prix_base_ht"] * $res["nbjours"]; echo $prixFin ?>€</a></p> <!-- prix incorrect, extraire le prix réel plus tard avec les plages -->
+                        <p><a><?php echo $res["nbjours"] ?> nuits</a><a><?php $prixFin = $res["prix_base_ht"] * $res["nbjours"]; echo $prixFin ?>€</a></p> <!-- prix incorrect, extraire le prix réel plus tard avec les plages -->
                         
                         <?php
                             // Affichage des charges additionnelles sélectionnées
