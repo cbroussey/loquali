@@ -4468,6 +4468,9 @@ display:none;
 height:92vh;
 width:84vw;
 display:none;
+position: fixed;
+margin-left: 30%;
+margin-top: 2%;
 }
 
 #compteReservations {
@@ -5068,7 +5071,6 @@ font-weight: 500;
 .infosProprio{
   position: relative;
   float: left;
-  left: 40px;
   top: 100px;
   height: 463px;
   width: 620px;
@@ -5106,6 +5108,7 @@ font-weight: 500;
   margin-left: 30px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   height: 160px;
 
   font-size: 17px;
@@ -5132,6 +5135,15 @@ font-weight: 500;
 
 .tel {
   margin-right: 5px;
+}
+
+.messageCompteClient {
+  color: #9EA5AB;
+  font-family: Inter;
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
 }
 
 #aProposDeMoi {
@@ -5169,7 +5181,7 @@ font-weight: 500;
   color: #1D4C77;
   position: initial;
   margin-top: 80px;
-  margin-left: 10%;
+
   margin-bottom: 50px;
 }
 
@@ -5179,7 +5191,8 @@ font-weight: 500;
 #titreLogement {
   margin-top: -30px;
   margin-bottom: 14px;
-  margin-left: 36%;
+  display: flex;
+  justify-content: center;
   font-size: 25px;
   
 }
@@ -5187,10 +5200,23 @@ font-weight: 500;
 #listeLogements {
   overflow: auto;
 
-  padding: 40px 55px 20px;
+  padding: 20px 55px 20px 55px;
   display: flex;
   justify-content:flex-start;
   flex-direction: column;
+
+  width: 650px;
+  height: 679px;
+
+  border-radius: 25px;
+  background: #F5F5F5;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
+}
+
+#AucunLogement {
+  padding-top: 20px;
+  display: flex;
+  justify-content: center;
 }
 
 .unLogement {
@@ -5235,7 +5261,7 @@ font-weight: 500;
   display: flex;
   flex-direction: row;
   margin-top: 5px;
-  margin-bottom: 16%;
+  margin-bottom: 15%;
 }
 
 .noteAvis img {
@@ -5710,7 +5736,7 @@ font-weight: 500;
 #AucunLogementCompte {
   position: absolute;
   top: 50%;
-  left: 45%;
+  left: 18%;
  
   height: 54px;
   
@@ -5723,5 +5749,63 @@ font-weight: 500;
   -moz-background-clip: text;
   background-clip: text;
   text-shadow: 0px 3px 3px rgba(255,255,255,0.5);
+}
+
+#compteListeLogements{
+  background: none;
+}
+
+.compteAjout_log{
+  height: 55px;
+  width: 20%;
+  background-color: var(--mainColor);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  margin-left: 55%;
+  margin-top: 40px;
+}
+
+.compteAjout_log a{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+  padding: 0 10px;
+}
+
+.compteAjout_log a p{
+  margin-left: 5px;
+}
+
+.compteAjout_log a svg{
+  margin-right: 5px;
+}
+
+.compteListeUnLogement {
+  display: flex;
+  flex-direction: row;
+  height: 30%;
+  width: 200%;
+}
+
+.compteSeparateur1{
+  background-color: #97ADC1;
+  width: 80%;
+  height: 2px;
+  color: transparent;
+  margin: 25px 0;
+}
+
+.compteBtnListeLogement{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  align-content: space-between;
+  width: 8%;
+  margin-left: 11%;
+
 }
 
