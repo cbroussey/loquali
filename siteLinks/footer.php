@@ -9,9 +9,9 @@
           <h2>Informations légales</h2>
           <ul>
             <li><a href="">Plan du site</a></li>
-            <li><a href="">Mentions légales</a></li>
-            <li><a href="">Conditions générales de ventes</a></li>
-            <li><a href="">Données personnelles</a></li>
+            <li><a href="mentionsLegales.php">Mentions légales</a></li>
+            <li><a href="cgu.php">Conditions générales d'utilisation</a></li>
+            <li><a href="cgv.php">Conditions générales de ventes</a></li>
             <li><a href="">Gestions des cookies</a></li>
           </ul>
         </div>

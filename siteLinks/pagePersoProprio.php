@@ -30,7 +30,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="asset/css/headerAndFooter.css">
     <link rel="stylesheet" href="asset/css/style.css">
-    <title>Document</title>
+    <title>Document</title><?php echo $_SESSION['prenom'] ?>
 </head>
 <body>
 
@@ -49,9 +49,8 @@
           <path d="M8.99141 13.4874C9.54926 14.1709 10.4552 14.1709 11.0131 13.4874L19.5816 2.98945C20.1395 2.30599 20.1395 1.19605 19.5816 0.512594C19.0238 -0.170866 18.1178 -0.170866 17.56 0.512594L10 9.77485L2.44003 0.518062C1.88218 -0.165399 0.976236 -0.165399 0.418387 0.518062C-0.139462 1.20152 -0.139462 2.31146 0.418387 2.99492L8.98695 13.4929L8.99141 13.4874Z" fill="#F5F5F5"/>
         </svg>
       </div>
-      <h4><a href="">Messagerie</a></h4>
-      <h4><a href="">Mes réservations</a></h4>
-      <h4><a href=<?php echo $linkAccount ?>>Mon compte</a></h4>
+      <h4><a href="compte.php?res=res">Mes réservations</a></h4>
+      <h4><a href="compte.php">Mon compte</a></h4>
     </nav>
     <div id="headerPopup">
       <ul>
@@ -94,7 +93,9 @@
     ?>
     
 
-    <a href="index.php">
+    <a href="compte.php" style="
+        height : 125px;
+        ">
         <img src="asset/icons/bleu/toBack.svg" alt="" id="pagePersoSvgBack">
     </a>
         <div class="infosProprio">
@@ -141,7 +142,7 @@
                     </style>
                 </div>
                 <div class = "infos">
-                    <h2><?php echo $_SESSION['displayName'] ?></h2>
+                    <h2><?php echo $_SESSION['displayName'] ?> </h2>
                     <?php
                         $note = ($_SESSION['userType'] == 'proprietaire') ? $current['note_proprio'] : $current['note_client'];
                         if (isset($note)) {
@@ -166,7 +167,7 @@
                     ?>
                     <figure class="mail">
                         <img src="asset/icons/bleu/mail.svg" alt="">
-                        <figcaption><?php echo $_SESSION['email'] ?></figcaption>
+                        <figcaption><?php echo $_SESSION['adresse_mail'] ?></figcaption>
                     </figure>
                 </div>
 
@@ -175,27 +176,42 @@
                 </div>
 
                 <div id="aProposDeMoi">
-                    <div>
-                        <h2>À propos de moi</h2>
-                    </div>
-                    <div class="descriptionPersonne">
-                        <form method="post">
-                            <a href="#" id="boutonDescription" class="testBouton"><img src="asset/icons/bleu/modification.svg" alt=""></a>
-                            <input type="submit" value="Enregistrer" id="modificationDescription" class="modifBtn">
-                            <?php 
-                                if (!empty($current["description"])) {
-                            ?>
-                                <p id="champsDescription" class="descriptionCompte"><?php echo htmlentities($current["description"].PHP_EOL) ?></p>
-                            <?php 
-                                } else {
-                            ?>
-                                <p id="champsDescription" class="descriptionCompte">Description non saisie.</p>
-                            <?php 
-                                }
-                            ?>
-                            <textarea type="text" id="description" class="descriptionModif" name="description" value=<?php echo htmlentities($current["description"]) ?>></textarea>
-                        </form>
-                    </div>
+                <?php
+                    if ($_SESSION['userType'] == 'proprietaire'){
+                        ?>
+                        <div>
+                            <h2>À propos de moi</h2>
+                        </div>
+                    
+                        <div class="descriptionPersonne">
+                            <form method="post">
+                                <a href="#" id="boutonDescription" class="testBouton"><img src="asset/icons/bleu/modification.svg" alt=""></a>
+                                <input type="submit" value="Enregistrer" id="modificationDescription" class="modifBtn">
+                                <?php 
+                                    if (!empty($current["description"])) {
+                                ?>
+                                    <p id="champsDescription" class="descriptionCompte"><?php echo htmlentities($current["description"].PHP_EOL) ?></p>
+                                <?php 
+                                    } else {
+                                ?>
+                                    <p id="champsDescription" class="descriptionCompte">Description non saisie.</p>
+                                <?php 
+                                    }
+                                ?>
+                                <textarea type="text" id="description" class="descriptionModif" name="description" value=<?php echo htmlentities($current["description"]) ?>></textarea>
+                            </form>
+                        </div>
+                        <?php
+                    }
+                    else {
+                        ?>
+                        <div class="messageCompteClient">
+                            <p>Compte Voyageur</p>
+                        </div>
+                        <?php
+                    }
+                    ?>
+                
 
                 </div>
         

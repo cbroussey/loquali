@@ -28,13 +28,22 @@ const listeLiens = [compteAccueil, compteInfosPerso, compteConnection, compteFav
 
 // Sélectionnez tous les liens à l'intérieur de la div avec la classe 'nav'
 var links = document.querySelectorAll('.nav > div');
+var menuLinks = document.querySelectorAll('figure > figcaption');
 var current = compteAccueil;
+var currentMenuLink = menuLinks[0];
+currentMenuLink.style.color = 'var(--textColor)';
+currentMenuLink.parentNode.children[0].children[1].display = "none";
+console.log(currentMenuLink.parentNode.children[0].children[1]);
 
 links.forEach(function(link, index) {
-    link.addEventListener('click', function() {
+    link.addEventListener('click', function liens_compte() {
         console.log('Vous avez cliqué sur le lien avec l\'index : ' + index);
+        currentMenuLink.style.color = 'var(--secondBG)';
+        currentMenuLink = menuLinks[index];
+        currentMenuLink.style.color = 'var(--textColor)';
         switch (index) {
             case 0:
+                console.log(this);
                 current.style.display = "none";
                 current = compteAccueil;
                 current.style.display = "block";
@@ -76,14 +85,23 @@ links.forEach(function(link, index) {
     });
 });
 
-document.querySelectorAll('.nav-item').forEach(item => {
-    item.addEventListener('mouseenter', () => {
-        const color = item.dataset.color;
-        item.style.backgroundColor = `var(--${color}HoverColor)`;
+  // Fonction pour réinitialiser la couleur au survol
+  function resetColorOnHover(element) {
+    element.addEventListener('mouseenter', function() {
+        if (element != currentMenuLink) {
+            this.style.color = 'var(--textColor)';
+        }
     });
 
-    item.addEventListener('mouseleave', () => {
-        item.style.backgroundColor = 'initial';
+    // (Facultatif) Si vous souhaitez réappliquer la couleur après le survol
+    element.addEventListener('mouseleave', function() {
+        if (element != currentMenuLink) {
+            this.style.color = 'var(--secondBG)';
+        }
     });
-});
+  }
 
+  // Appliquez les fonctions à chaque élément menuLink
+  menuLinks.forEach(function(menuLink) {
+    resetColorOnHover(menuLink);
+  });

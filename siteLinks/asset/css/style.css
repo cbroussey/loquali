@@ -263,6 +263,13 @@ pre {
   display: none;
 }
 
+#Liste_Filtre{
+  display: none;
+  background: #F5F5F5;
+  position: absolute;
+  z-index: 10;
+}
+
 .maison img{
   width: 300px;
   border-radius: 5px;
@@ -1838,6 +1845,24 @@ text-decoration: underline;
   width: 10%;
   height: 62px;
   background-color: #8A3443;;
+  color: #fff;
+  text-align: center;
+  line-height: 62px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 700;
+  margin-bottom: 20px;
+  margin-right: 5%;
+}
+.button_ligne2 button{
+  float: right;
+  display: inline-block;
+  margin-top: -50px;
+  width: 13%;
+  height: 62px;
+  background-color: green;;
   color: #fff;
   text-align: center;
   line-height: 62px;
@@ -4402,6 +4427,7 @@ flex-direction: column;
 
 .nav-item {
 cursor: pointer;
+color: var(--secondBG);
 }
 
 .nav-item:hover {
@@ -4477,6 +4503,9 @@ display:none;
 height:92vh;
 width:84vw;
 display:none;
+position: fixed;
+margin-left: 30%;
+margin-top: 2%;
 }
 
 #compteReservations {
@@ -4526,6 +4555,20 @@ display:none;
 
 
 /********* PAGE INFOS PERSO **********/
+
+#profilImage {
+  color: transparent;
+  /* Rendre la taille du bouton égale à 100% de la largeur du conteneur parent */
+  width: 100%;
+  /* Rendre le bouton invisible */
+  opacity: 0;
+  /* Rendre le bouton inaccessible à la souris (caché sous un autre élément) */
+  position: absolute;
+  top: 0;
+  left: 0;
+  /* Facultatif : rendre le curseur comme s'il ne s'agit pas d'un bouton */
+  cursor: pointer;
+}
 
 #compteInfosPerso {
 position: relative;
@@ -5077,7 +5120,6 @@ font-weight: 500;
 .infosProprio{
   position: relative;
   float: left;
-  left: 40px;
   top: 100px;
   height: 463px;
   width: 620px;
@@ -5115,6 +5157,7 @@ font-weight: 500;
   margin-left: 30px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   height: 160px;
 
   font-size: 17px;
@@ -5141,6 +5184,15 @@ font-weight: 500;
 
 .tel {
   margin-right: 5px;
+}
+
+.messageCompteClient {
+  color: #9EA5AB;
+  font-family: Inter;
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
 }
 
 #aProposDeMoi {
@@ -5178,7 +5230,7 @@ font-weight: 500;
   color: #1D4C77;
   position: initial;
   margin-top: 80px;
-  margin-left: 10%;
+
   margin-bottom: 50px;
 }
 
@@ -5188,7 +5240,8 @@ font-weight: 500;
 #titreLogement {
   margin-top: -30px;
   margin-bottom: 14px;
-  margin-left: 36%;
+  display: flex;
+  justify-content: center;
   font-size: 25px;
   
 }
@@ -5196,10 +5249,23 @@ font-weight: 500;
 #listeLogements {
   overflow: auto;
 
-  padding: 40px 55px 20px;
+  padding: 20px 55px 20px 55px;
   display: flex;
   justify-content:flex-start;
   flex-direction: column;
+
+  width: 650px;
+  height: 679px;
+
+  border-radius: 25px;
+  background: #F5F5F5;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
+}
+
+#AucunLogement {
+  padding-top: 20px;
+  display: flex;
+  justify-content: center;
 }
 
 .unLogement {
@@ -5244,7 +5310,7 @@ font-weight: 500;
   display: flex;
   flex-direction: row;
   margin-top: 5px;
-  margin-bottom: 16%;
+  margin-bottom: 15%;
 }
 
 .noteAvis img {
@@ -5719,7 +5785,7 @@ font-weight: 500;
 #AucunLogementCompte {
   position: absolute;
   top: 50%;
-  left: 45%;
+  left: 18%;
  
   height: 54px;
   
@@ -5734,3 +5800,79 @@ font-weight: 500;
   text-shadow: 0px 3px 3px rgba(255,255,255,0.5);
 }
 
+#compteListeLogements{
+  background: none;
+}
+
+.compteAjout_log{
+  height: 55px;
+  width: 20%;
+  background-color: var(--mainColor);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  margin-left: 55%;
+  margin-top: 40px;
+}
+
+.compteAjout_log a{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+  padding: 0 10px;
+}
+
+.compteAjout_log a p{
+  margin-left: 5px;
+}
+
+.compteAjout_log a svg{
+  margin-right: 5px;
+}
+
+.compteListeUnLogement {
+  display: flex;
+  flex-direction: row;
+  height: 30%;
+  width: 200%;
+}
+
+.compteSeparateur1{
+  background-color: #97ADC1;
+  width: 80%;
+  height: 2px;
+  color: transparent;
+  margin: 25px 0;
+}
+
+.compteBtnListeLogement{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  align-content: space-between;
+  width: 8%;
+  margin-left: 11%;
+
+}
+/************page reservation***************/
+
+#AucuneReservCompte {
+  position: absolute;
+  top: 50%;
+  left: 12%;
+ 
+  height: 54px;
+  
+  font-size: 35px;
+  font-weight: 700;
+ 
+  color: transparent;
+  background: #97ADC1;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  background-clip: text;
+  text-shadow: 0px 3px 3px rgba(255,255,255,0.5);
+}
