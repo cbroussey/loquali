@@ -15,18 +15,20 @@ class contextMenu {
         this.elems.forEach((e) => {
             if (this.ref == "" || e.toLowerCase().includes(filter.toLowerCase())) {
                 //console.log(this.ref)
-                html += `<tr><td>${e}</td></tr>` // Ajout de l'élément s'il fait parti du filtre précisé ou non
+                html += `<tr><td${(e.includes("disabled") ? " class=\"disabled\"" : "")}>${e}</td></tr>` // Ajout de l'élément s'il fait parti du filtre précisé ou non
             }
         })
         this.CM.querySelector("table > tbody").innerHTML = html
         this.CM.querySelectorAll("table > tbody > tr > td").forEach((e) => { // Pour toutes les entrées du menu
-            e.addEventListener("click", () => {
-                this.ref.value = e.innerHTML // Pour être sûr que ça marche dans tous les cas
-                this.ref.innerHTML = e.innerHTML
-                this.display((this.ref.tagName == "INPUT" && !this.ref.readOnly) ? this.ref.value : "");
-                if (this.ref.tagName != "INPUT" && e.parentNode.tagName != "TR")
-                    toggleCM(this.CM.id, this) // Permet d'éviter une réouverture du menu en cas d'évènement "blur"
-            })
+            if (!e.classList.contains("disabled")) { // N'ajoute pas de listener si l'élément est désactivé
+                e.addEventListener("click", () => {
+                    this.ref.value = e.innerHTML // Pour être sûr que ça marche dans tous les cas
+                    this.ref.innerHTML = e.innerHTML
+                    this.display((this.ref.tagName == "INPUT" && !this.ref.readOnly) ? this.ref.value : "");
+                    if (this.ref.tagName != "INPUT" && e.parentNode.tagName != "TR")
+                        toggleCM(this.CM.id, this) // Permet d'éviter une réouverture du menu en cas d'évènement "blur"
+                })
+            }
         })
     }
 }

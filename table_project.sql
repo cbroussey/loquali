@@ -59,6 +59,8 @@ create table logement(
     surface integer,
     disponible_defaut boolean,
     prix_base_ht numeric(10,2),
+    duree_resa_min int, -- en jours
+    delai_resa_min int, -- en jours, délai entre la date de réservation et l'arrivée du client
     delai_annul_defaut int, -- en jours
     pourcentage_retenu_defaut numeric(10,2),
     libelle_logement varchar(255),
@@ -90,6 +92,7 @@ create table photo_logement(
 );
 
 create table cb(
+    type_cb VARCHAR(50),
     numero_carte varchar(16) check (numero_carte ~ '^[0-9]{16}$'),
     date_validite date,
     cryptogramme VARCHAR(3),
@@ -227,7 +230,8 @@ create table planning(
     jour date,
     raison_indisponible varchar(255),
     id_logement integer,
-    constraint plage_fk_logement foreign key (id_logement) references logement(id_logement)ON DELETE CASCADE
+    constraint planning_pk primary key (jour, id_logement),
+    constraint planning_fk_logement foreign key (id_logement) references logement(id_logement) ON DELETE CASCADE
 );
 
 
@@ -318,11 +322,11 @@ VALUES
     (6, 'Description Propriétaire 3', 4.7,'F','FR7630002032531234567890168');
 
 
-INSERT INTO logement (prix_TTC, note_logement, en_ligne, type_logement, nature_logement, localisation, descriptif, surface, disponible_defaut, prix_base_HT, delai_annul_defaut, pourcentage_retenu_defaut, libelle_logement, accroche, nb_pers_max, nb_chambre, nb_salle_de_bain, code_postal,departement, info_arrivee, info_depart, reglement_interieur, id_compte, id_image_couv)
+INSERT INTO logement (prix_TTC, note_logement, en_ligne, type_logement, nature_logement, localisation, descriptif, surface, disponible_defaut, prix_base_HT, duree_resa_min, delai_resa_min, delai_annul_defaut, pourcentage_retenu_defaut, libelle_logement, accroche, nb_pers_max, nb_chambre, nb_salle_de_bain, code_postal,departement, info_arrivee, info_depart, reglement_interieur, id_compte, id_image_couv)
 VALUES
-    (150.00, 4.3, TRUE,'T4', 'Appartement', 'Brest', 'Bel appartement au coeur de Brest', 80, TRUE, 120.00, 5, 10.00, 'Appartement Brestois', 'Vue magnifique sur le port', 4, 2, 1, 29200 , 'Finistère', 'boite à clé près de la porte d''entrée', 'veuillez ranger les clés dans la boite à clés', 'veuillez ne pas abimer le mobilier', 4, 1),
-    (200.00, 4.5, TRUE, 'T3', 'Maison', 'Quimper', 'Charmante maison à Quimper', 120, TRUE, 180.00, 6, 15.00, 'Maison Quimpéroise', 'Proche de la plage', 6, 3, 2, 29000, 'Finistère', 'boite à clé près de la porte d''entrée', 'veuillez ranger les clés dans la boite à clés', 'veuillez ne pas abimer le mobilier', 5, 5),
-    (100.00, 4.0, TRUE, 'T1', 'Studio', 'Morlaix', 'Studio ensoleillé à Morlaix', 45, TRUE, 80.00, 3, 8.00, 'Studio Lumineux', 'Jardin privé et piscine', 2, 3, 1, 29600, 'Finistère', 'boite à clé près de la porte d''entrée', 'veuillez ranger les clés dans la boite à clés', 'veuillez ne pas abimer le mobilier', 6, 8);
+    (150.00, 4.3, TRUE,'T4', 'Appartement', 'Brest', 'Bel appartement au coeur de Brest', 80, TRUE, 120.00, 2, 3, 5, 10.00, 'Appartement Brestois', 'Vue magnifique sur le port', 4, 2, 1, 29200 , 'Finistère', 'boite à clé près de la porte d''entrée', 'veuillez ranger les clés dans la boite à clés', 'veuillez ne pas abimer le mobilier', 4, 1),
+    (200.00, 4.5, TRUE, 'T3', 'Maison', 'Quimper', 'Charmante maison à Quimper', 120, TRUE, 180.00, 4, 5, 6, 15.00, 'Maison Quimpéroise', 'Proche de la plage', 6, 3, 2, 29000, 'Finistère', 'boite à clé près de la porte d''entrée', 'veuillez ranger les clés dans la boite à clés', 'veuillez ne pas abimer le mobilier', 5, 5),
+    (100.00, 4.0, TRUE, 'T1', 'Studio', 'Morlaix', 'Studio ensoleillé à Morlaix', 45, TRUE, 80.00, 2, 4, 3, 8.00, 'Studio Lumineux', 'Jardin privé et piscine', 2, 3, 1, 29600, 'Finistère', 'boite à clé près de la porte d''entrée', 'veuillez ranger les clés dans la boite à clés', 'veuillez ne pas abimer le mobilier', 6, 8);
     
 
 INSERT INTO photo_logement(id_logement, id_image)
@@ -336,11 +340,11 @@ VALUES
     (2,6),
     (3,8);
 
-INSERT INTO CB (numero_carte, date_validite, cryptogramme, id_compte)
+INSERT INTO CB (type_cb, numero_carte, date_validite, cryptogramme, id_compte)
 VALUES
-    ('1234567890123456', '2025-12-31', 123, 1),
-    ('9876543210987654', '2024-10-31', 456, 2),
-    ('1111222233334444', '2026-06-30', 789, 3);
+    ('MasterCard', '1234567890123456', '2025-12-31', 123, 1),
+    ('MasterCard', '9876543210987654', '2024-10-31', 456, 2),
+    ('MasterCard', '1111222233334444', '2026-06-30', 789, 3);
 
 INSERT INTO langue (nom_langue, id_compte)
 VALUES
@@ -466,21 +470,54 @@ VALUES
     (350.00, 'Facture pour la réservation 2', 200.00, 2),
     (150.00, 'Facture pour la réservation 3', 60.00, 3);
 
-/*
-CREATE FUNCTION getCurrentData(id_log INT)
-  RETURNS TABLE(disponibilite BOOLEAN, prix_ht numeric(10,2), delai_annul integer, pourcentage_retenu numeric(10,2), date_debut date, date_fin date, id_logement integer) AS $$
+
+CREATE FUNCTION getDayData(id_log INT, day DATE)
+  RETURNS TABLE(disponibilite BOOLEAN, prix_ht numeric(10,2), delai_annul integer, pourcentage_retenu numeric(10,2), raison_indisponible VARCHAR(255), jour DATE, id_logement INT) AS $$
 BEGIN
-  PERFORM * FROM plage WHERE plage.date_debut <= CURRENT_DATE AND plage.date_fin >= CURRENT_DATE AND plage.id_logement = id_log;
+  PERFORM * FROM planning WHERE planning.jour = day AND planning.id_logement = id_log;
   IF NOT FOUND THEN
-    RETURN QUERY SELECT disponible_defaut, prix_base_ht, delai_annul_defaut, pourcentage_retenu_defaut, DATE('1970-01-01'), DATE('1970-01-01'), logement.id_logement FROM logement
-      WHERE logement.id_logement = id_log;
+    RETURN QUERY SELECT l.disponible_defaut, l.prix_base_ht, l.delai_annul_defaut, l.pourcentage_retenu_defaut, ''::varchar, day, id_log FROM logement l
+      WHERE l.id_logement = id_log;
   ELSE
-    RETURN QUERY SELECT * FROM plage WHERE plage.date_debut <= CURRENT_DATE AND plage.date_fin >= CURRENT_DATE AND plage.id_logement = id_log;
+    RETURN QUERY SELECT p.disponibilite, p.prix_ht, l.delai_annul_defaut, l.pourcentage_retenu_defaut, p.raison_indisponible, day, id_log FROM planning p NATURAL JOIN logement l WHERE p.jour = day AND p.id_logement = id_log;
   END IF;
 END;
 $$ LANGUAGE plpgsql;
 
+-- nbJours = nombre de jours passés dans le logement (jours non-entiers inclus, donc date de début et de fin inclus)
+-- Nombre de nuits = nbJours-1
+CREATE FUNCTION getPlageData(id_log INT, date_debut DATE, date_fin DATE)
+  RETURNS TABLE(disponibilite BOOLEAN, prix_ht numeric(10,2), delai_annul integer, pourcentage_retenu numeric(10,2), raison_indisponible VARCHAR(255), id_logement INT, nbJours INT) AS $$
+DECLARE
+  disponibilite BOOLEAN = TRUE;
+  prix_ht NUMERIC(10,2) = 0;
+  delai_annul INTEGER;
+  pourcentage_retenu NUMERIC(10,2);
+  raison_indisponible VARCHAR(255);
+  jour DATE = date_debut;
+  ajout RECORD;
+BEGIN
+  IF date_debut > date_fin THEN
+    RAISE EXCEPTION 'La date de début de la plage doit être inférieure à sa date de fin';
+  END IF;
+  SELECT l.delai_annul_defaut FROM test.logement l WHERE l.id_logement = id_log INTO delai_annul;
+  SELECT l.pourcentage_retenu_defaut FROM test.logement l WHERE l.id_logement = id_log INTO pourcentage_retenu;
+  WHILE jour <= date_fin LOOP
+    SELECT * FROM getDayData(id_log, jour) INTO ajout;
+    disponibilite = (disponibilite AND ajout.disponibilite);
+    IF NOT disponibilite THEN
+      raison_indisponible = ajout.raison_indisponible;
+      RETURN QUERY SELECT disponibilite, prix_ht, delai_annul, pourcentage_retenu, raison_indisponible, id_log, DATE_PART('day', jour::timestamp - date_debut::timestamp)::int AS nbJours;
+      RETURN;
+    END IF;
+    prix_ht = prix_ht + ajout.prix_ht;
+    jour = jour + 1;
+  END LOOP;
+  RETURN QUERY SELECT disponibilite, prix_ht, delai_annul, pourcentage_retenu, raison_indisponible, id_log, DATE_PART('day', jour::timestamp - date_debut::timestamp)::int AS nbJours;
+END;
+$$ LANGUAGE plpgsql;
 
+/*
 CREATE FUNCTION ajoutPlage() RETURNS TRIGGER AS $$
 BEGIN
   DELETE FROM plage WHERE plage.date_debut >= NEW.date_debut AND plage.date_fin <= NEW.date_fin AND plage.id_logement = NEW.id_logement;
@@ -516,5 +553,6 @@ INSERT INTO planning(disponibilite, prix_hT, jour, id_logement)
 VALUES
     (TRUE, 80.00, '2023-11-18', 1),
     (TRUE, 120.00, '2023-11-1', 2), -- Les plages ne doivent pas se superposer entre elles pour un même logement, les nouvelles plages remplacent certaines parties des anciennes
-    (TRUE, 100.00, '2023-11-1', 2), -- Donc si la plage du dessus faisait du 1-30, sa date de début a été modifiée pour ne pas la superposer avec celle ci qui fait du 1-14
-    (TRUE, 70.00, '2023-12-01', 3);
+    --(TRUE, 100.00, '2023-11-1', 2), -- Donc si la plage du dessus faisait du 1-30, sa date de début a été modifiée pour ne pas la superposer avec celle ci qui fait du 1-14
+    (TRUE, 70.00, '2023-12-01', 3),
+    (FALSE, 0, '2023-11-20', 1);
