@@ -551,7 +551,7 @@ if (isset($_GET["confirmDelete"])) {
   </div> 
 
     <div id="compteLogements">
-<!-- logements -->
+<!-- logements --> <!-- reservations -->
       <?php
         if ($_SESSION['userType'] == 'proprietaire') {
         ?>
@@ -652,6 +652,76 @@ if (isset($_GET["confirmDelete"])) {
             }
 
             $dbh = null;
+        }else {
+
+          try {
+            $id = $_SESSION['userId'];
+                $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+
+                $query = "SELECT COUNT(*) FROM test.logement WHERE id_compte = $id;";
+                $stmt = $dbh->prepare($query);
+                $stmt->execute();
+                $nbLogements = $stmt->fetch();
+
+                if ($nbLogements['count'] == 0) {
+                    ?>
+                    <p id="AucuneReservCompte">Vous n'avez aucunes réservations pour le moment</p>
+                    <?php
+                }
+
+                foreach($dbh->query("SELECT * FROM test.logement WHERE id_compte = $id", PDO::FETCH_ASSOC) as $row) {
+            
+                  $info=$row;
+                  $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+                  $query = "SELECT min(id_image) FROM test.photo_logement NATURAL JOIN test.image WHERE id_logement = :id_logement;";
+          
+                  $stmt = $dbh->prepare($query);
+                  $stmt->bindParam('id_logement', $info["id_logement"], PDO::PARAM_STR);
+                  $stmt->execute();
+                  $photo = $stmt->fetch();
+
+                  $query = "SELECT extension_image FROM test.image WHERE id_image = :id_image;";
+          
+                  $stmt = $dbh->prepare($query);
+                  $stmt->bindParam('id_image', $photo["min"], PDO::PARAM_STR);
+                  $stmt->execute();
+                  $extention = $stmt->fetch();
+
+                  ?>
+
+                  <div class="compteListeUnLogement">
+                    <div class="toutLogement">
+                      <div>
+                        <img src="asset/img/logements/<?php echo ($photo["min"]); ?>.<?php echo $extention["extension_image"] ?>" width="100%" height="100%" alt="" class="imgListeLogementProprio">
+                      </div>
+                      <div class="unLogement">
+                        <div class="log_info_liste">
+                          <h2><?php echo ($info["nature_logement"]); ?> <?php echo ($info["type_logement"]); ?>, <?php echo ($info["localisation"]); ?></h2>
+                          <p><?php echo ($info["code_postal"]); ?>, <U><?php echo ($info["departement"]); ?></U></p>
+                          <div class="noteAvis">
+                            <img src="asset/icons/bleu/star.svg" alt="">
+                            <p><?php echo ($info["note_logement"]); ?>, 24 avis</p>
+                          </div>
+                          <a class="consulterLogement" href="logement.php?id=<?php echo $info["id_logement"] ?>"><em>Consulter le logement</em></a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                <div class="separateur1">a</div>
+
+                
+
+                <?php
+                }
+                
+          } catch (PDOException $e) {
+            print "Erreur !: " . $e->getMessage() . "<br/>";
+            die();
+          }
+
+          $dbh = null;
+
         }
             ?>
 
@@ -659,11 +729,7 @@ if (isset($_GET["confirmDelete"])) {
 
         <div id="compteReservations">
           <!-- Réservations -->
-          <?php
-          if ($_SESSION['userType'] == 'client') {
-
-          }
-          ?>
+          
         </div>
 
         <div id="compteMessagerie">

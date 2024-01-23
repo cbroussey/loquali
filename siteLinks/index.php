@@ -48,15 +48,6 @@ session_start();
       }
       ?>
     </nav>
-    <div >
-      <ul>
-        <li>français</li>
-        <li>english</li>
-        <li>español</li>
-        <li>deutsch</li>
-        <li>brezhonneg</li>
-      </ul>
-    </div>
     <div></div>
   </header>
 
@@ -168,9 +159,27 @@ session_start();
             <input type="checkbox" id="service4" name="service[]" value="repas" />
             <label for="service4" class="btn_choix2_ajlog">repas</label>
 
+            <h3>Tri de recherche</h3>
+
+            <input type="radio" name="tri" id="rad_tri_1" value="Prix : Ordre Croissant"/> 
+            <label for="rad_tri_1" class="btn_choix2_ajlog">Prix : Ordre Croissant</label>
+
+            <input type="radio" name="tri" id="rad_tri_2" value="Prix : Ordre Décroissant"/> 
+            <label for="rad_tri_2" class="btn_choix2_ajlog">Prix : Ordre Décroissant</label>
+
+            <input type="radio" name="tri" id="rad_tri_3" value="Récent" />
+            <label for="rad_tri_3" class="btn_choix2_ajlog">Récent</label>
+            
+            <input type="radio" name="tri" id="rad_tri_4" value="Ancien" />
+            <label for="rad_tri_4" class="btn_choix2_ajlog">Ancien</label>
+
+            <input type="radio" name="tri" id="rad_tri_5" value="Avis" />
+            <label for="rad_tri_5" class="btn_choix2_ajlog">Avis</label>
+
+
+
 
             <input type="submit" name="test" value="Confirmer">
-          </form>
         </div>
 
       </div>
@@ -187,30 +196,7 @@ session_start();
         <p>Des logements pour tout les goûts </p>
       </div>
     </div>
-
-    <div id="trier">
-      <a class="button" id="Btn_Tri">
-        <svg id="fleche_Tri" width="24" height="13" viewBox="0 0 24 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M10.7897 11.7363C11.4591 12.3249 12.5462 12.3249 13.2157 11.7363L23.4979 2.69556C24.1674 2.10697 24.1674 1.1511 23.4979 0.562509C22.8285 -0.0260811 21.7414 -0.0260811 21.072 0.562509L12 8.53907L2.92804 0.567217C2.25862 -0.0213728 1.17148 -0.0213728 0.502064 0.567217C-0.167355 1.15581 -0.167355 2.11168 0.502064 2.70026L10.7843 11.741L10.7897 11.7363Z" fill="#F5F5F5" />
-        </svg>
-
-        <p>Trier</p>
-      </a>
-      <div id="div_Tri">
-        <form action="index.php" method="get">
-          <ul id="Liste_Tri">
-            <li> <input type="submit" name="tri" value="Prix : Ordre Croissant"/> </li>
-            <li> <input type="submit" name="tri" value="Prix : Ordre Décroissant"/> </li>
-            <li> <input type="submit" name="tri" value="Récent" /> </li>
-            <li> <input type="submit" name="tri" value="Avis" /> </li>
-          </ul>
-        </form>
-      </div>
-
-    </div>
   </div>
-
-
 
   <div class="box">
   <?php
@@ -218,8 +204,8 @@ session_start();
 include('connect_params.php');
 try {
     $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
-    if (isset($_GET["tri"])){
-      switch ($_GET["tri"]) {
+    if (isset($_POST["tri"])){
+      switch ($_POST["tri"]) {
 
 
         case "Prix : Ordre Croissant":  // CAS POUR LE TRIX POUR LE PRIX
@@ -227,12 +213,15 @@ try {
           $tri="prix_ttc";
           $sens="crois";
 
+
           break; // FIN DE CAS POUR TRI DU PRIX
 
         case "Prix : Ordre Décroissant":  // CAS POUR LE TRIX POUR LE PRIX
 
           $tri="prix_ttc";
           $sens="desc";
+
+
 
           break; // FIN DE CAS POUR TRI DU PRIX
 
@@ -245,10 +234,16 @@ try {
           $sens="desc";
           break; // FIN DU CAS EN FONCTION DES PLUS RECENT
 
+        case "Ancien": // CAS POUR LE TRI EN FONCTION DES LOGEMENT LES PLUS RECENT
+
+          $tri="id_logement";
+          $sens="crois";
+          break; // FIN DU CAS EN FONCTION DES PLUS RECENT
+
 
         case "Avis": // CAS EN FONCTION DE LA NOTE DU LOGEMENT
 
-          $sens="crois";
+          $sens="desc";
           $tri="note_logement";
           break; // FIN DU CAS EN FONCTION DE LA NOTE DU LOGEMENT
 
@@ -297,13 +292,21 @@ try {
     }
 
     if ($sens=="crois"){
-
       if ($filtre!=""){
-        foreach($dbh->query("SELECT DISTINCT id_logement from test.logement NATURAL JOIN test.amenagement NATURAL JOIN test.installation NATURAL JOIN test.service WHERE en_ligne=true $filtre ORDER BY $tri", PDO::FETCH_ASSOC) as $row) {
+        foreach($dbh->query("SELECT DISTINCT id_logement, prix_ttc, note_logement
+        FROM (
+            SELECT *
+            FROM test.logement
+            NATURAL JOIN test.amenagement
+            NATURAL JOIN test.installation
+            NATURAL JOIN test.service
+            WHERE en_ligne = true
+            $filtre
+        ) AS subquery ORDER BY $tri;", PDO::FETCH_ASSOC) as $row) {
 
           $id_log_req=$row['id_logement'];
   
-          foreach($dbh->query("SELECT * from test.logement WHERE id_logement=$id_log_req ORDER BY $tri", PDO::FETCH_ASSOC) as $row){
+          foreach($dbh->query("SELECT * from test.logement WHERE id_logement=$id_log_req", PDO::FETCH_ASSOC) as $row){
             $i=0;
             $id=$row["id_logement"];
             $info=$row;
@@ -380,11 +383,20 @@ try {
       }
 
       $dbh = null;
-    }  else if ($sens=="desc") {
+    }  else {
 
       if ($filtre!=""){
 
-        foreach($dbh->query("SELECT DISTINCT id_logement from test.logement NATURAL JOIN test.amenagement NATURAL JOIN test.installation NATURAL JOIN test.service WHERE en_ligne=true $filtre ORDER BY $tri", PDO::FETCH_ASSOC) as $row) {
+        foreach($dbh->query("SELECT DISTINCT id_logement, prix_ttc, note_logement
+        FROM (
+            SELECT *
+            FROM test.logement
+            NATURAL JOIN test.amenagement
+            NATURAL JOIN test.installation
+            NATURAL JOIN test.service
+            WHERE en_ligne = true
+            $filtre
+        ) AS subquery ORDER BY $tri DESC;", PDO::FETCH_ASSOC) as $row) {
 
           $id_log_req=$row['id_logement'];
   

@@ -143,7 +143,7 @@
                     </style>
                 </div>
                 <div class = "infos">
-                    <h2><?php echo $_SESSION['prenom'] ?> <?php echo $_SESSION['nom'] ?></h2>
+                    <h2><?php echo $_SESSION['nom'] ?> <?php echo $_SESSION['prenom'] ?> </h2>
                     <?php
                         $note = ($_SESSION['userType'] == 'proprietaire') ? $current['note_proprio'] : $current['note_client'];
                         if (isset($note)) {
