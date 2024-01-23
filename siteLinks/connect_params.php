@@ -52,5 +52,5 @@ $user = 'salabiven';
 
 
 
-$pass = 'Pgkslrd22';
+$pass = '';
 ?>
