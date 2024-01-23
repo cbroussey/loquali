@@ -90,6 +90,7 @@ create table photo_logement(
 );
 
 create table cb(
+    type_cb VARCHAR(50),
     numero_carte varchar(16) check (numero_carte ~ '^[0-9]{16}$'),
     date_validite date,
     cryptogramme VARCHAR(3),
@@ -337,11 +338,11 @@ VALUES
     (2,6),
     (3,8);
 
-INSERT INTO CB (numero_carte, date_validite, cryptogramme, id_compte)
+INSERT INTO CB (type_cb, numero_carte, date_validite, cryptogramme, id_compte)
 VALUES
-    ('1234567890123456', '2025-12-31', 123, 1),
-    ('9876543210987654', '2024-10-31', 456, 2),
-    ('1111222233334444', '2026-06-30', 789, 3);
+    ('MasterCard', '1234567890123456', '2025-12-31', 123, 1),
+    ('MasterCard', '9876543210987654', '2024-10-31', 456, 2),
+    ('MasterCard', '1111222233334444', '2026-06-30', 789, 3);
 
 INSERT INTO langue (nom_langue, id_compte)
 VALUES
@@ -481,8 +482,10 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+-- nbJours = nombre de jours passés dans le logement (jours non-entiers inclus, donc date de début et de fin inclus)
+-- Nombre de nuits = nbJours-1
 CREATE FUNCTION getPlageData(id_log INT, date_debut DATE, date_fin DATE)
-  RETURNS TABLE(disponibilite BOOLEAN, prix_ht numeric(10,2), delai_annul integer, pourcentage_retenu numeric(10,2), raison_indisponible VARCHAR(255), id_logement INT) AS $$
+  RETURNS TABLE(disponibilite BOOLEAN, prix_ht numeric(10,2), delai_annul integer, pourcentage_retenu numeric(10,2), raison_indisponible VARCHAR(255), id_logement INT, nbJours INT) AS $$
 DECLARE
   disponibilite BOOLEAN = TRUE;
   prix_ht NUMERIC(10,2) = 0;
@@ -502,13 +505,13 @@ BEGIN
     disponibilite = (disponibilite AND ajout.disponibilite);
     IF NOT disponibilite THEN
       raison_indisponible = ajout.raison_indisponible;
-      RETURN QUERY SELECT disponibilite, prix_ht, delai_annul, pourcentage_retenu, raison_indisponible, id_log;
+      RETURN QUERY SELECT disponibilite, prix_ht, delai_annul, pourcentage_retenu, raison_indisponible, id_log, DATE_PART('day', jour::timestamp - date_debut::timestamp)::int AS nbJours;
       RETURN;
     END IF;
     prix_ht = prix_ht + ajout.prix_ht;
     jour = jour + 1;
   END LOOP;
-  RETURN QUERY SELECT disponibilite, prix_ht, delai_annul, pourcentage_retenu, raison_indisponible, id_log;
+  RETURN QUERY SELECT disponibilite, prix_ht, delai_annul, pourcentage_retenu, raison_indisponible, id_log, DATE_PART('day', jour::timestamp - date_debut::timestamp)::int AS nbJours;
 END;
 $$ LANGUAGE plpgsql;
 

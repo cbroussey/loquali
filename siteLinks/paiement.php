@@ -57,6 +57,8 @@
                 'SELECT * FROM test.cb WHERE id_compte = :compte'
             ); // Récupération des cartes bancaires enregistrées sur le compte
             $pay->bindParam("compte", $_SESSION["userId"], PDO::PARAM_INT);
+            $pay->execute();
+            $pay = $pay->fetchAll();
             ?>
             <form method="post" action="validPay.php" class="flexTop">
                 <button class="backButton" onclick="history.back()"><img src="asset/img/arrow-down.svg"></button>
@@ -71,11 +73,19 @@
                         <h2>Validez et payez</h2>
                         <p>Payez avec</p>
                         <div id="CM3" class="contextMenu">
-                            <p class="disabled">Aucun moyen de paiement enregistré</p>|
-                            <input name="paymentSaved" class="inputImg" onclick="toggleCM('CM3', document.querySelector('#paymentSaved'))" style="background-image: url('asset/img/mastercard.png');" value="XXXX XXXX XXXX 5100" readonly><img class="cmHideElem mastercard" src="asset/img/arrow-down.svg" onclick="toggleCM('CM3', document.querySelector('#paymentSaved'))">|
+                            <?php
+                                if (count($pay)) {
+                                    for ($i = 0; $i < count($pay); $i++) {
+                                        ?><input name="paymentSaved" class="inputImg" onclick="toggleCM('CM3', document.querySelector('#paymentSaved'))" style="background-image: url('asset/img/<?php echo strtolower($pay[$i]["type_cb"]) ?>.png');" value="<?php echo $pay[$i]["numero_carte"] ?>" readonly><img class="cmHideElem <?php echo strtolower($pay[$i]["type_cb"]) ?>" src="asset/img/arrow-down.svg" onclick="toggleCM('CM3', document.querySelector('#paymentSaved'))"><?php
+                                        echo ($i < count($pay) - 1 ? "|" : "");
+                                    }
+                                } else {
+                                    ?><p class="disabled">Aucun moyen de paiement enregistré</p><?php
+                                }
+                            ?>
                         </div>
                         <div id="paymentSaved" href="#" onclick="toggleCM('CM3', this)">
-                        <input name="paymentSaved" class="inputImg" onclick="toggleCM('CM3', document.querySelector('#paymentSaved'))" value="Nouveau mode de paiement" readonly><img class="cmHideElem" src="asset/img/arrow-down.svg" onclick="toggleCM('CM3', document.querySelector('#paymentSaved'))">
+                            <input name="paymentSaved" class="inputImg" onclick="toggleCM('CM3', document.querySelector('#paymentSaved'))" value="Nouveau mode de paiement" readonly><img class="cmHideElem" src="asset/img/arrow-down.svg" onclick="toggleCM('CM3', document.querySelector('#paymentSaved'))">
                         </div>
                         <div id="CM" class="contextMenu">
                             <input name="paymentType" class="inputImg" onclick="toggleCM('CM', document.querySelector('#paymentType'))" style="background-image: url('asset/img/mastercard.png');" value="MasterCard" readonly><img class="cmHideElem mastercard" src="asset/img/arrow-down.svg" onclick="toggleCM('CM', document.querySelector('#paymentType'))">|
@@ -132,6 +142,7 @@
         ?><h1 class="HTTPstatus">400 - Bad Request</h1><?php
     } ?>
     <script src="asset/js/contextMenu.js"></script>
+    <script src="asset/js/paiement.js"></script>
     <?php include "footer.php" ?>
 </body>
 </html>
