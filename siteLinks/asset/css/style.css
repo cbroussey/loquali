@@ -1849,6 +1849,24 @@ text-decoration: underline;
   margin-bottom: 20px;
   margin-right: 5%;
 }
+.button_ligne2 button{
+  float: right;
+  display: inline-block;
+  margin-top: -50px;
+  width: 13%;
+  height: 62px;
+  background-color: green;;
+  color: #fff;
+  text-align: center;
+  line-height: 62px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 700;
+  margin-bottom: 20px;
+  margin-right: 5%;
+}
  
 /******************************************** DEMANDE DEVIS ********************************************/
 .main-devis {
