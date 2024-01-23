@@ -334,7 +334,43 @@ if (isset($_GET["confirmDelete"])) {
                     }
 
                 }
-                print_r($pathName);
+                if ($pathName == '') {
+                    $pathName = 'asset/img/profils/default.jpg';
+                }
+                closedir($images);
+            }
+            ?>
+            <img src=<?php echo $pathName ?> alt="" id="photoProfil">
+            <div class="middle">
+                <img src="asset/icons/blanc/photo.svg" alt="">
+            </div>
+        </label>
+        <input type="file" id="fileInput" style="display: none;" accept="image/jpeg, image/png" onchange="changeProfilePhoto(event)">
+        <form method="post">
+          <div class="middle">
+            <input type="file" id="profilImage" name="profilImage" accept="image/*" style="color:transparent;"/>
+            <!--<input type="submit" value="Créer votre compte"/>-->
+          </div>
+        </form>
+    </div>
+
+
+
+
+    <div class="container">
+    
+        <label for="fileInput">
+            <?php //récupération du nom de l'image (avec extension)
+        
+            if ($images = opendir('asset/img/profils/')) {
+                while (false !== ($fichier = readdir($images))) {
+                    $imgInfos = pathinfo($fichier);
+                    if ($imgInfos['filename'] == $_SESSION['userId']) {
+                        $pathName = 'asset/img/profils/' . $fichier;
+                        break;
+                    }
+
+                }
                 if ($pathName == '') {
                     $pathName = 'asset/img/profils/default.jpg';
                 }
@@ -354,15 +390,6 @@ if (isset($_GET["confirmDelete"])) {
     <div id="caseAccueil">
       <p class="bienvenue">Accédez à votre <a href="pagePersoProprio.php" class="lienPagePerso">page personnel</a>.</p>
       <?php
-                if ($_SESSION['userType'] === 'client') {
-                ?>
-                    <div class="separateurCompte"></div>
-                    <a href="createOwner.php" id="comptePro">Passer à un compte propriétaire</a>
-                <?php
-                }   
-            ?>
-
-            <?php
                 if ($_SESSION['userType'] === 'proprietaire') {
                 ?>
                     <div class="separateurCompte"></div>

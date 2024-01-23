@@ -4393,6 +4393,7 @@ flex-direction: column;
 
 .nav-item {
 cursor: pointer;
+color: var(--secondBG);
 }
 
 .nav-item:hover {
@@ -4517,6 +4518,20 @@ display:none;
 
 
 /********* PAGE INFOS PERSO **********/
+
+#profilImage {
+  color: transparent;
+  /* Rendre la taille du bouton égale à 100% de la largeur du conteneur parent */
+  width: 100%;
+  /* Rendre le bouton invisible */
+  opacity: 0;
+  /* Rendre le bouton inaccessible à la souris (caché sous un autre élément) */
+  position: absolute;
+  top: 0;
+  left: 0;
+  /* Facultatif : rendre le curseur comme s'il ne s'agit pas d'un bouton */
+  cursor: pointer;
+}
 
 #compteInfosPerso {
 position: relative;
