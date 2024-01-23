@@ -94,7 +94,9 @@
     ?>
     
 
-    <a href="index.php">
+    <a href="index.php" style="
+        height : 125px;
+        ">
         <img src="asset/icons/bleu/toBack.svg" alt="" id="pagePersoSvgBack">
     </a>
         <div class="infosProprio">
@@ -141,7 +143,7 @@
                     </style>
                 </div>
                 <div class = "infos">
-                    <h2><?php echo $_SESSION['displayName'] ?></h2>
+                    <h2><?php echo $_SESSION['prenom'] ?> <?php echo $_SESSION['nom'] ?></h2>
                     <?php
                         $note = ($_SESSION['userType'] == 'proprietaire') ? $current['note_proprio'] : $current['note_client'];
                         if (isset($note)) {
@@ -175,27 +177,42 @@
                 </div>
 
                 <div id="aProposDeMoi">
-                    <div>
-                        <h2>À propos de moi</h2>
-                    </div>
-                    <div class="descriptionPersonne">
-                        <form method="post">
-                            <a href="#" id="boutonDescription" class="testBouton"><img src="asset/icons/bleu/modification.svg" alt=""></a>
-                            <input type="submit" value="Enregistrer" id="modificationDescription" class="modifBtn">
-                            <?php 
-                                if (!empty($current["description"])) {
-                            ?>
-                                <p id="champsDescription" class="descriptionCompte"><?php echo htmlentities($current["description"].PHP_EOL) ?></p>
-                            <?php 
-                                } else {
-                            ?>
-                                <p id="champsDescription" class="descriptionCompte">Description non saisie.</p>
-                            <?php 
-                                }
-                            ?>
-                            <textarea type="text" id="description" class="descriptionModif" name="description" value=<?php echo htmlentities($current["description"]) ?>></textarea>
-                        </form>
-                    </div>
+                <?php
+                    if ($_SESSION['userType'] == 'proprietaire'){
+                        ?>
+                        <div>
+                            <h2>À propos de moi</h2>
+                        </div>
+                    
+                        <div class="descriptionPersonne">
+                            <form method="post">
+                                <a href="#" id="boutonDescription" class="testBouton"><img src="asset/icons/bleu/modification.svg" alt=""></a>
+                                <input type="submit" value="Enregistrer" id="modificationDescription" class="modifBtn">
+                                <?php 
+                                    if (!empty($current["description"])) {
+                                ?>
+                                    <p id="champsDescription" class="descriptionCompte"><?php echo htmlentities($current["description"].PHP_EOL) ?></p>
+                                <?php 
+                                    } else {
+                                ?>
+                                    <p id="champsDescription" class="descriptionCompte">Description non saisie.</p>
+                                <?php 
+                                    }
+                                ?>
+                                <textarea type="text" id="description" class="descriptionModif" name="description" value=<?php echo htmlentities($current["description"]) ?>></textarea>
+                            </form>
+                        </div>
+                        <?php
+                    }
+                    else {
+                        ?>
+                        <div class="messageCompteClient">
+                            <p>Compte Voyageur</p>
+                        </div>
+                        <?php
+                    }
+                    ?>
+                
 
                 </div>
         
