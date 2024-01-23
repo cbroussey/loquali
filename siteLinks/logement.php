@@ -1,27 +1,80 @@
 <?php
-  session_start();
-    include('connect_params.php');
-    $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
-    $query = $dbh->prepare("SELECT * FROM test.logement WHERE id_logement = :idlog");
-    $query->bindParam('idlog', $_GET["confirmDelete"], PDO::PARAM_INT);
-    $query->execute();
-    $query = $query->fetchAll();
-    if (isset($_GET["confirmDelete"]) ) {
-        try {
-            $query = "DELETE FROM test.logement WHERE test.logement.id_logement = :id_log";
-            $stmt = $dbh->prepare($query);
-            $stmt->bindParam('id_log', $_GET["confirmDelete"], PDO::PARAM_INT);
-            $stmt->execute();
-            
-        } catch (PDOException $e) {
-            print "Erreur !: " . $e->getMessage() . "<br/>";
-            die();
-        }
-        
-        header("Location: index.php");
+session_start();
+include('connect_params.php');
+$dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
+$query = $dbh->prepare("SELECT * FROM test.logement WHERE id_logement = :idlog");
+$query->bindParam('idlog', $_GET["confirmDelete"], PDO::PARAM_INT);
+$query->execute();
+$query = $query->fetchAll();
+if (isset($_GET["confirmDelete"])) {
+    try {
+        $query = "DELETE FROM test.logement WHERE test.logement.id_logement = :id_log";
+        $stmt = $dbh->prepare($query);
+        $stmt->bindParam('id_log', $_GET["confirmDelete"], PDO::PARAM_INT);
+        $stmt->execute();
+    } catch (PDOException $e) {
+        print "Erreur !: " . $e->getMessage() . "<br/>";
+        die();
     }
 
-?> 
+    header("Location: index.php");
+}
+
+$dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
+$query = $dbh->prepare("SELECT * FROM test.logement WHERE id_logement = :idlog");
+$query->bindParam('idlog', $_GET["confirmHorsligne"], PDO::PARAM_INT);
+$query->execute();
+$query = $query->fetchAll();
+if (isset($_GET["confirmHorsligne"])) {
+    try {
+        $updateQuery = "UPDATE test.logement SET en_ligne = FALSE WHERE id_logement = :id_log";
+        $updateStmt = $dbh->prepare($updateQuery);
+        $updateStmt->bindParam('id_log', $_GET["confirmHorsligne"], PDO::PARAM_INT);
+        $updateStmt->execute();
+
+        $_GET["id"] = $_GET["confirmHorsligne"];
+        unset($_GET["confirmHorsligne"]);
+
+        $selectQuery = "SELECT * FROM test.logement WHERE id_logement = :idlog";
+        $selectStmt = $dbh->prepare($selectQuery);
+        $selectStmt->bindParam('idlog', $_GET["id"], PDO::PARAM_INT);
+        $selectStmt->execute();
+        $result = $selectStmt->fetchAll();
+
+    } catch (PDOException $e) {
+        print "Erreur !: " . $e->getMessage() . "<br/>";
+        die();
+    }
+}
+
+$dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
+$query = $dbh->prepare("SELECT * FROM test.logement WHERE id_logement = :idlog");
+$query->bindParam('idlog', $_GET["confirmligne"], PDO::PARAM_INT);
+$query->execute();
+$query = $query->fetchAll();
+if (isset($_GET["confirmligne"])) {
+    try {
+        $updateQuery = "UPDATE test.logement SET en_ligne = TRUE WHERE id_logement = :id_log";
+        $updateStmt = $dbh->prepare($updateQuery);
+        $updateStmt->bindParam('id_log', $_GET["confirmligne"], PDO::PARAM_INT);
+        $updateStmt->execute();
+
+        $_GET["id"] = $_GET["confirmligne"];
+        unset($_GET["confirmligne"]);
+
+        $selectQuery = "SELECT * FROM test.logement WHERE id_logement = :idlog";
+        $selectStmt = $dbh->prepare($selectQuery);
+        $selectStmt->bindParam('idlog', $_GET["id"], PDO::PARAM_INT);
+        $selectStmt->execute();
+        $result = $selectStmt->fetchAll();
+
+    } catch (PDOException $e) {
+        print "Erreur !: " . $e->getMessage() . "<br/>";
+        die();
+    }
+}
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -34,6 +87,7 @@
     <link rel="stylesheet" href="asset/css/headerAndFooter.css">
     <link rel="stylesheet" href="asset/css/style.css">
     <script src="asset/js/boutonSupprimer.js"></script>
+    <script src="asset/js/ligneHorsligne.js"></script>
 </head>
 
 <body id="bg">
@@ -367,13 +421,13 @@
                                             <h2><span><?php echo ($info["prix_ttc"]); ?> €</span> / nuit</h2>
                                             <?php // (isset($_SESSION['userType']) ? 'demandeDevis.php' : 'connexion.php') 
                                             ?>
-                                        <form action="<?php if ($_SESSION['userType']){?>demandeDevis.php<?php } else {?>connexion.php<?php } ?>" method="POST">
-                                            <input name="id" value="<?php echo($id);?>" hidden readonly>
-                                            <input name = "qui" value="" hidden readonly> 
-                                            <button class="bouton_res_log">
-                                                <h1>Réserver</h1>
-                                            </button>
-                                        </form>
+                                            <form action="<?php if ($_SESSION['userType']) { ?>demandeDevis.php<?php } else { ?>connexion.php<?php } ?>" method="POST">
+                                                <input name="id" value="<?php echo ($id); ?>" hidden readonly>
+                                                <input name="qui" value="" hidden readonly>
+                                                <button class="bouton_res_log">
+                                                    <h1>Réserver</h1>
+                                                </button>
+                                            </form>
                                         </div>
                                         <div class="bare_res"></div>
                                         <div class="detail_reservation_log">
@@ -618,38 +672,85 @@
 
 
 
-  
+
                         <?php
+                        
                         if ($_SESSION['userId'] == $info["id_compte"]) {
-
+                            $statue;
+                            if ($info["en_ligne"]){
+                                $statue = "Mettre Hors Ligne";
+                            }else{
+                                $statue = "Mettre en Ligne";
+                            }
                         ?>
-        <div class="barre_btn_ajustement_log">
-            <div class="button_valider2">
-                <a href="modifLogement.php?id=<?php echo($id) ?>"><h2>Modifier</h2></a>
-            </div>
+                            <div class="barre_btn_ajustement_log">
+                                <div class="button_valider2">
+                                    <a href="modifLogement.php?id=<?php echo ($id) ?>">
+                                        <h2>Modifier</h2>
+                                    </a>
+                                </div>
 
-            <div class="button_refuser2">
-                <button  onclick="openModal()">supprimer</button>
-            </div>
-        </div>
+                                <div class="button_refuser2">
+                                    <button onclick="openModal()">supprimer</button>
+                                </div>
+                                <div class="button_ligne2">
+                                    <button onclick="ouvreModal()"><?php echo $statue ?></button>
+                                </div>
+                            </div>
 
 
 
-        <div class="confirmation-modal" id="myModal">
-            <div class="modal-content">
-                <span class="close" onclick="closeModal()">&times;</span>
-                <p>Êtes-vous sûr de vouloir supprimer ce logement ?</p>
-                <form method="GET" action="logement.php">
-                    <input type="hidden" name="confirmDelete" value="<?php echo $id ?>">
+                            <div class="confirmation-modal" id="myModal">
+                                <div class="modal-content">
+                                    <span class="close" onclick="closeModal()">&times;</span>
+                                    <p>Êtes-vous sûr de vouloir supprimer ce logement ?</p>
+                                    <form method="GET" action="logement.php">
+                                        <input type="hidden" name="confirmDelete" value="<?php echo $id ?>">
 
-                    <button class="confirm-button">Confirmer</button>
-                </form>
-            
-            </div>
-        </div>
-        <?php
-           }
-        ?>  
+                                        <button class="confirm-button">Confirmer</button>
+                                    </form>
+
+                                </div>
+                            </div>
+                            <?php
+                            if ($info["en_ligne"]){
+                            ?>
+                            <div class="confirmation-modal" id="myModal2">
+                                <div class="modal-content">
+                                    <span class="close" onclick="fermeModal()">&times;</span>
+                                    <p>Êtes-vous sûr de vouloir mettre ce logement hors ligne ?</p>
+                                    <form method="GET" action="logement.php">
+                                        <input type="hidden" name="confirmHorsligne" value="<?php echo $id ?>">
+
+                                        <button class="confirm-button">Confirmer</button>
+                                    </form>
+
+                                </div>
+                            </div>
+                            <?php
+                            }
+                            ?>
+                            <?php
+                            if (!$info["en_ligne"]){
+                            ?>
+                            <div class="confirmation-modal" id="myModal2">
+                                <div class="modal-content">
+                                    <span class="close" onclick="fermeModal()">&times;</span>
+                                    <p>Êtes-vous sûr de vouloir mettre ce logement en ligne ?</p>
+                                    <form method="GET" action="logement.php">
+                                        <input type="hidden" name="confirmligne" value="<?php echo $id ?>">
+
+                                        <button class="confirm-button">Confirmer</button>
+                                    </form>
+
+                                </div>
+                            </div>
+                            <?php
+                            }
+                            ?>
+                        <?php
+                        }
+                        ?>
                         <div class="barre_log">
                             <svg width="100%" height="10" viewBox="0 0 1920 9" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <g filter="url(#filter0_d_60_122)">
@@ -680,7 +781,7 @@
 
                         </div>
     </main>
-    
+
 
 
 
