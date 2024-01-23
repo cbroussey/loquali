@@ -263,6 +263,13 @@ pre {
   display: none;
 }
 
+#Liste_Filtre{
+  display: none;
+  background: #F5F5F5;
+  position: absolute;
+  z-index: 10;
+}
+
 .maison img{
   width: 300px;
   border-radius: 5px;
