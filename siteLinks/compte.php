@@ -1,9 +1,11 @@
 <?php
 session_start();
-/* if ($_SERVER["REQUEST_METHOD"] == "POST") {
+//suppression de session si la popupDéco est validée
+if (isset($_POST['hidden'])) {
   session_destroy();
   header("Location: index.php");
-  exit(); }*/
+  exit();
+}
 include('connect_params.php');
 $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
 $query = $dbh->prepare("SELECT * FROM test.compte WHERE id_compte = :idcompte");
@@ -535,7 +537,7 @@ if (isset($_GET["confirmDelete"])) {
       <div class="lignes">
         <p>Historique de l’appareil</p>
         <p class="displayInfos">Session en cours</p>
-        <button class="modifications">Se déconnecter</button>
+        <button id="accountDisconnect2" class="modifications">Se déconnecter</button>
       </div>
 
       <div class="separateurgenre"></div>
@@ -777,7 +779,8 @@ if (isset($_GET["confirmDelete"])) {
           <div class="popUpDecoChoix">
             <h2>Êtes-vous sûr de vouloir <br>vous déconnecter ?</h2>
             <div class="button-container">
-              <input class="cancel-button" id="cancelDisconnect" type="button" value="Annuler" />
+              <input class="cancel-button" id="cancelDisconnect" name="cancelDisconnect" type="button" value="Annuler" />
+              <input type="hidden" name="hidden" value="disconnect">
               <input class="confirm-button" id="confirmDisconnect" type="submit" value="Se déconnecter" />
             </div>
           </div>

@@ -43,7 +43,7 @@ session_start();
         <h4><a href="compte.php">Mon compte</a></h4>
       <?php } else {
       ?>
-        <h4><a href="connexion.php">connecter</a></h4>
+        <h4><a href="connexion.php">Se connecter</a></h4>
       <?php
       }
       ?>
@@ -318,7 +318,7 @@ try {
   
             <a href="logement.php?id=<?php echo($id);?>" class="maison">
                           <div id="triangle"></div>
-                          <div class="etoile">Se
+                          <div class="etoile">
                             <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                               <path
                                 d="M7.5 0L9.18386 5.52786H14.6329L10.2245 8.94427L11.9084 14.4721L7.5 11.0557L3.09161 14.4721L4.77547 8.94427L0.367076 5.52786H5.81614L7.5 0Z"
@@ -356,7 +356,7 @@ try {
   
           <a href="logement.php?id=<?php echo($id);?>" class="maison">
                         <div id="triangle"></div>
-                        <div class="etoile">Se
+                        <div class="etoile">
                           <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
                               d="M7.5 0L9.18386 5.52786H14.6329L10.2245 8.94427L11.9084 14.4721L7.5 11.0557L3.09161 14.4721L4.77547 8.94427L0.367076 5.52786H5.81614L7.5 0Z"
