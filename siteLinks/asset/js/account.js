@@ -90,6 +90,7 @@ links.forEach(function(link, index) {
     });
 });
 
+
   // Fonction pour réinitialiser la couleur au survol
   function resetColorOnHover(element) {
     element.addEventListener('mouseenter', function() {

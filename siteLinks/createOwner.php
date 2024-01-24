@@ -22,6 +22,12 @@
             $stmt->bindParam(':userId', $_SESSION['userId']);
             $stmt->execute();
 
+            $delete = "DELETE FROM test.client WHERE id_compte = :idCompte";
+            $idC = $_SESSION['userId'];
+            $stmt = $dbh->prepare($delete);
+            $stmt->bindParam(':idCompte', $idC, PDO::PARAM_STR);
+            $stmt->execute();
+
             $dbh = null;
 
             //enregistrement de l'image de la carte d'identité

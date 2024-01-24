@@ -23,7 +23,7 @@
     <?php
     //print_r(pdo_drivers());
     //print_r($_POST);
-    if (isset($_POST["devis"]) && is_numeric($_POST["devis"])) { // Check si un numéro de devis a correctement été reçu
+    if (isset($_GET["devis"]) && is_numeric($_GET["devis"])) { // Check si un numéro de devis a correctement été reçu
         //include("../data/dbImport.php");
         require_once("connect_params.php");
         $db = new PDO("$driver:host=$server;dbname=$dbname", "$user", "$pass");
@@ -36,7 +36,7 @@
             WHERE id_devis = :devis'
         ); // Récupération des informations sur la réservation, le devis, le logement et l'image de couverture
         // nbJours, calculé dans la requête SELECT, correspond à la durée de la réservation
-        $res->bindParam('devis', $_POST['devis'], PDO::PARAM_INT);
+        $res->bindParam('devis', $_GET['devis'], PDO::PARAM_INT);
         $res->execute();
         $res = $res->fetchAll();
         /*?><pre style="padding-left: 1em;"><?php print_r($res) ?></pre><?php*/
@@ -76,7 +76,10 @@
                             <?php
                                 if (count($pay)) {
                                     for ($i = 0; $i < count($pay); $i++) {
-                                        ?><input name="paymentSaved" class="inputImg" onclick="toggleCM('CM3', document.querySelector('#paymentSaved'))" style="background-image: url('asset/img/<?php echo strtolower($pay[$i]["type_cb"]) ?>.png');" value="<?php echo $pay[$i]["numero_carte"] ?>" readonly><img class="cmHideElem <?php echo strtolower($pay[$i]["type_cb"]) ?>" src="asset/img/arrow-down.svg" onclick="toggleCM('CM3', document.querySelector('#paymentSaved'))"><?php
+                                        ?><input name="paymentSaved" class="inputImg" onclick="toggleCM('CM3', document.querySelector('#paymentSaved'))" style="background-image: url('asset/img/<?php echo strtolower($pay[$i]["type_cb"]) ?>.png');" value="<?php echo $pay[$i]["numero_carte"] ?>" readonly>
+                                        <img class="cmHideElem <?php echo strtolower($pay[$i]["type_cb"]) ?>" src="asset/img/arrow-down.svg" onclick="toggleCM('CM3', document.querySelector('#paymentSaved'))">
+                                        <input type="hidden" class="cryptenr" value="<?php echo $pay[$i]["cryptogramme"] ?>">
+                                        <input type="hidden" class="validenr" value="<?php echo $pay[$i]["date_validite"] ?>"><?php
                                         echo ($i < count($pay) - 1 ? "|" : "");
                                     }
                                 } else {
@@ -87,6 +90,7 @@
                         <div id="paymentSaved" href="#" onclick="toggleCM('CM3', this)">
                             <input name="paymentSaved" class="inputImg" onclick="toggleCM('CM3', document.querySelector('#paymentSaved'))" value="Nouveau mode de paiement" readonly><img class="cmHideElem" src="asset/img/arrow-down.svg" onclick="toggleCM('CM3', document.querySelector('#paymentSaved'))">
                         </div>
+                        <!--
                         <div id="CM" class="contextMenu">
                             <input name="paymentType" class="inputImg" onclick="toggleCM('CM', document.querySelector('#paymentType'))" style="background-image: url('asset/img/mastercard.png');" value="MasterCard" readonly><img class="cmHideElem mastercard" src="asset/img/arrow-down.svg" onclick="toggleCM('CM', document.querySelector('#paymentType'))">|
                             <input name="paymentType" class="inputImg" onclick="toggleCM('CM', document.querySelector('#paymentType'))" style="background-image: url('asset/img/paypal.png');" value="PayPal" readonly><img class="cmHideElem paypal" src="asset/img/arrow-down.svg" onclick="toggleCM('CM', document.querySelector('#paymentType'))">
@@ -94,6 +98,7 @@
                         <div id="paymentType" href="#" onclick="toggleCM('CM', this)">
                             <input name="paymentType" class="inputImg" onclick="toggleCM('CM', document.querySelector('#paymentType'))" style="background-image: url('asset/img/mastercard.png');" value="MasterCard" readonly><img class="cmHideElem" src="asset/img/arrow-down.svg" onclick="toggleCM('CM', document.querySelector('#paymentType'))">
                         </div>
+                        -->
                         <input id="cardNumber" name="cardNumber" placeholder="Numéro de carte" class="mastercard" pattern="^(5[1-5][0-9]{14}|2(22[1-9][0-9]{12}|2[3-9][0-9]{13}|[3-6][0-9]{14}|7[0-1][0-9]{13}|720[0-9]{12}))$" required> <!-- Pattern actuel uniquement pour mastercard -->
                         <div>
                             <input id="expiry" name="expiry" placeholder="Expiration" minlength=5 maxlength=5 class="mastercard" pattern="(0[1-9]|1[0-2])/\d{2}" required>
@@ -119,17 +124,19 @@
                         <figcaption><?php echo $res["descriptif"] ?><!--Appartement avec vue imprenable sur la mer--></figcaption>
                     </figure>
                     <div>
-                        <p><a><?php echo $res["nbjours"] ?> nuits</a><a><?php $prixFin = $res["prix_base_ht"] * $res["nbjours"]; echo $prixFin ?>€</a></p> <!-- prix incorrect, extraire le prix réel plus tard avec les plages -->
+                        <p><a><?php echo $res["nbjours"] ?> nuits</a><a><?php $prixFin = $res["prix_base_ht"] * $res["nbjours"]; echo $res["prix_devis"] ?>€</a></p> <!-- prix incorrect, extraire le prix réel plus tard avec les plages -->
                         
                         <?php
+                            /*
                             // Affichage des charges additionnelles sélectionnées
                             foreach($charges as $charge) { ?>
                                 <p><a><?php echo $charge["nom_charge"] ?></a><a><?php echo $charge["prix_charge"] ?>€</a></p>
                             <?php }
+                            */
                         ?>
-                        <p><a>Taxes</a><a><?php $tva = $prixFin*1/100; echo $tva ?>€</a></p>
+                        <p><a>Taxes</a><a><?php $tva = $res["prix_devis"]*1/100; echo $tva ?>€</a></p>
                     </div>
-                    <div><p><a class="h3">Total</a><a>EUR</a><a class="h3"><?php echo $res["prix_devis"] ?>€</a></p></div>
+                    <div><p><a class="h3">Total</a><a>EUR</a><a class="h3"><?php echo $res["prix_devis"] + $tva ?>€</a></p></div>
                     <button type="submit">Payer</button>
                 </div>
             </form>
