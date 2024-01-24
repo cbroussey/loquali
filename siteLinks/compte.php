@@ -262,6 +262,47 @@ if (isset($_GET["confirmDelete"])) {
     <div></div>
   </header>
 
+  <?php
+     foreach ($_FILES["photo"]["error"] as $key => $error) {
+
+      if (isset($_FILES["photo"]["tmp_name"])){
+
+
+
+        $repertoireImages = 'asset/img/profils/';
+        $userId = $_SESSION['userId'];
+        
+        if ($images = opendir($repertoireImages)) {
+            while (false !== ($fichier = readdir($images))) {
+                $imgInfos = pathinfo($fichier);
+                if ($imgInfos['filename'] == $userId) {
+                    $chemin = $repertoireImages . $fichier;
+        
+                    if (unlink($chemin)) {
+
+                    }
+                }
+            }
+            closedir($images);
+        }
+
+
+
+        $img_dir = "asset/img/profils";
+        $tmpName = $_FILES["photo"]["tmp_name"][$key];
+
+        $nom_photo = $_FILES["photo"]["name"][$key];
+        $extention=explode(".",$nom_photo);
+
+        
+        $chemin = $img_dir . "/" . $_SESSION['userId'].".".$extention[1];
+
+
+        move_uploaded_file($tmpName, $chemin);
+      }
+    }
+  ?> 
+
   <div id="compteContainer">
     <div class="nav">
 
@@ -373,6 +414,7 @@ if (isset($_GET["confirmDelete"])) {
     </div>
 <!-- ACCUEIL -->
 
+
 <div id="compteAccueil">
 
   <div class="accueil">
@@ -389,7 +431,7 @@ if (isset($_GET["confirmDelete"])) {
                         $pathName = 'asset/img/profils/' . $fichier;
                         break;
                     }
-
+ 
                 }
                 if ($pathName == '') {
                     $pathName = 'asset/img/profils/default.jpg';
@@ -398,48 +440,22 @@ if (isset($_GET["confirmDelete"])) {
             }
             ?>
             <img src=<?php echo $pathName ?> alt="" id="photoProfil">
-            <div class="middle">
-                <img src="asset/icons/blanc/photo.svg" alt="">
-            </div>
         </label>
+        
         <input type="file" id="fileInput" style="display: none;" accept="image/jpeg, image/png" onchange="changeProfilePhoto(event)">
-        <form method="post">
+        <form method="post" enctype="multipart/form-data" id="profileForm">
+
           <div class="middle">
-            <input type="file" id="profilImage" name="profilImage" accept="image/*" style="color:transparent;"/>
-            <!--<input type="submit" value="Créer votre compte"/>-->
+
+            <input type="file" id="profilImage" name="profilImage" accept="image/*" style="color:transparent;" onchange="submitForm()"/>
+
+            <label for="photo" id="custom-button-pp" aria-placeholder="">                <img src="asset/icons/blanc/photo.svg" alt="">
+</label>
+
+            <input type="file" id="photo" name="photo[]" multiple/>
+
           </div>
         </form>
-    </div>
-
-
-
-
-    <div class="container">
-    
-        <label for="fileInput">
-            <?php //récupération du nom de l'image (avec extension)
-        
-            if ($images = opendir('asset/img/profils/')) {
-                while (false !== ($fichier = readdir($images))) {
-                    $imgInfos = pathinfo($fichier);
-                    if ($imgInfos['filename'] == $_SESSION['userId']) {
-                        $pathName = 'asset/img/profils/' . $fichier;
-                        break;
-                    }
-
-                }
-                if ($pathName == '') {
-                    $pathName = 'asset/img/profils/default.jpg';
-                }
-                closedir($images);
-            }
-            ?>
-            <img src=<?php echo $pathName ?> alt="" id="photoProfil">
-            <div class="middle">
-                <img src="asset/icons/blanc/photo.svg" alt="">
-            </div>
-        </label>
-        <input type="file" id="fileInput" style="display: none;" accept="image/jpeg, image/png" onchange="changeProfilePhoto(event)">
     </div>
     <p id="textchange">changer votre photo de profil</p>
     
