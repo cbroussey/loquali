@@ -11,7 +11,6 @@ session_start();
   <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
   <link rel="stylesheet" href="asset/css/headerAndFooter.css">
   <link rel="stylesheet" href="asset/css/style.css">
-  <link rel="stylesheet" href="asset/css/index_css.css">
   <title>Quoicoubeh</title>
 </head>
 
@@ -44,7 +43,7 @@ session_start();
         <h4><a href="compte.php">Mon compte</a></h4>
       <?php } else {
       ?>
-        <h4><a href="connexion.php">Se connecter</a></h4>
+        <h4><a href="connexion.php">connecter</a></h4>
       <?php
       }
       ?>
@@ -94,94 +93,137 @@ session_start();
         <div id="Liste_Filtre">
           <form action="index.php" method="post">
 
-            <h3>Nombre personne</h3>
-            <input class="quantity" id="Personne" name="Personne" type="number" pattern="(29|35|22|56)[0-9]{3}" <?php if ($_POST["Personne"]!="") { ?> value="<?php echo($_POST["Personne"]) ?>"  <?php   } ?>>
+          <div class="menutrie">
+              <ul>
+                <li>
+                  <a href="#"> Trier 
+                    <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6.29399 8.67047C6.68448 9.10984 7.31864 9.10984 7.70914 8.67047L13.7071 1.92179C14.0976 1.48242 14.0976 0.768892 13.7071 0.329525C13.3166 -0.109843 12.6825 -0.109843 12.292 0.329525L7 6.28383L1.70802 0.333039C1.31753 -0.106328 0.683365 -0.106328 0.292871 0.333039C-0.0976236 0.772407 -0.0976236 1.48594 0.292871 1.92531L6.29086 8.67399L6.29399 8.67047Z" fill="#F5F5F5"/>
+                    </svg>
+                  </a>
+                  <ul>
+                    <li>
+                      <input type="radio" name="tri" id="rad_tri_1" value="Prix : Ordre Croissant" <?php if ($_POST["tri"]=="Prix : Ordre Croissant") { echo("checked"); }?>/> 
+                      <label for="rad_tri_1" class="btnChoix3">Prix : Ordre Croissant</label>
+                    </li>
+                    <li>
+                      <input type="radio" name="tri" id="rad_tri_2" value="Prix : Ordre Décroissant" <?php if ($_POST["tri"]=="Prix : Ordre Décroissant") { echo("checked"); }?>/> 
+                      <label for="rad_tri_2" class="btnChoix3">Prix : Ordre Décroissant</label>
+                    </li>
+                    <li>
+                      <input type="radio" name="tri" id="rad_tri_3" value="Récent" <?php if ($_POST["tri"]=="Récent") { echo("checked"); }?>/>
+                      <label for="rad_tri_3" class="btnChoix3">Récent</label>
+                    </li>
+                    <li>
+                      <input type="radio" name="tri" id="rad_tri_4" value="Ancien" <?php if ($_POST["tri"]=="Ancien") { echo("checked"); }?>/>
+                      <label for="rad_tri_4" class="btnChoix3">Ancien</label>
+                    </li>
+                    <li>
+                      <input type="radio" name="tri" id="rad_tri_5" value="Avis" <?php if ($_POST["tri"]=="Avis") { echo("checked"); }?>/>
+                      <label for="rad_tri_5" class="btnChoix3">Avis</label>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
 
+            <div class="jailesbarres" id="premierebarre">
+              <div class="jailabarre"></div>
+              <div>
+                <h3>Type de logement </h3>
+              </div>
+              <div class="jailabarre"></div>
+            </div>
 
-
-            <h3>Type de votre logement</h3>
-            <div id="newLogementInput" class="barre_btn_choix_type_ajlog">
+            <div id="newLogementInput" class="barreBtnChoix">
                 <input type="checkbox" id="test1" name="type" value="Maison" <?php if ($_POST["type"]=="Maison") { echo("checked"); }?>/>
-                <label for="test1" class="btn_choix_ajlog" >Maison</label>
+                <label for="test1" class="btnChoix" >Maison</label>
                 <input type="checkbox" id="test2" name="type" value="Appartement" <?php if ($_POST["type"]=="Appartement") { echo("checked"); }?>/>
-                <label for="test2" class="btn_choix_ajlog">Appartement</label>
+                <label for="test2" class="btnChoix">Appartement</label>
+            </div>
+
+            <div class="jailesbarres">
+              <div class="jailabarre"></div>
+              <h3>Nombre personne</h3>
+              <div class="jailabarre"></div>
+            </div>
+            
+            <div class="b4r3">
+              <input class="quantity" id="Personne" name="Personne" type="number" pattern="(29|35|22|56)[0-9]{3}" <?php if ($_POST["Personne"]!="") { ?> value="<?php echo($_POST["Personne"]) ?>"  <?php   } ?>>
             </div>
     
-            <h3>Aménagement</h3>
+            <div class="jailesbarres">
+              <div class="jailabarre"></div>
+                <h3>Aménagement</h3>
+              <div class="jailabarre"></div>
+            </div>
 
-            <input type="checkbox" id="amena1" name="amena[]" value="jardin" <?php foreach ($_POST["amena"] as $key=>$val) { if ($val=="jardin"){ echo("checked");} }  ?> />
-            <label for="amena1" class="btn_choix2_ajlog">jardin</label>
+            <div class="aaaaamenagement">
+              <input type="checkbox" id="amena1" name="amena[]" value="jardin" <?php foreach ($_POST["amena"] as $key=>$val) { if ($val=="jardin"){ echo("checked");} }  ?> />
+              <label for="amena1" class="btnChoix2">jardin</label>
 
+              <input type="checkbox" id="amena2" name="amena[]" value="balcon" <?php foreach ($_POST["amena"] as $key=>$val) { if ($val=="balcon"){ echo("checked");} }  ?> />
+              <label for="amena2" class="btnChoix2">balcon</label>
 
-            <input type="checkbox" id="amena2" name="amena[]" value="balcon" <?php foreach ($_POST["amena"] as $key=>$val) { if ($val=="balcon"){ echo("checked");} }  ?> />
-            <label for="amena2" class="btn_choix2_ajlog">balcon</label>
+              <input type="checkbox" id="amena3" name="amena[]" value="terrasse" <?php foreach ($_POST["amena"] as $key=>$val) { if ($val=="terrasse"){ echo("checked");} }  ?>/>
+              <label for="amena3" class="btnChoix2">terrasse</label>
 
+              <input type="checkbox" id="amena4" name="amena[]" value="parking" <?php foreach ($_POST["amena"] as $key=>$val) { if ($val=="parking"){ echo("checked");} }  ?>/>
+              <label for="amena4" class="btnChoix2">parking</label>
+            </div>
 
-            <input type="checkbox" id="amena3" name="amena[]" value="terrasse" <?php foreach ($_POST["amena"] as $key=>$val) { if ($val=="terrasse"){ echo("checked");} }  ?>/>
-            <label for="amena3" class="btn_choix2_ajlog">terrasse</label>
+            <div class="jailesbarres">
+              <div class="jailabarre"></div>
+                <h3>Installation</h3>
+              <div class="jailabarre"></div>
+            </div>
 
-
-            <input type="checkbox" id="amena4" name="amena[]" value="parking" <?php foreach ($_POST["amena"] as $key=>$val) { if ($val=="parking"){ echo("checked");} }  ?>/>
-            <label for="amena4" class="btn_choix2_ajlog">parking</label>
-
-            <h3>Installation</h3>
-
-            <input type="checkbox" id="instal1" name="instal[]" value="climatisation" <?php foreach ($_POST["instal"] as $key=>$val) { if ($val=="climatisation"){ echo("checked");} }  ?> />
-            <label for="instal1" class="btn_choix2_ajlog">climatisation</label>
-
-
-            <input type="checkbox" id="instal2" name="instal[]" value="piscine" <?php foreach ($_POST["instal"] as $key=>$val) { if ($val=="piscine"){ echo("checked");} }  ?>/>
-            <label for="instal2" class="btn_choix2_ajlog">piscine</label>
-
-
-            <input type="checkbox" id="instal3" name="instal[]" value="jacuzzi" <?php foreach ($_POST["instal"] as $key=>$val) { if ($val=="jacuzzi"){ echo("checked");} }  ?>/>
-            <label for="instal3" class="btn_choix2_ajlog">jacuzzi</label>
-
-
-            <input type="checkbox" id="instal4" name="instal[]" value="hammam" <?php foreach ($_POST["instal"] as $key=>$val) { if ($val=="hammam"){ echo("checked");} }  ?>/>
-            <label for="instal4" class="btn_choix2_ajlog">hammam</label>
-
-            <input type="checkbox" id="instal5" name="instal[]" value="sauna" <?php foreach ($_POST["instal"] as $key=>$val) { if ($val=="sauna"){ echo("checked");} }  ?>/>
-            <label for="instal5" class="btn_choix2_ajlog">sauna</label>
-
-            <h3>Service</h3>
+            <div class="inssssstaaaal">
+              <input type="checkbox" id="instal1" name="instal[]" value="climatisation" <?php foreach ($_POST["instal"] as $key=>$val) { if ($val=="climatisation"){ echo("checked");} }  ?> />
+              <label for="instal1" class="btnChoix2">climatisation</label>
 
 
-            <input type="checkbox" id="service1" name="service[]" value="linge" <?php foreach ($_POST["service"] as $key=>$val) { if ($val=="linge"){ echo("checked");} }  ?>/>
-            <label for="service1" class="btn_choix2_ajlog">linge</label>
+              <input type="checkbox" id="instal2" name="instal[]" value="piscine" <?php foreach ($_POST["instal"] as $key=>$val) { if ($val=="piscine"){ echo("checked");} }  ?>/>
+              <label for="instal2" class="btnChoix2">piscine</label>
 
 
-            <input type="checkbox" id="service2" name="service[]" value="ménage" <?php foreach ($_POST["service"] as $key=>$val) { if ($val=="ménage"){ echo("checked");} }  ?>/>
-            <label for="service2" class="btn_choix2_ajlog">ménage</label>
+              <input type="checkbox" id="instal3" name="instal[]" value="jacuzzi" <?php foreach ($_POST["instal"] as $key=>$val) { if ($val=="jacuzzi"){ echo("checked");} }  ?>/>
+              <label for="instal3" class="btnChoix2">jacuzzi</label>
 
 
-            <input type="checkbox" id="service3" name="service[]" value="taxi" <?php foreach ($_POST["service"] as $key=>$val) { if ($val=="taxi"){ echo("checked");} }  ?>/>
-            <label for="service3" class="btn_choix2_ajlog">taxi</label>
+              <input type="checkbox" id="instal4" name="instal[]" value="hammam" <?php foreach ($_POST["instal"] as $key=>$val) { if ($val=="hammam"){ echo("checked");} }  ?>/>
+              <label for="instal4" class="btnChoix2">hammam</label>
 
-            <input type="checkbox" id="service4" name="service[]" value="repas" <?php foreach ($_POST["service"] as $key=>$val) { if ($val=="repas"){ echo("checked");} }  ?>/>
-            <label for="service4" class="btn_choix2_ajlog">repas</label>
+              <input type="checkbox" id="instal5" name="instal[]" value="sauna" <?php foreach ($_POST["instal"] as $key=>$val) { if ($val=="sauna"){ echo("checked");} }  ?>/>
+              <label for="instal5" class="btnChoix2">sauna</label>
+            </div>
 
-            <h3>Tri de recherche</h3>
+            <div class="jailesbarres">
+              <div class="jailabarre"></div>
+                <h3>Service</h3>
+              <div class="jailabarre"></div>
+            </div>
 
-            <input type="radio" name="tri" id="rad_tri_1" value="Prix : Ordre Croissant" <?php if ($_POST["tri"]=="Prix : Ordre Croissant") { echo("checked"); }?>/> 
-            <label for="rad_tri_1" class="btn_choix2_ajlog">Prix : Ordre Croissant</label>
-
-            <input type="radio" name="tri" id="rad_tri_2" value="Prix : Ordre Décroissant" <?php if ($_POST["tri"]=="Prix : Ordre Décroissant") { echo("checked"); }?>/> 
-            <label for="rad_tri_2" class="btn_choix2_ajlog">Prix : Ordre Décroissant</label>
-
-            <input type="radio" name="tri" id="rad_tri_3" value="Récent" <?php if ($_POST["tri"]=="Récent") { echo("checked"); }?>/>
-            <label for="rad_tri_3" class="btn_choix2_ajlog">Récent</label>
-            
-            <input type="radio" name="tri" id="rad_tri_4" value="Ancien" <?php if ($_POST["tri"]=="Ancien") { echo("checked"); }?>/>
-            <label for="rad_tri_4" class="btn_choix2_ajlog">Ancien</label>
-
-            <input type="radio" name="tri" id="rad_tri_5" value="Avis" <?php if ($_POST["tri"]=="Avis") { echo("checked"); }?>/>
-            <label for="rad_tri_5" class="btn_choix2_ajlog">Avis</label>
+            <div class="serrrrrvice">
+              <input type="checkbox" id="service1" name="service[]" value="linge" <?php foreach ($_POST["service"] as $key=>$val) { if ($val=="linge"){ echo("checked");} }  ?>/>
+              <label for="service1" class="btnChoix2">linge</label>
 
 
+              <input type="checkbox" id="service2" name="service[]" value="ménage" <?php foreach ($_POST["service"] as $key=>$val) { if ($val=="ménage"){ echo("checked");} }  ?>/>
+              <label for="service2" class="btnChoix2">ménage</label>
 
 
-            <input type="submit" name="test" value="Confirmer">
+              <input type="checkbox" id="service3" name="service[]" value="taxi" <?php foreach ($_POST["service"] as $key=>$val) { if ($val=="taxi"){ echo("checked");} }  ?>/>
+              <label for="service3" class="btnChoix2">taxi</label>
+
+              <input type="checkbox" id="service4" name="service[]" value="repas" <?php foreach ($_POST["service"] as $key=>$val) { if ($val=="repas"){ echo("checked");} }  ?>/>
+              <label for="service4" class="btnChoix2">repas</label>
+            </div>
+
+<br>
+            <div class="valiiiide">
+              <input type="submit" name="test" value="Valider" id="validerouuuu">
+            </div>
         </div>
 
       </div>
@@ -297,6 +339,8 @@ try {
     
 
     if ($sens=="crois"){
+      $nb_log_rech=0;
+
       if ($filtre!=""){
         foreach($dbh->query("SELECT DISTINCT id_logement, prix_ttc, note_logement
         FROM (
@@ -309,6 +353,8 @@ try {
             $filtre
         ) AS subquery ORDER BY $tri;", PDO::FETCH_ASSOC) as $row) {
 
+
+
           $id_log_req=$row['id_logement'];
   
           foreach($dbh->query("SELECT * from test.logement WHERE id_logement=$id_log_req", PDO::FETCH_ASSOC) as $row){
@@ -319,7 +365,7 @@ try {
   
             <a href="logement.php?id=<?php echo($id);?>" class="maison">
                           <div id="triangle"></div>
-                          <div class="etoile">
+                          <div class="etoile">Se
                             <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                               <path
                                 d="M7.5 0L9.18386 5.52786H14.6329L10.2245 8.94427L11.9084 14.4721L7.5 11.0557L3.09161 14.4721L4.77547 8.94427L0.367076 5.52786H5.81614L7.5 0Z"
@@ -346,7 +392,14 @@ try {
             <?php
             $info=[];
             $photo=[];
+            $nb_log_rech++;
           }
+
+
+        }
+
+        if ($nb_log_rech==0){
+          echo "pas de logement disponible pour cette recherche";
         }
       } else {
         foreach($dbh->query("SELECT DISTINCT * from test.logement WHERE en_ligne=true ORDER BY $tri", PDO::FETCH_ASSOC) as $row) {
@@ -357,7 +410,7 @@ try {
   
           <a href="logement.php?id=<?php echo($id);?>" class="maison">
                         <div id="triangle"></div>
-                        <div class="etoile">
+                        <div class="etoile">Se
                           <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
                               d="M7.5 0L9.18386 5.52786H14.6329L10.2245 8.94427L11.9084 14.4721L7.5 11.0557L3.09161 14.4721L4.77547 8.94427L0.367076 5.52786H5.81614L7.5 0Z"
@@ -385,14 +438,16 @@ try {
           $info=[];
           $photo=[];
       }
+      if($i==0){
+        echo("pas de logement correspondant à votre recherche");
+      }
       }
 
       $dbh = null;
     }  else {
 
       if ($filtre!=""){
-
-        foreach($dbh->query("SELECT DISTINCT id_logement, prix_ttc, note_logement
+        $results = $dbh->query("SELECT DISTINCT id_logement, prix_ttc, note_logement
         FROM (
             SELECT *
             FROM test.logement
@@ -401,10 +456,17 @@ try {
             NATURAL JOIN test.service
             WHERE en_ligne = true
             $filtre
-        ) AS subquery ORDER BY $tri DESC;", PDO::FETCH_ASSOC) as $row) {
+        ) AS subquery ORDER BY $tri DESC;", PDO::FETCH_ASSOC);
+        
+        $nb_log_rech=0;
+
+
+        foreach($results as $row) {
+          
+          $nb_log_rech++;
 
           $id_log_req=$row['id_logement'];
-  
+
           foreach($dbh->query("SELECT * from test.logement WHERE id_logement=$id_log_req ORDER BY $tri", PDO::FETCH_ASSOC) as $row){
             $i=0;
             $id=$row["id_logement"];
@@ -441,9 +503,13 @@ try {
             $info=[];
             $photo=[];
           }
-        }
-        
 
+
+      }
+
+      if($nb_log_rech==0){
+        echo("pas de logement correspondant à votre recherche");
+      }
 
       } else {
 
@@ -482,6 +548,7 @@ try {
         <?php
         $info=[];
         $photo=[];
+        
     }
     $dbh = null;
 
