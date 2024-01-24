@@ -91,7 +91,7 @@ header {
   }
   
   nav {
-  width: 55%;
+  width: 150%;
   float: right;
   z-index: 2;
   display: flex;
@@ -160,6 +160,25 @@ header {
   main {
   flex: 1;
   }
+
+  .personneheader {
+    margin-left: 25em;
+    width: 200%;
+  }
+
+  .nompersonne {
+    color: #1D4C77;
+  font-size: 30px;
+  font-weight: 600;
+  }
+
+  .personne {
+    padding-left: 1em;
+    font-weight: 300;
+    color: #97ADC1;
+    font-size: 30px;
+  }
+
 
 @media screen and (min-width: 0px) and (max-width: 1100px) {
 

@@ -95,86 +95,87 @@ session_start();
           <form action="index.php" method="post">
 
             <h3>Nombre personne</h3>
-            <input class="quantity" id="Personne" name="Personne" type="number" pattern="(29|35|22|56)[0-9]{3}">
+            <input class="quantity" id="Personne" name="Personne" type="number" pattern="(29|35|22|56)[0-9]{3}" <?php if ($_POST["Personne"]!="") { ?> value="<?php echo($_POST["Personne"]) ?>"  <?php   } ?>>
+
 
 
             <h3>Type de votre logement</h3>
             <div id="newLogementInput" class="barre_btn_choix_type_ajlog">
-                <input type="radio" id="type1" name="type" value="Maison" />
-                <label for="type1" class="btn_choix_ajlog">Maison</label>
-                <input type="radio" id="type2" name="type" value="Appartement" />
-                <label for="type2" class="btn_choix_ajlog">Appartement</label>
+                <input type="checkbox" id="test1" name="type" value="Maison" <?php if ($_POST["type"]=="Maison") { echo("checked"); }?>/>
+                <label for="test1" class="btn_choix_ajlog" >Maison</label>
+                <input type="checkbox" id="test2" name="type" value="Appartement" <?php if ($_POST["type"]=="Appartement") { echo("checked"); }?>/>
+                <label for="test2" class="btn_choix_ajlog">Appartement</label>
             </div>
     
             <h3>Aménagement</h3>
 
-            <input type="checkbox" id="amena1" name="amena[]" value="jardin" />
+            <input type="checkbox" id="amena1" name="amena[]" value="jardin" <?php foreach ($_POST["amena"] as $key=>$val) { if ($val=="jardin"){ echo("checked");} }  ?> />
             <label for="amena1" class="btn_choix2_ajlog">jardin</label>
 
 
-            <input type="checkbox" id="amena2" name="amena[]" value="balcon" />
+            <input type="checkbox" id="amena2" name="amena[]" value="balcon" <?php foreach ($_POST["amena"] as $key=>$val) { if ($val=="balcon"){ echo("checked");} }  ?> />
             <label for="amena2" class="btn_choix2_ajlog">balcon</label>
 
 
-            <input type="checkbox" id="amena3" name="amena[]" value="terrasse" />
+            <input type="checkbox" id="amena3" name="amena[]" value="terrasse" <?php foreach ($_POST["amena"] as $key=>$val) { if ($val=="terrasse"){ echo("checked");} }  ?>/>
             <label for="amena3" class="btn_choix2_ajlog">terrasse</label>
 
 
-            <input type="checkbox" id="amena4" name="amena[]" value="parking" />
+            <input type="checkbox" id="amena4" name="amena[]" value="parking" <?php foreach ($_POST["amena"] as $key=>$val) { if ($val=="parking"){ echo("checked");} }  ?>/>
             <label for="amena4" class="btn_choix2_ajlog">parking</label>
 
             <h3>Installation</h3>
 
-            <input type="checkbox" id="instal1" name="instal[]" value="climatisation" />
+            <input type="checkbox" id="instal1" name="instal[]" value="climatisation" <?php foreach ($_POST["instal"] as $key=>$val) { if ($val=="climatisation"){ echo("checked");} }  ?> />
             <label for="instal1" class="btn_choix2_ajlog">climatisation</label>
 
 
-            <input type="checkbox" id="instal2" name="instal[]" value="piscine" />
+            <input type="checkbox" id="instal2" name="instal[]" value="piscine" <?php foreach ($_POST["instal"] as $key=>$val) { if ($val=="piscine"){ echo("checked");} }  ?>/>
             <label for="instal2" class="btn_choix2_ajlog">piscine</label>
 
 
-            <input type="checkbox" id="instal3" name="instal[]" value="jacuzzi" />
+            <input type="checkbox" id="instal3" name="instal[]" value="jacuzzi" <?php foreach ($_POST["instal"] as $key=>$val) { if ($val=="jacuzzi"){ echo("checked");} }  ?>/>
             <label for="instal3" class="btn_choix2_ajlog">jacuzzi</label>
 
 
-            <input type="checkbox" id="instal4" name="instal[]" value="hammam" />
+            <input type="checkbox" id="instal4" name="instal[]" value="hammam" <?php foreach ($_POST["instal"] as $key=>$val) { if ($val=="hammam"){ echo("checked");} }  ?>/>
             <label for="instal4" class="btn_choix2_ajlog">hammam</label>
 
-            <input type="checkbox" id="instal5" name="instal[]" value="sauna" />
+            <input type="checkbox" id="instal5" name="instal[]" value="sauna" <?php foreach ($_POST["instal"] as $key=>$val) { if ($val=="sauna"){ echo("checked");} }  ?>/>
             <label for="instal5" class="btn_choix2_ajlog">sauna</label>
 
             <h3>Service</h3>
 
 
-            <input type="checkbox" id="service1" name="service[]" value="linge" />
+            <input type="checkbox" id="service1" name="service[]" value="linge" <?php foreach ($_POST["service"] as $key=>$val) { if ($val=="linge"){ echo("checked");} }  ?>/>
             <label for="service1" class="btn_choix2_ajlog">linge</label>
 
 
-            <input type="checkbox" id="service2" name="service[]" value="ménage" />
+            <input type="checkbox" id="service2" name="service[]" value="ménage" <?php foreach ($_POST["service"] as $key=>$val) { if ($val=="ménage"){ echo("checked");} }  ?>/>
             <label for="service2" class="btn_choix2_ajlog">ménage</label>
 
 
-            <input type="checkbox" id="service3" name="service[]" value="taxi" />
+            <input type="checkbox" id="service3" name="service[]" value="taxi" <?php foreach ($_POST["service"] as $key=>$val) { if ($val=="taxi"){ echo("checked");} }  ?>/>
             <label for="service3" class="btn_choix2_ajlog">taxi</label>
 
-            <input type="checkbox" id="service4" name="service[]" value="repas" />
+            <input type="checkbox" id="service4" name="service[]" value="repas" <?php foreach ($_POST["service"] as $key=>$val) { if ($val=="repas"){ echo("checked");} }  ?>/>
             <label for="service4" class="btn_choix2_ajlog">repas</label>
 
             <h3>Tri de recherche</h3>
 
-            <input type="radio" name="tri" id="rad_tri_1" value="Prix : Ordre Croissant"/> 
+            <input type="radio" name="tri" id="rad_tri_1" value="Prix : Ordre Croissant" <?php if ($_POST["tri"]=="Prix : Ordre Croissant") { echo("checked"); }?>/> 
             <label for="rad_tri_1" class="btn_choix2_ajlog">Prix : Ordre Croissant</label>
 
-            <input type="radio" name="tri" id="rad_tri_2" value="Prix : Ordre Décroissant"/> 
+            <input type="radio" name="tri" id="rad_tri_2" value="Prix : Ordre Décroissant" <?php if ($_POST["tri"]=="Prix : Ordre Décroissant") { echo("checked"); }?>/> 
             <label for="rad_tri_2" class="btn_choix2_ajlog">Prix : Ordre Décroissant</label>
 
-            <input type="radio" name="tri" id="rad_tri_3" value="Récent" />
+            <input type="radio" name="tri" id="rad_tri_3" value="Récent" <?php if ($_POST["tri"]=="Récent") { echo("checked"); }?>/>
             <label for="rad_tri_3" class="btn_choix2_ajlog">Récent</label>
             
-            <input type="radio" name="tri" id="rad_tri_4" value="Ancien" />
+            <input type="radio" name="tri" id="rad_tri_4" value="Ancien" <?php if ($_POST["tri"]=="Ancien") { echo("checked"); }?>/>
             <label for="rad_tri_4" class="btn_choix2_ajlog">Ancien</label>
 
-            <input type="radio" name="tri" id="rad_tri_5" value="Avis" />
+            <input type="radio" name="tri" id="rad_tri_5" value="Avis" <?php if ($_POST["tri"]=="Avis") { echo("checked"); }?>/>
             <label for="rad_tri_5" class="btn_choix2_ajlog">Avis</label>
 
 
@@ -185,18 +186,19 @@ session_start();
 
       </div>
       
-      <a class="button" href="#">
-        <svg width="26" height="30" viewBox="0 0 26 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M8.43766 16.4192H6.15721C5.78094 16.4192 5.47307 16.1114 5.47307 15.7351V13.4546C5.47307 13.0784 5.78094 12.7705 6.15721 12.7705H8.43766C8.81393 12.7705 9.12179 13.0784 9.12179 13.4546V15.7351C9.12179 16.1114 8.81393 16.4192 8.43766 16.4192ZM14.5949 15.7351V13.4546C14.5949 13.0784 14.287 12.7705 13.9107 12.7705H11.6303C11.254 12.7705 10.9461 13.0784 10.9461 13.4546V15.7351C10.9461 16.1114 11.254 16.4192 11.6303 16.4192H13.9107C14.287 16.4192 14.5949 16.1114 14.5949 15.7351ZM20.0679 15.7351V13.4546C20.0679 13.0784 19.7601 12.7705 19.3838 12.7705H17.1034C16.7271 12.7705 16.4192 13.0784 16.4192 13.4546V15.7351C16.4192 16.1114 16.7271 16.4192 17.1034 16.4192H19.3838C19.7601 16.4192 20.0679 16.1114 20.0679 15.7351ZM14.5949 21.2082V18.9277C14.5949 18.5514 14.287 18.2436 13.9107 18.2436H11.6303C11.254 18.2436 10.9461 18.5514 10.9461 18.9277V21.2082C10.9461 21.5844 11.254 21.8923 11.6303 21.8923H13.9107C14.287 21.8923 14.5949 21.5844 14.5949 21.2082ZM9.12179 21.2082V18.9277C9.12179 18.5514 8.81393 18.2436 8.43766 18.2436H6.15721C5.78094 18.2436 5.47307 18.5514 5.47307 18.9277V21.2082C5.47307 21.5844 5.78094 21.8923 6.15721 21.8923H8.43766C8.81393 21.8923 9.12179 21.5844 9.12179 21.2082ZM20.0679 21.2082V18.9277C20.0679 18.5514 19.7601 18.2436 19.3838 18.2436H17.1034C16.7271 18.2436 16.4192 18.5514 16.4192 18.9277V21.2082C16.4192 21.5844 16.7271 21.8923 17.1034 21.8923H19.3838C19.7601 21.8923 20.0679 21.5844 20.0679 21.2082ZM25.541 6.38525V26.4532C25.541 27.964 24.3153 29.1897 22.8045 29.1897H2.73654C1.22574 29.1897 0 27.964 0 26.4532V6.38525C0 4.87446 1.22574 3.64872 2.73654 3.64872H5.47307V0.684134C5.47307 0.30786 5.78094 0 6.15721 0H8.43766C8.81393 0 9.12179 0.30786 9.12179 0.684134V3.64872H16.4192V0.684134C16.4192 0.30786 16.7271 0 17.1034 0H19.3838C19.7601 0 20.0679 0.30786 20.0679 0.684134V3.64872H22.8045C24.3153 3.64872 25.541 4.87446 25.541 6.38525ZM22.8045 26.1111V9.12179H2.73654V26.1111C2.73654 26.2993 2.89047 26.4532 3.0786 26.4532H22.4624C22.6505 26.4532 22.8045 26.2993 22.8045 26.1111Z" fill="#F5F5F5" />
-        </svg>
-        <p>Dates</p>
-      </a>
     </div>
     <div id="slogan">
       <div id="ps">
         <p>Des logements pour tout les goûts </p>
       </div>
     </div>
+
+    <a class="button" href="#" id="datebutton">
+        <svg width="26" height="30" viewBox="0 0 26 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8.43766 16.4192H6.15721C5.78094 16.4192 5.47307 16.1114 5.47307 15.7351V13.4546C5.47307 13.0784 5.78094 12.7705 6.15721 12.7705H8.43766C8.81393 12.7705 9.12179 13.0784 9.12179 13.4546V15.7351C9.12179 16.1114 8.81393 16.4192 8.43766 16.4192ZM14.5949 15.7351V13.4546C14.5949 13.0784 14.287 12.7705 13.9107 12.7705H11.6303C11.254 12.7705 10.9461 13.0784 10.9461 13.4546V15.7351C10.9461 16.1114 11.254 16.4192 11.6303 16.4192H13.9107C14.287 16.4192 14.5949 16.1114 14.5949 15.7351ZM20.0679 15.7351V13.4546C20.0679 13.0784 19.7601 12.7705 19.3838 12.7705H17.1034C16.7271 12.7705 16.4192 13.0784 16.4192 13.4546V15.7351C16.4192 16.1114 16.7271 16.4192 17.1034 16.4192H19.3838C19.7601 16.4192 20.0679 16.1114 20.0679 15.7351ZM14.5949 21.2082V18.9277C14.5949 18.5514 14.287 18.2436 13.9107 18.2436H11.6303C11.254 18.2436 10.9461 18.5514 10.9461 18.9277V21.2082C10.9461 21.5844 11.254 21.8923 11.6303 21.8923H13.9107C14.287 21.8923 14.5949 21.5844 14.5949 21.2082ZM9.12179 21.2082V18.9277C9.12179 18.5514 8.81393 18.2436 8.43766 18.2436H6.15721C5.78094 18.2436 5.47307 18.5514 5.47307 18.9277V21.2082C5.47307 21.5844 5.78094 21.8923 6.15721 21.8923H8.43766C8.81393 21.8923 9.12179 21.5844 9.12179 21.2082ZM20.0679 21.2082V18.9277C20.0679 18.5514 19.7601 18.2436 19.3838 18.2436H17.1034C16.7271 18.2436 16.4192 18.5514 16.4192 18.9277V21.2082C16.4192 21.5844 16.7271 21.8923 17.1034 21.8923H19.3838C19.7601 21.8923 20.0679 21.5844 20.0679 21.2082ZM25.541 6.38525V26.4532C25.541 27.964 24.3153 29.1897 22.8045 29.1897H2.73654C1.22574 29.1897 0 27.964 0 26.4532V6.38525C0 4.87446 1.22574 3.64872 2.73654 3.64872H5.47307V0.684134C5.47307 0.30786 5.78094 0 6.15721 0H8.43766C8.81393 0 9.12179 0.30786 9.12179 0.684134V3.64872H16.4192V0.684134C16.4192 0.30786 16.7271 0 17.1034 0H19.3838C19.7601 0 20.0679 0.30786 20.0679 0.684134V3.64872H22.8045C24.3153 3.64872 25.541 4.87446 25.541 6.38525ZM22.8045 26.1111V9.12179H2.73654V26.1111C2.73654 26.2993 2.89047 26.4532 3.0786 26.4532H22.4624C22.6505 26.4532 22.8045 26.2993 22.8045 26.1111Z" fill="#F5F5F5" />
+        </svg>
+        <p>Dates</p>
+      </a>
   </div>
 
   <div class="box">
@@ -292,6 +294,8 @@ try {
       }
     }
 
+    
+
     if ($sens=="crois"){
       if ($filtre!=""){
         foreach($dbh->query("SELECT DISTINCT id_logement, prix_ttc, note_logement
@@ -315,7 +319,7 @@ try {
   
             <a href="logement.php?id=<?php echo($id);?>" class="maison">
                           <div id="triangle"></div>
-                          <div class="etoile">Se
+                          <div class="etoile">
                             <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                               <path
                                 d="M7.5 0L9.18386 5.52786H14.6329L10.2245 8.94427L11.9084 14.4721L7.5 11.0557L3.09161 14.4721L4.77547 8.94427L0.367076 5.52786H5.81614L7.5 0Z"
@@ -353,7 +357,7 @@ try {
   
           <a href="logement.php?id=<?php echo($id);?>" class="maison">
                         <div id="triangle"></div>
-                        <div class="etoile">Se
+                        <div class="etoile">
                           <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
                               d="M7.5 0L9.18386 5.52786H14.6329L10.2245 8.94427L11.9084 14.4721L7.5 11.0557L3.09161 14.4721L4.77547 8.94427L0.367076 5.52786H5.81614L7.5 0Z"
@@ -492,6 +496,9 @@ try {
 }
 
 ?>
+
+
+
 
   </div>
 
