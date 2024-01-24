@@ -1,5 +1,5 @@
 <?php session_start();
- ?>
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -15,17 +15,18 @@
 </head>
 
 <body>
-   
+
 
     <?php
-    
+
+
     include('connect_params.php');
     try {
         $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
         $id = $_POST["id"];
         $qui = $_POST["qui"];
         $chargeSelectioner = $_POST["charge"];
-
+        $idReservation = $_POST["idResrvation"];
 
 
 
@@ -36,7 +37,7 @@
         $planning = $stmt->fetch(PDO::FETCH_ASSOC);
 
 
-       
+
 
 
 
@@ -87,6 +88,26 @@
         $stmt->bindParam(':id_image', $photo[0]["id_image"], PDO::PARAM_INT);
         $stmt->execute();
         $current = $stmt->fetch();
+        
+        if (isset($idReservation)) {
+            $query = "SELECT * FROM test.reservation  WHERE id_reservation = :id_reservation";
+            $stmtLogement = $dbh->prepare($query);
+            $stmtLogement->bindParam(':id_reservation', $idReservation, PDO::PARAM_INT);
+            $stmtLogement->execute();
+            $reservation = $stmtLogement->fetch(PDO::FETCH_ASSOC);
+            $query = "SELECT * FROM test.devis  WHERE id_reservation = :id_reservation";
+            $stmtLogement = $dbh->prepare($query);
+            $stmtLogement->bindParam(':id_reservation', $idReservation, PDO::PARAM_INT);
+            $stmtLogement->execute();
+            $devis = $stmtLogement->fetch(PDO::FETCH_ASSOC);
+
+        }
+
+
+
+
+
+
     } catch (PDOException $e) {
         print "Erreur !: " . $e->getMessage() . "<br/>";
         die();
@@ -136,7 +157,14 @@
         <div></div>
     </header>
     <main class="main-devis">
-    <form action="<?php echo ($qui == "client") ? "paiment.php" : (($qui == "proprietaire") ? "pageLogement.php" : "inserDevis.php"); ?>" method="POST">
+        <pre>
+        <?php print_r($_POST);
+
+
+        print_r($reservation);
+        print_r($devis);
+         ?></pre>
+        <form action="<?php echo ($qui == "client") ? "paiment.php" : (($qui == "proprietaire") ? "pageLogement.php" : "inserDevis.php"); ?>" method="POST">
             <div class="demande">
                 <div class="retour">
                     <button class="boutonRetour" onclick="index.php"><img src="asset/icons/blanc/retour.svg"></button>
@@ -153,10 +181,10 @@
 
 
                             <div class="date_arrivee">
-                                 <?php echo ($qui == "proprietaire" || $qui == "client") ? '<img src="asset/icons/blanc/date.svg" alt=""> ' : ''; ?>
-                                 
+                                <?php echo ($qui == "proprietaire" || $qui == "client") ? '<img src="asset/icons/blanc/date.svg" alt=""> ' : ''; ?>
+
                                 <p>
-                                    <input type="date" <?php echo ($qui == "proprietaire" || $qui == "client") ? 'readonly' : ''; ?> name="start-date" id="<?php echo ($qui == "proprietaire" || $qui == "client") ? 'start_block' : 'start'; ?>" data-delai-resa-min="<?php echo $info['delai_resa_min'] + 1; ?>" min="<?php echo date('Y-m-d', strtotime('+' . ($info['delai_resa_min'] + 1) . ' day')); ?>" value="<?php echo date('Y-m-d', strtotime('+' . ($info['delai_resa_min'] + 1) . ' day')); ?>">
+                                    <input type="date" <?php echo ($qui == "proprietaire" || $qui == "client") ? 'readonly' : ''; ?> name="start-date" id="start" class="<?php echo ($qui == "proprietaire" || $qui == "client") ? 'start_block' : 'start'; ?>" data-delai-resa-min="<?php echo $info['delai_resa_min'] + 1; ?>" min="<?php echo date('Y-m-d', strtotime('+' . ($info['delai_resa_min'] + 1) . ' day')); ?>" value="<?php echo date('Y-m-d', strtotime('+' . ($info['delai_resa_min'] + 1) . ' day')); ?>">
                                 </p>
                             </div>
 
@@ -164,10 +192,10 @@
                             <div class="barre-separation"></div>
 
                             <div class="date_depart">
-                            <?php echo ($qui == "proprietaire" || $qui == "client") ? '<img src="asset/icons/blanc/date.svg" alt=""> ' : ''; ?>
-                                 
+                                <?php echo ($qui == "proprietaire" || $qui == "client") ? '<img src="asset/icons/blanc/date.svg" alt=""> ' : ''; ?>
+
                                 <p>
-                                    <input <?php echo ($qui == "proprietaire" || $qui == "client") ? 'readonly' : ''; ?> type="date" name="end-date" id="<?php echo ($qui == "proprietaire" || $qui == "client") ? 'end_block' : 'end'; ?>" data-duree-delaire-min="<?php echo $info['duree_resa_min'] + $info['delai_resa_min'] + 1; ?>" min="<?php echo date('Y-m-d', strtotime('+' . ($info['duree_resa_min'] + $info['delai_resa_min'] + 1) . ' day')); ?>" value="<?php echo date('Y-m-d', strtotime('+' . ($info['duree_resa_min'] + $info['delai_resa_min'] + 1) . ' day')); ?>">
+                                    <input <?php echo ($qui == "proprietaire" || $qui == "client") ? 'readonly' : ''; ?> type="date" name="end-date" id="end" class="<?php echo ($qui == "proprietaire" || $qui == "client") ? 'end_block' : 'end'; ?>" data-duree-delaire-min="<?php echo $info['duree_resa_min'] + $info['delai_resa_min'] + 1; ?>" min="<?php echo date('Y-m-d', strtotime('+' . ($info['duree_resa_min'] + $info['delai_resa_min'] + 1) . ' day')); ?>" value="<?php echo date('Y-m-d', strtotime('+' . ($info['duree_resa_min'] + $info['delai_resa_min'] + 1) . ' day')); ?>">
                                 </p>
                             </div>
 
@@ -369,11 +397,11 @@
                             <div class="row">
                                 <div class="label_t">Total</div>
 
-                                <input name="prixTTC" id="prixTTC" class="value" readonly>
+                                <input type="number" step="0.01" name="prixTTC" id="prixTTC" class="value" <?php echo ($qui != "proprietaire") ? 'readonly' : ''; ?> >
                             </div>
                         </div>
 
-
+                  
 
                     </div>
                     <?php if ($qui == null) {
@@ -387,18 +415,20 @@
 
 
                     <?php } ?>
-                    <?php if ($qui == "proprietaire "){ print_r("vava"); ?>
-                       
+                    <?php if ($qui == "proprietaire") {
+                      
+                       ?>
+
                         <input name="id" value="<?php echo ($id); ?>" hidden readonly>
                         <input name="qui" value="client" hidden readonly>
                         <input name="charge" value="<?php echo ($_POST["charge"]); ?>" hidden readonly>
                         <input name="reservation" value="<?php echo ($Idres["id_reservation"]); ?>" hidden readonly>
                         <button type="submit" class="devisButton">Envoyer le devis</button>
 
-                        <?php }?>
+                    <?php } ?>
                     <?php
                     if ($qui == "client") { ?>
-                       
+
 
 
                         <input name="devis" value="<?php echo ($devis["id_devis"]); ?>" hidden readonly>
