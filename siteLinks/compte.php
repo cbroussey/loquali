@@ -743,7 +743,7 @@ if (isset($_GET["confirmDelete"])) {
           <!-- Réservations -->
           <?php
 
-          if ($_SESSION['userType'] == 'client') {
+          if ($_SESSION['userType'] == 'proprietaire') {
 
             $id_client = $_SESSION['userId'];
             foreach($dbh->query("SELECT * FROM test.reservation 
@@ -804,13 +804,73 @@ if (isset($_GET["confirmDelete"])) {
                                   <h2 class="nom_proprio"><?=$proprio["nom_affichage"]?></h2>
                                 </div>
                                 <div class="block_devis">
-                                  <a href="" class="demande_devis">DEMANDE DE DEVIS</a>
+                                  <a href="" class="demande_devis">AFFICHER DEVIS</a>
                                   <a href="" class="reponse_devis">REPONSE DE DEVIS</a>
                                 </div>
                               </div>
                             </div>
                            
             <?php }
+          }else {
+            $id_client = $_SESSION['userId'];
+            foreach($dbh->query("SELECT * FROM test.reservation 
+                            INNER JOIN test.devis ON test.reservation.id_reservation = test.devis.id_reservation 
+                            WHERE id_compte = 1", PDO::FETCH_ASSOC) as $row) {
+                            $id_logement = $row["id_logement"];
+
+                            $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+                            
+                            $proprio_id = $dbh->query("SELECT * from test.logement WHERE id_logement =$id_logement", PDO::FETCH_ASSOC)->fetch()["id_compte"];
+
+                            $query = "SELECT * FROM test.compte NATURAL JOIN test.proprietaire WHERE id_compte = :id_compte";
+                            
+                            $stmt = $dbh->prepare($query);
+                            $stmt->bindParam('id_compte', $proprio_id, PDO::PARAM_STR);
+                            $stmt->execute();
+                            $proprio = $stmt->fetch();
+
+                            if ($images = opendir('asset/img/profils/')) {
+                                while (false !== ($fichier = readdir($images))) {
+                                    $imgInfos = pathinfo($fichier);
+                                    if ($imgInfos['filename'] == $_SESSION['userId']) {
+                                        $pathName = 'asset/img/profils/' . $fichier;
+                                        break;
+                                    }
+            
+                                }
+                                if ($pathName == '') {
+                                    $pathName = 'asset/img/profils/default.jpg';
+                                }
+                                closedir($images);
+                            }
+                            
+                            ?>
+
+                            <div class="page_devis">
+                            
+                              <div class="liste_devis">
+                                <form class="devis" method="POST" action="demandeDevis.php">
+                                  <input type="hidden" name="qui" value="client">
+                                  <input type="hidden" name="reservation" value="<?=$row["id_reservation"]?>">
+                                  <img src="<?=$pathName?>" alt="" class="logo">
+                                  <div class="infos">
+                                    <div class="infos-header">
+                                    <h3><?=$proprio["nom_affichage"]?></h3>
+                                    <p class="date"><?=explode(" ",$row["date_devis"])[0]?></p>
+                                    </div>
+                                    <div class="infos-header">
+                                    <p>Voici un devis.</p>
+                                    <button type="submit" class="voir-devis">Voir</button>
+                                    </div>
+                                  </div>
+                                </form>
+                                <div class="separateur1">a</div>
+                              </div>
+
+                              
+                           
+            <?php 
+            }
           }
             ?>
 
