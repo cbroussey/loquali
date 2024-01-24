@@ -858,10 +858,9 @@ if (isset($_GET["confirmDelete"])) {
 
         <script src="asset/js/header.js"></script>
         <script src="asset/js/modifInfosCompte.js"></script>
+        <script src="asset/js/account.js"></script>
         <?php if ($_GET["res"]=="res"){?>
-            <script src="asset/js/account.js"></script>
             <script>liens_compte(3)</script>
-    
           <?php } ?>
 </body>
 </html>
