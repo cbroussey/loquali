@@ -325,6 +325,7 @@ if (isset($_GET["confirmDelete"])) {
             <img src="asset/icons/bleu/reservationsBlue.svg" alt="Infos Persos" class="img-back">
             <img src="asset/icons/blanc/reservations.svg" alt="Infos Persos" class="img-front">
           </div>
+
           <figcaption>Mes réservations</figcaption>
         </figure>
       </div>
@@ -563,6 +564,27 @@ if (isset($_GET["confirmDelete"])) {
 
     <div id="compteLogements">
 <!-- logements --> <!-- reservations -->
+
+      <?php
+        if ($_GET["res"]=="res"){
+          ?>
+            <style>
+              "#compteLogement{
+                display: block;
+              }
+              #compteAccueil{
+                display: none;
+              }
+              
+              "
+
+            </style>
+            
+          <?php
+          echo "ETSETSETSTETSETEST";
+        }
+      ?>
+
       <?php
         if ($_SESSION['userType'] == 'proprietaire') {
         ?>
