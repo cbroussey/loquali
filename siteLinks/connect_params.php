@@ -2,10 +2,10 @@
 <?php
 $server = 'servbdd';
 $driver = 'pgsql';
-$dbname = 'pg_salabiven';
-$user = 'salabiven';
-
-
+$dbname = 'pg_';
+$user = '';
+$pass = '';
+?>
 
 
 

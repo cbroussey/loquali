@@ -23,7 +23,7 @@
     <?php
     //print_r(pdo_drivers());
     //print_r($_POST);
-    if (isset($_POST["devis"]) && is_numeric($_POST["devis"])) { // Check si un numéro de devis a correctement été reçu
+    if (isset($_GET["devis"]) && is_numeric($_GET["devis"])) { // Check si un numéro de devis a correctement été reçu
         //include("../data/dbImport.php");
         require_once("connect_params.php");
         $db = new PDO("$driver:host=$server;dbname=$dbname", "$user", "$pass");
@@ -36,7 +36,7 @@
             WHERE id_devis = :devis'
         ); // Récupération des informations sur la réservation, le devis, le logement et l'image de couverture
         // nbJours, calculé dans la requête SELECT, correspond à la durée de la réservation
-        $res->bindParam('devis', $_POST['devis'], PDO::PARAM_INT);
+        $res->bindParam('devis', $_GET['devis'], PDO::PARAM_INT);
         $res->execute();
         $res = $res->fetchAll();
         /*?><pre style="padding-left: 1em;"><?php print_r($res) ?></pre><?php*/
@@ -76,7 +76,10 @@
                             <?php
                                 if (count($pay)) {
                                     for ($i = 0; $i < count($pay); $i++) {
-                                        ?><input name="paymentSaved" class="inputImg" onclick="toggleCM('CM3', document.querySelector('#paymentSaved'))" style="background-image: url('asset/img/<?php echo strtolower($pay[$i]["type_cb"]) ?>.png');" value="<?php echo $pay[$i]["numero_carte"] ?>" readonly><img class="cmHideElem <?php echo strtolower($pay[$i]["type_cb"]) ?>" src="asset/img/arrow-down.svg" onclick="toggleCM('CM3', document.querySelector('#paymentSaved'))"><?php
+                                        ?><input name="paymentSaved" class="inputImg" onclick="toggleCM('CM3', document.querySelector('#paymentSaved'))" style="background-image: url('asset/img/<?php echo strtolower($pay[$i]["type_cb"]) ?>.png');" value="<?php echo $pay[$i]["numero_carte"] ?>" readonly>
+                                        <img class="cmHideElem <?php echo strtolower($pay[$i]["type_cb"]) ?>" src="asset/img/arrow-down.svg" onclick="toggleCM('CM3', document.querySelector('#paymentSaved'))">
+                                        <input type="hidden" class="cryptenr" value="<?php echo $pay[$i]["cryptogramme"] ?>">
+                                        <input type="hidden" class="validenr" value="<?php echo $pay[$i]["date_validite"] ?>"><?php
                                         echo ($i < count($pay) - 1 ? "|" : "");
                                     }
                                 } else {
