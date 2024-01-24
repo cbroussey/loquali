@@ -555,26 +555,6 @@ if (isset($_GET["confirmDelete"])) {
 <!-- logements --> <!-- reservations -->
 
       <?php
-        if ($_GET["res"]=="res"){
-          ?>
-            <style>
-              "#compteLogement{
-                display: block;
-              }
-              #compteAccueil{
-                display: none;
-              }
-              
-              "
-
-            </style>
-            
-          <?php
-          echo "ETSETSETSTETSETEST";
-        }
-      ?>
-
-      <?php
         if ($_SESSION['userType'] == 'proprietaire') {
         ?>
         <div id="logementPropo">
@@ -672,8 +652,6 @@ if (isset($_GET["confirmDelete"])) {
               print "Erreur !: " . $e->getMessage() . "<br/>";
               die();
             }
-
-            $dbh = null;
         }else {
 
           try {
@@ -741,9 +719,6 @@ if (isset($_GET["confirmDelete"])) {
             print "Erreur !: " . $e->getMessage() . "<br/>";
             die();
           }
-
-          $dbh = null;
-
         }
             ?>
 
@@ -751,6 +726,79 @@ if (isset($_GET["confirmDelete"])) {
 
         <div id="compteReservations">
           <!-- Réservations -->
+          
+          <?php
+
+          if ($_SESSION['userType'] == 'client') {
+
+            $id_client = $_SESSION['userId'];
+            foreach($dbh->query("SELECT * FROM test.reservation 
+                            INNER JOIN test.devis ON test.reservation.id_reservation = test.devis.id_reservation 
+                            WHERE id_compte = 1", PDO::FETCH_ASSOC) as $row) {
+                            $id_logement = $row["id_logement"];
+
+                            $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+                            
+                            $proprio_id = $dbh->query("SELECT * from test.logement WHERE id_logement =$id_logement", PDO::FETCH_ASSOC)->fetch()["id_compte"];
+
+                            $query = "SELECT * FROM test.compte NATURAL JOIN test.proprietaire WHERE id_compte = :id_compte";
+                            
+                            $stmt = $dbh->prepare($query);
+                            $stmt->bindParam('id_compte', $proprio_id, PDO::PARAM_STR);
+                            $stmt->execute();
+                            $proprio = $stmt->fetch();
+
+                            if ($images = opendir('asset/img/profils/')) {
+                                while (false !== ($fichier = readdir($images))) {
+                                    $imgInfos = pathinfo($fichier);
+                                    if ($imgInfos['filename'] == $_SESSION['userId']) {
+                                        $pathName = 'asset/img/profils/' . $fichier;
+                                        break;
+                                    }
+            
+                                }
+                                if ($pathName == '') {
+                                    $pathName = 'asset/img/profils/default.jpg';
+                                }
+                                closedir($images);
+                            }
+                            
+                            ?>
+
+                            <div class="page_devis">
+                            
+                              <div class="liste_devis">
+                                <div class="devis">
+                                  <img src="<?=$pathName?>" alt="" class="logo">
+                                  <div class="infos_devis">
+                                    <div class="header_devis">
+                                      <h3 class="nom_prop"><?=$proprio["nom_affichage"]?></h3>
+                                      <?php $separator=" ";
+                                      $dateDevis = explode($separator, $row["date_devis"]);
+                                      ?>
+                                      <p class="date"><?=$dateDevis[0]?></p>
+                                    </div>
+                                    <p class="message">Vous a envoyé un devis.</p>
+                                    </div>
+                                </div>
+                                <div class="separateur1">a</div>
+                              </div>
+
+                              <div class="reception_devis">
+                                <div class="titre_devis">
+                                  <img src="<?=$pathName?>" alt="" class="logo">
+                                  <h2 class="nom_proprio"><?=$proprio["nom_affichage"]?></h2>
+                                </div>
+                                <div class="block_devis">
+                                  <a href="" class="demande_devis">DEMANDE DE DEVIS</a>
+                                  <a href="" class="reponse_devis">REPONSE DE DEVIS</a>
+                                </div>
+                              </div>
+                            </div>
+                           
+            <?php }
+          }
+            ?>
           
         </div>
 
@@ -796,9 +844,11 @@ if (isset($_GET["confirmDelete"])) {
 
         <script src="asset/js/header.js"></script>
         <script src="asset/js/modifInfosCompte.js"></script>
-        <script src="asset/js/account.js"></script>
-
+        <?php if ($_GET["res"]=="res"){?>
+            <script src="asset/js/account.js"></script>
+            <script>liens_compte(3)</script>
+    
+          <?php } ?>
 </body>
-
 </html>
 
