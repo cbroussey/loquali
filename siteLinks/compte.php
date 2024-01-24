@@ -1,9 +1,11 @@
 <?php
 session_start();
-/* if ($_SERVER["REQUEST_METHOD"] == "POST") {
+//suppression de session si la popupDéco est validée
+if (isset($_POST['hidden'])) {
   session_destroy();
   header("Location: index.php");
-  exit(); }*/
+  exit();
+}
 include('connect_params.php');
 $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
 $query = $dbh->prepare("SELECT * FROM test.compte WHERE id_compte = :idcompte");
@@ -205,6 +207,11 @@ if (isset($_GET["confirmDelete"])) {
             color: #1D4C77;
           }
 
+          header > div:first-of-type {
+          width: 25%;
+          }
+
+
         </style>
       
       <?php
@@ -215,6 +222,12 @@ if (isset($_GET["confirmDelete"])) {
         if ($_SESSION['userType'] === 'client') {
       ?>
         <p class="personneheader"><span class="nompersonne"> <?php echo ($infos['nom']) ?> <?php echo ($infos['prenom']) ?> &#160;&#160;&#160;&#160; ● </span><span class="personne">voyageur</span></p>
+      
+        <style>
+        header > div:first-of-type {
+        width: 25%;
+        }
+        </style>
       <?php
       }
       ?>
@@ -524,7 +537,7 @@ if (isset($_GET["confirmDelete"])) {
       <div class="lignes">
         <p>Historique de l’appareil</p>
         <p class="displayInfos">Session en cours</p>
-        <button class="modifications">Se déconnecter</button>
+        <button id="accountDisconnect2" class="modifications">Se déconnecter</button>
       </div>
 
       <div class="separateurgenre"></div>
@@ -723,6 +736,7 @@ if (isset($_GET["confirmDelete"])) {
             ?>
 
         </div>
+        </div>
 
         <div id="compteReservations">
           <!-- Réservations -->
@@ -809,16 +823,7 @@ if (isset($_GET["confirmDelete"])) {
         <div id="comptePaiement">
           <!-- payement -->
         </div>
-
-        <form method="post" id="popUpDeco">
-          <div class="popUpDecoChoix">
-            <h2>Êtes-vous sûr de vouloir <br>vous déconnecter ?</h2>
-            <div class="button-container">
-              <input class="cancel-button" id="cancelDisconnect" type="button" value="Annuler" />
-              <input class="confirm-button" id="confirmDisconnect" type="submit" value="Se déconnecter" />
-            </div>
-          </div>
-        </form>
+      </div>
 
         <div id="menu">
           <div id="choix">
@@ -840,7 +845,16 @@ if (isset($_GET["confirmDelete"])) {
         </div>
 
 
-
+        <form method="post" id="popUpDeco">
+        <div class="popUpDecoChoix">
+          <h2>Êtes-vous sûr de vouloir <br>vous déconnecter ?</h2>
+          <div class="button-container">
+            <input class="cancel-button" id="cancelDisconnect" name="cancelDisconnect" type="button" value="Annuler" />
+            <input type="hidden" name="hidden" value="disconnect">
+            <input class="confirm-button" id="confirmDisconnect" type="submit" value="Se déconnecter" />
+          </div>
+        </div>
+      </form>
 
         <script src="asset/js/header.js"></script>
         <script src="asset/js/modifInfosCompte.js"></script>

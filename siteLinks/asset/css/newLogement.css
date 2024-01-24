@@ -1,0 +1,16 @@
+#page2, #page3, #page4{
+    display: none;
+}
+
+.page{
+    transition: all  0.8s ease-in-out;
+    min-height: 100%;  
+    overflow-y: scroll;
+    max-height: 88vh;
+}
+
+#gros_div{
+    overflow: auto;
+    transition: transform 0.8s ease-in-out;
+    margin-bottom: 50px;
+}

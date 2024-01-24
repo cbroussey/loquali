@@ -2,11 +2,17 @@
 
 //header
 const accountDisconnect = document.getElementById("accountDisconnect");
+const accountDisconnect2 = document.getElementById("accountDisconnect2");
 const popUpDeco = document.getElementById("popUpDeco");
 
 accountDisconnect.addEventListener('click', function() {
+    console.log(popUpDeco);
     popUpDeco.style.display = "block";
 });
+
+accountDisconnect2.addEventListener('click', function() {
+    popUpDeco.style.display = "block";
+})
 
 //popup Disconnect
 const cancelDisconnect = document.getElementById("cancelDisconnect");
@@ -33,7 +39,6 @@ var current = compteAccueil;
 var currentMenuLink = menuLinks[0];
 currentMenuLink.style.color = 'var(--textColor)';
 currentMenuLink.parentNode.children[0].children[1].display = "none";
-console.log(currentMenuLink.parentNode.children[0].children[1]);
 
 function liens_compte(index) {
     console.log('Vous avez cliqué sur le lien avec l\'index : ' + index);

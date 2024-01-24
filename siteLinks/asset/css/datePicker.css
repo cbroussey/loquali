@@ -5,7 +5,8 @@
     --animSpeed: .1s;
 }
 
-.datePicker {
+.datePicker, .dateDisplay {
+    z-index: 10;
     display: flex;
     position: absolute;
     visibility: collapse;
@@ -54,7 +55,7 @@
     height: 30px;
 }
 
-.DPheader > button:hover, td:is(.DPcurrent):hover {
+.datePicker.DPheader > button:hover, .datePicker td:is(.DPcurrent):hover {
     background-color: var(--DPhovbg);
     border-radius: 100%;
 }
@@ -88,6 +89,16 @@ table, thead, tbody, tfoot, tr, th, td {
     -ms-user-select: none; /* IE 10 and IE 11 */
     user-select: none; /* Standard syntax */
 }
+
+.DPdispo { 
+    background-color: green; 
+    text-align: center;
+} 
+    
+.DPundispo { 
+    background-color: red; 
+    text-align: center;
+} 
 
 td:is(.DPcurrent) {
     cursor: pointer;
