@@ -36,7 +36,7 @@ currentMenuLink.parentNode.children[0].children[1].display = "none";
 console.log(currentMenuLink.parentNode.children[0].children[1]);
 
 links.forEach(function(link, index) {
-    link.addEventListener('click', function() {
+    link.addEventListener('click', function liens_compte() {
         console.log('Vous avez cliqué sur le lien avec l\'index : ' + index);
         currentMenuLink.style.color = 'var(--secondBG)';
         currentMenuLink = menuLinks[index];
