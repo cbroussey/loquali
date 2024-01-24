@@ -573,6 +573,16 @@ pre {
   text-align: center;
 }
 
+#quitterfiltre{
+  position: absolute;
+  margin-top: -4em;
+}
+
+#quitterfiltre svg{
+  width: 65px;
+  height: 50px;
+}
+
 #validerouuuu {
   color: #F5F5F5;
   text-align: center;
