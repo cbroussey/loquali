@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="asset/css/style.css">
+    <link rel="stylesheet" href="asset/css/modif.css">
     <link rel="stylesheet" href="asset/css/headerAndFooter.css">
 
 
@@ -407,7 +408,7 @@
     }
     ?>
     <header>
-        <a >
+        <a href="index.php">
             <img src="asset/img/logo.png" alt="logo">
         </a>
         <div></div>
@@ -422,8 +423,8 @@
                 </svg>
             </div>
             <h4><a href="">Messagerie</a></h4>
-            <h4><a href="">Mes réservations</a></h4>
-            <h4><a href=<?php echo $linkAccount ?>>Mon compte</a></h4>
+            <h4><a href="compte.php?res=res"><?php if ($_SESSION["userType"]=="proprietaire"){echo("Mes logements");} else {echo("Mes réservations");} ?></a></h4>
+            <h4><a href="compte.php">Mon compte</a></h4>
         </nav>
         <div id="headerPopup">
             <ul>
@@ -438,8 +439,6 @@
 
         </div>
     </header>    <!-- Fin de la classe header (celle de martin) -->
-
-
         <div class="barre_fin_header_log"> <!-- Début de la barre de séparation du header -->
             <svg width="100%" height="23" viewBox="0 0 1920 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g filter="url(#filter0_d_15_355)">
@@ -542,6 +541,33 @@
         </div> <!-- Fin du div pour le background blanc -->
 
 
+ 
+
+        <?php
+            include('connect_params.php');
+            $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
+
+            try {
+                $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+                $query = "SELECT * FROM test.compte NATURAL JOIN test.telephone NATURAL JOIN test.proprietaire WHERE id_compte = :id_compte";
+
+                $stmt = $dbh->prepare($query);
+                $stmt->bindParam('id_compte', $_SESSION["userId"], PDO::PARAM_STR);
+                $stmt->execute();
+                $proprio = $stmt->fetch();
+            } catch (PDOException $e) {
+                print "Erreur !: " . $e->getMessage() . "<br/>";
+                die();
+            }
+            
+
+            $dbh = null;
+        ?>
+
+
+
+
+
 
         <div class="barre_log">  <!-- Barre de séparation -->
             <svg width="100%" height="10" viewBox="0 0 1920 9" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -572,21 +598,48 @@
 
                 <div class="proprio_log">
                     
-                    <a class="img_proprio_log" id="user" href=""><div class="photo_profil_proprio_log"></div>
+                <?php //récupération du nom de l'image (avec extension)
+                
+                if ($images = opendir('asset/img/profils/')) {
+                    while (false !== ($fichier = readdir($images))) {
+                        $imgInfos = pathinfo($fichier);
+                        if ($imgInfos['filename'] == $proprio["id_compte"]) {
+                            $pathName = 'asset/img/profils/' . $fichier;
+                            break;
+                        }
+
+                    }
+                    if ($pathName == '') {
+                        $pathName = 'asset/img/profils/default.jpg';
+                    }
+                    closedir($images);
+                }
+                ?>
+
+                    <a class="img_proprio_log" href="pageProprio.php?id=<?php echo ($proprio["id_compte"]); ?>&id_log=<?php echo ($id) ?>">
+                        <div class="photo_profil_proprio_log">
+                            <style>
+                                .photo_profil_proprio_log {
+                                    background: url("<?php echo($pathName) ?>") center/cover;
+                                }
+                            </style>
+                        </div>
+
                     </a>
+
                     <div class="info_proprio_log">
                         <div class="block_info_log">
-                            <h2><?php echo $_SESSION['username'] ?></h2>
+                            <h2><?php echo $_SESSION['displayName'] ?></h2>
                         </div>
                         <div class="block_info_log">
-                            <div class="note_proprio_log">
+<!--                             <div class="note_proprio_log">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path
                                         d="M10.3646 1.22353L7.5304 7.12042L1.18926 8.06909C0.052104 8.23834 -0.403625 9.67693 0.421028 10.5009L5.0087 15.0884L3.92363 21.5687C3.72832 22.7401 4.93058 23.6175 5.93752 23.0696L11.6103 20.0099L17.283 23.0696C18.29 23.613 19.4922 22.7401 19.2969 21.5687L18.2118 15.0884L22.7995 10.5009C23.6242 9.67693 23.1684 8.23834 22.0313 8.06909L15.6901 7.12042L12.8559 1.22353C12.3481 0.172417 10.8768 0.159056 10.3646 1.22353Z"
                                         fill="#F5F5F5" />
                                 </svg>
                                 <p>4.9</p>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="block_info_log">
                             <div class="contact_proprio_log">
@@ -595,7 +648,13 @@
                                         d="M20.4011 16.0445L15.8073 14.0242C15.611 13.9384 15.3929 13.9203 15.1858 13.9727C14.9787 14.0251 14.7937 14.1451 14.6588 14.3146L12.6244 16.8653C9.4316 15.3205 6.86212 12.6838 5.35673 9.40742L7.84232 7.31978C8.0079 7.18159 8.12509 6.9918 8.17615 6.77916C8.22722 6.56651 8.20938 6.34258 8.12534 6.14127L6.15655 1.42723C6.06431 1.21022 5.90117 1.03304 5.69526 0.92624C5.48935 0.819439 5.25358 0.789713 5.0286 0.842188L0.762904 1.85234C0.545997 1.90374 0.352472 2.02906 0.213915 2.20786C0.0753574 2.38666 -4.99665e-05 2.60837 2.48403e-08 2.83681C2.48403e-08 13.6328 8.5273 22.3664 19.0316 22.3664C19.2543 22.3665 19.4704 22.2892 19.6447 22.147C19.8191 22.0048 19.9413 21.8062 19.9914 21.5835L20.9758 17.2062C21.0266 16.9742 20.997 16.7313 20.8921 16.5193C20.7872 16.3073 20.6136 16.1394 20.4011 16.0445Z"
                                         fill="#F5F5F5" />
                                 </svg>
-                                <p><?php echo $_SESSION['tel'] ?></p>
+                                <?php
+                                    function formaterNumeroTelephone($numero) {
+                                        echo implode(' ', str_split(preg_replace('/[^0-9]/', '', $numero), 2));
+                                    }
+                                ?>
+
+                                <p><?php echo formaterNumeroTelephone($proprio["numero"]) ?></p>
                             </div>
                         </div>
                     </div>
@@ -834,32 +893,36 @@
 
                         
                     </div>
+
+                    <div class="button_valider">
+                        <a href="index.php">Modifier le logement</a>
+                    </div>
+                    <div class="button_refuser" id="btn_ann_modif">
+                        <a href="modifLogement.php?id=<?php echo ($id) ?>" onclick="afficherPopup()">Annuler</a>
+                    </div>
+
+                    <div id="overlay"></div>
+                    <div id="popup">
+                        <p>Etes-vous sûr de vouloir annuler la création du logement ?</p>
+                        <div class="button_confirmation">
+                            
+                            <a href="#" id="annuler" onclick="cacherPopup()">Non</a>
+                            <a href="index.php" id="confirmer" onclick="confirmerRefus()">
+                                <?php $id_log=2; ?>
+                                <form method="post">
+                                    <input type="text" value="<?php echo htmlentities($id_log) ?>" style='display:"none"' id="id_log">
+                                    <input type="submit" value="Oui" />
+                                </form>
+                            </a>
+                        </div>
+                    </div>
                     
                 </div>
 
-                <div class="button_valider">
-                    <a href="index.php">Modifier le logement</a>
-                </div>
-                <div class="button_refuser">
-                    <a href="modifLogement.php?id=<?php echo ($id) ?>" onclick="afficherPopup()">Annuler</a>
-                </div>
+
                     
                     
-                <div id="overlay"></div>
-                <div id="popup">
-                    <p>Etes-vous sûr de vouloir annuler la création du logement ?</p>
-                    <div class="button_confirmation">
-                        
-                        <a href="#" id="annuler" onclick="cacherPopup()">Non</a>
-                        <a href="index.php" id="confirmer" onclick="confirmerRefus()">
-                            <?php $id_log=2; ?>
-                            <form method="post">
-                                <input type="text" value="<?php echo htmlentities($id_log) ?>" style='display:"none"' id="id_log">
-                                <input type="submit" value="Oui" />
-                            </form>
-                        </a>
-                    </div>
-                </div>
+
 
             </div>
 

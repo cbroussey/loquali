@@ -171,6 +171,7 @@
   </header>
 
 
+
         <div class="barre_fin_header_log"> <!-- Début de la barre de séparation du header -->
             <svg width="100%" height="23" viewBox="0 0 1920 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g filter="url(#filter0_d_15_355)">
@@ -245,7 +246,7 @@
 
                             <div class="ligne_select_info_log_ajlog">
 
-                                <input type="text" id="adresse" name="adresse" class="select_info_log_ajlog" required placeholder="Adresse postale" />
+                                <input type="text" id="adresse" name="adresse" class="select_info_log_ajlog" required placeholder="Adresse postale" value="<?php echo $info["adresse"]; ?>"/>
 
                                 <input type="text" id="code_postal" name="code_postal" class="select_info_log_ajlog" required placeholder="Code postale" value="<?php echo($info["code_postal"]); ?>"/>
 
@@ -253,7 +254,7 @@
 
                             <div class="ligne_select_info_log_ajlog">
 
-                                <input type="text" id="appartement" name="appartement" class="select_info_log_ajlog" required placeholder="Appartement, résidence.."/>
+                                <input type="text" id="appartement" name="appartement" class="select_info_log_ajlog" required placeholder="Appartement, résidence.." value="<?php echo $info["complement_adresse"] ?>"/>
 
                             </div>
 

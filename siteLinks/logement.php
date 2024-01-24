@@ -87,6 +87,7 @@ if (isset($_GET["confirmligne"])) {
     <link rel="stylesheet" href="asset/css/headerAndFooter.css">
     <link rel="stylesheet" href="asset/css/style.css">
     <link rel="stylesheet" href="asset/css/datePicker.css">
+    <link rel="stylesheet" href="asset/css/logement.css">
     <script src="asset/js/boutonSupprimer.js"></script>
     <script src="asset/js/ligneHorsligne.js"></script>
 </head>
@@ -202,8 +203,8 @@ if (isset($_GET["confirmligne"])) {
                 if (isset($_SESSION['userId'])) {
                 ?>
                     <h4><a href="">Messagerie</a></h4>
-                    <h4><a href="">Mes réservations</a></h4>
-                    <h4><a href="compteAccueil.php">Mon compte</a></h4>
+                    <h4><a href="compte.php?res=res"><?php if ($_SESSION["userType"]=="proprietaire"){echo("Mes logements");} else {echo("Mes réservations");} ?></a></h4>
+                    <h4><a href="compte.php">Mon compte</a></h4>
                 <?php } else {
                 ?>
                     <h4><a href="connexion.php">Se connecter</a></h4>

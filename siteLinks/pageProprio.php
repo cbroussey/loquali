@@ -1,3 +1,7 @@
+<?php
+    session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,8 +29,9 @@
         </svg>
       </div>
       <h4><a href="">Messagerie</a></h4>
-      <h4><a href="">Mes réservations</a></h4>
-      <h4><a href=<?php echo $linkAccount ?>>Mon compte</a></h4>
+
+      <h4><a href="compte.php?res=res"><?php if ($_SESSION["userType"]=="proprietaire"){echo("Mes logements");} else {echo("Mes réservations");} ?></a></h4>
+      <h4><a href="compte.php">Mon compte</a></h4>
     </nav>
     <div id="headerPopup">
       <ul>
@@ -39,9 +44,7 @@
     </div>
     <div></div>
   </header>
-
-
-
+  
   <main id="ensemble">
 
     
@@ -84,7 +87,8 @@
         closedir($images);
     }
     ?>
-    
+
+ 
     <a href="logement.php?id=<?php echo($id_log); ?>">
         <img src="asset/icons/bleu/toBack.svg" alt="" id="pagePersoSvgBack">
     </a>
@@ -150,7 +154,7 @@
                     </div>
                     <div class="descriptionPersonne">
                             <input type="submit" value="Enregistrer" id="modificationDescription" class="modifBtn">
-                            <p id="champsDescription" class="descriptionCompte"><?php echo htmlentities($proprio["description"].PHP_EOL) ?></p>
+                            <p id="champsDescription" class="descriptionCompte"><?php echo htmlentities($current["description"]) ?></p>
                         </form>
                     </div>
 
