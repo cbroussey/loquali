@@ -86,11 +86,26 @@ if (isset($_GET["confirmligne"])) {
     <title>Document</title>
     <link rel="stylesheet" href="asset/css/headerAndFooter.css">
     <link rel="stylesheet" href="asset/css/style.css">
+    <link rel="stylesheet" href="asset/css/datePicker.css">
     <script src="asset/js/boutonSupprimer.js"></script>
     <script src="asset/js/ligneHorsligne.js"></script>
 </head>
 
 <body id="bg">
+    <script>
+        const dateIndispo = [
+            <?php 
+            $id = $_GET["id"];
+            foreach ($dbh->query("SELECT * from test.planning WHERE id_logement =$id", PDO::FETCH_ASSOC) as $row) {
+                $time = strval($row["jour"]);
+                if (!$row["disponibilite"]){
+                    echo "new Date(\"$time\"),";
+                }
+            }
+        ?>
+        ];
+        console.log(dateIndispo);
+    </script>
 
     <?php
     include('connect_params.php');
@@ -352,7 +367,7 @@ if (isset($_GET["confirmligne"])) {
                                             <h2><?php echo ($proprio["nom_affichage"]) ?></h2>
                                         </div>
                                         <div class="block_info_log">
-                                            <?php
+<!--                                             <?php
                                             if ($proprio["note_proprio"] != "") {
                                             ?>
                                                 <div class="note_proprio_log">
@@ -365,7 +380,7 @@ if (isset($_GET["confirmligne"])) {
                                                 </div>
                                             <?php
                                             }
-                                            ?>
+                                            ?> -->
                                         </div>
                                         <div class="block_info_log">
                                             <div class="contact_proprio_log">
@@ -402,9 +417,11 @@ if (isset($_GET["confirmligne"])) {
                                 <div class="res_and_map_log">
 
 
-                                    <!--
+                                    
                     <div class="dispo_date_log">
                         <p><span> Disponibilité de réservation : </span></p>
+                        <button id="dates" onclick="toggleDP('DPDisplay', this)" style="margin: 1em;">Dates</button>
+                        <div id="DPDisplay" class="dateDisplay"></div>
                         <a class="bouton_date_log" href="">
                             <svg width="26" height="31" viewBox="0 0 26 31" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -415,7 +432,7 @@ if (isset($_GET["confirmligne"])) {
                         </a>
                     </div>
 
-    -->
+    
                                     <div class="rerservation_log">
                                         <div class="haut_rerservation_log">
                                             <h2><span><?php echo ($info["prix_ttc"]); ?> €</span> / nuit</h2>
@@ -830,6 +847,7 @@ if (isset($_GET["confirmligne"])) {
         </div>
 
     </footer>
+    <script src="./asset/js/dateReservDisplay.js"></script>
 </body>
-
+                    
 </html>
