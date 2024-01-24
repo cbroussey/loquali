@@ -1833,7 +1833,7 @@ h2 span{
   margin: 15% auto;
   padding: 20px;
   border: 1px solid #888;
-
+  width: 30%;
 }
  
 .close {
@@ -4761,7 +4761,7 @@ margin-top: 2%;
 
 #compteReservations {
 height:92vh;
-width:84vw;
+width:70vw;
 display:none;
 position: fixed;
 margin-left: 28%;
@@ -6145,33 +6145,26 @@ font-weight: 500;
   display: flex;
   flex-direction: column;
   color: #1D4C77;
+  width: 100%;
 }
 
 .devis{
   display: flex;
   flex-direction: row;
+  align-items: center;
+  height: 100px;
+  width: 100%;
+}
+
+.date {
+  margin-left: auto;
 }
 
 .infos_devis{
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  width: 500px;
-}
-
-.header_devis{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  
-}
-
-.nom_prop{
-  margin-right: 48%;
-}
-
-.message{
-  margin-left: 2%;
+  width: 100%;
 }
 
 .page_devis{
@@ -6179,73 +6172,46 @@ font-weight: 500;
   flex-direction: row;
 }
 
-.reception_devis{
-  width: 500px;
-  height: 600px;
-  margin-left: 2%;
-}
-
-
-.titre_devis{
-  display: flex;
-  flex-direction: row;
-  color: #F5F5F5;
-  border-radius: 10px 10px 0px 0px;
-  border: 1px solid #1D4C77;
-  background: #1D4C77;
- 
-}
-
-.block_devis{
-  border-radius: 10px;
-  background: #F5F5F5;
-  height: inherit;
+.infos {
   display: flex;
   flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+
+.infos-header {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
   align-items: center;
+  text-align: center;
+
 }
 
-.demande_devis{
-  background-color: #FFF;
-  width: 300px;
-  height: 45px;
-  color: #2072BC;
-
-  font-family: Inter;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  text-decoration-line: underline;
-
-  margin-top: 15%;
-  margin-bottom: 10%;
-  display: flex;
-  justify-content: center;
-  align-content: center;
-  flex-wrap: wrap;
+.liste_devis > .separateur1 {
+  width: 70vw;
 }
 
-.reponse_devis{
-  background-color: #2072BC;
-  width: 300px;
-  height: 45px;
-  color: #FFF;
+.voir-devis {
+border: none;
+background: none;
+font-size: 20px;
+font-weight: 400;
 
-  font-family: Inter;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  text-decoration-line: underline;
 
-  display: flex;
-  justify-content: center;
-  align-content: center;
-  flex-wrap: wrap;
+background-color: #2072BC;
+color: #F5F5F5;
+text-decoration: none;
+border-radius: 5px;
+
+width: 4em;
+height: 1.3em;
+
+text-align: center;
+
+cursor: pointer;
+margin-left: auto;
+align-self: flex-end;
 }
 
-.nom_proprio{
-  margin-top: 5%;
-  margin-left: 5%;
-}

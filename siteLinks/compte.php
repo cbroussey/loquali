@@ -754,6 +754,7 @@ if (isset($_GET["confirmDelete"])) {
 
         </div>
         </div>
+      </div>
 
         <div id="compteReservations">
           <!-- Réservations -->
@@ -763,9 +764,11 @@ if (isset($_GET["confirmDelete"])) {
 
             $id_client = $_SESSION['userId'];
             foreach($dbh->query("SELECT * FROM test.reservation 
-                            INNER JOIN test.devis ON test.reservation.id_reservation = test.devis.id_reservation 
-                            WHERE id_compte = 1", PDO::FETCH_ASSOC) as $row) {
+                    INNER JOIN test.devis ON test.reservation.id_reservation = test.devis.id_reservation 
+                    WHERE id_compte = $id_client", PDO::FETCH_ASSOC) as $row) {
                             $id_logement = $row["id_logement"];
+                            $id_reservation = $row["id_reservation"];
+
 
                             $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
                             
@@ -781,7 +784,7 @@ if (isset($_GET["confirmDelete"])) {
                             if ($images = opendir('asset/img/profils/')) {
                                 while (false !== ($fichier = readdir($images))) {
                                     $imgInfos = pathinfo($fichier);
-                                    if ($imgInfos['filename'] == $_SESSION['userId']) {
+                                    if ($imgInfos['filename'] == $proprio_id) {
                                         $pathName = 'asset/img/profils/' . $fichier;
                                         break;
                                     }
@@ -797,36 +800,91 @@ if (isset($_GET["confirmDelete"])) {
 
                             <div class="page_devis">
                             
-                              <div class="liste_devis">
-                                <div class="devis">
+                            <div class="liste_devis">
+                                <form class="devis" method="POST" action="demandeDevis.php">
+                                  <input type="hidden" name="qui" value="client">
+                                  <input type="hidden" name="reservation" value="<?=$row["id_reservation"]?>">
+                                  <input type="hidden" name="id" value="<?=$row["id_logement"]?>">
                                   <img src="<?=$pathName?>" alt="" class="logo">
-                                  <div class="infos_devis">
-                                    <div class="header_devis">
-                                      <h3 class="nom_prop"><?=$proprio["nom_affichage"]?></h3>
-                                      <?php $separator=" ";
-                                      $dateDevis = explode($separator, $row["date_devis"]);
-                                      ?>
-                                      <p class="date"><?=$dateDevis[0]?></p>
+                                  <div class="infos">
+                                    <div class="infos-header">
+                                    <h3><?=$proprio["nom_affichage"]?></h3>
+                                    <p class="date"><?=explode(" ",$row["date_devis"])[0]?></p>
                                     </div>
-                                    <p class="message">Vous a envoyé un devis.</p>
+                                    <div class="infos-header">
+                                    <p>Vous a envoyé un devis.</p>
+                                    <button type="submit" class="voir-devis">Voir</button>
                                     </div>
-                                </div>
+                                  </div>
+                                </form>
                                 <div class="separateur1">a</div>
                               </div>
 
-                              <div class="reception_devis">
-                                <div class="titre_devis">
-                                  <img src="<?=$pathName?>" alt="" class="logo">
-                                  <h2 class="nom_proprio"><?=$proprio["nom_affichage"]?></h2>
-                                </div>
-                                <div class="block_devis">
-                                  <a href="" class="demande_devis">DEMANDE DE DEVIS</a>
-                                  <a href="" class="reponse_devis">REPONSE DE DEVIS</a>
-                                </div>
-                              </div>
                             </div>
                            
             <?php }
+          } else {
+            $id_proprio = $_SESSION['userId'];
+            foreach($dbh->query("SELECT * FROM test.reservation 
+                            INNER JOIN test.devis ON test.reservation.id_reservation = test.devis.id_reservation 
+                            INNER JOIN test.logement ON test.reservation.id_logement = test.logement.id_logement
+                            WHERE test.logement.id_compte = $id_proprio", PDO::FETCH_ASSOC) as $row) {
+                            $id_logement = $row["id_logement"];
+
+                            $id_reservation = $row["id_reservation"];
+
+                            $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+                            
+                            $client_id = $dbh->query("SELECT * FROM test.reservation WHERE id_reservation = $id_reservation")->fetch()["id_compte"];
+
+                            $query = "SELECT * FROM test.compte NATURAL JOIN test.client WHERE id_compte = :id_compte";
+                            
+                            $stmt = $dbh->prepare($query);
+                            $stmt->bindParam('id_compte', $client_id, PDO::PARAM_STR);
+                            $stmt->execute();
+                            $client = $stmt->fetch();
+
+                            if ($images = opendir('asset/img/profils/')) {
+                                while (false !== ($fichier = readdir($images))) {
+                                    $imgInfos = pathinfo($fichier);
+                                    if ($imgInfos['filename'] == $client_id) {
+                                        $pathName = 'asset/img/profils/' . $fichier;
+                                        break;
+                                    }
+            
+                                }
+                                if ($pathName == '') {
+                                    $pathName = 'asset/img/profils/default.jpg';
+                                }
+                                closedir($images);
+                            }
+                            
+                            ?>
+
+                            <div class="page_devis">
+                            
+                            <div class="liste_devis">
+                                <form class="devis" method="POST" action="demandeDevis.php">
+                                  <input type="hidden" name="qui" value="proprietaire">
+                                  <input type="hidden" name="reservation" value="<?=$row["id_reservation"]?>">
+                                  <input type="hidden" name="id" value="<?=$row["id_logement"]?>">
+                                  <img src="<?=$pathName?>" alt="" class="logo">
+                                  <div class="infos">
+                                    <div class="infos-header">
+                                    <h3><?=$client["nom_affichage"]?></h3>
+                                    <p class="date"><?=explode(" ",$row["date_devis"])[0]?></p>
+                                    </div>
+                                    <div class="infos-header">
+                                    <p>Vous a fait une demande de devis.</p>
+                                    <button type="submit" class="voir-devis">Créer</button>
+                                    </div>
+                                  </div>
+                                </form>
+                                <div class="separateur1">a</div>
+                              </div>
+
+                            </div>
+          <?php }
           }
             ?>
 

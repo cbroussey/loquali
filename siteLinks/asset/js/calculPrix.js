@@ -19,6 +19,7 @@ document.querySelectorAll(".info_prix > .row > .value")[3].value = montantTotal.
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+    setPrix()
     document.getElementById("start").addEventListener("change", () => {
         setPrix()
     })
