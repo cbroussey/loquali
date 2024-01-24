@@ -367,7 +367,7 @@ if (isset($_GET["confirmligne"])) {
                                             <h2><?php echo ($proprio["nom_affichage"]) ?></h2>
                                         </div>
                                         <div class="block_info_log">
-                                            <?php
+<!--                                             <?php
                                             if ($proprio["note_proprio"] != "") {
                                             ?>
                                                 <div class="note_proprio_log">
@@ -380,7 +380,7 @@ if (isset($_GET["confirmligne"])) {
                                                 </div>
                                             <?php
                                             }
-                                            ?>
+                                            ?> -->
                                         </div>
                                         <div class="block_info_log">
                                             <div class="contact_proprio_log">
