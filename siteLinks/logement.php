@@ -349,11 +349,29 @@ if (isset($_GET["confirmligne"])) {
 
                                 <div class="proprio_log">
 
+                                <?php //récupération du nom de l'image (avec extension)
+                                
+                                if ($images = opendir('asset/img/profils/')) {
+                                    while (false !== ($fichier = readdir($images))) {
+                                        $imgInfos = pathinfo($fichier);
+                                        if ($imgInfos['filename'] == $proprio["id_compte"]) {
+                                            $pathName = 'asset/img/profils/' . $fichier;
+                                            break;
+                                        }
+
+                                    }
+                                    if ($pathName == '') {
+                                        $pathName = 'asset/img/profils/default.jpg';
+                                    }
+                                    closedir($images);
+                                }
+                                ?>
+
                                     <a class="img_proprio_log" href="pageProprio.php?id=<?php echo ($proprio["id_compte"]); ?>&id_log=<?php echo ($id) ?>">
                                         <div class="photo_profil_proprio_log">
                                             <style>
                                                 .photo_profil_proprio_log {
-                                                    background: url("asset/img/profils/<?php echo $proprio['id_compte'] ?>.png") center/cover;
+                                                    background: url("<?php echo($pathName) ?>") center/cover;
                                                 }
                                             </style>
                                         </div>

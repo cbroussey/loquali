@@ -39,6 +39,9 @@
     </div>
     <div></div>
   </header>
+
+
+
   <main id="ensemble">
 
     
@@ -62,6 +65,25 @@
     }
 
     ?>
+
+
+    <?php //récupération du nom de l'image (avec extension)
+                                
+    if ($images = opendir('asset/img/profils/')) {
+        while (false !== ($fichier = readdir($images))) {
+            $imgInfos = pathinfo($fichier);
+            if ($imgInfos['filename'] == $id) {
+                $pathName = 'asset/img/profils/' . $fichier;
+                break;
+            }
+
+        }
+        if ($pathName == '') {
+            $pathName = 'asset/img/profils/default.jpg';
+        }
+        closedir($images);
+    }
+    ?>
     
     <a href="logement.php?id=<?php echo($id_log); ?>">
         <img src="asset/icons/bleu/toBack.svg" alt="" id="pagePersoSvgBack">
@@ -75,7 +97,7 @@
                             height:160px;
                             border-radius: 93.5px;
 
-                            background: url("asset/img/profils/<?php echo $current['id_compte'] ?>.png") center/cover;
+                            background: url("<?php echo($pathName) ?>") center/cover;
                         }
 
                         @media screen and (min-width: 0px) and (max-width: 400px) {

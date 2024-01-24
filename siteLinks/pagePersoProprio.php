@@ -30,7 +30,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="asset/css/headerAndFooter.css">
     <link rel="stylesheet" href="asset/css/style.css">
-    <title>Document</title><?php echo $_SESSION['prenom'] ?>
+    <title>Document</title>
 </head>
 <body>
 
@@ -102,17 +102,16 @@
             <div id="infosTous">
                 <div id="photo_Profil">
                 <?php //récupération du nom de l'image (avec extension)
-            
+                                
                 if ($images = opendir('asset/img/profils/')) {
                     while (false !== ($fichier = readdir($images))) {
                         $imgInfos = pathinfo($fichier);
-                        if ($imgInfos['filename'] == $_SESSION['userId']) {
+                        if ($imgInfos['filename'] == $id) {
                             $pathName = 'asset/img/profils/' . $fichier;
                             break;
                         }
-
+            
                     }
-                    print_r($pathName);
                     if ($pathName == '') {
                         $pathName = 'asset/img/profils/default.jpg';
                     }
@@ -167,7 +166,9 @@
                     ?>
                     <figure class="mail">
                         <img src="asset/icons/bleu/mail.svg" alt="">
-                        <figcaption><?php echo $_SESSION['adresse_mail'] ?></figcaption>
+                        <figcaption><?php if (isset($_SESSION["adresse_mail"])){
+                            echo($_SESSION["adresse_mail"]);
+                        } else echo $_SESSION['adresse_mail'] ?></figcaption>
                     </figure>
                 </div>
 
