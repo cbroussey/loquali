@@ -91,21 +91,3 @@ function changementBouton5 (){
 }
 
 document.querySelector(".modificationsBtn5").addEventListener("click", changementBouton5);
-
-
-
-
-
-
-// Partie pour le changement de photo de profil
-
-
-function submitForm() {
-    document.getElementById("profileForm").submit();
-}
-
-
-document.getElementById('photo').addEventListener('change', function (event) {
-    document.getElementById("profileForm").submit();
-
-});

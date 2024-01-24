@@ -171,7 +171,6 @@ if (isset($_GET["confirmDelete"])) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="asset/css/headerAndFooter.css">
   <link rel="stylesheet" href="asset/css/style.css">
-  <link rel="stylesheet" href="asset/css/compte.css">
   <script src="asset/js/boutonSupprimer.js"></script>
   <title>Comptes - Infos personnelles</title>
 </head>
@@ -185,8 +184,7 @@ if (isset($_GET["confirmDelete"])) {
       <?php
         if ($_SESSION['userType'] === 'proprietaire') {
       ?>
-        <p class="personneheader    background-color: transparent;
-"><span class="nompersonne"> <?php echo ($infos['nom']) ?> <?php echo ($infos['prenom']) ?> &#160;&#160;&#160;&#160; ● </span><span class="personne">propriétaire</span></p>
+        <p class="personneheader"><span class="nompersonne"> <?php echo ($infos['nom']) ?> <?php echo ($infos['prenom']) ?> &#160;&#160;&#160;&#160; ● </span><span class="personne">propriétaire</span></p>
       
         <style>
 
@@ -239,8 +237,7 @@ if (isset($_GET["confirmDelete"])) {
     <nav>
       <div>
         <svg width="30" height="30" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M23.7497 10.7258C22.7264 4.4244 20.3126 0 17.5035 0C14.6945 0 12.2807 4.4244 11.2573 10.7258H23.7497ZM10.728 17.5C10.728 19.0665 10.8127 20.5696 10.9609 22.0161H24.0391C24.1873 20.5696 24.272 19.0665 24.272 17.5C24.272 15.9335 24.1873 14.4304 24.0391 12.9839H10.9609C10.8127 14.4304 10.728 15.9335 10.728 17.5ZM33.6449 10.7258C31.6263 5.93448 27.5398 2.22984 22.4934 0.733871C24.2156 3.11895 25.4013 6.71069 26.0224 10.7258H33.6449ZM12.5066 0.733871C7.46723 2.22984 3.37366 5.93448 1.36217 10.7258H8.98467C9.59871 6.71069 10.7844 3.11895 12.5066 0.733871ZM34.4001 12.9839H26.3047C26.4529 14.4657 26.5376 15.9829 26.5376 17.5C26.5376 19.0171 26.4529 20.5343 26.3047 22.0161H34.393C34.7812 20.5696 35 19.0665 35 17.    background-color: transparent;
-5C35 15.9335 34.7812 14.4304 34.4001 12.9839ZM8.46945 17.5C8.46945 15.9829 8.55414 14.4657 8.70236 12.9839H0.606977C0.225852 14.4304 0 15.9335 0 17.5C0 19.0665 0.225852 20.5696 0.606977 22.0161H8.6953C8.55414 20.5343 8.46945 19.0171 8.46945 17.5ZM11.2573 24.2742C12.2807 30.5756 14.6945 35 17.5035 35C20.3126 35 22.7264 30.5756 23.7497 24.2742H11.2573ZM22.5005 34.2661C27.5398 32.7702 31.6334 29.0655 33.6519 24.2742H26.0294C25.4083 28.2893 24.2226 31.881 22.5005 34.2661ZM1.36217 24.2742C3.38072 29.0655 7.46723 32.7702 12.5136 34.2661C10.7915 31.881 9.60577 28.2893 8.98467 24.2742H1.36217Z" fill="#F5F5F5" />
+          <path d="M23.7497 10.7258C22.7264 4.4244 20.3126 0 17.5035 0C14.6945 0 12.2807 4.4244 11.2573 10.7258H23.7497ZM10.728 17.5C10.728 19.0665 10.8127 20.5696 10.9609 22.0161H24.0391C24.1873 20.5696 24.272 19.0665 24.272 17.5C24.272 15.9335 24.1873 14.4304 24.0391 12.9839H10.9609C10.8127 14.4304 10.728 15.9335 10.728 17.5ZM33.6449 10.7258C31.6263 5.93448 27.5398 2.22984 22.4934 0.733871C24.2156 3.11895 25.4013 6.71069 26.0224 10.7258H33.6449ZM12.5066 0.733871C7.46723 2.22984 3.37366 5.93448 1.36217 10.7258H8.98467C9.59871 6.71069 10.7844 3.11895 12.5066 0.733871ZM34.4001 12.9839H26.3047C26.4529 14.4657 26.5376 15.9829 26.5376 17.5C26.5376 19.0171 26.4529 20.5343 26.3047 22.0161H34.393C34.7812 20.5696 35 19.0665 35 17.5C35 15.9335 34.7812 14.4304 34.4001 12.9839ZM8.46945 17.5C8.46945 15.9829 8.55414 14.4657 8.70236 12.9839H0.606977C0.225852 14.4304 0 15.9335 0 17.5C0 19.0665 0.225852 20.5696 0.606977 22.0161H8.6953C8.55414 20.5343 8.46945 19.0171 8.46945 17.5ZM11.2573 24.2742C12.2807 30.5756 14.6945 35 17.5035 35C20.3126 35 22.7264 30.5756 23.7497 24.2742H11.2573ZM22.5005 34.2661C27.5398 32.7702 31.6334 29.0655 33.6519 24.2742H26.0294C25.4083 28.2893 24.2226 31.881 22.5005 34.2661ZM1.36217 24.2742C3.38072 29.0655 7.46723 32.7702 12.5136 34.2661C10.7915 31.881 9.60577 28.2893 8.98467 24.2742H1.36217Z" fill="#F5F5F5" />
         </svg>
         <svg id="headerArrowLang" width="20" height="14" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M8.99141 13.4874C9.54926 14.1709 10.4552 14.1709 11.0131 13.4874L19.5816 2.98945C20.1395 2.30599 20.1395 1.19605 19.5816 0.512594C19.0238 -0.170866 18.1178 -0.170866 17.56 0.512594L10 9.77485L2.44003 0.518062C1.88218 -0.165399 0.976236 -0.165399 0.418387 0.518062C-0.139462 1.20152 -0.139462 2.31146 0.418387 2.99492L8.98695 13.4929L8.99141 13.4874Z" fill="#F5F5F5" />
@@ -260,51 +257,11 @@ if (isset($_GET["confirmDelete"])) {
         <li>español</li>
         <li>deutsch</li>
         <li>brezhonneg</li>
-      </ul>    background-color: transparent;
-
+      </ul>
     </div>
     <div></div>
   </header>
-  <?php
-     foreach ($_FILES["photo"]["error"] as $key => $error) {
 
-      if (isset($_FILES["photo"]["tmp_name"])){
-
-
-
-        $repertoireImages = 'asset/img/profils/';
-        $userId = $_SESSION['userId'];
-        
-        if ($images = opendir($repertoireImages)) {
-            while (false !== ($fichier = readdir($images))) {
-                $imgInfos = pathinfo($fichier);
-                if ($imgInfos['filename'] == $userId) {
-                    $chemin = $repertoireImages . $fichier;
-        
-                    if (unlink($chemin)) {
-
-                    }
-                }
-            }
-            closedir($images);
-        }
-
-
-
-        $img_dir = "asset/img/profils";
-        $tmpName = $_FILES["photo"]["tmp_name"][$key];
-
-        $nom_photo = $_FILES["photo"]["name"][$key];
-        $extention=explode(".",$nom_photo);
-
-        
-        $chemin = $img_dir . "/" . $_SESSION['userId'].".".$extention[1];
-
-
-        move_uploaded_file($tmpName, $chemin);
-      }
-    }
-  ?> 
   <div id="compteContainer">
     <div class="nav">
 
@@ -432,7 +389,7 @@ if (isset($_GET["confirmDelete"])) {
                         $pathName = 'asset/img/profils/' . $fichier;
                         break;
                     }
- 
+
                 }
                 if ($pathName == '') {
                     $pathName = 'asset/img/profils/default.jpg';
@@ -441,22 +398,48 @@ if (isset($_GET["confirmDelete"])) {
             }
             ?>
             <img src=<?php echo $pathName ?> alt="" id="photoProfil">
+            <div class="middle">
+                <img src="asset/icons/blanc/photo.svg" alt="">
+            </div>
         </label>
-        
         <input type="file" id="fileInput" style="display: none;" accept="image/jpeg, image/png" onchange="changeProfilePhoto(event)">
-        <form method="post" enctype="multipart/form-data" id="profileForm">
-
+        <form method="post">
           <div class="middle">
-
-            <input type="file" id="profilImage" name="profilImage" accept="image/*" style="color:transparent;" onchange="submitForm()"/>
-
-            <label for="photo" id="custom-button-pp" aria-placeholder="">                <img src="asset/icons/blanc/photo.svg" alt="">
-</label>
-
-            <input type="file" id="photo" name="photo[]" multiple/>
-
+            <input type="file" id="profilImage" name="profilImage" accept="image/*" style="color:transparent;"/>
+            <!--<input type="submit" value="Créer votre compte"/>-->
           </div>
         </form>
+    </div>
+
+
+
+
+    <div class="container">
+    
+        <label for="fileInput">
+            <?php //récupération du nom de l'image (avec extension)
+        
+            if ($images = opendir('asset/img/profils/')) {
+                while (false !== ($fichier = readdir($images))) {
+                    $imgInfos = pathinfo($fichier);
+                    if ($imgInfos['filename'] == $_SESSION['userId']) {
+                        $pathName = 'asset/img/profils/' . $fichier;
+                        break;
+                    }
+
+                }
+                if ($pathName == '') {
+                    $pathName = 'asset/img/profils/default.jpg';
+                }
+                closedir($images);
+            }
+            ?>
+            <img src=<?php echo $pathName ?> alt="" id="photoProfil">
+            <div class="middle">
+                <img src="asset/icons/blanc/photo.svg" alt="">
+            </div>
+        </label>
+        <input type="file" id="fileInput" style="display: none;" accept="image/jpeg, image/png" onchange="changeProfilePhoto(event)">
     </div>
     <p id="textchange">changer votre photo de profil</p>
     
@@ -519,13 +502,7 @@ if (isset($_GET["confirmDelete"])) {
           <?php
           $tel = isset($telephone['numero']) ? $telephone["numero"] :  'Information non renseignée';
           ?>
-
-          <?php
-            function formaterNumeroTelephone($numero) {
-                echo implode(' ', str_split(preg_replace('/[^0-9]/', '', $numero), 2));
-            }
-          ?>
-          <p id="numero" class="displayInfos4"><?php echo htmlentities(formaterNumeroTelephone($tel)) ?></p>
+          <p id="numero" class="displayInfos4"><?php echo htmlentities($tel) ?></p>
           <input type="text" name="numero" id="numero" class="modifInfos4" cols="30" rows="10" value="<?php echo ($telephone['numero']) ?>">
           <a href="#" id="boutonInfos" class="modificationsBtn4 boutonInfosstyle" alt="">Modifier</a>
           <input type="submit" name="submit" value="Enregistrer" id="modifEnregistrer" class="modifBouton4">
