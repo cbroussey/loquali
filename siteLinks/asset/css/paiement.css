@@ -144,7 +144,12 @@ p > .h3 {
     font-size: 16px;
     border: none;
     border-radius: 0;
-    max-width: 50%;
+    max-width: 150px;
+}
+
+input.inputImg[value="Nouveau mode de paiement"] {
+    padding-left: 0em !important;
+    max-width: 100% !important;
 }
 
 #country > input {

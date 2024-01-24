@@ -16,7 +16,6 @@ function testCBexists() {
 }
 
 function selectCB(e) {
-    console.log(e.target.value)
     cardnum = e.target.value
     document.getElementById("cardNumber").value = cardnum
     document.getElementById("crypto").value = cbSaved[cardnum]["crypto"]
@@ -36,7 +35,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let cbs = document.querySelectorAll("#CM3 > table > tbody > tr > td > .inputImg")
     let hiddendata = document.querySelectorAll('#CM3 > table > tbody > tr > td > input[type="hidden"]')
     for (let i = 0; i < cbs.length; i++) {
-        cbs[i].addEventListener("click", selectCB)
         cbSaved[cbs[i].value] = {}
         cbSaved[cbs[i].value]["crypto"] = hiddendata[i*2].value
         cbSaved[cbs[i].value]["valid"] = hiddendata[i*2+1].value.split("-").reverse().slice(1, 3)
@@ -61,5 +59,5 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById("expiry").value = cbSaved[document.querySelectorAll("#paymentSaved > .inputImg").value]["valid"]
         document.getElementById("crypto").value = cbSaved[document.querySelectorAll("#paymentSaved > .inputImg").value]["crypto"]
     })
-    
+    refreshEL()
 })
