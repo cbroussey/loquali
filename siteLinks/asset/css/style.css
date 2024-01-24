@@ -4534,10 +4534,13 @@ margin-top: 2%;
 }
 
 #compteReservations {
-background-color: orange;
 height:92vh;
 width:84vw;
 display:none;
+position: fixed;
+margin-left: 28%;
+margin-top: 10%;
+
 }
 
 #compteMessagerie {
@@ -5900,4 +5903,123 @@ font-weight: 500;
   -moz-background-clip: text;
   background-clip: text;
   text-shadow: 0px 3px 3px rgba(255,255,255,0.5);
+}
+
+/**************page devis****************/
+
+.logo{
+  width: 70px;
+  height: 70px;
+  flex-shrink: 0;
+  border-radius: 70px;
+  border: 1px solid #1D4C77;
+}
+
+.liste_devis{
+  display: flex;
+  flex-direction: column;
+  color: #1D4C77;
+}
+
+.devis{
+  display: flex;
+  flex-direction: row;
+}
+
+.infos_devis{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 500px;
+}
+
+.header_devis{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  
+}
+
+.nom_prop{
+  margin-right: 48%;
+}
+
+.message{
+  margin-left: 2%;
+}
+
+.page_devis{
+  display: flex;
+  flex-direction: row;
+}
+
+.reception_devis{
+  width: 500px;
+  height: 600px;
+  margin-left: 2%;
+}
+
+
+.titre_devis{
+  display: flex;
+  flex-direction: row;
+  color: #F5F5F5;
+  border-radius: 10px 10px 0px 0px;
+  border: 1px solid #1D4C77;
+  background: #1D4C77;
+ 
+}
+
+.block_devis{
+  border-radius: 10px;
+  background: #F5F5F5;
+  height: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.demande_devis{
+  background-color: #FFF;
+  width: 300px;
+  height: 45px;
+  color: #2072BC;
+
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-decoration-line: underline;
+
+  margin-top: 15%;
+  margin-bottom: 10%;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-wrap: wrap;
+}
+
+.reponse_devis{
+  background-color: #2072BC;
+  width: 300px;
+  height: 45px;
+  color: #FFF;
+
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-decoration-line: underline;
+
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-wrap: wrap;
+}
+
+.nom_proprio{
+  margin-top: 5%;
+  margin-left: 5%;
 }
