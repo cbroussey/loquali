@@ -933,12 +933,12 @@ h1 {
     height: 40px;
   }
 
-#end_block ,#start_block{
+.end_block ,.start_block{
     background-color: #7297B8;
     color: white;
 }
 
-#end_block   input[type="date"]::-webkit-calendar-picker-indicator ,#start_block input[type="date"]::-webkit-calendar-picker-indicator{
+.end_block input[type="date"]::-webkit-calendar-picker-indicator ,.start_block input[type="date"]::-webkit-calendar-picker-indicator{
     order: -1;
     margin-right: 1em;
     background-image: url("../icons/blanc/date.svg");
