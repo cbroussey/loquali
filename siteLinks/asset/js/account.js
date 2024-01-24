@@ -40,64 +40,53 @@ var currentMenuLink = menuLinks[0];
 currentMenuLink.style.color = 'var(--textColor)';
 currentMenuLink.parentNode.children[0].children[1].display = "none";
 
-function liens_compte(index) {
-    console.log('Vous avez cliqué sur le lien avec l\'index : ' + index);
-    currentMenuLink.style.color = 'var(--secondBG)';
-    console.log(currentMenuLink);
-    currentMenuLink = menuLinks[index];
-    currentMenuLink.style.color = 'var(--textColor)';
-    switch (index) {
-        case 0:
-            console.log(this);
-            current.style.display = "none";
-            current = compteAccueil;
-            current.style.display = "block";
-            compteLogements.style.display = "none";
-            break;
-        case 1:
-            current.style.display = "none";
-            current = compteInfosPerso;
-            current.style.display = "block";
-            compteLogements.style.display = "none";
-            break;
-        case 2:
-            current.style.display = "none";
-            current = compteConnection;
-            current.style.display = "block";
-            compteLogements.style.display = "none";
-            break;
-        case 3:
-            current.style.display = "none";
-            current = compteLogements;
-            current.style.display = "block";
-            break;
-        case 4:
-            current.style.display = "none";
-            current = compteReservations;
-            current.style.display = "block";
-            compteLogements.style.display = "none";
-            break;
-        case 5:
-            current.style.display = "none";
-            current = compteMessagerie;
-            current.style.display = "block";
-            compteLogements.style.display = "none";
-            break;
-        case 6:
-            current.style.display = "none";
-            current = comptePaiement;
-            current.style.display = "block";
-            compteLogements.style.display = "none";
-            break;
-        default:
-            console.log("Problème d'indexation");
-            break;
-    }
-};
-
 links.forEach(function(link, index) {
-    link.addEventListener('click', () => {
-        liens_compte(index)
+    link.addEventListener('click', function liens_compte() {
+        console.log('Vous avez cliqué sur le lien avec l\'index : ' + index);
+        currentMenuLink.style.color = 'var(--secondBG)';
+        currentMenuLink = menuLinks[index];
+        currentMenuLink.style.color = 'var(--textColor)';
+        switch (index) {
+            case 0:
+                console.log(this);
+                current.style.display = "none";
+                current = compteAccueil;
+                current.style.display = "block";
+                break;
+            case 1:
+                current.style.display = "none";
+                current = compteInfosPerso;
+                current.style.display = "block";
+                break;
+            case 2:
+                current.style.display = "none";
+                current = compteConnection;
+                current.style.display = "block";
+                break;
+            case 3:
+                current.style.display = "none";
+                current = compteLogements;
+                current.style.display = "block";
+                break;
+            case 4:
+                current.style.display = "none";
+                current = compteReservations;
+                current.style.display = "block";
+                break;
+            case 5:
+                current.style.display = "none";
+                current = compteMessagerie;
+                current.style.display = "block";
+                break;
+            case 6:
+                current.style.display = "none";
+                current = comptePaiement;
+                current.style.display = "block";
+                break;
+            default:
+                console.log("Problème d'indexation");
+                break;
+        }
     });
 });
 
