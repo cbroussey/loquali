@@ -3784,9 +3784,7 @@ input[type="checkbox"]:checked + label {
   transition: all 0.8s ease-in-out;
 }
 
-#page3{
-  display: none;
-}
+
 
 
 
