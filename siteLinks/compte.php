@@ -761,6 +761,7 @@ if (isset($_GET["confirmDelete"])) {
             ?>
 
         </div>
+        </div>
 
         <div id="compteReservations">
           <!-- Réservations -->
@@ -774,17 +775,7 @@ if (isset($_GET["confirmDelete"])) {
         <div id="comptePaiement">
           <!-- payement -->
         </div>
-
-        <form method="post" id="popUpDeco">
-          <div class="popUpDecoChoix">
-            <h2>Êtes-vous sûr de vouloir <br>vous déconnecter ?</h2>
-            <div class="button-container">
-              <input class="cancel-button" id="cancelDisconnect" name="cancelDisconnect" type="button" value="Annuler" />
-              <input type="hidden" name="hidden" value="disconnect">
-              <input class="confirm-button" id="confirmDisconnect" type="submit" value="Se déconnecter" />
-            </div>
-          </div>
-        </form>
+      </div>
 
         <div id="menu">
           <div id="choix">
@@ -806,7 +797,16 @@ if (isset($_GET["confirmDelete"])) {
         </div>
 
 
-
+        <form method="post" id="popUpDeco">
+        <div class="popUpDecoChoix">
+          <h2>Êtes-vous sûr de vouloir <br>vous déconnecter ?</h2>
+          <div class="button-container">
+            <input class="cancel-button" id="cancelDisconnect" name="cancelDisconnect" type="button" value="Annuler" />
+            <input type="hidden" name="hidden" value="disconnect">
+            <input class="confirm-button" id="confirmDisconnect" type="submit" value="Se déconnecter" />
+          </div>
+        </div>
+      </form>
 
         <script src="asset/js/header.js"></script>
         <script src="asset/js/modifInfosCompte.js"></script>
