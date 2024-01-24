@@ -90,6 +90,7 @@
                         <div id="paymentSaved" href="#" onclick="toggleCM('CM3', this)">
                             <input name="paymentSaved" class="inputImg" onclick="toggleCM('CM3', document.querySelector('#paymentSaved'))" value="Nouveau mode de paiement" readonly><img class="cmHideElem" src="asset/img/arrow-down.svg" onclick="toggleCM('CM3', document.querySelector('#paymentSaved'))">
                         </div>
+                        <!--
                         <div id="CM" class="contextMenu">
                             <input name="paymentType" class="inputImg" onclick="toggleCM('CM', document.querySelector('#paymentType'))" style="background-image: url('asset/img/mastercard.png');" value="MasterCard" readonly><img class="cmHideElem mastercard" src="asset/img/arrow-down.svg" onclick="toggleCM('CM', document.querySelector('#paymentType'))">|
                             <input name="paymentType" class="inputImg" onclick="toggleCM('CM', document.querySelector('#paymentType'))" style="background-image: url('asset/img/paypal.png');" value="PayPal" readonly><img class="cmHideElem paypal" src="asset/img/arrow-down.svg" onclick="toggleCM('CM', document.querySelector('#paymentType'))">
@@ -97,6 +98,7 @@
                         <div id="paymentType" href="#" onclick="toggleCM('CM', this)">
                             <input name="paymentType" class="inputImg" onclick="toggleCM('CM', document.querySelector('#paymentType'))" style="background-image: url('asset/img/mastercard.png');" value="MasterCard" readonly><img class="cmHideElem" src="asset/img/arrow-down.svg" onclick="toggleCM('CM', document.querySelector('#paymentType'))">
                         </div>
+                        -->
                         <input id="cardNumber" name="cardNumber" placeholder="Numéro de carte" class="mastercard" pattern="^(5[1-5][0-9]{14}|2(22[1-9][0-9]{12}|2[3-9][0-9]{13}|[3-6][0-9]{14}|7[0-1][0-9]{13}|720[0-9]{12}))$" required> <!-- Pattern actuel uniquement pour mastercard -->
                         <div>
                             <input id="expiry" name="expiry" placeholder="Expiration" minlength=5 maxlength=5 class="mastercard" pattern="(0[1-9]|1[0-2])/\d{2}" required>
