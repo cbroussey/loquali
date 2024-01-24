@@ -15,6 +15,8 @@
     <title>Reservation</title>
     <link rel="stylesheet" href="asset/css/headerAndFooter.css">
     <link rel="stylesheet" href="asset/css/style.css">
+    <link rel="stylesheet" href="asset/css/newLogement.css">
+
 </head>
 
 <body id="newLog">
