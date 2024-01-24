@@ -205,6 +205,11 @@ if (isset($_GET["confirmDelete"])) {
             color: #1D4C77;
           }
 
+          header > div:first-of-type {
+          width: 25%;
+          }
+
+
         </style>
       
       <?php
@@ -215,6 +220,12 @@ if (isset($_GET["confirmDelete"])) {
         if ($_SESSION['userType'] === 'client') {
       ?>
         <p class="personneheader"><span class="nompersonne"> <?php echo ($infos['nom']) ?> <?php echo ($infos['prenom']) ?> &#160;&#160;&#160;&#160; ● </span><span class="personne">voyageur</span></p>
+      
+        <style>
+        header > div:first-of-type {
+        width: 25%;
+        }
+        </style>
       <?php
       }
       ?>
