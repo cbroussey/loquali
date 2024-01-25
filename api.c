@@ -21,6 +21,74 @@ void perrorOut() {
     exit(1);
 }
 
+void writeTable(PGresult *res, int cnx) {
+    int i;
+    //int j, n;
+    char cmd[MAXCMD];
+    write(cnx, "{", 1);
+    /*
+    n = PQnfields(res);
+    for (i = 0; i < n; i++) {
+        memset(cmd, 0, strlen(cmd));
+        sprintf(cmd, "%-15s ", PQfname(res, i));
+        write(cnx, cmd, strlen(cmd));
+    }
+    write(cnx, "\r\n\r\n", 4);
+    */
+    // Affichage des lignes
+    for (i = 0; i < PQntuples(res); i++) // Pour chaque ligne du résultat
+    {
+        //for (j = 0; j < n; j++) {
+        memset(cmd, 0, strlen(cmd));
+        sprintf(cmd, "\"%s\": \"%s\"%s", PQgetvalue(res, i, 0), PQgetvalue(res, i, 1), (i < PQntuples(res) - 1 ? "," : "")); // Formattage en JSON : "id_logement": "nom"
+        write(cnx, cmd, strlen(cmd));
+        //}
+        //write(cnx, "\r\n", 2);
+    }
+    write(cnx, "}\n", 2);
+    return;
+}
+
+int getArgs(char cmd[MAXCMD], char *cmdargs[]) {
+    char tmp[MAXCMD];
+    int i, j, k;
+
+    memset(tmp, 0, sizeof(tmp));
+    j = 0;
+    k = 0;
+    for (i = 0; cmd[i] != '\0'; i++) {
+        if (cmd[i] != ' ') {
+            tmp[j] = cmd[i];
+            j++;
+        } else {
+            printf("arg: %s\n", tmp);
+            cmdargs[k] = malloc(strlen(tmp) + 1);
+            strcpy(cmdargs[k], tmp);
+            printf("ok : %s\n", cmdargs[k]);
+            memset(tmp, 0, j);
+            j = 0;
+            k++;
+        }
+    }
+    printf("arg: %s\n", tmp);
+    cmdargs[k] = malloc(strlen(tmp) + 1);
+    strcpy(cmdargs[k], tmp);
+    printf("ok : %s\n", cmdargs[k]);
+    memset(tmp, 0, j);
+    printf("%d\n", i);
+    return k;
+}
+
+void emptyArgs(int argc, char* cmdargs[]) {
+    int i;
+    for (i = 0; i < argc; i++) {
+        if (cmdargs[i] != NULL) {
+            free(cmdargs[i]);
+            cmdargs[i] = NULL;
+        }
+    }
+}
+
 char* strToUpper(char * lower) {
   char * name;
   name = strtok(lower,":");
@@ -39,13 +107,13 @@ int main(int argc, char *argv[]) {
     struct sockaddr_in addr;
     int size;
     int cnx;
+    int i;
     struct sockaddr_in conn_addr;
     size = (int)sizeof(conn_addr);
     char c;
     char cmd[MAXCMD];
     char tmp[(int)MAXCMD/2];
     int ping;
-    int i, j, n;
     bool verbose = false;
     int foutput; // Fichier de sortie des logs si définit
     int port;
@@ -53,6 +121,7 @@ int main(int argc, char *argv[]) {
     int accID; // Identifiant du compte
     char accNom[256]; // Nom du compte
     bool accPriv; // Compte privilégié ?
+    char* cmdargs[MAXCMD];
 
     PGconn *db;
     PGresult *res;
@@ -216,17 +285,18 @@ int main(int argc, char *argv[]) {
     //c = ' ';
     i = 0;
     ping = 0;
-    while(strcmp(cmd, "exit\r")) { // le read() > 0 n'a pas l'air de faire grand chose
+    while(strcmp(cmd, "exit\r")) { // le read() > 0 n'a pas l'air de faire grand chose, et le strcmp non plus pcq on vide cmd avant chaque utilisation
         read(cnx, &c, 1);
         //printf("%d ", c);
-        if (i < MAXCMD && c != '\r' && c != '\n') {
+        if (i < MAXCMD && c != '\r' && c != '\n') { // Ici i sert à limiter la commande reçue pour empêcher une segfault
             printf("%c", c);
             cmd[i] = c;
             i++;
         }
         if ((c == '\r' || c == '\n') && i) {
             printf("\n");
-            if (strcmp(cmd, "hello") == 0) {
+            i = getArgs(cmd, cmdargs); // Ici i sert à compter le nombre d'arguments dans la commande (nom de la commande inclus)
+            if (strcmp(cmdargs[0], "hello") == 0) {
                 //printf("Writing...\n");
                 write(cnx, "._.\r\n", 5);
             } else if (strcmp(cmd, "ping") == 0) {
@@ -235,10 +305,10 @@ int main(int argc, char *argv[]) {
                 memset(cmd, 0, strlen(cmd)); // Pas nécessaire car la longueur de la chaine est plus grande que "PING" au final
                 sprintf(cmd, "PONG N°%d\r\n", ping); // Mais ça permet d'être plus propre au niveau mémoire
                 write(cnx, cmd, strlen(cmd));
-            } else if (strcmp(cmd, "list_all") == 0) {
+            } else if (strcmp(cmdargs[0], "list_all") == 0) {
                 //printf("Writing...\n");
                 if (accPriv) {
-                    res = PQexec(db, "SELECT * FROM test.logement;");
+                    res = PQexec(db, "SELECT id_logement, libelle_logement FROM test.logement;");
                     if (PQresultStatus(res) != PGRES_TUPLES_OK) {
                         memset(cmd, 0, strlen(cmd));
                         sprintf(cmd, "Err: %s\r\n", PQerrorMessage(db));
@@ -247,33 +317,16 @@ int main(int argc, char *argv[]) {
                         //write(cnx, "Liste de tous les biens :\r\n", 27);
 
                         // Affichage des attributs
-                        n = PQnfields(res);
-                        for (i = 0; i < n; i++) {
-                            memset(cmd, 0, strlen(cmd));
-                            sprintf(cmd, "%-15s ", PQfname(res, i));
-                            write(cnx, cmd, strlen(cmd));
-                        }
-                        write(cnx, "\r\n\r\n", 4);
-
-                        // Affichage des lignes
-                        for (i = 0; i < PQntuples(res); i++)
-                        {
-                            for (j = 0; j < n; j++) {
-                                memset(cmd, 0, strlen(cmd));
-                                sprintf(cmd, "%-15s ", PQgetvalue(res, i, j));
-                                write(cnx, cmd, strlen(cmd));
-                            }
-                            write(cnx, "\r\n", 2);
-                        }
+                        writeTable(res, cnx);
                     }
                     PQclear(res); // Vidage du résultat d'une potentielle requête SQL pour éviter les fuites de mémoire
                 } else {
                     write(cnx, "You do not have permission to execute that command\r\n", 52);
                 }
-            } else if (strcmp(cmd, "list") == 0) {
+            } else if (strcmp(cmdargs[0], "list") == 0) {
                 //printf("Writing...\n");
                 memset(cmd, 0, strlen(cmd));
-                sprintf(cmd, "SELECT * FROM test.logement where id_compte = %d;", accID);
+                sprintf(cmd, "SELECT id_logement, libelle_logement FROM test.logement where id_compte = %d;", accID);
                 res = PQexec(db, cmd);
                 if (PQresultStatus(res) != PGRES_TUPLES_OK) {
                     memset(cmd, 0, strlen(cmd));
@@ -283,35 +336,38 @@ int main(int argc, char *argv[]) {
                     //write(cnx, "Liste de tous les biens :\r\n", 27);
 
                     // Affichage des attributs
-                    n = PQnfields(res);
-                    for (i = 0; i < n; i++) {
-                        memset(cmd, 0, strlen(cmd));
-                        sprintf(cmd, "%-15s ", PQfname(res, i));
-                        write(cnx, cmd, strlen(cmd));
-                    }
-                    write(cnx, "\r\n\r\n", 4);
-
-                    // Affichage des lignes
-                    for (i = 0; i < PQntuples(res); i++)
-                    {
-                        for (j = 0; j < n; j++) {
-                            memset(cmd, 0, strlen(cmd));
-                            sprintf(cmd, "%-15s ", PQgetvalue(res, i, j));
-                            write(cnx, cmd, strlen(cmd));
-                        }
-                        write(cnx, "\r\n", 2);
-                    }
+                    writeTable(res, cnx);
                 }
                 PQclear(res); // Vidage du résultat d'une potentielle requête SQL pour éviter les fuites de mémoire
-            } else if (strcmp(cmd, "help") == 0) {
+            } else if (strcmp(cmdargs[0], "planning") == 0) {
+                //i = getArgs(cmd, cmdargs);
+                //printf("\n%d, %s, %s\n", i, cmdargs[0], cmdargs[1]);
+                if (i >= 4) { // nom de la commande + 3 arguments
+                    memset(cmd, 0, strlen(cmd));
+                    sprintf(cmd, "SELECT jour, disponibilite FROM test.planning where id_logement = %d AND jour >= %s AND jour <= %s;", atoi(cmdargs[1]), cmdargs[2], cmdargs[3]);
+                    res = PQexec(db, cmd);
+                    if (PQresultStatus(res) != PGRES_TUPLES_OK) {
+                        memset(cmd, 0, strlen(cmd));
+                        sprintf(cmd, "Err: %s\r\n", PQerrorMessage(db));
+                        write(cnx, cmd, strlen(cmd));
+                    } else {
+                        // Affichage des attributs
+                        writeTable(res, cnx);
+                    }
+                    PQclear(res);
+                } else {
+                    write(cnx, "Not enough arguments\r\nUsage : planning <start-date> <end-date>\r\n", 64);
+                }
+            } else if (strcmp(cmdargs[0], "help") == 0) {
                 //printf("Writing...\n");
                 write(cnx, "Available commands :\r\n", 22);
-                write(cnx, "  hello\r\n", 10);
-                write(cnx, "  ping\r\n", 9);
-                write(cnx, "  list\r\n", 9);
-                write(cnx, "  help\r\n", 9);
-                write(cnx, "  exit\r\n", 9);
-            } else if (strcmp(cmd, "exit") == 0) {
+                write(cnx, "  hello\r\n", 9);
+                write(cnx, "  ping\r\n", 8);
+                if (accPriv) write(cnx, "  list_all\r\n", 12);
+                write(cnx, "  list\r\n", 8);
+                write(cnx, "  help\r\n", 8);
+                write(cnx, "  exit\r\n", 8);
+            } else if (strcmp(cmdargs[0], "exit") == 0) {
                 //printf("Writing...\n");
                 write(cnx, "ok bozo\r\n", 9);
                 close(cnx);
@@ -324,6 +380,7 @@ int main(int argc, char *argv[]) {
             //printf("%ld\n", strlen(cmd));
             //printf("aaaa\n");
             memset(cmd, 0, strlen(cmd)); // plutôt qu'une boucle for
+            emptyArgs(i, cmdargs);
             write(cnx, "LoQuali> ", 9);
             printf(" > ");
             i = 0;

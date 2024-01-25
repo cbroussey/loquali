@@ -277,7 +277,11 @@ create table facture(
 create table api(
     cle varchar(32),
     privilegie boolean,
-    id_compte integer
+    accesCalendrier boolean,
+    miseIndispo boolean,
+    id_compte integer,
+    constraint api_pk primary key(cle),
+    constraint api_fk_compte foreign key (id_compte) references compte(id_compte)
 );
 
 
@@ -576,7 +580,39 @@ VALUES
     ('jacuzzi', 1),
     ('piscine', 1),
     ('hammam', 2),
-    ('sauna', 3);
+    ('sauna', 3),
+    ('jacuzzi', 3),
+    ('piscine', 4),
+    ('hammam', 4),
+    ('sauna', 5),
+     ('jacuzzi', 6),
+    ('piscine', 6),
+    ('hammam', 6),
+    ('sauna', 7),
+     ('jacuzzi', 8),
+    ('piscine', 8),
+    ('hammam', 9),
+    ('sauna', 9),
+     ('jacuzzi', 10),
+    ('piscine', 11),
+    ('hammam', 12),
+    ('sauna', 13),
+     ('jacuzzi', 13),
+    ('piscine', 14),
+    ('hammam', 14),
+    ('sauna', 15),
+     ('jacuzzi', 16),
+    ('piscine', 18),
+    ('hammam', 19),
+    ('sauna', 19),
+     ('jacuzzi', 20),
+    ('piscine', 20),
+    ('hammam', 21),
+    ('sauna', 22),
+     ('jacuzzi', 22),
+    ('piscine', 23),
+    ('hammam', 23),
+    ('sauna', 23);
     
 INSERT INTO reservation (debut_reservation, fin_reservation, nb_personne, id_compte, id_logement)
 VALUES
@@ -659,22 +695,22 @@ VALUES
     (150.00, 'Facture pour la réservation 3', 60.00, 3);
 
 
-CREATE FUNCTION getDayData(id_log INT, day DATE)
+CREATE FUNCTION test.getDayData(id_log INT, day DATE)
   RETURNS TABLE(disponibilite BOOLEAN, prix_ht numeric(10,2), delai_annul integer, pourcentage_retenu numeric(10,2), raison_indisponible VARCHAR(255), jour DATE, id_logement INT) AS $$
 BEGIN
-  PERFORM * FROM planning WHERE planning.jour = day AND planning.id_logement = id_log;
+  PERFORM * FROM test.planning WHERE planning.jour = day AND planning.id_logement = id_log;
   IF NOT FOUND THEN
-    RETURN QUERY SELECT l.disponible_defaut, l.prix_base_ht, l.delai_annul_defaut, l.pourcentage_retenu_defaut, ''::varchar, day, id_log FROM logement l
+    RETURN QUERY SELECT l.disponible_defaut, l.prix_base_ht, l.delai_annul_defaut, l.pourcentage_retenu_defaut, ''::varchar, day, id_log FROM test.logement l
       WHERE l.id_logement = id_log;
   ELSE
-    RETURN QUERY SELECT p.disponibilite, p.prix_ht, l.delai_annul_defaut, l.pourcentage_retenu_defaut, p.raison_indisponible, day, id_log FROM planning p NATURAL JOIN logement l WHERE p.jour = day AND p.id_logement = id_log;
+    RETURN QUERY SELECT p.disponibilite, p.prix_ht, l.delai_annul_defaut, l.pourcentage_retenu_defaut, p.raison_indisponible, day, id_log FROM test.planning p NATURAL JOIN test.logement l WHERE p.jour = day AND p.id_logement = id_log;
   END IF;
 END;
 $$ LANGUAGE plpgsql;
 
 -- nbJours = nombre de jours passés dans le logement (jours non-entiers inclus, donc date de début et de fin inclus)
 -- Nombre de nuits = nbJours-1
-CREATE FUNCTION getPlageData(id_log INT, date_debut DATE, date_fin DATE)
+CREATE FUNCTION test.getPlageData(id_log INT, date_debut DATE, date_fin DATE)
   RETURNS TABLE(disponibilite BOOLEAN, prix_ht numeric(10,2), delai_annul integer, pourcentage_retenu numeric(10,2), raison_indisponible VARCHAR(255), id_logement INT, nbJours INT) AS $$
 DECLARE
   disponibilite BOOLEAN = TRUE;
@@ -744,3 +780,10 @@ VALUES
     --(TRUE, 100.00, '2023-11-1', 2), -- Donc si la plage du dessus faisait du 1-30, sa date de début a été modifiée pour ne pas la superposer avec celle ci qui fait du 1-14
     (TRUE, 70.00, '2023-12-01', 3),
     (FALSE, 0, '2023-11-20', 1);
+
+INSERT INTO api(cle, privilegie, accesCalendrier, miseIndispo, id_compte) VALUES
+    ('0123456789ABCDEF', TRUE, TRUE, TRUE, 1),
+    ('AAABBBCCCDDDEEE', FALSE, FALSE, FALSE, 11),
+    ('MANGETESGRANDSMORTS', FALSE, TRUE, TRUE, 10),
+    ('azeazeazeazeazeaze', FALSE, TRUE, FALSE, 8);
+
