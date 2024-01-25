@@ -74,13 +74,14 @@
                         <p>Payez avec</p>
                         <div id="CM3" class="contextMenu">
                             <?php
-                                if (count($pay)) {
+                                if (count($pay)) { // Si le compte possède des cartes bancaires enregistrées
                                     for ($i = 0; $i < count($pay); $i++) {
+                                        // On ajoute à la liste chaque élément nécessaire (numéro de carte, cryptogramme, date de validité) + la flèche pour la décoration
                                         ?><input name="paymentSaved" class="inputImg" onclick="toggleCM('CM3', document.querySelector('#paymentSaved'))" style="background-image: url('asset/img/<?php echo strtolower($pay[$i]["type_cb"]) ?>.png');" value="<?php echo $pay[$i]["numero_carte"] ?>" readonly>
                                         <img class="cmHideElem <?php echo strtolower($pay[$i]["type_cb"]) ?>" src="asset/img/arrow-down.svg" onclick="toggleCM('CM3', document.querySelector('#paymentSaved'))">
                                         <input type="hidden" class="cryptenr" value="<?php echo $pay[$i]["cryptogramme"] ?>">
                                         <input type="hidden" class="validenr" value="<?php echo $pay[$i]["date_validite"] ?>"><?php
-                                        echo ($i < count($pay) - 1 ? "|" : "");
+                                        echo ($i < count($pay) - 1 ? "|" : ""); // Séparation de chaque carte bancaire enregistrée par un |
                                     }
                                 } else {
                                     ?><p class="disabled">Aucun moyen de paiement enregistré</p><?php
