@@ -30,6 +30,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="asset/css/headerAndFooter.css">
     <link rel="stylesheet" href="asset/css/style.css">
+    <link rel="stylesheet" href="asset/css/pageProprio.css">
     <title>Document</title>
 </head>
 <body>
@@ -269,7 +270,9 @@
 
                             <div class="listeUnLogement">
                                 <div>
-                                    <img src="asset/img/logements/<?php echo($photo["min"]); ?>.<?php echo $extention["extension_image"] ?>" width="100%" height="100%" alt="" class="imgListeLogementProprio">
+                                    <a  href="logement.php?id='<?php echo($info["id_logement"]) ?>'">
+                                        <img class="imgPageProprioLog" src="asset/img/logements/<?php echo($photo["min"]); ?>.<?php echo $extention["extension_image"] ?>" width="300px" height="100%" alt="">
+                                    </a>                                
                                 </div>
                                 
                                 <div class="unLogement">

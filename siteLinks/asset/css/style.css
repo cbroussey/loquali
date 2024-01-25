@@ -4978,8 +4978,8 @@ display:none;
 height:92vh;
 width:84vw;
 display:none;
-position: fixed;
-margin-left: 30%;
+position: absolute;
+margin-left: 28%;
 margin-top: 2%;
 }
 
@@ -4987,8 +4987,8 @@ margin-top: 2%;
 height:92vh;
 width:70vw;
 display:none;
-position: fixed;
-margin-left: 28%;
+position: absolute;
+margin-left: 27%;
 margin-top: 10%;
 
 }
@@ -5754,6 +5754,7 @@ font-weight: 500;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  width: 330px;
 }
 
 .unLogement h2{
@@ -6314,7 +6315,7 @@ font-weight: 500;
   display: flex;
   flex-direction: row;
   height: 30%;
-  width: 200%;
+  width: 100%;
 }
 
 .compteSeparateur1{
@@ -6330,7 +6331,7 @@ font-weight: 500;
   justify-content: space-around;
   align-items: center;
   align-content: space-between;
-  width: 8%;
+  width: 22%;
   margin-left: 11%;
 
 }
@@ -6338,8 +6339,8 @@ font-weight: 500;
 
 #AucuneReservCompte {
   position: absolute;
-  top: 50%;
-  left: 12%;
+  top: 48%;
+  left: 8%;
  
   height: 54px;
   
@@ -6360,6 +6361,7 @@ font-weight: 500;
   width: 70px;
   height: 70px;
   flex-shrink: 0;
+  margin-right: 2%;
   border-radius: 70px;
   border: 1px solid #1D4C77;
 }
@@ -6395,7 +6397,7 @@ font-weight: 500;
   flex-direction: row;
 }
 
-.infos {
+.infos-devis {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -6438,118 +6440,21 @@ margin-left: auto;
 align-self: flex-end;
 }
 
-/**************page paiement****************/
-
-#compteMessagerie {
-  position: fixed;
-  margin-left: 20%;
-  margin-top: 4.3%;
-}
-
-#compteMessagerie h1 {
-  height: 47px;
-  color: #1D4C77;
+#AucuneDevisCompte {
+  position: absolute;
+  top: 50%;
+  left: 12%;
+ 
+  height: 54px;
+  
   font-size: 35px;
-  font-weight: 400;
-}
-
-#capayeouquoila {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  text-align: center;
-  align-items: center;
-
-  margin-top: 5em;
-}
-
-#compteMessagerie button{
-  display: inline-block;
-  padding: 10px 20px;
-  background-color: var(--mainColor); /* Couleur de fond de votre bouton personnalisé */
-  color: var(--secondBG); /* Couleur du texte */
-  border: 1.5px solid #1D4C77;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: 600;
-  font-size: 20px;
-
-  margin-top: -20px;
-}
-
-#ptitephrasepaiement {
-  text-align: center;
-  font-weight: 100;
-}
-
-#compteMessagerie h3 {
-  height: 47px;
-  color: #1D4C77;
-  font-size: 30px;
-  font-weight: 600;
-  text-align: center;
-
-
-  margin-top: 5em;
-}
-
-#historiquepaiement {
-  display: flex;
-  justify-content: center;
-  text-align: center;
-  align-items: center;
-
-
-  margin-top: 5em;
-}
-
-#historiquepaiement button{ 
-  padding: 10px 20px;
-  background-color: var(--mainColor);
-  color: var(--secondBG);
-  border: 1.5px solid #1D4C77;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: 600;
-  font-size: 20px;
-}
-
-#latableouquoila {
-  display: flex;
-  justify-content: center;
-  text-align: center;
-  align-items: center;
-  align-content: center;
-}
-
-#latableouquoila table{
-  border-radius: 25px;
-  background: #F5F5F5;
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
-
-  width: 1150px;
-  height: 360px;
-
-  padding: 2em;
-}
-
-#latableouquoila thead th{
-  width: 287px;
-}
-
-#latableouquoila tbody td{
-  font-weight: 100;
-}
-
-#maxibarre {
-  width: 1350px;
-  height: 2px;
+  font-weight: 700;
+ 
+  color: transparent;
   background: #97ADC1;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  background-clip: text;
+  text-shadow: 0px 3px 3px rgba(255,255,255,0.5);
 }
 
-#maxibarre2 {
-  width: 1000px;
-  height: 2px;
-  background: #97ADC1;
-
-}

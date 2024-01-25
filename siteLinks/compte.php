@@ -763,9 +763,11 @@ if (isset($_GET["confirmDelete"])) {
           if ($_SESSION['userType'] == 'client') {
 
             $id_client = $_SESSION['userId'];
+            $devisExist = false;
             foreach($dbh->query("SELECT * FROM test.reservation 
                     INNER JOIN test.devis ON test.reservation.id_reservation = test.devis.id_reservation 
                     WHERE id_compte = $id_client", PDO::FETCH_ASSOC) as $row) {
+                            $devisExist = true;
                             $id_logement = $row["id_logement"];
                             $id_reservation = $row["id_reservation"];
 
@@ -795,6 +797,8 @@ if (isset($_GET["confirmDelete"])) {
                                 }
                                 closedir($images);
                             }
+
+                            if ($row["prix_devis"]!=""){
                             
                             ?>
 
@@ -806,7 +810,7 @@ if (isset($_GET["confirmDelete"])) {
                                   <input type="hidden" name="reservation" value="<?=$row["id_reservation"]?>">
                                   <input type="hidden" name="id" value="<?=$row["id_logement"]?>">
                                   <img src="<?=$pathName?>" alt="" class="logo">
-                                  <div class="infos">
+                                  <div class="infos-devis">
                                     <div class="infos-header">
                                     <h3><?=$proprio["nom_affichage"]?></h3>
                                     <p class="date"><?=explode(" ",$row["date_devis"])[0]?></p>
@@ -822,8 +826,14 @@ if (isset($_GET["confirmDelete"])) {
 
                             </div>
                            
-            <?php }
-          } else {
+                    <?php }
+                      if (!$devisExist) {
+                        ?>
+                          <p id="AucuneDevisCompte">Vous n'avez aucuns devis pour le moment</p>
+                        <?php
+                      }
+              }
+        } else {
             $id_proprio = $_SESSION['userId'];
             foreach($dbh->query("SELECT * FROM test.reservation 
                             INNER JOIN test.devis ON test.reservation.id_reservation = test.devis.id_reservation 
@@ -869,7 +879,7 @@ if (isset($_GET["confirmDelete"])) {
                                   <input type="hidden" name="reservation" value="<?=$row["id_reservation"]?>">
                                   <input type="hidden" name="id" value="<?=$row["id_logement"]?>">
                                   <img src="<?=$pathName?>" alt="" class="logo">
-                                  <div class="infos">
+                                  <div class="infos-devis">
                                     <div class="infos-header">
                                     <h3><?=$client["nom_affichage"]?></h3>
                                     <p class="date"><?=explode(" ",$row["date_devis"])[0]?></p>
