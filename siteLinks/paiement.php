@@ -41,7 +41,7 @@
         $res = $res->fetchAll();
         /*?><pre style="padding-left: 1em;"><?php print_r($res) ?></pre><?php*/
         // Vérification d'accès au paiement (si l'utilisateur connecté est le bon et le devis a été accepté)
-        if (isset($_SESSION["userId"]) && $_SESSION["userId"] == $res[0]["resa_id_compte"] && $res && $res[0]["acceptation"]) {
+        if (isset($_SESSION["userId"]) && $_SESSION["userId"] == $res[0]["resa_id_compte"] && $res && !$res[0]["acceptation"]) {
             $res = $res[0];
             $charges = $db->prepare( // Fait après la vérification d'identitée pour éviter une requête potentiellement inutile
                 'SELECT test.charges_selectionnees.nom_charge, test.prix_charge.prix_charge FROM test.reservation
@@ -140,6 +140,7 @@
                     <div><p><a class="h3">Total</a><a>EUR</a><a class="h3"><?php echo $res["prix_devis"] + $tva ?>€</a></p></div>
                     <button type="submit">Payer</button>
                 </div>
+                <input type='hidden' name='devis' value='<?php echo $_POST["devis"] ?>'>
             </form>
         <?php } else {
             // Si la vérification d'identitée/de validation n'a pas réussi
