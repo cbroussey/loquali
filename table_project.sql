@@ -727,7 +727,7 @@ BEGIN
   SELECT l.delai_annul_defaut FROM test.logement l WHERE l.id_logement = id_log INTO delai_annul;
   SELECT l.pourcentage_retenu_defaut FROM test.logement l WHERE l.id_logement = id_log INTO pourcentage_retenu;
   WHILE jour <= date_fin LOOP
-    SELECT * FROM getDayData(id_log, jour) INTO ajout;
+    SELECT * FROM test.getDayData(id_log, jour) INTO ajout;
     disponibilite = (disponibilite AND ajout.disponibilite);
     IF NOT disponibilite THEN
       raison_indisponible = ajout.raison_indisponible;
