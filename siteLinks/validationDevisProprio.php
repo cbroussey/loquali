@@ -2,7 +2,7 @@
 include('connect_params.php');
 try {
 
-    $nouveau_prix = $_POST["prixTTC"];
+    $nouveau_prix = $_POST["total"];
     $nouveau_delai = (new DateTime())->add(new DateInterval('P5D'))->format('Y-m-d');
     $reservation = $_POST["reservation"];
 
