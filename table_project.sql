@@ -781,8 +781,8 @@ VALUES
     (FALSE, 0, '2023-11-20', 1);
 
 INSERT INTO api(cle, privilegie, accesCalendrier, miseIndispo, id_compte) VALUES
-    ('0123456789ABCDEF', TRUE, TRUE TRUE 1),
+    ('0123456789ABCDEF', TRUE, TRUE, TRUE, 1),
     ('AAABBBCCCDDDEEE', FALSE, FALSE, FALSE, 11),
-    ('MANGETESGRANDSMORTS', FALSE, TRUE TRUE, 10),
+    ('MANGETESGRANDSMORTS', FALSE, TRUE, TRUE, 10),
     ('azeazeazeazeazeaze', FALSE, TRUE, FALSE, 8);
 
