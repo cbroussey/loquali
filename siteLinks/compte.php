@@ -585,7 +585,7 @@ if (isset($_GET["confirmDelete"])) {
       <?php
         if ($_SESSION['userType'] == 'proprietaire') {
         ?>
-        <div id="logementPropo">
+        <div id="compteLogementPropo">
 
             <div class="compteAjout_log">
               <a href="newLogement.php">
@@ -720,7 +720,7 @@ if (isset($_GET["confirmDelete"])) {
 
                   <div class="compteListeUnLogement">
                     <div class="toutLogement">
-                      <div>
+                      <div id=imajedelespagna>
                         <img src="asset/img/logements/<?php echo ($photo["min"]); ?>.<?php echo $extention["extension_image"] ?>" width="100%" height="100%" alt="" class="imgListeLogementProprio">
                       </div>
                       <div class="unLogement">
