@@ -4999,7 +4999,7 @@ height:92vh;
 width:84vw;
 display:none;
 position: absolute;
-margin-left: 16%;
+margin-left: 27%;
 margin-top: 4%;
 }
 
@@ -5049,6 +5049,76 @@ display:none;
   }
 
 }
+
+@media screen and (min-width: 0px) and (max-width: 400px) {
+  #compteLogements{
+    margin-top: 40%;
+  }
+
+  #compteLogementPropo{
+    width: 87vw;
+    margin-left: -50%;
+  }
+
+  .compteAjout_log{
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 200px;
+  }
+
+  .compteAjout_log {
+    padding: 0 80px;
+  }
+
+  #AucunLogementCompte{
+    margin-top: -60%;
+    margin-left: -27%;
+    width: 250px;
+  }
+
+#compteListeLogements{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.compteListeUnLogement{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 80%;
+}
+
+.imgListeLogementProprio{
+  width: 200%;
+  margin-left: -60%;
+}
+
+#imajedelespagna{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.unLogement{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+body{
+  overflow: hidden;
+}
+
+}
+
+  
 
 
 /********* PAGE INFOS PERSO **********/
@@ -6279,6 +6349,14 @@ font-weight: 500;
 
 /********* PAGE MES LOGEMENTS **********/
 
+#compteLogementPropo{
+  color: #1D4C77;
+  position: initial;
+  margin-top: 80px;
+
+  margin-bottom: 50px;
+}
+
 
 #AucunLogementCompte {
   position: absolute;
@@ -6355,6 +6433,8 @@ font-weight: 500;
   margin-left: 11%;
 
 }
+
+
 /************page reservation***************/
 
 #AucuneReservCompte {

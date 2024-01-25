@@ -1,6 +1,6 @@
 <?php
     session_start();
-    if (isset($_POST['description'])) {
+    if (isset($_POST['description'])) { /* Si présence d'une modification de description, update dans la bdd */
     
         include('connect_params.php');
         try {
@@ -69,6 +69,8 @@
     
   <?php
 
+    /* Récupérations des informations lié à la page via la bdd */
+
     include('connect_params.php');
     try {
         $id=$_SESSION['userId'];
@@ -99,6 +101,8 @@
         ">
         <img src="asset/icons/bleu/toBack.svg" alt="" id="pagePersoSvgBack">
     </a>
+
+        <!-- Partie avec les infos du proprio -->
         <div class="infosProprio">
             <div id="infosTous">
                 <div id="photo_Profil">
@@ -186,6 +190,8 @@
                             <h2>À propos de moi</h2>
                         </div>
                     
+
+                        <!-- Affichage de la description si elle est saisie, sinon affichage d'un message normal. Possibilité de modifier en cliquant sur le bouton puis en validant -->
                         <div class="descriptionPersonne">
                             <form method="post">
                                 <a href="#" id="boutonDescription" class="testBouton"><img src="asset/icons/bleu/modification.svg" alt=""></a>
@@ -220,7 +226,7 @@
         
         
         </div>
-        <?php
+        <?php /* Si la personne est propriétaire, affiche la liste de ses logements en les sélectionnant dans la bdd puis en les affichant directement (un peut comme dans index.php). Si il n'a pas de logement, affiche un message pour l'indiquer */
             if ($_SESSION['userType'] == 'proprietaire') {
                 ?>
                     <div id="logementPropo">
@@ -305,7 +311,7 @@
                 </div>
                 <?php
             }
-            else {
+            else { /* Dans le cas ou l'utilisateur est un client, ça fera comme au desus mais avec les avis laissé par le client */
                 ?>
                     <div id="logementPropo">
                     <h2 id="titreLogement">Avis Postés</h2>
