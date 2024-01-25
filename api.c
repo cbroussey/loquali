@@ -61,22 +61,22 @@ int getArgs(char cmd[MAXCMD], char *cmdargs[]) {
             tmp[j] = cmd[i];
             j++;
         } else {
-            printf("arg: %s\n", tmp);
+            //printf("arg: %s\n", tmp);
             cmdargs[k] = malloc(strlen(tmp) + 1);
             strcpy(cmdargs[k], tmp);
-            printf("ok : %s\n", cmdargs[k]);
+            //printf("ok : %s\n", cmdargs[k]);
             memset(tmp, 0, j);
             j = 0;
             k++;
         }
     }
-    printf("arg: %s\n", tmp);
+    //printf("arg: %s\n", tmp);
     cmdargs[k] = malloc(strlen(tmp) + 1);
     strcpy(cmdargs[k], tmp);
-    printf("ok : %s\n", cmdargs[k]);
+    //printf("ok : %s\n", cmdargs[k]);
     memset(tmp, 0, j);
-    printf("%d\n", i);
-    return k;
+    //printf("%d\n", i);
+    return k+1;
 }
 
 void emptyArgs(int argc, char* cmdargs[]) {
@@ -248,8 +248,9 @@ int main(int argc, char *argv[]) {
         printf("Waiting for API key...\n");
         ret = read(cnx, &tmp, sizeof(tmp));
         if (ret == -1) perrorOut();
+        while (tmp[strlen(tmp) - 1] == '\n' || tmp[strlen(tmp) - 1] == '\r') tmp[strlen(tmp) - 1] = '\0';
         memset(cmd, 0, strlen(cmd));
-        sprintf(cmd, "SELECT cle,privilegie,id_compte FROM test.api WHERE cle = '%.16s';", tmp);
+        sprintf(cmd, "SELECT cle,privilegie,id_compte FROM test.api WHERE cle = '%s';", tmp);
         printf("%s\n", cmd);
         res = PQexec(db, cmd);
         if (PQresultStatus(res) != PGRES_TUPLES_OK) {
@@ -342,9 +343,10 @@ int main(int argc, char *argv[]) {
             } else if (strcmp(cmdargs[0], "planning") == 0) {
                 //i = getArgs(cmd, cmdargs);
                 //printf("\n%d, %s, %s\n", i, cmdargs[0], cmdargs[1]);
+                //printf("%d arguments\n", i);
                 if (i >= 4) { // nom de la commande + 3 arguments
                     memset(cmd, 0, strlen(cmd));
-                    sprintf(cmd, "SELECT jour, disponibilite FROM test.planning where id_logement = %d AND jour >= %s AND jour <= %s;", atoi(cmdargs[1]), cmdargs[2], cmdargs[3]);
+                    sprintf(cmd, "SELECT jour, disponibilite FROM test.planning where id_logement = %d AND jour >= '%s' AND jour <= '%s';", atoi(cmdargs[1]), cmdargs[2], cmdargs[3]);
                     res = PQexec(db, cmd);
                     if (PQresultStatus(res) != PGRES_TUPLES_OK) {
                         memset(cmd, 0, strlen(cmd));
@@ -356,7 +358,51 @@ int main(int argc, char *argv[]) {
                     }
                     PQclear(res);
                 } else {
-                    write(cnx, "Not enough arguments\r\nUsage : planning <start-date> <end-date>\r\n", 64);
+                    write(cnx, "Not enough arguments\r\nUsage : planning <id> <start-date> <end-date>\r\n", 69);
+                }
+            } else if (strcmp(cmdargs[0], "disable") == 0) {
+                //i = getArgs(cmd, cmdargs);
+                //printf("\n%d, %s, %s\n", i, cmdargs[0], cmdargs[1]);
+                //printf("%d arguments\n", i);
+                if (i >= 3) { // nom de la commande + 2 ou 3 arguments
+                    memset(cmd, 0, strlen(cmd));
+                    sprintf(cmd, "SELECT * FROM test.planning WHERE id_logement = %d AND jour = '%s';", atoi(cmdargs[1]), cmdargs[2]);
+                    res = PQexec(db, cmd);
+                    if (PQresultStatus(res) != PGRES_TUPLES_OK) {
+                        memset(cmd, 0, strlen(cmd));
+                        sprintf(cmd, "Err: %s\r\n", PQerrorMessage(db));
+                        write(cnx, cmd, strlen(cmd));
+                    } else {
+                        memset(cmd, 0, strlen(cmd));
+                        if (PQntuples(res) > 0) {
+                            if (i >= 4) {
+                                memset(tmp, 0, strlen(tmp));
+                                sprintf(tmp, " raison_indisponible = '%s' ", cmdargs[3]);
+                            }
+                            sprintf(cmd, "UPDATE test.planning SET disponibilite = FALSE%sWHERE id_logement = %d AND jour = '%s';", (i >= 4 ? tmp : " "), atoi(cmdargs[1]), cmdargs[2]);
+                            res = PQexec(db, cmd);
+                            if (PQresultStatus(res) != PGRES_TUPLES_OK) {
+                                memset(cmd, 0, strlen(cmd));
+                                sprintf(cmd, "Err: %s\r\n", PQerrorMessage(db));
+                                write(cnx, cmd, strlen(cmd));
+                            }
+                        } else {
+                            memset(cmd, 0, strlen(cmd));
+                            sprintf(cmd, "SELECT prix_base_ht FROM test.logement WHERE id_logement = %d;", atoi(cmdargs[1]));
+                            res = PQexec(db, cmd); // Impossible de crash puisque le premier test avec les paramètres a déjà marché
+                            sprintf(cmd, "INSERT INTO test.planning VALUES (FALSE, %10.2f, %s, %d);", atof(PQgetvalue(res, 0, 0)), cmdargs[2], atoi(cmdargs[1]));
+                            res = PQexec(db, cmd);
+                            if (PQresultStatus(res) != PGRES_TUPLES_OK) {
+                                memset(cmd, 0, strlen(cmd));
+                                sprintf(cmd, "Err: %s\r\n", PQerrorMessage(db));
+                                write(cnx, cmd, strlen(cmd));
+                            }
+                        }
+                        
+                    }
+                    PQclear(res);
+                } else {
+                    write(cnx, "Not enough arguments\r\nUsage : disable <id> <date> [reason]\r\n", 60);
                 }
             } else if (strcmp(cmdargs[0], "help") == 0) {
                 //printf("Writing...\n");
@@ -365,6 +411,8 @@ int main(int argc, char *argv[]) {
                 write(cnx, "  ping\r\n", 8);
                 if (accPriv) write(cnx, "  list_all\r\n", 12);
                 write(cnx, "  list\r\n", 8);
+                write(cnx, "  planning <id> <start-date> <end-date>\r\n", 41);
+                write(cnx, "  disable <id> <date> [reason]\r\n", 32);
                 write(cnx, "  help\r\n", 8);
                 write(cnx, "  exit\r\n", 8);
             } else if (strcmp(cmdargs[0], "exit") == 0) {
