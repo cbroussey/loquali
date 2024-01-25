@@ -46,6 +46,8 @@
     </div>
     <div></div>
   </header>
+
+  <!-- Cette pag est exactement la même que pagePersoProprio à la seul différence près que cette page n'as pas d'option de modification -->
   
   <main id="ensemble">
 

@@ -922,6 +922,7 @@ h1 {
   input[type="date"] {
     border: none;
     font-size: 16px;
+    color: #1D4C77;
 }
 
   input[type="date"]::-webkit-calendar-picker-indicator {
@@ -950,8 +951,18 @@ h1 {
 
 
 
-#prixTTC{
+
+.quantity{
+    color: #1D4C77 !important;
+}
+
+#prixNuit{
     text-align: right;
     border: none;
     background-color: transparent
+}
+
+
+#prixNuit::-webkit-inner-spin-button{
+    display: none;
 }

@@ -2,7 +2,7 @@
     session_start();
     //echo date("m-y") ."\n";
     if (
-        (isset($_POST["paymentType"]) && $_POST["paymentType"] == "MasterCard" && preg_match('/^(5[1-5][0-9]{14}|2(22[1-9][0-9]{12}|2[3-9][0-9]{13}|[3-6][0-9]{14}|7[0-1][0-9]{13}|720[0-9]{12}))$/', $_POST["cardNumber"]))
+        (/*isset($_POST["paymentType"]) && $_POST["paymentType"] == "MasterCard" && */preg_match('/^(5[1-5][0-9]{14}|2(22[1-9][0-9]{12}|2[3-9][0-9]{13}|[3-6][0-9]{14}|7[0-1][0-9]{13}|720[0-9]{12}))$/', $_POST["cardNumber"]))
         && intval(explode("/", $_POST["expiry"])[1]) > intval(date("y")) || (intval(explode("/", $_POST["expiry"])[1]) == intval(date("y")) && intval(explode("/", $_POST["expiry"])[0]) > intval(date("m")))
         && strlen($_POST["crypto"]) == 3
         ) {
@@ -10,32 +10,48 @@
             require_once("connect_params.php");
             $db = new PDO("$driver:host=$server;dbname=$dbname", "$user", "$pass");
             $res = $db->prepare(
-                'SELECT * FROM test.cb WHERE id_compte = :compte AND numero_carte = :num'
+                'SELECT * FROM test.devis JOIN test.reservation ON test.devis.id_reservation = test.reservation.id_reservation WHERE id_devis = :num;'
             );
-            $res->bindParam('num', $_POST['cardNumber'], PDO::PARAM_STR);
-            $res->bindParam('compte', $_SESSION['userId'], PDO::PARAM_INT);
+            $res->bindParam('num', $_POST['devis'], PDO::PARAM_INT);
             $res->execute();
             $res = $res->fetchAll();
-            if (count($res) == 0 && isset($_POST["savePay"])) {
+            if (isset($_SESSION["userId"]) && $_SESSION["userId"] == $res[0]["id_compte"] && $res && !$res[0]["acceptation"]) {
                 $res = $db->prepare(
-                    'INSERT INTO test.cb VALUES (:typecb, :num, DATE(:validite), :crypto, :compte);'
+                    'UPDATE test.devis SET acceptation = TRUE WHERE id_devis = :num;'
                 );
-                $validiteFDP = "01/" . $_POST['expiry'];
-                $res->bindParam('typecb', $_POST['paymentType'], PDO::PARAM_STR);
-                $res->bindParam('num', $_POST['cardNumber'], PDO::PARAM_STR);
-                $res->bindParam('validite', $validiteFDP, PDO::PARAM_STR);
-                $res->bindParam('crypto', $_POST['crypto'], PDO::PARAM_STR);
-                $res->bindParam('compte', $_SESSION['userId'], PDO::PARAM_INT);
+                $res->bindParam('num', $_POST['devis'], PDO::PARAM_INT);
                 $res->execute();
-            } else if (count($res) > 0 && $_POST["savePay"] === "off") {
                 $res = $db->prepare(
-                    'DELETE FROM test.cb WHERE numero_carte = :num AND id_compte = :compte;'
+                    'SELECT * FROM test.cb WHERE id_compte = :compte AND numero_carte = :num;'
                 );
                 $res->bindParam('num', $_POST['cardNumber'], PDO::PARAM_STR);
                 $res->bindParam('compte', $_SESSION['userId'], PDO::PARAM_INT);
                 $res->execute();
+                $res = $res->fetchAll();
+                if (count($res) == 0 && isset($_POST["savePay"])) {
+                    $res = $db->prepare(
+                        'INSERT INTO test.cb VALUES (:typecb, :num, DATE(:validite), :crypto, :compte);'
+                    );
+                    $validiteFDP = "01/" . $_POST['expiry'];
+                    $res->bindParam('typecb', "MasterCard", PDO::PARAM_STR);
+                    $res->bindParam('num', $_POST['cardNumber'], PDO::PARAM_STR);
+                    $res->bindParam('validite', $validiteFDP, PDO::PARAM_STR);
+                    $res->bindParam('crypto', $_POST['crypto'], PDO::PARAM_STR);
+                    $res->bindParam('compte', $_SESSION['userId'], PDO::PARAM_INT);
+                    $res->execute();
+                } else if (count($res) > 0 && ($_POST["savePay"] === "off" || !isset($_POST["savePay"]))) {
+                    $res = $db->prepare(
+                        'DELETE FROM test.cb WHERE numero_carte = :num AND id_compte = :compte;'
+                    );
+                    $res->bindParam('num', $_POST['cardNumber'], PDO::PARAM_STR);
+                    $res->bindParam('compte', $_SESSION['userId'], PDO::PARAM_INT);
+                    $res->execute();
+                }
+                header("Location: index.php");
+            } else {
+                echo '403 - Forbidden';
+                die('Forbidden');
             }
-            header("Location: index.php");
         }
 ?>
 <!DOCTYPE html>
