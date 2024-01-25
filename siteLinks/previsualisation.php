@@ -638,9 +638,35 @@
 
             <div class="barre_info_log">
 
+                <?php //récupération du nom de l'image (avec extension)
+                                    
+                if ($images = opendir('asset/img/profils/')) {
+                    while (false !== ($fichier = readdir($images))) {
+                        $imgInfos = pathinfo($fichier);
+                        if ($imgInfos['filename'] == $proprio["id_compte"]) {
+                            $pathName = 'asset/img/profils/' . $fichier;
+                            break;
+                        }
+
+                    }
+                    if ($pathName == '') {
+                        $pathName = 'asset/img/profils/default.jpg';
+                    }
+                    closedir($images);
+                }
+                ?>
+
                 <div class="proprio_log">
                     
-                    <a class="img_proprio_log" id="user" href=""><div class="photo_profil_proprio_log"></div>
+                    <a class="img_proprio_log" href="pageProprio.php?id=<?php echo ($proprio["id_compte"]); ?>&id_log=<?php echo ($id) ?>">
+                        <div class="photo_profil_proprio_log">
+                            <style>
+                                .photo_profil_proprio_log {
+                                    background: url("<?php echo($pathName) ?>") center/cover;
+                                }
+                            </style>
+                        </div>
+
                     </a>
                     <div class="info_proprio_log">
                         <div class="block_info_log">
