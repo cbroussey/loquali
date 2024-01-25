@@ -424,9 +424,9 @@ VALUES
 
 INSERT INTO CB (type_cb, numero_carte, date_validite, cryptogramme, id_compte)
 VALUES
-    ('MasterCard', '1234567890123456', '2025-12-31', 123, 1),
-    ('MasterCard', '9876543210987654', '2024-10-31', 456, 2),
-    ('MasterCard', '1111222233334444', '2026-06-30', 789, 3);
+    ('MasterCard', '5555555555554444', '2025-12-31', 123, 1),
+    ('MasterCard', '5105105105105100', '2024-10-31', 456, 2),
+    ('MasterCard', '5000333641352301', '2026-06-30', 789, 3);
 
 INSERT INTO langue (nom_langue, id_compte)
 VALUES
