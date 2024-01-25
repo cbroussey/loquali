@@ -389,8 +389,8 @@
                         <div class="info_prix">
 
                             <div class="row">
-                                <div class="label"> <?php echo($daysDifference)?> nuits</div>
-                                <div class="value"><?php echo($prixVoyageHt)?>€</div>
+                                <div class="label">  nuits</div>
+                                <a><input <?php echo ($qui != "proprietaire" ) ? 'readonly' : ''; ?>  type="number" class="value" id="prixNuit" name="prixNuit" step="0.01"> €</a>
                             </div>
                             <?php
                             $somme = 0;
@@ -451,11 +451,7 @@
                     <?php
                     if ($qui == "client") { ?>
 
-                        <pre>
-                            <?php
-                                print_r($devis);
-                            ?>
-                        </pre>
+                       
 
                         <input name="devis" value="<?php echo ($devis["id_devis"]); ?>" hidden readonly>
                         <button type="submit" class="devisButton">Accepter et Payer</button>

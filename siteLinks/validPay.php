@@ -33,7 +33,7 @@
                         'INSERT INTO test.cb VALUES (:typecb, :num, DATE(:validite), :crypto, :compte);'
                     );
                     $validiteFDP = "01/" . $_POST['expiry'];
-                    $res->bindParam('typecb', $_POST['paymentType'], PDO::PARAM_STR);
+                    $res->bindParam('typecb', "MasterCard", PDO::PARAM_STR);
                     $res->bindParam('num', $_POST['cardNumber'], PDO::PARAM_STR);
                     $res->bindParam('validite', $validiteFDP, PDO::PARAM_STR);
                     $res->bindParam('crypto', $_POST['crypto'], PDO::PARAM_STR);
