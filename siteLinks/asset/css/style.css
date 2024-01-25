@@ -4979,8 +4979,8 @@ height:92vh;
 width:84vw;
 display:none;
 position: absolute;
-margin-left: 28%;
-margin-top: 2%;
+margin-left: 16%;
+margin-top: 4%;
 }
 
 #compteReservations {
@@ -4988,8 +4988,8 @@ height:92vh;
 width:70vw;
 display:none;
 position: absolute;
-margin-left: 27%;
-margin-top: 10%;
+margin-left: 30%;
+margin-top: 4%;
 
 }
 
@@ -6339,8 +6339,8 @@ font-weight: 500;
 
 #AucuneReservCompte {
   position: absolute;
-  top: 48%;
-  left: 8%;
+  top: 47%;
+  left: 21%;
  
   height: 54px;
   
@@ -6440,10 +6440,10 @@ margin-left: auto;
 align-self: flex-end;
 }
 
-#AucuneDevisCompte {
+#AucunDevisCompte {
   position: absolute;
-  top: 50%;
-  left: 12%;
+  top: 47%;
+  left: 15%;
  
   height: 54px;
   

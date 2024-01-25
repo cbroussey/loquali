@@ -759,11 +759,12 @@ if (isset($_GET["confirmDelete"])) {
         <div id="compteReservations">
           <!-- Réservations -->
           <?php
+          $devisCount = 0;
 
           if ($_SESSION['userType'] == 'client') {
+            
 
             $id_client = $_SESSION['userId'];
-            $devisExist = false;
             foreach($dbh->query("SELECT * FROM test.reservation 
                     INNER JOIN test.devis ON test.reservation.id_reservation = test.devis.id_reservation 
                     WHERE id_compte = $id_client", PDO::FETCH_ASSOC) as $row) {
@@ -798,7 +799,9 @@ if (isset($_GET["confirmDelete"])) {
                                 closedir($images);
                             }
 
-                            if ($row["prix_devis"]!=""){
+                            
+                          if (!empty($row["prix_devis"])){
+                            $devisCount++;
                             
                             ?>
 
@@ -826,14 +829,12 @@ if (isset($_GET["confirmDelete"])) {
 
                             </div>
                            
-                    <?php }
-                      if (!$devisExist) {
-                        ?>
-                          <p id="AucuneDevisCompte">Vous n'avez aucuns devis pour le moment</p>
-                        <?php
-                      }
-              }
-        } else {
+                      <?php 
+                        
+                    }
+                    
+            }
+          } else {
             $id_proprio = $_SESSION['userId'];
             foreach($dbh->query("SELECT * FROM test.reservation 
                             INNER JOIN test.devis ON test.reservation.id_reservation = test.devis.id_reservation 
@@ -895,6 +896,12 @@ if (isset($_GET["confirmDelete"])) {
 
                             </div>
           <?php }
+          }
+          // Afficher le message s'il n'y a pas de devis
+          if ($devisCount === 0) {
+            ?>
+            <p id="AucunDevisCompte">Vous n'avez aucuns devis pour le moment</p>
+            <?php
           }
             ?>
 
