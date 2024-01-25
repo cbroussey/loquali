@@ -98,6 +98,8 @@ if (isset($_GET["confirmligne"])) {
     <link rel="stylesheet" href="asset/css/logement.css">
     <script src="asset/js/boutonSupprimer.js"></script>
     <script src="asset/js/ligneHorsligne.js"></script>
+    <script src="asset/js/redirectionConnect.js"></script>
+
 </head>
 
 <body id="bg">
@@ -461,13 +463,54 @@ if (isset($_GET["confirmligne"])) {
                                             <h2><span><?php echo ($info["prix_ttc"]); ?> €</span> / nuit</h2>
                                             <?php // (isset($_SESSION['userType']) ? 'demandeDevis.php' : 'connexion.php') 
                                             ?>
-                                            <form action="<?php if ($_SESSION['userType']) { ?>demandeDevis.php<?php } else { ?>connexion.php<?php } ?>" method="POST">
                                                 <input name="id" value="<?php echo ($id); ?>" hidden readonly>
                                                 <input name="qui" value="" hidden readonly>
-                                                <button class="bouton_res_log">
-                                                    <h1>Réserver</h1>
-                                                </button>
-                                            </form>
+
+                                                <?php 
+                                                
+                                                    if (!isset($_SESSION["userType"])) { 
+                                                    echo "test";
+                                                    ?>
+
+                                                        <button class="bouton_res_log" onclick=modalRedirect()>
+                                                            <h1>Réserver</h1>
+                                                        </button>
+
+
+                                                    <?php 
+                                                }  else {
+                                                    
+                                                    ?>
+                                                        <form action="<?php if ($_SESSION['userType']) { ?>demandeDevis.php<?php } else { ?>connexion.php<?php } ?>" method="POST">
+                                                            <button class="bouton_res_log">
+                                                                <input name="id" value="<?php echo ($id); ?>" hidden readonly>
+                                                                <input name="qui" value="" hidden readonly>
+                                                                <h1>Réserver</h1>
+                                                            </button>
+                                                        </form>
+
+                                                    <?php
+                                                    }
+                                                ?>
+                                                
+
+
+                                                <div class="confirmation-modal" id="myModal4">
+                                                    <div class="modal-content">
+                                                        <span class="close" onclick="refusRedirect()">&times;</span>
+                                                        <p>Vous n'êtes pas authentifier, voulez vous crée un compte ?</p>
+                                                        <input type="hidden" name="confirmDelete" value="<?php echo $id ?>">
+                                                        <form action="<?php if ($_SESSION['userType']) { ?>demandeDevis.php<?php } else { ?>connexion.php<?php } ?>" method="POST">
+                                                            <button class="confirm-button">Confirmer</button>
+                                                        </form>
+
+
+                                                    </div>
+                                                </div>
+
+
+
+
                                         </div>
                                         <div class="bare_res"></div>
                                         <div class="detail_reservation_log"> <!-- Début de la gestion de l'affichage des aménagement, installations et services -->
