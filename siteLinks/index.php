@@ -11,6 +11,7 @@ session_start();
   <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
   <link rel="stylesheet" href="asset/css/headerAndFooter.css">
   <link rel="stylesheet" href="asset/css/style.css">
+  <link rel="stylesheet" href="asset/css/index.css">
   <title>Quoicoubeh</title>
 </head>
 
@@ -171,7 +172,7 @@ session_start();
             </div>
             
             <div class="b4r3">
-              <input class="quantity" id="Personne" name="Personne" type="number" pattern="(29|35|22|56)[0-9]{3}" <?php if ($_POST["Personne"]!="") { ?> value="<?php echo($_POST["Personne"]) ?>"  <?php   } ?>>
+              <input class="quantity" id="Personneeeeeeeeeeeee" name="Personne" type="number" pattern="(29|35|22|56)[0-9]{3}" <?php if ($_POST["Personne"]!="") { ?> value="<?php echo($_POST["Personne"]) ?>"  <?php   } ?>>
             </div>
     
             <div class="jailesbarres">
