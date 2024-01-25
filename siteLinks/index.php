@@ -236,8 +236,14 @@ session_start();
             </div>
 
 <br>
-            <div class="valiiiide">
-              <input type="submit" name="test" value="Valider" id="validerouuuu">
+    
+            <div id="boutonsEnBaaaaas">
+              <div class="reeeetour">
+                <a href="index.php">Retour</a>
+              </div>
+              <div class="valiiiide">
+                <input type="submit" name="test" value="Valider" id="validerouuuu">
+              </div>
             </div>
         </div>
 
