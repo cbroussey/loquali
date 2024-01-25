@@ -51,6 +51,9 @@ session_start();
     <div></div>
   </header>
 
+
+  <!-- Petit carrousel avec animation -->
+
   <div class="slider-container slider1">
     <div class="barreRecherche">
       <div class="bar">
@@ -90,7 +93,9 @@ session_start();
     <div id="gauche">
 
 
-      <div class="filtrer">
+    <!-- Début des filtres (sélection) -->
+
+      <div class="filtrer"> <!-- Bouton visible -->
         <a class="button" id="Btn_Filtre">
           <svg id="fleche_Filtre" xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
             <path d="M23.827 0H1.17324C0.132319 0 -0.392925 1.26299 0.344624 2.00054L9.375 11.0323V21.0938C9.375 21.4761 9.56157 21.8345 9.87485 22.0538L13.7811 24.7872C14.5518 25.3267 15.625 24.7799 15.625 23.8271V11.0323L24.6556 2.00054C25.3916 1.26445 24.87 0 23.827 0Z" fill="#F5F5F5" />
@@ -98,8 +103,10 @@ session_start();
           <p>Filtres</p>
         </a>
 
-        <div id="Liste_Filtre">
+        <div id="Liste_Filtre"> <!-- Partie visible uniquement lors d'un click sur le buton filtres -->
           <form action="index.php" method="post">
+
+            <!-- Ceci est un formulaire permettant de récupérer les donées avec lequel l'utilisateur veux ranger les logements (garde en mémoire les valeurs insérer) -->
 
           <a href="index.php" id="quitterfiltre">
             <svg width="67" height="51" viewBox="0 0 67 51" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -235,9 +242,35 @@ session_start();
               <label for="service4" class="btnChoix2">repas</label>
             </div>
 
+            <div class="jailesbarres">
+              <div class="jailabarre"></div>
+              <h3>Prix Maximum</h3>
+              <div class="jailabarre"></div>
+            </div>
+            
+            <div class="b4r3">
+              <input class="quantity" id="PrixMax" name="PrixMax" type="number" pattern="(29|35|22|56)[0-9]{3}" <?php if ($_POST["PrixMax"]!="") { ?> value="<?php echo($_POST["PrixMax"]) ?>"  <?php   } ?>>
+            </div>
+
+            <div class="jailesbarres">
+              <div class="jailabarre"></div>
+              <h3>Prix Minimum</h3>
+              <div class="jailabarre"></div>
+            </div>
+            
+            <div class="b4r3">
+              <input class="quantity" id="PrixMin" name="PrixMin" type="number" pattern="(29|35|22|56)[0-9]{3}" <?php if ($_POST["PrixMin"]!="") { ?> value="<?php echo($_POST["PrixMin"]) ?>"  <?php   } ?>>
+            </div>
+
 <br>
-            <div class="valiiiide">
-              <input type="submit" name="test" value="Valider" id="validerouuuu">
+    
+            <div id="boutonsEnBaaaaas">
+              <div class="reeeetour">
+                <a href="index.php">Retour</a>
+              </div>
+              <div class="valiiiide">
+                <input type="submit" name="test" value="Valider" id="validerouuuu">
+              </div>
             </div>
         </div>
 
@@ -249,11 +282,14 @@ session_start();
   </div>
 
   <div class="box">
-  <?php
+  <?php   /* Début intérraction avec la bdd */
 
 include('connect_params.php');
 try {
     $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
+
+    /* Gestion des options de tri en attribuant à une variable la donnée dans la bdd sur laquel on veut trier les logements via un ORDER BY */
+
     if (isset($_POST["tri"])){
       switch ($_POST["tri"]) {
 
@@ -307,8 +343,12 @@ try {
       $sens="crois";
     }
 
-    if (isset($_POST["test"])){
+    if (isset($_POST["test"])){ /* Gestion des filtres */
+
+      /* Ici, on défini 2 variables, 1 qui va se remlire de "AND <donnée de la bdd>=<donnée rechercher par l'utilisateur> " afin d'être ajouter à la requête pour obtenir de multiple where. La deuxième s'occupe de savoir quoi joindre pour que la requête fonctionne (par exemple pout les installations et autres). */
+
       $filtre="";
+      $join="";
       foreach ($_POST as $ind => $val){
 
 
@@ -321,27 +361,38 @@ try {
         }
 
         if ($ind == "amena"){
+          $join.=" NATURAL JOIN test.amenagement ";
           foreach($val as $amena){
             $filtre.="AND nom_amenagement='$amena' ";
           }
         }
 
         if ($ind == "service"){
+          $join.=" NATURAL JOIN test.service ";
           foreach($val as $service){
             $filtre.="AND nom_service='$service' ";
           }  
         }
 
         if ($ind == "instal"){
+          $join.=" NATURAL JOIN test.installation ";          
           foreach($val as $instal){
             $filtre.="AND nom_installation='$instal' ";
           }  
         }
 
+        if ($ind == "PrixMin" && $val !="") {
+          $filtre.="AND prix_ttc>=$val ";
+        }
+
+        if ($ind == "PrixMax" && $val !="") {
+          $filtre.="AND prix_ttc<=$val ";
+        }
+
       }
     }
 
-    
+    /* Requete pour récupérer tout les logements correspondant au critère des filtres. Séparation en 2 cas : tri croissant ou décroissant. puis chaque cas se sépare en 2 : filtré ou pas filtré. Si c'est filtré, applique la requete pour retrouver les logements correspondant au filtres, sinon effectue une requête normal. Pour différention les tri croissant et décroissant, ajout de DESC arpès le ORDER BY. Le seuls cas ou c'est vraiment différent c'est quand les filtres sont sélectionner. On recherche d'abbord l'id de tout les logements correspondant à la recherche, puis après, on fait une 2ème requète pour obtenir toutes les informations des logements pout les afficher. S'en suit après, et dans tout les cas, l'affichages des logements  */
 
     if ($sens=="crois"){
       $nb_log_rech=0;
@@ -351,9 +402,7 @@ try {
         FROM (
             SELECT *
             FROM test.logement
-            NATURAL JOIN test.amenagement
-            NATURAL JOIN test.installation
-            NATURAL JOIN test.service
+            $join
             WHERE en_ligne = true
             $filtre
         ) AS subquery ORDER BY $tri;", PDO::FETCH_ASSOC) as $row) {
@@ -456,9 +505,7 @@ try {
         FROM (
             SELECT *
             FROM test.logement
-            NATURAL JOIN test.amenagement
-            NATURAL JOIN test.installation
-            NATURAL JOIN test.service
+            $join
             WHERE en_ligne = true
             $filtre
         ) AS subquery ORDER BY $tri DESC;", PDO::FETCH_ASSOC);
@@ -567,6 +614,8 @@ try {
     die();
 }
 
+/* Fin de la partie requète avec la bdd */
+
 ?>
 
 
@@ -584,12 +633,6 @@ try {
             
         <div id="separe"></div>
 
-            <p>Changer la langue</p>
-            <div id="langues">
-                <a href="">Français</a>
-                <div id="separe2"></div>
-                <a href="">Anglais</a>
-            </div>
         </div>
   </div>
 

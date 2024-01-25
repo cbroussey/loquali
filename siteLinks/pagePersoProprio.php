@@ -1,6 +1,6 @@
 <?php
     session_start();
-    if (isset($_POST['description'])) {
+    if (isset($_POST['description'])) { /* Si présence d'une modification de description, update dans la bdd */
     
         include('connect_params.php');
         try {
@@ -30,6 +30,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="asset/css/headerAndFooter.css">
     <link rel="stylesheet" href="asset/css/style.css">
+    <link rel="stylesheet" href="asset/css/pageProprio.css">
     <title>Document</title>
 </head>
 <body>
@@ -68,6 +69,8 @@
     
   <?php
 
+    /* Récupérations des informations lié à la page via la bdd */
+
     include('connect_params.php');
     try {
         $id=$_SESSION['userId'];
@@ -98,6 +101,8 @@
         ">
         <img src="asset/icons/bleu/toBack.svg" alt="" id="pagePersoSvgBack">
     </a>
+
+        <!-- Partie avec les infos du proprio -->
         <div class="infosProprio">
             <div id="infosTous">
                 <div id="photo_Profil">
@@ -185,6 +190,8 @@
                             <h2>À propos de moi</h2>
                         </div>
                     
+
+                        <!-- Affichage de la description si elle est saisie, sinon affichage d'un message normal. Possibilité de modifier en cliquant sur le bouton puis en validant -->
                         <div class="descriptionPersonne">
                             <form method="post">
                                 <a href="#" id="boutonDescription" class="testBouton"><img src="asset/icons/bleu/modification.svg" alt=""></a>
@@ -219,7 +226,7 @@
         
         
         </div>
-        <?php
+        <?php /* Si la personne est propriétaire, affiche la liste de ses logements en les sélectionnant dans la bdd puis en les affichant directement (un peut comme dans index.php). Si il n'a pas de logement, affiche un message pour l'indiquer */
             if ($_SESSION['userType'] == 'proprietaire') {
                 ?>
                     <div id="logementPropo">
@@ -269,7 +276,9 @@
 
                             <div class="listeUnLogement">
                                 <div>
-                                    <img src="asset/img/logements/<?php echo($photo["min"]); ?>.<?php echo $extention["extension_image"] ?>" width="100%" height="100%" alt="" class="imgListeLogementProprio">
+                                    <a  href="logement.php?id='<?php echo($info["id_logement"]) ?>'">
+                                        <img class="imgPageProprioLog" src="asset/img/logements/<?php echo($photo["min"]); ?>.<?php echo $extention["extension_image"] ?>" width="300px" height="100%" alt="">
+                                    </a>                                
                                 </div>
                                 
                                 <div class="unLogement">
@@ -302,7 +311,7 @@
                 </div>
                 <?php
             }
-            else {
+            else { /* Dans le cas ou l'utilisateur est un client, ça fera comme au desus mais avec les avis laissé par le client */
                 ?>
                     <div id="logementPropo">
                     <h2 id="titreLogement">Avis Postés</h2>

@@ -469,7 +469,6 @@ if (isset($_GET["confirmligne"])) {
                                                 <?php 
                                                 
                                                     if (!isset($_SESSION["userType"])) { 
-                                                    echo "test";
                                                     ?>
 
                                                         <button class="bouton_res_log" onclick=modalRedirect()>
@@ -868,14 +867,14 @@ if (isset($_GET["confirmligne"])) {
                         </div>
 
 
-                        <div class="blanc2">
+<!--                         <div class="blanc2">
 
 
 
                             Emplacement des commentaires dans le futur
 
 
-                        </div>
+                        </div> -->
     </main>
 
 

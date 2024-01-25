@@ -1,4 +1,7 @@
 <?php
+
+/* Démarage de la session, et suppression du logement si le propriétaire décide d'annuler la création de logement */
+
   session_start();
     include('connect_params.php');
     $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
@@ -38,7 +41,7 @@
 
 </head>
 <body>
-        <?php
+        <?php  /* Gros ajout à la bdd afin de crée un logement avec toutes les informations que le propriétaire à remplit */
 
             $info=$_POST;
 
@@ -293,13 +296,14 @@
                         
 
 
+            /* Gestion des photos */
 
             if (isset($_FILES["photo"])) {
                 $img_dir = "asset/img/logements";
         
 
                 
-                foreach ($_FILES["photo"]["error"] as $key => $error) {
+                foreach ($_FILES["photo"]["error"] as $key => $error) { /* ajout des photos à la bdd et déléchargement des photos */
                     if ($error == 0) {
                         $tmpName = $_FILES["photo"]["tmp_name"][$key];
 
@@ -398,7 +402,7 @@
 
 
 
-                $i=0;
+                $i=0; /* Réccupération des informations de la bdd pour afficher le logements */
                 foreach($dbh->query("SELECT * from test.photo_logement NATURAL JOIN test.image WHERE id_logement =$id_log", PDO::FETCH_ASSOC) as $row) {
 
                     $photo3[$i]=$row;
@@ -506,6 +510,11 @@
 
         </div>
     </header>    <!-- Fin de la classe header (celle de martin) -->
+
+
+
+            <!-- La suite de cette page est exactement la même mis à part les bouton de confirmation de création qui ramène à l'acceuil et l'annulation de la création qui supprime le logement -->
+    
 
 
         <div class="barre_fin_header_log"> <!-- Début de la barre de séparation du header -->
@@ -638,9 +647,35 @@
 
             <div class="barre_info_log">
 
+                <?php //récupération du nom de l'image (avec extension)
+                                    
+                if ($images = opendir('asset/img/profils/')) {
+                    while (false !== ($fichier = readdir($images))) {
+                        $imgInfos = pathinfo($fichier);
+                        if ($imgInfos['filename'] == $proprio["id_compte"]) {
+                            $pathName = 'asset/img/profils/' . $fichier;
+                            break;
+                        }
+
+                    }
+                    if ($pathName == '') {
+                        $pathName = 'asset/img/profils/default.jpg';
+                    }
+                    closedir($images);
+                }
+                ?>
+
                 <div class="proprio_log">
                     
-                    <a class="img_proprio_log" id="user" href=""><div class="photo_profil_proprio_log"></div>
+                    <a class="img_proprio_log" href="pageProprio.php?id=<?php echo ($proprio["id_compte"]); ?>&id_log=<?php echo ($id) ?>">
+                        <div class="photo_profil_proprio_log">
+                            <style>
+                                .photo_profil_proprio_log {
+                                    background: url("<?php echo($pathName) ?>") center/cover;
+                                }
+                            </style>
+                        </div>
+
                     </a>
                     <div class="info_proprio_log">
                         <div class="block_info_log">

@@ -125,20 +125,27 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-    // flèche de changement de langue & affichage de la popup
     const Btn_Filtre = document.getElementById("Btn_Filtre");
     const Liste_Filtre = document.getElementById("Liste_Filtre");
 
     if (Btn_Filtre) {
-        //si clic sur la flèche
         Btn_Filtre.addEventListener("click", function (event) {
-            //inverse l'état de la popup
+            // Inverse l'état de la popup
             if (Liste_Filtre.style.display === "none" || Liste_Filtre.style.display === "") {
                 Liste_Filtre.style.display = "block";
             } else {
                 Liste_Filtre.style.display = "none";
             }
             event.stopPropagation();
+        });
+
+        // Ajoute un écouteur d'événements au document pour fermer la popup si on clique en dehors
+        document.addEventListener("click", function (event) {
+            const isClickInside = Liste_Filtre.contains(event.target) || Btn_Filtre.contains(event.target);
+
+            if (!isClickInside) {
+                Liste_Filtre.style.display = "none";
+            }
         });
     }
 });
