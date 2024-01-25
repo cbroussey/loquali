@@ -695,22 +695,22 @@ VALUES
     (150.00, 'Facture pour la réservation 3', 60.00, 3);
 
 
-CREATE FUNCTION getDayData(id_log INT, day DATE)
+CREATE FUNCTION test.getDayData(id_log INT, day DATE)
   RETURNS TABLE(disponibilite BOOLEAN, prix_ht numeric(10,2), delai_annul integer, pourcentage_retenu numeric(10,2), raison_indisponible VARCHAR(255), jour DATE, id_logement INT) AS $$
 BEGIN
-  PERFORM * FROM planning WHERE planning.jour = day AND planning.id_logement = id_log;
+  PERFORM * FROM test.planning WHERE planning.jour = day AND planning.id_logement = id_log;
   IF NOT FOUND THEN
-    RETURN QUERY SELECT l.disponible_defaut, l.prix_base_ht, l.delai_annul_defaut, l.pourcentage_retenu_defaut, ''::varchar, day, id_log FROM logement l
+    RETURN QUERY SELECT l.disponible_defaut, l.prix_base_ht, l.delai_annul_defaut, l.pourcentage_retenu_defaut, ''::varchar, day, id_log FROM test.logement l
       WHERE l.id_logement = id_log;
   ELSE
-    RETURN QUERY SELECT p.disponibilite, p.prix_ht, l.delai_annul_defaut, l.pourcentage_retenu_defaut, p.raison_indisponible, day, id_log FROM planning p NATURAL JOIN logement l WHERE p.jour = day AND p.id_logement = id_log;
+    RETURN QUERY SELECT p.disponibilite, p.prix_ht, l.delai_annul_defaut, l.pourcentage_retenu_defaut, p.raison_indisponible, day, id_log FROM test.planning p NATURAL JOIN test.logement l WHERE p.jour = day AND p.id_logement = id_log;
   END IF;
 END;
 $$ LANGUAGE plpgsql;
 
 -- nbJours = nombre de jours passés dans le logement (jours non-entiers inclus, donc date de début et de fin inclus)
 -- Nombre de nuits = nbJours-1
-CREATE FUNCTION getPlageData(id_log INT, date_debut DATE, date_fin DATE)
+CREATE FUNCTION test.getPlageData(id_log INT, date_debut DATE, date_fin DATE)
   RETURNS TABLE(disponibilite BOOLEAN, prix_ht numeric(10,2), delai_annul integer, pourcentage_retenu numeric(10,2), raison_indisponible VARCHAR(255), id_logement INT, nbJours INT) AS $$
 DECLARE
   disponibilite BOOLEAN = TRUE;
