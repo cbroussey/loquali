@@ -418,7 +418,7 @@
 
                             <div class="row">
                                 <div class="label_t">Total</div>
-                                <div class="value"><?php echo($prixVoyagettc + 29.96)?>€</div>
+                                <div class="value"></div>
                               
                             </div>
                         </div>
