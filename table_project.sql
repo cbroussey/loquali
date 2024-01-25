@@ -785,5 +785,6 @@ INSERT INTO api(cle, privilegie, accesCalendrier, miseIndispo, id_compte) VALUES
     ('0123456789ABCDEF', TRUE, TRUE, TRUE, 1),
     ('AAABBBCCCDDDEEE', FALSE, FALSE, FALSE, 11),
     ('MANGETESGRANDSMORTS', FALSE, TRUE, TRUE, 10),
+    ('logementavecplanning.exe', FALSE, TRUE, TRUE, 4),
     ('azeazeazeazeazeaze', FALSE, TRUE, FALSE, 8);
 
