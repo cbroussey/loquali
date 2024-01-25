@@ -235,6 +235,26 @@ session_start();
               <label for="service4" class="btnChoix2">repas</label>
             </div>
 
+            <div class="jailesbarres">
+              <div class="jailabarre"></div>
+              <h3>Prix Maximum</h3>
+              <div class="jailabarre"></div>
+            </div>
+            
+            <div class="b4r3">
+              <input class="quantity" id="PrixMax" name="PrixMax" type="number" pattern="(29|35|22|56)[0-9]{3}" <?php if ($_POST["PrixMax"]!="") { ?> value="<?php echo($_POST["PrixMax"]) ?>"  <?php   } ?>>
+            </div>
+
+            <div class="jailesbarres">
+              <div class="jailabarre"></div>
+              <h3>Prix Minimum</h3>
+              <div class="jailabarre"></div>
+            </div>
+            
+            <div class="b4r3">
+              <input class="quantity" id="PrixMin" name="PrixMin" type="number" pattern="(29|35|22|56)[0-9]{3}" <?php if ($_POST["PrixMin"]!="") { ?> value="<?php echo($_POST["PrixMin"]) ?>"  <?php   } ?>>
+            </div>
+
 <br>
     
             <div id="boutonsEnBaaaaas">
@@ -315,6 +335,7 @@ try {
 
     if (isset($_POST["test"])){
       $filtre="";
+      $join="";
       foreach ($_POST as $ind => $val){
 
 
@@ -327,21 +348,32 @@ try {
         }
 
         if ($ind == "amena"){
+          $join.=" NATURAL JOIN test.amenagement ";
           foreach($val as $amena){
             $filtre.="AND nom_amenagement='$amena' ";
           }
         }
 
         if ($ind == "service"){
+          $join.=" NATURAL JOIN test.service ";
           foreach($val as $service){
             $filtre.="AND nom_service='$service' ";
           }  
         }
 
         if ($ind == "instal"){
+          $join.=" NATURAL JOIN test.installation ";          
           foreach($val as $instal){
             $filtre.="AND nom_installation='$instal' ";
           }  
+        }
+
+        if ($ind == "PrixMin" && $val !="") {
+          $filtre.="AND prix_ttc>=$val ";
+        }
+
+        if ($ind == "PrixMax" && $val !="") {
+          $filtre.="AND prix_ttc<=$val ";
         }
 
       }
@@ -357,9 +389,7 @@ try {
         FROM (
             SELECT *
             FROM test.logement
-            NATURAL JOIN test.amenagement
-            NATURAL JOIN test.installation
-            NATURAL JOIN test.service
+            $join
             WHERE en_ligne = true
             $filtre
         ) AS subquery ORDER BY $tri;", PDO::FETCH_ASSOC) as $row) {
@@ -462,9 +492,7 @@ try {
         FROM (
             SELECT *
             FROM test.logement
-            NATURAL JOIN test.amenagement
-            NATURAL JOIN test.installation
-            NATURAL JOIN test.service
+            $join
             WHERE en_ligne = true
             $filtre
         ) AS subquery ORDER BY $tri DESC;", PDO::FETCH_ASSOC);

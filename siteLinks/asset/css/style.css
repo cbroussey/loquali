@@ -486,6 +486,26 @@ pre {
   font-weight: 300;
 }
 
+#PrixMax.quantity {
+  border-radius: 50px;
+  background: #FFF;
+  width: 124px;
+  height: 44px;
+  font-size: 20px;
+  text-align: center;
+
+}
+
+#PrixMin.quantity {
+  border-radius: 50px;
+  background: #FFF;
+  width: 124px;
+  height: 44px;
+  font-size: 20px;
+  text-align: center;
+
+}
+
 .jailabarre {
   margin-top: 20px;
   background-color: white;
