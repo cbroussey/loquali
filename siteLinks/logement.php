@@ -481,13 +481,19 @@ if (isset($_GET["confirmligne"])) {
                                                 }  else {
                                                     
                                                     ?>
-                                                        <form action="<?php if ($_SESSION['userType']) { ?>demandeDevis.php<?php } else { ?>connexion.php<?php } ?>" method="POST">
+
+                                                    <?php if ($_SESSION['userType']=="client") { ?>
+                                                        <form action="demandeDevis.php" method="POST">
+                                                    <?php } ?>
                                                             <button class="bouton_res_log">
                                                                 <input name="id" value="<?php echo ($id); ?>" hidden readonly>
                                                                 <input name="qui" value="" hidden readonly>
                                                                 <h1>Réserver</h1>
                                                             </button>
-                                                        </form>
+                                                            <?php if ($_SESSION['userType']=="client") { ?>
+                                                        </form>                                                                
+                                                    <?php } ?>
+
 
                                                     <?php
                                                     }
