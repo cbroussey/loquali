@@ -277,7 +277,10 @@ create table facture(
 create table api(
     cle varchar(32),
     privilegie boolean,
-    id_compte integer
+    accesCalendrier boolean,
+    miseIndispo boolean,
+    id_compte integer,
+    constraint api_pk primary key(cle)
 );
 
 
@@ -776,3 +779,10 @@ VALUES
     --(TRUE, 100.00, '2023-11-1', 2), -- Donc si la plage du dessus faisait du 1-30, sa date de début a été modifiée pour ne pas la superposer avec celle ci qui fait du 1-14
     (TRUE, 70.00, '2023-12-01', 3),
     (FALSE, 0, '2023-11-20', 1);
+
+INSERT INTO api(cle, privilegie, accesCalendrier, miseIndispo, id_compte) VALUES
+    ('0123456789ABCDEF', TRUE, TRUE TRUE 1),
+    ('AAABBBCCCDDDEEE', FALSE, FALSE, FALSE, 11),
+    ('MANGETESGRANDSMORTS', FALSE, TRUE TRUE, 10),
+    ('azeazeazeazeazeaze', FALSE, TRUE, FALSE, 8);
+
