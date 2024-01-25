@@ -315,6 +315,7 @@ try {
 
     if (isset($_POST["test"])){
       $filtre="";
+      $join="";
       foreach ($_POST as $ind => $val){
 
 
@@ -327,18 +328,21 @@ try {
         }
 
         if ($ind == "amena"){
+          $join.=" NATURAL JOIN test.amenagement ";
           foreach($val as $amena){
             $filtre.="AND nom_amenagement='$amena' ";
           }
         }
 
         if ($ind == "service"){
+          $join.=" NATURAL JOIN test.service ";
           foreach($val as $service){
             $filtre.="AND nom_service='$service' ";
           }  
         }
 
         if ($ind == "instal"){
+          $join.=" NATURAL JOIN test.installation ";          
           foreach($val as $instal){
             $filtre.="AND nom_installation='$instal' ";
           }  
@@ -357,9 +361,7 @@ try {
         FROM (
             SELECT *
             FROM test.logement
-            NATURAL JOIN test.amenagement
-            NATURAL JOIN test.installation
-            NATURAL JOIN test.service
+            $join
             WHERE en_ligne = true
             $filtre
         ) AS subquery ORDER BY $tri;", PDO::FETCH_ASSOC) as $row) {
@@ -462,9 +464,7 @@ try {
         FROM (
             SELECT *
             FROM test.logement
-            NATURAL JOIN test.amenagement
-            NATURAL JOIN test.installation
-            NATURAL JOIN test.service
+            $join
             WHERE en_ligne = true
             $filtre
         ) AS subquery ORDER BY $tri DESC;", PDO::FETCH_ASSOC);
