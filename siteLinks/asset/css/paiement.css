@@ -82,18 +82,18 @@ p > .h3 {
     border-radius: 10px;
 }*/
 
-#infosPaiement > input, #infosPaiement > div > input, #paymentType {
+#infosPaiement > input, #infosPaiement > div > input, #paymentType, #paymentSaved {
     background-color: #F5F5F5;
     padding: 16px 0px 16px 30px;
     border: var(--textColor) 1px solid;
     border-radius: 10px;
 }
 
-#paymentType, #paymentType > input {
+#paymentType, #paymentType > input, #paymentSaved, #paymentSaved > input {
     cursor: pointer;
 }
 
-#paymentType > input {
+#paymentType > input, #paymentSaved > input {
     flex-grow: 1;
 }
 
@@ -116,7 +116,7 @@ p > .h3 {
     border-radius: 10px;
 }
 
-#infosPaiement > #paymentType {
+#paymentType, #paymentSaved {
     display: flex;
     padding: .5em 30px;
     justify-content: space-between;
@@ -124,12 +124,12 @@ p > .h3 {
     gap: 1em;
 }
 
-#paymentType > a {
+#paymentType > a, #paymentSaved > a {
     align-self: center;
     flex-grow: 1;
 }
 
-#paymentType > img {
+#paymentType > img, #paymentSaved > img {
     max-height: 2em;
     align-self: center;
 }
@@ -144,7 +144,12 @@ p > .h3 {
     font-size: 16px;
     border: none;
     border-radius: 0;
-    max-width: 50%;
+    max-width: 150px;
+}
+
+input.inputImg[value="Nouveau mode de paiement"] {
+    padding-left: 0em !important;
+    max-width: 100% !important;
 }
 
 #country > input {
@@ -162,7 +167,7 @@ td > input.inputImg {
     flex-grow: 1;
 }
 
-#paymentType > img:last-of-type {
+#paymentType > img:last-of-type, #paymentSaved > img:last-of-type {
     max-height: 1em;
 }
 

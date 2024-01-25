@@ -59,6 +59,8 @@ create table logement(
     surface integer,
     disponible_defaut boolean,
     prix_base_ht numeric(10,2),
+    duree_resa_min int, -- en jours
+    delai_resa_min int, -- en jours, délai entre la date de réservation et l'arrivée du client
     delai_annul_defaut int, -- en jours
     pourcentage_retenu_defaut numeric(10,2),
     libelle_logement varchar(255),
@@ -90,6 +92,7 @@ create table photo_logement(
 );
 
 create table cb(
+    type_cb VARCHAR(50),
     numero_carte varchar(16) check (numero_carte ~ '^[0-9]{16}$'),
     date_validite date,
     cryptogramme VARCHAR(3),
@@ -227,7 +230,8 @@ create table planning(
     jour date,
     raison_indisponible varchar(255),
     id_logement integer,
-    constraint plage_fk_logement foreign key (id_logement) references logement(id_logement)ON DELETE CASCADE
+    constraint planning_pk primary key (jour, id_logement),
+    constraint planning_fk_logement foreign key (id_logement) references logement(id_logement) ON DELETE CASCADE
 );
 
 
@@ -292,6 +296,18 @@ VALUES
     ('png'),
     ('jpg'),
     ('jpg'),
+    ('jpg'),
+    ('jpg'),
+    ('jpg'),
+    ('jpg'),
+    ('jpg'),
+    ('jpg'),
+    ('jpg'),
+    ('jpg'),
+    ('jpg'),
+    ('jpg'),
+    ('jpg'),
+    ('jpg'),
     ('jpg');
 
 INSERT INTO compte (mdp, nom_affichage, date_creation, derniere_operation, adresse, adresse_mail, nom, prenom, photo_de_profil, piece_identite) 
@@ -301,7 +317,13 @@ VALUES
     ('$2y$10$a6BMR7TZjF5lbLJ090lmD.CPSxGtr97UWpukjp0ODOnL0DuGbjR22', 'Utilisateur 3', '2023-10-21','2023-10-25 09:37','456 Rue Client 2', 'client2@email.com', 'Petit', 'Damien',3,3),--mot de passe: JaimeLesClients
     ('$2y$10$qj/hnUrUwJp2Q2A1d8Kzouj3UzOkpqLrulVxR/B3PTC1gfURNOpaO', 'Utilisateur 4', '2023-10-22','2023-11-09 08:57','789 Rue vanier', 'proprio3@email.com', 'Moreau', 'François',4,4),--mot de passe: loquali
     ('$2y$10$aYirKQ2NApXf/bOxtCxh6OIaImA48sgggNY8ewJ2h4BLlK/H4J4qa', 'Utilisateur 5', '2023-10-23','2023-10-29 11:18','123 Rue de la lys','proprio1@email.com','Roux', 'Robert',5,5),--mot de passe: azerty35
-    ('$2y$10$AcFOc8L3wBPwoqWvXgI23OVMVAiXK98WRnJtqXSK2LD.XBphuymLq', 'Utilisateur 6', '2023-10-24','2023-11-01 10:28','456 Rue du jardin','proprio2@email.com', 'Simon', 'Richard',6,6);--mot de passe: quoicoubeh
+    ('$2y$10$AcFOc8L3wBPwoqWvXgI23OVMVAiXK98WRnJtqXSK2LD.XBphuymLq', 'Utilisateur 6', '2023-10-24','2023-11-01 10:28','456 Rue du jardin','proprio2@email.com', 'Simon', 'Richard',6,6),--mot de passe: quoicoubeh
+    ('$2y$10$uE1GonUNJAx7z/VRcYJYlOEOppQ3VHfRQRoThbOuWEk2ePLzXYX7a', 'Utilisateur 7', '2023-10-25', now(),'123 Rue Proprio 1', 'proprio4@email.com', 'Lefevre', 'Sophie',7,7),--mot de passe: proprio7
+    ('$2y$10$W7TbqVYbSi1FTas/yU3ScubRnNu1NT1Rdo1.K2.b9V9tiijDIm7Iy', 'Utilisateur 8', '2023-10-26','2023-11-05 14:23','456 Rue Proprio 2', 'proprio5@email.com', 'Lemoine', 'Pierre',8,8),--mot de passe: proprietaire8
+    ('$2y$10$G3Pz4Kp59ZB10eN2S.9OyuYd2xSXMIt/ZbrC9Zs6qA0eq3z18.uQK', 'Utilisateur 9', '2023-10-27','2023-11-10 09:12','789 Rue Proprio 3', 'proprio6@email.com', 'Leclerc', 'Marie',9,9),--mot de passe: proprietaire9
+    ('$2y$10$HdjimLSQHMe6JqUK3oFlP.jCVmpmmTnsjM6X4NDLU3EDvFEEty.Fa', 'Utilisateur 10', '2023-10-28','2023-11-15 08:37','123 Rue Proprio 4', 'proprio7@email.com', 'Dufour', 'Luc',10,10),--mot de passe: proprietaire10
+    ('$2y$10$VTL5qYN1Ynqk.Q1LbY.JD.xxygyaj.kphl1S0OD6c1QTDiB0.7w/e', 'Utilisateur 11', '2023-10-29','2023-11-20 11:45','456 Rue Proprio 5', 'proprio8@email.com', 'Michel', 'Claire',11,11);--mot de passe: proprietaire11
+
 
 
 INSERT INTO client (id_compte, note_client)
@@ -315,15 +337,44 @@ INSERT INTO proprietaire (id_compte, description, note_proprio, civilite, RIB)
 VALUES
     (4, 'Description Propriétaire 1', 4.9,'M','FR7611315000011234567890134'),
     (5, 'Description Propriétaire 2', 4.2,'Mme','FR7611315000011234567890138'),
-    (6, 'Description Propriétaire 3', 4.7,'F','FR7630002032531234567890168');
+    (6, 'Description Propriétaire 3', 4.7,'F','FR7630002032531234567890168'),
+    (7, 'Description Propriétaire 4', 4.9,'M','FR7611315000011234567890134'),
+    (8, 'Description Propriétaire 5', 4.2,'Mme','FR7611315000011234567890138'),
+    (9, 'Description Propriétaire 6', 4.7,'F','FR7630002032531234567890168'),
+    (10, 'Description Propriétaire 7', 4.9,'M','FR7611315000011234567890134'),
+    (11, 'Description Propriétaire 8', 4.2,'Mme','FR7611315000011234567890138');
 
 
-INSERT INTO logement (prix_TTC, note_logement, en_ligne, type_logement, nature_logement, localisation, descriptif, surface, disponible_defaut, prix_base_HT, delai_annul_defaut, pourcentage_retenu_defaut, libelle_logement, accroche, nb_pers_max, nb_chambre, nb_salle_de_bain, code_postal,departement, info_arrivee, info_depart, reglement_interieur, id_compte, id_image_couv)
+INSERT INTO logement (prix_TTC, note_logement, en_ligne, type_logement, nature_logement, localisation, descriptif, surface, disponible_defaut, prix_base_HT, duree_resa_min, delai_resa_min, delai_annul_defaut, pourcentage_retenu_defaut, libelle_logement, accroche, nb_pers_max, nb_chambre, nb_salle_de_bain, code_postal,departement, info_arrivee, info_depart, reglement_interieur, id_compte, id_image_couv)
 VALUES
-    (150.00, 4.3, TRUE,'T4', 'Appartement', 'Brest', 'Bel appartement au coeur de Brest', 80, TRUE, 120.00, 5, 10.00, 'Appartement Brestois', 'Vue magnifique sur le port', 4, 2, 1, 29200 , 'Finistère', 'boite à clé près de la porte d''entrée', 'veuillez ranger les clés dans la boite à clés', 'veuillez ne pas abimer le mobilier', 4, 1),
-    (200.00, 4.5, TRUE, 'T3', 'Maison', 'Quimper', 'Charmante maison à Quimper', 120, TRUE, 180.00, 6, 15.00, 'Maison Quimpéroise', 'Proche de la plage', 6, 3, 2, 29000, 'Finistère', 'boite à clé près de la porte d''entrée', 'veuillez ranger les clés dans la boite à clés', 'veuillez ne pas abimer le mobilier', 5, 5),
-    (100.00, 4.0, TRUE, 'T1', 'Studio', 'Morlaix', 'Studio ensoleillé à Morlaix', 45, TRUE, 80.00, 3, 8.00, 'Studio Lumineux', 'Jardin privé et piscine', 2, 3, 1, 29600, 'Finistère', 'boite à clé près de la porte d''entrée', 'veuillez ranger les clés dans la boite à clés', 'veuillez ne pas abimer le mobilier', 6, 8);
+    (150.00, 4.3, TRUE,'T4', 'Appartement', 'Brest', 'Bel appartement au coeur de Brest', 80, TRUE, 120.00, 2, 3, 5, 10.00, 'Appartement Brestois', 'Vue magnifique sur le port', 4, 2, 1, 29200 , 'Finistère', 'boite à clé près de la porte d''entrée', 'veuillez ranger les clés dans la boite à clés', 'veuillez ne pas abimer le mobilier', 4, 1),
+    (200.00, 4.5, TRUE, 'T3', 'Maison', 'Quimper', 'Charmante maison à Quimper', 120, TRUE, 180.00, 4, 5, 6, 15.00, 'Maison Quimpéroise', 'Proche de la plage', 6, 3, 2, 29000, 'Finistère', 'boite à clé près de la porte d''entrée', 'veuillez ranger les clés dans la boite à clés', 'veuillez ne pas abimer le mobilier', 5, 5),
+    (100.00, 4.0, TRUE, 'T1', 'Studio', 'Morlaix', 'Studio ensoleillé à Morlaix', 45, TRUE, 80.00, 2, 4, 3, 8.00, 'Studio Lumineux', 'Jardin privé et piscine', 2, 3, 1, 29600, 'Finistère', 'boite à clé près de la porte d''entrée', 'veuillez ranger les clés dans la boite à clés', 'veuillez ne pas abimer le mobilier', 6, 8),
     
+    (120.00, 4.0, TRUE,'T2', 'Appartement', 'Lorient', 'Appartement lumineux à Lorient', 60, TRUE, 90.00, 3, 2, 7, 12.00, 'Appartement Lorientais', 'Idéalement situé en centre-ville', 2, 1, 1, 56100 , 'Morbihan', 'boite à clé près de la porte d''entrée', 'veuillez ranger les clés dans la boite à clés', 'veuillez ne pas abimer le mobilier', 7, 7),
+    (180.00, 4.5, TRUE, 'T4', 'Maison', 'Vannes', 'Belle maison avec jardin à Vannes', 150, TRUE, 160.00, 4, 5, 6, 15.00, 'Maison Vannetaise', 'Proche de la mer', 8, 4, 3, 56000, 'Morbihan', 'boite à clé près de la porte d''entrée', 'veuillez ranger les clés dans la boite à clés', 'veuillez ne pas abimer le mobilier', 8, 8),
+    (100.00, 3.8, TRUE, 'T1', 'Studio', 'Quimper', 'Studio confortable à Quimper', 40, TRUE, 80.00, 2, 1, 5, 10.00, 'Studio Quimpérois', 'Idéal pour un séjour touristique', 1, 0, 1, 29000, 'Finistère', 'boite à clé près de la porte d''entrée', 'veuillez ranger les clés dans la boite à clés', 'veuillez ne pas abimer le mobilier', 9, 9),
+    (150.00, 4.2, TRUE, 'T3', 'Appartement', 'Brest', 'Appartement moderne à Brest', 80, TRUE, 120.00, 3, 3, 7, 12.00, 'Appartement Brestois', 'Proximité des transports en commun', 6, 3, 2, 29200, 'Finistère', 'boite à clé près de la porte d''entrée', 'veuillez ranger les clés dans la boite à clés', 'veuillez ne pas abimer le mobilier', 10, 10),
+    (130.00, 4.0, TRUE, 'T2', 'Appartement', 'Saint-Malo', 'Appartement avec vue sur la mer', 70, TRUE, 100.00, 2, 2, 6, 10.00, 'Appartement Malouin', 'Vue imprenable sur la plage', 4, 2, 1, 35400, 'Ille-et-Vilaine', 'boite à clé près de la porte d''entrée', 'veuillez ranger les clés dans la boite à clés', 'veuillez ne pas abimer le mobilier', 11, 11),
+    
+    (120.00, 4.0, TRUE,'T2', 'Appartement', 'Saint-Brieuc', 'Appartement chaleureux au bord de Saint-Brieuc', 60, TRUE, 90.00, 3, 2, 7, 12.00, 'Appartement Briochins', 'Idéalement situé en centre-ville', 2, 1, 1, 56100 , 'Morbihan', 'boite à clé près de la porte d''entrée', 'veuillez ranger les clés dans la boite à clés', 'veuillez ne pas abimer le mobilier', 7, 7),
+    (180.00, 4.5, TRUE, 'T4', 'Maison', 'Vannes', 'Maison avec vue incontournable sur Vannes', 150, TRUE, 160.00, 4, 5, 6, 15.00, 'Maison Vannetaise', 'Proche de la mer', 8, 4, 3, 56000, 'Morbihan', 'boite à clé près de la porte d''entrée', 'veuillez ranger les clés dans la boite à clés', 'veuillez ne pas abimer le mobilier', 8, 8),
+    (100.00, 3.8, TRUE, 'T1', 'Studio', 'Rennes', 'Studio confort au centre de la capitale bretonne', 40, TRUE, 80.00, 2, 1, 5, 10.00, 'Studio Quimpérois', 'Idéal pour un séjour touristique', 1, 0, 1, 29000, 'Finistère', 'boite à clé près de la porte d''entrée', 'veuillez ranger les clés dans la boite à clés', 'veuillez ne pas abimer le mobilier', 9, 9),
+    (150.00, 4.2, TRUE, 'T3', 'Appartement', 'Brest', 'Appartement moderne à Brest', 80, TRUE, 120.00, 3, 3, 7, 12.00, 'Appartement Brestois', 'Proximité des transports en commun', 6, 3, 2, 29200, 'Finistère', 'boite à clé près de la porte d''entrée', 'veuillez ranger les clés dans la boite à clés', 'veuillez ne pas abimer le mobilier', 10, 8),
+    (130.00, 4.0, TRUE, 'T2', 'Appartement', 'Saint-Malo', 'Appartement avec vue sur la mer', 70, TRUE, 100.00, 2, 2, 6, 10.00, 'Appartement Malouin', 'Vue imprenable sur la plage', 4, 2, 1, 35400, 'Ille-et-Vilaine', 'boite à clé près de la porte d''entrée', 'veuillez ranger les clés dans la boite à clés', 'veuillez ne pas abimer le mobilier', 11, 11),
+    
+    (120.00, 4.0, TRUE,'T2', 'Appartement', 'Lorient', 'Appartement lumineux à Lorient', 60, TRUE, 90.00, 3, 2, 7, 12.00, 'Appartement Lorientais', 'Idéalement situé en centre-ville', 2, 1, 1, 56100 , 'Morbihan', 'boite à clé près de la porte d''entrée', 'veuillez ranger les clés dans la boite à clés', 'veuillez ne pas abimer le mobilier', 4, 7),
+    (180.00, 4.5, TRUE, 'T4', 'Maison', 'Vannes', 'Belle maison avec jardin à Vannes', 150, TRUE, 160.00, 4, 5, 6, 15.00, 'Maison Vannetaise', 'Proche de la mer', 8, 4, 3, 56000, 'Morbihan', 'boite à clé près de la porte d''entrée', 'veuillez ranger les clés dans la boite à clés', 'veuillez ne pas abimer le mobilier', 8, 8),
+    (100.00, 3.8, TRUE, 'T1', 'Studio', 'Quimper', 'Studio confortable à Quimper', 40, TRUE, 80.00, 2, 1, 5, 10.00, 'Studio Quimpérois', 'Idéal pour un séjour touristique', 1, 0, 1, 29000, 'Finistère', 'boite à clé près de la porte d''entrée', 'veuillez ranger les clés dans la boite à clés', 'veuillez ne pas abimer le mobilier', 11, 9),
+    (150.00, 4.2, TRUE, 'T3', 'Appartement', 'Brest', 'Appartement moderne à Brest', 80, TRUE, 120.00, 3, 3, 7, 12.00, 'Appartement Brestois', 'Proximité des transports en commun', 6, 3, 2, 29200, 'Finistère', 'boite à clé près de la porte d''entrée', 'veuillez ranger les clés dans la boite à clés', 'veuillez ne pas abimer le mobilier', 5, 10),
+    (130.00, 4.0, TRUE, 'T2', 'Appartement', 'Saint-Malo', 'Appartement avec vue sur la mer', 70, TRUE, 100.00, 2, 2, 6, 10.00, 'Appartement Malouin', 'Vue imprenable sur la plage', 4, 2, 1, 35400, 'Ille-et-Vilaine', 'boite à clé près de la porte d''entrée', 'veuillez ranger les clés dans la boite à clés', 'veuillez ne pas abimer le mobilier', 11, 11),
+    
+    (120.00, 4.0, TRUE,'T2', 'Appartement', 'Lorient', 'Appartement lumineux à Lorient', 60, TRUE, 90.00, 3, 2, 7, 12.00, 'Appartement Lorientais', 'Idéalement situé en centre-ville', 2, 1, 1, 56100 , 'Morbihan', 'boite à clé près de la porte d''entrée', 'veuillez ranger les clés dans la boite à clés', 'veuillez ne pas abimer le mobilier', 9, 7),
+    (180.00, 4.5, TRUE, 'T4', 'Maison', 'Vannes', 'Belle maison avec jardin à Vannes', 150, TRUE, 160.00, 4, 5, 6, 15.00, 'Maison Vannetaise', 'Proche de la mer', 8, 4, 3, 56000, 'Morbihan', 'boite à clé près de la porte d''entrée', 'veuillez ranger les clés dans la boite à clés', 'veuillez ne pas abimer le mobilier', 7, 8),
+    (100.00, 3.8, TRUE, 'T1', 'Studio', 'Quimper', 'Studio confortable à Quimper', 40, TRUE, 80.00, 2, 1, 5, 10.00, 'Studio Quimpérois', 'Idéal pour un séjour touristique', 1, 0, 1, 29000, 'Finistère', 'boite à clé près de la porte d''entrée', 'veuillez ranger les clés dans la boite à clés', 'veuillez ne pas abimer le mobilier', 8, 9),
+    (150.00, 4.2, TRUE, 'T3', 'Appartement', 'Brest', 'Appartement moderne à Brest', 80, TRUE, 120.00, 3, 3, 7, 12.00, 'Appartement Brestois', 'Proximité des transports en commun', 6, 3, 2, 29200, 'Finistère', 'boite à clé près de la porte d''entrée', 'veuillez ranger les clés dans la boite à clés', 'veuillez ne pas abimer le mobilier', 10, 7),
+    (130.00, 4.0, TRUE, 'T2', 'Appartement', 'Saint-Malo', 'Appartement avec vue sur la mer', 70, TRUE, 100.00, 2, 2, 6, 10.00, 'Appartement Malouin', 'Vue imprenable sur la plage', 4, 2, 1, 35400, 'Ille-et-Vilaine', 'boite à clé près de la porte d''entrée', 'veuillez ranger les clés dans la boite à clés', 'veuillez ne pas abimer le mobilier', 11, 10);
+
 
 INSERT INTO photo_logement(id_logement, id_image)
 VALUES
@@ -331,16 +382,47 @@ VALUES
     (1,4),
     (1,2),
     (1,3),
-    (2,7),
-    (2,5),
-    (2,6),
-    (3,8);
+    (2,10),
+    (2,9),
+    (2,11),
+    (3,5),
+    (3,1),
+    (4,7),
+    (5,13),
+    (6,17),
+    (6,7),
+    (6,14),
+    (7,6),
+    (8,16),
+    (8,10),
+    (9,11),
+    (10,12),
+    (10,15),
+    (11,12),
+    (11,5),
+    (12,6),
+    (13,15),
+    (14,1),
+    (14,4),
+    (15,2),
+    (16,3),
+    (17,7),
+    (17,5),
+    (18,6),
+    (18,16),
+    (19,4),
+    (19,2),
+    (20,3),
+    (21,7),
+    (22,5),
+    (22,6),
+    (23,6);
 
-INSERT INTO CB (numero_carte, date_validite, cryptogramme, id_compte)
+INSERT INTO CB (type_cb, numero_carte, date_validite, cryptogramme, id_compte)
 VALUES
-    ('1234567890123456', '2025-12-31', 123, 1),
-    ('9876543210987654', '2024-10-31', 456, 2),
-    ('1111222233334444', '2026-06-30', 789, 3);
+    ('MasterCard', '1234567890123456', '2025-12-31', 123, 1),
+    ('MasterCard', '9876543210987654', '2024-10-31', 456, 2),
+    ('MasterCard', '1111222233334444', '2026-06-30', 789, 3);
 
 INSERT INTO langue (nom_langue, id_compte)
 VALUES
@@ -365,20 +447,86 @@ VALUES
     ('0234567894', 'Téléphone principal', 1),
     ('0876543210', 'Téléphone secondaire', 2),
     ('0111222333', 'Numéro de contact', 3),
-    ('0606060606', 'Numéro de contact', 4);
+    ('0606060606', 'Numéro de contact', 4),
+    ('0615784585', 'Numéro de contact', 5),
+    ('0687815987', 'Numéro de contact', 6),
+    ('0645872598', 'Téléphone principal', 7),
+    ('0784523698', 'Téléphone secondaire', 8),
+    ('0687421597', 'Numéro de contact', 9),
+    ('0743690215', 'Numéro de contact', 10),
+    ('0648579842', 'Numéro de contact', 11);
     
 INSERT INTO amenagement (nom_amenagement, id_logement)
 VALUES
     ('jardin', 1),
     ('parking', 1),
     ('balcon', 2),
-    ('terrasse', 3);
+    ('terrasse', 3),
+    ('jardin', 4),
+    ('parking', 4),
+    ('balcon', 5),
+    ('terrasse', 8),
+    ('jardin', 8),
+    ('parking', 8),
+    ('balcon', 9),
+    ('terrasse', 9),
+    ('jardin', 11),
+    ('parking', 12),
+    ('balcon', 12),
+    ('terrasse', 13),
+    ('jardin', 14),
+    ('parking', 15),
+    ('balcon', 15),
+    ('terrasse', 16),
+    ('jardin', 16),
+    ('parking', 16),
+    ('balcon', 16),
+    ('terrasse', 17),
+    ('jardin', 17),
+    ('parking', 18),
+    ('balcon', 19),
+    ('terrasse', 19),
+    ('jardin', 21),
+    ('parking', 21),
+    ('balcon', 22),
+    ('terrasse', 23),
+    ('jardin', 23);
     
 INSERT INTO equipement (nom_equipement, id_logement)
 VALUES
     ('Wi-Fi', 1),
     ('Climatisation', 2),
-    ('TV satellite', 3);
+    ('TV satellite', 3),
+    ('Wi-Fi', 4),
+    ('Climatisation', 4),
+    ('TV satellite', 5),
+    ('Wi-Fi', 6),
+    ('Climatisation', 6),
+    ('TV satellite', 8),
+    ('Wi-Fi', 8),
+    ('Climatisation', 9),
+    ('TV satellite', 10),
+    ('Wi-Fi', 11),
+    ('Climatisation', 12),
+    ('TV satellite', 13),
+    ('Wi-Fi', 13),
+    ('Climatisation', 14),
+    ('TV satellite', 14),
+    ('Wi-Fi', 14),
+    ('Climatisation', 15),
+    ('TV satellite', 15),
+    ('Wi-Fi', 16),
+    ('Climatisation', 17),
+    ('TV satellite', 18),
+    ('Wi-Fi', 18),
+    ('Climatisation', 19),
+    ('TV satellite', 20),
+    ('Wi-Fi', 20),
+    ('Climatisation', 21),
+    ('TV satellite', 21),
+    ('Wi-Fi', 22),
+    ('Climatisation', 22),
+    ('TV satellite', 22);
     
 INSERT INTO service (nom_service, id_logement)
 VALUES
@@ -386,7 +534,42 @@ VALUES
     ('repas', 1),
     ('taxi', 1),
     ('ménage', 2),
-    ('Petit-déjeuner inclus', 3);
+    ('Petit-déjeuner inclus', 3),
+    ('linge', 4),
+    ('repas', 5),
+    ('taxi', 5),
+    ('ménage', 6),
+    ('Petit-déjeuner inclus', 6),
+    ('linge', 7),
+    ('repas', 8),
+    ('taxi', 8),
+    ('ménage', 9),
+    ('Petit-déjeuner inclus', 10),
+    ('linge', 10),
+    ('repas', 11),
+    ('taxi', 12),
+    ('ménage', 12),
+    ('Petit-déjeuner inclus', 13),
+    ('linge', 13),
+    ('repas', 14),
+    ('taxi', 14),
+    ('ménage', 15),
+    ('Petit-déjeuner inclus', 15),
+    ('linge', 16),
+    ('repas', 17),
+    ('taxi', 17),
+    ('ménage', 18),
+    ('Petit-déjeuner inclus', 19),
+    ('linge', 19),
+    ('repas', 20),
+    ('taxi', 20),
+    ('ménage', 21),
+    ('Petit-déjeuner inclus', 21),
+    ('linge', 22),
+    ('repas', 22),
+    ('taxi', 23),
+    ('ménage', 23),
+    ('Petit-déjeuner inclus', 23);
     
 INSERT INTO installation (nom_installation, id_logement)
 VALUES
@@ -399,7 +582,16 @@ INSERT INTO reservation (debut_reservation, fin_reservation, nb_personne, id_com
 VALUES
     ('2023-11-01', '2023-11-07', 2, 1, 1),
     ('2023-11-15', '2023-11-20', 4, 2, 2),
-    ('2023-12-10', '2023-12-15', 1, 3, 3);
+    ('2023-12-10', '2023-12-15', 1, 3, 3),
+    ('2023-11-20', '2023-11-07', 2, 2, 20),
+    ('2023-11-12', '2023-11-20', 4, 2, 15),
+    ('2023-12-07', '2023-12-15', 1, 3, 13),
+    ('2023-12-01', '2023-11-07', 2, 1, 7),
+    ('2024-01-04', '2023-11-20', 4, 3, 21),
+    ('2024-01-10', '2023-12-15', 1, 3, 19),
+    ('2024-01-08', '2023-11-07', 2, 1, 16),
+    ('2024-01-13', '2023-11-20', 4, 2, 12),
+    ('2024-01-20', '2023-12-15', 1, 3, 13);
     
 INSERT INTO avis (id_avis, id_parent, titre, contenu, date_avis, id_logement)
 VALUES
@@ -466,21 +658,54 @@ VALUES
     (350.00, 'Facture pour la réservation 2', 200.00, 2),
     (150.00, 'Facture pour la réservation 3', 60.00, 3);
 
-/*
-CREATE FUNCTION getCurrentData(id_log INT)
-  RETURNS TABLE(disponibilite BOOLEAN, prix_ht numeric(10,2), delai_annul integer, pourcentage_retenu numeric(10,2), date_debut date, date_fin date, id_logement integer) AS $$
+
+CREATE FUNCTION getDayData(id_log INT, day DATE)
+  RETURNS TABLE(disponibilite BOOLEAN, prix_ht numeric(10,2), delai_annul integer, pourcentage_retenu numeric(10,2), raison_indisponible VARCHAR(255), jour DATE, id_logement INT) AS $$
 BEGIN
-  PERFORM * FROM plage WHERE plage.date_debut <= CURRENT_DATE AND plage.date_fin >= CURRENT_DATE AND plage.id_logement = id_log;
+  PERFORM * FROM planning WHERE planning.jour = day AND planning.id_logement = id_log;
   IF NOT FOUND THEN
-    RETURN QUERY SELECT disponible_defaut, prix_base_ht, delai_annul_defaut, pourcentage_retenu_defaut, DATE('1970-01-01'), DATE('1970-01-01'), logement.id_logement FROM logement
-      WHERE logement.id_logement = id_log;
+    RETURN QUERY SELECT l.disponible_defaut, l.prix_base_ht, l.delai_annul_defaut, l.pourcentage_retenu_defaut, ''::varchar, day, id_log FROM logement l
+      WHERE l.id_logement = id_log;
   ELSE
-    RETURN QUERY SELECT * FROM plage WHERE plage.date_debut <= CURRENT_DATE AND plage.date_fin >= CURRENT_DATE AND plage.id_logement = id_log;
+    RETURN QUERY SELECT p.disponibilite, p.prix_ht, l.delai_annul_defaut, l.pourcentage_retenu_defaut, p.raison_indisponible, day, id_log FROM planning p NATURAL JOIN logement l WHERE p.jour = day AND p.id_logement = id_log;
   END IF;
 END;
 $$ LANGUAGE plpgsql;
 
+-- nbJours = nombre de jours passés dans le logement (jours non-entiers inclus, donc date de début et de fin inclus)
+-- Nombre de nuits = nbJours-1
+CREATE FUNCTION getPlageData(id_log INT, date_debut DATE, date_fin DATE)
+  RETURNS TABLE(disponibilite BOOLEAN, prix_ht numeric(10,2), delai_annul integer, pourcentage_retenu numeric(10,2), raison_indisponible VARCHAR(255), id_logement INT, nbJours INT) AS $$
+DECLARE
+  disponibilite BOOLEAN = TRUE;
+  prix_ht NUMERIC(10,2) = 0;
+  delai_annul INTEGER;
+  pourcentage_retenu NUMERIC(10,2);
+  raison_indisponible VARCHAR(255);
+  jour DATE = date_debut;
+  ajout RECORD;
+BEGIN
+  IF date_debut > date_fin THEN
+    RAISE EXCEPTION 'La date de début de la plage doit être inférieure à sa date de fin';
+  END IF;
+  SELECT l.delai_annul_defaut FROM test.logement l WHERE l.id_logement = id_log INTO delai_annul;
+  SELECT l.pourcentage_retenu_defaut FROM test.logement l WHERE l.id_logement = id_log INTO pourcentage_retenu;
+  WHILE jour <= date_fin LOOP
+    SELECT * FROM getDayData(id_log, jour) INTO ajout;
+    disponibilite = (disponibilite AND ajout.disponibilite);
+    IF NOT disponibilite THEN
+      raison_indisponible = ajout.raison_indisponible;
+      RETURN QUERY SELECT disponibilite, prix_ht, delai_annul, pourcentage_retenu, raison_indisponible, id_log, DATE_PART('day', jour::timestamp - date_debut::timestamp)::int AS nbJours;
+      RETURN;
+    END IF;
+    prix_ht = prix_ht + ajout.prix_ht;
+    jour = jour + 1;
+  END LOOP;
+  RETURN QUERY SELECT disponibilite, prix_ht, delai_annul, pourcentage_retenu, raison_indisponible, id_log, DATE_PART('day', jour::timestamp - date_debut::timestamp)::int AS nbJours;
+END;
+$$ LANGUAGE plpgsql;
 
+/*
 CREATE FUNCTION ajoutPlage() RETURNS TRIGGER AS $$
 BEGIN
   DELETE FROM plage WHERE plage.date_debut >= NEW.date_debut AND plage.date_fin <= NEW.date_fin AND plage.id_logement = NEW.id_logement;
@@ -516,5 +741,6 @@ INSERT INTO planning(disponibilite, prix_hT, jour, id_logement)
 VALUES
     (TRUE, 80.00, '2023-11-18', 1),
     (TRUE, 120.00, '2023-11-1', 2), -- Les plages ne doivent pas se superposer entre elles pour un même logement, les nouvelles plages remplacent certaines parties des anciennes
-    (TRUE, 100.00, '2023-11-1', 2), -- Donc si la plage du dessus faisait du 1-30, sa date de début a été modifiée pour ne pas la superposer avec celle ci qui fait du 1-14
-    (TRUE, 70.00, '2023-12-01', 3);
+    --(TRUE, 100.00, '2023-11-1', 2), -- Donc si la plage du dessus faisait du 1-30, sa date de début a été modifiée pour ne pas la superposer avec celle ci qui fait du 1-14
+    (TRUE, 70.00, '2023-12-01', 3),
+    (FALSE, 0, '2023-11-20', 1);

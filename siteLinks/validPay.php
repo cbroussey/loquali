@@ -18,9 +18,10 @@
             $res = $res->fetchAll();
             if (count($res) == 0 && isset($_POST["savePay"])) {
                 $res = $db->prepare(
-                    'INSERT INTO test.cb VALUES (:num, DATE(:validite), :crypto, :compte);'
+                    'INSERT INTO test.cb VALUES (:typecb, :num, DATE(:validite), :crypto, :compte);'
                 );
                 $validiteFDP = "01/" . $_POST['expiry'];
+                $res->bindParam('typecb', $_POST['paymentType'], PDO::PARAM_STR);
                 $res->bindParam('num', $_POST['cardNumber'], PDO::PARAM_STR);
                 $res->bindParam('validite', $validiteFDP, PDO::PARAM_STR);
                 $res->bindParam('crypto', $_POST['crypto'], PDO::PARAM_STR);
@@ -28,9 +29,10 @@
                 $res->execute();
             } else if (count($res) > 0 && $_POST["savePay"] === "off") {
                 $res = $db->prepare(
-                    'DELETE FROM test.cb WHERE numero_carte = :num'
+                    'DELETE FROM test.cb WHERE numero_carte = :num AND id_compte = :compte;'
                 );
                 $res->bindParam('num', $_POST['cardNumber'], PDO::PARAM_STR);
+                $res->bindParam('compte', $_SESSION['userId'], PDO::PARAM_INT);
                 $res->execute();
             }
             header("Location: index.php");

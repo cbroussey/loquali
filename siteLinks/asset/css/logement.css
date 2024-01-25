@@ -1,0 +1,10 @@
+.contact_proprio_log{
+    width: 200%;
+    display: flex;
+    align-items: center;
+}
+
+#myModal4{
+    display: none;
+    color: black;
+}

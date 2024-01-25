@@ -116,6 +116,8 @@
     <title>Reservation</title>
     <link rel="stylesheet" href="asset/css/headerAndFooter.css">
     <link rel="stylesheet" href="asset/css/style.css">
+    <link rel="stylesheet" href="asset/css/newLogement.css">
+
 </head>
 
 <body id="newLog">
@@ -167,6 +169,7 @@
     </div>
     <div></div>
   </header>
+
 
 
         <div class="barre_fin_header_log"> <!-- Début de la barre de séparation du header -->
@@ -243,7 +246,7 @@
 
                             <div class="ligne_select_info_log_ajlog">
 
-                                <input type="text" id="adresse" name="adresse" class="select_info_log_ajlog" required placeholder="Adresse postale" />
+                                <input type="text" id="adresse" name="adresse" class="select_info_log_ajlog" required placeholder="Adresse postale" value="<?php echo $info["adresse"]; ?>"/>
 
                                 <input type="text" id="code_postal" name="code_postal" class="select_info_log_ajlog" required placeholder="Code postale" value="<?php echo($info["code_postal"]); ?>"/>
 
@@ -251,7 +254,7 @@
 
                             <div class="ligne_select_info_log_ajlog">
 
-                                <input type="text" id="appartement" name="appartement" class="select_info_log_ajlog" required placeholder="Appartement, résidence.."/>
+                                <input type="text" id="appartement" name="appartement" class="select_info_log_ajlog" required placeholder="Appartement, résidence.." value="<?php echo $info["complement_adresse"] ?>"/>
 
                             </div>
 

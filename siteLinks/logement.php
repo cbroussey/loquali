@@ -1,27 +1,88 @@
 <?php
-  session_start();
-    include('connect_params.php');
-    $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
-    $query = $dbh->prepare("SELECT * FROM test.logement WHERE id_logement = :idlog");
-    $query->bindParam('idlog', $_GET["confirmDelete"], PDO::PARAM_INT);
-    $query->execute();
-    $query = $query->fetchAll();
-    if (isset($_GET["confirmDelete"]) ) {
-        try {
-            $query = "DELETE FROM test.logement WHERE test.logement.id_logement = :id_log";
-            $stmt = $dbh->prepare($query);
-            $stmt->bindParam('id_log', $_GET["confirmDelete"], PDO::PARAM_INT);
-            $stmt->execute();
-            
-        } catch (PDOException $e) {
-            print "Erreur !: " . $e->getMessage() . "<br/>";
-            die();
-        }
-        
-        header("Location: index.php");
+
+/* Lancement de la Session */
+session_start();
+
+/* Suppression du logement si demandé */
+include('connect_params.php');
+$dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
+$query = $dbh->prepare("SELECT * FROM test.logement WHERE id_logement = :idlog");
+$query->bindParam('idlog', $_GET["confirmDelete"], PDO::PARAM_INT);
+$query->execute();
+$query = $query->fetchAll();
+if (isset($_GET["confirmDelete"])) {
+    try {
+        $query = "DELETE FROM test.logement WHERE test.logement.id_logement = :id_log";
+        $stmt = $dbh->prepare($query);
+        $stmt->bindParam('id_log', $_GET["confirmDelete"], PDO::PARAM_INT);
+        $stmt->execute();
+    } catch (PDOException $e) {
+        print "Erreur !: " . $e->getMessage() . "<br/>";
+        die();
     }
 
-?> 
+    header("Location: index.php");
+}
+
+
+/* Passage du logement en mode en ligne ou hors ligne si demandé*/
+
+$dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
+$query = $dbh->prepare("SELECT * FROM test.logement WHERE id_logement = :idlog");
+$query->bindParam('idlog', $_GET["confirmHorsligne"], PDO::PARAM_INT);
+$query->execute();
+$query = $query->fetchAll();
+if (isset($_GET["confirmHorsligne"])) {
+    try {
+        $updateQuery = "UPDATE test.logement SET en_ligne = FALSE WHERE id_logement = :id_log";
+        $updateStmt = $dbh->prepare($updateQuery);
+        $updateStmt->bindParam('id_log', $_GET["confirmHorsligne"], PDO::PARAM_INT);
+        $updateStmt->execute();
+
+        $_GET["id"] = $_GET["confirmHorsligne"];
+        unset($_GET["confirmHorsligne"]);
+
+        $selectQuery = "SELECT * FROM test.logement WHERE id_logement = :idlog";
+        $selectStmt = $dbh->prepare($selectQuery);
+        $selectStmt->bindParam('idlog', $_GET["id"], PDO::PARAM_INT);
+        $selectStmt->execute();
+        $result = $selectStmt->fetchAll();
+
+    } catch (PDOException $e) {
+        print "Erreur !: " . $e->getMessage() . "<br/>";
+        die();
+    }
+}
+
+$dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
+$query = $dbh->prepare("SELECT * FROM test.logement WHERE id_logement = :idlog");
+$query->bindParam('idlog', $_GET["confirmligne"], PDO::PARAM_INT);
+$query->execute();
+$query = $query->fetchAll();
+if (isset($_GET["confirmligne"])) {
+    try {
+        $updateQuery = "UPDATE test.logement SET en_ligne = TRUE WHERE id_logement = :id_log";
+        $updateStmt = $dbh->prepare($updateQuery);
+        $updateStmt->bindParam('id_log', $_GET["confirmligne"], PDO::PARAM_INT);
+        $updateStmt->execute();
+
+        $_GET["id"] = $_GET["confirmligne"];
+        unset($_GET["confirmligne"]);
+
+        $selectQuery = "SELECT * FROM test.logement WHERE id_logement = :idlog";
+        $selectStmt = $dbh->prepare($selectQuery);
+        $selectStmt->bindParam('idlog', $_GET["id"], PDO::PARAM_INT);
+        $selectStmt->execute();
+        $result = $selectStmt->fetchAll();
+
+    } catch (PDOException $e) {
+        print "Erreur !: " . $e->getMessage() . "<br/>";
+        die();
+    }
+}
+/* Début de la page en html css */
+?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -33,12 +94,33 @@
     <title>Document</title>
     <link rel="stylesheet" href="asset/css/headerAndFooter.css">
     <link rel="stylesheet" href="asset/css/style.css">
+    <link rel="stylesheet" href="asset/css/datePicker.css">
+    <link rel="stylesheet" href="asset/css/logement.css">
     <script src="asset/js/boutonSupprimer.js"></script>
+    <script src="asset/js/ligneHorsligne.js"></script>
+    <script src="asset/js/redirectionConnect.js"></script>
+
 </head>
 
 <body id="bg">
+    <script>
+        /* Scripte pour avoir la disponibilité au niveau des dates */
+        const dateIndispo = [
+            <?php 
+            $id = $_GET["id"];
+            foreach ($dbh->query("SELECT * from test.planning WHERE id_logement =$id", PDO::FETCH_ASSOC) as $row) {
+                $time = strval($row["jour"]);
+                if (!$row["disponibilite"]){
+                    echo "new Date(\"$time\"),";
+                }
+            }
+        ?>
+        ];
+        console.log(dateIndispo);
+    </script>
 
-    <?php
+    <?php  /* Récupération de toutes les informations concernant le logement via la BDD */
+
     include('connect_params.php');
     try {
         $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
@@ -77,12 +159,8 @@
         die();
     }
 
-    /* Manque : code postal, nombre de pièce, nombre de lit, information d'arriver et de départ, règlement intérieur
-        
-        à supprimé : accroche
-        */
 
-
+    /* Récupération de tout les inforamtion sur le propriétaire */
 
     try {
         $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
@@ -108,8 +186,8 @@
     <div class="sticky_header_log">
 
 
-
-        <header>
+        <!-- Header -->
+        <header> 
             <a href="index.php">
                 <img src="asset/img/logo.png" alt="logo">
             </a>
@@ -133,8 +211,8 @@
                 if (isset($_SESSION['userId'])) {
                 ?>
                     <h4><a href="">Messagerie</a></h4>
-                    <h4><a href="">Mes réservations</a></h4>
-                    <h4><a href="compteAccueil.php">Mon compte</a></h4>
+                    <h4><a href="compte.php?res=res"><?php if ($_SESSION["userType"]=="proprietaire"){echo("Mes logements");} else {echo("Mes réservations");} ?></a></h4>
+                    <h4><a href="compte.php">Mon compte</a></h4>
                 <?php } else {
                 ?>
                     <h4><a href="connexion.php">Se connecter</a></h4>
@@ -196,7 +274,9 @@
                 </div>
             </div>
 
-            <div class="images_log"> <!-- Partie pour montrer les images (il manque le carrousel) -->
+            <div class="images_log"> <!-- Partie pour montrer les images -->
+
+                <!-- Cette partie est un peut dificile à comprendre mais elle crée une image puis si il y a plus de 1 image, un div "images_log_droite" est crée puis dedans une ligne nommé "lig_images_log_droite" est crée. Cette ligne contien 2 image et si la première ligne est saturé (si il y a plus de 3 image), une deuxième ligne est crée. Si la deuxième ligne est aussi saturé, les autres images sont ignoré afin de concervé un aspect visuel beau  -->
 
                 <?php
                 $i = 0;
@@ -276,15 +356,33 @@
 
                         <div class="sticky_res_and_map_log"> <!-- Div pour rendre faire glisser la map et la case réservation -->
 
-                            <div class="barre_info_log">
+                            <div class="barre_info_log"> <!-- Partie avec les informations du logement -->
 
-                                <div class="proprio_log">
+                                <div class="proprio_log"> <!-- Partie avec les information de propriétaire -->
 
+                                <?php //récupération du nom de l'image (avec extension)
+                                
+                                if ($images = opendir('asset/img/profils/')) {
+                                    while (false !== ($fichier = readdir($images))) {
+                                        $imgInfos = pathinfo($fichier);
+                                        if ($imgInfos['filename'] == $proprio["id_compte"]) {
+                                            $pathName = 'asset/img/profils/' . $fichier;
+                                            break;
+                                        }
+
+                                    }
+                                    if ($pathName == '') {
+                                        $pathName = 'asset/img/profils/default.jpg';
+                                    }
+                                    closedir($images);
+                                }
+                                ?>
+                                    <!-- Photo de profil du proprio (en backgroud pour avoir l'effet du cercle) -->
                                     <a class="img_proprio_log" href="pageProprio.php?id=<?php echo ($proprio["id_compte"]); ?>&id_log=<?php echo ($id) ?>">
                                         <div class="photo_profil_proprio_log">
                                             <style>
                                                 .photo_profil_proprio_log {
-                                                    background: url("asset/img/profils/<?php echo $proprio['id_compte'] ?>.png") center/cover;
+                                                    background: url("<?php echo($pathName) ?>") center/cover;
                                                 }
                                             </style>
                                         </div>
@@ -298,7 +396,8 @@
                                             <h2><?php echo ($proprio["nom_affichage"]) ?></h2>
                                         </div>
                                         <div class="block_info_log">
-                                            <?php
+<!--        Parti supprimer sue la note du logement                                   
+                                        <?php
                                             if ($proprio["note_proprio"] != "") {
                                             ?>
                                                 <div class="note_proprio_log">
@@ -311,10 +410,10 @@
                                                 </div>
                                             <?php
                                             }
-                                            ?>
+                                            ?> -->
                                         </div>
                                         <div class="block_info_log">
-                                            <div class="contact_proprio_log">
+                                            <div class="contact_proprio_log"> <!-- Numéro de téléphone de propriétaire -->
                                                 <svg width="21" height="23" viewBox="0 0 21 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M20.4011 16.0445L15.8073 14.0242C15.611 13.9384 15.3929 13.9203 15.1858 13.9727C14.9787 14.0251 14.7937 14.1451 14.6588 14.3146L12.6244 16.8653C9.4316 15.3205 6.86212 12.6838 5.35673 9.40742L7.84232 7.31978C8.0079 7.18159 8.12509 6.9918 8.17615 6.77916C8.22722 6.56651 8.20938 6.34258 8.12534 6.14127L6.15655 1.42723C6.06431 1.21022 5.90117 1.03304 5.69526 0.92624C5.48935 0.819439 5.25358 0.789713 5.0286 0.842188L0.762904 1.85234C0.545997 1.90374 0.352472 2.02906 0.213915 2.20786C0.0753574 2.38666 -4.99665e-05 2.60837 2.48403e-08 2.83681C2.48403e-08 13.6328 8.5273 22.3664 19.0316 22.3664C19.2543 22.3665 19.4704 22.2892 19.6447 22.147C19.8191 22.0048 19.9413 21.8062 19.9914 21.5835L20.9758 17.2062C21.0266 16.9742 20.997 16.7313 20.8921 16.5193C20.7872 16.3073 20.6136 16.1394 20.4011 16.0445Z" fill="#F5F5F5" />
                                                 </svg>
@@ -331,7 +430,7 @@
                                 ?>
 
 
-                                <div class="details_log">
+                                <div class="details_log"> <!-- Détails du logements : nombre de chambre, de pièces etc ... -->
                                     <div class="txt_details_log">
                                         <p class="txt_info_log"> <?php echo ($info["nature_logement"]); ?> · <?php echo ($test[1]); ?> pièces · <?php echo ($info["nb_pers_max"]); ?> personnes</p>
                                         <p class="txt_info_log"><?php echo ($info["nb_chambre"]); ?> chambres · <?php echo ($lit["nombre_lit"]); ?> lits · <?php echo ($info["nb_salle_de_bain"]); ?> salle de bain</p>
@@ -348,35 +447,82 @@
                                 <div class="res_and_map_log">
 
 
-                                    <!--
+                                    
                     <div class="dispo_date_log">
                         <p><span> Disponibilité de réservation : </span></p>
-                        <a class="bouton_date_log" href="">
+                        <button class="bouton_date_log" onclick="toggleDP('DPDisplay', this)" style="margin: 1em;"> 
                             <svg width="26" height="31" viewBox="0 0 26 31" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M8.43766 17.2659H6.15721C5.78094 17.2659 5.47307 16.9499 5.47307 16.5638V14.2237C5.47307 13.8376 5.78094 13.5217 6.15721 13.5217H8.43766C8.81393 13.5217 9.12179 13.8376 9.12179 14.2237V16.5638C9.12179 16.9499 8.81393 17.2659 8.43766 17.2659ZM14.5949 16.5638V14.2237C14.5949 13.8376 14.287 13.5217 13.9107 13.5217H11.6303C11.254 13.5217 10.9461 13.8376 10.9461 14.2237V16.5638C10.9461 16.9499 11.254 17.2659 11.6303 17.2659H13.9107C14.287 17.2659 14.5949 16.9499 14.5949 16.5638ZM20.0679 16.5638V14.2237C20.0679 13.8376 19.7601 13.5217 19.3838 13.5217H17.1034C16.7271 13.5217 16.4192 13.8376 16.4192 14.2237V16.5638C16.4192 16.9499 16.7271 17.2659 17.1034 17.2659H19.3838C19.7601 17.2659 20.0679 16.9499 20.0679 16.5638ZM14.5949 22.1801V19.84C14.5949 19.4539 14.287 19.1379 13.9107 19.1379H11.6303C11.254 19.1379 10.9461 19.4539 10.9461 19.84V22.1801C10.9461 22.5662 11.254 22.8821 11.6303 22.8821H13.9107C14.287 22.8821 14.5949 22.5662 14.5949 22.1801ZM9.12179 22.1801V19.84C9.12179 19.4539 8.81393 19.1379 8.43766 19.1379H6.15721C5.78094 19.1379 5.47307 19.4539 5.47307 19.84V22.1801C5.47307 22.5662 5.78094 22.8821 6.15721 22.8821H8.43766C8.81393 22.8821 9.12179 22.5662 9.12179 22.1801ZM20.0679 22.1801V19.84C20.0679 19.4539 19.7601 19.1379 19.3838 19.1379H17.1034C16.7271 19.1379 16.4192 19.4539 16.4192 19.84V22.1801C16.4192 22.5662 16.7271 22.8821 17.1034 22.8821H19.3838C19.7601 22.8821 20.0679 22.5662 20.0679 22.1801ZM25.541 6.96933V27.5624C25.541 29.1127 24.3153 30.3705 22.8045 30.3705H2.73654C1.22574 30.3705 0 29.1127 0 27.5624V6.96933C0 5.419 1.22574 4.16118 2.73654 4.16118H5.47307V1.11903C5.47307 0.732908 5.78094 0.416992 6.15721 0.416992H8.43766C8.81393 0.416992 9.12179 0.732908 9.12179 1.11903V4.16118H16.4192V1.11903C16.4192 0.732908 16.7271 0.416992 17.1034 0.416992H19.3838C19.7601 0.416992 20.0679 0.732908 20.0679 1.11903V4.16118H22.8045C24.3153 4.16118 25.541 5.419 25.541 6.96933ZM22.8045 27.2114V9.77747H2.73654V27.2114C2.73654 27.4044 2.89047 27.5624 3.0786 27.5624H22.4624C22.6505 27.5624 22.8045 27.4044 22.8045 27.2114Z"
-                                    fill="#F5F5F5" />
-                            </svg>
-                            <p>Dates</p>
-                        </a>
+                                <path d="M8.43766 17.2659H6.15721C5.78094 17.2659 5.47307 16.9499 5.47307 16.5638V14.2237C5.47307 13.8376 5.78094 13.5217 6.15721 13.5217H8.43766C8.81393 13.5217 9.12179 13.8376 9.12179 14.2237V16.5638C9.12179 16.9499 8.81393 17.2659 8.43766 17.2659ZM14.5949 16.5638V14.2237C14.5949 13.8376 14.287 13.5217 13.9107 13.5217H11.6303C11.254 13.5217 10.9461 13.8376 10.9461 14.2237V16.5638C10.9461 16.9499 11.254 17.2659 11.6303 17.2659H13.9107C14.287 17.2659 14.5949 16.9499 14.5949 16.5638ZM20.0679 16.5638V14.2237C20.0679 13.8376 19.7601 13.5217 19.3838 13.5217H17.1034C16.7271 13.5217 16.4192 13.8376 16.4192 14.2237V16.5638C16.4192 16.9499 16.7271 17.2659 17.1034 17.2659H19.3838C19.7601 17.2659 20.0679 16.9499 20.0679 16.5638ZM14.5949 22.1801V19.84C14.5949 19.4539 14.287 19.1379 13.9107 19.1379H11.6303C11.254 19.1379 10.9461 19.4539 10.9461 19.84V22.1801C10.9461 22.5662 11.254 22.8821 11.6303 22.8821H13.9107C14.287 22.8821 14.5949 22.5662 14.5949 22.1801ZM9.12179 22.1801V19.84C9.12179 19.4539 8.81393 19.1379 8.43766 19.1379H6.15721C5.78094 19.1379 5.47307 19.4539 5.47307 19.84V22.1801C5.47307 22.5662 5.78094 22.8821 6.15721 22.8821H8.43766C8.81393 22.8821 9.12179 22.5662 9.12179 22.1801ZM20.0679 22.1801V19.84C20.0679 19.4539 19.7601 19.1379 19.3838 19.1379H17.1034C16.7271 19.1379 16.4192 19.4539 16.4192 19.84V22.1801C16.4192 22.5662 16.7271 22.8821 17.1034 22.8821H19.3838C19.7601 22.8821 20.0679 22.5662 20.0679 22.1801ZM25.541 6.96933V27.5624C25.541 29.1127 24.3153 30.3705 22.8045 30.3705H2.73654C1.22574 30.3705 0 29.1127 0 27.5624V6.96933C0 5.419 1.22574 4.16118 2.73654 4.16118H5.47307V1.11903C5.47307 0.732908 5.78094 0.416992 6.15721 0.416992H8.43766C8.81393 0.416992 9.12179 0.732908 9.12179 1.11903V4.16118H16.4192V1.11903C16.4192 0.732908 16.7271 0.416992 17.1034 0.416992H19.3838C19.7601 0.416992 20.0679 0.732908 20.0679 1.11903V4.16118H22.8045C24.3153 4.16118 25.541 5.419 25.541 6.96933ZM22.8045 27.2114V9.77747H2.73654V27.2114C2.73654 27.4044 2.89047 27.5624 3.0786 27.5624H22.4624C22.6505 27.5624 22.8045 27.4044 22.8045 27.2114Z" fill="#F5F5F5" />
+                            </svg> &#160;Dates</button>
+                        <div id="DPDisplay" class="dateDisplay"></div>
                     </div>
 
-    -->
-                                    <div class="rerservation_log">
+    
+                                    <div class="rerservation_log"> <!-- Partie avec tout les détails de la réservation : aménagement, prix etc ... -->
                                         <div class="haut_rerservation_log">
                                             <h2><span><?php echo ($info["prix_ttc"]); ?> €</span> / nuit</h2>
                                             <?php // (isset($_SESSION['userType']) ? 'demandeDevis.php' : 'connexion.php') 
                                             ?>
-                                        <form action="<?php if ($_SESSION['userType']){?>demandeDevis.php<?php } else {?>connexion.php<?php } ?>" method="POST">
-                                            <input name="id" value="<?php echo($id);?>" hidden readonly>
-                                            <input name = "qui" value="" hidden readonly> 
-                                            <button class="bouton_res_log">
-                                                <h1>Réserver</h1>
-                                            </button>
-                                        </form>
+                                                <input name="id" value="<?php echo ($id); ?>" hidden readonly>
+                                                <input name="qui" value="" hidden readonly>
+
+                                                <?php 
+                                                
+                                                    if (!isset($_SESSION["userType"])) { 
+                                                    echo "test";
+                                                    ?>
+
+                                                        <button class="bouton_res_log" onclick=modalRedirect()>
+                                                            <h1>Réserver</h1>
+                                                        </button>
+
+
+                                                    <?php 
+                                                }  else {
+                                                    
+                                                    ?>
+
+                                                    <?php if ($_SESSION['userType']=="client") { ?>
+                                                        <form action="demandeDevis.php" method="POST">
+                                                    <?php } ?>
+                                                            <button class="bouton_res_log">
+                                                                <input name="id" value="<?php echo ($id); ?>" hidden readonly>
+                                                                <input name="qui" value="" hidden readonly>
+                                                                <h1>Réserver</h1>
+                                                            </button>
+                                                            <?php if ($_SESSION['userType']=="client") { ?>
+                                                        </form>                                                                
+                                                    <?php } ?>
+
+
+                                                    <?php
+                                                    }
+                                                ?>
+                                                
+
+
+                                                <div class="confirmation-modal" id="myModal4">
+                                                    <div class="modal-content">
+                                                        <span class="close" onclick="refusRedirect()">&times;</span>
+                                                        <p>Vous n'êtes pas authentifier, voulez vous crée un compte ?</p>
+                                                        <input type="hidden" name="confirmDelete" value="<?php echo $id ?>">
+                                                        <form action="<?php if ($_SESSION['userType']) { ?>demandeDevis.php<?php } else { ?>connexion.php<?php } ?>" method="POST">
+                                                            <button class="confirm-button">Confirmer</button>
+                                                        </form>
+
+
+                                                    </div>
+                                                </div>
+
+
+
+
                                         </div>
                                         <div class="bare_res"></div>
-                                        <div class="detail_reservation_log">
+                                        <div class="detail_reservation_log"> <!-- Début de la gestion de l'affichage des aménagement, installations et services -->
+
+
+                                            <!-- Cette partie peut être difficile à comprendre mais c'est juste une façon d'avoir un div global, regroupant toute les ligne qui contienne par exemple tout les aménagements. Chaque ligne possède 2 aménagements et si il y en a 3, ça crée 2 ligne et la 2ème n'en possède qu'un seul. -->
 
                                             <?php
                                             $t = 0;
@@ -384,6 +530,7 @@
                                                 $t = 1;
                                             }
 
+                                            /* Gestion de l'affichages des amménagements */
 
                                             if ($amena != null) {
 
@@ -448,12 +595,13 @@
                                                 $t = 1;
                                             }
 
+                                            /* Gestion de l'affichange des installations */
 
                                             if ($t == 1) {
 
                                             ?>
 
-                                                <p>Installations : </p>
+                                                <p>Installations : </p> 
                                                 <div class="installations_log">
 
                                                     <?php
@@ -512,6 +660,8 @@
                                                 $t = 1;
                                             }
 
+                                            /* Gestion de l'affichage des services */
+
                                             if ($t == 1) {
 
                                             ?>
@@ -568,12 +718,12 @@
 
                                         </div>
 
-                                    </div>
+                                    </div> <!-- Fin de la partie sur l'ajout des aménagements, services et installation -->
 
 
                                 </div>
 
-                                <div class="dutexte">
+                                <div class="dutexte"> <!-- Ajout de tout les paragraphes liés au logements style description, règles etc ... -->
                                     <div class="description_log">
                                         <h4>Description :</h4>
                                         <p class="txt_descr_log"><?php echo ($info["descriptif"]); ?></p>
@@ -618,38 +768,85 @@
 
 
 
-  
-                        <?php
+
+                        <?php /* Affichage des bouton modifier, supprimer et mettre hors ligne / en ligne si connecter comme propriétaire */
+                        
                         if ($_SESSION['userId'] == $info["id_compte"]) {
-
+                            $statue;
+                            if ($info["en_ligne"]){
+                                $statue = "Mettre Hors Ligne";
+                            }else{
+                                $statue = "Mettre en Ligne";
+                            }
                         ?>
-        <div class="barre_btn_ajustement_log">
-            <div class="button_valider2">
-                <a href="modifLogement.php?id=<?php echo($id) ?>"><h2>Modifier</h2></a>
-            </div>
+                            <div class="barre_btn_ajustement_log">
+                                <div class="button_valider2">
+                                    <a href="modifLogement.php?id=<?php echo ($id) ?>">
+                                        <h2>Modifier</h2>
+                                    </a>
+                                </div>
 
-            <div class="button_refuser2">
-                <button  onclick="openModal()">supprimer</button>
-            </div>
-        </div>
+                                <div class="button_refuser2">
+                                    <button onclick="openModal()">supprimer</button>
+                                </div>
+                                <div class="button_ligne2">
+                                    <button onclick="ouvreModal()"><?php echo $statue ?></button>
+                                </div>
+                            </div>
 
 
 
-        <div class="confirmation-modal" id="myModal">
-            <div class="modal-content">
-                <span class="close" onclick="closeModal()">&times;</span>
-                <p>Êtes-vous sûr de vouloir supprimer ce logement ?</p>
-                <form method="GET" action="logement.php">
-                    <input type="hidden" name="confirmDelete" value="<?php echo $id ?>">
+                            <div class="confirmation-modal" id="myModal">
+                                <div class="modal-content">
+                                    <span class="close" onclick="closeModal()">&times;</span>
+                                    <p>Êtes-vous sûr de vouloir supprimer ce logement ?</p>
+                                    <form method="GET" action="logement.php">
+                                        <input type="hidden" name="confirmDelete" value="<?php echo $id ?>">
 
-                    <button class="confirm-button">Confirmer</button>
-                </form>
-            
-            </div>
-        </div>
-        <?php
-           }
-        ?>  
+                                        <button class="confirm-button">Confirmer</button>
+                                    </form>
+
+                                </div>
+                            </div>
+                            <?php
+                            if ($info["en_ligne"]){
+                            ?>
+                            <div class="confirmation-modal" id="myModal2">
+                                <div class="modal-content">
+                                    <span class="close" onclick="fermeModal()">&times;</span>
+                                    <p>Êtes-vous sûr de vouloir mettre ce logement hors ligne ?</p>
+                                    <form method="GET" action="logement.php">
+                                        <input type="hidden" name="confirmHorsligne" value="<?php echo $id ?>">
+
+                                        <button class="confirm-button">Confirmer</button>
+                                    </form>
+
+                                </div>
+                            </div>
+                            <?php
+                            }
+                            ?>
+                            <?php
+                            if (!$info["en_ligne"]){
+                            ?>
+                            <div class="confirmation-modal" id="myModal2">
+                                <div class="modal-content">
+                                    <span class="close" onclick="fermeModal()">&times;</span>
+                                    <p>Êtes-vous sûr de vouloir mettre ce logement en ligne ?</p>
+                                    <form method="GET" action="logement.php">
+                                        <input type="hidden" name="confirmligne" value="<?php echo $id ?>">
+
+                                        <button class="confirm-button">Confirmer</button>
+                                    </form>
+
+                                </div>
+                            </div>
+                            <?php
+                            }
+                            ?>
+                        <?php
+                        }
+                        ?> <!-- Fin de la partie avec les bouton de modification et autres -->
                         <div class="barre_log">
                             <svg width="100%" height="10" viewBox="0 0 1920 9" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <g filter="url(#filter0_d_60_122)">
@@ -680,12 +877,12 @@
 
                         </div>
     </main>
-    
 
 
 
 
-    <!-- Partie de Martin -->
+
+    <!-- Footer -->
     <footer>
 
         <div id="infosFooter">
@@ -729,6 +926,7 @@
         </div>
 
     </footer>
+    <script src="./asset/js/dateReservDisplay.js"></script>
 </body>
-
+                    
 </html>

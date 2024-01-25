@@ -129,6 +129,12 @@ const suivantBtn1 = document.getElementById('suivantBtn1');
 const suivantBtn2 = document.getElementById("suivantBtn2");
 const suivantBtn3 = document.getElementById("suivantBtn3");
 
+const Page1 = document.getElementById("page1");
+const Page2 = document.getElementById("page2");
+const Page3 = document.getElementById("page3");
+const Page4 = document.getElementById("page4");
+
+
 
 
 const inputFieldsP1 = document.querySelectorAll('#page1 input[type="text"], #page1 select');
@@ -201,7 +207,12 @@ suivantBtn1.addEventListener('click', function() {
     if (suivantBtn1.disabled) {
     alert("Veuillez remplir tous les champs du formulaire avant de passer à l'étape suivante.");
     } else {
-    gros_div.style.transform = 'translateX(-25%)';
+        gros_div.style.transform = 'translateX(-25%)';
+        Page2.style.display = 'block';
+        setTimeout(function() {
+            Page1.style.display = 'none';
+            gros_div.style.marginLeft='100%';
+        }, 800);
     }
 });
 
@@ -209,7 +220,12 @@ suivantBtn2.addEventListener('click', function() {
     if (suivantBtn2.disabled) {
     alert("Veuillez remplir tous les champs du formulaire avant de passer à l'étape suivante.");
     } else {
-    gros_div.style.transform = 'translateX(-50%)';
+        gros_div.style.transform = 'translateX(-50%)';
+        Page3.style.display = 'block';
+        setTimeout(function() {
+            Page2.style.display = 'none';
+            gros_div.style.marginLeft='200%';
+        }, 800);
     }
 });
 
@@ -217,7 +233,12 @@ suivantBtn3.addEventListener('click', function() {
     if (suivantBtn3.disabled) {
     alert("Veuillez remplir tous les champs du formulaire avant de passer à l'étape suivante.");
     } else {
-    gros_div.style.transform = 'translateX(-75%)';
+        gros_div.style.transform = 'translateX(-75%)';
+        Page4.style.display = 'block';
+        setTimeout(function() {
+            Page3.style.display = 'none';
+            gros_div.style.marginLeft='300%';
+        }, 800);
     }
 });
 
@@ -244,16 +265,29 @@ const retour3 = document.getElementById("retour3");
 
 
 retour1.addEventListener("click", function () {
+    Page1.style.display = 'block';
+    gros_div.style.marginLeft='0%';
     gros_div.style.transform = "translateX(0%)";
+    setTimeout(function() {
+        Page2.style.display = 'none';
+    }, 800);
 });
 
 retour2.addEventListener("click", function () {
+    Page2.style.display = 'block';
+    gros_div.style.marginLeft='100%';
     gros_div.style.transform = "translateX(-25%)";
-});
+    setTimeout(function() {
+        Page3.style.display = 'none';
+    }, 800);});
 
 retour3.addEventListener("click", function () {
+    Page3.style.display = 'block';
+    gros_div.style.marginLeft='200%';
     gros_div.style.transform = "translateX(-50%)";
-});
+    setTimeout(function() {
+        Page4.style.display = 'none';
+    }, 800);});
 
 
 

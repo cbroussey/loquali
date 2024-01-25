@@ -67,6 +67,12 @@
             $_SESSION['email'] = $_POST['email'];
             $_SESSION['userType'] = 'client';
 
+            //ajoute l'id de compte dans la table "client"
+            $insert = "INSERT INTO test.client (id_compte) VALUES (:idCompte)";
+            $stmt = $dbh->prepare($insert);
+            $stmt->bindParam(':idCompte', $_SESSION['userId'], PDO::PARAM_STR);
+            $stmt->execute();
+
             $dbh = null;
         } catch (PDOException $e) {
             print "Erreur !: " . $e->getMessage() . "<br/>";

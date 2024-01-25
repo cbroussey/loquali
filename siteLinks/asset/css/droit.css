@@ -1,0 +1,102 @@
+a {
+    text-decoration: none; 
+    color: white; 
+}
+
+body {
+    font-weight: 300;
+}
+
+
+/*********** MENTIONS LEGALES ***********/
+
+#mentionLegale {
+    border: solid black 1px;
+    margin: 10em 20em;
+    padding: 5em 10em;
+    border: 2px solid #FFF;
+    background: rgba(255, 255, 255, 0.00);
+    box-shadow: 0px 0px 60px 5px rgba(0, 0, 0, 0.27);
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#mentionLegale h2 {
+    padding-bottom: 1em;
+}
+
+#agauche{
+    width: 40em;
+}
+
+#agauche p {
+    padding: 0.2em 0;
+}
+
+#adroite {
+    margin-top: 4em;
+    margin-left: 5em;
+    width: 35em;
+}
+
+#adroite p {
+    padding: 1em;
+}
+
+#adroite a {
+    color: #1D4C77;
+}
+
+
+/*********** CGU ***********/
+
+#cgu {
+    border: solid black 1px;
+    margin: 5em 20em;
+    padding: 5em 10em;
+    border: 2px solid #FFF;
+    background: rgba(255, 255, 255, 0.00);
+    box-shadow: 0px 0px 60px 5px rgba(0, 0, 0, 0.27);
+
+    line-height: 120%;
+    text-align: justify;
+}
+
+#cgu h2 {
+    padding-bottom: 1em;
+}
+
+#cgu a {
+    color: #1D4C77;
+}
+
+.ptittitre {
+    font-weight: bold;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+
+/*********** CGV ***********/
+
+#cgv {
+    border: solid black 1px;
+    margin: 5em 20em;
+    padding: 5em 10em;
+    border: 2px solid #FFF;
+    background: rgba(255, 255, 255, 0.00);
+    box-shadow: 0px 0px 60px 5px rgba(0, 0, 0, 0.27);
+
+    line-height: 120%;
+    text-align: justify;
+}
+
+#cgv h2 {
+    padding-bottom: 1em;
+}
+
+#cgv h4 {
+    padding-bottom: 0.5em;
+}

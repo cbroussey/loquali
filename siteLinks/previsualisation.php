@@ -64,6 +64,8 @@
             $type_logement="T".$info["Pieces"];
             $nature_logement = $info["type"];
             $localisation = $info["ville"];
+            $adresse= $info["adresse"];
+            $complement_adresse= $info["appartement"];
             $descriptif = $info["description"];
 
             $surface = 20; // pas def
@@ -110,6 +112,8 @@
                     code_postal,
                     departement,
                     localisation,
+                    adresse,
+                    complement_adresse,
                     info_arrivee,
                     info_depart,
                     reglement_interieur,
@@ -130,6 +134,8 @@
                     :code_postal,
                     :departement,
                     :localisation,
+                    :adresse,
+                    :complement_adresse,
                     :info_arrivee,
                     :info_depart,
                     :reglement_interieur,
@@ -153,6 +159,8 @@
             $stmt->bindParam(':code_postal', $code_postal);
             $stmt->bindParam(':departement', $departement);
             $stmt->bindParam(':localisation', $localisation);
+            $stmt->bindParam(':adresse', $adresse);
+            $stmt->bindParam(':complement_adresse', $complement_adresse);
             $stmt->bindParam(':info_arrivee', $info_arrivee);
             $stmt->bindParam(':info_depart', $info_depart);
             $stmt->bindParam(':reglement_interieur', $reglement_interieur);
@@ -482,8 +490,8 @@
                 </svg>
             </div>
             <h4><a href="">Messagerie</a></h4>
-            <h4><a href="">Mes réservations</a></h4>
-            <h4><a href=<?php echo $linkAccount ?>>Mon compte</a></h4>
+            <h4><a href="compte.php?res=res"><?php if ($_SESSION["userType"]=="proprietaire"){echo("Mes logements");} else {echo("Mes réservations");} ?></a></h4>
+            <h4><a href="compte.php">Mon compte</a></h4>
         </nav>
         <div id="headerPopup">
             <ul>

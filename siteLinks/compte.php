@@ -1,9 +1,11 @@
 <?php
 session_start();
-/* if ($_SERVER["REQUEST_METHOD"] == "POST") {
+//suppression de session si la popupDéco est validée
+if (isset($_POST['hidden'])) {
   session_destroy();
   header("Location: index.php");
-  exit(); }*/
+  exit();
+}
 include('connect_params.php');
 $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
 $query = $dbh->prepare("SELECT * FROM test.compte WHERE id_compte = :idcompte");
@@ -26,55 +28,9 @@ if (isset($_GET["confirmDelete"])) {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="asset/css/headerAndFooter.css">
-  <link rel="stylesheet" href="asset/css/style.css">
-  <script src="asset/js/boutonSupprimer.js"></script>
-  <title>Comptes - Infos personnelles</title>
-</head>
-
-<body>
-  <header>
-    <a href="index.php">
-      <img src="asset/img/logo.png" alt="logo">
-    </a>
-    <div></div>
-    <div id="headerEmptyDiv"></div>
-    <nav>
-      <div>
-        <svg width="30" height="30" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M23.7497 10.7258C22.7264 4.4244 20.3126 0 17.5035 0C14.6945 0 12.2807 4.4244 11.2573 10.7258H23.7497ZM10.728 17.5C10.728 19.0665 10.8127 20.5696 10.9609 22.0161H24.0391C24.1873 20.5696 24.272 19.0665 24.272 17.5C24.272 15.9335 24.1873 14.4304 24.0391 12.9839H10.9609C10.8127 14.4304 10.728 15.9335 10.728 17.5ZM33.6449 10.7258C31.6263 5.93448 27.5398 2.22984 22.4934 0.733871C24.2156 3.11895 25.4013 6.71069 26.0224 10.7258H33.6449ZM12.5066 0.733871C7.46723 2.22984 3.37366 5.93448 1.36217 10.7258H8.98467C9.59871 6.71069 10.7844 3.11895 12.5066 0.733871ZM34.4001 12.9839H26.3047C26.4529 14.4657 26.5376 15.9829 26.5376 17.5C26.5376 19.0171 26.4529 20.5343 26.3047 22.0161H34.393C34.7812 20.5696 35 19.0665 35 17.5C35 15.9335 34.7812 14.4304 34.4001 12.9839ZM8.46945 17.5C8.46945 15.9829 8.55414 14.4657 8.70236 12.9839H0.606977C0.225852 14.4304 0 15.9335 0 17.5C0 19.0665 0.225852 20.5696 0.606977 22.0161H8.6953C8.55414 20.5343 8.46945 19.0171 8.46945 17.5ZM11.2573 24.2742C12.2807 30.5756 14.6945 35 17.5035 35C20.3126 35 22.7264 30.5756 23.7497 24.2742H11.2573ZM22.5005 34.2661C27.5398 32.7702 31.6334 29.0655 33.6519 24.2742H26.0294C25.4083 28.2893 24.2226 31.881 22.5005 34.2661ZM1.36217 24.2742C3.38072 29.0655 7.46723 32.7702 12.5136 34.2661C10.7915 31.881 9.60577 28.2893 8.98467 24.2742H1.36217Z" fill="#F5F5F5" />
-        </svg>
-        <svg id="headerArrowLang" width="20" height="14" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M8.99141 13.4874C9.54926 14.1709 10.4552 14.1709 11.0131 13.4874L19.5816 2.98945C20.1395 2.30599 20.1395 1.19605 19.5816 0.512594C19.0238 -0.170866 18.1178 -0.170866 17.56 0.512594L10 9.77485L2.44003 0.518062C1.88218 -0.165399 0.976236 -0.165399 0.418387 0.518062C-0.139462 1.20152 -0.139462 2.31146 0.418387 2.99492L8.98695 13.4929L8.99141 13.4874Z" fill="#F5F5F5" />
-        </svg>
-      </div>
-      <svg id="headerHamburger" width="28" height="31" viewBox="0 0 28 31" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect y="0.738281" width="28" height="3.52174" rx="1" fill="#F5F5F5" />
-        <rect y="13.6523" width="28" height="3.52174" rx="1" fill="#F5F5F5" />
-        <rect y="26.5645" width="28" height="3.52174" rx="1" fill="#F5F5F5" />
-      </svg>
-      <h4><a id="accountDisconnect">Se déconnecter</a></h4>
-    </nav>
-    <div id="headerPopup">
-      <ul>
-        <li>français</li>
-        <li>english</li>
-        <li>español</li>
-        <li>deutsch</li>
-        <li>brezhonneg</li>
-      </ul>
-    </div>
-    <div></div>
-  </header>
 
 
-  <?php
+<?php
 
   include('connect_params.php');
   $id = $_SESSION['userId'];
@@ -206,6 +162,147 @@ if (isset($_GET["confirmDelete"])) {
   }
 
   ?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="asset/css/headerAndFooter.css">
+  <link rel="stylesheet" href="asset/css/style.css">
+  <script src="asset/js/boutonSupprimer.js"></script>
+  <title>Comptes - Infos personnelles</title>
+</head>
+
+<body>
+  <header>
+    <a href="index.php">
+      <img src="asset/img/logo.png" alt="logo">
+    </a>
+
+      <?php
+        if ($_SESSION['userType'] === 'proprietaire') {
+      ?>
+        <p class="personneheader"><span class="nompersonne"> <?php echo ($infos['nom']) ?> <?php echo ($infos['prenom']) ?> &#160;&#160;&#160;&#160; ● </span><span class="personne">propriétaire</span></p>
+      
+        <style>
+
+          body {
+            background-color: #C6D1DA;
+          }
+          
+          .displayInfos, .displayInfos2, .displayInfos3, .displayInfos4, .displayInfos5
+            {
+            color: white;
+          }
+
+          #AucunLogementCompte {
+            color: white;
+            text-shadow: -1px -1px 1px rgba(255, 255, 255, 0.2), 1px 1px 1px rgba(0, 0, 0, 0.6);
+          }
+
+          #bonjour, #textchange, #compteInfosPerso, #compteConnection
+           {
+            color: #1D4C77;
+          }
+
+          header > div:first-of-type {
+          width: 25%;
+          }
+
+
+        </style>
+      
+      <?php
+      }
+      ?>
+
+      <?php
+        if ($_SESSION['userType'] === 'client') {
+      ?>
+        <p class="personneheader"><span class="nompersonne"> <?php echo ($infos['nom']) ?> <?php echo ($infos['prenom']) ?> &#160;&#160;&#160;&#160; ● </span><span class="personne">voyageur</span></p>
+      
+        <style>
+        header > div:first-of-type {
+        width: 25%;
+        }
+        </style>
+      <?php
+      }
+      ?>
+   
+    <div></div>
+    <div id="headerEmptyDiv"></div>
+    <nav>
+      <div>
+        <svg width="30" height="30" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M23.7497 10.7258C22.7264 4.4244 20.3126 0 17.5035 0C14.6945 0 12.2807 4.4244 11.2573 10.7258H23.7497ZM10.728 17.5C10.728 19.0665 10.8127 20.5696 10.9609 22.0161H24.0391C24.1873 20.5696 24.272 19.0665 24.272 17.5C24.272 15.9335 24.1873 14.4304 24.0391 12.9839H10.9609C10.8127 14.4304 10.728 15.9335 10.728 17.5ZM33.6449 10.7258C31.6263 5.93448 27.5398 2.22984 22.4934 0.733871C24.2156 3.11895 25.4013 6.71069 26.0224 10.7258H33.6449ZM12.5066 0.733871C7.46723 2.22984 3.37366 5.93448 1.36217 10.7258H8.98467C9.59871 6.71069 10.7844 3.11895 12.5066 0.733871ZM34.4001 12.9839H26.3047C26.4529 14.4657 26.5376 15.9829 26.5376 17.5C26.5376 19.0171 26.4529 20.5343 26.3047 22.0161H34.393C34.7812 20.5696 35 19.0665 35 17.5C35 15.9335 34.7812 14.4304 34.4001 12.9839ZM8.46945 17.5C8.46945 15.9829 8.55414 14.4657 8.70236 12.9839H0.606977C0.225852 14.4304 0 15.9335 0 17.5C0 19.0665 0.225852 20.5696 0.606977 22.0161H8.6953C8.55414 20.5343 8.46945 19.0171 8.46945 17.5ZM11.2573 24.2742C12.2807 30.5756 14.6945 35 17.5035 35C20.3126 35 22.7264 30.5756 23.7497 24.2742H11.2573ZM22.5005 34.2661C27.5398 32.7702 31.6334 29.0655 33.6519 24.2742H26.0294C25.4083 28.2893 24.2226 31.881 22.5005 34.2661ZM1.36217 24.2742C3.38072 29.0655 7.46723 32.7702 12.5136 34.2661C10.7915 31.881 9.60577 28.2893 8.98467 24.2742H1.36217Z" fill="#F5F5F5" />
+        </svg>
+        <svg id="headerArrowLang" width="20" height="14" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8.99141 13.4874C9.54926 14.1709 10.4552 14.1709 11.0131 13.4874L19.5816 2.98945C20.1395 2.30599 20.1395 1.19605 19.5816 0.512594C19.0238 -0.170866 18.1178 -0.170866 17.56 0.512594L10 9.77485L2.44003 0.518062C1.88218 -0.165399 0.976236 -0.165399 0.418387 0.518062C-0.139462 1.20152 -0.139462 2.31146 0.418387 2.99492L8.98695 13.4929L8.99141 13.4874Z" fill="#F5F5F5" />
+        </svg>
+      </div>
+      <svg id="headerHamburger" width="28" height="31" viewBox="0 0 28 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect y="0.738281" width="28" height="3.52174" rx="1" fill="#F5F5F5" />
+        <rect y="13.6523" width="28" height="3.52174" rx="1" fill="#F5F5F5" />
+        <rect y="26.5645" width="28" height="3.52174" rx="1" fill="#F5F5F5" />
+      </svg>
+      <h4><a id="accountDisconnect">Se déconnecter</a></h4>
+    </nav>
+    <div id="headerPopup">
+      <ul>
+        <li>français</li>
+        <li>english</li>
+        <li>español</li>
+        <li>deutsch</li>
+        <li>brezhonneg</li>
+      </ul>
+    </div>
+    <div></div>
+  </header>
+
+  <?php
+     foreach ($_FILES["photo"]["error"] as $key => $error) {
+
+      if (isset($_FILES["photo"]["tmp_name"])){
+
+
+
+        $repertoireImages = 'asset/img/profils/';
+        $userId = $_SESSION['userId'];
+        
+        if ($images = opendir($repertoireImages)) {
+            while (false !== ($fichier = readdir($images))) {
+                $imgInfos = pathinfo($fichier);
+                if ($imgInfos['filename'] == $userId) {
+                    $chemin = $repertoireImages . $fichier;
+        
+                    if (unlink($chemin)) {
+
+                    }
+                }
+            }
+            closedir($images);
+        }
+
+
+
+        $img_dir = "asset/img/profils";
+        $tmpName = $_FILES["photo"]["tmp_name"][$key];
+
+        $nom_photo = $_FILES["photo"]["name"][$key];
+        $extention=explode(".",$nom_photo);
+
+        
+        $chemin = $img_dir . "/" . $_SESSION['userId'].".".$extention[1];
+
+
+        move_uploaded_file($tmpName, $chemin);
+      }
+    }
+  ?> 
+
   <div id="compteContainer">
     <div class="nav">
 
@@ -271,6 +368,7 @@ if (isset($_GET["confirmDelete"])) {
             <img src="asset/icons/bleu/reservationsBlue.svg" alt="Infos Persos" class="img-back">
             <img src="asset/icons/blanc/reservations.svg" alt="Infos Persos" class="img-front">
           </div>
+
           <figcaption>Mes réservations</figcaption>
         </figure>
       </div>
@@ -316,6 +414,7 @@ if (isset($_GET["confirmDelete"])) {
     </div>
 <!-- ACCUEIL -->
 
+
 <div id="compteAccueil">
 
   <div class="accueil">
@@ -332,9 +431,8 @@ if (isset($_GET["confirmDelete"])) {
                         $pathName = 'asset/img/profils/' . $fichier;
                         break;
                     }
-
+ 
                 }
-                print_r($pathName);
                 if ($pathName == '') {
                     $pathName = 'asset/img/profils/default.jpg';
                 }
@@ -342,11 +440,22 @@ if (isset($_GET["confirmDelete"])) {
             }
             ?>
             <img src=<?php echo $pathName ?> alt="" id="photoProfil">
-            <div class="middle">
-                <img src="asset/icons/blanc/photo.svg" alt="">
-            </div>
         </label>
+        
         <input type="file" id="fileInput" style="display: none;" accept="image/jpeg, image/png" onchange="changeProfilePhoto(event)">
+        <form method="post" enctype="multipart/form-data" id="profileForm">
+
+          <div class="middle">
+
+            <input type="file" id="profilImage" name="profilImage" accept="image/*" style="color:transparent;" onchange="submitForm()"/>
+
+            <label for="photo" id="custom-button-pp" aria-placeholder="">                <img src="asset/icons/blanc/photo.svg" alt="">
+</label>
+
+            <input type="file" id="photo" name="photo[]" multiple/>
+
+          </div>
+        </form>
     </div>
     <p id="textchange">changer votre photo de profil</p>
     
@@ -354,15 +463,6 @@ if (isset($_GET["confirmDelete"])) {
     <div id="caseAccueil">
       <p class="bienvenue">Accédez à votre <a href="pagePersoProprio.php" class="lienPagePerso">page personnel</a>.</p>
       <?php
-                if ($_SESSION['userType'] === 'client') {
-                ?>
-                    <div class="separateurCompte"></div>
-                    <a href="createOwner.php" id="comptePro">Passer à un compte propriétaire</a>
-                <?php
-                }   
-            ?>
-
-            <?php
                 if ($_SESSION['userType'] === 'proprietaire') {
                 ?>
                     <div class="separateurCompte"></div>
@@ -453,7 +553,7 @@ if (isset($_GET["confirmDelete"])) {
       <div class="lignes">
         <p>Historique de l’appareil</p>
         <p class="displayInfos">Session en cours</p>
-        <button class="modifications">Se déconnecter</button>
+        <button id="accountDisconnect2" class="modifications">Se déconnecter</button>
       </div>
 
       <div class="separateurgenre"></div>
@@ -481,111 +581,313 @@ if (isset($_GET["confirmDelete"])) {
   </div> 
 
     <div id="compteLogements">
-<!-- logements -->
-      <div id="logementPropo">
+<!-- logements --> <!-- reservations -->
+      <?php
+        if ($_SESSION['userType'] == 'proprietaire') {
+        ?>
+        <div id="logementPropo">
 
-          <div class="ajout_log">
-            <a href="newLogement.php">
-              <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M23.7768 9.92104H15.7411V1.88532C15.7411 0.899275 14.9414 0.0996094 13.9554 0.0996094H12.1696C11.1836 0.0996094 10.3839 0.899275 10.3839 1.88532V9.92104H2.34821C1.36217 9.92104 0.5625 10.7207 0.5625 11.7068V13.4925C0.5625 14.4785 1.36217 15.2782 2.34821 15.2782H10.3839V23.3139C10.3839 24.2999 11.1836 25.0996 12.1696 25.0996H13.9554C14.9414 25.0996 15.7411 24.2999 15.7411 23.3139V15.2782H23.7768C24.7628 15.2782 25.5625 14.4785 25.5625 13.4925V11.7068C25.5625 10.7207 24.7628 9.92104 23.7768 9.92104Z" fill="#F5F5F5" />
-              </svg>
-              <p>Créer une annonce</p>
-            </a>
-          </div>
+            <div class="compteAjout_log">
+              <a href="newLogement.php">
+                <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M23.7768 9.92104H15.7411V1.88532C15.7411 0.899275 14.9414 0.0996094 13.9554 0.0996094H12.1696C11.1836 0.0996094 10.3839 0.899275 10.3839 1.88532V9.92104H2.34821C1.36217 9.92104 0.5625 10.7207 0.5625 11.7068V13.4925C0.5625 14.4785 1.36217 15.2782 2.34821 15.2782H10.3839V23.3139C10.3839 24.2999 11.1836 25.0996 12.1696 25.0996H13.9554C14.9414 25.0996 15.7411 24.2999 15.7411 23.3139V15.2782H23.7768C24.7628 15.2782 25.5625 14.4785 25.5625 13.4925V11.7068C25.5625 10.7207 24.7628 9.92104 23.7768 9.92104Z" fill="#F5F5F5" />
+                </svg>
+                <p>Créer une annonce</p>
+              </a>
+            </div>
 
-        <div id="listeLogements">
-          <?php
-
-          try {
-            $id = $_SESSION['userId'];
-            $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-
-            $query = "SELECT COUNT(*) FROM test.logement WHERE id_compte = $id;";
-            $stmt = $dbh->prepare($query);
-            $stmt->execute();
-            $nbLogements = $stmt->fetch();
-
-            if ($nbLogements['count'] == 0) {
-          ?>
-              <p id="AucunLogementCompte">Vous n'avez aucun logement en ligne</p>
+          <div id="compteListeLogements">
             <?php
-            }
 
-
-            foreach ($dbh->query("SELECT * FROM test.logement WHERE id_compte = $id", PDO::FETCH_ASSOC) as $row) {
-
-              $info = $row;
+            try {
+              $id = $_SESSION['userId'];
               $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-              $query = "SELECT min(id_image) FROM test.photo_logement NATURAL JOIN test.image WHERE id_logement = :id_logement;";
 
+              $query = "SELECT COUNT(*) FROM test.logement WHERE id_compte = $id;";
               $stmt = $dbh->prepare($query);
-              $stmt->bindParam('id_logement', $info["id_logement"], PDO::PARAM_STR);
               $stmt->execute();
-              $photo = $stmt->fetch();
+              $nbLogements = $stmt->fetch();
 
-              $query = "SELECT extension_image FROM test.image WHERE id_image = :id_image;";
-
-              $stmt = $dbh->prepare($query);
-              $stmt->bindParam('id_image', $photo["min"], PDO::PARAM_STR);
-              $stmt->execute();
-              $extention = $stmt->fetch();
-
-
+              if ($nbLogements['count'] == 0) {
             ?>
+                <p id="AucunLogementCompte">Vous n'avez aucun logement en ligne</p>
+              <?php
+              }
 
-              <div class="listeUnLogement">
 
-                <div class="toutLogement">
+              foreach ($dbh->query("SELECT * FROM test.logement WHERE id_compte = $id", PDO::FETCH_ASSOC) as $row) {
+
+                $info = $row;
+                $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+                $query = "SELECT min(id_image) FROM test.photo_logement NATURAL JOIN test.image WHERE id_logement = :id_logement;";
+
+                $stmt = $dbh->prepare($query);
+                $stmt->bindParam('id_logement', $info["id_logement"], PDO::PARAM_STR);
+                $stmt->execute();
+                $photo = $stmt->fetch();
+
+                $query = "SELECT extension_image FROM test.image WHERE id_image = :id_image;";
+
+                $stmt = $dbh->prepare($query);
+                $stmt->bindParam('id_image', $photo["min"], PDO::PARAM_STR);
+                $stmt->execute();
+                $extention = $stmt->fetch();
 
 
-                  <div>
-                    <img src="asset/img/logements/<?php echo ($photo["min"]); ?>.<?php echo $extention["extension_image"] ?>" width="100%" height="100%" alt="" class="imgListeLogementProprio">
-                  </div>
+              ?>
 
-                  <div class="unLogement">
-                    <div class="log_info_liste">
-                      <h2><?php echo ($info["nature_logement"]); ?> <?php echo ($info["type_logement"]); ?>, <?php echo ($info["localisation"]); ?></h2>
-                      <p><?php echo ($info["code_postal"]); ?>, <U><?php echo ($info["departement"]); ?></U></p>
-                      <div class="noteAvis">
-                        <img src="asset/icons/bleu/star.svg" alt="">
-                        <p><?php echo ($info["note_logement"]); ?>, 24 avis</p>
+                <div class="compteListeUnLogement">
+
+                  <div class="toutLogement">
+
+
+                    <div>
+                      <img src="asset/img/logements/<?php echo ($photo["min"]); ?>.<?php echo $extention["extension_image"] ?>" width="100%" height="100%" alt="" class="imgListeLogementProprio">
+                    </div>
+
+                    <div class="unLogement">
+                      <div class="log_info_liste">
+                        <h2><?php echo ($info["nature_logement"]); ?> <?php echo ($info["type_logement"]); ?>, <?php echo ($info["localisation"]); ?></h2>
+                        <p><?php echo ($info["code_postal"]); ?>, <U><?php echo ($info["departement"]); ?></U></p>
+                        <div class="noteAvis">
+                          <img src="asset/icons/bleu/star.svg" alt="">
+                          <p><?php echo ($info["note_logement"]); ?>, 24 avis</p>
+                        </div>
+                        <a class="consulterLogement" href="logement.php?id=<?php echo $info["id_logement"] ?>"><em>Consulter le logement</em></a>
                       </div>
-                      <a class="consulterLogement" href="logement.php?id=<?php echo $info["id_logement"] ?>"><em>Consulter le logement</em></a>
+
                     </div>
 
                   </div>
 
+                  <div class="compteBtnListeLogement">
+                    <a href="modifLogement.php?id=<?php echo ($info["id_logement"]) ?>"><img src="asset/icons/bleu/modification.svg" alt=""></a>
+
+                    <a href="logement.php?confirmDelete=<?php echo ($info["id_logement"]) ?>"><img src="asset/icons/bleu/trash.svg" alt=""></a>
+
+                    <a href="logement.php?confirmDelete=<?php echo ($info["id_logement"]) ?>"><img src="asset/icons/bleu/troisPoints.svg" alt=""></a>
+
+                  </div>
+
+
                 </div>
 
-                <div class="btnListeLogement">
-                  <a href="modifLogement.php?id=<?php echo ($info["id_logement"]) ?>"><img src="asset/icons/bleu/modification.svg" alt=""></a>
+                <div class="compteSeparateur1">a</div>
 
-
-
-                  <a href="logement.php?confirmDelete=<?php echo   $info["id_logement"] ?>"><img src="asset/icons/bleu/poubelle.svg" alt=""></a>
-
-                </div>
-
-
-              </div>
-
-              <div class="separateur1">a</div>
-
-          <?php
+            <?php
+              }
+            } catch (PDOException $e) {
+              print "Erreur !: " . $e->getMessage() . "<br/>";
+              die();
             }
+
+        }else {
+
+          try {
+            $id = $_SESSION['userId'];
+                $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+
+                $query = "SELECT COUNT(*) FROM test.logement WHERE id_compte = $id;";
+                $stmt = $dbh->prepare($query);
+                $stmt->execute();
+                $nbLogements = $stmt->fetch();
+
+                if ($nbLogements['count'] == 0) {
+                    ?>
+                    <p id="AucuneReservCompte">Vous n'avez aucunes réservations pour le moment</p>
+                    <?php
+                }
+
+                foreach($dbh->query("SELECT * FROM test.logement WHERE id_compte = $id", PDO::FETCH_ASSOC) as $row) {
+            
+                  $info=$row;
+                  $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+                  $query = "SELECT min(id_image) FROM test.photo_logement NATURAL JOIN test.image WHERE id_logement = :id_logement;";
+          
+                  $stmt = $dbh->prepare($query);
+                  $stmt->bindParam('id_logement', $info["id_logement"], PDO::PARAM_STR);
+                  $stmt->execute();
+                  $photo = $stmt->fetch();
+
+                  $query = "SELECT extension_image FROM test.image WHERE id_image = :id_image;";
+          
+                  $stmt = $dbh->prepare($query);
+                  $stmt->bindParam('id_image', $photo["min"], PDO::PARAM_STR);
+                  $stmt->execute();
+                  $extention = $stmt->fetch();
+
+                  ?>
+
+                  <div class="compteListeUnLogement">
+                    <div class="toutLogement">
+                      <div>
+                        <img src="asset/img/logements/<?php echo ($photo["min"]); ?>.<?php echo $extention["extension_image"] ?>" width="100%" height="100%" alt="" class="imgListeLogementProprio">
+                      </div>
+                      <div class="unLogement">
+                        <div class="log_info_liste">
+                          <h2><?php echo ($info["nature_logement"]); ?> <?php echo ($info["type_logement"]); ?>, <?php echo ($info["localisation"]); ?></h2>
+                          <p><?php echo ($info["code_postal"]); ?>, <U><?php echo ($info["departement"]); ?></U></p>
+                          <div class="noteAvis">
+                            <img src="asset/icons/bleu/star.svg" alt="">
+                            <p><?php echo ($info["note_logement"]); ?>, 24 avis</p>
+                          </div>
+                          <a class="consulterLogement" href="logement.php?id=<?php echo $info["id_logement"] ?>"><em>Consulter le logement</em></a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                <div class="separateur1">a</div>
+
+                
+
+                <?php
+                }
+                
           } catch (PDOException $e) {
             print "Erreur !: " . $e->getMessage() . "<br/>";
             die();
           }
 
-          $dbh = null;
-
-          ?>
+        }
+            ?>
 
         </div>
+        </div>
+      </div>
 
         <div id="compteReservations">
           <!-- Réservations -->
+          <?php
+
+          if ($_SESSION['userType'] == 'client') {
+
+            $id_client = $_SESSION['userId'];
+            foreach($dbh->query("SELECT * FROM test.reservation 
+                    INNER JOIN test.devis ON test.reservation.id_reservation = test.devis.id_reservation 
+                    WHERE id_compte = $id_client", PDO::FETCH_ASSOC) as $row) {
+                            $id_logement = $row["id_logement"];
+                            $id_reservation = $row["id_reservation"];
+
+
+                            $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+                            
+                            $proprio_id = $dbh->query("SELECT * from test.logement WHERE id_logement =$id_logement", PDO::FETCH_ASSOC)->fetch()["id_compte"];
+
+                            $query = "SELECT * FROM test.compte NATURAL JOIN test.proprietaire WHERE id_compte = :id_compte";
+                            
+                            $stmt = $dbh->prepare($query);
+                            $stmt->bindParam('id_compte', $proprio_id, PDO::PARAM_STR);
+                            $stmt->execute();
+                            $proprio = $stmt->fetch();
+
+                            if ($images = opendir('asset/img/profils/')) {
+                                while (false !== ($fichier = readdir($images))) {
+                                    $imgInfos = pathinfo($fichier);
+                                    if ($imgInfos['filename'] == $proprio_id) {
+                                        $pathName = 'asset/img/profils/' . $fichier;
+                                        break;
+                                    }
+            
+                                }
+                                if ($pathName == '') {
+                                    $pathName = 'asset/img/profils/default.jpg';
+                                }
+                                closedir($images);
+                            }
+                            
+                            ?>
+
+                            <div class="page_devis">
+                            
+                            <div class="liste_devis">
+                                <form class="devis" method="POST" action="demandeDevis.php">
+                                  <input type="hidden" name="qui" value="client">
+                                  <input type="hidden" name="reservation" value="<?=$row["id_reservation"]?>">
+                                  <input type="hidden" name="id" value="<?=$row["id_logement"]?>">
+                                  <img src="<?=$pathName?>" alt="" class="logo">
+                                  <div class="infos">
+                                    <div class="infos-header">
+                                    <h3><?=$proprio["nom_affichage"]?></h3>
+                                    <p class="date"><?=explode(" ",$row["date_devis"])[0]?></p>
+                                    </div>
+                                    <div class="infos-header">
+                                    <p>Vous a envoyé un devis.</p>
+                                    <button type="submit" class="voir-devis">Voir</button>
+                                    </div>
+                                  </div>
+                                </form>
+                                <div class="separateur1">a</div>
+                              </div>
+
+                            </div>
+                           
+            <?php }
+          } else {
+            $id_proprio = $_SESSION['userId'];
+            foreach($dbh->query("SELECT * FROM test.reservation 
+                            INNER JOIN test.devis ON test.reservation.id_reservation = test.devis.id_reservation 
+                            INNER JOIN test.logement ON test.reservation.id_logement = test.logement.id_logement
+                            WHERE test.logement.id_compte = $id_proprio", PDO::FETCH_ASSOC) as $row) {
+                            $id_logement = $row["id_logement"];
+
+                            $id_reservation = $row["id_reservation"];
+
+                            $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+                            
+                            $client_id = $dbh->query("SELECT * FROM test.reservation WHERE id_reservation = $id_reservation")->fetch()["id_compte"];
+
+                            $query = "SELECT * FROM test.compte NATURAL JOIN test.client WHERE id_compte = :id_compte";
+                            
+                            $stmt = $dbh->prepare($query);
+                            $stmt->bindParam('id_compte', $client_id, PDO::PARAM_STR);
+                            $stmt->execute();
+                            $client = $stmt->fetch();
+
+                            if ($images = opendir('asset/img/profils/')) {
+                                while (false !== ($fichier = readdir($images))) {
+                                    $imgInfos = pathinfo($fichier);
+                                    if ($imgInfos['filename'] == $client_id) {
+                                        $pathName = 'asset/img/profils/' . $fichier;
+                                        break;
+                                    }
+            
+                                }
+                                if ($pathName == '') {
+                                    $pathName = 'asset/img/profils/default.jpg';
+                                }
+                                closedir($images);
+                            }
+                            
+                            ?>
+
+                            <div class="page_devis">
+                            
+                            <div class="liste_devis">
+                                <form class="devis" method="POST" action="demandeDevis.php">
+                                  <input type="hidden" name="qui" value="proprietaire">
+                                  <input type="hidden" name="reservation" value="<?=$row["id_reservation"]?>">
+                                  <input type="hidden" name="id" value="<?=$row["id_logement"]?>">
+                                  <img src="<?=$pathName?>" alt="" class="logo">
+                                  <div class="infos">
+                                    <div class="infos-header">
+                                    <h3><?=$client["nom_affichage"]?></h3>
+                                    <p class="date"><?=explode(" ",$row["date_devis"])[0]?></p>
+                                    </div>
+                                    <div class="infos-header">
+                                    <p>Vous a fait une demande de devis.</p>
+                                    <button type="submit" class="voir-devis">Créer</button>
+                                    </div>
+                                  </div>
+                                </form>
+                                <div class="separateur1">a</div>
+                              </div>
+
+                            </div>
+          <?php }
+          }
+            ?>
+
         </div>
 
         <div id="compteMessagerie">
@@ -595,16 +897,7 @@ if (isset($_GET["confirmDelete"])) {
         <div id="comptePaiement">
           <!-- payement -->
         </div>
-
-        <form method="post" id="popUpDeco">
-          <div class="popUpDecoChoix">
-            <h2>Êtes-vous sûr de vouloir <br>vous déconnecter ?</h2>
-            <div class="button-container">
-              <input class="cancel-button" id="cancelDisconnect" type="button" value="Annuler" />
-              <input class="confirm-button" id="confirmDisconnect" type="submit" value="Se déconnecter" />
-            </div>
-          </div>
-        </form>
+      </div>
 
         <div id="menu">
           <div id="choix">
@@ -626,12 +919,24 @@ if (isset($_GET["confirmDelete"])) {
         </div>
 
 
-
+        <form method="post" id="popUpDeco">
+        <div class="popUpDecoChoix">
+          <h2>Êtes-vous sûr de vouloir <br>vous déconnecter ?</h2>
+          <div class="button-container">
+            <input class="cancel-button" id="cancelDisconnect" name="cancelDisconnect" type="button" value="Annuler" />
+            <input type="hidden" name="hidden" value="disconnect">
+            <input class="confirm-button" id="confirmDisconnect" type="submit" value="Se déconnecter" />
+          </div>
+        </div>
+      </form>
 
         <script src="asset/js/header.js"></script>
         <script src="asset/js/modifInfosCompte.js"></script>
         <script src="asset/js/account.js"></script>
-
+        <?php if ($_GET["res"]=="res"){?>
+            <script>liens_compte(3)</script>
+          <?php } ?>
 </body>
 
 </html>
+

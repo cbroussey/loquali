@@ -1,3 +1,7 @@
+<?php
+    session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,8 +29,9 @@
         </svg>
       </div>
       <h4><a href="">Messagerie</a></h4>
-      <h4><a href="">Mes réservations</a></h4>
-      <h4><a href=<?php echo $linkAccount ?>>Mon compte</a></h4>
+
+      <h4><a href="compte.php?res=res"><?php if ($_SESSION["userType"]=="proprietaire"){echo("Mes logements");} else {echo("Mes réservations");} ?></a></h4>
+      <h4><a href="compte.php">Mon compte</a></h4>
     </nav>
     <div id="headerPopup">
       <ul>
@@ -39,6 +44,7 @@
     </div>
     <div></div>
   </header>
+  
   <main id="ensemble">
 
     
@@ -62,7 +68,27 @@
     }
 
     ?>
-    
+
+
+    <?php //récupération du nom de l'image (avec extension)
+                                
+    if ($images = opendir('asset/img/profils/')) {
+        while (false !== ($fichier = readdir($images))) {
+            $imgInfos = pathinfo($fichier);
+            if ($imgInfos['filename'] == $id) {
+                $pathName = 'asset/img/profils/' . $fichier;
+                break;
+            }
+
+        }
+        if ($pathName == '') {
+            $pathName = 'asset/img/profils/default.jpg';
+        }
+        closedir($images);
+    }
+    ?>
+
+ 
     <a href="logement.php?id=<?php echo($id_log); ?>">
         <img src="asset/icons/bleu/toBack.svg" alt="" id="pagePersoSvgBack">
     </a>
@@ -75,7 +101,7 @@
                             height:160px;
                             border-radius: 93.5px;
 
-                            background: url("asset/img/profils/<?php echo $current['id_compte'] ?>.png") center/cover;
+                            background: url("<?php echo($pathName) ?>") center/cover;
                         }
 
                         @media screen and (min-width: 0px) and (max-width: 400px) {
@@ -128,7 +154,7 @@
                     </div>
                     <div class="descriptionPersonne">
                             <input type="submit" value="Enregistrer" id="modificationDescription" class="modifBtn">
-                            <p id="champsDescription" class="descriptionCompte"><?php echo htmlentities($proprio["description"].PHP_EOL) ?></p>
+                            <p id="champsDescription" class="descriptionCompte"><?php echo htmlentities($current["description"]) ?></p>
                         </form>
                     </div>
 
