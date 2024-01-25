@@ -26,8 +26,7 @@
         $id = $_POST["id"];
         $qui = $_POST["qui"];
         $chargeSelectioner = $_POST["charge"];
-        $idReservation = $_POST["idResrvation"];
-
+        $idReservation = $_POST["reservation"];
 
 
         $query1 = "SELECT * FROM test.planning WHERE id_logement = (:id_logement);";
@@ -95,13 +94,31 @@
             $stmtLogement->bindParam(':id_reservation', $idReservation, PDO::PARAM_INT);
             $stmtLogement->execute();
             $reservation = $stmtLogement->fetch(PDO::FETCH_ASSOC);
-            $query = "SELECT * FROM test.devis  WHERE id_reservation = :id_reservation";
-            $stmtLogement = $dbh->prepare($query);
-            $stmtLogement->bindParam(':id_reservation', $idReservation, PDO::PARAM_INT);
-            $stmtLogement->execute();
-            $devis = $stmtLogement->fetch(PDO::FETCH_ASSOC);
+            $query3 = "SELECT * FROM test.devis  WHERE id_reservation = :id_reservation";
+            $stmtdevis = $dbh->prepare($query3);
+            $stmtdevis->bindParam(':id_reservation', $idReservation, PDO::PARAM_INT);
+            $stmtdevis->execute();
+            $devis = $stmtdevis->fetch(PDO::FETCH_ASSOC);
+
+
+
+            
+
+            
 
         }
+
+        // Calcul prix 
+        $dateTime1 = new DateTime($reservation["debut_reservation"]);
+        $dateTime2 = new DateTime($reservation["fin_reservation"]);
+
+        $interval = $dateTime1->diff($dateTime2);
+
+        $daysDifference = $interval->days;
+
+        $prixVoyageHt = $info["prix_base_ht"]*$daysDifference;
+
+        $prixVoyagettc = $info["prix_ttc"]*$daysDifference;
 
 
 
@@ -158,13 +175,14 @@
     </header>
     <main class="main-devis">
         <pre>
-        <?php print_r($_POST);
+        <?php
 
 
-        print_r($reservation);
-        print_r($devis);
+
+    
+        
          ?></pre>
-        <form action="<?php echo ($qui == "client") ? "paiment.php" : (($qui == "proprietaire") ? "pageLogement.php" : "inserDevis.php"); ?>" method="POST">
+        <form action="<?php echo ($qui == "client") ? "paiement.php" : (($qui == "proprietaire") ? "validationDevisProprio.php" : "inserDevis.php"); ?>" method="POST">
             <div class="demande">
                 <div class="retour">
                     <button class="boutonRetour" onclick="index.php"><img src="asset/icons/blanc/retour.svg"></button>
@@ -184,7 +202,9 @@
                                 <?php echo ($qui == "proprietaire" || $qui == "client") ? '<img src="asset/icons/blanc/date.svg" alt=""> ' : ''; ?>
 
                                 <p>
-                                    <input type="date" <?php echo ($qui == "proprietaire" || $qui == "client") ? 'readonly' : ''; ?> name="start-date" id="start" class="<?php echo ($qui == "proprietaire" || $qui == "client") ? 'start_block' : 'start'; ?>" data-delai-resa-min="<?php echo $info['delai_resa_min'] + 1; ?>" min="<?php echo date('Y-m-d', strtotime('+' . ($info['delai_resa_min'] + 1) . ' day')); ?>" value="<?php echo date('Y-m-d', strtotime('+' . ($info['delai_resa_min'] + 1) . ' day')); ?>">
+                                    <input type="date" <?php echo ($qui == "proprietaire" || $qui == "client") ? 'readonly' : ''; ?> name="start-date" id="start" class="<?php echo ($qui == "proprietaire" || $qui == "client") ? 'start_block' : 'start'; ?>" data-delai-resa-min="<?php echo $info['delai_resa_min'] + 1; ?>" min="<?php echo date('Y-m-d', strtotime('+' . ($info['delai_resa_min'] + 1) . ' day')); ?>" 
+                                    value="<?php echo ($qui == "proprietaire" || $qui == "client") ? $reservation["debut_reservation"] : date('Y-m-d', strtotime('+' . ($info['delai_resa_min'] + 1) . ' day')); ?>"
+>
                                 </p>
                             </div>
 
@@ -195,7 +215,9 @@
                                 <?php echo ($qui == "proprietaire" || $qui == "client") ? '<img src="asset/icons/blanc/date.svg" alt=""> ' : ''; ?>
 
                                 <p>
-                                    <input <?php echo ($qui == "proprietaire" || $qui == "client") ? 'readonly' : ''; ?> type="date" name="end-date" id="end" class="<?php echo ($qui == "proprietaire" || $qui == "client") ? 'end_block' : 'end'; ?>" data-duree-delaire-min="<?php echo $info['duree_resa_min'] + $info['delai_resa_min'] + 1; ?>" min="<?php echo date('Y-m-d', strtotime('+' . ($info['duree_resa_min'] + $info['delai_resa_min'] + 1) . ' day')); ?>" value="<?php echo date('Y-m-d', strtotime('+' . ($info['duree_resa_min'] + $info['delai_resa_min'] + 1) . ' day')); ?>">
+                                    <input <?php echo ($qui == "proprietaire" || $qui == "client") ? 'readonly' : ''; ?> type="date" name="end-date" id="end" class="<?php echo ($qui == "proprietaire" || $qui == "client") ? 'end_block' : 'end'; ?>" data-duree-delaire-min="<?php echo $info['duree_resa_min'] + $info['delai_resa_min'] + 1; ?>" min="<?php echo date('Y-m-d', strtotime('+' . ($info['duree_resa_min'] + $info['delai_resa_min'] + 1) . ' day')); ?>" 
+                                    value="<?php echo ($qui == "proprietaire" || $qui == "client") ? $reservation["fin_reservation"] : date('Y-m-d', strtotime('+' . ($info['duree_resa_min'] + $info['delai_resa_min'] + 1) . ' day')); ?>"
+>
                                 </p>
                             </div>
 
@@ -206,10 +228,10 @@
                             <div class=<?php echo ($qui == "proprietaire" || $qui == "client") ? "ligne_champ_nombre_ajlog1" : "ligne_champ_nombre_ajlog"; ?>>
 
                                 <div class=<?php echo ($qui == "proprietaire" || $qui == "client") ? "number-input1" : "number-input"; ?>>
-                                    <?php if ($qui != "client") { ?> <form id="test" action="demandeDevis.php" class="" method="POST"> <?php } ?>
+
                                         <button type="button" onclick="decrement('Personne')" class="minus" style=<?php echo ($qui == "proprietaire" || $qui == "client") ? "display:none" : ""; ?>>-</button>
 
-                                        <input class="quantity" id="Personne" name="Personne" value="<?php echo ($qui == "proprietaire" || $qui == "client") ? htmlspecialchars($_POST["Personne"]) : "1"; ?>" readonly type="text">
+                                        <input class="quantity" id="Personne" name="Personne" value="<?php echo ($qui == "proprietaire" || $qui == "client") ? htmlspecialchars($reservation["nb_personne"]) : "1"; ?>" readonly type="text">
 
                                         <button type="button" onclick="increment('Personne')" class="plus" style=<?php echo ($qui == "proprietaire" || $qui == "client") ? "display:none" : ""; ?>>+</button>
                                 </div>
@@ -332,7 +354,7 @@
                     ?>
                         <div id="input_check_box_info">
                             <label>
-                                <input type="checkbox" name="charge" value="<?php echo ($value["nom_charge"]); ?>" <?php echo ($qui == "proprietaire" || $qui == "client") ? ' disabled="disabled"' : ""; ?><?php echo (isset($_POST["charge"]) && $_POST["charge"] == $value["nom_charge"]) ? 'checked' : ""; ?>>
+                                <input type="checkbox" name="charge" value="<?php echo ($value["nom_charge"]); ?>" <?php echo ( $qui == "client") ? ' disabled="disabled"' : ""; ?><?php echo (isset($_POST["charge"]) && $_POST["charge"] == $value["nom_charge"]) ? 'checked' : ""; ?>>
                                 <?php echo ($value["nom_charge"]); ?>
                             </label>
                         </div>
@@ -367,8 +389,8 @@
                         <div class="info_prix">
 
                             <div class="row">
-                                <div class="label"> nuits</div>
-                                <div class="value"><?php echo ($info["prix_base_ht"]) * ($nbJours["nbjours"]); ?>€</div>
+                                <div class="label"> <?php echo($daysDifference)?> nuits</div>
+                                <div class="value"><?php echo($prixVoyageHt)?>€</div>
                             </div>
                             <?php
                             $somme = 0;
@@ -390,14 +412,14 @@
                             </div>
                             <div class="row">
                                 <div class="label">TVA</div>
-                                <div class="value"><?php echo ($info["prix_base_ht"]) * ($nbJours["nbjours"]) * 1.10 - ($info["prix_base_ht"]) * ($nbJours["nbjours"]); ?>€</div>
+                                <div class="value"><?php echo ($prixVoyageHt * 0.10); ?>€</div>
                             </div>
                             <hr>
 
                             <div class="row">
                                 <div class="label_t">Total</div>
-
-                                <input type="number" step="0.01" name="prixTTC" id="prixTTC" class="value" <?php echo ($qui != "proprietaire") ? 'readonly' : ''; ?> >
+                                <div class="value"><?php echo($prixVoyagettc + 29.96)?>€</div>
+                              
                             </div>
                         </div>
 
@@ -420,19 +442,23 @@
                        ?>
 
                         <input name="id" value="<?php echo ($id); ?>" hidden readonly>
-                        <input name="qui" value="client" hidden readonly>
+                        <input name = "prixTTC" value="<?php echo($prixVoyagettc + 29.96)?>" hidden readonly>
                         <input name="charge" value="<?php echo ($_POST["charge"]); ?>" hidden readonly>
-                        <input name="reservation" value="<?php echo ($Idres["id_reservation"]); ?>" hidden readonly>
                         <button type="submit" class="devisButton">Envoyer le devis</button>
+                        <input name="reservation" value="<?php echo $idReservation; ?>" hidden readonly>
 
                     <?php } ?>
                     <?php
                     if ($qui == "client") { ?>
 
-
+                        <pre>
+                            <?php
+                                print_r($devis);
+                            ?>
+                        </pre>
 
                         <input name="devis" value="<?php echo ($devis["id_devis"]); ?>" hidden readonly>
-                        <button type="submit" class="devisButton">Payer le devis</button>
+                        <button type="submit" class="devisButton">Accepter et Payer</button>
 
 
                         <div class="button_refuser">
@@ -508,9 +534,9 @@
 
     </footer>
     <script src="asset/js/popUpDevis.js"></script>
-    <script src="asset/js/dateDevis.js"></script>
-    <script src="asset/js/devisNbPersonnne.js"></script>
     <script src="asset/js/calculPrix.js"></script>
+    <script src="asset/js/devisNbPersonnne.js"></script>
+    <script src="asset/js/ModiffPrix.js"> </script>
 
 </body>
 
