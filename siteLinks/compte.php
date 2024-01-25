@@ -901,7 +901,50 @@ if (isset($_GET["confirmDelete"])) {
         </div>
 
         <div id="compteMessagerie">
-          <!-- Messagerie -->
+          <div id="capayeouquoila">
+            <h1>Enregistrer un mode de paiement</h1>
+            <button>Ajouter mode de paiement</button>
+          </div>
+          <p id="ptitephrasepaiement">Ajoutez un mode de paiement, puis commencez à organiser votre prochain voyage.</p>
+          <h3>Vos paiement</h3>
+          <div id="latableouquoila">
+            <table>
+              <thead>
+                <tr>
+                  <th>Détails</th>
+                  <th>Date de facturation</th>
+                  <th>Mode de paiement</th>
+                  <th>Frais</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td colspan="4"> <div id="maxibarre"></div> </td>
+                </tr>
+                <tr>
+                  <td>Maison du Crampt...</td>
+                  <td>6 oct. 2023</td>
+                  <td>Cartede de crédit/ débit</td>
+                  <td>78€85</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td colspan="2"> <div id="maxibarre2"></div> </td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Maison du Crampt...</td>
+                  <td>6 oct. 2023</td>
+                  <td>Cartede de crédit/ débit</td>
+                  <td>78€85</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div id="historiquepaiement">
+            <button>Historiques des paiements</button>
+          </div>
+          
         </div>
 
         <div id="comptePaiement">
