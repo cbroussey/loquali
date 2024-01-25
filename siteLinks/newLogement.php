@@ -98,17 +98,17 @@
 
     <main>
 
-        <div class="testdelamort" id="gros_div">
+        <div class="testdelamort" id="gros_div"> <!-- Gros div contenant toutes les pages pour avoir l'effet de slide -->
 
         
 
-            <form action="previsualisation.php" method="post" enctype="multipart/form-data">
+            <form action="previsualisation.php" method="post" enctype="multipart/form-data"> <!-- Gros formulaire pour faire en sorte de récupérer toutes les données du logement et le créer -->
 
-                <div class="page" id="page1">
+                <div class="page" id="page1"> <!-- Information basique sur le logement -->
 
                 
 
-                    <div class="choix_type_log_ajlog">
+                    <div class="choix_type_log_ajlog"> 
                         <h2>Type de votre logement</h2>
                         <div id="newLogementInput" class="barre_btn_choix_type_ajlog">
                             <input type="radio" id="type1" name="type" value="Maison" />
@@ -167,7 +167,7 @@
                         <div class="ligne_champ_nombre_ajlog">
                             <label for="nbChambre">Chambres</label>
                             <div class="number-input">
-                                <button type="button" onclick="decrement('nbChambre')" class="minus">-</button>
+                                <button type="button" onclick="decrement('nbChambre')" class="minus">-</button> <!-- utilisation de fonctions js pour faire en sorte d'incrémenté le nomre ou de le décrémenté -->
                                 <input class="quantity" id="nbChambre" name="nbChambre" value="1" type="text">
                                 <button type="button" onclick="increment('nbChambre')" class="plus">+</button>
                             </div>
@@ -213,7 +213,7 @@
                     </div>
 
             
-                        
+                    <!-- Bouton pour passer à la page suivante qui se click seulement si toutes les informations sont remplit-->
                     <div class="barre_btn_fin_form">
                         <a href="logement.html">Annuler</a>
                         <a href="#" class="Suivant" id="suivantBtn1">Suivant</a>
@@ -225,7 +225,7 @@
 
                 <div class="page" id="page2">
                     
-                    <div class="choix_aménagement_log_ajlog">
+                    <div class="choix_aménagement_log_ajlog"> <!-- Selection de tout les aménagements, services et installations -->
                         <h2>Aménagement / Installation de votre logement</h2>
 
 
@@ -296,14 +296,14 @@
 
                     </div>
 
-                    <div class="ajout_photo_ajlog">
+                    <div class="ajout_photo_ajlog"> <!-- Partie avec l'ajout des photos -->
                         <h2>Ajouter vos photos</h2>
                         <div class="envoie_photo_ajlog">
                             <label for="photo" id="custom-button" aria-placeholder="">Joindre un ou plusieurs .png</label>
                             <input type="file" id="photo" name="photo[]" multiple/>
                         </div>
                         <div id="liste_img_ajlog">
-                            <!-- Les images importées seront affichées ici -->
+                            <!-- Importations des images uploader ici en js-->
                         </div>
                     </div>
 
@@ -314,7 +314,7 @@
 
 
 
-
+                    <!-- Remplissage des textes du logements -->
 
                     <div class="ajout_titre_log_ajlog">
 
@@ -454,7 +454,7 @@
                     </div>
 
 -->
-
+                    <!-- Partie sur l'ajout des dates -->
                     <div class="ajout_plage_disp2_ajlog">
 
 
@@ -501,7 +501,7 @@
                     
 
 
-                    <div class="ajouter_prix_ajlog">
+                    <div class="ajouter_prix_ajlog">  <!-- Partie sur l'ajout des prix -->
 
 
 
