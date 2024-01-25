@@ -185,7 +185,7 @@
         <form action="<?php echo ($qui == "client") ? "paiement.php" : (($qui == "proprietaire") ? "validationDevisProprio.php" : "inserDevis.php"); ?>" method="POST">
             <div class="demande">
                 <div class="retour">
-                    <button class="boutonRetour" onclick="index.php"><img src="asset/icons/blanc/retour.svg"></button>
+                    <button class="boutonRetour" onclick="history.back()"><img src="asset/icons/blanc/retour.svg"></button>
                     <a id="idlog" hidden><?php echo $id; ?></a>
                     <h1 class="h1-mobile"><?php echo ($qui == "proprietaire" || $qui == "client") ? "Demande de réservation" : "Demande de devis"; ?></h1>
                 </div>
@@ -345,7 +345,7 @@
                     </div>
                 </div>
 
-                <div id="check_box_info">
+              <!--  <div id="check_box_info">
                     <h2 class="h2-mobile">Options supplémentaires</h2>
 
 
@@ -365,7 +365,7 @@
                         le propriétaire</p>
 
 
-                </div>
+                </div>-->
 
             </div>
             <div class="recap">

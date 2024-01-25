@@ -12,7 +12,7 @@ function setPrix() {
         var prixHT = v["prix_ht"];
      var montantTotal = prixHT * 1.10 + 29.96;
 
-    document.querySelectorAll(".info_prix > .row > .value")[document.querySelectorAll(".info_prix > .row > .value").length - 1].value = montantTotal.toFixed(2) + "€";
+    document.querySelectorAll(".info_prix > .row > .value")[3].value = montantTotal.toFixed(2) + "€";
 
     })
 
