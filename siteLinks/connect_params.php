@@ -2,9 +2,9 @@
 <?php
 $server = 'servbdd';
 $driver = 'pgsql';
-$dbname = 'pg_';
-$user = '';
-$pass = '';
+$dbname = 'pg_aloger';
+$user = 'aloger';
+$pass = 'Azerty#35680';
 ?>
 
 
