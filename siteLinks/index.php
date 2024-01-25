@@ -235,6 +235,26 @@ session_start();
               <label for="service4" class="btnChoix2">repas</label>
             </div>
 
+            <div class="jailesbarres">
+              <div class="jailabarre"></div>
+              <h3>Prix Maximum</h3>
+              <div class="jailabarre"></div>
+            </div>
+            
+            <div class="b4r3">
+              <input class="quantity" id="PrixMax" name="PrixMax" type="number" pattern="(29|35|22|56)[0-9]{3}" <?php if ($_POST["PrixMax"]!="") { ?> value="<?php echo($_POST["PrixMax"]) ?>"  <?php   } ?>>
+            </div>
+
+            <div class="jailesbarres">
+              <div class="jailabarre"></div>
+              <h3>Prix Minimum</h3>
+              <div class="jailabarre"></div>
+            </div>
+            
+            <div class="b4r3">
+              <input class="quantity" id="PrixMin" name="PrixMin" type="number" pattern="(29|35|22|56)[0-9]{3}" <?php if ($_POST["PrixMin"]!="") { ?> value="<?php echo($_POST["PrixMin"]) ?>"  <?php   } ?>>
+            </div>
+
 <br>
     
             <div id="boutonsEnBaaaaas">
@@ -346,6 +366,14 @@ try {
           foreach($val as $instal){
             $filtre.="AND nom_installation='$instal' ";
           }  
+        }
+
+        if ($ind == "PrixMin" && $val !="") {
+          $filtre.="AND prix_ttc>=$val ";
+        }
+
+        if ($ind == "PrixMax" && $val !="") {
+          $filtre.="AND prix_ttc<=$val ";
         }
 
       }
