@@ -759,13 +759,16 @@ if (isset($_GET["confirmDelete"])) {
         <div id="compteReservations">
           <!-- Réservations -->
           <?php
+          $devisCount = 0;
 
           if ($_SESSION['userType'] == 'client') {
+            
 
             $id_client = $_SESSION['userId'];
             foreach($dbh->query("SELECT * FROM test.reservation 
                     INNER JOIN test.devis ON test.reservation.id_reservation = test.devis.id_reservation 
                     WHERE id_compte = $id_client", PDO::FETCH_ASSOC) as $row) {
+                            $devisExist = true;
                             $id_logement = $row["id_logement"];
                             $id_reservation = $row["id_reservation"];
 
@@ -795,6 +798,10 @@ if (isset($_GET["confirmDelete"])) {
                                 }
                                 closedir($images);
                             }
+
+                            
+                          if (!empty($row["prix_devis"])){
+                            $devisCount++;
                             
                             ?>
 
@@ -806,7 +813,7 @@ if (isset($_GET["confirmDelete"])) {
                                   <input type="hidden" name="reservation" value="<?=$row["id_reservation"]?>">
                                   <input type="hidden" name="id" value="<?=$row["id_logement"]?>">
                                   <img src="<?=$pathName?>" alt="" class="logo">
-                                  <div class="infos">
+                                  <div class="infos-devis">
                                     <div class="infos-header">
                                     <h3><?=$proprio["nom_affichage"]?></h3>
                                     <p class="date"><?=explode(" ",$row["date_devis"])[0]?></p>
@@ -822,7 +829,11 @@ if (isset($_GET["confirmDelete"])) {
 
                             </div>
                            
-            <?php }
+                      <?php 
+                        
+                    }
+                    
+            }
           } else {
             $id_proprio = $_SESSION['userId'];
             foreach($dbh->query("SELECT * FROM test.reservation 
@@ -869,7 +880,7 @@ if (isset($_GET["confirmDelete"])) {
                                   <input type="hidden" name="reservation" value="<?=$row["id_reservation"]?>">
                                   <input type="hidden" name="id" value="<?=$row["id_logement"]?>">
                                   <img src="<?=$pathName?>" alt="" class="logo">
-                                  <div class="infos">
+                                  <div class="infos-devis">
                                     <div class="infos-header">
                                     <h3><?=$client["nom_affichage"]?></h3>
                                     <p class="date"><?=explode(" ",$row["date_devis"])[0]?></p>
@@ -886,12 +897,61 @@ if (isset($_GET["confirmDelete"])) {
                             </div>
           <?php }
           }
+          // Afficher le message s'il n'y a pas de devis
+          if ($devisCount === 0) {
+            ?>
+            <p id="AucunDevisCompte">Vous n'avez aucuns devis pour le moment</p>
+            <?php
+          }
             ?>
 
         </div>
 
         <div id="compteMessagerie">
-          <!-- Messagerie -->
+          <div id="capayeouquoila">
+            <h1>Enregistrer un mode de paiement</h1>
+            <button>Ajouter mode de paiement</button>
+          </div>
+          <p id="ptitephrasepaiement">Ajoutez un mode de paiement, puis commencez à organiser votre prochain voyage.</p>
+          <h3>Vos paiement</h3>
+          <div id="latableouquoila">
+            <table>
+              <thead>
+                <tr>
+                  <th>Détails</th>
+                  <th>Date de facturation</th>
+                  <th>Mode de paiement</th>
+                  <th>Frais</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td colspan="4"> <div id="maxibarre"></div> </td>
+                </tr>
+                <tr>
+                  <td>Maison du Crampt...</td>
+                  <td>6 oct. 2023</td>
+                  <td>Cartede de crédit/ débit</td>
+                  <td>78€85</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td colspan="2"> <div id="maxibarre2"></div> </td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Maison du Crampt...</td>
+                  <td>6 oct. 2023</td>
+                  <td>Cartede de crédit/ débit</td>
+                  <td>78€85</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div id="historiquepaiement">
+            <button>Historiques des paiements</button>
+          </div>
+          
         </div>
 
         <div id="comptePaiement">

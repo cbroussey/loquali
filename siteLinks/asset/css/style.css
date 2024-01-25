@@ -208,6 +208,8 @@ pre {
   width: auto;
   padding: 0 10px;
 
+  margin-left: 2em;
+
   display: flex;
   align-items: center;
 }
@@ -218,22 +220,10 @@ pre {
   margin: 0 15px;
 }
 
-#trier, #gauche, #slogant {
+
+
+#trier, #slogant {
   width: 300px;
-}
-
-#gauche {
-  display: flex;
-  flex-direction: row;
-  width: 10%;
-}
-
-#gauche p {
-  margin: 0 15px 0 0;
-}
-
-#gauche .button{
-  margin-right: 30px;
 }
 
 #slogan {
@@ -243,7 +233,7 @@ pre {
   height: 40px;
   width: 30%;
 
-
+  margin-left: 5em;
 
   display: flex;
   align-items: center;
@@ -256,6 +246,7 @@ pre {
 
 #trier {
   width: 10%;
+  
 }
 
 #div_Tri{
@@ -266,36 +257,6 @@ pre {
   list-style: none;
   display: none;
 }
-
-#Liste_Filtre {
-  display: none;
-  position: fixed;
-  top: 0;
-  right: 0;
-  height: 100%;
-  width: 40%; /* Ajustez la largeur selon vos besoins */
-  background-color: white; /* Couleur de fond de la popup */
-  box-shadow: -2px 0px 5px 0px rgba(0, 0, 0, 0.2); /* Ombre sur le côté */
-  z-index: 999; /* Assurez-vous que la popup est au-dessus du reste du contenu */
-}
-
-.overlay {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* Couleur de fond semi-transparente */
-  z-index: 998; /* Placez-le juste en dessous de la popup */
-}
-
-#Liste_Filtre.active,
-.overlay.active {
-  display: block;
-}
-
-
 
 .maison img{
   width: 300px;
@@ -430,26 +391,6 @@ pre {
   align-items: center;
 }
 
-@media screen and (min-width: 0px) and (max-width: 1275px) {
-  #gauche {
-    float: right;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 30%;
-    margin: 0;
-}
-
-  #trier {
-    float: right;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 30%;
-    margin: 0;
-    margin-right: -5%;
-}
-}
 
 @media screen and (min-width: 0px) and (max-width: 1100px) {
 
@@ -461,23 +402,8 @@ pre {
     height: 108px;
     width: 100%;
     padding: 0;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
 
-  #trier, #gauche, #slogant {
-    width: 240px;
-  }
-
-  #gauche {
-    margin-left: 5%;
-  }
-  
-  #gauche p {
-    margin: 0 10px 0 0;
-  }
   
 }
 
@@ -492,6 +418,8 @@ pre {
   color: #F5F5F5;
   box-shadow: -2px 0px 5px 0px rgba(0, 0, 0, 0.2); /* Ombre sur le côté */
   z-index: 999; /* Assurez-vous que la popup est au-dessus du reste du contenu */
+
+  overflow-y: scroll;
 }
 
 .barreBtnChoix{
@@ -558,6 +486,26 @@ pre {
   font-weight: 300;
 }
 
+#PrixMax.quantity {
+  border-radius: 50px;
+  background: #FFF;
+  width: 124px;
+  height: 44px;
+  font-size: 20px;
+  text-align: center;
+
+}
+
+#PrixMin.quantity {
+  border-radius: 50px;
+  background: #FFF;
+  width: 124px;
+  height: 44px;
+  font-size: 20px;
+  text-align: center;
+
+}
+
 .jailabarre {
   margin-top: 20px;
   background-color: white;
@@ -593,11 +541,6 @@ pre {
   border-radius: 10px;
   background: #2072BC;
   border: none;
-}
-
-#Liste_Filtre.active,
-.overlay.active {
-  display: block;
 }
 
 #Personne.quantity {
@@ -707,6 +650,323 @@ pre {
   align-items: center;
 }
 
+.reeeetour {
+  display: none;
+}
+
+@media screen and (min-width: 0px) and (max-width: 1775px) {
+  
+.jailabarre {
+  width: 150px;
+}
+
+#validerouuuu {
+  color: #F5F5F5;
+  text-align: center;
+  font-size: 25px;
+  font-weight: 800;
+  width: 153px;
+  height: 51px;
+  border-radius: 10px;
+  background: #2072BC;
+  border: none;
+}
+
+#Personne.quantity {
+  border-radius: 50px;
+  background: #FFF;
+  width: 124px;
+  height: 44px;
+  font-size: 20px;
+  text-align: center;
+
+}
+.b4r3 {
+  margin: 1em 0;
+}
+
+.aaaaamenagement {
+  margin: 1em 5em;
+}
+
+.serrrrrvice {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+
+  margin: 1em 5em;
+}
+
+.menutrie ul li a{
+  margin-left: 9em;
+}
+
+.menutrie ul ul{
+  margin-left: 12em;
+}
+  
+.valiiiide {
+    margin: 1em;
+}
+
+} 
+
+@media screen and (min-width: 0px) and (max-width: 1375px) {
+
+  .jailabarre {
+    width: 150px;
+  }
+  
+  #validerouuuu {
+    color: #F5F5F5;
+    text-align: center;
+    font-size: 25px;
+    font-weight: 800;
+    width: 153px;
+    height: 51px;
+    border-radius: 10px;
+    background: #2072BC;
+    border: none;
+  }
+  
+  #Personne.quantity {
+    border-radius: 50px;
+    background: #FFF;
+    width: 124px;
+    height: 44px;
+    font-size: 20px;
+    text-align: center;
+  
+  }
+  .b4r3 {
+    margin: 1em 0;
+  }
+  
+  .aaaaamenagement {
+    margin: 1em 2em;
+  }
+  
+  .serrrrrvice {
+  
+    margin: 1em 2em;
+  }
+  
+  .menutrie ul li a{
+    margin-left: 8em;
+  }
+  
+  .menutrie ul ul{
+    margin-left: 10.5em;
+  }
+    
+  .valiiiide {
+      margin: 1em;
+  }
+}
+
+@media screen and (min-width: 0px) and (max-width: 400px) {
+  #Liste_Filtre {
+    width: 100%; /* Ajustez la largeur selon vos besoins */
+  
+    overflow-y: scroll;
+  }
+  
+  .barreBtnChoix{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  
+    margin-top: 1em;
+  }
+  
+  .btnChoix {
+    -webkit-user-select: none;
+  
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 10px;
+    margin: 5px 10px;
+    cursor: pointer;
+    width: 100px;
+    height: 50px;
+  
+    color: #F5F5F5;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 800;
+  
+    border-radius: 10px;
+    background: #97ADC1;
+    box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.25) inset;
+  }
+  
+  .btnChoix2{
+    -webkit-user-select: none;
+  
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 10px;
+    margin: 5px 10px;
+    cursor: pointer;
+    width: 80px;
+    height: 50px;
+    max-width: 350px;
+  
+    color: #F5F5F5;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 800;
+  
+    border-radius: 10px;
+    background: #97ADC1;
+    box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.25) inset;
+    
+  }
+  
+  #Liste_Filtre h3{
+    height: 20px;
+    width: 200px;
+    background-color: #1d4c77;
+    margin-top: 10px;
+    font-weight: 300;
+  }
+  
+  .jailabarre {
+    margin-top: 20px;
+    background-color: white;
+    width: 100px;
+    height: 1px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  #quitterfiltre{
+    display: none;
+  }
+
+  #validerouuuu {
+    color: #F5F5F5;
+    text-align: center;
+    font-size: 25px;
+    font-weight: 800;
+    width: 153px;
+    height: 51px;
+    border-radius: 10px;
+    background: #2072BC;
+    border: none;
+  }
+  
+  #Personne.quantity {
+    border-radius: 50px;
+    background: #FFF;
+    width: 124px;
+    height: 44px;
+    font-size: 20px;
+    text-align: center;
+  
+  }
+  .b4r3 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  
+    margin: 1em 0;
+  }
+  
+  .aaaaamenagement {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  
+    margin: 1em 0em;
+  }
+  
+  .inssssstaaaal {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  
+    margin: 1em 0;
+  }
+  
+  .serrrrrvice {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  
+    margin: 1em 0em;
+  }
+  
+  #premierebarre {
+    margin-top: 5em;
+  }
+  
+  .menutrie ul{
+    line-height: 50px;
+    position: absolute;
+  }
+
+  .menutrie ul li a{
+    text-decoration: none;
+    width: 160px;
+    height: 50px;
+    display: block;
+    text-align: center;
+    margin-top: -2.5em;
+    margin-left: 4.5em;
+    border-radius: 30px;
+    text-align: center;
+    font-size: 25px;
+    font-weight: 800;
+  }
+  
+  .menutrie ul ul{
+    position: absolute;
+    top: 30px;
+    visibility: hidden;
+    background-color: #8AAECE;
+    margin-top: -2.7em;
+    margin-left: 5em;
+    padding: 1em;
+    width: 200px;
+  }
+  .reeeetour {
+    display: flex;
+    color: #F5F5F5;
+    text-align: center;
+    font-size: 25px;
+    font-weight: 800;
+    width: 153px;
+    height: 51px;
+    border-radius: 10px;
+    background: #2072BC;
+    border: none;
+
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #boutonsEnBaaaaas{
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+  }
+
+}
+
+
 @media screen and (min-width: 0px) and (max-width: 900px) {
 
 
@@ -771,21 +1031,13 @@ pre {
     height: 35px;
     width: auto;
     padding: 0 10px;
+
   }
 
 
-  #trier, #gauche, #slogant {
+  #trier, #slogant {
     width: 200px;
   }
-
-  #gauche {
-    margin-left: 5%;
-  }
-  
-  #gauche p {
-    margin: 0 10px 0 0;
-  }
-
 
 
 
@@ -927,16 +1179,8 @@ pre {
   }
 
 
-  #trier, #gauche, #slogant {
+  #trier, #slogant {
     width: 130px;
-  }
-
-  #gauche {
-    margin-left: 10%;
-  }
-  
-  #gauche p {
-    margin: 0 10px 0 0;
   }
 
 
@@ -4754,23 +4998,22 @@ display:none;
 height:92vh;
 width:84vw;
 display:none;
-position: fixed;
-margin-left: 30%;
-margin-top: 2%;
+position: absolute;
+margin-left: 16%;
+margin-top: 4%;
 }
 
 #compteReservations {
 height:92vh;
 width:70vw;
 display:none;
-position: fixed;
-margin-left: 28%;
-margin-top: 10%;
+position: absolute;
+margin-left: 30%;
+margin-top: 4%;
 
 }
 
 #compteMessagerie {
-background-color: purple;
 height:92vh;
 width:84vw;
 display:none;
@@ -5531,6 +5774,7 @@ font-weight: 500;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  width: 330px;
 }
 
 .unLogement h2{
@@ -6091,7 +6335,7 @@ font-weight: 500;
   display: flex;
   flex-direction: row;
   height: 30%;
-  width: 200%;
+  width: 100%;
 }
 
 .compteSeparateur1{
@@ -6107,7 +6351,7 @@ font-weight: 500;
   justify-content: space-around;
   align-items: center;
   align-content: space-between;
-  width: 8%;
+  width: 22%;
   margin-left: 11%;
 
 }
@@ -6115,8 +6359,8 @@ font-weight: 500;
 
 #AucuneReservCompte {
   position: absolute;
-  top: 50%;
-  left: 12%;
+  top: 47%;
+  left: 21%;
  
   height: 54px;
   
@@ -6137,6 +6381,7 @@ font-weight: 500;
   width: 70px;
   height: 70px;
   flex-shrink: 0;
+  margin-right: 2%;
   border-radius: 70px;
   border: 1px solid #1D4C77;
 }
@@ -6172,7 +6417,7 @@ font-weight: 500;
   flex-direction: row;
 }
 
-.infos {
+.infos-devis {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -6213,5 +6458,23 @@ text-align: center;
 cursor: pointer;
 margin-left: auto;
 align-self: flex-end;
+}
+
+#AucunDevisCompte {
+  position: absolute;
+  top: 47%;
+  left: 15%;
+ 
+  height: 54px;
+  
+  font-size: 35px;
+  font-weight: 700;
+ 
+  color: transparent;
+  background: #97ADC1;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  background-clip: text;
+  text-shadow: 0px 3px 3px rgba(255,255,255,0.5);
 }
 
