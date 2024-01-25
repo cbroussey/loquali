@@ -113,7 +113,7 @@ int main(int argc, char *argv[]) {
     char c;
     char cmd[MAXCMD];
     char tmp[(int)MAXCMD/2];
-    int ping;
+    //int ping;
     bool verbose = false;
     int foutput; // Fichier de sortie des logs si définit
     int port;
@@ -289,7 +289,7 @@ int main(int argc, char *argv[]) {
 
         //c = ' ';
         i = 0;
-        ping = 0;
+        //ping = 0;
         while(strcmp(cmd, "exit\r")) { // le read() > 0 n'a pas l'air de faire grand chose, et le strcmp non plus pcq on vide cmd avant chaque utilisation
             read(cnx, &c, 1);
             //printf("%d ", c);
@@ -301,15 +301,15 @@ int main(int argc, char *argv[]) {
             if ((c == '\r' || c == '\n') && i) {
                 printf("\n");
                 i = getArgs(cmd, cmdargs); // Ici i sert à compter le nombre d'arguments dans la commande (nom de la commande inclus)
-                if (strcmp(cmdargs[0], "hello") == 0) {
+                if (1 == 0/*strcmp(cmdargs[0], "hello") == 0*/) {
                     //printf("Writing...\n");
-                    write(cnx, "._.\r\n", 5);
-                } else if (strcmp(cmd, "ping") == 0) {
+                    //write(cnx, "._.\r\n", 5);
+                /*} else if (strcmp(cmd, "ping") == 0) {
                     //printf("Writing...\n");
                     ping++;
                     memset(cmd, 0, strlen(cmd)); // Pas nécessaire car la longueur de la chaine est plus grande que "PING" au final
                     sprintf(cmd, "PONG N°%d\r\n", ping); // Mais ça permet d'être plus propre au niveau mémoire
-                    write(cnx, cmd, strlen(cmd));
+                    write(cnx, cmd, strlen(cmd));*/
                 } else if (strcmp(cmdargs[0], "list_all") == 0) {
                     //printf("Writing...\n");
                     if (accPriv) {
@@ -349,9 +349,13 @@ int main(int argc, char *argv[]) {
                         //i = getArgs(cmd, cmdargs);
                         //printf("\n%d, %s, %s\n", i, cmdargs[0], cmdargs[1]);
                         //printf("%d arguments\n", i);
-                        if (i >= 4) { // nom de la commande + 3 arguments
+                        if (i >= 3) { // nom de la commande + 2 arguments
+                            if (i >= 4) {
+                                memset(tmp, 0, strlen(tmp));
+                                sprintf(tmp, " AND jour <= '%s'", cmdargs[3]);
+                            }
                             memset(cmd, 0, strlen(cmd));
-                            sprintf(cmd, "SELECT jour, disponibilite FROM test.planning where id_logement = %d AND jour >= '%s' AND jour <= '%s';", atoi(cmdargs[1]), cmdargs[2], cmdargs[3]);
+                            sprintf(cmd, "SELECT jour, disponibilite FROM test.planning where id_logement = %d AND jour %s= '%s'%s;", atoi(cmdargs[1]), (i >= 4 ? ">" : ""), cmdargs[2], (i >= 4 ? tmp : ""));
                             res = PQexec(db, cmd);
                             if (PQresultStatus(res) != PGRES_TUPLES_OK) {
                                 memset(cmd, 0, strlen(cmd));
@@ -363,7 +367,7 @@ int main(int argc, char *argv[]) {
                             }
                             PQclear(res);
                         } else {
-                            write(cnx, "Not enough arguments\r\nUsage : planning <id> <start-date> <end-date>\r\n", 69);
+                            write(cnx, "Not enough arguments\r\nUsage : planning <id> <start-date> [end-date]\r\n", 69);
                         }
                     } else {
                         write(cnx, "You do not have permission to execute that command\r\n", 52);
@@ -386,7 +390,7 @@ int main(int argc, char *argv[]) {
                                 if (PQntuples(res) > 0) {
                                     if (i >= 4) {
                                         memset(tmp, 0, strlen(tmp));
-                                        sprintf(tmp, " raison_indisponible = '%s' ", cmdargs[3]);
+                                        sprintf(tmp, ", raison_indisponible = '%s' ", cmdargs[3]);
                                     }
                                     sprintf(cmd, "UPDATE test.planning SET disponibilite = FALSE%sWHERE id_logement = %d AND jour = '%s';", (i >= 4 ? tmp : " "), atoi(cmdargs[1]), cmdargs[2]);
                                     res = PQexec(db, cmd);
@@ -423,11 +427,11 @@ int main(int argc, char *argv[]) {
                 } else if (strcmp(cmdargs[0], "help") == 0) {
                     //printf("Writing...\n");
                     write(cnx, "Available commands :\r\n", 22);
-                    write(cnx, "  hello\r\n", 9);
-                    write(cnx, "  ping\r\n", 8);
+                    //write(cnx, "  hello\r\n", 9);
+                    //write(cnx, "  ping\r\n", 8);
                     if (accPriv) write(cnx, "  list_all\r\n", 12);
                     write(cnx, "  list\r\n", 8);
-                    if (accCalend) write(cnx, "  planning <id> <start-date> <end-date>\r\n", 41);
+                    if (accCalend) write(cnx, "  planning <id> <start-date> [end-date]\r\n", 41);
                     if (accDesact) write(cnx, "  disable <id> <date> [reason]\r\n", 32);
                     write(cnx, "  help\r\n", 8);
                     write(cnx, "  exit\r\n", 8);
