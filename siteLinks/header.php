@@ -1,5 +1,5 @@
 <header>
-    <a href="/">
+    <a href="index.php">
       <img src="asset/img/logo.png" alt="logo">
     </a>
     <div></div>
@@ -21,9 +21,8 @@
       <?php
       if (isset($_SESSION['userId'])) {
       ?>
-        <h4><a href="">Messagerie</a></h4>
-        <h4><a href="">Mes réservations</a></h4>
-        <h4><a href="compteAccueil.php">Mon compte</a></h4>
+        <h4><a href="compte.php?res=res"><?php if ($_SESSION["userType"]=="proprietaire"){echo("Mes logements");} else {echo("Mes réservations");} ?></a></h4>
+        <h4><a href="compte.php">Mon compte</a></h4>
       <?php } else {
       ?>
         <h4><a href="connexion.php">Se connecter</a></h4>
@@ -31,15 +30,5 @@
       }
       ?>
     </nav>
-    <div id="headerPopup">
-      <ul>
-        <li>français</li>
-        <li>english</li>
-        <li>español</li>
-        <li>deutsch</li>
-        <li>brezhonneg</li>
-      </ul>
-    </div>
     <div></div>
   </header>
-  <script src="asset/js/header.js"></script>

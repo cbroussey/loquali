@@ -9,7 +9,7 @@
 </head>
 <body>
 <header>
-    <a href="">
+    <a href="index.php">
       <img src="asset/img/logo.png" alt="logo">
     </a>
     <div></div>
@@ -31,8 +31,7 @@
       <?php
       if (isset($_SESSION['userId'])) {
       ?>
-        <h4><a href="">Messagerie</a></h4>
-        <h4><a href="">Mes réservations</a></h4>
+        <h4><a href="compte.php?res=res"><?php if ($_SESSION["userType"]=="proprietaire"){echo("Mes logements");} else {echo("Mes réservations");} ?></a></h4>
         <h4><a href="compte.php">Mon compte</a></h4>
       <?php } else {
       ?>
@@ -41,15 +40,6 @@
       }
       ?>
     </nav>
-    <div >
-      <ul>
-        <li>français</li>
-        <li>english</li>
-        <li>español</li>
-        <li>deutsch</li>
-        <li>brezhonneg</li>
-      </ul>
-    </div>
     <div></div>
   </header>
 
@@ -67,6 +57,8 @@
     
     <footer>
 
+    <footer>
+
 <div id="infosFooter">
   <div id="footerCercleLogo">
     <img src="asset/img/logoRond.svg" alt="logo">
@@ -76,10 +68,10 @@
       <h2>Informations légales</h2>
       <ul>
         <li><a href="">Plan du site</a></li>
-        <li><a href="">Mentions légales</a></li>
-        <li><a href="">Conditions générales de ventes</a></li>
-        <li><a href="">Données personnelles</a></li>
-        <li><a href="">Gestions des cookies</a></li>
+        <li><a href="mentionsLegales.php">Mentions légales</a></li>
+        <li><a href="cgv.php">Conditions générales de ventes</a></li>
+        <li><a href="cgu.php">Conditions générales d'utilisation</a></li>
+        <li><a href="">Truc utile a savoir</a></li>
       </ul>
     </div>
     <div id="support">
