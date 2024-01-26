@@ -49,8 +49,7 @@
                 }
                 header("Location: index.php");
             } else {
-                echo '403 - Forbidden';
-                die('Forbidden');
+                die('403 -Forbidden');
             }
         }
 ?>

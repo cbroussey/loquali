@@ -6,13 +6,14 @@ async function recupDate(idlog, datedeb, datefin){
 
 function setPrix() {
          recupDate(document.getElementById("idlog").innerHTML, document.getElementById("start").value, document.getElementById("end").value).then((v) => {
-        document.querySelectorAll(".info_prix > .row > a > .value")[0].value = v["prix_ht"]
+        try { document.querySelectorAll(".info_prix > .row > a > .value")[0].value = v["prix_ht"] }
+        catch { document.querySelectorAll(".info_prix > .row > .value")[0].value = v["prix_ht"] }
         document.querySelectorAll(".info_prix > .row > .label")[0].innerHTML = v["nbjours"] + " nuits"
         document.querySelectorAll(".info_prix > .row > .value")[1].innerHTML = v["prix_ht"] *0.10 + ".00 €";    
         var prixHT = v["prix_ht"];
      var montantTotal = prixHT * 1.10 + 29.96;
 
-    document.querySelectorAll(".info_prix > .row > .value")[2].innerHTML = montantTotal.toFixed(2) + "€";
+    document.querySelectorAll(".info_prix > .row > a > .value")[1].value = montantTotal.toFixed(2) ;
 
     })
 
