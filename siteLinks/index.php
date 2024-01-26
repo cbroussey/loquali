@@ -1,5 +1,13 @@
 <?php
 session_start();
+
+if ($_SESSION["userType"]=="proprietaire"){
+  ?>
+  <script type="text/javascript">window.location.href = "compte.php";</script>
+
+
+  <?php
+}
 ?>
 
 <!DOCTYPE html>
@@ -11,12 +19,13 @@ session_start();
   <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
   <link rel="stylesheet" href="asset/css/headerAndFooter.css">
   <link rel="stylesheet" href="asset/css/style.css">
+  <link rel="stylesheet" href="asset/css/index.css">
   <title>Quoicoubeh</title>
 </head>
 
 <body>
   <header>
-    <a href="">
+    <a href="index.php">
       <img src="asset/img/logo.png" alt="logo">
     </a>
     <div></div>
@@ -38,7 +47,6 @@ session_start();
       <?php
       if (isset($_SESSION['userId'])) {
       ?>
-        <h4><a href="">Messagerie</a></h4>
         <h4><a href="compte.php?res=res"><?php if ($_SESSION["userType"]=="proprietaire"){echo("Mes logements");} else {echo("Mes réservations");} ?></a></h4>
         <h4><a href="compte.php">Mon compte</a></h4>
       <?php } else {
@@ -103,177 +111,178 @@ session_start();
           <p>Filtres</p>
         </a>
 
-        <div id="Liste_Filtre"> <!-- Partie visible uniquement lors d'un click sur le buton filtres -->
-          <form action="index.php" method="post">
+        <div id="filtreContainer">
+          <div id="Liste_Filtre"> <!-- Partie visible uniquement lors d'un click sur le buton filtres -->
+            <form action="index.php" method="post">
 
-            <!-- Ceci est un formulaire permettant de récupérer les donées avec lequel l'utilisateur veux ranger les logements (garde en mémoire les valeurs insérer) -->
+              <!-- Ceci est un formulaire permettant de récupérer les donées avec lequel l'utilisateur veux ranger les logements (garde en mémoire les valeurs insérer) -->
 
-          <a href="index.php" id="quitterfiltre">
-            <svg width="67" height="51" viewBox="0 0 67 51" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect width="66.9754" height="50.6036" rx="10" fill="#2072BC"/>
-              <path d="M37.1263 25.4248L43.229 19.4305C43.9779 18.695 43.9779 17.5024 43.229 16.7662L41.8727 15.434C41.1239 14.6984 39.9097 14.6984 39.1602 15.434L33.0575 21.4282L26.9548 15.434C26.2059 14.6984 24.9917 14.6984 24.2422 15.434L22.8859 16.7662C22.137 17.5018 22.137 18.6944 22.8859 19.4305L28.9886 25.4248L22.8859 31.419C22.137 32.1545 22.137 33.3471 22.8859 34.0833L24.2422 35.4155C24.9911 36.1511 26.2059 36.1511 26.9548 35.4155L33.0575 29.4213L39.1602 35.4155C39.909 36.1511 41.1239 36.1511 41.8727 35.4155L43.229 34.0833C43.9779 33.3477 43.9779 32.1551 43.229 31.419L37.1263 25.4248Z" fill="#F5F5F5"/>
-            </svg>
-          </a>
+            <a href="index.php" id="quitterfiltre">
+              <svg width="67" height="51" viewBox="0 0 67 51" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="66.9754" height="50.6036" rx="10" fill="#2072BC"/>
+                <path d="M37.1263 25.4248L43.229 19.4305C43.9779 18.695 43.9779 17.5024 43.229 16.7662L41.8727 15.434C41.1239 14.6984 39.9097 14.6984 39.1602 15.434L33.0575 21.4282L26.9548 15.434C26.2059 14.6984 24.9917 14.6984 24.2422 15.434L22.8859 16.7662C22.137 17.5018 22.137 18.6944 22.8859 19.4305L28.9886 25.4248L22.8859 31.419C22.137 32.1545 22.137 33.3471 22.8859 34.0833L24.2422 35.4155C24.9911 36.1511 26.2059 36.1511 26.9548 35.4155L33.0575 29.4213L39.1602 35.4155C39.909 36.1511 41.1239 36.1511 41.8727 35.4155L43.229 34.0833C43.9779 33.3477 43.9779 32.1551 43.229 31.419L37.1263 25.4248Z" fill="#F5F5F5"/>
+              </svg>
+            </a>
 
-          <div class="menutrie">
-              <ul>
-                <li>
-                  <a href="#"> Trier 
-                    <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M6.29399 8.67047C6.68448 9.10984 7.31864 9.10984 7.70914 8.67047L13.7071 1.92179C14.0976 1.48242 14.0976 0.768892 13.7071 0.329525C13.3166 -0.109843 12.6825 -0.109843 12.292 0.329525L7 6.28383L1.70802 0.333039C1.31753 -0.106328 0.683365 -0.106328 0.292871 0.333039C-0.0976236 0.772407 -0.0976236 1.48594 0.292871 1.92531L6.29086 8.67399L6.29399 8.67047Z" fill="#F5F5F5"/>
-                    </svg>
-                  </a>
-                  <ul>
-                    <li>
-                      <input type="radio" name="tri" id="rad_tri_1" value="Prix : Ordre Croissant" <?php if ($_POST["tri"]=="Prix : Ordre Croissant") { echo("checked"); }?>/> 
-                      <label for="rad_tri_1" class="btnChoix3">Prix : Ordre Croissant</label>
-                    </li>
-                    <li>
-                      <input type="radio" name="tri" id="rad_tri_2" value="Prix : Ordre Décroissant" <?php if ($_POST["tri"]=="Prix : Ordre Décroissant") { echo("checked"); }?>/> 
-                      <label for="rad_tri_2" class="btnChoix3">Prix : Ordre Décroissant</label>
-                    </li>
-                    <li>
-                      <input type="radio" name="tri" id="rad_tri_3" value="Récent" <?php if ($_POST["tri"]=="Récent") { echo("checked"); }?>/>
-                      <label for="rad_tri_3" class="btnChoix3">Récent</label>
-                    </li>
-                    <li>
-                      <input type="radio" name="tri" id="rad_tri_4" value="Ancien" <?php if ($_POST["tri"]=="Ancien") { echo("checked"); }?>/>
-                      <label for="rad_tri_4" class="btnChoix3">Ancien</label>
-                    </li>
-                    <li>
-                      <input type="radio" name="tri" id="rad_tri_5" value="Avis" <?php if ($_POST["tri"]=="Avis") { echo("checked"); }?>/>
-                      <label for="rad_tri_5" class="btnChoix3">Avis</label>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </div>
-
-            <div class="jailesbarres" id="premierebarre">
-              <div class="jailabarre"></div>
-              <div>
-                <h3>Type de logement </h3>
+            <div class="menutrie">
+                <ul>
+                  <li>
+                    <a href="#"> Trier 
+                      <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M6.29399 8.67047C6.68448 9.10984 7.31864 9.10984 7.70914 8.67047L13.7071 1.92179C14.0976 1.48242 14.0976 0.768892 13.7071 0.329525C13.3166 -0.109843 12.6825 -0.109843 12.292 0.329525L7 6.28383L1.70802 0.333039C1.31753 -0.106328 0.683365 -0.106328 0.292871 0.333039C-0.0976236 0.772407 -0.0976236 1.48594 0.292871 1.92531L6.29086 8.67399L6.29399 8.67047Z" fill="#F5F5F5"/>
+                      </svg>
+                    </a>
+                    <ul>
+                      <li>
+                        <input type="radio" name="tri" id="rad_tri_1" value="Prix : Ordre Croissant" <?php if ($_POST["tri"]=="Prix : Ordre Croissant") { echo("checked"); }?>/> 
+                        <label for="rad_tri_1" class="btnChoix3">Prix : Ordre Croissant</label>
+                      </li>
+                      <li>
+                        <input type="radio" name="tri" id="rad_tri_2" value="Prix : Ordre Décroissant" <?php if ($_POST["tri"]=="Prix : Ordre Décroissant") { echo("checked"); }?>/> 
+                        <label for="rad_tri_2" class="btnChoix3">Prix : Ordre Décroissant</label>
+                      </li>
+                      <li>
+                        <input type="radio" name="tri" id="rad_tri_3" value="Récent" <?php if ($_POST["tri"]=="Récent") { echo("checked"); }?>/>
+                        <label for="rad_tri_3" class="btnChoix3">Récent</label>
+                      </li>
+                      <li>
+                        <input type="radio" name="tri" id="rad_tri_4" value="Ancien" <?php if ($_POST["tri"]=="Ancien") { echo("checked"); }?>/>
+                        <label for="rad_tri_4" class="btnChoix3">Ancien</label>
+                      </li>
+                      <li>
+                        <input type="radio" name="tri" id="rad_tri_5" value="Avis" <?php if ($_POST["tri"]=="Avis") { echo("checked"); }?>/>
+                        <label for="rad_tri_5" class="btnChoix3">Avis</label>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
               </div>
-              <div class="jailabarre"></div>
-            </div>
 
-            <div id="newLogementInput" class="barreBtnChoix">
-                <input type="checkbox" id="test1" name="type" value="Maison" <?php if ($_POST["type"]=="Maison") { echo("checked"); }?>/>
-                <label for="test1" class="btnChoix" >Maison</label>
-                <input type="checkbox" id="test2" name="type" value="Appartement" <?php if ($_POST["type"]=="Appartement") { echo("checked"); }?>/>
-                <label for="test2" class="btnChoix">Appartement</label>
-            </div>
-
-            <div class="jailesbarres">
-              <div class="jailabarre"></div>
-              <h3>Nombre personne</h3>
-              <div class="jailabarre"></div>
-            </div>
-            
-            <div class="b4r3">
-              <input class="quantity" id="Personne" name="Personne" type="number" pattern="(29|35|22|56)[0-9]{3}" <?php if ($_POST["Personne"]!="") { ?> value="<?php echo($_POST["Personne"]) ?>"  <?php   } ?>>
-            </div>
-    
-            <div class="jailesbarres">
-              <div class="jailabarre"></div>
-                <h3>Aménagement</h3>
-              <div class="jailabarre"></div>
-            </div>
-
-            <div class="aaaaamenagement">
-              <input type="checkbox" id="amena1" name="amena[]" value="jardin" <?php foreach ($_POST["amena"] as $key=>$val) { if ($val=="jardin"){ echo("checked");} }  ?> />
-              <label for="amena1" class="btnChoix2">jardin</label>
-
-              <input type="checkbox" id="amena2" name="amena[]" value="balcon" <?php foreach ($_POST["amena"] as $key=>$val) { if ($val=="balcon"){ echo("checked");} }  ?> />
-              <label for="amena2" class="btnChoix2">balcon</label>
-
-              <input type="checkbox" id="amena3" name="amena[]" value="terrasse" <?php foreach ($_POST["amena"] as $key=>$val) { if ($val=="terrasse"){ echo("checked");} }  ?>/>
-              <label for="amena3" class="btnChoix2">terrasse</label>
-
-              <input type="checkbox" id="amena4" name="amena[]" value="parking" <?php foreach ($_POST["amena"] as $key=>$val) { if ($val=="parking"){ echo("checked");} }  ?>/>
-              <label for="amena4" class="btnChoix2">parking</label>
-            </div>
-
-            <div class="jailesbarres">
-              <div class="jailabarre"></div>
-                <h3>Installation</h3>
-              <div class="jailabarre"></div>
-            </div>
-
-            <div class="inssssstaaaal">
-              <input type="checkbox" id="instal1" name="instal[]" value="climatisation" <?php foreach ($_POST["instal"] as $key=>$val) { if ($val=="climatisation"){ echo("checked");} }  ?> />
-              <label for="instal1" class="btnChoix2">climatisation</label>
-
-
-              <input type="checkbox" id="instal2" name="instal[]" value="piscine" <?php foreach ($_POST["instal"] as $key=>$val) { if ($val=="piscine"){ echo("checked");} }  ?>/>
-              <label for="instal2" class="btnChoix2">piscine</label>
-
-
-              <input type="checkbox" id="instal3" name="instal[]" value="jacuzzi" <?php foreach ($_POST["instal"] as $key=>$val) { if ($val=="jacuzzi"){ echo("checked");} }  ?>/>
-              <label for="instal3" class="btnChoix2">jacuzzi</label>
-
-
-              <input type="checkbox" id="instal4" name="instal[]" value="hammam" <?php foreach ($_POST["instal"] as $key=>$val) { if ($val=="hammam"){ echo("checked");} }  ?>/>
-              <label for="instal4" class="btnChoix2">hammam</label>
-
-              <input type="checkbox" id="instal5" name="instal[]" value="sauna" <?php foreach ($_POST["instal"] as $key=>$val) { if ($val=="sauna"){ echo("checked");} }  ?>/>
-              <label for="instal5" class="btnChoix2">sauna</label>
-            </div>
-
-            <div class="jailesbarres">
-              <div class="jailabarre"></div>
-                <h3>Service</h3>
-              <div class="jailabarre"></div>
-            </div>
-
-            <div class="serrrrrvice">
-              <input type="checkbox" id="service1" name="service[]" value="linge" <?php foreach ($_POST["service"] as $key=>$val) { if ($val=="linge"){ echo("checked");} }  ?>/>
-              <label for="service1" class="btnChoix2">linge</label>
-
-
-              <input type="checkbox" id="service2" name="service[]" value="ménage" <?php foreach ($_POST["service"] as $key=>$val) { if ($val=="ménage"){ echo("checked");} }  ?>/>
-              <label for="service2" class="btnChoix2">ménage</label>
-
-
-              <input type="checkbox" id="service3" name="service[]" value="taxi" <?php foreach ($_POST["service"] as $key=>$val) { if ($val=="taxi"){ echo("checked");} }  ?>/>
-              <label for="service3" class="btnChoix2">taxi</label>
-
-              <input type="checkbox" id="service4" name="service[]" value="repas" <?php foreach ($_POST["service"] as $key=>$val) { if ($val=="repas"){ echo("checked");} }  ?>/>
-              <label for="service4" class="btnChoix2">repas</label>
-            </div>
-
-            <div class="jailesbarres">
-              <div class="jailabarre"></div>
-              <h3>Prix Maximum</h3>
-              <div class="jailabarre"></div>
-            </div>
-            
-            <div class="b4r3">
-              <input class="quantity" id="PrixMax" name="PrixMax" type="number" pattern="(29|35|22|56)[0-9]{3}" <?php if ($_POST["PrixMax"]!="") { ?> value="<?php echo($_POST["PrixMax"]) ?>"  <?php   } ?>>
-            </div>
-
-            <div class="jailesbarres">
-              <div class="jailabarre"></div>
-              <h3>Prix Minimum</h3>
-              <div class="jailabarre"></div>
-            </div>
-            
-            <div class="b4r3">
-              <input class="quantity" id="PrixMin" name="PrixMin" type="number" pattern="(29|35|22|56)[0-9]{3}" <?php if ($_POST["PrixMin"]!="") { ?> value="<?php echo($_POST["PrixMin"]) ?>"  <?php   } ?>>
-            </div>
-
-<br>
-    
-            <div id="boutonsEnBaaaaas">
-              <div class="reeeetour">
-                <a href="index.php">Retour</a>
+              <div class="jailesbarres" id="premierebarre">
+                <div class="jailabarre"></div>
+                <div>
+                  <h3>Type de logement </h3>
+                </div>
+                <div class="jailabarre"></div>
               </div>
-              <div class="valiiiide">
-                <input type="submit" name="test" value="Valider" id="validerouuuu">
+
+              <div id="newLogementInput" class="barreBtnChoix">
+                  <input type="checkbox" id="test1" name="type" value="Maison" <?php if ($_POST["type"]=="Maison") { echo("checked"); }?>/>
+                  <label for="test1" class="btnChoix" >Maison</label>
+                  <input type="checkbox" id="test2" name="type" value="Appartement" <?php if ($_POST["type"]=="Appartement") { echo("checked"); }?>/>
+                  <label for="test2" class="btnChoix">Appartement</label>
               </div>
-            </div>
+
+              <div class="jailesbarres">
+                <div class="jailabarre"></div>
+                <h3>Nombre personne</h3>
+                <div class="jailabarre"></div>
+              </div>
+              
+              <div class="b4r3">
+                <input class="quantity" id="Personneeeeeeeeeeeee" name="Personne" type="number" pattern="(29|35|22|56)[0-9]{3}" <?php if ($_POST["Personne"]!="") { ?> value="<?php echo($_POST["Personne"]) ?>"  <?php   } ?>>
+              </div>
+      
+              <div class="jailesbarres">
+                <div class="jailabarre"></div>
+                  <h3>Aménagement</h3>
+                <div class="jailabarre"></div>
+              </div>
+
+              <div class="aaaaamenagement">
+                <input type="checkbox" id="amena1" name="amena[]" value="jardin" <?php foreach ($_POST["amena"] as $key=>$val) { if ($val=="jardin"){ echo("checked");} }  ?> />
+                <label for="amena1" class="btnChoix2">jardin</label>
+
+                <input type="checkbox" id="amena2" name="amena[]" value="balcon" <?php foreach ($_POST["amena"] as $key=>$val) { if ($val=="balcon"){ echo("checked");} }  ?> />
+                <label for="amena2" class="btnChoix2">balcon</label>
+
+                <input type="checkbox" id="amena3" name="amena[]" value="terrasse" <?php foreach ($_POST["amena"] as $key=>$val) { if ($val=="terrasse"){ echo("checked");} }  ?>/>
+                <label for="amena3" class="btnChoix2">terrasse</label>
+
+                <input type="checkbox" id="amena4" name="amena[]" value="parking" <?php foreach ($_POST["amena"] as $key=>$val) { if ($val=="parking"){ echo("checked");} }  ?>/>
+                <label for="amena4" class="btnChoix2">parking</label>
+              </div>
+
+              <div class="jailesbarres">
+                <div class="jailabarre"></div>
+                  <h3>Installation</h3>
+                <div class="jailabarre"></div>
+              </div>
+
+              <div class="inssssstaaaal">
+                <input type="checkbox" id="instal1" name="instal[]" value="climatisation" <?php foreach ($_POST["instal"] as $key=>$val) { if ($val=="climatisation"){ echo("checked");} }  ?> />
+                <label for="instal1" class="btnChoix2">climatisation</label>
+
+
+                <input type="checkbox" id="instal2" name="instal[]" value="piscine" <?php foreach ($_POST["instal"] as $key=>$val) { if ($val=="piscine"){ echo("checked");} }  ?>/>
+                <label for="instal2" class="btnChoix2">piscine</label>
+
+
+                <input type="checkbox" id="instal3" name="instal[]" value="jacuzzi" <?php foreach ($_POST["instal"] as $key=>$val) { if ($val=="jacuzzi"){ echo("checked");} }  ?>/>
+                <label for="instal3" class="btnChoix2">jacuzzi</label>
+
+
+                <input type="checkbox" id="instal4" name="instal[]" value="hammam" <?php foreach ($_POST["instal"] as $key=>$val) { if ($val=="hammam"){ echo("checked");} }  ?>/>
+                <label for="instal4" class="btnChoix2">hammam</label>
+
+                <input type="checkbox" id="instal5" name="instal[]" value="sauna" <?php foreach ($_POST["instal"] as $key=>$val) { if ($val=="sauna"){ echo("checked");} }  ?>/>
+                <label for="instal5" class="btnChoix2">sauna</label>
+              </div>
+
+              <div class="jailesbarres">
+                <div class="jailabarre"></div>
+                  <h3>Service</h3>
+                <div class="jailabarre"></div>
+              </div>
+
+              <div class="serrrrrvice">
+                <input type="checkbox" id="service1" name="service[]" value="linge" <?php foreach ($_POST["service"] as $key=>$val) { if ($val=="linge"){ echo("checked");} }  ?>/>
+                <label for="service1" class="btnChoix2">linge</label>
+
+
+                <input type="checkbox" id="service2" name="service[]" value="ménage" <?php foreach ($_POST["service"] as $key=>$val) { if ($val=="ménage"){ echo("checked");} }  ?>/>
+                <label for="service2" class="btnChoix2">ménage</label>
+
+
+                <input type="checkbox" id="service3" name="service[]" value="taxi" <?php foreach ($_POST["service"] as $key=>$val) { if ($val=="taxi"){ echo("checked");} }  ?>/>
+                <label for="service3" class="btnChoix2">taxi</label>
+
+                <input type="checkbox" id="service4" name="service[]" value="repas" <?php foreach ($_POST["service"] as $key=>$val) { if ($val=="repas"){ echo("checked");} }  ?>/>
+                <label for="service4" class="btnChoix2">repas</label>
+              </div>
+
+              <div class="jailesbarres">
+                <div class="jailabarre"></div>
+                <h3>Prix Maximum</h3>
+                <div class="jailabarre"></div>
+              </div>
+              
+              <div class="b4r3">
+                <input class="quantity" id="PrixMax" name="PrixMax" type="number" pattern="(29|35|22|56)[0-9]{3}" <?php if ($_POST["PrixMax"]!="") { ?> value="<?php echo($_POST["PrixMax"]) ?>"  <?php   } ?>>
+              </div>
+
+              <div class="jailesbarres">
+                <div class="jailabarre"></div>
+                <h3>Prix Minimum</h3>
+                <div class="jailabarre"></div>
+              </div>
+              
+              <div class="b4r3">
+                <input class="quantity" id="PrixMin" name="PrixMin" type="number" pattern="(29|35|22|56)[0-9]{3}" <?php if ($_POST["PrixMin"]!="") { ?> value="<?php echo($_POST["PrixMin"]) ?>"  <?php   } ?>>
+              </div>
+
+              <br>
+      
+              <div id="boutonsEnBaaaaas">
+                <div class="reeeetour">
+                  <a href="index.php">Retour</a>
+                </div>
+                <div class="valiiiide">
+                  <input type="submit" name="test" value="Valider" id="validerouuuu">
+                </div>
+              </div>
+          </div>
         </div>
-
       </div>
       
     </div>
@@ -625,61 +634,56 @@ try {
 
   <div id="menu">
         <div id="choix">
-            <a href="compteAccueil.php" class="bouton">Mon compte</a>
-
-            <a href="" class="bouton">Mes réservation</a>
-
-            <a href="" class="bouton">Messagerie</a>
-            
-        <div id="separe"></div>
-
+            <a href="compte.php" class="bouton">Mon compte</a>
+          
+            <a href="compte.php?res=res" class="bouton"><?php if ($_SESSION["userType"]=="proprietaire"){echo("Mes logements");} else {echo("Mes réservations");} ?></a>
         </div>
   </div>
 
 
   <footer>
 
-    <div id="infosFooter">
-      <div id="footerCercleLogo">
-        <img src="asset/img/logoRond.svg" alt="logo">
-      </div>
-      <div id="textefooter">
-        <div id="infosLegal">
-          <h2>Informations légales</h2>
-          <ul>
-            <li><a href="">Plan du site</a></li>
-            <li><a href="">Mentions légales</a></li>
-            <li><a href="">Conditions générales de ventes</a></li>
-            <li><a href="">Données personnelles</a></li>
-            <li><a href="">Gestions des cookies</a></li>
-          </ul>
-        </div>
-        <div id="support">
-          <h2>Support client</h2>
-          <a href="">Contacter le support</a>
-        </div>
-        <div id="reseaux">
-          <h2>Suivez nous</h2>
-          <div id="logoReseaux">
-            <a href=""><img src="asset/icons/blanc/facebook.svg" alt=""></a>
-            <a href=""><img src="asset/icons/blanc/instagram.svg" alt=""></a>
-            <a href=""><img src="asset/icons/blanc/steam.svg" alt=""></a>
-          </div>
-        </div>
-        <div id="contact">
-          <h2>Nous contacter</h2>
-          <p>Rue Édouard Branly, 22300 Lannion</p>
-          <p>02 96 46 93 00</p>
-          <p>iut-lannion.univ-rennes.fr</p>
-        </div>
+<div id="infosFooter">
+  <div id="footerCercleLogo">
+    <img src="asset/img/logoRond.svg" alt="logo">
+  </div>
+  <div id="textefooter">
+    <div id="infosLegal">
+      <h2>Informations légales</h2>
+      <ul>
+        <li><a href="">Plan du site</a></li>
+        <li><a href="mentionsLegales.php">Mentions légales</a></li>
+        <li><a href="cgv.php">Conditions générales de ventes</a></li>
+        <li><a href="cgu.php">Conditions générales d'utilisation</a></li>
+        <li><a href="">Truc utile a savoir</a></li>
+      </ul>
+    </div>
+    <div id="support">
+      <h2>Support client</h2>
+      <a href="">Contacter le support</a>
+    </div>
+    <div id="reseaux">
+      <h2>Suivez nous</h2>
+      <div id="logoReseaux">
+        <a href=""><img src="asset/icons/blanc/facebook.svg" alt=""></a>
+        <a href=""><img src="asset/icons/blanc/instagram.svg" alt=""></a>
+        <a href=""><img src="asset/icons/blanc/steam.svg" alt=""></a>
       </div>
     </div>
-
-    <div class="basFooter">
-      <p>Copyright @ 2023 LoQuali.com</p>
+    <div id="contact">
+      <h2>Nous contacter</h2>
+      <p>Rue Édouard Branly, 22300 Lannion</p>
+      <p>02 96 46 93 00</p>
+      <p>iut-lannion.univ-rennes.fr</p>
     </div>
+  </div>
+</div>
 
-  </footer>
+<div class="basFooter">
+  <p>Copyright @ 2023 LoQuali.com</p>
+</div>
+
+</footer>
 
   <script src="asset/js/header.js"></script>
   <script src="asset/js/index.js"></script>

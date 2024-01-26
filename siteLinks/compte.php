@@ -176,7 +176,7 @@ try {
 </head>
 
 <body>
-  <header>
+  <header id=headerCompte>
     <a href="index.php">
       <img src="asset/img/logo.png" alt="logo">
     </a>
@@ -589,8 +589,10 @@ try {
 
     </div>
 
-    <div id="compteLogements">
-      <!-- logements --> <!-- reservations -->
+  </div> 
+
+  <div id="compteLogements">
+<!-- logements --> <!-- reservations -->
       <?php
       if ($_SESSION['userType'] == 'proprietaire') {
       ?>
@@ -657,12 +659,9 @@ try {
 
                     <div class="unLogement">
                       <div class="log_info_liste">
-                        <h2><?php echo ($info["nature_logement"]); ?> <?php echo ($info["type_logement"]); ?>, <?php echo ($info["localisation"]); ?></h2>
-                        <p><?php echo ($info["code_postal"]); ?>, <U><?php echo ($info["departement"]); ?></U></p>
-                        <div class="noteAvis">
-                          <img src="asset/icons/bleu/star.svg" alt="">
-                          <p><?php echo ($info["note_logement"]); ?>, 24 avis</p>
-                        </div>
+                        <h2><?php echo ($info["libelle_logement"]);?>, <?php echo ($info["localisation"]); ?></h2>
+                        <p class="logement_prix"><?php echo ($info["prix_ttc"]); ?> €, par nuit</p>
+                        
                         <a class="consulterLogement" href="logement.php?id=<?php echo $info["id_logement"] ?>"><em>Consulter le logement</em></a>
                       </div>
 
@@ -673,8 +672,19 @@ try {
                   <div class="compteBtnListeLogement">
                     <a href="modifLogement.php?id=<?php echo ($info["id_logement"]) ?>"><img src="asset/icons/bleu/modification.svg" alt=""></a>
 
-                    <a href="logement.php?confirmDelete=<?php echo ($info["id_logement"]) ?>"><img src="asset/icons/bleu/trash.svg" alt=""></a>
 
+                      <a onclick="openModal3()"><img src="asset/icons/bleu/trash.svg" alt=""></a>
+
+                      <div class="confirmation-modal" id="myModal3">
+                          <div class="modal-content">
+                              <span class="close" onclick="closeModal3()">&times;</span>
+                              <p>Êtes-vous sûr de vouloir supprimer ?</p>
+                                <input type="hidden" name="confirmDelete" value="<?php echo $id ?>">
+
+                                <a  href="logement.php?confirmDelete=<?php echo ($info["id_logement"]) ?>" class="confirm-button">Confirmer</a>
+
+                          </div>
+                      </div>
                     <a href="logement.php?confirmDelete=<?php echo ($info["id_logement"]) ?>"><img src="asset/icons/bleu/troisPoints.svg" alt=""></a>
 
                   </div>
@@ -713,6 +723,7 @@ try {
                 $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
                 $query = "SELECT min(id_image) FROM test.photo_logement NATURAL JOIN test.image WHERE id_logement = :id_logement;";
 
+                $query = "SELECT COUNT(*) FROM test.reservation WHERE id_compte = $id;";
                 $stmt = $dbh->prepare($query);
                 $stmt->bindParam('id_logement', $info["id_logement"], PDO::PARAM_STR);
                 $stmt->execute();
@@ -720,33 +731,85 @@ try {
 
                 $query = "SELECT extension_image FROM test.image WHERE id_image = :id_image;";
 
-                $stmt = $dbh->prepare($query);
-                $stmt->bindParam('id_image', $photo["min"], PDO::PARAM_STR);
-                $stmt->execute();
-                $extention = $stmt->fetch();
+                foreach($dbh->query("SELECT * FROM test.reservation 
+                INNER JOIN test.devis ON test.reservation.id_reservation = test.devis.id_reservation
+                INNER JOIN test.logement ON test.reservation.id_logement = test.logement.id_logement
+                WHERE test.reservation.id_compte = $id;", PDO::FETCH_ASSOC) as $row) {
+            
+                  $info=$row;
+                  $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+                  $query = "SELECT min(id_image) FROM test.photo_logement NATURAL JOIN test.image WHERE id_logement = :id_logement;";
+          
+                  $stmt = $dbh->prepare($query);
+                  $stmt->bindParam('id_logement', $info["id_logement"], PDO::PARAM_STR);
+                  $stmt->execute();
+                  $photo = $stmt->fetch();
 
               ?>
 
-                <div class="compteListeUnLogement">
-                  <div class="toutLogement">
-                    <div id=imajedelespagna>
-                      <img src="asset/img/logements/<?php echo ($photo["min"]); ?>.<?php echo $extention["extension_image"] ?>" width="100%" height="100%" alt="" class="imgListeLogementProprio">
-                    </div>
-                    <div class="unLogement">
-                      <div class="log_info_liste">
-                        <h2><?php echo ($info["nature_logement"]); ?> <?php echo ($info["type_logement"]); ?>, <?php echo ($info["localisation"]); ?></h2>
-                        <p><?php echo ($info["code_postal"]); ?>, <U><?php echo ($info["departement"]); ?></U></p>
-                        <div class="noteAvis">
-                          <img src="asset/icons/bleu/star.svg" alt="">
-                          <p><?php echo ($info["note_logement"]); ?>, 24 avis</p>
+
+                  ?>
+
+                  <div class="compteListeUnLogement">
+                    <div class="toutLogement">
+                      <div id=imajedelespagna>
+                        <img src="asset/img/logements/<?php echo ($photo["min"]); ?>.<?php echo $extention["extension_image"] ?>" width="100%" height="100%" alt="" class="imgListeLogementProprio">
+                      </div>
+                      <div class="unLogement">
+                        <div class="log_info_liste">
+                          <h2><?php echo ($info["nature_logement"]); ?> <?php echo ($info["type_logement"]); ?>, <?php echo ($info["localisation"]); ?></h2>
+                          <p><?php echo ($info["prix_devis"]); ?> €, par nuit</p>
+                          <div class="noteAvis">
+                            <p>
+
+                                  <?php
+                                  $datedeb =$info["debut_reservation"];
+                                  $datefin =$info["fin_reservation"];
+
+                                  // Convertir la chaîne en objet de date
+                                  $dateObjdeb = new DateTime($datedeb);
+                                  $dateObjfin = new DateTime($datefin);
+
+                                  // Formater la date selon le format souhaité
+                                  $result1 = $dateObjdeb->format('d M');
+                                  $result2 = $dateObjfin->format('d M');
+
+                                  // Afficher le résultat
+                                  echo "$result1 -> $result2";
+                                  ?>
+
+                            </p>
+                          </div>
+                          <a class="consulterLogement" href="logement.php?id=<?php echo $info["id_logement"] ?>"><em>Consulter le logement</em></a>
                         </div>
                         <a class="consulterLogement" href="logement.php?id=<?php echo $info["id_logement"] ?>"><em>Consulter le logement</em></a>
                       </div>
                     </div>
+                    <div class="compteBtnListeLogement">
+                    <a href="modifLogement.php?id=<?php echo ($info["id_logement"]) ?>"><img src="asset/icons/bleu/modification.svg" alt=""></a>
+
+                    <a onclick="openModal2()"><img src="asset/icons/bleu/trash.svg" alt=""></a>
+
+
+
+
+                      <div class="confirmation-modal" id="myModal2">
+                          <div class="modal-content">
+                              <span class="close" onclick="closeModal2()">&times;</span>
+                              <p>Êtes-vous sûr de vouloir supprimer ?</p>
+                                <input type="hidden" name="confirmDelete" value="<?php echo $id ?>">
+
+                                <a  href="logement.php?confirmDelete=<?php echo ($info["id_logement"]) ?>" class="confirm-button">Confirmer</a>
+
+                          </div>
+                      </div>
+
+
+                  </div>
                   </div>
                 </div>
 
-                <div class="separateur1">a</div>
+                <div class="compteSeparateur1">a</div>
 
 
 
@@ -853,7 +916,23 @@ try {
 
           $client_id = $dbh->query("SELECT * FROM test.reservation WHERE id_reservation = $id_reservation")->fetch()["id_compte"];
 
-          $query = "SELECT * FROM test.compte NATURAL JOIN test.client WHERE id_compte = :id_compte";
+                            if ($images = opendir('asset/img/profils/')) {
+                                while (false !== ($fichier = readdir($images))) {
+                                    $imgInfos = pathinfo($fichier);
+                                    if ($imgInfos['filename'] == $client_id) {
+                                        $pathName = 'asset/img/profils/' . $fichier;
+                                        break;
+                                    }
+            
+                                }
+                                if ($pathName == '') {
+                                    $pathName = 'asset/img/profils/default.jpg';
+                                }
+                                closedir($images);
+                            }
+                            $devisCount++;
+
+                            ?>
 
           $stmt = $dbh->prepare($query);
           $stmt->bindParam('id_compte', $client_id, PDO::PARAM_STR);
@@ -1050,14 +1129,25 @@ try {
       </div>
     </form>
 
-    <script src="asset/js/header.js"></script>
-    <script src="asset/js/modifInfosCompte.js"></script>
-    <script src="asset/js/account.js"></script>
-    <?php if ($_GET["res"] == "res") { ?>
-      <script>
-        liens_compte(3)
-      </script>
-    <?php } ?>
+
+        <form method="post" id="popUpDeco">
+        <div class="popUpDecoChoix">
+          <h2>Êtes-vous sûr de vouloir <br>vous déconnecter ?</h2>
+          <div class="button-container">
+            <input class="cancel-button" id="cancelDisconnect" name="cancelDisconnect" type="button" value="Annuler" />
+            <input type="hidden" name="hidden" value="disconnect">
+            <input class="confirm-button" id="confirmDisconnect" type="submit" value="Se déconnecter" />
+          </div>
+        </div>
+      </form>
+
+        <script src="asset/js/header.js"></script>
+        <script src="asset/js/modifInfosCompte.js"></script>
+        <script src="asset/js/account.js"></script>
+        <script src="asset/js/boutonSupprimer.js"></script>
+        <?php if ($_GET["res"]=="res"){?>
+            <script>liens_compte(3)</script>
+          <?php } ?>
 </body>
 <style>
   input[type="checkbox"] {
