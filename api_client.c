@@ -6,7 +6,7 @@
 #include <unistd.h>
 #include <arpa/inet.h>
 
-#define MAX_BUFFER_SIZE 1024
+#define MAX_BUFFER_SIZE 1024 // Taille max des chaines de caractères
 
 int main(int argc, char *argv[]) {
     if (argc != 3) {
@@ -49,6 +49,7 @@ int main(int argc, char *argv[]) {
     char response[MAX_BUFFER_SIZE];
 
     while (1) {
+        // Tant qu'on a pas reçu les caractères significatifs du prompt
         do {
             memset(response, 0, sizeof(response));
             if (recv(sock, response, sizeof(response), 0) == -1) {
@@ -63,7 +64,7 @@ int main(int argc, char *argv[]) {
             break;
         }
 
-        fgets(command, MAX_BUFFER_SIZE, stdin);
+        fgets(command, MAX_BUFFER_SIZE, stdin); // Obtenir l'input du client
 
         if (send(sock, command, strlen(command), 0) == -1) {
             perror("Send error");
