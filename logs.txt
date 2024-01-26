@@ -1,0 +1,22 @@
+[26/01/2024 11:17:38] Port : 8081
+[26/01/2024 11:17:38] Starting server...
+[26/01/2024 11:17:38] Socket init...	5
+[26/01/2024 11:17:38] Socket ip :	0
+[26/01/2024 11:17:38] Socket family :	2
+[26/01/2024 11:17:38] Socket port :	37151
+[26/01/2024 11:17:38] Socket bind...	0
+[26/01/2024 11:17:38] Server started successfully
+[26/01/2024 11:17:38] Socket listen... 0
+[26/01/2024 11:17:38] Waiting for connection...
+[26/01/2024 11:17:38] Socket accept... 6
+[26/01/2024 11:17:47] 127.0.0.1 Connected
+[26/01/2024 11:17:47] Waiting for API key...
+[26/01/2024 11:17:50] Key received : 0123456789ABCDEF
+[26/01/2024 11:17:50] Valid API key : Utilisateur 1
+[26/01/2024 11:17:50] Reading commands...
+[26/01/2024 11:17:51] 127.0.0.1 > exit
+[26/01/2024 11:17:51] Disconnected
+[26/01/2024 11:17:51] Server started successfully
+[26/01/2024 11:17:51] Socket listen... 0
+[26/01/2024 11:17:51] Waiting for connection...
+[26/01/2024 11:17:51] Socket accept... 

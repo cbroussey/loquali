@@ -16,36 +16,42 @@
 #include <stdarg.h>
 #include <time.h>
 
-#define MAXCMD 1024
+#define MAXCMD 1024 // Taille max de toutes les chaines de caractères
 
 bool verbose = false;
 int foutput = 0; // Fichier de sortie des logs si définit
 
-void printose(bool important, const char* format, ...) {
+// Fonction qui printf des logs à l'écran et dans un fichier en fonction de la variable verbose et du mode
+// mode = 0 -> Affichage uniquement si mode verbose activé
+// mode = 1 -> Affichage peut importe le mode verbose
+// mode = 2 -> Affichage uniquement si mode verbose activé sans indication de temps (permet le formattage de certains affichages)
+void printose(int mode, const char* format, ...) {
     time_t t = time(NULL);
     struct tm tm = *localtime(&t);
     char txt[MAXCMD];
     char tmp[MAXCMD];
     va_list args;
-    if (verbose || important) {
+    if (verbose || mode == 1) {
         va_start(args, format);
         vsnprintf(txt, sizeof(txt), format, args); // do check return value
         va_end(args);
         memset(tmp, 0, sizeof(tmp));
         sprintf(tmp, "[%02d/%02d/%d %02d:%02d:%02d] ", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900, tm.tm_hour, tm.tm_min, tm.tm_sec);
-        printf("%s%s", tmp, txt);
+        printf("%s%s", (mode != 2 ? tmp : ""), txt);
         if (foutput) {
-            write(foutput, tmp, strlen(tmp));
+            if (mode != 2) write(foutput, tmp, strlen(tmp));
             write(foutput, txt, strlen(txt));
         }
     }
 }
 
+// Fonction de simplification en cas d'erreur dans le lancement (éviter la répétition)
 void perrorOut() {
-    printose(true, "Err: %s\n", strerror(errno));
+    printose(2, "Err: %s\n", strerror(errno));
     exit(1);
 }
 
+// Fonction qui affiche le résultat d'une requête SQL au format JSON
 void writeTable(PGresult *res, int cnx) {
     int i;
     //int j, n;
@@ -74,6 +80,7 @@ void writeTable(PGresult *res, int cnx) {
     return;
 }
 
+// Fonction qui permet de récupérer les arguments d'une commande reçue via le socket
 int getArgs(char cmd[MAXCMD], char *cmdargs[]) {
     char tmp[MAXCMD];
     int i, j, k;
@@ -104,6 +111,7 @@ int getArgs(char cmd[MAXCMD], char *cmdargs[]) {
     return k+1;
 }
 
+// Fonction qui permet de vider la liste des arguments
 void emptyArgs(int argc, char* cmdargs[]) {
     int i;
     for (i = 0; i < argc; i++) {
@@ -114,19 +122,7 @@ void emptyArgs(int argc, char* cmdargs[]) {
     }
 }
 
-char* strToUpper(char * lower) {
-  char * name;
-  name = strtok(lower,":");
-
-  // Convert to upper case
-  char *s = name;
-  while (*s) {
-    *s = toupper((unsigned char) *s);
-    s++;
-  }
-  return (char*)s;
-}
-
+// Fonction principale
 int main(int argc, char *argv[]) {
     int sock, ret;
     struct sockaddr_in addr;
@@ -135,9 +131,9 @@ int main(int argc, char *argv[]) {
     int i;
     struct sockaddr_in conn_addr;
     size = (int)sizeof(conn_addr);
-    char c;
-    char cmd[MAXCMD];
-    char tmp[(int)MAXCMD/2];
+    char c; // Chaque caractère des commandes reçues
+    char cmd[MAXCMD]; // Commande reçue en entier
+    char tmp[(int)MAXCMD/2]; // Variable temporaire de manipulation de chaînes de caractères
     //int ping;
     int port;
     bool connected = false;
@@ -146,11 +142,12 @@ int main(int argc, char *argv[]) {
     bool accPriv; // Compte privilégié ?
     bool accCalend; // Peut afficher le calendrier ?
     bool accDesact; // Peut mettre un logement en indisponible ?
-    char* cmdargs[MAXCMD];
+    char* cmdargs[MAXCMD]; // Arguments de la commande reçue
 
-    PGconn *db;
-    PGresult *res;
+    PGconn *db; // BDD
+    PGresult *res; // Retour de reqûete SQL
 
+    // Vidage des variables chaînes de caractères
     memset(cmd, 0, sizeof(cmd));
     memset(tmp, 0, sizeof(tmp));
 
@@ -171,14 +168,16 @@ int main(int argc, char *argv[]) {
         //printf("là c'est %d et %c\n", optopt, c);
         switch (c) {
             case 0:
+                /*
                 printf("option %s", long_options[option_index].name);
                 if (optarg)
                     printf(" with arg %s", optarg);
                 printf("\n");
+                */
                 break;
             case 'v':
                 verbose = true;
-                if (optarg && strlen(optarg) > 0) {
+                if (optarg && strlen(optarg) > 0) { // Si on a un argument pour le fichier de sortie
                     printf("Selected output file for verbose : %s\n", optarg);
                     foutput = open(optarg, O_WRONLY | O_APPEND | O_CREAT, 0644);
                 }
@@ -219,8 +218,8 @@ int main(int argc, char *argv[]) {
         return 1;
     }
     port = atoi(argv[optind]);
+    if (verbose) printf("==== Verbose mode ====\n");
     printose(false, "Port : %d\n", atoi(argv[optind]));
-    if (verbose) printf("verbose mode\n");
     //return 0;
 
     // Partie BDD
@@ -236,24 +235,30 @@ int main(int argc, char *argv[]) {
 
     // Partie Socket
     printose(true, "Starting server...\n");
-    printose(false, "Socket init...\t ");
+
+    printose(false, "Socket init...\t");
     sock = socket(AF_INET, SOCK_STREAM, 0);
     if (sock == -1) perrorOut();
+    printose(2, "%d\n", sock);
 
-    printose(false, "%d\nSocket ip :\t ", sock);
-    addr.sin_addr.s_addr = inet_addr("127.0.0.1"); // INADDR_ANY;
+    printose(false, "Socket ip :\t");
+    addr.sin_addr.s_addr = htonl(INADDR_ANY); // Accepter toutes les adresses entrantes
     if (addr.sin_addr.s_addr == -1) perrorOut();
+    printose(2, "%d\n", addr.sin_addr.s_addr);
 
-    printose(false, "%d\nSocket family :\t ", addr.sin_addr.s_addr);
+    printose(false, "Socket family :\t");
     addr.sin_family = AF_INET;
+    printose(2, "%d\n", addr.sin_family);
 
-    printose(false, "%d\nSocket port :\t ", addr.sin_family);
+    printose(false, "Socket port :\t");
     addr.sin_port = htons(port);
+    printose(2, "%d\n", addr.sin_port);
 
-    printose(false, "%d\nSocket bind...\t ", addr.sin_port);
+    printose(false, "Socket bind...\t");
     ret = bind(sock, (struct sockaddr *)&addr, sizeof(addr));
     if (ret == -1) perrorOut();
-    printose(false, "%d\n", ret);
+    printose(2, "%d\n", ret);
+
     while (1) {
         connected = false;
 
@@ -262,15 +267,15 @@ int main(int argc, char *argv[]) {
             printose(false, "Socket listen... ");
             ret = listen(sock, 1);
             if (ret == -1) perrorOut();
+            printose(2, "%d\n", ret);
 
-            printose(false, "%d\n", ret);
             printose(true, "Waiting for connection...\n");
             printose(false, "Socket accept... ");
-            cnx = accept(sock, (struct sockaddr *)&conn_addr, (socklen_t *)&size);
+            cnx = accept(sock, (struct sockaddr *)&conn_addr, (socklen_t *)&size); // Attente de demande de connexion
             if (cnx == -1) perrorOut();
+            printose(2, "%d\n", cnx);
 
-            printose(false, "%d\n", cnx);
-            printose(true, "Connected !\n");
+            printose(true, "%s Connected\n", inet_ntoa(conn_addr.sin_addr));
             
             //read(cnx, &c, 1024);
             //printf("%s", c);
@@ -279,34 +284,36 @@ int main(int argc, char *argv[]) {
             printose(true, "Waiting for API key...\n");
             ret = read(cnx, &tmp, sizeof(tmp));
             if (ret == -1) perrorOut();
+            // On garde uniquement la clé et on enlève les caractères superflus
             while (tmp[strlen(tmp) - 1] == '\n' || tmp[strlen(tmp) - 1] == '\r') tmp[strlen(tmp) - 1] = '\0';
             printose(false, "Key received : %s\n", tmp);
-            memset(cmd, 0, strlen(cmd));
-            sprintf(cmd, "SELECT cle,id_compte,privilegie,accesCalendrier,miseIndispo FROM test.api WHERE cle = '%s';", tmp);
+            memset(cmd, 0, strlen(cmd)); // Vider la variable cmd
+            // Requête sql qui récupère toutes les infos en fonction de la clé API reçue
+            sprintf(cmd, "SELECT cle,test.api.id_compte,privilegie,accesCalendrier,miseIndispo,nom_affichage FROM test.api INNER JOIN test.compte on test.api.id_compte = test.compte.id_compte WHERE cle = '%s';", tmp);
             //printf("%s\n", cmd);
             res = PQexec(db, cmd);
-            if (PQresultStatus(res) != PGRES_TUPLES_OK) {
+            if (PQresultStatus(res) != PGRES_TUPLES_OK) { // Cas d'erreur
                 printose(true, "DB error: %s\nDisconnect\n", PQerrorMessage(db));
                 memset(cmd, 0, strlen(cmd));
                 sprintf(cmd, "DB error: %s\r\n", PQerrorMessage(db));
                 write(cnx, cmd, strlen(cmd));
                 close(cnx);
-            } else if (PQntuples(res) > 0) { //strncmp(&cmd, "0123456789ABCDEF", 16) == 0
+            } else if (PQntuples(res) > 0 && !strcmp(tmp, PQgetvalue(res, 0, 0))) { //strncmp(&cmd, "0123456789ABCDEF", 16) == 0
                 //memset(cmd, 0, strlen(cmd));
                 //sprintf(cmd, "SELECT FROM test.api WHERE cle = '%.16s';", tmp);
-                printose(true, "Valid API key\n");
                 accID = atoi(PQgetvalue(res, 0, 1));
-                strcpy(accNom, PQgetvalue(res, 0, 0));
                 accPriv = (PQgetvalue(res, 0, 2)[0] == 't');
                 accCalend = (PQgetvalue(res, 0, 3)[0] == 't');
                 accDesact = (PQgetvalue(res, 0, 4)[0] == 't');
+                strcpy(accNom, PQgetvalue(res, 0, 5));
+                printose(true, "Valid API key : %s\n", accNom);
                 memset(cmd, 0, strlen(cmd));
                 sprintf(cmd, "Authentication successful. Welcome %s\r\n", accNom);
                 write(cnx, cmd, strlen(cmd));
                 write(cnx, "Type \"help\" to get a list of available commands\r\n", 49);
-                write(cnx, "LoQuali> ", 9);
+                write(cnx, "LoQuali> ", 9); // Le prompt affiché au client
                 connected = true;
-            } else {
+            } else { // Pas de tuples retournés donc pas de résultat donc clé API erronnée. On déconnecte
                 printose(true, "Invalid API key. Disconnect\n");
                 write(cnx, "\eInvalid API key\r\n", 4);
                 close(cnx);
@@ -314,10 +321,8 @@ int main(int argc, char *argv[]) {
             }
         }
 
-        printose(true, "Commands from IP ");
-
         memset(cmd, 0, sizeof(cmd));
-        printf("Reading...\n > ");
+        printose(true, "Reading commands...\n");
 
         //c = ' ';
         i = 0;
@@ -326,12 +331,12 @@ int main(int argc, char *argv[]) {
             read(cnx, &c, 1);
             //printf("%d ", c);
             if (i < MAXCMD && c != '\r' && c != '\n') { // Ici i sert à limiter la commande reçue pour empêcher une segfault
-                printf("%c", c);
+                //printf("%c", c);
                 cmd[i] = c;
                 i++;
             }
-            if ((c == '\r' || c == '\n') && i) {
-                printf("\n");
+            if ((c == '\r' || c == '\n') && i) { // Quand on reçoit un caractère de fin de ligne et que la commande n'est pas vide
+                printose(false, "%s > %s\n", inet_ntoa(conn_addr.sin_addr), cmd); // Log de la commande
                 i = getArgs(cmd, cmdargs); // Ici i sert à compter le nombre d'arguments dans la commande (nom de la commande inclus)
                 if (1 == 0/*strcmp(cmdargs[0], "hello") == 0*/) {
                     //printf("Writing...\n");
@@ -349,6 +354,7 @@ int main(int argc, char *argv[]) {
                         if (PQresultStatus(res) != PGRES_TUPLES_OK) {
                             memset(cmd, 0, strlen(cmd));
                             sprintf(cmd, "Err: %s\r\n", PQerrorMessage(db));
+                            printose(true, cmd);
                             write(cnx, cmd, strlen(cmd));
                         } else {
                             //write(cnx, "Liste de tous les biens :\r\n", 27);
@@ -368,6 +374,7 @@ int main(int argc, char *argv[]) {
                     if (PQresultStatus(res) != PGRES_TUPLES_OK) {
                         memset(cmd, 0, strlen(cmd));
                         sprintf(cmd, "Err: %s\r\n", PQerrorMessage(db));
+                        printose(true, cmd);
                         write(cnx, cmd, strlen(cmd));
                     } else {
                         //write(cnx, "Liste de tous les biens :\r\n", 27);
@@ -382,7 +389,7 @@ int main(int argc, char *argv[]) {
                         //printf("\n%d, %s, %s\n", i, cmdargs[0], cmdargs[1]);
                         //printf("%d arguments\n", i);
                         if (i >= 3) { // nom de la commande + 2 arguments
-                            if (i >= 4) {
+                            if (i >= 4) { // Si il y a le troisième argument pour sélectionner une plage
                                 memset(tmp, 0, strlen(tmp));
                                 sprintf(tmp, " AND jour <= '%s'", cmdargs[3]);
                             }
@@ -392,6 +399,7 @@ int main(int argc, char *argv[]) {
                             if (PQresultStatus(res) != PGRES_TUPLES_OK) {
                                 memset(cmd, 0, strlen(cmd));
                                 sprintf(cmd, "Err: %s\r\n", PQerrorMessage(db));
+                                printose(true, cmd);
                                 write(cnx, cmd, strlen(cmd));
                             } else {
                                 // Affichage des attributs
@@ -410,31 +418,38 @@ int main(int argc, char *argv[]) {
                         //printf("\n%d, %s, %s\n", i, cmdargs[0], cmdargs[1]);
                         //printf("%d arguments\n", i);
                         if (i >= 3) { // nom de la commande + 2 ou 3 arguments
+                            if (i >= 4) {// Si il y a le troisième argument pour sélectionner une plage
+                                memset(tmp, 0, strlen(tmp));
+                                sprintf(tmp, " AND jour <= '%s'", cmdargs[3]);
+                            }
                             memset(cmd, 0, strlen(cmd));
-                            sprintf(cmd, "SELECT * FROM test.planning WHERE id_logement = %d AND jour = '%s';", atoi(cmdargs[1]), cmdargs[2]);
+                            sprintf(cmd, "SELECT * FROM test.planning WHERE id_logement = %d AND jour %s= '%s'%s;", atoi(cmdargs[1]), (i >= 4 ? ">" : ""), cmdargs[2], (i >= 4 ? tmp : ""));
                             res = PQexec(db, cmd);
                             if (PQresultStatus(res) != PGRES_TUPLES_OK) {
                                 memset(cmd, 0, strlen(cmd));
                                 sprintf(cmd, "Err: %s\r\n", PQerrorMessage(db));
+                                printose(true, cmd);
                                 write(cnx, cmd, strlen(cmd));
                             } else {
                                 memset(cmd, 0, strlen(cmd));
-                                if (PQntuples(res) > 0) {
-                                    if (i >= 4) {
+                                if (PQntuples(res) > 0) { // Si la/les plages existent déjà sur la date/période sélectionnée
+                                    /*if (i >= 4) {
                                         memset(tmp, 0, strlen(tmp));
                                         sprintf(tmp, ", raison_indisponible = '%s' ", cmdargs[3]);
-                                    }
-                                    sprintf(cmd, "UPDATE test.planning SET disponibilite = FALSE%sWHERE id_logement = %d AND jour = '%s';", (i >= 4 ? tmp : " "), atoi(cmdargs[1]), cmdargs[2]);
+                                    }*/
+                                    sprintf(cmd, "UPDATE test.planning SET disponibilite = FALSE WHERE id_logement = %d AND jour %s= '%s'%s;", atoi(cmdargs[1]), (i >= 4 ? ">" : ""), cmdargs[2], (i >= 4 ? tmp : ""));
                                     res = PQexec(db, cmd);
                                     if (PQresultStatus(res) != PGRES_COMMAND_OK) {
                                         memset(cmd, 0, strlen(cmd));
                                         sprintf(cmd, "Err: %s\r\n", PQerrorMessage(db));
+                                        printose(true, cmd);
                                         write(cnx, cmd, strlen(cmd));
                                     } else {
                                         write(cnx, "OK\r\n", 4);
                                     }
-                                } else {
+                                } else { // Sinon
                                     memset(cmd, 0, strlen(cmd));
+                                    // On récupère le prix de base pour le définir dans la plage
                                     sprintf(cmd, "SELECT prix_base_ht FROM test.logement WHERE id_logement = %d;", atoi(cmdargs[1]));
                                     res = PQexec(db, cmd); // Impossible de crash puisque le premier test avec les paramètres a déjà marché
                                     sprintf(cmd, "INSERT INTO test.planning VALUES (FALSE, %10.2f, '%s', '%s', %d);", atof(PQgetvalue(res, 0, 0)), cmdargs[2], (i >= 4 ? cmdargs[3] : ""), atoi(cmdargs[1]));
@@ -442,6 +457,7 @@ int main(int argc, char *argv[]) {
                                     if (PQresultStatus(res) != PGRES_COMMAND_OK) {
                                         memset(cmd, 0, strlen(cmd));
                                         sprintf(cmd, "Err: %s\r\n", PQerrorMessage(db));
+                                        printose(true, cmd);
                                         write(cnx, cmd, strlen(cmd));
                                     } else {
                                         write(cnx, "OK\r\n", 4);
@@ -451,7 +467,7 @@ int main(int argc, char *argv[]) {
                             }
                             PQclear(res);
                         } else {
-                            write(cnx, "Not enough arguments\r\nUsage : disable <id> <date> [reason]\r\n", 60);
+                            write(cnx, "Not enough arguments\r\nUsage : disable <id> <start-date> [end-date]\r\n", 60);
                         }
                     } else {
                         write(cnx, "You do not have permission to execute that command\r\n", 52);
@@ -464,7 +480,7 @@ int main(int argc, char *argv[]) {
                     if (accPriv) write(cnx, "  list_all\r\n", 12);
                     write(cnx, "  list\r\n", 8);
                     if (accCalend) write(cnx, "  planning <id> <start-date> [end-date]\r\n", 41);
-                    if (accDesact) write(cnx, "  disable <id> <date> [reason]\r\n", 32);
+                    if (accDesact) write(cnx, "  disable <id> <start-date> [end-date]\r\n", 40);
                     write(cnx, "  help\r\n", 8);
                     write(cnx, "  exit\r\n", 8);
                 } else if (strcmp(cmdargs[0], "exit") == 0) {
@@ -479,10 +495,10 @@ int main(int argc, char *argv[]) {
                 //printf("Done\n");
                 //printf("%ld\n", strlen(cmd));
                 //printf("aaaa\n");
-                memset(cmd, 0, strlen(cmd)); // plutôt qu'une boucle for
+                memset(cmd, 0, strlen(cmd)); // Plutôt qu'une boucle for
                 emptyArgs(i, cmdargs);
-                write(cnx, "LoQuali > ", 10);
-                printf(" > ");
+                write(cnx, "LoQuali > ", 10); // Le prompt affiché au client
+                //printf(" > ");
                 i = 0;
             }
         }
