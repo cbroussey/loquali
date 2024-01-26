@@ -68,7 +68,7 @@
                 </div>
                 <input id="confirmIsOwner" type="submit" value="Suivant"/>
             </form>
-            <p>En créant ou en vous connectant à un compte, vous acceptez nos <a href="">conditions générales</a> et notre <a href="">charte de confidentialité</a>.</p>
+            <p>En créant ou en vous connectant à un compte, vous acceptez nos <a href="cgu.php">conditions générales d'utilisation</a> et notre <a href="">charte de confidentialité</a>.</p>
         </section>
     </main>
 </body>
