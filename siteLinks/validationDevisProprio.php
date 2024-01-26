@@ -1,5 +1,6 @@
 <?php
 include('connect_params.php');
+error_reporting(0);
 try {
 
     $nouveau_prix = $_POST["total"];

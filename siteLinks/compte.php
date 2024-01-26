@@ -1,5 +1,6 @@
 <?php
 session_start();
+error_reporting(0);
 //suppression de session si la popupDéco est validée
 if (isset($_POST['hidden'])) {
   session_destroy();

@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
     if (isset($_POST['type'])) {
         if ($_POST['type'] == 'client') {
             header("Location: index.php");

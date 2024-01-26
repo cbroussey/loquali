@@ -1,4 +1,5 @@
 <?php 
+error_reporting(0);
     include "connect_params.php";
     if (isset($_POST) && isset($_POST["nb_cb"])){
         $nb_cb = $_POST["nb_cb"];

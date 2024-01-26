@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
     function emailIsInDB($email) {
         include('connect_params.php');
 

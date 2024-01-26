@@ -1,5 +1,6 @@
 <?php
     session_start();
+    error_reporting(0);
     if (isset($_POST['description'])) { /* Si présence d'une modification de description, update dans la bdd */
     
         include('connect_params.php');

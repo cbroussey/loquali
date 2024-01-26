@@ -1,5 +1,6 @@
 <?php
     session_start();
+    error_reporting(0);
     //echo date("m-y") ."\n";
     if (
         (/*isset($_POST["paymentType"]) && $_POST["paymentType"] == "MasterCard" && */preg_match('/^(5[1-5][0-9]{14}|2(22[1-9][0-9]{12}|2[3-9][0-9]{13}|[3-6][0-9]{14}|7[0-1][0-9]{13}|720[0-9]{12}))$/', $_POST["cardNumber"]))

@@ -1,8 +1,8 @@
 <?php
 session_start();
+error_reporting(0);
 include('connect_params.php');
 $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
-print_r($_POST);
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

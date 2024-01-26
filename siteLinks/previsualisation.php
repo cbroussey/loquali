@@ -3,6 +3,7 @@
 /* Démarage de la session, et suppression du logement si le propriétaire décide d'annuler la création de logement */
 
   session_start();
+  error_reporting(0);
     include('connect_params.php');
     $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
     $query = $dbh->prepare("SELECT * FROM test.logement WHERE id_logement = :idlog");

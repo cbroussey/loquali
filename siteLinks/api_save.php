@@ -1,5 +1,6 @@
 <?php
     session_start();
+    error_reporting(0);
     include_once("./connect_params.php");
     $cles = [];
     foreach($_POST as $i => $v) {
