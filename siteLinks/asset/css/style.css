@@ -4799,6 +4799,10 @@ margin:10% 0 5% 0;
   margin-left: 41%;
 }
 
+#comptePaiementAPI {
+  display:none;
+}
+
 .accueil {
   display: flex;
   justify-content: center;
@@ -5544,6 +5548,50 @@ width: 100%;
   width: 40%;
 }
 
+#apiSection {
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+#apiSection table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  margin-bottom: 30px;
+  
+}
+
+#apiSection th, #apiSection td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+#apiSection label {
+  margin-right: 15px;
+}
+
+#apiSection input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+.ajout-button {
+  background-color: #2072BC;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+
+}
 
 
 @media screen and (min-width: 0px) and (max-width: 1100px) { 

@@ -32,67 +32,67 @@ if (isset($_GET["confirmDelete"])) {
 
 <?php
 
-  include('connect_params.php');
-  $id = $_SESSION['userId'];
+include('connect_params.php');
+$id = $_SESSION['userId'];
 
-  try {
-    $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
-    $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-    if (isset($_POST['prenom'])) {
-      $query = "UPDATE test.compte SET prenom=:newValue WHERE id_compte = :id_compte;";
+try {
+  $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
+  $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+  if (isset($_POST['prenom'])) {
+    $query = "UPDATE test.compte SET prenom=:newValue WHERE id_compte = :id_compte;";
 
-      $stmt = $dbh->prepare($query);
-      $stmt->bindParam('newValue', $_POST['prenom'], PDO::PARAM_STR);
+    $stmt = $dbh->prepare($query);
+    $stmt->bindParam('newValue', $_POST['prenom'], PDO::PARAM_STR);
 
-      $stmt->bindParam('id_compte', $id, PDO::PARAM_STR);
-      $stmt->execute();
-      $infos2 = $stmt->fetch();
-      $_SESSION['prenom'] = $_POST['prenom'];
-    }
+    $stmt->bindParam('id_compte', $id, PDO::PARAM_STR);
+    $stmt->execute();
+    $infos2 = $stmt->fetch();
+    $_SESSION['prenom'] = $_POST['prenom'];
+  }
 
-    if (isset($_POST['nom'])) {
-      $query = "UPDATE test.compte SET nom=:newValue WHERE id_compte = :id_compte;";
+  if (isset($_POST['nom'])) {
+    $query = "UPDATE test.compte SET nom=:newValue WHERE id_compte = :id_compte;";
 
-      $stmt = $dbh->prepare($query);
-      $stmt->bindParam('newValue', $_POST['nom'], PDO::PARAM_STR);
+    $stmt = $dbh->prepare($query);
+    $stmt->bindParam('newValue', $_POST['nom'], PDO::PARAM_STR);
 
-      $stmt->bindParam('id_compte', $id, PDO::PARAM_STR);
-      $stmt->execute();
-      $infos2 = $stmt->fetch();
-      $_SESSION['nom'] = $_POST['nom'];
-    }
+    $stmt->bindParam('id_compte', $id, PDO::PARAM_STR);
+    $stmt->execute();
+    $infos2 = $stmt->fetch();
+    $_SESSION['nom'] = $_POST['nom'];
+  }
 
-    if (isset($_POST['adresse_mail'])) {
-      $query = "UPDATE test.compte SET adresse_mail=:newValue WHERE id_compte = :id_compte;";
+  if (isset($_POST['adresse_mail'])) {
+    $query = "UPDATE test.compte SET adresse_mail=:newValue WHERE id_compte = :id_compte;";
 
-      $stmt = $dbh->prepare($query);
-      $stmt->bindParam('newValue', $_POST['adresse_mail'], PDO::PARAM_STR);
+    $stmt = $dbh->prepare($query);
+    $stmt->bindParam('newValue', $_POST['adresse_mail'], PDO::PARAM_STR);
 
-      $stmt->bindParam('id_compte', $id, PDO::PARAM_STR);
-      $stmt->execute();
-      $infos2 = $stmt->fetch();
-      $_SESSION['adresse_mail'] = $_POST['adresse_mail'];
-    }
-
-
-
-
-    if (isset($_POST['numero'])) {
-
-
-      $query = "SELECT * FROM test.telephone WHERE id_compte = :id_compte";
-
-      $stmt = $dbh->prepare($query);
-      $stmt->bindParam('id_compte', $_SESSION['userId'], PDO::PARAM_STR);
-      $stmt->execute();
-      $telephone = $stmt->fetch();
-      $rowCount = $stmt->rowCount();
-
-      if ($rowCount == 0) {
+    $stmt->bindParam('id_compte', $id, PDO::PARAM_STR);
+    $stmt->execute();
+    $infos2 = $stmt->fetch();
+    $_SESSION['adresse_mail'] = $_POST['adresse_mail'];
+  }
 
 
 
-        $stmt = $dbh->prepare("
+
+  if (isset($_POST['numero'])) {
+
+
+    $query = "SELECT * FROM test.telephone WHERE id_compte = :id_compte";
+
+    $stmt = $dbh->prepare($query);
+    $stmt->bindParam('id_compte', $_SESSION['userId'], PDO::PARAM_STR);
+    $stmt->execute();
+    $telephone = $stmt->fetch();
+    $rowCount = $stmt->rowCount();
+
+    if ($rowCount == 0) {
+
+
+
+      $stmt = $dbh->prepare("
             INSERT INTO test.telephone (
               numero,
               id_compte
@@ -101,67 +101,67 @@ if (isset($_GET["confirmDelete"])) {
               :id_compte
             )");
 
-        $stmt->bindParam(':numero', $_POST["numero"]);
-        $stmt->bindParam(':id_compte', $id);
+      $stmt->bindParam(':numero', $_POST["numero"]);
+      $stmt->bindParam(':id_compte', $id);
 
 
-        try {
-          // Exécuter la requête
-          $stmt->execute();
-        } catch (PDOException $e) {
-          // Afficher l'erreur en cas d'échec de la requête
-          echo "Erreur lors de l'insertion : " . $e->getMessage();
-        }
-      } else {
-
-
-
-        $query = "UPDATE test.telephone SET numero=:newValue WHERE id_compte = :id_compte;";
-
-        $stmt = $dbh->prepare($query);
-        $stmt->bindParam('newValue', $_POST['numero'], PDO::PARAM_STR);
-        $stmt->bindParam('id_compte', $id, PDO::PARAM_STR);
+      try {
+        // Exécuter la requête
         $stmt->execute();
-        $tel1 = $stmt->fetch();
-        $_SESSION['numero'] = $_POST['numero'];
+      } catch (PDOException $e) {
+        // Afficher l'erreur en cas d'échec de la requête
+        echo "Erreur lors de l'insertion : " . $e->getMessage();
       }
-    }
+    } else {
 
-    if (isset($_POST['adresse'])) {
-      $query = "UPDATE test.compte SET adresse=:newValue WHERE id_compte = :id_compte;";
+
+
+      $query = "UPDATE test.telephone SET numero=:newValue WHERE id_compte = :id_compte;";
 
       $stmt = $dbh->prepare($query);
-      $stmt->bindParam('newValue', $_POST['adresse'], PDO::PARAM_STR);
-
+      $stmt->bindParam('newValue', $_POST['numero'], PDO::PARAM_STR);
       $stmt->bindParam('id_compte', $id, PDO::PARAM_STR);
       $stmt->execute();
-      $tel2 = $stmt->fetch();
-      $_SESSION['adresse'] = $_POST['adresse'];
+      $tel1 = $stmt->fetch();
+      $_SESSION['numero'] = $_POST['numero'];
     }
-
-
-    if ($_SESSION['userType'] == 'client') {
-      $query = "SELECT * FROM test.compte WHERE id_compte = :id_compte";
-    } else {
-      $query = "SELECT * FROM test.proprietaire NATURAL JOIN test.compte WHERE id_compte = :id_compte";
-    }
-
-    $stmt = $dbh->prepare($query);
-    $stmt->bindParam('id_compte', $_SESSION['userId'], PDO::PARAM_STR);
-    $stmt->execute();
-    $infos = $stmt->fetch();
-    $query = "SELECT * FROM test.telephone WHERE id_compte = :id_compte";
-
-    $stmt = $dbh->prepare($query);
-    $stmt->bindParam('id_compte', $_SESSION['userId'], PDO::PARAM_STR);
-    $stmt->execute();
-    $telephone = $stmt->fetch();
-  } catch (PDOException $e) {
-    print "Erreur !: " . $e->getMessage() . "<br/>";
-    die();
   }
 
-  ?>
+  if (isset($_POST['adresse'])) {
+    $query = "UPDATE test.compte SET adresse=:newValue WHERE id_compte = :id_compte;";
+
+    $stmt = $dbh->prepare($query);
+    $stmt->bindParam('newValue', $_POST['adresse'], PDO::PARAM_STR);
+
+    $stmt->bindParam('id_compte', $id, PDO::PARAM_STR);
+    $stmt->execute();
+    $tel2 = $stmt->fetch();
+    $_SESSION['adresse'] = $_POST['adresse'];
+  }
+
+
+  if ($_SESSION['userType'] == 'client') {
+    $query = "SELECT * FROM test.compte WHERE id_compte = :id_compte";
+  } else {
+    $query = "SELECT * FROM test.proprietaire NATURAL JOIN test.compte WHERE id_compte = :id_compte";
+  }
+
+  $stmt = $dbh->prepare($query);
+  $stmt->bindParam('id_compte', $_SESSION['userId'], PDO::PARAM_STR);
+  $stmt->execute();
+  $infos = $stmt->fetch();
+  $query = "SELECT * FROM test.telephone WHERE id_compte = :id_compte";
+
+  $stmt = $dbh->prepare($query);
+  $stmt->bindParam('id_compte', $_SESSION['userId'], PDO::PARAM_STR);
+  $stmt->execute();
+  $telephone = $stmt->fetch();
+} catch (PDOException $e) {
+  print "Erreur !: " . $e->getMessage() . "<br/>";
+  die();
+}
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -181,57 +181,59 @@ if (isset($_GET["confirmDelete"])) {
       <img src="asset/img/logo.png" alt="logo">
     </a>
 
-      <?php
-        if ($_SESSION['userType'] === 'proprietaire') {
-      ?>
-        <p class="personneheader"><span class="nompersonne"> <?php echo ($infos['nom']) ?> <?php echo ($infos['prenom']) ?> &#160;&#160;&#160;&#160; ● </span><span class="personne">propriétaire</span></p>
-      
-        <style>
+    <?php
+    if ($_SESSION['userType'] === 'proprietaire') {
+    ?>
+      <p class="personneheader"><span class="nompersonne"> <?php echo ($infos['nom']) ?> <?php echo ($infos['prenom']) ?> &#160;&#160;&#160;&#160; ● </span><span class="personne">propriétaire</span></p>
 
-          body {
-            background-color: #C6D1DA;
-          }
-          
-          .displayInfos, .displayInfos2, .displayInfos3, .displayInfos4, .displayInfos5
-            {
-            color: white;
-          }
-
-          #AucunLogementCompte {
-            color: white;
-            text-shadow: -1px -1px 1px rgba(255, 255, 255, 0.2), 1px 1px 1px rgba(0, 0, 0, 0.6);
-          }
-
-          #bonjour, #textchange, #compteInfosPerso, #compteConnection
-           {
-            color: #1D4C77;
-          }
-
-          header > div:first-of-type {
-          width: 25%;
-          }
-
-
-        </style>
-      
-      <?php
-      }
-      ?>
-
-      <?php
-        if ($_SESSION['userType'] === 'client') {
-      ?>
-        <p class="personneheader"><span class="nompersonne"> <?php echo ($infos['nom']) ?> <?php echo ($infos['prenom']) ?> &#160;&#160;&#160;&#160; ● </span><span class="personne">voyageur</span></p>
-      
-        <style>
-        header > div:first-of-type {
-        width: 25%;
+      <style>
+        body {
+          background-color: #C6D1DA;
         }
-        </style>
-      <?php
-      }
-      ?>
-   
+
+        .displayInfos,
+        .displayInfos2,
+        .displayInfos3,
+        .displayInfos4,
+        .displayInfos5 {
+          color: white;
+        }
+
+        #AucunLogementCompte {
+          color: white;
+          text-shadow: -1px -1px 1px rgba(255, 255, 255, 0.2), 1px 1px 1px rgba(0, 0, 0, 0.6);
+        }
+
+        #bonjour,
+        #textchange,
+        #compteInfosPerso,
+        #compteConnection {
+          color: #1D4C77;
+        }
+
+        header>div:first-of-type {
+          width: 25%;
+        }
+      </style>
+
+    <?php
+    }
+    ?>
+
+    <?php
+    if ($_SESSION['userType'] === 'client') {
+    ?>
+      <p class="personneheader"><span class="nompersonne"> <?php echo ($infos['nom']) ?> <?php echo ($infos['prenom']) ?> &#160;&#160;&#160;&#160; ● </span><span class="personne">voyageur</span></p>
+
+      <style>
+        header>div:first-of-type {
+          width: 25%;
+        }
+      </style>
+    <?php
+    }
+    ?>
+
     <div></div>
     <div id="headerEmptyDiv"></div>
     <nav>
@@ -263,45 +265,44 @@ if (isset($_GET["confirmDelete"])) {
   </header>
 
   <?php
-     foreach ($_FILES["photo"]["error"] as $key => $error) {
+  foreach ($_FILES["photo"]["error"] as $key => $error) {
 
-      if (isset($_FILES["photo"]["tmp_name"])){
+    if (isset($_FILES["photo"]["tmp_name"])) {
 
 
 
-        $repertoireImages = 'asset/img/profils/';
-        $userId = $_SESSION['userId'];
-        
-        if ($images = opendir($repertoireImages)) {
-            while (false !== ($fichier = readdir($images))) {
-                $imgInfos = pathinfo($fichier);
-                if ($imgInfos['filename'] == $userId) {
-                    $chemin = $repertoireImages . $fichier;
-        
-                    if (unlink($chemin)) {
+      $repertoireImages = 'asset/img/profils/';
+      $userId = $_SESSION['userId'];
 
-                    }
-                }
+      if ($images = opendir($repertoireImages)) {
+        while (false !== ($fichier = readdir($images))) {
+          $imgInfos = pathinfo($fichier);
+          if ($imgInfos['filename'] == $userId) {
+            $chemin = $repertoireImages . $fichier;
+
+            if (unlink($chemin)) {
             }
-            closedir($images);
+          }
         }
-
-
-
-        $img_dir = "asset/img/profils";
-        $tmpName = $_FILES["photo"]["tmp_name"][$key];
-
-        $nom_photo = $_FILES["photo"]["name"][$key];
-        $extention=explode(".",$nom_photo);
-
-        
-        $chemin = $img_dir . "/" . $_SESSION['userId'].".".$extention[1];
-
-
-        move_uploaded_file($tmpName, $chemin);
+        closedir($images);
       }
+
+
+
+      $img_dir = "asset/img/profils";
+      $tmpName = $_FILES["photo"]["tmp_name"][$key];
+
+      $nom_photo = $_FILES["photo"]["name"][$key];
+      $extention = explode(".", $nom_photo);
+
+
+      $chemin = $img_dir . "/" . $_SESSION['userId'] . "." . $extention[1];
+
+
+      move_uploaded_file($tmpName, $chemin);
     }
-  ?> 
+  }
+  ?>
 
   <div id="compteContainer">
     <div class="nav">
@@ -359,19 +360,19 @@ if (isset($_GET["confirmDelete"])) {
 
 
       <?php
-        if ($_SESSION['userType'] === 'client') {
+      if ($_SESSION['userType'] === 'client') {
       ?>
 
-      <div class="nav-item" data-color="account">
-        <figure>
-          <div class="img-area">
-            <img src="asset/icons/bleu/reservationsBlue.svg" alt="Infos Persos" class="img-back">
-            <img src="asset/icons/blanc/reservations.svg" alt="Infos Persos" class="img-front">
-          </div>
+        <div class="nav-item" data-color="account">
+          <figure>
+            <div class="img-area">
+              <img src="asset/icons/bleu/reservationsBlue.svg" alt="Infos Persos" class="img-back">
+              <img src="asset/icons/blanc/reservations.svg" alt="Infos Persos" class="img-front">
+            </div>
 
-          <figcaption>Mes réservations</figcaption>
-        </figure>
-      </div>
+            <figcaption>Mes réservations</figcaption>
+          </figure>
+        </div>
 
       <?php
       }
@@ -390,92 +391,102 @@ if (isset($_GET["confirmDelete"])) {
       <?php
       if ($_SESSION['userType'] === 'client') {
       ?>
-      <div class="nav-item" data-color="account">
-        <figure>
-          <div class="img-area">
-            <img src="asset/icons/bleu/paiementBlue.svg" alt="Infos Persos" class="img-back">
-            <img src="asset/icons/blanc/paiement.svg" alt="Infos Persos" class="img-front">
-          </div>
-          <figcaption>Paiement</figcaption>
-        </figure>
-      </div>
+        <div class="nav-item" data-color="account">
+          <figure>
+            <div class="img-area">
+              <img src="asset/icons/bleu/paiementBlue.svg" alt="Infos Persos" class="img-back">
+              <img src="asset/icons/blanc/paiement.svg" alt="Infos Persos" class="img-front">
+            </div>
+            <figcaption>Paiement</figcaption>
+          </figure>
+        </div>
+      <?php
+      }
+      ?>
+      <?php
+      if ($_SESSION['userType'] === 'proprietaire') {
+      ?>
+
+        <div class="nav-item" data-color="account">
+          <figure>
+            <div class="img-area">
+              <img src="asset/icons/bleu/logementBlue.svg" alt="Infos Persos" class="img-back">
+              <img src="asset/icons/blanc/logement.svg" alt="Infos Persos" class="img-front">
+            </div>
+            <figcaption>API</figcaption>
+          </figure>
+        </div>
+
       <?php
       }
       ?>
 
 
-      <div id="compteAcc">
-      <!-- Accueil -->
-      </div>
-
-
 
 
     </div>
-<!-- ACCUEIL -->
 
+    <!-- ACCUEIL -->
+    <div id="compteAccueil">
 
-<div id="compteAccueil">
+      <div class="accueil">
+        <p id="bonjour">Bonjour <?php echo ($infos['nom']) ?> !</p>
+        <div class="container">
 
-  <div class="accueil">
-  <p id="bonjour">Bonjour <?php echo ($infos['nom']) ?> !</p>
-    <div class="container">
-    
-        <label for="fileInput">
+          <label for="fileInput">
             <?php //récupération du nom de l'image (avec extension)
-        
+
             if ($images = opendir('asset/img/profils/')) {
-                while (false !== ($fichier = readdir($images))) {
-                    $imgInfos = pathinfo($fichier);
-                    if ($imgInfos['filename'] == $_SESSION['userId']) {
-                        $pathName = 'asset/img/profils/' . $fichier;
-                        break;
-                    }
- 
+              while (false !== ($fichier = readdir($images))) {
+                $imgInfos = pathinfo($fichier);
+                if ($imgInfos['filename'] == $_SESSION['userId']) {
+                  $pathName = 'asset/img/profils/' . $fichier;
+                  break;
                 }
-                if ($pathName == '') {
-                    $pathName = 'asset/img/profils/default.jpg';
-                }
-                closedir($images);
+              }
+              if ($pathName == '') {
+                $pathName = 'asset/img/profils/default.jpg';
+              }
+              closedir($images);
             }
             ?>
             <img src=<?php echo $pathName ?> alt="" id="photoProfil">
-        </label>
-        
-        <input type="file" id="fileInput" style="display: none;" accept="image/jpeg, image/png" onchange="changeProfilePhoto(event)">
-        <form method="post" enctype="multipart/form-data" id="profileForm">
+          </label>
 
-          <div class="middle">
+          <input type="file" id="fileInput" style="display: none;" accept="image/jpeg, image/png" onchange="changeProfilePhoto(event)">
+          <form method="post" enctype="multipart/form-data" id="profileForm">
 
-            <input type="file" id="profilImage" name="profilImage" accept="image/*" style="color:transparent;" onchange="submitForm()"/>
+            <div class="middle">
 
-            <label for="photo" id="custom-button-pp" aria-placeholder="">                <img src="asset/icons/blanc/photo.svg" alt="">
-</label>
+              <input type="file" id="profilImage" name="profilImage" accept="image/*" style="color:transparent;" onchange="submitForm()" />
 
-            <input type="file" id="photo" name="photo[]" multiple/>
+              <label for="photo" id="custom-button-pp" aria-placeholder=""> <img src="asset/icons/blanc/photo.svg" alt="">
+              </label>
 
-          </div>
-        </form>
+              <input type="file" id="photo" name="photo[]" multiple />
+
+            </div>
+          </form>
+        </div>
+        <p id="textchange">changer votre photo de profil</p>
+
+
+        <div id="caseAccueil">
+          <p class="bienvenue">Accédez à votre <a href="pagePersoProprio.php" class="lienPagePerso">page personnel</a>.</p>
+          <?php
+          if ($_SESSION['userType'] === 'proprietaire') {
+          ?>
+            <div class="separateurCompte"></div>
+            <a href="newLogement.php" id="comptePro">Créer une annonce</a>
+          <?php
+          }
+          ?>
+        </div>
+
+      </div>
     </div>
-    <p id="textchange">changer votre photo de profil</p>
-    
 
-    <div id="caseAccueil">
-      <p class="bienvenue">Accédez à votre <a href="pagePersoProprio.php" class="lienPagePerso">page personnel</a>.</p>
-      <?php
-                if ($_SESSION['userType'] === 'proprietaire') {
-                ?>
-                    <div class="separateurCompte"></div>
-                    <a href="newLogement.php" id="comptePro">Créer une annonce</a>
-                <?php
-                }
-            ?>
-    </div>
-
-</div>
-</div>
-
-<!--  INFORMATION  -->
+    <!--  INFORMATION  -->
     <div id="compteInfosPerso">
       <div class="lignes">
         <form method="post" action="compte.php">
@@ -541,7 +552,7 @@ if (isset($_GET["confirmDelete"])) {
       </div>
     </div>
 
-<!--  CONNEXION  -->
+    <!--  CONNEXION  -->
     <div id="compteConnection">
       <div class="lignes">
         <p>Mot de passe</p>
@@ -583,18 +594,18 @@ if (isset($_GET["confirmDelete"])) {
   <div id="compteLogements">
 <!-- logements --> <!-- reservations -->
       <?php
-        if ($_SESSION['userType'] == 'proprietaire') {
-        ?>
+      if ($_SESSION['userType'] == 'proprietaire') {
+      ?>
         <div id="compteLogementPropo">
 
-            <div class="compteAjout_log">
-              <a href="newLogement.php">
-                <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M23.7768 9.92104H15.7411V1.88532C15.7411 0.899275 14.9414 0.0996094 13.9554 0.0996094H12.1696C11.1836 0.0996094 10.3839 0.899275 10.3839 1.88532V9.92104H2.34821C1.36217 9.92104 0.5625 10.7207 0.5625 11.7068V13.4925C0.5625 14.4785 1.36217 15.2782 2.34821 15.2782H10.3839V23.3139C10.3839 24.2999 11.1836 25.0996 12.1696 25.0996H13.9554C14.9414 25.0996 15.7411 24.2999 15.7411 23.3139V15.2782H23.7768C24.7628 15.2782 25.5625 14.4785 25.5625 13.4925V11.7068C25.5625 10.7207 24.7628 9.92104 23.7768 9.92104Z" fill="#F5F5F5" />
-                </svg>
-                <p>Créer une annonce</p>
-              </a>
-            </div>
+          <div class="compteAjout_log">
+            <a href="newLogement.php">
+              <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M23.7768 9.92104H15.7411V1.88532C15.7411 0.899275 14.9414 0.0996094 13.9554 0.0996094H12.1696C11.1836 0.0996094 10.3839 0.899275 10.3839 1.88532V9.92104H2.34821C1.36217 9.92104 0.5625 10.7207 0.5625 11.7068V13.4925C0.5625 14.4785 1.36217 15.2782 2.34821 15.2782H10.3839V23.3139C10.3839 24.2999 11.1836 25.0996 12.1696 25.0996H13.9554C14.9414 25.0996 15.7411 24.2999 15.7411 23.3139V15.2782H23.7768C24.7628 15.2782 25.5625 14.4785 25.5625 13.4925V11.7068C25.5625 10.7207 24.7628 9.92104 23.7768 9.92104Z" fill="#F5F5F5" />
+              </svg>
+              <p>Créer une annonce</p>
+            </a>
+          </div>
 
           <div id="compteListeLogements">
             <?php
@@ -635,6 +646,7 @@ if (isset($_GET["confirmDelete"])) {
 
 
               ?>
+
 
                 <div class="compteListeUnLogement">
 
@@ -682,29 +694,42 @@ if (isset($_GET["confirmDelete"])) {
 
                 <div class="compteSeparateur1">a</div>
 
-            <?php
+              <?php
               }
             } catch (PDOException $e) {
               print "Erreur !: " . $e->getMessage() . "<br/>";
               die();
             }
+          } else {
 
-        }else {
+            try {
+              $id = $_SESSION['userId'];
+              $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
-          try {
-            $id = $_SESSION['userId'];
+              $query = "SELECT COUNT(*) FROM test.logement WHERE id_compte = $id;";
+              $stmt = $dbh->prepare($query);
+              $stmt->execute();
+              $nbLogements = $stmt->fetch();
+
+              if ($nbLogements['count'] == 0) {
+              ?>
+                <p id="AucuneReservCompte">Vous n'avez aucunes réservations pour le moment</p>
+              <?php
+              }
+
+              foreach ($dbh->query("SELECT * FROM test.logement WHERE id_compte = $id", PDO::FETCH_ASSOC) as $row) {
+
+                $info = $row;
                 $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+                $query = "SELECT min(id_image) FROM test.photo_logement NATURAL JOIN test.image WHERE id_logement = :id_logement;";
 
                 $query = "SELECT COUNT(*) FROM test.reservation WHERE id_compte = $id;";
                 $stmt = $dbh->prepare($query);
+                $stmt->bindParam('id_logement', $info["id_logement"], PDO::PARAM_STR);
                 $stmt->execute();
-                $nbLogements = $stmt->fetch();
+                $photo = $stmt->fetch();
 
-                if ($nbLogements['count'] == 0) {
-                    ?>
-                    <p id="AucuneReservCompte">Vous n'avez aucunes réservations pour le moment</p>
-                    <?php
-                }
+                $query = "SELECT extension_image FROM test.image WHERE id_image = :id_image;";
 
                 foreach($dbh->query("SELECT * FROM test.reservation 
                 INNER JOIN test.devis ON test.reservation.id_reservation = test.devis.id_reservation
@@ -720,12 +745,7 @@ if (isset($_GET["confirmDelete"])) {
                   $stmt->execute();
                   $photo = $stmt->fetch();
 
-                  $query = "SELECT extension_image FROM test.image WHERE id_image = :id_image;";
-          
-                  $stmt = $dbh->prepare($query);
-                  $stmt->bindParam('id_image', $photo["min"], PDO::PARAM_STR);
-                  $stmt->execute();
-                  $extention = $stmt->fetch();
+              ?>
 
 
                   ?>
@@ -762,6 +782,7 @@ if (isset($_GET["confirmDelete"])) {
                           </div>
                           <a class="consulterLogement" href="logement.php?id=<?php echo $info["id_logement"] ?>"><em>Consulter le logement</em></a>
                         </div>
+                        <a class="consulterLogement" href="logement.php?id=<?php echo $info["id_logement"] ?>"><em>Consulter le logement</em></a>
                       </div>
                     </div>
                     <div class="compteBtnListeLogement">
@@ -786,124 +807,114 @@ if (isset($_GET["confirmDelete"])) {
 
                   </div>
                   </div>
+                </div>
 
                 <div class="compteSeparateur1">a</div>
 
-                
 
-                <?php
-                }
-                
-          } catch (PDOException $e) {
-            print "Erreur !: " . $e->getMessage() . "<br/>";
-            die();
-          }
 
-        }
-            ?>
-
-        </div>
-        </div>
-      </div>
-
-        <div id="compteReservations">
-          <!-- Réservations -->
           <?php
-          $devisCount = 0;
+              }
+            } catch (PDOException $e) {
+              print "Erreur !: " . $e->getMessage() . "<br/>";
+              die();
+            }
+          }
+          ?>
 
-          if ($_SESSION['userType'] == 'client') {
-            
+          </div>
+        </div>
+    </div>
 
-            $id_client = $_SESSION['userId'];
-            foreach($dbh->query("SELECT * FROM test.reservation 
+    <div id="compteReservations">
+      <!-- Réservations -->
+      <?php
+      $devisCount = 0;
+
+      if ($_SESSION['userType'] == 'client') {
+
+
+        $id_client = $_SESSION['userId'];
+        foreach ($dbh->query("SELECT * FROM test.reservation 
                     INNER JOIN test.devis ON test.reservation.id_reservation = test.devis.id_reservation 
                     WHERE id_compte = $id_client", PDO::FETCH_ASSOC) as $row) {
-                            $devisExist = true;
-                            $id_logement = $row["id_logement"];
-                            $id_reservation = $row["id_reservation"];
+          $devisExist = true;
+          $id_logement = $row["id_logement"];
+          $id_reservation = $row["id_reservation"];
 
 
-                            $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-                            
-                            $proprio_id = $dbh->query("SELECT * from test.logement WHERE id_logement =$id_logement", PDO::FETCH_ASSOC)->fetch()["id_compte"];
+          $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
-                            $query = "SELECT * FROM test.compte NATURAL JOIN test.proprietaire WHERE id_compte = :id_compte";
-                            
-                            $stmt = $dbh->prepare($query);
-                            $stmt->bindParam('id_compte', $proprio_id, PDO::PARAM_STR);
-                            $stmt->execute();
-                            $proprio = $stmt->fetch();
+          $proprio_id = $dbh->query("SELECT * from test.logement WHERE id_logement =$id_logement", PDO::FETCH_ASSOC)->fetch()["id_compte"];
 
-                            if ($images = opendir('asset/img/profils/')) {
-                                while (false !== ($fichier = readdir($images))) {
-                                    $imgInfos = pathinfo($fichier);
-                                    if ($imgInfos['filename'] == $proprio_id) {
-                                        $pathName = 'asset/img/profils/' . $fichier;
-                                        break;
-                                    }
-            
-                                }
-                                if ($pathName == '') {
-                                    $pathName = 'asset/img/profils/default.jpg';
-                                }
-                                closedir($images);
-                            }
+          $query = "SELECT * FROM test.compte NATURAL JOIN test.proprietaire WHERE id_compte = :id_compte";
 
-                            
-                          if (!empty($row["prix_devis"])){
-                            $devisCount++;
-                            
-                            ?>
+          $stmt = $dbh->prepare($query);
+          $stmt->bindParam('id_compte', $proprio_id, PDO::PARAM_STR);
+          $stmt->execute();
+          $proprio = $stmt->fetch();
 
-                            <div class="page_devis">
-                            
-                            <div class="liste_devis">
-                                <form class="devis" method="POST" action="demandeDevis.php">
-                                  <input type="hidden" name="qui" value="client">
-                                  <input type="hidden" name="reservation" value="<?=$row["id_reservation"]?>">
-                                  <input type="hidden" name="id" value="<?=$row["id_logement"]?>">
-                                  <img src="<?=$pathName?>" alt="" class="logo">
-                                  <div class="infos-devis">
-                                    <div class="infos-header">
-                                    <h3><?=$proprio["nom_affichage"]?></h3>
-                                    <p class="date"><?=explode(" ",$row["date_devis"])[0]?></p>
-                                    </div>
-                                    <div class="infos-header">
-                                    <p>Vous a envoyé un devis.</p>
-                                    <button type="submit" class="voir-devis">Voir</button>
-                                    </div>
-                                  </div>
-                                </form>
-                                <div class="separateur1">a</div>
-                              </div>
-
-                            </div>
-                           
-                      <?php 
-                        
-                    }
-                    
+          if ($images = opendir('asset/img/profils/')) {
+            while (false !== ($fichier = readdir($images))) {
+              $imgInfos = pathinfo($fichier);
+              if ($imgInfos['filename'] == $proprio_id) {
+                $pathName = 'asset/img/profils/' . $fichier;
+                break;
+              }
             }
-          } else {
-            $id_proprio = $_SESSION['userId'];
-            foreach($dbh->query("SELECT * FROM test.reservation 
+            if ($pathName == '') {
+              $pathName = 'asset/img/profils/default.jpg';
+            }
+            closedir($images);
+          }
+
+
+          if (!empty($row["prix_devis"])) {
+            $devisCount++;
+
+      ?>
+
+            <div class="page_devis">
+
+              <div class="liste_devis">
+                <form class="devis" method="POST" action="demandeDevis.php">
+                  <input type="hidden" name="qui" value="client">
+                  <input type="hidden" name="reservation" value="<?= $row["id_reservation"] ?>">
+                  <input type="hidden" name="id" value="<?= $row["id_logement"] ?>">
+                  <img src="<?= $pathName ?>" alt="" class="logo">
+                  <div class="infos-devis">
+                    <div class="infos-header">
+                      <h3><?= $proprio["nom_affichage"] ?></h3>
+                      <p class="date"><?= explode(" ", $row["date_devis"])[0] ?></p>
+                    </div>
+                    <div class="infos-header">
+                      <p>Vous a envoyé un devis.</p>
+                      <button type="submit" class="voir-devis">Voir</button>
+                    </div>
+                  </div>
+                </form>
+                <div class="separateur1">a</div>
+              </div>
+
+            </div>
+
+          <?php
+
+          }
+        }
+      } else {
+        $id_proprio = $_SESSION['userId'];
+        foreach ($dbh->query("SELECT * FROM test.reservation 
                             INNER JOIN test.devis ON test.reservation.id_reservation = test.devis.id_reservation 
                             INNER JOIN test.logement ON test.reservation.id_logement = test.logement.id_logement
                             WHERE test.logement.id_compte = $id_proprio", PDO::FETCH_ASSOC) as $row) {
-                            $id_logement = $row["id_logement"];
+          $id_logement = $row["id_logement"];
 
-                            $id_reservation = $row["id_reservation"];
+          $id_reservation = $row["id_reservation"];
 
-                            $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-                            
-                            $client_id = $dbh->query("SELECT * FROM test.reservation WHERE id_reservation = $id_reservation")->fetch()["id_compte"];
+          $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
-                            $query = "SELECT * FROM test.compte NATURAL JOIN test.client WHERE id_compte = :id_compte";
-                            
-                            $stmt = $dbh->prepare($query);
-                            $stmt->bindParam('id_compte', $client_id, PDO::PARAM_STR);
-                            $stmt->execute();
-                            $client = $stmt->fetch();
+          $client_id = $dbh->query("SELECT * FROM test.reservation WHERE id_reservation = $id_reservation")->fetch()["id_compte"];
 
                             if ($images = opendir('asset/img/profils/')) {
                                 while (false !== ($fichier = readdir($images))) {
@@ -923,94 +934,200 @@ if (isset($_GET["confirmDelete"])) {
 
                             ?>
 
-                            <div class="page_devis">
-                            
-                            <div class="liste_devis">
-                                <form class="devis" method="POST" action="demandeDevis.php">
-                                  <input type="hidden" name="qui" value="proprietaire">
-                                  <input type="hidden" name="reservation" value="<?=$row["id_reservation"]?>">
-                                  <input type="hidden" name="id" value="<?=$row["id_logement"]?>">
-                                  <img src="<?=$pathName?>" alt="" class="logo">
-                                  <div class="infos-devis">
-                                    <div class="infos-header">
-                                    <h3><?=$client["nom_affichage"]?></h3>
-                                    <p class="date"><?=explode(" ",$row["date_devis"])[0]?></p>
-                                    </div>
-                                    <div class="infos-header">
-                                    <p>Vous a fait une demande de devis.</p>
-                                    <button type="submit" class="voir-devis">Créer</button>
-                                    </div>
-                                  </div>
-                                </form>
-                                <div class="separateur1">a</div>
-                              </div>
+          $stmt = $dbh->prepare($query);
+          $stmt->bindParam('id_compte', $client_id, PDO::PARAM_STR);
+          $stmt->execute();
+          $client = $stmt->fetch();
 
-                            </div>
-          <?php }
+          if ($images = opendir('asset/img/profils/')) {
+            while (false !== ($fichier = readdir($images))) {
+              $imgInfos = pathinfo($fichier);
+              if ($imgInfos['filename'] == $client_id) {
+                $pathName = 'asset/img/profils/' . $fichier;
+                break;
+              }
+            }
+            if ($pathName == '') {
+              $pathName = 'asset/img/profils/default.jpg';
+            }
+            closedir($images);
           }
-          // Afficher le message s'il n'y a pas de devis
-          if ($devisCount === 0) {
-            ?>
-            <p id="AucunDevisCompte">Vous n'avez aucuns devis pour le moment</p>
-            <?php
-          }
-            ?>
 
-        </div>
+          ?>
 
-         
-        <div id="compteMessagerie">
-          <!-- paiement -->
-          <div class="liste_carte">
-          <?php 
-          $id_client = $_SESSION['userId'];
-          $cartes = $dbh->query("SELECT * FROM test.cb 
-                                 INNER JOIN test.compte ON test.compte.id_compte = test.cb.id_compte 
-                                 WHERE test.compte.id_compte = $id_client", PDO::FETCH_ASSOC)->fetchAll();
-          if (count($cartes) > 0){
-            foreach($cartes as $row){ ?>
-              <form class="carte" method="POST" action="deleteCarte.php">
-                <input type="hidden" name="nb_cb" value="<?=$row["numero_carte"]?>">
-                <img src="./asset/img/mastercard.png" alt="logo mastercard" class="carte-logo">
-                <div class="texte">
-                  <h3>Mr. <?= $row["nom"].' '.$row["prenom"]?></h3>
-                  <?php 
-                    $numeroCarteFormate = preg_replace('/(\d{4})\d{8}(\d{3})/', '$1 **** **** $2', $row["numero_carte"]);                ?>
-                  <p><?= $numeroCarteFormate?></p>
+          <div class="page_devis">
+
+            <div class="liste_devis">
+              <form class="devis" method="POST" action="demandeDevis.php">
+                <input type="hidden" name="qui" value="proprietaire">
+                <input type="hidden" name="reservation" value="<?= $row["id_reservation"] ?>">
+                <input type="hidden" name="id" value="<?= $row["id_logement"] ?>">
+                <img src="<?= $pathName ?>" alt="" class="logo">
+                <div class="infos-devis">
+                  <div class="infos-header">
+                    <h3><?= $client["nom_affichage"] ?></h3>
+                    <p class="date"><?= explode(" ", $row["date_devis"])[0] ?></p>
+                  </div>
+                  <div class="infos-header">
+                    <p>Vous a fait une demande de devis.</p>
+                    <button type="submit" class="voir-devis">Créer</button>
+                  </div>
                 </div>
-                <input type="submit" value="Supprimer">
               </form>
-              <div class="separateur3"></div>
-             <?php }
-          } else {?>
-                <p id="AucuneCarte">Vous n'avez aucune carte enregistrée</p>
-          <?php }?>
-          </div>
-        </div>
+              <div class="separateur1">a</div>
+            </div>
 
-        <div id="comptePaiement">
-          <!-- payement -->
+          </div>
+        <?php }
+      }
+      // Afficher le message s'il n'y a pas de devis
+      if ($devisCount === 0) {
+        ?>
+        <p id="AucunDevisCompte">Vous n'avez aucuns devis pour le moment</p>
+      <?php
+      }
+      ?>
+
+    </div>
+    <?php
+    $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+      try {
+
+        foreach ($_POST as $key => $value) {
+          if (strpos($key, 'privilegie') !== false) {
+            $privilegie = $value == 'on' ? 1 : 0;
+            
+            $updateQuery = $dbh->prepare("UPDATE test.api SET privilegie = :privilegie WHERE cle = :cle AND id_compte = :id_compte");
+            $updateQuery->bindParam(':privilegie', $privilegie, PDO::PARAM_INT);
+            $updateQuery->bindParam(':cle', $value['cle'], PDO::PARAM_STR);
+            $updateQuery->bindParam(':id_compte', $_SESSION['userId'], PDO::PARAM_INT);
+            $updateQuery->execute();
+          } elseif (strpos($key, 'accescalendrier') !== false) {
+            $accescalendrier = $value == 'on' ? 1 : 0;
+            
+            $updateQuery = $dbh->prepare("UPDATE test.api SET accescalendrier = :accescalendrier WHERE cle = :cle AND id_compte = :id_compte");
+            $updateQuery->bindParam(':accescalendrier', $accescalendrier, PDO::PARAM_INT);
+            $updateQuery->bindParam(':cle', $value['cle'], PDO::PARAM_STR);
+            $updateQuery->bindParam(':id_compte', $_SESSION['userId'], PDO::PARAM_INT);
+            $updateQuery->execute();
+          } elseif (strpos($key, 'miseindispo') !== false) {
+            $indispo = $value == 'on' ? 1 : 0;
+
+            $updateQuery = $dbh->prepare("UPDATE test.api SET miseindispo = :miseindispo WHERE cle = :cle AND id_compte = :id_compte");
+            $updateQuery->bindParam(':miseindispo', $indispo, PDO::PARAM_INT);
+            $updateQuery->bindParam(':cle', $value['cle'], PDO::PARAM_STR);
+            $updateQuery->bindParam(':id_compte', $_SESSION['userId'], PDO::PARAM_INT);
+            $updateQuery->execute();
+          }
+        }
+
+        header("Location: compte.php");
+        exit();
+      } catch (PDOException $e) {
+        echo "probleme";
+      }
+    }
+
+    $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+
+    $query = $dbh->prepare("SELECT * FROM test.api WHERE id_compte = :id");
+    $query->bindParam(':id', $id, PDO::PARAM_INT);
+    $query->execute();
+
+    $result = $query->fetchAll();
+    ?>
+
+    <div id="comptePaiementAPI" style="width: 100%; position:relative;">
+      <div id="apiSection" style="width:60%; position:absolute; top:50%; left:50%; transform: translate(-50%,-50%);">
+        <?php
+        if (empty($result)) {
+          echo "<p>Aucune clé API n'est associée à cet ID.</p>";
+        } else {
+        ?>
+          
+          <form method="post" action="api_save.php">
+            <table>
+              <thead>
+                <tr>
+                  <th>Nom de la clé API</th>
+                  <th>Privilèges</th>
+                  <th>Accès Calendrier</th>
+                  <th>Mise Indispo</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php
+                foreach ($result as $index => $row) {
+                  $info = $row;
+                ?>
+                  <tr>
+                    <td><?php echo $info["cle"]; ?></td>
+                    <td>
+                      <input type="checkbox" name="<?php echo $info['cle'] . "_p"; ?>" <?php echo ($info['privilegie'] ? "checked" : "") ?> disabled>
+                    </td>
+                    <td>
+                      <input type="checkbox" name="<?php echo $info['cle'] . "_c"; ?>" <?php echo ($info['accescalendrier'] ? "checked" : "") ?>>
+                    </td>
+                    <td>
+                      <input type="checkbox" name="<?php echo $info['cle'] . "_i"; ?>" <?php echo ($info['miseindispo'] ? "checked" : "") ?>>
+                    </td>
+                    <td>
+                      </td>
+                    </tr>
+                    <?php
+                  if ($index < count($result) - 1) {
+                    echo "<tr><td colspan='5'><hr></td></tr>";
+                  }
+                }
+                ?>
+              </tbody>
+            </table>
+            <button type="submit">Appliquer les changements</button>
+          </form>
+            
+        <?php } ?>
+      </div>
+    </div>
+
+
+
+
+
+
+
+    <div id="menu">
+      <div id="choix">
+        <a href="compteAccueil.php" class="bouton">Mon compte</a>
+
+        <a href="" class="bouton">Mes réservation</a>
+
+        <a href="" class="bouton">Messagerie</a>
+
+        <div id="separe"></div>
+
+        <p>Changer la langue</p>
+        <div id="langues">
+          <a href="">Français</a>
+          <div id="separe2"></div>
+          <a href="">Anglais</a>
         </div>
       </div>
+    </div>
 
-        <div id="menu">
-          <div id="choix">
-            <a href="compteAccueil.php" class="bouton">Mon compte</a>
 
-            <a href="" class="bouton">Mes réservation</a>
-
-            <a href="" class="bouton">Messagerie</a>
-
-            <div id="separe"></div>
-
-            <p>Changer la langue</p>
-            <div id="langues">
-              <a href="">Français</a>
-              <div id="separe2"></div>
-              <a href="">Anglais</a>
-            </div>
-          </div>
+    <form method="post" id="popUpDeco">
+      <div class="popUpDecoChoix">
+        <h2>Êtes-vous sûr de vouloir <br>vous déconnecter ?</h2>
+        <div class="button-container">
+          <input class="cancel-button" id="cancelDisconnect" name="cancelDisconnect" type="button" value="Annuler" />
+          <input type="hidden" name="hidden" value="disconnect">
+          <input class="confirm-button" id="confirmDisconnect" type="submit" value="Se déconnecter" />
         </div>
+      </div>
+    </form>
 
 
         <form method="post" id="popUpDeco">
@@ -1032,6 +1149,10 @@ if (isset($_GET["confirmDelete"])) {
             <script>liens_compte(3)</script>
           <?php } ?>
 </body>
+<style>
+  input[type="checkbox"] {
+    display: inline-block;
+  }
+</style>
 
 </html>
-
