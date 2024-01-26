@@ -541,6 +541,7 @@ pre {
   border-radius: 10px;
   background: #2072BC;
   border: none;
+  margin: 1em 0;
 }
 
 
@@ -4895,6 +4896,90 @@ opacity: 1;
   align-items: center;
 }
 
+
+@media screen and (min-width: 0px) and (max-width: 500px) { 
+  #compteAccueil{
+    margin: auto;
+    margin-top: 6%;
+    margin-left: 10%;
+  }
+  
+  .accueil {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  #bonjour{
+    color: #1D4C77;
+    font-size: 15px;
+    font-weight: 700;
+    margin-top: 5rem;
+    margin-bottom: -2em;
+
+  }
+  
+  #photoProfil {
+  border-radius: 93.5px;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  object-position: center;
+  opacity: 1;
+  display: block;
+  transition: .5s ease;
+  backface-visibility: hidden;
+  margin-top: 4em;
+  }
+
+  #textchange{
+    color: #1D4C77;
+    font-size: 15px;
+    font-style: italic;
+    font-weight: 200;
+    margin-top: 1rem;
+  }
+  
+  #caseAccueil{
+    border-radius: 20px;
+    background: #F5F5F5;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
+    width: 300px;
+    height: 260px;
+  
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  
+    margin-top: 3rem;
+  }
+  
+  .bienvenue {
+    font-size: 20px;
+    font-weight: 400;
+    margin: 20px 0 40px 0;
+    color: var(--textColor);
+  text-align: center;
+
+    margin-top: 5rem;
+  }
+
+  #comptePro {
+    border-radius: 5px;
+    background: var(--mainColor);
+    width: 435px;
+    height: 55px;
+    color: var(--secondBG);
+    font-size: 25px;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+
 /************************** COMPTE - PAGES **************************/
 
 .nav {
@@ -5551,6 +5636,7 @@ width: 100%;
 
     #compteInfosPerso {
       top: 25%;
+      margin-left: -0.0em;
     }
 
     .lignes {
@@ -5692,6 +5778,10 @@ margin-left: 28%;
 }
 
 @media screen and (min-width: 0px) and (max-width: 500px) {
+
+  #compteConnection {
+    margin-left: -0.0em;
+  }
 
   #compteConnection .modifications{
     margin-top: -40px;
@@ -6565,7 +6655,7 @@ margin-left: 28%;
 }
 
 .liste_devis > .separateur1 {
-  width: 70vw;
+  width: 65vw;
 }
 
 .voir-devis {
@@ -6681,3 +6771,78 @@ margin-left: 28%;
   text-shadow: 0px 3px 3px rgba(255,255,255,0.5);
 }
 
+@media screen and (min-width: 0px) and (max-width: 500px) { 
+  .liste_carte {
+    display: flex;
+    flex-direction: column;
+    color: #1D4C77;
+    width: 100%;
+  
+    margin-top: 10em;
+  }
+
+  .liste_carte h3{
+    font-size: 15px;
+  }
+  
+  .carte {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+    width: 100%;
+  }
+  
+  .carte > img {
+    width: 95px;
+    height: 65px;
+  }
+  
+  .liste_carte > .separateur3 {
+    background-color: #97ADC1;
+    width: 65vw;
+    height: 2px;
+    margin-bottom: 20px;
+    margin: 2em 0;
+  }
+  
+  .carte > input {
+    border: none;
+    background: none;
+    font-size: 15px;
+    font-weight: 400;
+  
+  
+    background-color: #bd0000;
+    color: #F5F5F5;
+    text-decoration: none;
+    border-radius: 5px;
+  
+    width: 5em;
+    height: 1.7em;
+    text-align: center;
+    cursor: pointer;
+    margin-left: auto;
+  
+    margin-right: 5em;
+  }
+  
+  #AucuneCarte {
+    position: absolute;
+    top: 47%;
+    left: 21%;
+   
+    height: 54px;
+    
+    font-size: 35px;
+    font-weight: 700;
+   
+    color: transparent;
+    background: #97ADC1;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+    text-shadow: 0px 3px 3px rgba(255,255,255,0.5);
+  }
+}
