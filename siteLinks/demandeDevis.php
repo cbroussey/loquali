@@ -529,7 +529,8 @@
     <script src="asset/js/calculPrix.js"></script>
     <script src="asset/js/devisNbPersonnne.js"></script>
     <script src="asset/js/modiffPrixFinal.js"> </script>
-
+    <script src="asset/js/blockdate.js"> </script>
+    
 
 </body>
 

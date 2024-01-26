@@ -345,7 +345,7 @@ h1 {
 .row {
     display: flex;
     justify-content: space-between;
-    margin: 25px;
+    margin: 20px;
 }
 
 
@@ -530,19 +530,25 @@ h1 {
 }
 
 
-
+.row a {
+    color: #1D4C77;
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    display: flex;
+    align-items: center;
+}
 
 @media (max-width: 1300px) {
-    main {
-        display: flex;
-        flex-wrap: wrap;
+    form{
+        display: block;
     }
-
-    .recap {
-        margin-left: 100px;
-        width: 50vw;
+    .recap{
+        margin: 20px;
+        min-width: 45%;
     }
-
 
 
 }
@@ -552,10 +558,20 @@ h1 {
     form{
         display: block;
     }
-    .date_arrivee {
-        width: 45%;
-        padding: 0;
-        border-right: 2px solid  #1D4C77;
+    .row a {
+        color: #1D4C77;
+        font-family: Inter;
+        font-size: 15px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        display: flex;
+        align-items: center;
+    }
+    
+
+    input[type="date"] {
+        font-size: 12px !important;
     }
 
 
@@ -585,10 +601,7 @@ h1 {
     .conditions_anulations h2{
         font-size: 20px;
     }
-    .voyage_container {
-        width: 350px;
-        margin: 0px;
-    }
+    
 
     .voyage_container p {
         font-size: 15px;
@@ -622,9 +635,7 @@ h1 {
         height: auto;
     }
 
-    .voyage_container{
-        max-width: 320px;
-    }
+  
     .voyage_container #date_blocker {
         background-color: red;
     }
@@ -665,7 +676,7 @@ h1 {
         width: 100%;
     }
 
-    img {
+    main    img {
         width: 30px;
         height: 24px;
     }
@@ -995,3 +1006,4 @@ h1 {
     font-weight: 500;
     line-height: normal
 }
+
