@@ -6569,26 +6569,26 @@ margin-left: 28%;
 }
 
 .voir-devis {
-border: none;
-background: none;
-font-size: 20px;
-font-weight: 400;
+  border: none;
+  background: none;
+  font-size: 20px;
+  font-weight: 400;
 
 
-background-color: #2072BC;
-color: #F5F5F5;
-text-decoration: none;
-border-radius: 5px;
+  background-color: #2072BC;
+  color: #F5F5F5;
+  text-decoration: none;
+  border-radius: 5px;
 
-width: 4em;
-height: 1.3em;
+  width: 4em;
+  height: 1.3em;
 
-text-align: center;
+  text-align: center;
 
-cursor: pointer;
-margin-left: auto;
-margin-right: 100px;
-align-self: flex-end;
+  cursor: pointer;
+  margin-left: auto;
+  margin-right: 100px;
+  align-self: flex-end;
 }
 
 #AucunDevisCompte {
@@ -6616,6 +6616,8 @@ align-self: flex-end;
   flex-direction: column;
   color: #1D4C77;
   width: 100%;
+
+  margin-top: 5em;
 }
 
 .carte {
@@ -6634,28 +6636,31 @@ align-self: flex-end;
 
 .liste_carte > .separateur3 {
   background-color: #97ADC1;
-  width: 70vw;
-  height: 1px;
+  width: 65vw;
+  height: 2px;
   margin-bottom: 20px;
+  margin: 2em 0;
 }
 
 .carte > input {
-border: none;
-background: none;
-font-size: 20px;
-font-weight: 400;
+  border: none;
+  background: none;
+  font-size: 20px;
+  font-weight: 400;
 
 
-background-color: #bd0000;
-color: #F5F5F5;
-text-decoration: none;
-border-radius: 5px;
+  background-color: #bd0000;
+  color: #F5F5F5;
+  text-decoration: none;
+  border-radius: 5px;
 
-width: 5em;
-height: 1.7em;
-text-align: center;
-cursor: pointer;
-margin-left: auto;
+  width: 5em;
+  height: 1.7em;
+  text-align: center;
+  cursor: pointer;
+  margin-left: auto;
+
+  margin-right: 5em;
 }
 
 #AucuneCarte {
@@ -6675,3 +6680,4 @@ margin-left: auto;
   background-clip: text;
   text-shadow: 0px 3px 3px rgba(255,255,255,0.5);
 }
+

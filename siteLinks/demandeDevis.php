@@ -365,12 +365,13 @@
                             ?>
                             <div class="row">
                                 <div class="label">nuits</div>
-
                                 <?php if ($qui != "client") : ?>
+
+
                                     <a><input <?php echo ($qui != "proprietaire") ? 'readonly' : ''; ?> type="number" class="value" id="prixNuit" name="prixNuit" step="0.01"> €</a>
                                 <?php else : ?>
-                                    <a><input value="<?php echo $devis["prix_devis"]; ?>" <?php echo ($qui != "proprietaire") ? 'readonly' : ''; ?> type="number" class="PrixFinal" id="prixNuit" name="prixNuit" step="0.01"> €</a>
 
+                                    <div><?php echo $devis["prix_devis"]; ?> €</div>
                                 <?php endif; ?>
                             </div>
 
@@ -397,16 +398,23 @@
                                 <?php if ($qui != "client") : ?>
                                     <div class="value"></div>
                                 <?php else : ?>
-                                    <div><?php echo (round($devis["prix_devis"]*1/100, )); ?></div>
+                                    <div><?php echo number_format($devis["prix_devis"] * 0.10, 2); ?> €</div>
                                 <?php endif; ?>
                             </div>
 
+
+
                             <hr>
+
 
                             <div class="row">
                                 <div class="label_t">Total</div>
+                                <?php if ($qui != "client") : ?>
+                                    <a><input readonly type="number" class="value" id="total" name="total" step="0.01"> €</a>
+                                <?php else : ?>
+                                    <div><?php echo number_format($devis["prix_devis"] * 0.10, 2) + $devis["prix_devis"] + 29.96; ?> €</div>
+                                <?php endif; ?>
 
-                                <a><input readonly type="number" class="value" id="total" name="total" step="0.01"> €</a>
 
                             </div>
                         </div>
