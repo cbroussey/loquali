@@ -661,6 +661,8 @@ if (isset($_GET["confirmDelete"])) {
                   </div>
 
                   <div class="compteBtnListeLogement">
+                    <a href="calendar.php?id=<?php echo ($info["id_logement"]) ?>"><img src="asset/icons/bleu/calendar.svg" alt=""></a>
+
                     <a href="modifLogement.php?id=<?php echo ($info["id_logement"]) ?>"><img src="asset/icons/bleu/modification.svg" alt=""></a>
 
                     <a href="logement.php?confirmDelete=<?php echo ($info["id_logement"]) ?>"><img src="asset/icons/bleu/trash.svg" alt=""></a>
