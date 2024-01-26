@@ -1,4 +1,4 @@
-# LoQuali API
+# LoQuali serveur API
 
 Bienvenue sur le document de présentation de l'API LoQuali. Vous retrouverez ici nombre d'informations concernant la compilation et l'exécution du programme, ansi que les arguments et la grammaire.
 
@@ -16,6 +16,9 @@ apt-get install libpq-dev
 ```
 
 Changez de répertoire pour arriver dans celui où le programme brut est présent
+```bash
+cd nom_du_répertoire
+```
 Puis, compilez avec
 ```bash
 gcc api.c -o api -Wall -lpq
@@ -39,6 +42,7 @@ Vous pouvez obtenir la liste des options compatibles à tout moment en faisant
 ./api --help
 ```
 ### Verbose
+(alias : -v)<br>
 Afficher plus d'informations à l'écran et dans un fichier si spécifié. Exemple :
 ```bash
 ./api --verbose 8080
@@ -48,3 +52,9 @@ Lancera le serveur sur le port 8080 et affichera plus d'informations dans la con
 ./api --verbose=logs.txt 8080
 ```
 Fera la même chose mais écrira en plus ces même logs dans le fichier logs.txt (fichier ouvert en ajout, pas de vidage avant écriture)
+### Help
+(alias : -h)<br>
+Affiche la syntaxe de lancement du programme et la liste des options disponible
+
+## Fermer le serveur
+Le serveur tourne à l'infini jusqu'à arrêt manuel via le terminal (`CTRL+C`)
