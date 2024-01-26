@@ -543,15 +543,7 @@ pre {
   border: none;
 }
 
-#Personne.quantity {
-  border-radius: 50px;
-  background: #FFF;
-  width: 124px;
-  height: 44px;
-  font-size: 20px;
-  text-align: center;
 
-}
 .b4r3 {
   display: flex;
   flex-wrap: wrap;
@@ -672,15 +664,7 @@ pre {
   border: none;
 }
 
-#Personne.quantity {
-  border-radius: 50px;
-  background: #FFF;
-  width: 124px;
-  height: 44px;
-  font-size: 20px;
-  text-align: center;
 
-}
 .b4r3 {
   margin: 1em 0;
 }
@@ -4995,12 +4979,10 @@ display:none;
 }
 
 #compteLogements {
-height:92vh;
-width:84vw;
 display:none;
 position: absolute;
 margin-left: 27%;
-margin-top: 4%;
+margin-top: 130px;
 }
 
 #compteReservations {
@@ -5015,8 +4997,11 @@ margin-top: 4%;
 
 #compteMessagerie {
 height:92vh;
-width:84vw;
+width:70vw;
 display:none;
+position: absolute;
+margin-left: 30%;
+margin-top: 4%;
 }
 
 #comptePaiement {
@@ -5051,13 +5036,19 @@ display:none;
 }
 
 @media screen and (min-width: 0px) and (max-width: 400px) {
+
+  #compteContainer{
+    overflow: hidden;
+  }
+
   #compteLogements{
-    margin-top: 40%;
+    margin-top: 30%;
+    margin-left: -27%;
   }
 
   #compteLogementPropo{
     width: 87vw;
-    margin-left: -50%;
+    margin-left: -49%;
   }
 
   .compteAjout_log{
@@ -5066,10 +5057,17 @@ display:none;
     justify-content: center;
     align-items: center;
     margin-bottom: 200px;
+    padding: 0 80px;
+    margin-left: 100% !important;
+  }
+  
+  .toutLogement{
+    width: 40vh;
   }
 
-  .compteAjout_log {
-    padding: 0 80px;
+  .compteSeparateur1{
+    margin-left: 33% !important;
+    margin-top: 15% !important;
   }
 
   #AucunLogementCompte{
@@ -5084,6 +5082,12 @@ display:none;
   align-items: center;
   flex-wrap: wrap;
   width: 100%;
+  margin-left: 65%;
+  margin-top: -40%;
+}
+
+.log_info_liste{
+  margin: 0;
 }
 
 .compteListeUnLogement{
@@ -5091,12 +5095,20 @@ display:none;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-left: 80%;
+  margin-left: -78%;
+  margin-top: 5%;
+}
+
+.compteBtnListeLogement{
+  margin-left: -75% !important;
+  margin-right: -80%;
+  margin-bottom: -50%;
 }
 
 .imgListeLogementProprio{
-  width: 200%;
-  margin-left: -60%;
+  width: 340%;
+  margin-left: -83%;
+  margin-top: -90% !important;
 }
 
 #imajedelespagna{
@@ -5110,6 +5122,18 @@ display:none;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-left: -2% !important;
+  margin-right: 8%;
+  margin-top: -10% !important;
+  float: right;
+  width: 78% !important;
+
+  text-align: right;
+
+}
+
+.unLogement .noteAvis{
+  display: none;
 }
 
 body{
@@ -5619,7 +5643,7 @@ font-weight: 500;
     }
 
     #compteConnection .lignes p{
-      font-size: 15px;
+      font-size: 13px;
     }
     
     #compteConnection .displayInfos{
@@ -5914,9 +5938,15 @@ font-weight: 500;
   background-color: #97ADC1;
   width: 600px;
   height: 2px;
+  -webkit-user-select: none;
   
   color: transparent;
   margin: 25px 0;
+  margin-left: -100px;
+}
+
+#compteLogements .separateur1{
+  margin-left: 0;
 }
 
 #boutonDescription {
@@ -6159,11 +6189,11 @@ font-weight: 500;
       font-size: 15px;
     }
 
-    .unLogement {
+/*     .unLogement {
       font-size: 15px;
       margin-bottom: -25px;
     }
-
+ */
     .listeUnLogement div img {
       width: 150px;
       height: 100px;
@@ -6471,6 +6501,9 @@ font-weight: 500;
   flex-direction: column;
   color: #1D4C77;
   width: 100%;
+  margin-top: 30px;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .devis{
@@ -6483,6 +6516,7 @@ font-weight: 500;
 
 .date {
   margin-left: auto;
+  margin-right: 100px;
 }
 
 .infos_devis{
@@ -6519,31 +6553,104 @@ font-weight: 500;
 }
 
 .voir-devis {
-border: none;
-background: none;
-font-size: 20px;
-font-weight: 400;
+  border: none;
+  background: none;
+  font-size: 20px;
+  font-weight: 400;
 
 
-background-color: #2072BC;
-color: #F5F5F5;
-text-decoration: none;
-border-radius: 5px;
+  background-color: #2072BC;
+  color: #F5F5F5;
+  text-decoration: none;
+  border-radius: 5px;
 
-width: 4em;
-height: 1.3em;
+  width: 4em;
+  height: 1.3em;
 
-text-align: center;
+  text-align: center;
 
-cursor: pointer;
-margin-left: auto;
-align-self: flex-end;
+  cursor: pointer;
+  margin-left: auto;
+  margin-right: 100px;
+  align-self: flex-end;
 }
 
 #AucunDevisCompte {
   position: absolute;
   top: 47%;
   left: 15%;
+ 
+  height: 54px;
+  
+  font-size: 35px;
+  font-weight: 700;
+ 
+  color: transparent;
+  background: #97ADC1;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  background-clip: text;
+  text-shadow: 0px 3px 3px rgba(255,255,255,0.5);
+}
+
+
+/**************page paiement****************/
+.liste_carte {
+  display: flex;
+  flex-direction: column;
+  color: #1D4C77;
+  width: 100%;
+
+  margin-top: 5em;
+}
+
+.carte {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 50px;
+  width: 100%;
+}
+
+.carte > img {
+  width: 125px;
+  height: 75px;
+}
+
+.liste_carte > .separateur3 {
+  background-color: #97ADC1;
+  width: 65vw;
+  height: 2px;
+  margin-bottom: 20px;
+  margin: 2em 0;
+}
+
+.carte > input {
+  border: none;
+  background: none;
+  font-size: 20px;
+  font-weight: 400;
+
+
+  background-color: #bd0000;
+  color: #F5F5F5;
+  text-decoration: none;
+  border-radius: 5px;
+
+  width: 5em;
+  height: 1.7em;
+  text-align: center;
+  cursor: pointer;
+  margin-left: auto;
+
+  margin-right: 5em;
+}
+
+#AucuneCarte {
+  position: absolute;
+  top: 47%;
+  left: 21%;
  
   height: 54px;
   

@@ -687,7 +687,7 @@ if (isset($_GET["confirmDelete"])) {
             $id = $_SESSION['userId'];
                 $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
-                $query = "SELECT COUNT(*) FROM test.logement WHERE id_compte = $id;";
+                $query = "SELECT COUNT(*) FROM test.reservation WHERE id_compte = $id;";
                 $stmt = $dbh->prepare($query);
                 $stmt->execute();
                 $nbLogements = $stmt->fetch();
@@ -698,7 +698,7 @@ if (isset($_GET["confirmDelete"])) {
                     <?php
                 }
 
-                foreach($dbh->query("SELECT * FROM test.logement WHERE id_compte = $id", PDO::FETCH_ASSOC) as $row) {
+                foreach($dbh->query("SELECT * FROM test.reservation WHERE id_compte = $id", PDO::FETCH_ASSOC) as $row) {
             
                   $info=$row;
                   $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
@@ -907,51 +907,34 @@ if (isset($_GET["confirmDelete"])) {
 
         </div>
 
+         
         <div id="compteMessagerie">
-          <div id="capayeouquoila">
-            <h1>Enregistrer un mode de paiement</h1>
-            <button>Ajouter mode de paiement</button>
+          <!-- paiement -->
+          <div class="liste_carte">
+          <?php 
+          $id_client = $_SESSION['userId'];
+          $cartes = $dbh->query("SELECT * FROM test.cb 
+                                 INNER JOIN test.compte ON test.compte.id_compte = test.cb.id_compte 
+                                 WHERE test.compte.id_compte = $id_client", PDO::FETCH_ASSOC)->fetchAll();
+          if (count($cartes) > 0){
+            foreach($cartes as $row){ ?>
+              <form class="carte" method="POST" action="deleteCarte.php">
+                <input type="hidden" name="nb_cb" value="<?=$row["numero_carte"]?>">
+                <img src="./asset/img/mastercard.png" alt="logo mastercard" class="carte-logo">
+                <div class="texte">
+                  <h3>Mr. <?= $row["nom"].' '.$row["prenom"]?></h3>
+                  <?php 
+                    $numeroCarteFormate = preg_replace('/(\d{4})\d{8}(\d{3})/', '$1 **** **** $2', $row["numero_carte"]);                ?>
+                  <p><?= $numeroCarteFormate?></p>
+                </div>
+                <input type="submit" value="Supprimer">
+              </form>
+              <div class="separateur3"></div>
+             <?php }
+          } else {?>
+                <p id="AucuneCarte">Vous n'avez aucune carte enregistrée</p>
+          <?php }?>
           </div>
-          <p id="ptitephrasepaiement">Ajoutez un mode de paiement, puis commencez à organiser votre prochain voyage.</p>
-          <h3>Vos paiement</h3>
-          <div id="latableouquoila">
-            <table>
-              <thead>
-                <tr>
-                  <th>Détails</th>
-                  <th>Date de facturation</th>
-                  <th>Mode de paiement</th>
-                  <th>Frais</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td colspan="4"> <div id="maxibarre"></div> </td>
-                </tr>
-                <tr>
-                  <td>Maison du Crampt...</td>
-                  <td>6 oct. 2023</td>
-                  <td>Cartede de crédit/ débit</td>
-                  <td>78€85</td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td colspan="2"> <div id="maxibarre2"></div> </td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td>Maison du Crampt...</td>
-                  <td>6 oct. 2023</td>
-                  <td>Cartede de crédit/ débit</td>
-                  <td>78€85</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div id="historiquepaiement">
-            <button>Historiques des paiements</button>
-          </div>
-          
         </div>
 
         <div id="comptePaiement">
