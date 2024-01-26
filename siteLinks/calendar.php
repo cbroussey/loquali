@@ -16,7 +16,7 @@
             <?php
             include('connect_params.php');
 
-            $idLogement = 1;
+            $idLogement = $_GET['id'];
             $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
             $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
             $query = "SELECT jour FROM test.planning WHERE id_logement = :id_logement;";
@@ -45,7 +45,7 @@
                         $month = 1;
                         $year += 1;
                     }
-                } else {
+                } else if ($_POST['prevOrNext'] == 'prev') {
                     $month = $_POST['month'] - 1;
                     $year = $_POST['year'];
                     if ($month <= 0) {
@@ -70,6 +70,11 @@
                     $stmt->bindParam('idLogement', $idLogement, PDO::PARAM_INT);
                     $stmt->execute();
                 }
+                if ($_POST['prevOrNext'] == 'submit') {
+                    header("Location: compte.php");
+                    exit();
+                }
+
                 ?>
 
                 <input type="hidden" name="year" value=<?php echo $year ?>>
