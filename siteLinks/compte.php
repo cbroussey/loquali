@@ -670,6 +670,7 @@ try {
                   </div>
 
                   <div class="compteBtnListeLogement">
+                    <a href="calendar.php?id=<?php echo ($info["id_logement"]) ?>"><img src="asset/icons/bleu/calendar.svg" alt=""></a>
                     <a href="modifLogement.php?id=<?php echo ($info["id_logement"]) ?>"><img src="asset/icons/bleu/modification.svg" alt=""></a>
 
 
@@ -711,11 +712,11 @@ try {
               $stmt->execute();
               $nbLogements = $stmt->fetch();
 
-              if ($nbLogements['count'] == 0) {
+              /*if ($nbLogements['count'] == 0) {
               ?>
                 <p id="AucuneReservCompte">Vous n'avez aucunes réservations pour le moment</p>
               <?php
-              }
+              }*/
 
               foreach ($dbh->query("SELECT * FROM test.logement WHERE id_compte = $id", PDO::FETCH_ASSOC) as $row) {
 
@@ -744,11 +745,13 @@ try {
                   $stmt->bindParam('id_logement', $info["id_logement"], PDO::PARAM_STR);
                   $stmt->execute();
                   $photo = $stmt->fetch();
+                }
+              }
+            } catch (PDOException $e) {
+              echo "probleme";
+            }
 
               ?>
-
-
-                  ?>
 
                   <div class="compteListeUnLogement">
                     <div class="toutLogement">
@@ -810,18 +813,9 @@ try {
                 </div>
 
                 <div class="compteSeparateur1">a</div>
-
-
-
-          <?php
-              }
-            } catch (PDOException $e) {
-              print "Erreur !: " . $e->getMessage() . "<br/>";
-              die();
-            }
+              <?php
           }
-          ?>
-
+              ?>
           </div>
         </div>
     </div>
@@ -853,6 +847,7 @@ try {
           $stmt->bindParam('id_compte', $proprio_id, PDO::PARAM_STR);
           $stmt->execute();
           $proprio = $stmt->fetch();
+          
 
           if ($images = opendir('asset/img/profils/')) {
             while (false !== ($fichier = readdir($images))) {
@@ -933,28 +928,6 @@ try {
                             $devisCount++;
 
                             ?>
-
-          $stmt = $dbh->prepare($query);
-          $stmt->bindParam('id_compte', $client_id, PDO::PARAM_STR);
-          $stmt->execute();
-          $client = $stmt->fetch();
-
-          if ($images = opendir('asset/img/profils/')) {
-            while (false !== ($fichier = readdir($images))) {
-              $imgInfos = pathinfo($fichier);
-              if ($imgInfos['filename'] == $client_id) {
-                $pathName = 'asset/img/profils/' . $fichier;
-                break;
-              }
-            }
-            if ($pathName == '') {
-              $pathName = 'asset/img/profils/default.jpg';
-            }
-            closedir($images);
-          }
-
-          ?>
-
           <div class="page_devis">
 
             <div class="liste_devis">
@@ -1042,53 +1015,85 @@ try {
     <div id="comptePaiementAPI" style="width: 100%; position:relative;">
       <div id="apiSection" style="width:60%; position:absolute; top:50%; left:50%; transform: translate(-50%,-50%);">
         <?php
-        if (empty($result)) {
-          echo "<p>Aucune clé API n'est associée à cet ID.</p>";
-        } else {
-        ?>
-          
-          <form method="post" action="api_save.php">
-            <table>
-              <thead>
-                <tr>
-                  <th>Nom de la clé API</th>
-                  <th>Privilèges</th>
-                  <th>Accès Calendrier</th>
-                  <th>Mise Indispo</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                <?php
-                foreach ($result as $index => $row) {
-                  $info = $row;
-                ?>
-                  <tr>
-                    <td><?php echo $info["cle"]; ?></td>
-                    <td>
-                      <input type="checkbox" name="<?php echo $info['cle'] . "_p"; ?>" <?php echo ($info['privilegie'] ? "checked" : "") ?> disabled>
-                    </td>
-                    <td>
-                      <input type="checkbox" name="<?php echo $info['cle'] . "_c"; ?>" <?php echo ($info['accescalendrier'] ? "checked" : "") ?>>
-                    </td>
-                    <td>
-                      <input type="checkbox" name="<?php echo $info['cle'] . "_i"; ?>" <?php echo ($info['miseindispo'] ? "checked" : "") ?>>
-                    </td>
-                    <td>
-                      </td>
-                    </tr>
-                    <?php
-                  if ($index < count($result) - 1) {
-                    echo "<tr><td colspan='5'><hr></td></tr>";
-                  }
-                }
-                ?>
-              </tbody>
-            </table>
-            <button type="submit">Appliquer les changements</button>
-          </form>
+        if ($_SESSION['userType'] == 'proprietaire') {
+          if (empty($result)) {
+            echo "<p>Aucune clé API n'est associée à cet ID.</p>";
+          } else {
+          ?>
             
-        <?php } ?>
+            <form method="post" action="api_save.php">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Nom de la clé API</th>
+                    <th>Privilèges</th>
+                    <th>Accès Calendrier</th>
+                    <th>Mise Indispo</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php
+                  foreach ($result as $index => $row) {
+                    $info = $row;
+                  ?>
+                    <tr>
+                      <td><?php echo $info["cle"]; ?></td>
+                      <td>
+                        <input type="checkbox" name="<?php echo $info['cle'] . "_p"; ?>" <?php echo ($info['privilegie'] ? "checked" : "") ?> disabled>
+                      </td>
+                      <td>
+                        <input type="checkbox" name="<?php echo $info['cle'] . "_c"; ?>" <?php echo ($info['accescalendrier'] ? "checked" : "") ?>>
+                      </td>
+                      <td>
+                        <input type="checkbox" name="<?php echo $info['cle'] . "_i"; ?>" <?php echo ($info['miseindispo'] ? "checked" : "") ?>>
+                      </td>
+                      <td>
+                        </td>
+                      </tr>
+                      <?php
+                    if ($index < count($result) - 1) {
+                      echo "<tr><td colspan='5'><hr></td></tr>";
+                    }
+                  }
+                  ?>
+                </tbody>
+              </table>
+              <button type="submit">Appliquer les changements</button>
+            </form>
+              
+          <?php } 
+          } else {
+            ?>
+            <div class="liste_carte">
+            <?php 
+            $id_client = $_SESSION['userId'];
+            $cartes = $dbh->query("SELECT * FROM test.cb 
+                                   INNER JOIN test.compte ON test.compte.id_compte = test.cb.id_compte 
+                                   WHERE test.compte.id_compte = $id_client", PDO::FETCH_ASSOC)->fetchAll();
+            if (count($cartes) > 0){
+              foreach($cartes as $row){ ?>
+                <form class="carte" method="POST" action="deleteCarte.php">
+                  <input type="hidden" name="nb_cb" value="<?=$row["numero_carte"]?>">
+                  <img src="./asset/img/mastercard.png" alt="logo mastercard" class="carte-logo">
+                  <div class="texte">
+                    <h3>Mr. <?= $row["nom"].' '.$row["prenom"]?></h3>
+                    <?php 
+                      $numeroCarteFormate = preg_replace('/(\d{4})\d{8}(\d{3})/', '$1 **** **** $2', $row["numero_carte"]);                ?>
+                    <p><?= $numeroCarteFormate?></p>
+                  </div>
+                  <input type="submit" value="Supprimer">
+                </form>
+                <div class="separateur3"></div>
+               <?php }
+            } else {?>
+                  <p id="AucuneCarte">Vous n'avez aucune carte enregistrée</p>
+            <?php }?>
+            </div>
+   
+          <?php
+          }?>
+        
       </div>
     </div>
 
