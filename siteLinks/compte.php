@@ -687,7 +687,7 @@ if (isset($_GET["confirmDelete"])) {
             $id = $_SESSION['userId'];
                 $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
-                $query = "SELECT COUNT(*) FROM test.logement WHERE id_compte = $id;";
+                $query = "SELECT COUNT(*) FROM test.reservation WHERE id_compte = $id;";
                 $stmt = $dbh->prepare($query);
                 $stmt->execute();
                 $nbLogements = $stmt->fetch();
@@ -698,7 +698,7 @@ if (isset($_GET["confirmDelete"])) {
                     <?php
                 }
 
-                foreach($dbh->query("SELECT * FROM test.logement WHERE id_compte = $id", PDO::FETCH_ASSOC) as $row) {
+                foreach($dbh->query("SELECT * FROM test.reservation WHERE id_compte = $id", PDO::FETCH_ASSOC) as $row) {
             
                   $info=$row;
                   $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
@@ -932,7 +932,7 @@ if (isset($_GET["confirmDelete"])) {
               <div class="separateur3"></div>
              <?php }
           } else {?>
-                <p id="AucuneCarte">Vous n'avez aucune carte enregistré</p>
+                <p id="AucuneCarte">Vous n'avez aucune carte enregistrée</p>
           <?php }?>
           </div>
         </div>
