@@ -11,7 +11,8 @@
 - Colin : 10%
 
 ## Page web de gestion
-- Alexandre : 100%
+- Alexandre : 90%
+- Colin : 10%
 
 ## Documentation
 - Colin : 100%
