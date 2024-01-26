@@ -648,7 +648,7 @@ if (isset($_GET["confirmDelete"])) {
                     <div class="unLogement">
                       <div class="log_info_liste">
                         <h2><?php echo ($info["libelle_logement"]);?>, <?php echo ($info["localisation"]); ?></h2>
-                        <p><?php echo ($info["prix_ttc"]); ?> €, par nuit</p>
+                        <p class="logement_prix"><?php echo ($info["prix_ttc"]); ?> €, par nuit</p>
                         
                         <a class="consulterLogement" href="logement.php?id=<?php echo $info["id_logement"] ?>"><em>Consulter le logement</em></a>
                       </div>
