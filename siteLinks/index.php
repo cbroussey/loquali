@@ -1,5 +1,13 @@
 <?php
 session_start();
+
+if ($_SESSION["userType"]=="proprietaire"){
+  ?>
+  <script type="text/javascript">window.location.href = "compte.php";</script>
+
+
+  <?php
+}
 ?>
 
 <!DOCTYPE html>
