@@ -5,19 +5,19 @@ const accountDisconnect = document.getElementById("accountDisconnect");
 const accountDisconnect2 = document.getElementById("accountDisconnect2");
 const popUpDeco = document.getElementById("popUpDeco");
 
-accountDisconnect.addEventListener('click', function() {
+accountDisconnect.addEventListener('click', function () {
     console.log(popUpDeco);
     popUpDeco.style.display = "block";
 });
 
-accountDisconnect2.addEventListener('click', function() {
+accountDisconnect2.addEventListener('click', function () {
     popUpDeco.style.display = "block";
 })
 
 //popup Disconnect
 const cancelDisconnect = document.getElementById("cancelDisconnect");
 
-cancelDisconnect.addEventListener('click', function() {
+cancelDisconnect.addEventListener('click', function () {
     popUpDeco.style.display = "none";
 });
 
@@ -27,10 +27,9 @@ const compteConnection = document.getElementById("compteConnection");
 const compteFavoris = document.getElementById("compteFavoris");
 const compteLogements = document.getElementById("compteLogements");
 const compteReservations = document.getElementById("compteReservations");
-const compteMessagerie = document.getElementById("compteMessagerie");
-const comptePaiement = document.getElementById("comptePaiement");
+const comptePaiementAPI = document.getElementById("comptePaiementAPI");
 
-const listeLiens = [compteAccueil, compteInfosPerso, compteConnection, compteFavoris, compteLogements, compteReservations, compteMessagerie, comptePaiement];
+const listeLiens = [compteAccueil, compteInfosPerso, compteConnection, compteFavoris, compteLogements, compteReservations, comptePaiementAPI];
 
 // Sélectionnez tous les liens à l'intérieur de la div avec la classe 'nav'
 var links = document.querySelectorAll('.nav > div');
@@ -40,7 +39,7 @@ var currentMenuLink = menuLinks[0];
 currentMenuLink.style.color = 'var(--textColor)';
 currentMenuLink.parentNode.children[0].children[1].display = "none";
 
-links.forEach(function(link, index) {
+links.forEach(function (link, index) {
     link.addEventListener('click', function liens_compte() {
         console.log('Vous avez cliqué sur le lien avec l\'index : ' + index);
         currentMenuLink.style.color = 'var(--secondBG)';
@@ -48,7 +47,6 @@ links.forEach(function(link, index) {
         currentMenuLink.style.color = 'var(--textColor)';
         switch (index) {
             case 0:
-                console.log(this);
                 current.style.display = "none";
                 current = compteAccueil;
                 current.style.display = "block";
@@ -74,13 +72,10 @@ links.forEach(function(link, index) {
                 current.style.display = "block";
                 break;
             case 5:
+                console.log(current);
                 current.style.display = "none";
-                current = compteMessagerie;
-                current.style.display = "block";
-                break;
-            case 6:
-                current.style.display = "none";
-                current = comptePaiement;
+                current = comptePaiementAPI;
+                console.log(current);
                 current.style.display = "block";
                 break;
             default:
@@ -91,23 +86,23 @@ links.forEach(function(link, index) {
 });
 
 
-  // Fonction pour réinitialiser la couleur au survol
-  function resetColorOnHover(element) {
-    element.addEventListener('mouseenter', function() {
+// Fonction pour réinitialiser la couleur au survol
+function resetColorOnHover(element) {
+    element.addEventListener('mouseenter', function () {
         if (element != currentMenuLink) {
             this.style.color = 'var(--textColor)';
         }
     });
 
     // (Facultatif) Si vous souhaitez réappliquer la couleur après le survol
-    element.addEventListener('mouseleave', function() {
+    element.addEventListener('mouseleave', function () {
         if (element != currentMenuLink) {
             this.style.color = 'var(--secondBG)';
         }
     });
-  }
+}
 
-  // Appliquez les fonctions à chaque élément menuLink
-  menuLinks.forEach(function(menuLink) {
+// Appliquez les fonctions à chaque élément menuLink
+menuLinks.forEach(function (menuLink) {
     resetColorOnHover(menuLink);
-  });
+});

@@ -2,8 +2,8 @@
 <?php
 $server = 'servbdd';
 $driver = 'pgsql';
-$dbname = 'pg_';
-$user = '';
+$dbname = 'pg_marlemoal';
+$user = 'marlemoal';
 
 
 

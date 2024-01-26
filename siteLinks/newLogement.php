@@ -1,5 +1,6 @@
 <?php
     session_start();
+    error_reporting(0);
     $linkAccount = 'connexion.php';
     if (isset($_SESSION['username'])) {
         $linkAccount = 'account.php';

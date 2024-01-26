@@ -1,4 +1,5 @@
 <?php session_start();
+error_reporting(0);
 ?>
 
 <!DOCTYPE html>
@@ -529,7 +530,8 @@
     <script src="asset/js/calculPrix.js"></script>
     <script src="asset/js/devisNbPersonnne.js"></script>
     <script src="asset/js/modiffPrixFinal.js"> </script>
-
+    <script src="asset/js/blockdate.js"> </script>
+    
 
 </body>
 

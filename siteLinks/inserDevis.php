@@ -1,8 +1,10 @@
 <?php
 session_start();
+error_reporting(0);
 include('connect_params.php');
 $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
-print_r($_POST);
+
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $deb = $_POST["start-date"];
     $id = $_POST["id"];
@@ -80,13 +82,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $stmt->execute();
 
+        $currentDate = $deb;
+        while ($currentDate <= $fin) {
+            // Exécutez votre requête d'insertion pour chaque date
+            // ...
+
+            $stmt = $dbh->prepare("
+                INSERT INTO test.planning (disponibilite, prix_ht, jour, raison_indisponible, id_logement)
+                VALUES (false, 0.00, :current_date, :raison_indisponible, :id_logment)
+                ");
+
+            // ...
+
+            $jsp = false;
+            // Paramètres de liaison
+           
+            $stmt->bindParam(':current_date', $currentDate, PDO::PARAM_STR);
+            $stmt->bindValue(':raison_indisponible', null, PDO::PARAM_NULL); // Vous devez définir la valeur appropriée ici
+            $stmt->bindParam(':id_logment', $id, PDO::PARAM_INT);
+
+            // Exécution de la requête
+            $stmt->execute();
+
+            // Passez à la date suivante
+            $currentDate = date('Y-m-d', strtotime($currentDate . ' +1 day'));
+
+        }
 
 
 
 
 
         // Redirection vers la page d'index après l'exécution du code
-       header("Location: index.php");
+        header("Location: index.php");
         exit();
     } catch (PDOException $e) {
         echo "Erreur lors de l'insertion du devis : " . $e->getMessage();

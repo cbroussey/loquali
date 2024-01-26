@@ -1,5 +1,6 @@
 <?php
     session_start();
+    error_reporting(0);
     if (isset($_POST['description'])) { /* Si présence d'une modification de description, update dans la bdd */
     
         include('connect_params.php');
@@ -290,8 +291,7 @@
                                     <h2><?php echo($info["nature_logement"]); ?> <?php echo($info["type_logement"]); ?>, <?php echo($info["localisation"]); ?></h2>
                                     <p><?php echo($info["code_postal"]); ?>, <U><?php echo($info["departement"]); ?></U></p>
                                     <div class="noteAvis">
-                                        <img src="asset/icons/bleu/star.svg" alt="">
-                                        <p><?php echo($info["note_logement"]); ?>, 24 avis</p>
+                                        <p><?php echo($info["prix_ttc"]); ?> €, par nuit</p>
                                     </div>
                                     <a class="consulterLogement" href="logement.php?id=<?php echo $info["id_logement"] ?>"><em>Consulter le logement</em></a>
                                 </div>

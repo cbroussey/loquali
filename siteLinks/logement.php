@@ -2,6 +2,7 @@
 
 /* Lancement de la Session */
 session_start();
+error_reporting(0);
 
 /* Suppression du logement si demandé */
 include('connect_params.php');
