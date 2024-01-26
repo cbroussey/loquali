@@ -4783,6 +4783,8 @@ margin:10% 0 5% 0;
 
 #compteAccueil{
   margin: auto;
+  margin-top: 6%;
+  margin-left: 41%;
 }
 
 .accueil {
@@ -4897,16 +4899,22 @@ opacity: 1;
 
 .nav {
 width: 20%;
-height: 92vh;
+height: 110vh;
+margin-top: -5%;
 background-color: #7297B8;
 display: flex;
-justify-content: space-evenly;
+justify-content: center;
 flex-direction: column;
+
+position: fixed;
 }
+
+
 
 .nav-item {
 cursor: pointer;
 color: var(--secondBG);
+margin: 50px 0;
 }
 
 .nav-item:hover {
@@ -4954,15 +4962,14 @@ display:flex;
 flex-direction: row !important;
 }
 
-#compteInfosPerso {
-  height:92vh;
-  width:84vw;
-}
+
 
 #compteInfosPerso {
 height:92vh;
 width:84vw;
 display:none;
+margin-top: 6%;
+margin-left: 41%;
 }
 
 #compteConnection {
@@ -4982,7 +4989,6 @@ display:none;
 display:none;
 position: absolute;
 margin-left: 27%;
-margin-top: 130px;
 }
 
 #compteReservations {
@@ -5167,6 +5173,9 @@ color: #1D4C77;
 margin: auto;
 width: 65%;
 height: 50%;
+
+margin-top: 2.5%;
+margin-left: 28%;
 
 
 font-size: 20px;
@@ -5619,6 +5628,9 @@ height: 50%;
 
 font-size: 20px;
 font-weight: 500;
+
+margin-top: 11%;
+margin-left: 28%;
 }
 
 #modifmaj {
@@ -5902,7 +5914,7 @@ font-weight: 500;
   display: flex;
   flex-direction: row;
   margin-top: 5px;
-  margin-bottom: 15%;
+  margin-bottom: 25px;
 }
 
 .noteAvis img {
@@ -5942,7 +5954,7 @@ font-weight: 500;
   
   color: transparent;
   margin: 25px 0;
-  margin-left: -100px;
+  margin-left: 10px;
 }
 
 #compteLogements .separateur1{
@@ -6382,9 +6394,8 @@ font-weight: 500;
 #compteLogementPropo{
   color: #1D4C77;
   position: initial;
-  margin-top: 80px;
-
   margin-bottom: 50px;
+
 }
 
 
@@ -6408,11 +6419,12 @@ font-weight: 500;
 
 #compteListeLogements{
   background: none;
+  margin-left: -20%;
 }
 
 .compteAjout_log{
   height: 55px;
-  width: 20%;
+  width: 30%;
   background-color: var(--mainColor);
   color: #fff;
   display: flex;
@@ -6420,7 +6432,8 @@ font-weight: 500;
   justify-content: center;
   border-radius: 5px;
   margin-left: 55%;
-  margin-top: 40px;
+  margin-top: 20%;
+  margin-bottom: 11%;
 }
 
 .compteAjout_log a{
@@ -6444,14 +6457,17 @@ font-weight: 500;
   flex-direction: row;
   height: 30%;
   width: 100%;
+  margin-left: 20%;   
 }
 
 .compteSeparateur1{
   background-color: #97ADC1;
-  width: 80%;
+  width: 95%;
   height: 2px;
   color: transparent;
-  margin: 25px 0;
+  margin: 40px 0;
+
+  margin-left: 22.5%;
 }
 
 .compteBtnListeLogement{

@@ -176,7 +176,7 @@ if (isset($_GET["confirmDelete"])) {
 </head>
 
 <body>
-  <header>
+  <header id=headerCompte>
     <a href="index.php">
       <img src="asset/img/logo.png" alt="logo">
     </a>
