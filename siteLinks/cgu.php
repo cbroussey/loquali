@@ -1,3 +1,33 @@
+<?php
+session_start();
+//suppression de session si la popupDéco est validée
+if (isset($_POST['hidden'])) {
+  session_destroy();
+  header("Location: index.php");
+  exit();
+}
+include('connect_params.php');
+$dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
+$query = $dbh->prepare("SELECT * FROM test.compte WHERE id_compte = :idcompte");
+$query->bindParam('idcompte', $_GET["confirmDelete"], PDO::PARAM_INT);
+$query->execute();
+$query = $query->fetchAll();
+if (isset($_GET["confirmDelete"])) {
+  try {
+    $query = "DELETE FROM test.compte WHERE test.compte.id_compte = :id_compte";
+    $stmt = $dbh->prepare($query);
+    $stmt->bindParam('id_compte', $_GET["confirmDelete"], PDO::PARAM_INT);
+    $stmt->execute();
+  } catch (PDOException $e) {
+    print "Erreur !: " . $e->getMessage() . "<br/>";
+    die();
+  }
+  session_destroy();
+  header("Location: index.php");
+  exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
