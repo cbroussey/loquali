@@ -4979,12 +4979,10 @@ display:none;
 }
 
 #compteLogements {
-height:92vh;
-width:84vw;
 display:none;
 position: absolute;
 margin-left: 27%;
-margin-top: 4%;
+margin-top: 130px;
 }
 
 #compteReservations {
@@ -5940,9 +5938,15 @@ font-weight: 500;
   background-color: #97ADC1;
   width: 600px;
   height: 2px;
+  -webkit-user-select: none;
   
   color: transparent;
   margin: 25px 0;
+  margin-left: -100px;
+}
+
+#compteLogements .separateur1{
+  margin-left: 0;
 }
 
 #boutonDescription {
@@ -6497,6 +6501,9 @@ font-weight: 500;
   flex-direction: column;
   color: #1D4C77;
   width: 100%;
+  margin-top: 30px;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .devis{
@@ -6509,6 +6516,7 @@ font-weight: 500;
 
 .date {
   margin-left: auto;
+  margin-right: 100px;
 }
 
 .infos_devis{
@@ -6563,6 +6571,7 @@ text-align: center;
 
 cursor: pointer;
 margin-left: auto;
+margin-right: 100px;
 align-self: flex-end;
 }
 
