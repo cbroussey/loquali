@@ -35,14 +35,14 @@ void printose(int mode, const char* format, ...) {
         sprintf(tmp, "[%02d/%02d/%d %02d:%02d:%02d] ", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900, tm.tm_hour, tm.tm_min, tm.tm_sec);
         printf("%s%s", (mode != 2 ? tmp : ""), txt);
         if (foutput) {
-            write(foutput, tmp, strlen(tmp));
+            if (mode != 2) write(foutput, tmp, strlen(tmp));
             write(foutput, txt, strlen(txt));
         }
     }
 }
 
 void perrorOut() {
-    printose(true, "Err: %s\n", strerror(errno));
+    printose(2, "Err: %s\n", strerror(errno));
     exit(1);
 }
 
