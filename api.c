@@ -280,7 +280,7 @@ int main(int argc, char *argv[]) {
             //read(cnx, &c, 1024);
             //printf("%s", c);
             memset(tmp, 0, strlen(tmp)); // Vider la variable tmp
-            write(cnx, "API key > ", 10);
+            write(cnx, "API key > \x03", 11);
             printose(true, "Waiting for API key...\n");
             ret = read(cnx, &tmp, sizeof(tmp));
             if (ret == -1) perrorOut();
@@ -295,7 +295,7 @@ int main(int argc, char *argv[]) {
             if (PQresultStatus(res) != PGRES_TUPLES_OK) { // Cas d'erreur
                 printose(true, "DB error: %s\nDisconnect\n", PQerrorMessage(db));
                 memset(cmd, 0, strlen(cmd));
-                sprintf(cmd, "DB error: %s\r\n", PQerrorMessage(db));
+                sprintf(cmd, "DB error: %s\r\n\x04", PQerrorMessage(db));
                 write(cnx, cmd, strlen(cmd));
                 close(cnx);
             } else if (PQntuples(res) > 0 && !strcmp(tmp, PQgetvalue(res, 0, 0))) { //strncmp(&cmd, "0123456789ABCDEF", 16) == 0
@@ -311,11 +311,11 @@ int main(int argc, char *argv[]) {
                 sprintf(cmd, "Authentication successful. Welcome %s\r\n", accNom);
                 write(cnx, cmd, strlen(cmd));
                 write(cnx, "Type \"help\" to get a list of available commands\r\n", 49);
-                write(cnx, "LoQuali> ", 9); // Le prompt affiché au client
+                write(cnx, "LoQuali > \x03", 11); // Le prompt affiché au client
                 connected = true;
             } else { // Pas de tuples retournés donc pas de résultat donc clé API erronnée. On déconnecte
+                write(cnx, "Invalid API key\r\n\x04", 18);
                 printose(true, "Invalid API key. Disconnect\n");
-                write(cnx, "\eInvalid API key\r\n", 4);
                 close(cnx);
                 //return 1;
             }
@@ -485,7 +485,7 @@ int main(int argc, char *argv[]) {
                     write(cnx, "  exit\r\n", 8);
                 } else if (strcmp(cmdargs[0], "exit") == 0) {
                     //printf("Writing...\n");
-                    write(cnx, "ok bozo\r\n", 9);
+                    write(cnx, "Goodbye\r\n\x04", 10);
                     close(cnx);
                     break;
                 } else {
@@ -497,7 +497,7 @@ int main(int argc, char *argv[]) {
                 //printf("aaaa\n");
                 memset(cmd, 0, strlen(cmd)); // Plutôt qu'une boucle for
                 emptyArgs(i, cmdargs);
-                write(cnx, "LoQuali > ", 10); // Le prompt affiché au client
+                write(cnx, "LoQuali > \x03", 11); // Le prompt affiché au client
                 //printf(" > ");
                 i = 0;
             }

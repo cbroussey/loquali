@@ -42,7 +42,8 @@ Vous pouvez obtenir la liste des options compatibles à tout moment en faisant
 ./api --help
 ```
 ### Verbose
-(alias : -v)<br>
+(alias : -v)
+
 Afficher plus d'informations à l'écran et dans un fichier si spécifié. Exemple :
 ```bash
 ./api --verbose 8080
@@ -53,7 +54,8 @@ Lancera le serveur sur le port 8080 et affichera plus d'informations dans la con
 ```
 Fera la même chose mais écrira en plus ces même logs dans le fichier logs.txt (fichier ouvert en ajout, pas de vidage avant écriture)
 ### Help
-(alias : -h)<br>
+(alias : -h)
+
 Affiche la syntaxe de lancement du programme et la liste des options disponible
 
 ## Fermer le serveur

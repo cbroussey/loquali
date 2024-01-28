@@ -57,10 +57,10 @@ int main(int argc, char *argv[]) {
                 exit(1);
             }
             printf("%s", response);
-        } while (response[strlen(response)-2] != ' ' && response[strlen(response)-2] != '>'  && response[strlen(response)-3] != ' ');
+        } while (response[strlen(response)-1] != '\x04' && response[strlen(response)-1] != '\x03');
 
-        if (response[0] == '\e') {
-            printf("Server disconnected.\n");
+        if (response[strlen(response)-1] == '\x04') {
+            //printf("Server disconnected.\n");
             break;
         }
 
@@ -70,11 +70,13 @@ int main(int argc, char *argv[]) {
             perror("Send error");
             exit(1);
         }
-
+        
+        /*
         if (strcmp(command, "exit\n") == 0) {
             break;
         }
-
+        */
+        
         //printf("Sent: %s", command);
 
         /*
