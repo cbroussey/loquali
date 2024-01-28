@@ -40,7 +40,7 @@
                     $res->bindParam('crypto', $_POST['crypto'], PDO::PARAM_STR);
                     $res->bindParam('compte', $_SESSION['userId'], PDO::PARAM_INT);
                     $res->execute();
-                } else if (count($res) > 0 && ($_POST["savePay"] === "off" || !isset($_POST["savePay"]))) {
+                } else if (count($res) > 0 && (!isset($_POST["savePay"]) || $_POST["savePay"] === "off")) {
                     $res = $db->prepare(
                         'DELETE FROM test.cb WHERE numero_carte = :num AND id_compte = :compte;'
                     );
