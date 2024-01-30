@@ -10,6 +10,8 @@ function search(e) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
+
+    /* Récupération des données */
     var slider = document.querySelector(".slider1 .slider");
     var dots = document.querySelectorAll(".dot");
     var currentIndex = 0;
@@ -25,6 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
+    /* Réalisation de l'animation */
     function animateSlider() {
         if (!animationInProgress) {
             animationInProgress = true;
@@ -102,6 +105,9 @@ if (radioButtonOwner) { //vérifie si l'élément existe pour éviter les erreur
     });
 }
 
+
+/* Mise en place de la restriction de saise */
+
 const champTel = document.getElementById("telephone");
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -111,39 +117,12 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-document.addEventListener("DOMContentLoaded", () => {
-    // flèche de changement de langue & affichage de la popup
-    const Btn_Tri = document.getElementById("Btn_Tri");
-    const Liste_Tri = document.getElementById("Liste_Tri");
-    const fleche_Tri = document.getElementById("fleche_Tri");
 
-    if (Btn_Tri) {
-        //si clic sur la flèche
-        Btn_Tri.addEventListener("click", function (event) {
-            //ajout du délai de 0.5s
-            if (fleche_Tri.style.transition === "") {
-                fleche_Tri.style.transition = "transform 0.5s ease";
-            }
-            //inverse l'état de la popup
-            if (Liste_Tri.style.display === "none" || Liste_Tri.style.display === "") {
-                Liste_Tri.style.display = "block";
-                fleche_Tri.style.transform = "rotate(-180deg)";
-            } else {
-                fleche_Tri.style.transform = "rotate(0deg)"
-                Liste_Tri.style.display = "none";
-            }
-            event.stopPropagation();
-        });
-
-        //gestion du clic en dehors de la popup lorsqu'elle est ouverte
-        document.addEventListener("click", function () {
-            fleche_Tri.style.transform = "rotate(0deg)"
-            Liste_Tri.style.display = "none";
-        });
-    }
-});
+/* Code pour faire apparaitre la listre des filtres + tri une fois clické */
 
 document.addEventListener("DOMContentLoaded", () => {
+
+    /* Récupération des éléments */
     const Btn_Filtre = document.getElementById("Btn_Filtre");
     const quitterfiltre = document.getElementById("quitterfiltre");
     const Liste_Filtre = document.getElementById("filtreContainer");
