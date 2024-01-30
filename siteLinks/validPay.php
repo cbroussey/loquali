@@ -1,5 +1,6 @@
 <?php
     session_start();
+    error_reporting(0);
     //echo date("m-y") ."\n";
     if (
         (/*isset($_POST["paymentType"]) && $_POST["paymentType"] == "MasterCard" && */preg_match('/^(5[1-5][0-9]{14}|2(22[1-9][0-9]{12}|2[3-9][0-9]{13}|[3-6][0-9]{14}|7[0-1][0-9]{13}|720[0-9]{12}))$/', $_POST["cardNumber"]))
@@ -33,13 +34,13 @@
                         'INSERT INTO test.cb VALUES (:typecb, :num, DATE(:validite), :crypto, :compte);'
                     );
                     $validiteFDP = "01/" . $_POST['expiry'];
-                    $res->bindParam('typecb', $_POST['paymentType'], PDO::PARAM_STR);
+                    $res->bindParam('typecb', "MasterCard", PDO::PARAM_STR);
                     $res->bindParam('num', $_POST['cardNumber'], PDO::PARAM_STR);
                     $res->bindParam('validite', $validiteFDP, PDO::PARAM_STR);
                     $res->bindParam('crypto', $_POST['crypto'], PDO::PARAM_STR);
                     $res->bindParam('compte', $_SESSION['userId'], PDO::PARAM_INT);
                     $res->execute();
-                } else if (count($res) > 0 && ($_POST["savePay"] === "off" || !isset($_POST["savePay"]))) {
+                } else if (count($res) > 0 && (!isset($_POST["savePay"]) || $_POST["savePay"] === "off")) {
                     $res = $db->prepare(
                         'DELETE FROM test.cb WHERE numero_carte = :num AND id_compte = :compte;'
                     );
@@ -49,8 +50,7 @@
                 }
                 header("Location: index.php");
             } else {
-                echo '403 - Forbidden';
-                die('Forbidden');
+                die('403 -Forbidden');
             }
         }
 ?>

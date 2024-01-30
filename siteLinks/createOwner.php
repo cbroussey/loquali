@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
     if (isset($_POST['pays'])) {
         try {
             session_start();
@@ -83,7 +84,7 @@
                 <input type="file" id="fichier" name="fichier" accept="image/*" required/>
                 <input type="submit" value="Créer votre compte"/>
             </form>
-            <p>En créant ou en vous connectant à un compte, vous acceptez nos <a href="">conditions générales</a> et notre <a href="">charte de confidentialité</a>.</p>
+            <p>En créant ou en vous connectant à un compte, vous acceptez nos <a href="cgu.php">conditions générales d'utilisation</a> et notre <a href="">charte de confidentialité</a>.</p>
         </section>
     </main>
     <script src="asset/js/createOwner.js"></script>

@@ -1,5 +1,6 @@
 <?php
     session_start();
+    error_reporting(0);
     $linkAccount = 'connexion.php';
     if (isset($_SESSION['username'])) {
         $linkAccount = 'account.php';
@@ -135,7 +136,7 @@
                             <?php }
                             */
                         ?>
-                        <p><a>Taxes</a><a><?php $tva = $res["prix_devis"]*1/100; echo $tva ?>€</a></p>
+                        <p><a>Taxes</a><a><?php $tva = round($res["prix_devis"]*10/100, 2); echo $tva ?>€</a></p>
                     </div>
                     <div><p><a class="h3">Total</a><a>EUR</a><a class="h3"><?php echo $res["prix_devis"] + $tva ?>€</a></p></div>
                     <button type="submit">Payer</button>

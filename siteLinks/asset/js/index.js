@@ -110,15 +110,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* Récupération des éléments */
     const Btn_Filtre = document.getElementById("Btn_Filtre");
-    const Liste_Filtre = document.getElementById("Liste_Filtre");
+    const Liste_Filtre = document.getElementById("filtreContainer");
 
     if (Btn_Filtre) {
         Btn_Filtre.addEventListener("click", function (event) {
             // montre popup quand click
             if (Liste_Filtre.style.display === "none" || Liste_Filtre.style.display === "") {
                 Liste_Filtre.style.display = "block";
+                document.body.style.overflow = "hidden";
             } else {
                 Liste_Filtre.style.display = "none";
+                document.body.style.overflow = "visible";
             }
             event.stopPropagation();
         });
