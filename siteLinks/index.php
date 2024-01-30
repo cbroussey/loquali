@@ -23,7 +23,7 @@ if ($_SESSION["userType"] == "proprietaire") {
   <link rel="stylesheet" href="asset/css/headerAndFooter.css">
   <link rel="stylesheet" href="asset/css/style.css">
   <link rel="stylesheet" href="asset/css/index.css">
-  <title>Quoicoubeh</title>
+  <title>LoQuali - Accueil</title>
 </head>
 
 <body>
@@ -120,7 +120,7 @@ if ($_SESSION["userType"] == "proprietaire") {
 
         <div id="filtreContainer">
           <div id="Liste_Filtre"> <!-- Partie visible uniquement lors d'un click sur le buton filtres -->
-            <form action="index.php" method="post">
+            <form id="triFiltres" action="index.php" method="post">
 
               <!-- Ceci est un formulaire permettant de récupérer les donées avec lequel l'utilisateur veux ranger les logements (garde en mémoire les valeurs insérer) -->
 
