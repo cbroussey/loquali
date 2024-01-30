@@ -1,11 +1,46 @@
 function search(e) {
     if (e.preventDefault) e.preventDefault();
-    fetch('./search.php?tri=Prix : Ordre Croissant').then((r) => {
+    //document.querySelector("body").style.filter = brightness("50%");
+    valeurs = [
+        document.getElementById("rad_tri_1"),
+        document.getElementById("rad_tri_2"),
+        document.getElementById("rad_tri_3"),
+        document.getElementById("rad_tri_4"),
+        document.getElementById("rad_tri_5"),
+        document.getElementById("test1"),
+        document.getElementById("test2"),
+        document.getElementById("PrixMin"),
+        document.getElementById("PrixMax"),
+        document.getElementById("Personneeeeeeeeeeeee"),
+        document.getElementById("amena1"),
+        document.getElementById("amena2"),
+        document.getElementById("amena3"),
+        document.getElementById("amena4"),
+        document.getElementById("instal1"),
+        document.getElementById("instal2"),
+        document.getElementById("instal3"),
+        document.getElementById("instal4"),
+        document.getElementById("instal5"),
+        document.getElementById("service1"),
+        document.getElementById("service2"),
+        document.getElementById("service3"),
+        document.getElementById("service4")
+    ]
+    let params = "test=&"
+    for (let i = 0; i < valeurs.length; i++) {
+        if (valeurs[i] != null && ((valeurs[i].type == "radio" || valeurs[i].type == "checkbox") && valeurs[i].checked
+            || valeurs[i].type == "number" && valeurs[i].value != "")) {
+            params += valeurs[i].name + "=" + valeurs[i].value + "&"; // type
+        }
+    }
+    console.log(params);
+    fetch(`./search.php?${params}`).then((r) => {
         return r.text();
     }).then((s) => {
        document.getElementsByClassName("box")[0].innerHTML = s;
     });
-    console.log(e);
+    //console.log(e);
+    toggleFiltre();
     return false;
 }
 
@@ -117,6 +152,18 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+const Liste_Filtre = document.getElementById("filtreContainer");
+
+function toggleFiltre() {
+    // Inverse l'état de la popup
+    if (Liste_Filtre.style.display === "none" || Liste_Filtre.style.display === "") {
+        Liste_Filtre.style.display = "block";
+        document.body.style.overflow = "hidden";
+    } else {
+        Liste_Filtre.style.display = "none";
+        document.body.style.overflow = "visible";
+    }
+}
 
 /* Code pour faire apparaitre la listre des filtres + tri une fois clické */
 
@@ -124,19 +171,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* Récupération des éléments */
     const Btn_Filtre = document.getElementById("Btn_Filtre");
-    const quitterfiltre = document.getElementById("quitterfiltre");
-    const Liste_Filtre = document.getElementById("filtreContainer");
+    const quitterfiltre = document.querySelector(".reeeetour > a");
 
-    function toggleFiltre() {
-        // Inverse l'état de la popup
-        if (Liste_Filtre.style.display === "none" || Liste_Filtre.style.display === "") {
-            Liste_Filtre.style.display = "block";
-            document.body.style.overflow = "hidden";
-        } else {
-            Liste_Filtre.style.display = "none";
-            document.body.style.overflow = "visible";
-        }
-    }
 
     if (Btn_Filtre) {
         Btn_Filtre.addEventListener("click", function (event) {
