@@ -1,4 +1,4 @@
-
+/* Fonct */
 document.addEventListener("DOMContentLoaded", function() {
     const selectElement = document.getElementById("reg");
     
@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 
-
+/* fonction pour incrépenté et décrémenté les logements */
 
 function increment(id) {
     const input = document.getElementById(id);
