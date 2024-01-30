@@ -70,8 +70,9 @@ create table logement(
     nb_salle_de_bain integer,
     code_postal varchar(255) check (code_postal ~ '^[0-9]{5}$|^2[AB]$'),
     departement varchar(255),
-    localisation varchar(255), -- = commune/ville
-    adresse varchar(255), -- cacher pour les utlisateurs
+    localisation varchar(255), -- = commune/ville (pour la localisation approximative)
+    longitude float, -- Montré après avoir payé
+    latitude float, -- Montré après avoir payé
     complement_adresse varchar(255),
     info_arrivee varchar(255),
     info_depart varchar(255),
