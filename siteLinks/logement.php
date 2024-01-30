@@ -82,8 +82,28 @@ if (isset($_GET["confirmligne"])) {
     }
 }
 /* Début de la page en html css */
-?>
 
+
+try {
+
+    $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
+    $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+    $query = "SELECT * FROM test.avis NATURAL JOIN test.logement WHERE id_logement = :idlog";
+
+    $stmt = $dbh->prepare($query);
+    $stmt->bindParam('idlog', $_GET["id"], PDO::PARAM_INT); 
+    $stmt->execute();
+    $aviss = $stmt->fetchAll();
+
+    $rrrrrrrrrrrowCount = $stmt -> rowCount();
+  
+
+
+} catch (PDOException $e) {
+    print "Erreur !: " . $e->getMessage() . "<br/>";
+    die();
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -873,7 +893,7 @@ if (isset($_GET["confirmligne"])) {
 
                             <div class="barreHautAvis">
                                 <div class="gaucheBarreHautAvis">
-                                    <p> <span>Avis</span> : <?php echo("24") ?> avis</p>
+                                    <p> <span>Avis</span> : <?php echo($rrrrrrrrrrrowCount); ?> avis</p>
                                 </div>
                                 <div class="droiteBarreHautAvis">
                                     <button id="AjoutAvis">Ajouter un avis</button>
@@ -882,59 +902,24 @@ if (isset($_GET["confirmligne"])) {
 
                             <div id="ListeAvis">
 
-                                
-                                <div class="unAvis">
+                                <?php
+                                    foreach($aviss as $key => $unAvis){
 
-                                    <div class="hautAvis">
-
-                                        <div class="infoPropioAvis">
-
-                                            <a class="img_avis_log" href="pageProprio.php?id=<?php echo ($proprio["id_compte"]); ?>&id_log=<?php echo ($id) ?>">
-                                                <div class="photo_profil_proprio_log_avis">
-                                                    <style>
-                                                        .photo_profil_proprio_log_avis {
-                                                            background: url("<?php echo($pathName) ?>") center/cover;
-                                                        }
-                                                    </style>
-                                                </div>
-
-                                            </a>
-                                            <div class="infoTxtProprioAvis">
-                                                <h3>Tom Eilis</h3>
-                                                <p>120 avis</p>
-                                            </div>
-                                        </div>
-
-                                        <svg width="25" height="26" viewBox="0 0 25 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M16.0156 13C16.0156 14.9434 14.4434 16.5156 12.5 16.5156C10.5566 16.5156 8.98438 14.9434 8.98438 13C8.98438 11.0566 10.5566 9.48438 12.5 9.48438C14.4434 9.48438 16.0156 11.0566 16.0156 13ZM21.0938 9.48438C19.1504 9.48438 17.5781 11.0566 17.5781 13C17.5781 14.9434 19.1504 16.5156 21.0938 16.5156C23.0371 16.5156 24.6094 14.9434 24.6094 13C24.6094 11.0566 23.0371 9.48438 21.0938 9.48438ZM3.90625 9.48438C1.96289 9.48438 0.390625 11.0566 0.390625 13C0.390625 14.9434 1.96289 16.5156 3.90625 16.5156C5.84961 16.5156 7.42188 14.9434 7.42188 13C7.42188 11.0566 5.84961 9.48438 3.90625 9.48438Z" fill="#1D4C77"/>
-                                        </svg>
-                                    </div>
-                                    
-                                    <div class="milieuAvis">
-
-                                        <div class="noteAvisLog">
-
-                                        <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M8.28537 8.95113L8.93285 8.85804L9.22545 8.27299L12.2766 2.17243C12.3034 2.11885 12.3339 2.09226 12.3627 2.0755C12.3962 2.056 12.4428 2.04182 12.4977 2.04199C12.6083 2.04235 12.6831 2.09285 12.724 2.17358C12.7241 2.17381 12.7242 2.17404 12.7243 2.17427L15.7745 8.27299L16.0672 8.85804L16.7146 8.95113L23.5417 9.93264L23.5426 9.93277C23.6081 9.94213 23.6457 9.96463 23.6704 9.98611C23.6989 10.0108 23.7235 10.0466 23.7379 10.0901C23.7522 10.1336 23.7526 10.174 23.7454 10.2055C23.7394 10.2319 23.7252 10.2672 23.681 10.3097L23.6806 10.31L18.7414 15.0563L18.2619 15.5171L18.376 16.1722L19.5441 22.876C19.5441 22.8762 19.5442 22.8765 19.5442 22.8767C19.5538 22.9329 19.545 22.9667 19.5345 22.9906C19.5216 23.0198 19.4959 23.0546 19.4538 23.0845C19.3684 23.1451 19.2732 23.1524 19.1829 23.1056L19.1827 23.1055L13.0752 19.9397L12.5 19.6416L11.9248 19.9397L5.81729 23.1054L5.81339 23.1075C5.72476 23.1538 5.63192 23.1471 5.54712 23.0869C5.50503 23.057 5.47899 23.0218 5.46577 22.9918C5.45488 22.9671 5.44612 22.9327 5.45587 22.8762C5.45589 22.8762 5.4559 22.8761 5.45591 22.876L6.62398 16.1722L6.73813 15.5171L6.25864 15.0563L1.31939 10.31L1.31904 10.3097C1.27481 10.2672 1.26058 10.2319 1.25457 10.2055C1.24738 10.174 1.24784 10.1336 1.26215 10.0901C1.27647 10.0466 1.30113 10.0108 1.3296 9.98611C1.35432 9.96463 1.39195 9.94213 1.45737 9.93277L1.45827 9.93264L8.28537 8.95113Z" fill="#1D4C77" stroke="#1D4C77" stroke-width="2.5" />
-                                        </svg>                                        <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M8.28537 8.95113L8.93285 8.85804L9.22545 8.27299L12.2766 2.17243C12.3034 2.11885 12.3339 2.09226 12.3627 2.0755C12.3962 2.056 12.4428 2.04182 12.4977 2.04199C12.6083 2.04235 12.6831 2.09285 12.724 2.17358C12.7241 2.17381 12.7242 2.17404 12.7243 2.17427L15.7745 8.27299L16.0672 8.85804L16.7146 8.95113L23.5417 9.93264L23.5426 9.93277C23.6081 9.94213 23.6457 9.96463 23.6704 9.98611C23.6989 10.0108 23.7235 10.0466 23.7379 10.0901C23.7522 10.1336 23.7526 10.174 23.7454 10.2055C23.7394 10.2319 23.7252 10.2672 23.681 10.3097L23.6806 10.31L18.7414 15.0563L18.2619 15.5171L18.376 16.1722L19.5441 22.876C19.5441 22.8762 19.5442 22.8765 19.5442 22.8767C19.5538 22.9329 19.545 22.9667 19.5345 22.9906C19.5216 23.0198 19.4959 23.0546 19.4538 23.0845C19.3684 23.1451 19.2732 23.1524 19.1829 23.1056L19.1827 23.1055L13.0752 19.9397L12.5 19.6416L11.9248 19.9397L5.81729 23.1054L5.81339 23.1075C5.72476 23.1538 5.63192 23.1471 5.54712 23.0869C5.50503 23.057 5.47899 23.0218 5.46577 22.9918C5.45488 22.9671 5.44612 22.9327 5.45587 22.8762C5.45589 22.8762 5.4559 22.8761 5.45591 22.876L6.62398 16.1722L6.73813 15.5171L6.25864 15.0563L1.31939 10.31L1.31904 10.3097C1.27481 10.2672 1.26058 10.2319 1.25457 10.2055C1.24738 10.174 1.24784 10.1336 1.26215 10.0901C1.27647 10.0466 1.30113 10.0108 1.3296 9.98611C1.35432 9.96463 1.39195 9.94213 1.45737 9.93277L1.45827 9.93264L8.28537 8.95113Z" fill="#1D4C77" stroke="#1D4C77" stroke-width="2.5" />
-                                        </svg>                                        <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M8.28537 8.95113L8.93285 8.85804L9.22545 8.27299L12.2766 2.17243C12.3034 2.11885 12.3339 2.09226 12.3627 2.0755C12.3962 2.056 12.4428 2.04182 12.4977 2.04199C12.6083 2.04235 12.6831 2.09285 12.724 2.17358C12.7241 2.17381 12.7242 2.17404 12.7243 2.17427L15.7745 8.27299L16.0672 8.85804L16.7146 8.95113L23.5417 9.93264L23.5426 9.93277C23.6081 9.94213 23.6457 9.96463 23.6704 9.98611C23.6989 10.0108 23.7235 10.0466 23.7379 10.0901C23.7522 10.1336 23.7526 10.174 23.7454 10.2055C23.7394 10.2319 23.7252 10.2672 23.681 10.3097L23.6806 10.31L18.7414 15.0563L18.2619 15.5171L18.376 16.1722L19.5441 22.876C19.5441 22.8762 19.5442 22.8765 19.5442 22.8767C19.5538 22.9329 19.545 22.9667 19.5345 22.9906C19.5216 23.0198 19.4959 23.0546 19.4538 23.0845C19.3684 23.1451 19.2732 23.1524 19.1829 23.1056L19.1827 23.1055L13.0752 19.9397L12.5 19.6416L11.9248 19.9397L5.81729 23.1054L5.81339 23.1075C5.72476 23.1538 5.63192 23.1471 5.54712 23.0869C5.50503 23.057 5.47899 23.0218 5.46577 22.9918C5.45488 22.9671 5.44612 22.9327 5.45587 22.8762C5.45589 22.8762 5.4559 22.8761 5.45591 22.876L6.62398 16.1722L6.73813 15.5171L6.25864 15.0563L1.31939 10.31L1.31904 10.3097C1.27481 10.2672 1.26058 10.2319 1.25457 10.2055C1.24738 10.174 1.24784 10.1336 1.26215 10.0901C1.27647 10.0466 1.30113 10.0108 1.3296 9.98611C1.35432 9.96463 1.39195 9.94213 1.45737 9.93277L1.45827 9.93264L8.28537 8.95113Z" fill="#1D4C77" stroke="#1D4C77" stroke-width="2.5" />
-                                        </svg>                                        <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M8.28537 8.95113L8.93285 8.85804L9.22545 8.27299L12.2766 2.17243C12.3034 2.11885 12.3339 2.09226 12.3627 2.0755C12.3962 2.056 12.4428 2.04182 12.4977 2.04199C12.6083 2.04235 12.6831 2.09285 12.724 2.17358C12.7241 2.17381 12.7242 2.17404 12.7243 2.17427L15.7745 8.27299L16.0672 8.85804L16.7146 8.95113L23.5417 9.93264L23.5426 9.93277C23.6081 9.94213 23.6457 9.96463 23.6704 9.98611C23.6989 10.0108 23.7235 10.0466 23.7379 10.0901C23.7522 10.1336 23.7526 10.174 23.7454 10.2055C23.7394 10.2319 23.7252 10.2672 23.681 10.3097L23.6806 10.31L18.7414 15.0563L18.2619 15.5171L18.376 16.1722L19.5441 22.876C19.5441 22.8762 19.5442 22.8765 19.5442 22.8767C19.5538 22.9329 19.545 22.9667 19.5345 22.9906C19.5216 23.0198 19.4959 23.0546 19.4538 23.0845C19.3684 23.1451 19.2732 23.1524 19.1829 23.1056L19.1827 23.1055L13.0752 19.9397L12.5 19.6416L11.9248 19.9397L5.81729 23.1054L5.81339 23.1075C5.72476 23.1538 5.63192 23.1471 5.54712 23.0869C5.50503 23.057 5.47899 23.0218 5.46577 22.9918C5.45488 22.9671 5.44612 22.9327 5.45587 22.8762C5.45589 22.8762 5.4559 22.8761 5.45591 22.876L6.62398 16.1722L6.73813 15.5171L6.25864 15.0563L1.31939 10.31L1.31904 10.3097C1.27481 10.2672 1.26058 10.2319 1.25457 10.2055C1.24738 10.174 1.24784 10.1336 1.26215 10.0901C1.27647 10.0466 1.30113 10.0108 1.3296 9.98611C1.35432 9.96463 1.39195 9.94213 1.45737 9.93277L1.45827 9.93264L8.28537 8.95113Z" fill="#1D4C77" stroke="#1D4C77" stroke-width="2.5" />
-                                        </svg>                                        <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M8.28537 8.95113L8.93285 8.85804L9.22545 8.27299L12.2766 2.17243C12.3034 2.11885 12.3339 2.09226 12.3627 2.0755C12.3962 2.056 12.4428 2.04182 12.4977 2.04199C12.6083 2.04235 12.6831 2.09285 12.724 2.17358C12.7241 2.17381 12.7242 2.17404 12.7243 2.17427L15.7745 8.27299L16.0672 8.85804L16.7146 8.95113L23.5417 9.93264L23.5426 9.93277C23.6081 9.94213 23.6457 9.96463 23.6704 9.98611C23.6989 10.0108 23.7235 10.0466 23.7379 10.0901C23.7522 10.1336 23.7526 10.174 23.7454 10.2055C23.7394 10.2319 23.7252 10.2672 23.681 10.3097L23.6806 10.31L18.7414 15.0563L18.2619 15.5171L18.376 16.1722L19.5441 22.876C19.5441 22.8762 19.5442 22.8765 19.5442 22.8767C19.5538 22.9329 19.545 22.9667 19.5345 22.9906C19.5216 23.0198 19.4959 23.0546 19.4538 23.0845C19.3684 23.1451 19.2732 23.1524 19.1829 23.1056L19.1827 23.1055L13.0752 19.9397L12.5 19.6416L11.9248 19.9397L5.81729 23.1054L5.81339 23.1075C5.72476 23.1538 5.63192 23.1471 5.54712 23.0869C5.50503 23.057 5.47899 23.0218 5.46577 22.9918C5.45488 22.9671 5.44612 22.9327 5.45587 22.8762C5.45589 22.8762 5.4559 22.8761 5.45591 22.876L6.62398 16.1722L6.73813 15.5171L6.25864 15.0563L1.31939 10.31L1.31904 10.3097C1.27481 10.2672 1.26058 10.2319 1.25457 10.2055C1.24738 10.174 1.24784 10.1336 1.26215 10.0901C1.27647 10.0466 1.30113 10.0108 1.3296 9.98611C1.35432 9.96463 1.39195 9.94213 1.45737 9.93277L1.45827 9.93264L8.28537 8.95113Z" fill="#1D4C77" stroke="#1D4C77" stroke-width="2.5" />
-                                        </svg>
-                                        </div>
-
-                                        <p>Il y a 2 jours</p>
-                                    </div>
-
-                                    <div class="ContentAvis">
-                                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Explicabo rerum voluptatibus autem, libero aperiam expedita quidem ad perferendis ex ducimus officiis in hic quisquam exercitationem, similique sequi praesentium natus architecto officia! Unde sint quae expedita impedit illum, nemo totam accusamus, animi ipsum facere deserunt? Quisquam eius sint repellendus molestias ad quis. Neque consequatur quaerat aspernatur velit! Non enim molestias porro quos nemo, excepturi assumenda veniam dicta fugiat quasi, quam quod suscipit quo fugit natus consequatur dolor illo pariatur velit doloribus dolorem laborum totam? Perferendis voluptates id amet. Veritatis, magnam minima facilis ullam repellendus, fuga assumenda accusamus animi eveniet illum similique.</p>
-                                    </div>
-                                </div>
-                                
+                                        if ($images = opendir('asset/img/profils/')) {
+                                            while (false !== ($fichier = readdir($images))) {
+                                                $imgInfos = pathinfo($fichier);
+                                                if ($imgInfos['filename'] == $unAvis["id_compte"]) {
+                                                    $pathName = 'asset/img/profils/' . $fichier;
+                                                    break;
+                                                }
+        
+                                            }
+                                            if ($pathName == '') {
+                                                $pathName = 'asset/img/profils/default.jpg';
+                                            }
+                                            closedir($images);
+                                        }
+                                ?>
 
                                 <div class="unAvis">
 
@@ -984,9 +969,12 @@ if (isset($_GET["confirmligne"])) {
                                     </div>
 
                                     <div class="ContentAvis">
-                                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Explicabo rerum voluptatibus autem, libero aperiam expedita quidem ad perferendis ex ducimus officiis in hic quisquam exercitationem, similique sequi praesentium natus architecto officia! Unde sint quae expedita impedit illum, nemo totam accusamus, animi ipsum facere deserunt? Quisquam eius sint repellendus molestias ad quis. Neque consequatur quaerat aspernatur velit! Non enim molestias porro quos nemo, excepturi assumenda veniam dicta fugiat quasi, quam quod suscipit quo fugit natus consequatur dolor illo pariatur velit doloribus dolorem laborum totam? Perferendis voluptates id amet. Veritatis, magnam minima facilis ullam repellendus, fuga assumenda accusamus animi eveniet illum similique.</p>
+                                        <p><?php echo($unAvis["contenu"]); ?></p>
                                     </div>
                                 </div>
+                                <?php
+                                    }
+                                ?>
                             </div>
 
                         </div>
