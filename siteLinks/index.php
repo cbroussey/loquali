@@ -177,13 +177,13 @@ if ($_SESSION["userType"] == "proprietaire") {
 
               <div id="newLogementInput" class="barreBtnChoix">
                 <div class="maison_or_appart">
-                  <input type="checkbox" id="test1" name="type" value="Maison" <?php if ($_POST["type"] == "Maison") {
+                  <input type="checkbox" id="test1" name="type[]" value="Maison" <?php if ($_POST["type"] == "Maison") {
                                                                                   echo ("checked");
                                                                                 } ?> />
                   <label for="test1" class="btnChoix">Maison</label>
                 </div>
                 <div class="maison_or_appart">
-                  <input type="checkbox" id="test2" name="type" value="Appartement" <?php if ($_POST["type"] == "Appartement") {
+                  <input type="checkbox" id="test2" name="type[]" value="Appartement" <?php if ($_POST["type"] == "Appartement") {
                                                                                       echo ("checked");
                                                                                     } ?> />
                   <label for="test2" class="btnChoix">Appartement</label>
@@ -379,7 +379,7 @@ if ($_SESSION["userType"] == "proprietaire") {
 
               <div id="boutonsEnBaaaaas">
                 <div class="reeeetour">
-                  <a href="index.php">Annulé</a>
+                  <a href="#">Annuler</a>
                 </div>
                 <div class="valiiiide">
                   <input type="submit" name="test" value="Valider" id="validerouuuu">
