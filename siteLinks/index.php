@@ -21,7 +21,7 @@ if ($_SESSION["userType"]=="proprietaire"){
   <link rel="stylesheet" href="asset/css/headerAndFooter.css">
   <link rel="stylesheet" href="asset/css/style.css">
   <link rel="stylesheet" href="asset/css/index.css">
-  <title>Quoicoubeh</title>
+  <title>LoQuali - Accueil</title>
 </head>
 
 <body>
@@ -114,11 +114,11 @@ if ($_SESSION["userType"]=="proprietaire"){
 
         <div id="filtreContainer">
           <div id="Liste_Filtre"> <!-- Partie visible uniquement lors d'un click sur le buton filtres -->
-            <form action="index.php" method="post">
+            <form id="triFiltres" action="index.php" method="post">
 
               <!-- Ceci est un formulaire permettant de récupérer les donées avec lequel l'utilisateur veux ranger les logements (garde en mémoire les valeurs insérer) -->
 
-            <a href="index.php" id="quitterfiltre">
+            <a href="#" id="quitterfiltre">
               <svg width="67" height="51" viewBox="0 0 67 51" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <rect width="66.9754" height="50.6036" rx="10" fill="#2072BC"/>
                 <path d="M37.1263 25.4248L43.229 19.4305C43.9779 18.695 43.9779 17.5024 43.229 16.7662L41.8727 15.434C41.1239 14.6984 39.9097 14.6984 39.1602 15.434L33.0575 21.4282L26.9548 15.434C26.2059 14.6984 24.9917 14.6984 24.2422 15.434L22.8859 16.7662C22.137 17.5018 22.137 18.6944 22.8859 19.4305L28.9886 25.4248L22.8859 31.419C22.137 32.1545 22.137 33.3471 22.8859 34.0833L24.2422 35.4155C24.9911 36.1511 26.2059 36.1511 26.9548 35.4155L33.0575 29.4213L39.1602 35.4155C39.909 36.1511 41.1239 36.1511 41.8727 35.4155L43.229 34.0833C43.9779 33.3477 43.9779 32.1551 43.229 31.419L37.1263 25.4248Z" fill="#F5F5F5"/>

@@ -1,3 +1,14 @@
+function search(e) {
+    if (e.preventDefault) e.preventDefault();
+    fetch('./search.php?tri=Prix : Ordre Croissant').then((r) => {
+        return r.text();
+    }).then((s) => {
+       document.getElementsByClassName("box")[0].innerHTML = s;
+    });
+    console.log(e);
+    return false;
+}
+
 document.addEventListener("DOMContentLoaded", function () {
     var slider = document.querySelector(".slider1 .slider");
     var dots = document.querySelectorAll(".dot");
@@ -5,6 +16,14 @@ document.addEventListener("DOMContentLoaded", function () {
     var imageCount = 5;
     var animationInProgress = false;
     var intervalId;
+    
+    var form = document.getElementById('triFiltres');
+    if (form.attachEvent) {
+        form.attachEvent("submit", search);
+    } else {
+        form.addEventListener("submit", search);
+    }
+
 
     function animateSlider() {
         if (!animationInProgress) {
@@ -126,18 +145,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
 document.addEventListener("DOMContentLoaded", () => {
     const Btn_Filtre = document.getElementById("Btn_Filtre");
+    const quitterfiltre = document.getElementById("quitterfiltre");
     const Liste_Filtre = document.getElementById("filtreContainer");
+
+    function toggleFiltre() {
+        // Inverse l'état de la popup
+        if (Liste_Filtre.style.display === "none" || Liste_Filtre.style.display === "") {
+            Liste_Filtre.style.display = "block";
+            document.body.style.overflow = "hidden";
+        } else {
+            Liste_Filtre.style.display = "none";
+            document.body.style.overflow = "visible";
+        }
+    }
 
     if (Btn_Filtre) {
         Btn_Filtre.addEventListener("click", function (event) {
-            // Inverse l'état de la popup
-            if (Liste_Filtre.style.display === "none" || Liste_Filtre.style.display === "") {
-                Liste_Filtre.style.display = "block";
-                document.body.style.overflow = "hidden";
-            } else {
-                Liste_Filtre.style.display = "none";
-                document.body.style.overflow = "visible";
-            }
+            toggleFiltre();
+            event.stopPropagation();
+        });
+        quitterfiltre.addEventListener("click", function (event) {
+            toggleFiltre();
             event.stopPropagation();
         });
 
