@@ -192,6 +192,16 @@
     transform: scale(1.05);
     transition: all 0.25s ease-in-out;
   }
+
+  .img_avis_log{
+    width: 130px;
+    transform: scale(1);
+  }
+  
+  .img_avis_log:hover{
+    transform: scale(1.05);
+    transition: all 0.25s ease-in-out;
+  }
   
   .photo_profil_proprio_log{
   
@@ -209,6 +219,21 @@
   
     margin-top: -60px;
     margin-left: 5%;
+  }
+  
+  .photo_profil_proprio_log_avis{
+  
+    background-image: url('../img/profils/proprio.jpg');
+    background-size: cover;
+    background-position: center;
+    box-sizing: border-box;
+  
+    width: 80px;
+    height: 80px;
+  
+    border: 2px solid var(--mainColor);
+    border-radius: 50%;
+  
   }
   
   .block_info_log{
@@ -485,282 +510,8 @@
     margin-bottom: 20px;
   }
   
-  .partie_avis_log{
-    width: 90%;
-    color: var(--textColor);
-  
-  }
-  
-  .barre_haut_avis_log{
-    width: 100%;
-    height: 50px;
-    display: flex;
-    justify-content: space-between;
-    margin: 25px 0;
-  }
-  
-  .nb_avis_log{
-    display: flex;
-    justify-content: center;
-    align-items: center ;
-    width: 172px;
-    margin-left: 4%;
-  }
-  
-  .nb_avis_log span{
-    font-size: 20px;
-    font-weight: bold;
-  }
-  
-  .bouton_barre_haut_avis{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-right: -5.8%;
-  }
-  
-  .bouton_ajout_avis_log{
-    background-color: var(--mainColor);
-    border-radius: 5px;
-    height: 45px;
-    width: 225px;
-    transform: scale(1);
-  }
-  
-  .bouton_ajout_avis_log a{
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .bouton_ajout_avis_log a p{
-    margin-left: 20px;
-  }
-  
-  .bouton_filtrer_avis_log{
-    background-color: var(--mainColor);
-    border-radius: 5px;
-    height: 45px;
-    width: 145px;
-    transform: scale(1);
-    margin-left: 10px;
-  }
-  
-  .bouton_filtrer_avis_log a{
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .bouton_filtrer_avis_log a p{
-    margin-left: 20px;
-  }
-  
-  .bouton_trie_avis_log{
-    background-color: var(--mainColor);
-    border-radius: 5px;
-    width: 145px;
-    height: 45px;
-    margin-left: 10px;
-    transform: scale(1);
-  }
-  
-  .bouton_trie_avis_log a{
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .bouton_trie_avis_log a p{
-    margin-left: 20px;
-  }
-  
-  .liste_avis_log{
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    flex-direction: row;
-    padding-bottom: 25px;
-  }
-  
-  .colonne_liste_avis_log{
-    width: 50%;
-    margin-left: 3%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .avis_log{
-    background-color: hsl(0, 0%, 96%);
-    border-radius: 25px;
-    border: #1D4C77 3px solid;
-    width: 90%;
-    margin-left: 15%;
-    margin-bottom: 2%;
-    padding: 0 0 0 3%;
-  }
-  
-  .personne_avis_log{
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-  }
-  
-  .personne_avis_log img{
-    width: 64px;
-  }
-  
-  /* def des photos des gens */
-  
-  .photo_profil_avis_log{
-    background-image: url('../img/MAGNIFIQUE.png');
-    background-size: cover;
-    box-sizing: border-box;
-    background-position: center;
-    position: absolute;
-    width: 64px;
-    height: 64px;
-  
-    border: 2px solid var(--mainColor);
-    border-radius: 75px;
-  }
-  
-  .photo_profil_avis_log_tom{
-  
-    background-image: url('../img/Tom.png');
-    background-color: red;
-    background-size: cover;
-    background-position: center;
-    box-sizing: border-box;
-  
-    position: absolute;
-    width: 64px;
-    height: 64px;
-  
-    border: 2px solid var(--mainColor);
-    border-radius: 75px;
-  }
-  
-  .photo_profil_avis_log_depp{
-    background-image: url('../img/Depp.png');
-    background-size: cover;
-    background-position: center;
-    box-sizing: border-box;
-  
-    position: absolute;
-    width: 64px;
-    height: 64px;
-  
-    border: 2px solid var(--mainColor);
-    border-radius: 75px;
-  }
-  
-  .photo_profil_avis_log_madison{
-    background-image: url('../img/madison.png');
-    background-size: cover;
-    background-position: center;
-    box-sizing: border-box;
-  
-    position: absolute;
-    width: 64px;
-    height: 64px;
-  
-    border: 2px solid var(--mainColor);
-    border-radius: 75px;
-  }
-  
-  .photo_profil_avis_log_chokbar{
-    background-image: url('../img/olbar.jpg_large');
-    background-size: cover;
-    background-position: center;
-    box-sizing: border-box;
-  
-    position: absolute;
-    width: 64px;
-    height: 64px;
-  
-    border: 2px solid var(--mainColor);
-    border-radius: 75px;
-  }
-  
-  .photo_profil_avis_log_zedaya{
-    background-image: url('../img/zendya.png');
-    background-size: cover;
-    background-position: center;
-    box-sizing: border-box;
-  
-    position: absolute;
-    width: 64px;
-    height: 64px;
-  
-    border: 2px solid var(--mainColor);
-    border-radius: 75px;
-  }
-  
-  .photo_profil_avis_log_snow{
-    background-image: url('../img/neige.png');
-    background-size: cover;
-    background-position: center;
-    box-sizing: border-box;
-  
-    position: absolute;
-    width: 64px;
-    height: 64px;
-  
-    border: 2px solid var(--mainColor);
-    border-radius: 75px;
-  }
-  
-  .photo_profil_avis_log_vieux{
-    background-image: url('../img/vieux.png');
-    background-size: cover;
-    background-position: center;
-    box-sizing: border-box;
-  
-    position: absolute;
-    width: 64px;
-    height: 64px;
-  
-    border: 2px solid var(--mainColor);
-    border-radius: 75px;
-  }
-  
-  /* Fin def photos des gens */
-  
-  .info_personne_avis_log{
-    font-size: 15px;
-    margin-left: 70px;
-  }
-  
-  .info_personne_avis_log p{
-    margin-top: -23px;
-  }
-  
-  .info_personne_avis_log h4{
-    text-decoration: none;
-  }
-  
-  .note_avis_log{
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    margin-left: 3px;
-    margin-top: -15px;
-  }
-  
-  .note_avis_log p{
-    margin-left: 10px;
-  }
-  
-  .txt_avis_log{
-    margin-top: -10px;
-    margin-left: 3px;
-    font-size: 15px;
-  }
+
+
   
   
   @media screen and (min-width: 0px) and (max-width: 740px) { 
@@ -861,8 +612,104 @@
     background-color: #c82333;
   }
   
+
+  #AvisSection{
+    width: 90%;
+    margin: 0 5%;
+  }
+
+  #AvisSection p{
+    color: #1D4C77;
+  }
+
+  #AvisSection p span{
+    font-weight: bolder;
+  }
   
   
+
+  .barreHautAvis{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin: 20px 0;
+  }
+
+  #AjoutAvis{
+    color: #F5F5F5;
+    background-color: #2072BC;
+    border-radius: 5px;
+    width: 150px;
+    height: 45px;
+    font-size: 15px;
+    font-weight: 500;
+  }
+
+  #ListeAvis{
+    width: 100%;
+    padding: 0 2%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    max-height: 60vh;    
+    overflow-y: scroll;
+  }
+
+  .unAvis{
+    width: 40%;
+    border: 2px solid var(--mainColor);
+    border-radius: 25px;
+    padding: 20px;
+    margin: 15px 30px;
+  }
+
+  .hautAvis{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .infoPropioAvis{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: nowrap;
+  }
+  
+  .infoTxtProprioAvis{
+    margin-left: -15%;
+    color: #1D4C77;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-direction: column;
+
+    height: 55%;
+  }
+
+  .milieuAvis{
+    margin: 10px 0;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+  }
+
+  .noteAvisLog{
+    margin-right: 2%;
+  }
+
+  .ContentAvis{
+    font-weight: 400;
+    width: 100%;
+  }
+
   @media screen and (min-width: 0px) and (max-width: 1100px) { 
   
     #bg h3 {
