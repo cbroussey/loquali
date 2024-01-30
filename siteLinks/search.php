@@ -65,6 +65,7 @@ try {
 
       $filtre="";
       $join="";
+      //print_r($_GET);
       foreach ($_GET as $ind => $val){
 
 
@@ -73,7 +74,10 @@ try {
         }
 
         if ($ind == "type"){
-          $filtre.="AND nature_logement='$val' ";
+          //$filtre.="AND nature_logement='$val' ";
+          foreach($val as $type){
+            $filtre.="AND nature_logement='$type' ";
+          }
         }
 
         if ($ind == "amena"){
