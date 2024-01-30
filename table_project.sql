@@ -186,8 +186,10 @@ create table avis(
     date_avis timestamp,
     id_logement integer,
     note_avis numeric(3, 2) check (note_avis >= 0 and note_avis <= 5),
+    id_compte integer,
     constraint avis_pk primary key(id_avis),
-    constraint avis_fk_logement foreign key (id_logement) references logement(id_logement)ON DELETE CASCADE
+    constraint avis_fk_logement foreign key (id_logement) references logement(id_logement)ON DELETE CASCADE,
+    constraint avis_fk_compte foreign key (id_compte) references compte(id_compte)
 );
 
 create table signalement(
@@ -630,11 +632,11 @@ VALUES
     ('2024-01-13', '2023-11-20', 4, 2, 12),
     ('2024-01-20', '2023-12-15', 1, 3, 13);
     
-INSERT INTO avis (id_avis, id_parent, titre, contenu, date_avis, id_logement)
+INSERT INTO avis (id_avis, id_parent, titre, contenu, date_avis, id_logement, id_compte)
 VALUES
-    (1,1, 'Super séjour', 'Nous avons passé un excellent séjour dans cet appartement.', '2023-11-10', 1),
-    (2,2, 'Magnifique maison', 'La maison était tout simplement magnifique. Nous avons adoré.', '2023-11-25', 2),
-    (3,3, 'Studio agréable', 'Le studio était parfait pour nos vacances. Nous y retournerons.', '2023-12-15', 3);
+    (1,1, 'Super séjour', 'Nous avons passé un excellent séjour dans cet appartement.', '2023-11-10', 1, 1),
+    (2,2, 'Magnifique maison', 'La maison était tout simplement magnifique. Nous avons adoré.', '2023-11-25', 2, 2),
+    (3,3, 'Studio agréable', 'Le studio était parfait pour nos vacances. Nous y retournerons.', '2023-12-15', 3, 3);
     
 
 INSERT INTO signalement (id_signalement, justification, type_signalement, id_compte, id_objet, classe_objet)
