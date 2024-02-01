@@ -24,12 +24,11 @@ cancelDisconnect.addEventListener('click', function () {
 const compteAccueil = document.getElementById("compteAccueil");
 const compteInfosPerso = document.getElementById("compteInfosPerso");
 const compteConnection = document.getElementById("compteConnection");
-const compteFavoris = document.getElementById("compteFavoris");
-const compteLogements = document.getElementById("compteLogements");
-const compteReservations = document.getElementById("compteReservations");
+const compteLogementReservation = document.getElementById("compteLogementReservation");
+const compteDevis = document.getElementById("compteDevis");
 const comptePaiementAPI = document.getElementById("comptePaiementAPI");
 
-const listeLiens = [compteAccueil, compteInfosPerso, compteConnection, compteFavoris, compteLogements, compteReservations, comptePaiementAPI];
+const listeLiens = [compteAccueil, compteInfosPerso, compteConnection, compteLogementReservation, compteDevis, comptePaiementAPI];
 
 // Sélectionnez tous les liens à l'intérieur de la div avec la classe 'nav'
 var links = document.querySelectorAll('.nav > div');
@@ -63,12 +62,12 @@ links.forEach(function (link, index) {
                 break;
             case 3:
                 current.style.display = "none";
-                current = compteLogements;
+                current = compteLogementReservation;
                 current.style.display = "block";
                 break;
             case 4:
                 current.style.display = "none";
-                current = compteReservations;
+                current = compteDevis;
                 current.style.display = "block";
                 break;
             case 5:

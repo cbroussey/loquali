@@ -744,6 +744,36 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+CREATE FUNCTION test.setEtatLogement(id_log INT, etat BOOLEAN, date_debut DATE, date_fin DATE DEFAULT '1970-01-01', raison VARCHAR(255) DEFAULT '') RETURNS VARCHAR(255) AS $$
+DECLARE
+  currDate DATE = date_debut;
+  prixBaseHT NUMERIC(10,2);
+BEGIN
+  IF date_fin = '1970-01-01' THEN
+    date_fin = date_debut;
+  END IF;
+  IF date_fin < date_debut THEN
+    RAISE EXCEPTION 'La date de début ne peut pas être inférieure à la date de fin';
+  END IF;
+  IF date_debut < CURRENT_DATE THEN
+    RAISE EXCEPTION 'La date de début ne peut pas être inférieure à la date d''aujourd''hui';
+  END IF;
+  date_debut = date_debut::DATE; -- Pour éviter les trucs du style 2024-02-31
+  date_fin = date_fin::DATE;
+  SELECT prix_base_ht FROM test.logement WHERE id_logement = id_log INTO prixBaseHT;
+  WHILE currDate <= date_fin LOOP
+    PERFORM * FROM test.planning p WHERE p.id_logement = id_log AND p.jour = currDate;
+    IF FOUND THEN
+      UPDATE test.planning p SET disponibilite = etat, raison_indisponible = raison WHERE p.id_logement = id_log AND p.jour = currDate;
+    ELSE
+      INSERT INTO test.planning VALUES (etat, prixBaseHT, currDate, raison, id_log);
+    END IF;
+    currDate = currDate + 1;
+  END LOOP;
+  RETURN 'OK';
+END;
+$$ LANGUAGE plpgsql;
+
 /*
 CREATE FUNCTION ajoutPlage() RETURNS TRIGGER AS $$
 BEGIN
@@ -789,6 +819,6 @@ INSERT INTO api(cle, privilegie, accesCalendrier, miseIndispo, id_compte) VALUES
     ('0123456789ABCDEF', TRUE, TRUE, TRUE, 1),
     ('AAABBBCCCDDDEEE', FALSE, FALSE, FALSE, 11),
     ('MANGETESGRANDSMORTS', FALSE, TRUE, TRUE, 10),
-    ('logementavecplanning.exe', FALSE, TRUE, TRUE, 4),
+    ('logementavecplanning', FALSE, TRUE, TRUE, 4),
     ('azeazeazeazeazeaze', FALSE, TRUE, FALSE, 8);
 

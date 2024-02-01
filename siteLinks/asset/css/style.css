@@ -3450,14 +3450,14 @@ width:84vw;
 display:none;
 }
 
-#compteLogements {
+#compteLogementReservation {
 display:none;
 position: absolute;
 margin-left: 40%;
 margin-top:120px;
 }
 
-#compteReservations {
+#compteDevis {
 height:92vh;
 width:70vw;
 display:none;
