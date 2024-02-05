@@ -1,4 +1,4 @@
-<div id="compteLogementReservation">
+<div id="compteLogementReservation" class="comptePage">
   <div id="compteLogementPropo">
 
     <div class="compteAjout_log">

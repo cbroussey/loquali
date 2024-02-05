@@ -1,4 +1,4 @@
-<div id="compteAccueil">
+<div id="compteAccueil" class="comptePage">
 
   <div class="accueil">
     <p id="bonjour">Bonjour <?php echo ($infos['nom']) ?> !</p>

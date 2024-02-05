@@ -1,4 +1,4 @@
-<div id="compteDevis">
+<div id="compteDevis" class="comptePage">
   <?php
   $devisCount = 0;
 
