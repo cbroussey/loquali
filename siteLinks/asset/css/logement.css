@@ -953,3 +953,13 @@
   .btn_note_avis {
     display: none;
   }
+
+
+
+
+  /*** AVIS **/
+
+  .etoileAvis{
+    
+    height: 30px;
+  }
