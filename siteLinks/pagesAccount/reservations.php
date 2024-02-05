@@ -1,4 +1,4 @@
-<div id="compteLogementReservation">
+<div id="compteLogementReservation" class="comptePage">
   <?php
   try {
     $id = $_SESSION['userId'];

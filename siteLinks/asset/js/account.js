@@ -34,6 +34,7 @@ const listeLiens = [compteAccueil, compteInfosPerso, compteConnection, compteLog
 var links = document.querySelectorAll('.nav > div');
 var menuLinks = document.querySelectorAll('figure > figcaption');
 var current = compteAccueil;
+current.style.display = "block";
 var currentMenuLink = menuLinks[0];
 currentMenuLink.style.color = 'var(--textColor)';
 currentMenuLink.parentNode.children[0].children[1].display = "none";

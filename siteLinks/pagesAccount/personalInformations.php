@@ -1,4 +1,4 @@
-<div id="compteInfosPerso">
+<div id="compteInfosPerso" class="comptePage">
     <div class="lignes">
         <form method="post" action="compte.php">
             <p>Nom</p>
