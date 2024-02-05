@@ -1,4 +1,4 @@
-<div id="compteConnection">
+<div id="compteConnection" class="comptePage">
   <div class="lignes">
     <p>Mot de passe</p>
     <button class="modifications" id="modifmaj">Mettre à jour</button>

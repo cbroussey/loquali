@@ -48,7 +48,7 @@ $query->execute();
 $result = $query->fetchAll();
 ?>
 
-<div id="comptePaiementAPI" style="width: 100%; position:relative;">
+<div id="comptePaiementAPI" class="comptePage" style="width: 100%; position:relative;">
   <div id="apiSection" style="width:60%; position:absolute; top:50%; left:50%; transform: translate(-50%,-50%);">
     <?php
     if (empty($result)) {

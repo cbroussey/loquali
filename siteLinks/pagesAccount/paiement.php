@@ -1,6 +1,6 @@
 
 
-<div id="comptePaiementAPI">
+<div id="comptePaiementAPI" class="comptePage">
 <div class="liste_carte">
   <?php
   $id_client = $_SESSION['userId'];

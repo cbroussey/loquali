@@ -1,7 +1,7 @@
 @font-face {
   font-family: 'inter';
   src: url('../font/inter-bold-webfont.woff2') format('woff2'),
-       url('../font/inter-bold-webfont.woff') format('woff');
+    url('../font/inter-bold-webfont.woff') format('woff');
   font-weight: bold;
   font-style: normal;
 
@@ -10,7 +10,7 @@
 @font-face {
   font-family: 'inter';
   src: url('../font/inter-light-webfont.woff2') format('woff2'),
-       url('../font/inter-light-webfont.woff') format('woff');
+    url('../font/inter-light-webfont.woff') format('woff');
   font-weight: 300;
   font-style: normal;
 
@@ -19,7 +19,7 @@
 @font-face {
   font-family: 'inter';
   src: url('../font/inter-semibold-webfont.woff2') format('woff2'),
-       url('../font/inter-semibold-webfont.woff') format('woff');
+    url('../font/inter-semibold-webfont.woff') format('woff');
   font-weight: 500;
   font-style: normal;
 
@@ -71,7 +71,7 @@ h4 {
 }
 
 a {
-  color:var(--secondBG);
+  color: var(--secondBG);
   text-decoration: none;
 }
 
@@ -160,8 +160,9 @@ pre {
   display: inline-block;
   transition: background-color 0.6s ease;
 }
+
 .dot.active {
-  background-color: var(--mainColor); 
+  background-color: var(--mainColor);
 }
 
 .point {
@@ -214,7 +215,7 @@ pre {
   align-items: center;
 }
 
-.filter-container svg{
+.filter-container svg {
   width: 30px;
   height: 25px;
   margin: 0 15px;
@@ -222,7 +223,8 @@ pre {
 
 
 
-#trier, #slogant {
+#trier,
+#slogant {
   width: 300px;
 }
 
@@ -246,24 +248,24 @@ pre {
 
 #trier {
   width: 10%;
-  
+
 }
 
-#div_Tri{
+#div_Tri {
   position: absolute;
 }
 
-#div_Tri ul{
+#div_Tri ul {
   list-style: none;
   display: none;
 }
 
-.maison img{
+.maison img {
   width: 300px;
   border-radius: 5px;
 }
 
-.ajout_log{
+.ajout_log {
   height: 55px;
   width: 20%;
   background-color: var(--mainColor);
@@ -274,7 +276,7 @@ pre {
   border-radius: 5px;
 }
 
-.ajout_log a{
+.ajout_log a {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -282,11 +284,11 @@ pre {
   padding: 0 10px;
 }
 
-.ajout_log a p{
+.ajout_log a p {
   margin-left: 5px;
 }
 
-.ajout_log a svg{
+.ajout_log a svg {
   margin-right: 5px;
 }
 
@@ -404,13 +406,13 @@ pre {
     padding: 0;
   }
 
-  
+
 }
 
 #filtreContainer {
-  top:0;
-  right:0;
-  display:none;
+  top: 0;
+  right: 0;
+  display: none;
   position: absolute;
   background-color: rgb(0 00 00 / 0.5);
   height: 100vh;
@@ -431,7 +433,7 @@ pre {
     margin: auto;
     overflow: hidden;
   }
-  
+
   .barreRecherche {
     color: white;
     position: absolute;
@@ -439,16 +441,16 @@ pre {
     left: 50%;
     z-index: 1;
   }
-  
+
   .barreRecherche h2 {
     margin-bottom: 0px;
   }
-  
+
   .gauche-bar {
     width: 300px;
   }
 
-  
+
   .search {
     border-radius: 10px;
     margin-left: 10px;
@@ -457,29 +459,30 @@ pre {
     font-size: 15px;
     width: 120px;
   }
-  
+
   .dot {
     display: none;
   }
+
   .dot.active {
     display: none;
   }
-  
+
   .point {
     display: none;
   }
-  
+
   .filter-container {
     height: 80px;
   }
 
-  .filter-container svg{
+  .filter-container svg {
     width: 20px;
     height: 20px;
   }
 
   .filter-container .button {
-    
+
     font-size: 15px;
     border-radius: 5px;
     font-style: italic;
@@ -490,7 +493,8 @@ pre {
   }
 
 
-  #trier, #slogant {
+  #trier,
+  #slogant {
     width: 200px;
   }
 
@@ -502,7 +506,7 @@ pre {
     width: 250px;
   }
 
-  .maison img{
+  .maison img {
     width: 250px;
     height: auto;
   }
@@ -521,12 +525,12 @@ pre {
     width: 250px;
   }
 
-  .maison img{
+  .maison img {
     width: 250px;
     height: auto;
   }
-  
-  
+
+
   .ville {
     color: #000;
     font-family: Inter;
@@ -535,19 +539,19 @@ pre {
     font-weight: 400;
     line-height: normal;
   }
-  
+
   .prix {
     margin-top: 5px;
     margin-left: 5px;
     color: #000;
   }
-  
-  
+
+
   .ville {
     margin-bottom: 5px;
     margin-left: 5px;
   }
-  
+
   .etoile {
     background-color: var(--mainColor);
     display: flex;
@@ -561,7 +565,7 @@ pre {
     top: 20px;
     right: -8px;
   }
-  
+
   #triangle {
     display: inline-block;
     height: 0;
@@ -573,7 +577,7 @@ pre {
     right: -8px;
     z-index: 0;
   }
-  
+
   .etoile p {
     color: #fff;
     font-family: Inter;
@@ -594,7 +598,7 @@ pre {
   .gauche-bar {
     width: 200px;
   }
-  
+
   .search {
     border-radius: 10px;
     margin-left: 10px;
@@ -603,28 +607,29 @@ pre {
     font-size: 15px;
     width: 100px;
   }
-  
+
   .dot {
     display: none;
   }
+
   .dot.active {
     display: none;
   }
-  
+
   .point {
     display: none;
   }
-  
+
   .filter-container {
     height: 80px;
   }
 
-  .filter-container svg{
+  .filter-container svg {
     display: none;
   }
 
   .filter-container .button {
-    
+
     font-size: 15px;
     border-radius: 5px;
     font-style: italic;
@@ -634,7 +639,8 @@ pre {
   }
 
 
-  #trier, #slogant {
+  #trier,
+  #slogant {
     width: 130px;
   }
 
@@ -657,12 +663,12 @@ pre {
     width: 150px;
   }
 
-  .maison img{
+  .maison img {
     width: 150px;
     height: auto;
   }
-  
-  
+
+
   .ville {
     color: #000;
     font-family: Inter;
@@ -671,20 +677,20 @@ pre {
     font-weight: 400;
     line-height: normal;
   }
-  
+
   .prix {
     margin-top: 5px;
     margin-left: 5px;
     color: #000;
     font-size: 12px;
   }
-  
-  
+
+
   .ville {
     margin-bottom: 5px;
     margin-left: 5px;
   }
-  
+
   .etoile {
     background-color: var(--mainColor);
     display: flex;
@@ -698,7 +704,7 @@ pre {
     top: 20px;
     right: -8px;
   }
-  
+
   #triangle {
     display: inline-block;
     height: 0;
@@ -710,7 +716,7 @@ pre {
     right: -8px;
     z-index: 0;
   }
-  
+
   .etoile p {
     color: #fff;
     font-size: 12px;
@@ -729,31 +735,31 @@ pre {
     font-size: 12px;
   }
 
-  .gauche-bar svg{
+  .gauche-bar svg {
     width: 20px;
     height: auto;
+  }
 }
-}
 
 
 
- 
+
 /******************************************** DEMANDE DEVIS ********************************************/
 .main-devis {
   display: flex;
 }
 
-.retour{
+.retour {
   width: 50px;
-height: 50px;
-flex-shrink: 0;
-border-radius: 10px;
-background: var(--mainColor);
-display: flex;
-align-items: center;
-justify-content: center;
-margin-top: -1250px;
-margin-right: 20px;
+  height: 50px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: var(--mainColor);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: -1250px;
+  margin-right: 20px;
 }
 
 .demande {
@@ -869,7 +875,7 @@ h1 {
   position: sticky;
   top: 0;
   margin-top: -500px;
-  z-index: 100; 
+  z-index: 100;
 }
 
 .recap-info {
@@ -877,7 +883,7 @@ h1 {
   margin: 20px auto;
   height: 650px;
   flex-shrink: 0;
- 
+
   border-radius: 25px;
   background: var(--secondBG);
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
@@ -1120,17 +1126,17 @@ h1 {
 
 /******************************************** RECEPTION DEVIS ********************************************/
 
-.retour{
+.retour {
   width: 50px;
-height: 50px;
-flex-shrink: 0;
-border-radius: 10px;
-background: var(--mainColor);
-display: flex;
-align-items: center;
-justify-content: center;
-margin-top: -1250px;
-margin-right: 20px;
+  height: 50px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: var(--mainColor);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: -1250px;
+  margin-right: 20px;
 }
 
 
@@ -1176,7 +1182,8 @@ margin-right: 20px;
   border: 2px solid #1D4C77;
   width: 731px;
   color: var(--secondBG);
-  background-color: #7297B8;;
+  background-color: #7297B8;
+  ;
 }
 
 .demande .date {
@@ -1210,7 +1217,7 @@ margin-right: 20px;
 }
 
 
-.test{
+.test {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1222,7 +1229,7 @@ margin-right: 20px;
   position: sticky;
   top: 0;
   margin-top: -500px;
-  z-index: 100; 
+  z-index: 100;
 }
 
 .recap-info {
@@ -1403,7 +1410,7 @@ margin-right: 20px;
 
 #input_check_box_info {
   margin: 20px;
-  
+
 }
 
 #check_box_info input[type="checkbox"] {
@@ -1582,17 +1589,17 @@ margin-right: 20px;
 
 /* REPONSE DEVIS ???????? */
 
-.retour{
+.retour {
   width: 50px;
-height: 50px;
-flex-shrink: 0;
-border-radius: 10px;
-background: var(--mainColor);
-display: flex;
-align-items: center;
-justify-content: center;
-margin-top: -1250px;
-margin-right: 20px;
+  height: 50px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: var(--mainColor);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: -1250px;
+  margin-right: 20px;
 }
 
 
@@ -1649,7 +1656,8 @@ margin-right: 20px;
   border: 2px solid #1D4C77;
   width: 731px;
   color: var(--secondBG);
-  background-color: #7297B8;;
+  background-color: #7297B8;
+  ;
 }
 
 .demande .date {
@@ -1683,7 +1691,7 @@ margin-right: 20px;
 }
 
 
-.test{
+.test {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1695,7 +1703,7 @@ margin-right: 20px;
   position: sticky;
   top: 0;
   margin-top: -500px;
-  z-index: 100; 
+  z-index: 100;
 }
 
 .recap-info {
@@ -1706,7 +1714,7 @@ margin-right: 20px;
   border-radius: 25px;
   background: var(--secondBG);
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
-  
+
 }
 
 
@@ -1953,12 +1961,13 @@ margin-right: 20px;
 }
 
 
-.button_refuser a{
+.button_refuser a {
   display: inline-block;
   margin-top: 10px;
   width: 625px;
   height: 62px;
-  background-color: #8A3443;;
+  background-color: #8A3443;
+  ;
   color: #fff;
   text-align: center;
   line-height: 62px;
@@ -1995,14 +2004,14 @@ margin-right: 20px;
   z-index: 999;
 }
 
-#popup p{
+#popup p {
   margin: 20px;
 }
 
-.button_confirmation{
+.button_confirmation {
   display: flex;
   justify-content: space-between;
-  
+
 }
 
 #popup a {
@@ -2018,8 +2027,9 @@ margin-right: 20px;
 }
 
 #popup a#annuler {
-  background-color: #1D4C77; 
+  background-color: #1D4C77;
 }
+
 #popup a#confirmer {
   background-color: #8A3443;
 }
@@ -2027,48 +2037,48 @@ margin-right: 20px;
 /******************************************** CONNEXION ********************************************/
 
 #connexion {
-  display:flex;
+  display: flex;
 }
 
-#connexion > section:first-of-type {
-  display:flex;
+#connexion>section:first-of-type {
+  display: flex;
   flex-direction: column;
   align-items: center;
   background-color: var(--secondBG);
   width: 60%;
 }
 
-#connexion > section:first-of-type > a > button {
-  position:absolute;
+#connexion>section:first-of-type>a>button {
+  position: absolute;
   top: 50px;
   left: 50px;
   width: 50px;
   height: 50px;
-  padding: 0; 
+  padding: 0;
   border: 0;
   border-radius: 10px;
   background-color: var(--mainColor);
 }
 
-#connexion > section:first-of-type > img {
+#connexion>section:first-of-type>img {
   margin-top: 100px;
   width: 360px;
 }
 
-#connexion > section:first-of-type > form {
-  display:flex;
+#connexion>section:first-of-type>form {
+  display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-#connexion > section:first-of-type > form > input,
-#connexion > section:first-of-type > form > div >input  {
+#connexion>section:first-of-type>form>input,
+#connexion>section:first-of-type>form>div>input {
   padding: 0;
-  width:500px;
-  height:70px;
+  width: 500px;
+  height: 70px;
   border: 1px solid #1D4C77;
   background: var(--secondBG);
-  margin:15px;
+  margin: 15px;
   color: var(--textColor);
   font-size: 25px;
   font-style: italic;
@@ -2076,18 +2086,18 @@ margin-right: 20px;
   padding-left: 30px;
 }
 
-#connexion > section:first-of-type > form > div > input {
-  width:443px;
+#connexion>section:first-of-type>form>div>input {
+  width: 443px;
   margin: 0;
-  border:0;
+  border: 0;
 }
 
 .invalidInput {
-  color:#771D2D;
+  color: #771D2D;
 }
 
-#connexion > section:first-of-type > form > div {
-  display:flex;
+#connexion>section:first-of-type>form>div {
+  display: flex;
   align-items: center;
   margin: 15px;
   border-width: 1px;
@@ -2095,7 +2105,7 @@ margin-right: 20px;
   border-color: #1D4C77;
 }
 
-#connexion > section:first-of-type > form > input[type="submit"] {
+#connexion>section:first-of-type>form>input[type="submit"] {
   border: 0;
   border-radius: 100px;
   font-style: normal;
@@ -2103,165 +2113,171 @@ margin-right: 20px;
   background-color: var(--mainColor);
 }
 
-#connexion > section:first-of-type > p, form > input::placeholder, form > div > input::placeholder, #connexion a {
+#connexion>section:first-of-type>p,
+form>input::placeholder,
+form>div>input::placeholder,
+#connexion a {
   color: var(--textColor);
 }
 
-#connexion > section:first-of-type > p, #creation > section:last-of-type > p {
-  position:absolute;
-  bottom:0;
+#connexion>section:first-of-type>p,
+#creation>section:last-of-type>p {
+  position: absolute;
+  bottom: 0;
   max-width: 500px;
   text-align: center;
   margin-bottom: 15px;
   font-weight: lighter;
 }
 
-#connexion > section:last-of-type {
+#connexion>section:last-of-type {
   background-image: url('../../asset/img/createAndconnectFont.png');
   background-repeat: no-repeat;
   background-size: cover;
   box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.25);
-  width:40%;
+  width: 40%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-#connexion > section:last-of-type > button, #creation > section:first-of-type > a > button {
-  height:70px;
+#connexion>section:last-of-type>button,
+#creation>section:first-of-type>a>button {
+  height: 70px;
   border-radius: 100px;
   border: 2px solid #FFF;
   background: rgba(217, 217, 217, 0.70);
-  padding:0 10% 0 10%;
+  padding: 0 10% 0 10%;
 }
 
-#connexion > section:last-of-type > button > a {
+#connexion>section:last-of-type>button>a {
   text-decoration: none;
 }
 
-#connexion > section:last-of-type > h1 {
-margin:100px 0 20px 0;
+#connexion>section:last-of-type>h1 {
+  margin: 100px 0 20px 0;
 }
 
-#connexion > section:last-of-type > h2 {
-  margin:0 0 50% 0;
+#connexion>section:last-of-type>h2 {
+  margin: 0 0 50% 0;
   font-weight: normal;
   max-width: 350px;
   text-align: center;
 }
 
 #forbiddenPassword {
-  margin:15px;
+  margin: 15px;
 }
 
-@media screen and (max-width: 950px) { 
+@media screen and (max-width: 950px) {
   #connexion {
     flex-direction: column;
   }
 
-  #connexion > section:first-of-type {
-    width:auto;
+  #connexion>section:first-of-type {
+    width: auto;
   }
 
-  #connexion > section:last-of-type {
-    width:auto;
+  #connexion>section:last-of-type {
+    width: auto;
   }
 
-  #connexion > section:first-of-type > a > button {
+  #connexion>section:first-of-type>a>button {
     top: 10px;
     left: 10px;
     width: 40px;
     height: 40px;
   }
 
-  #connexion > section:first-of-type > img {
+  #connexion>section:first-of-type>img {
     width: 180px;
     margin-top: 50px;
   }
 
-  #connexion > section:first-of-type > form > input,
-  #connexion > section:first-of-type > form > div >input  {
-    width:293px;
-    height:50px;
+  #connexion>section:first-of-type>form>input,
+  #connexion>section:first-of-type>form>div>input {
+    width: 293px;
+    height: 50px;
     font-size: 20px;
-    
+
   }
 
-  #connexion > section:first-of-type > form > div {
-    margin:10px;
+  #connexion>section:first-of-type>form>div {
+    margin: 10px;
   }
 
-  #connexion > section:first-of-type > form > div > input {
-    width:236px;
+  #connexion>section:first-of-type>form>div>input {
+    width: 236px;
   }
 
-  #connexion > section:last-of-type > h1,
-  #connexion > section:last-of-type > h2 {
-    display:none;
+  #connexion>section:last-of-type>h1,
+  #connexion>section:last-of-type>h2 {
+    display: none;
   }
 
-  #connexion > section:first-of-type > p, #creation > section:last-of-type > p {
-    position:relative;
-    bottom:0;
+  #connexion>section:first-of-type>p,
+  #creation>section:last-of-type>p {
+    position: relative;
+    bottom: 0;
     text-align: center;
-    margin-top:3vh;
+    margin-top: 3vh;
     margin-bottom: 15px;
   }
 
-  #connexion > section:last-of-type {
-    position:absolute;
+  #connexion>section:last-of-type {
+    position: absolute;
     vertical-align: middle;
-    height:25vh;
-    width:100%;
-    bottom:0;
+    height: 25vh;
+    width: 100%;
+    bottom: 0;
   }
 }
 
 /******************************************** CREATION ********************************************/
 
 #creation {
-  display:flex;
+  display: flex;
 }
 
-#creation > section:last-of-type {
-  display:flex;
+#creation>section:last-of-type {
+  display: flex;
   flex-direction: column;
   align-items: center;
   background-color: var(--secondBG);
   width: 60%;
 }
 
-#creation > section:last-of-type > a > button {
-  position:absolute;
-  top:50px;
-  left:44%;
+#creation>section:last-of-type>a>button {
+  position: absolute;
+  top: 50px;
+  left: 44%;
   width: 50px;
   height: 50px;
-  padding: 0; 
+  padding: 0;
   border: 0;
   border-radius: 10px;
   background-color: var(--mainColor);
 }
 
-#creation > section:last-of-type > img {
+#creation>section:last-of-type>img {
   width: 360px;
 }
 
-#creation > section:last-of-type > form {
-  display:flex;
+#creation>section:last-of-type>form {
+  display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-#creation > section:last-of-type > form > input,
-#creation > section:last-of-type > form > div > input {
+#creation>section:last-of-type>form>input,
+#creation>section:last-of-type>form>div>input {
   padding: 0;
-  width:500px;
-  height:70px;
+  width: 500px;
+  height: 70px;
   border: 1px solid #1D4C77;
   background: var(--secondBG);
-  margin:15px;
+  margin: 15px;
   color: var(--textColor);
   font-size: 25px;
   font-style: italic;
@@ -2269,18 +2285,18 @@ margin:100px 0 20px 0;
   padding-left: 30px;
 }
 
-#creation > section:last-of-type > form > #confirmIsOwner {
+#creation>section:last-of-type>form>#confirmIsOwner {
   margin-top: 20vh;
 }
 
-#creation > section:last-of-type > form > div > input {
-  width:443px;
+#creation>section:last-of-type>form>div>input {
+  width: 443px;
   margin: 0;
-  border:0px;
+  border: 0px;
 }
 
 .surroundCasePassWord {
-  display:flex;
+  display: flex;
   align-items: center;
   margin: 15px;
   border-width: 1px;
@@ -2288,8 +2304,8 @@ margin:100px 0 20px 0;
   border-color: #1D4C77;
 }
 
-#creation > section:last-of-type > form > input[type="submit"] {
-  width:300px;
+#creation>section:last-of-type>form>input[type="submit"] {
+  width: 300px;
   border: 0;
   border-radius: 100px;
   font-style: normal;
@@ -2297,89 +2313,94 @@ margin:100px 0 20px 0;
   background-color: var(--mainColor);
 }
 
-#connexion > section:last-of-type > h1,
-#connexion > section:last-of-type > h2,
-#connexion > section:last-of-type > button > h2,
-#creation > section:last-of-type > p, 
-#creation > section:last-of-type > form > input::placeholder,
-#creation > section:last-of-type > form > div > input::placeholder, 
-#creation > section:first-of-type > h1, 
-#creation > section:first-of-type > h2,
-#creation > section:first-of-type > a > button > h2, 
-#formIsOwner > div > div > label > h2,
-#formIsOwner > div > p, 
+#connexion>section:last-of-type>h1,
+#connexion>section:last-of-type>h2,
+#connexion>section:last-of-type>button>h2,
+#creation>section:last-of-type>p,
+#creation>section:last-of-type>form>input::placeholder,
+#creation>section:last-of-type>form>div>input::placeholder,
+#creation>section:first-of-type>h1,
+#creation>section:first-of-type>h2,
+#creation>section:first-of-type>a>button>h2,
+#formIsOwner>div>div>label>h2,
+#formIsOwner>div>p,
 #creation a {
   color: var(--textColor);
 }
 
-#creation a , #connexion a {
+#creation a,
+#connexion a {
   text-decoration: underline;
 }
 
-#creation > section:first-of-type {
+#creation>section:first-of-type {
   background-image: url('../../asset/img/createAndconnectFont.png');
   background-repeat: no-repeat;
   background-size: cover;
   box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.25);
-  width:40%;
+  width: 40%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-#creation > section:first-of-type > a > button > h2 {
-  width:200px;
+#creation>section:first-of-type>a>button>h2 {
+  width: 200px;
 }
 
-#creation > section:first-of-type > h1 {
-margin:10% 0 5% 0;
+#creation>section:first-of-type>h1 {
+  margin: 10% 0 5% 0;
 }
 
-#creation > section:first-of-type > h2 {
-  margin:0 0 50% 0;
+#creation>section:first-of-type>h2 {
+  margin: 0 0 50% 0;
   font-weight: normal;
   max-width: 350px;
   text-align: center;
 }
 
-#formIsOwner > div {
-  display:flex;
+#formIsOwner>div {
+  display: flex;
   flex-direction: column;
   align-items: flex-start;
-  border:none;
+  border: none;
 }
 
-#formIsOwner > div > div {
-  display:flex;
+#formIsOwner>div>div {
+  display: flex;
   flex-direction: row;
   align-items: center;
-  margin:15px;
+  margin: 15px;
 }
 
-#formIsOwner > div > div > input[type="radio"] {
+#formIsOwner>div>div>input[type="radio"] {
   appearance: none;
-  width: 25px; /* Largeur souhaitée */
-  height: 25px; /* Hauteur souhaitée */
+  width: 25px;
+  /* Largeur souhaitée */
+  height: 25px;
+  /* Hauteur souhaitée */
   border: 0.5px solid #D0D0D0;
-  margin:0 25px 0 0;
-  padding:0;
+  margin: 0 25px 0 0;
+  padding: 0;
   background-color: #FFF;
-  border-radius: 3px; /* Coins arrondis */
-  outline: none; /* Supprime la bordure de sélection par défaut */
+  border-radius: 3px;
+  /* Coins arrondis */
+  outline: none;
+  /* Supprime la bordure de sélection par défaut */
 }
 
-#formIsOwner > div > div > input[type="radio"]:checked {
+#formIsOwner>div>div>input[type="radio"]:checked {
   background-color: #2072BC;
 }
 
-#formIsOwner > div > p {
+#formIsOwner>div>p {
   max-width: 400px;
 }
 
-@media screen and (max-width: 950px) { 
+@media screen and (max-width: 950px) {
   main {
-    flex:0;
+    flex: 0;
   }
 
   #creation {
@@ -2387,436 +2408,89 @@ margin:10% 0 5% 0;
 
   }
 
-  #creation > section:first-of-type {
-    width:auto;
+  #creation>section:first-of-type {
+    width: auto;
   }
 
-  #creation > section:last-of-type {
-    width:auto;
+  #creation>section:last-of-type {
+    width: auto;
   }
 
-  #creation > section:last-of-type > a > button {
+  #creation>section:last-of-type>a>button {
     top: 10px;
     left: 10px;
     width: 40px;
     height: 40px;
   }
 
-  #creation > section:last-of-type > img {
+  #creation>section:last-of-type>img {
     width: 180px;
-    margin-top:50px;
+    margin-top: 50px;
   }
 
-  #creation > section:last-of-type > form > input,
-  #creation > section:last-of-type > form > div >input  {
-    width:293px;
-    height:50px;
+  #creation>section:last-of-type>form>input,
+  #creation>section:last-of-type>form>div>input {
+    width: 293px;
+    height: 50px;
     font-size: 20px;
-    
+
   }
 
-  #creation > section:last-of-type > form > #confirmIsOwner {
+  #creation>section:last-of-type>form>#confirmIsOwner {
     margin-top: 20vh;
   }
 
-  #creation > section:last-of-type > form > div {
-    margin:10px;
+  #creation>section:last-of-type>form>div {
+    margin: 10px;
   }
 
-  #creation > section:last-of-type > form > div > input {
-    width:236px;
+  #creation>section:last-of-type>form>div>input {
+    width: 236px;
   }
 
-  #creation > section:first-of-type > h1,
-  #creation > section:first-of-type > h2 {
-    display:none;
+  #creation>section:first-of-type>h1,
+  #creation>section:first-of-type>h2 {
+    display: none;
   }
 
-  #creation > section:last-of-type > p, #creation > section:first-of-type > p {
-    position:relative;
-    bottom:0;
+  #creation>section:last-of-type>p,
+  #creation>section:first-of-type>p {
+    position: relative;
+    bottom: 0;
     text-align: center;
-    margin-top:3vh;
+    margin-top: 3vh;
     margin-bottom: 15px;
   }
 
-  #creation > section:first-of-type {
-    position:relative;
+  #creation>section:first-of-type {
+    position: relative;
     vertical-align: middle;
-    height:25vh;
-    width:100%;
-    bottom:0;
+    height: 25vh;
+    width: 100%;
+    bottom: 0;
   }
 }
-
-/************************ COMPTE - ACCUEIL **************************/
-
-#compteAccueil{
-  margin: auto;
-  margin-top: 6%;
-  margin-left: 41%;
-}
-
-#comptePaiementAPI {
-  display:none;
-}
-
-.accueil {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-
-#bonjour{
-  color: #1D4C77;
-  font-size: 25px;
-  font-weight: 700;
-  margin-bottom: 2rem;
-}
-
-#photoProfil {
-border-radius: 93.5px;
-width: 160px;
-height: 160px;
-object-fit: cover;
-object-position: center;
-opacity: 1;
-display: block;
-transition: .5s ease;
-backface-visibility: hidden;
-}
-
-.container {
-display: flex;
-align-items: center;
-position: relative;
-}
-
-.middle {
-transition: .5s ease;
-opacity: 0;
-position: absolute;
-left: 50%;
-top: 50%;
-transform: translate(-50%, -50%);
--ms-transform: translate(-50%, -50%);
-text-align: center;
-}
-
-.container:hover #photoProfil {
-opacity: 0.3;
-}
-
-.container:hover .middle {
-opacity: 1;
-}
-
-#textchange{
-  color: #1D4C77;
-  font-size: 20px;
-  font-style: italic;
-  font-weight: 200;
-  margin-top: 1rem;
-}
-
-#caseAccueil{
-  border-radius: 20px;
-  background: #F5F5F5;
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
-  width: 650px;
-  height: 278px;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  margin-top: 5rem;
-}
-
-.bienvenue {
-  font-size: 25px;
-  font-weight: 400;
-  margin: 20px 0 40px 0;
-  color: var(--textColor);
-
-  margin-top: 5rem;
-}
-
-.lienPagePerso  {
-  color: var(--mainColor);
-  text-decoration: underline;
-}
-
-.separateurCompte {
-  width: 600px;
-  height: 2px;
-  background: var(--lightColor);
-  margin-top: -20px;
-  margin-bottom: 40px;
-}
-
-#comptePro {
-  border-radius: 5px;
-  background: var(--mainColor);
-  width: 435px;
-  height: 55px;
-  color: var(--secondBG);
-  font-size: 25px;
-  font-weight: 700;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-
-@media screen and (min-width: 0px) and (max-width: 500px) { 
-  #compteAccueil{
-    margin: auto;
-    margin-top: 6%;
-    margin-left: 10%;
-  }
-  
-  .accueil {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-  }
-  
-  #bonjour{
-    color: #1D4C77;
-    font-size: 15px;
-    font-weight: 700;
-    margin-top: 5rem;
-    margin-bottom: -2em;
-
-  }
-  
-  #photoProfil {
-  border-radius: 93.5px;
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
-  object-position: center;
-  opacity: 1;
-  display: block;
-  transition: .5s ease;
-  backface-visibility: hidden;
-  margin-top: 4em;
-  }
-
-  #textchange{
-    color: #1D4C77;
-    font-size: 15px;
-    font-style: italic;
-    font-weight: 200;
-    margin-top: 1rem;
-  }
-  
-  #caseAccueil{
-    border-radius: 20px;
-    background: #F5F5F5;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
-    width: 300px;
-    height: 260px;
-  
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  
-    margin-top: 3rem;
-  }
-  
-  .bienvenue {
-    font-size: 20px;
-    font-weight: 400;
-    margin: 20px 0 40px 0;
-    color: var(--textColor);
-  text-align: center;
-
-    margin-top: 5rem;
-  }
-
-  #comptePro {
-    border-radius: 5px;
-    background: var(--mainColor);
-    width: 435px;
-    height: 55px;
-    color: var(--secondBG);
-    font-size: 25px;
-    font-weight: 700;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-}
-
 
 /************************** COMPTE - PAGES **************************/
 
-.nav {
-width: 20%;
-height: 110vh;
-margin-top: -5%;
-background-color: #7297B8;
-display: flex;
-justify-content: center;
-flex-direction: column;
-
-position: fixed;
-}
-
-
-
-.nav-item {
-cursor: pointer;
-color: var(--secondBG);
-margin: 50px 0;
-}
-
-.nav-item:hover {
-background-color: var(--hoverColor);
-}
-
-.nav-item:hover figcaption {
-color: var(--textColor);
-}
-
-.nav figure {
-display: flex;
-flex-direction: row;
-margin: 0 30px;
-}
-
-.nav figcaption {
-color: var(--secondBG);
-font-size: 20px;
-font-weight: 500;
-padding-left: 30px;
-display: flex;
-align-items: center;
-}
-
-.img-area {
-position: relative;
-height: 50px;
-width: 50px;
-}
-
-.img-area img {
-position: absolute;
-left: 0;
-}
-
-.nav-item:hover .img-area img.img-front {
-opacity: 0;
-}
-
-
-
-#compteContainer {
-display:flex;
-flex-direction: row !important;
-}
-
-
-
-#compteInfosPerso {
-height:92vh;
-width:84vw;
-display:none;
-margin-top: 6%;
-margin-left: 41%;
-}
-
-#compteConnection {
-height:92vh;
-width:84vw;
-display:none;
-}
-
-#compteFavoris {
-background-color: yellow;
-height:92vh;
-width:84vw;
-display:none;
-}
-
-#compteLogementReservation {
-display:none;
-position: absolute;
-margin-left: 40%;
-margin-top:120px;
-}
-
-#compteDevis {
-height:92vh;
-width:70vw;
-display:none;
-position: absolute;
-margin-left: 30%;
-margin-top: 4%;
-
-}
-
-#compteMessagerie {
-height:92vh;
-width:70vw;
-display:none;
-position: absolute;
-margin-left: 30%;
-margin-top: 4%;
-}
-
-#comptePaiement {
-background-color: magenta;
-height:92vh;
-width:84vw;
-display:none;
-}
-
-
-@media screen and (min-width: 0px) and (max-width: 1300px) { 
-  .nav figcaption {
-    font-size: 18px;
-    font-weight: 500;
-    padding-left: 20px;
-  }
-
-  .nav {
-    width: 22%;
-    height: 92vh;
-  }
-
-  .img-area img{
-    height: 40px;
-    width: 40px;
-  }
-
-  .nav figure {
-    margin: 0 20px;
-  }
-
-}
 
 @media screen and (min-width: 0px) and (max-width: 400px) {
 
-  #compteContainer{
+  #compteContainer {
     overflow: hidden;
   }
 
-  #compteLogements{
+  #compteLogements {
     margin-top: 30%;
     margin-left: -27%;
   }
 
-  #compteLogementPropo{
+  #compteLogementPropo {
     width: 87vw;
     margin-left: -49%;
   }
 
-  .compteAjout_log{
+  .compteAjout_log {
     width: 100px;
     display: flex;
     justify-content: center;
@@ -2825,688 +2499,87 @@ display:none;
     padding: 0 80px;
     margin-left: 100% !important;
   }
-  
-  .toutLogement{
+
+  .toutLogement {
     width: 40vh;
   }
 
-  .compteSeparateur1{
+  .compteSeparateur1 {
     margin-left: 33% !important;
     margin-top: 15% !important;
   }
 
-  #AucunLogementCompte{
+  #AucunLogementCompte {
     margin-top: -60%;
     margin-left: -27%;
     width: 250px;
   }
 
-#compteListeLogements{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  width: 100%;
-  margin-left: 65%;
-  margin-top: -40%;
-}
-
-.log_info_liste{
-  margin: 0;
-}
-
-.compteListeUnLogement{
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-left: -78%;
-  margin-top: 5%;
-}
-
-.compteBtnListeLogement{
-  margin-left: -75% !important;
-  margin-right: -80%;
-  margin-bottom: -50%;
-}
-
-.imgListeLogementProprio{
-  width: 340%;
-  margin-left: -83%;
-  margin-top: -90% !important;
-}
-
-#imajedelespagna{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-}
-
-.unLogement{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-left: -2% !important;
-  margin-right: 8%;
-  margin-top: -10% !important;
-  float: right;
-  width: 78% !important;
-
-  text-align: right;
-
-}
-
-.unLogement .noteAvis{
-  display: none;
-}
-
-body{
-  overflow: hidden;
-}
-
-}
-
-  
-
-
-/********* PAGE INFOS PERSO **********/
-
-#profilImage {
-  color: transparent;
-  /* Rendre la taille du bouton égale à 100% de la largeur du conteneur parent */
-  width: 100%;
-  /* Rendre le bouton invisible */
-  opacity: 0;
-  /* Rendre le bouton inaccessible à la souris (caché sous un autre élément) */
-  position: absolute;
-  top: 0;
-  left: 0;
-  /* Facultatif : rendre le curseur comme s'il ne s'agit pas d'un bouton */
-  cursor: pointer;
-}
-
-#compteInfosPerso {
-position: relative;
-color: #1D4C77;
-margin: auto;
-width: 65%;
-height: 50%;
-
-margin-top: 2.5%;
-margin-left: 28%;
-
-
-font-size: 20px;
-font-weight: 500;
-}
-
-.lignes {
-padding-top: 50px;
-padding-bottom: 50px;
-margin:  0 10%;
-}
-
-
-
-.modifications{
-float: right;
-right: 0;
-margin-top: -60px;
-margin-bottom: 10px;
-
-color: #1d4c77;
-text-decoration: underline;
-border: none;
-background: none;
-font-size: 20px;
-font-weight: 400;
-
-
-background-color: #2072BC;
-color: #F5F5F5;
-text-decoration: none;
-padding: 10px 15px;
-border-radius: 5px;
-
-cursor: pointer;
-}
-
-
-.separateurgenre{
-background: #97ADC1;
-height: 2px;
-width: 100%;
-}
-
-.lignes #modifEnregistrer{
-  float: right;
-  right: 0;
-  margin-top: -60px;
-  margin-bottom: 10px;
-
-  color: #1d4c77;
-  text-decoration: underline;
-  border: none;
-  background: none;
-  font-size: 20px;
-  font-weight: 600;
-  width: 130px;
-
-
-  background-color: #2072BC;
-  color: #F5F5F5;
-  text-decoration: none;
-  padding: 10px 15px;
-  border-radius: 5px;
-
-  cursor: pointer;
-}
-
-.boutonInfosstyle {
-  float: right;
-  right: 0;
-  margin-top: -60px;
-  margin-bottom: 10px;
-
-  color: #1d4c77;
-  text-decoration: underline;
-  border: none;
-  background: none;
-  font-size: 20px;
-  font-weight: 400;
- 
-
-  background-color: #2072BC;
-  color: #F5F5F5;
-  text-decoration: none;
-  padding: 10px 15px;
-  border-radius: 5px;
-
-  cursor: pointer;
-}
-
-.displayInfos{
-  color: #97ADC1;
-  margin-top: 15px;
-  display: block;
-  }
-  
-.displayInfos.active {
-  display: none;
-}
-
-.displayInfos2{
-  color: #97ADC1;
-  margin-top: 15px;
-  display: block;
-  }
-  
-.displayInfos2.active {
-  display: none;
-}
-
-.displayInfos3{
-  color: #97ADC1;
-  margin-top: 15px;
-  display: block;
-  }
-  
-.displayInfos3.active {
-  display: none;
-}
-
-.displayInfos4{
-  color: #97ADC1;
-  margin-top: 15px;
-  display: block;
-  }
-  
-.displayInfos4.active {
-  display: none;
-}
-
-.displayInfos5{
-  color: #97ADC1;
-  margin-top: 15px;
-  display: block;
-  }
-  
-.displayInfos5.active {
-  display: none;
-}
-
-.modifBouton {
-  display: none;
-  
-}
-
-.modifBouton.active{
-  display: block;
-}
-
-.modifBouton2 {
-  display: none;
-}
-
-.modifBouton2.active{
-  display: block;
-}
-
-.modifBouton3 {
-  display: none;
-}
-
-.modifBouton3.active{
-  display: block;
-}
-
-.modifBouton4 {
-  display: none;
-}
-
-.modifBouton4.active{
-  display: block;
-}
-
-.modifBouton5 {
-  display: none;
-}
-
-.modifBouton5.active{
-  display: block;
-}
- 
-.modificationsBtn{
-  display: block;
-}
-
-.modificationsBtn.active{
-  display: none;
-}
-
-.modificationsBtn2{
-  display: block;
-}
-
-.modificationsBtn2.active{
-  display: none;
-}
-
-.modificationsBtn3{
-  display: block;
-}
-
-.modificationsBtn3.active{
-  display: none;
-}
-
-.modificationsBtn4{
-  display: block;
-}
-
-.modificationsBtn4.active{
-  display: none;
-}
-
-.modificationsBtn5{
-  display: block;
-}
-
-.modificationsBtn5.active{
-  display: none;
-}
-
-.modifInfos{
-  display: none;
-  margin-top: 15px;
-}
-
-.modifInfos.active{
-  display: block;
-}
-
-.modifInfos2{
-  display: none;
-  margin-top: 15px;
-}
-
-.modifInfos2.active{
-  display: block;
-}
-
-.modifInfos3{
-  display: none;
-  margin-top: 15px;
-}
-
-.modifInfos3.active{
-  display: block;
-}
-
-.modifInfos4{
-  display: none;
-  margin-top: 15px;
-}
-
-.modifInfos4.active{
-  display: block;
-}
-
-.modifInfos5{
-  display: none;
-  margin-top: 15px;
-}
-
-.modifInfos5.active{
-  display: block;
-}
-
-#adressePersonne {
-  width: 40%;
-}
-
-#apiSection {
-  margin-top: 200px;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  background-color: #f9f9f9;
-}
-
-#apiSection table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 10px;
-  margin-bottom: 30px;
-  
-}
-
-#apiSection th, #apiSection td {
-  padding: 8px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
-}
-
-#apiSection label {
-  margin-right: 15px;
-}
-
-#apiSection input[type="checkbox"] {
-  margin-right: 5px;
-}
-
-.ajout-button {
-  background-color: #2072BC;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
-  border-radius: 4px;
-
-}
-
-
-@media screen and (min-width: 0px) and (max-width: 1100px) { 
-
-  #compteInfosPerso {
-    position: absolute;
-    top: 20%;
-    left: 15%;
-    right: 15%;
-
-    }
-    
-    .lignes {
-      padding-top: 40px;
-      padding-bottom: 40px;
-      margin:  0 -10%;
-    }
-
-    .lignes p{
-      font-size: 15px;
-    }
-    
-    .displayInfos{
-      margin-top: 10px;
-    }
-    
-    .modifications{
-      margin-top: -50px;
-      margin-bottom: 10px;
-      
-      font-weight: 400;
-      font-size: 15px;
-
-      background-color: #2072BC;
-      color: #F5F5F5;
-      text-decoration: none;
-      padding: 10px;
-      border-radius: 5px;
-      
-      cursor: pointer;
-    }
-    
-    #compteInfosPerso input {
-    width: 150px;
-    padding: 5px;
-    margin-right: 10px;
-    margin-top: 0px;
-    
-    color: #1D4C77;
-    }
-
-}
-
-
-@media screen and (min-width: 0px) and (max-width: 1100px) { 
-
-  .nav {
-      width: 100%;
-      height: 90px;
-      background-color: #7297B8;
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-evenly;
-
-      box-shadow: inset 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
-
-
-    margin-bottom: 75vh;
-  }
-    
-  .nav figure {
-      display: flex;
-      flex-direction: row;
-      margin: 0 0px;
-  }
-  
-  
-  .nav figcaption {
-      display: none;
-  
-  }
-  
-  .img-area{
-      position: relative;
-      height: 30px;
-      width: 30px;
-  }
-  .img-area img{
-      position: absolute;
-      left: 0;
-      width: 30px;
-      height: 30px;
-      transition: opacity 0.2s ease-in-out;
-  }
-  
-  .nav figcaption:hover{
-      color: var(--textColor);
+  #compteListeLogements {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-left: 65%;
+    margin-top: -40%;
   }
 
-  @media screen and (min-width: 0px) and (max-width: 500px) { 
+  .log_info_liste {
+    margin: 0;
+  }
 
-    #compteInfosPerso {
-      top: 25%;
-      margin-left: -0.0em;
-    }
+  .compteListeUnLogement {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: -78%;
+    margin-top: 5%;
+  }
 
-    .lignes {
-      padding-top: 30px;
-      padding-bottom: 30px;
-      margin:  0 -10%;
-    }
+  .compteBtnListeLogement {
+    margin-left: -75% !important;
+    margin-right: -80%;
+    margin-bottom: -50%;
+  }
 
-    .lignes p{
-      font-size: 12px;
-    }
-    
-    .displayInfos{
-      margin-top: 10px;
-    }
+  .imgListeLogementProprio {
+    width: 340%;
+    margin-left: -83%;
+    margin-top: -90% !important;
+  }
 
-    .modifications{
-      margin-top: -50px;
-      margin-bottom: 10px;
-      
-      font-weight: 400;
-      font-size: 15px;
+  #imajedelespagna {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
 
-      background-color: #2072BC;
-      color: #F5F5F5;
-      text-decoration: none;
-      padding: 10px;
-      border-radius: 5px;
-      
-      cursor: pointer;
-    }
-    
-    #compteInfosPerso input {
-    width: 150px;
-    padding: 5px;
-    margin-right: 10px;
-    margin-top: 0px;
-    
-    color: #1D4C77;
-    }
+  .unLogement {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: -2% !important;
+    margin-right: 8%;
+    margin-top: -10% !important;
+    float: right;
+    width: 78% !important;
 
-
-
-    .boutonInfosstyle {
-      margin-top: -40px;
-      color: #1d4c77;
-      text-decoration: underline;
-      border: none;
-      background: none;
-      font-size: 15px;
-      font-weight: 400;
-      background-color: #2072BC;
-      color: #F5F5F5;
-      text-decoration: none;
-      padding: 10px 10px;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-  
+    text-align: right;
 
   }
 
-  
-
-}
-
-/********* PAGE CONNEXION SECURITE **********/
-
-#compteConnection {
-position: relative;
-color: #1D4C77;
-margin:auto;
-width: 65%;
-height: 50%;
-
-font-size: 20px;
-font-weight: 500;
-
-margin-top: 11%;
-margin-left: 28%;
-}
-
-#modifmaj {
-      margin-top: -35px;
-}
-
-
-@media screen and (min-width: 0px) and (max-width: 1100px) { 
-
-  #compteConnection {
-    position: absolute;
-    top: 25%;
-    left: 15%;
-    right: 15%;
-
-    }
-    
-    #compteConnection  .lignes {
-      padding-top: 40px;
-      padding-bottom: 40px;
-      margin:  0 -10%;
-    }
-
-    #compteConnection .lignes p{
-      font-size: 13px;
-    }
-    
-    #compteConnection .displayInfos{
-      margin-top: 10px;
-    }
-    
-    #compteConnection .modifications{
-      margin-top: -50px;
-      margin-bottom: 10px;
-      
-      font-weight: 400;
-      font-size: 15px;
-
-      background-color: #2072BC;
-      color: #F5F5F5;
-      text-decoration: none;
-      padding: 10px;
-      border-radius: 5px;
-      
-      cursor: pointer;
-    }
-    
-    #compteConnection input {
-    width: 150px;
-    padding: 5px;
-    margin-right: 10px;
-    margin-top: 0px;
-    
-    color: #1D4C77;
-    }
-    
-  
-
-}
-
-@media screen and (min-width: 0px) and (max-width: 500px) {
-
-  #compteConnection {
-    margin-left: -0.0em;
+  .unLogement .noteAvis {
+    display: none;
   }
 
-  #compteConnection .modifications{
-    margin-top: -40px;
-
+  body {
+    overflow: hidden;
   }
-}
 
+}
 
 /****************************PAGE PERSO PROPRIETAIRE*****************************/
 #pagePersoSvgBack {
@@ -3528,7 +2601,7 @@ margin-left: 28%;
 
 
 
-.infosProprio{
+.infosProprio {
   position: relative;
   float: left;
   top: 100px;
@@ -3577,14 +2650,14 @@ margin-left: 28%;
   line-height: normal;
 }
 
-.infos figure{
+.infos figure {
   display: flex;
   align-items: center;
   margin-top: 15px;
 
 }
 
-.infos figcaption{
+.infos figcaption {
   margin-left: 10px;
 }
 
@@ -3613,7 +2686,7 @@ margin-left: 28%;
   margin-bottom: 18px;
 }
 
-#aProposDeMoi h2{
+#aProposDeMoi h2 {
   margin-right: 30px;
   margin-bottom: 10px;
 }
@@ -3625,7 +2698,7 @@ margin-left: 28%;
 
 
 #textProposDeMoi {
-  
+
   text-align: justify;
   font-size: 20px;
   font-style: normal;
@@ -3654,7 +2727,7 @@ margin-left: 28%;
   display: flex;
   justify-content: center;
   font-size: 25px;
-  
+
 }
 
 #listeLogements {
@@ -3662,7 +2735,7 @@ margin-left: 28%;
 
   padding: 20px 55px 20px 55px;
   display: flex;
-  justify-content:flex-start;
+  justify-content: flex-start;
   flex-direction: column;
 
   width: 650px;
@@ -3691,7 +2764,7 @@ margin-left: 28%;
   width: 330px;
 }
 
-.unLogement h2{
+.unLogement h2 {
   margin-left: 20px;
   margin-top: -5px;
 }
@@ -3714,11 +2787,11 @@ margin-left: 28%;
   color: #97ADC1;
   margin-left: 20px;
 
- 
+
 }
 
 
-.noteAvis{
+.noteAvis {
   display: flex;
   flex-direction: row;
   margin-top: 5px;
@@ -3741,7 +2814,7 @@ margin-left: 28%;
 
 .listeUnLogement div img {
   border-radius: 5px;
-} 
+}
 
 .imgListeLogementProprio {
   max-width: 290px;
@@ -3759,13 +2832,13 @@ margin-left: 28%;
   width: 600px;
   height: 2px;
   -webkit-user-select: none;
-  
+
   color: transparent;
   margin: 25px 0;
   margin-left: 10px;
 }
 
-#compteLogements .separateur1{
+#compteLogements .separateur1 {
   margin-left: 0;
 }
 
@@ -3831,735 +2904,290 @@ margin-left: 28%;
   display: none;
 }
 
-.modifBtn.active{
+.modifBtn.active {
   display: block;
 }
 
-.testBouton{
+.testBouton {
   display: block;
 }
 
-.testBouton.active{
+.testBouton.active {
   display: none;
 }
 
 
-.descriptionModif{
+.descriptionModif {
   display: none;
 }
 
-.descriptionModif.active{
+.descriptionModif.active {
   display: block;
 }
 
-.descriptionCompte{
+.descriptionCompte {
   display: block;
-  
+
 }
 
 .descriptionCompte.active {
   display: none;
 }
 
-  @media screen and (min-width: 0px) and (max-width: 400px) {
+@media screen and (min-width: 0px) and (max-width: 400px) {
 
-    #svgBack {
-      left: 50px;
-      width: 50px;
-      height: 37.778px;
-    }
+  #svgBack {
+    left: 50px;
+    width: 50px;
+    height: 37.778px;
+  }
 
-    #ensemble {
-      flex-direction: column;
-      margin-top: -2%;
-    }
-
-
-    #infosTous {
-      width: 355px;
-    }
-
-    .infosProprio {
-      margin-left: 0px;
-      top: -10px;
-      width: 355px;
-    
-    }
-
-    .infos h2 {
-      margin-top: -20px;
-      margin-left: -45px;
-      margin-bottom: 30px;
+  #ensemble {
+    flex-direction: column;
+    margin-top: -2%;
+  }
 
 
-    }
+  #infosTous {
+    width: 355px;
+  }
+
+  .infosProprio {
+    margin-left: 0px;
+    top: -10px;
+    width: 355px;
+
+  }
+
+  .infos h2 {
+    margin-top: -20px;
+    margin-left: -45px;
+    margin-bottom: 30px;
 
 
-    .infos {
-      font-size: 15px;
-      margin-top: -40px;
-      margin-left: 10px;
-    }
-
-    .star {
-      margin-left: -18px;
-    
-    }
-
-    .star img {
-      width: 45px;
-      height: 45px;
-    }
-
-    .tel {
-      margin-left: -16px;
-    }
-
-    .tel img {
-      width: 42px;
-      height: 42px;
-    }
-
-    .mail img {
-      width: 30px;
-      height: 30px;
-    }
-
-    .mail {
-      margin-left: -10px;
-    }
-
-    .separateur{
-      display: none;
-    }
-
-    #aProposDeMoi {
-      background-color: #F5F5F5;
-      box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
-      margin-left: -15%;
-      padding: 15px 25px 46px 30px;
-      width:100%;
-      
-    }
-
-    #aProposDeMoi div h2{
-      font-size: 15px;
-      text-decoration: underline;
-      margin-right: 60px;
-
-    }
+  }
 
 
-    #boutonDescription {
-      top: 163px;
-      left: 140px;
-    }
+  .infos {
+    font-size: 15px;
+    margin-top: -40px;
+    margin-left: 10px;
+  }
 
-    .descriptionPersonne {
-      width: 355px;
-    }
+  .star {
+    margin-left: -18px;
 
-    #modificationDescription {
-      top: 34%;
-      left: 35%;
-    }
+  }
 
-    #champsDescription {
-      width: 355px;
-      height: 100px;
-      font-size: 15px;
-      font-weight: normal;
-    }
+  .star img {
+    width: 45px;
+    height: 45px;
+  }
 
-    #description {
-      width: 355px;
-      height: 100px;
-    }
+  .tel {
+    margin-left: -16px;
+  }
+
+  .tel img {
+    width: 42px;
+    height: 42px;
+  }
+
+  .mail img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .mail {
+    margin-left: -10px;
+  }
+
+  .separateur {
+    display: none;
+  }
+
+  #aProposDeMoi {
+    background-color: #F5F5F5;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+    margin-left: -15%;
+    padding: 15px 25px 46px 30px;
+    width: 100%;
+
+  }
+
+  #aProposDeMoi div h2 {
+    font-size: 15px;
+    text-decoration: underline;
+    margin-right: 60px;
+
+  }
 
 
-    #logementPropo {
-      top: -10px;
-      position: relative;
-      margin-left: -10px;
-    }
+  #boutonDescription {
+    top: 163px;
+    left: 140px;
+  }
 
-    #titreLogement {
-      margin-top: -115px;
-      margin-bottom: 14px;
-      margin-left: 35%;
-      font-size: 20px;
-    }
+  .descriptionPersonne {
+    width: 355px;
+  }
 
-    #listeLogements {
-      width: 250px; 
-      height: 610px;
-      margin-left: 30px;
-      border-radius: 0%;
-      background: transparent;
-      box-shadow: 0px 0px 0px 0px transparent;
-      overflow: hidden;
-      font-size: 15px;
-    }
+  #modificationDescription {
+    top: 34%;
+    left: 35%;
+  }
 
-    .listeUnLogement {
-      margin-left: -50px;
-    }
+  #champsDescription {
+    width: 355px;
+    height: 100px;
+    font-size: 15px;
+    font-weight: normal;
+  }
 
-    .unLogement h2{
-      font-size: 15px;
-    }
+  #description {
+    width: 355px;
+    height: 100px;
+  }
 
-/*     .unLogement {
+
+  #logementPropo {
+    top: -10px;
+    position: relative;
+    margin-left: -10px;
+  }
+
+  #titreLogement {
+    margin-top: -115px;
+    margin-bottom: 14px;
+    margin-left: 35%;
+    font-size: 20px;
+  }
+
+  #listeLogements {
+    width: 250px;
+    height: 610px;
+    margin-left: 30px;
+    border-radius: 0%;
+    background: transparent;
+    box-shadow: 0px 0px 0px 0px transparent;
+    overflow: hidden;
+    font-size: 15px;
+  }
+
+  .listeUnLogement {
+    margin-left: -50px;
+  }
+
+  .unLogement h2 {
+    font-size: 15px;
+  }
+
+  /*     .unLogement {
       font-size: 15px;
       margin-bottom: -25px;
     }
  */
-    .listeUnLogement div img {
-      width: 150px;
-      height: 100px;
-      border-radius: 5px;
-    }
-
-    .unLogement .noteAvis {
-      margin-top: -10px;
-    }
-
-    .unLogement .noteAvis img {
-      width: 35px;
-      height: 35px;
-      margin-top: 1px;
-    }
-
-    .consulterLogement {
-      display: none;
-    }
-
-    .separateur1 {
-      background-color: #97ADC1;
-      width: 600px;
-      height: 2px;
-      margin-left: -50px;
-      margin-top: -30px;
+  .listeUnLogement div img {
+    width: 150px;
+    height: 100px;
+    border-radius: 5px;
   }
 
-  
+  .unLogement .noteAvis {
+    margin-top: -10px;
   }
 
-  @media screen and (min-width: 400px) and (max-width: 1100px) {
+  .unLogement .noteAvis img {
+    width: 35px;
+    height: 35px;
+    margin-top: 1px;
+  }
 
-    #ensemble{
-      display: flex;
-      flex-direction: column;
-      
-    }
+  .consulterLogement {
+    display: none;
+  }
 
-    .infosProprio {
-      top: -10%;
-      left: 30%;
-    }
+  .separateur1 {
+    background-color: #97ADC1;
+    width: 600px;
+    height: 2px;
+    margin-left: -50px;
+    margin-top: -30px;
+  }
 
-    #logementPropo {
-      display: flex;
-      flex-direction: column;
-      align-content: center;
-      flex-wrap: wrap;
-      margin-top: 30%;
-      margin-left: -0%;
-      
-    }
 
-    .separateur{
-      display: none;
-    }
+}
 
-    #aProposDeMoi {
+@media screen and (min-width: 400px) and (max-width: 1100px) {
+
+  #ensemble {
+    display: flex;
+    flex-direction: column;
+
+  }
+
+  .infosProprio {
+    top: -10%;
+    left: 30%;
+  }
+
+  #logementPropo {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    flex-wrap: wrap;
+    margin-top: 30%;
+    margin-left: -0%;
+
+  }
+
+  .separateur {
+    display: none;
+  }
+
+  #aProposDeMoi {
     background-color: #F5F5F5;
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
-    
+
     padding: 15px 25px 46px 30px;
     width: 1056px;
     left: -50%;
     top: 10%;
     position: relative;
-      
-    }
-
-    #aProposDeMoi div h2{
-      font-size: 20px;
-      text-decoration: underline;
-      margin-left: 60px;
-
-    }
-
-    #boutonDescription {
-      top: 20px;
-      left: 270px;
-    }
-
-    .descriptionPersonne {
-      width: 355px;
-    }
-
-    #modificationDescription {
-      top: 41%;
-      left: 35%;
-    }
-
-    #champsDescription {
-      width: 1000px;
-      font-size: 15px;
-      font-weight: normal;
-      margin-left: 6%;
-    }
-
-    #description {
-      width: 1000px;
-      height: 100px;
-      margin-left: 6%;
-    }
-
 
   }
 
-#popUpDeco {
-  display:none;
-  position: absolute;
-  background-color: rgb(0 00 00 / 0.5);
-  height: 100vh;
-  width: 100%;
+  #aProposDeMoi div h2 {
+    font-size: 20px;
+    text-decoration: underline;
+    margin-left: 60px;
 
-  z-index: 90;
-}
-
-.popUpDecoChoix {
-  position: absolute;
-
-  margin: 19% 25%;
-  border-radius: 10px;
-  background: #F5F5F5;
-
-  width: 50%;
-  height: 30%;
-}
-
-.popUpDecoChoix h2 {
-  color: #1D4C77;
-  text-align: center;
-  font-size: 25px;
-  font-weight: 600;
-  line-height: 133%;
-  letter-spacing: 1.5px;
-
-  margin-top: 60px;
-}
-
-.button-container {
-  display: flex;
-  justify-content: space-evenly;
-  margin-top: 5%;
-  
-}
-
-.button-container button, .button-container input{
-  width: 200px;
-  height: 45px;
-  background-color: #1D4C77;
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
-  cursor: pointer;
-  border: none;
-
-  color: white;
-
-  font-size: 15px;
-  font-weight: 600;
-
-  border-radius: 5px;
-}
-
-#confirmDisconnect {
-  color: white;
-  background-color: #8A3443;
-}
-
-
-.toutLogement{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: nowrap;
-}
-
-.btnListeLogement{
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  width: 100%;
-}
-
-
-/********* PAGE MES LOGEMENTS **********/
-
-#compteLogementPropo{
-  color: #1D4C77;
-  position: initial;
-  margin-bottom: 50px;
-
-}
-
-
-#AucunLogementCompte {
- 
-  
-  font-size: 35px;
-  font-weight: 700;
- 
-  color: transparent;
-  background: #97ADC1;
-  -webkit-background-clip: text;
-  -moz-background-clip: text;
-  background-clip: text;
-  text-shadow: 0px 3px 3px rgba(255,255,255,0.5);
-
-  margin-left: 16%;
-  margin-top: 30%;
-}
-
-#compteListeLogements{
-  background: none;
-  margin-left: -20%;
-}
-
-.compteAjout_log{
-  height: 55px;
-  width: 30%;
-  background-color: var(--mainColor);
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 5px;
-  margin-left: 55%;
-  margin-top: 20%;
-  margin-bottom: 11%;
-}
-
-.compteAjout_log a{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: nowrap;
-  padding: 0 10px;
-}
-
-.compteAjout_log a p{
-  margin-left: 5px;
-}
-
-.compteAjout_log a svg{
-  margin-right: 5px;
-}
-
-.compteListeUnLogement {
-  display: flex;
-  flex-direction: row;
-  height: 30%;
-  width: 100%;
-  margin-left: 20%;   
-}
-
-.compteSeparateur1{
-  background-color: #97ADC1;
-  width: 95%;
-  height: 2px;
-  color: transparent;
-  margin: 40px 0;
-
-  margin-left: 22.5%;
-}
-
-.compteBtnListeLogement{
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  align-content: space-between;
-  width: 22%;
-  margin-left: 11%;
-
-}
-
-
-/************page reservation***************/
-
-#AucuneReservCompte {
-  position: absolute;
-  top: 47%;
-  left: 21%;
- 
-  height: 54px;
-  
-  font-size: 35px;
-  font-weight: 700;
- 
-  color: transparent;
-  background: #97ADC1;
-  -webkit-background-clip: text;
-  -moz-background-clip: text;
-  background-clip: text;
-  text-shadow: 0px 3px 3px rgba(255,255,255,0.5);
-}
-
-/**************page devis****************/
-
-.logo{
-  width: 70px;
-  height: 70px;
-  flex-shrink: 0;
-  margin-right: 2%;
-  border-radius: 70px;
-  border: 1px solid #1D4C77;
-}
-
-.liste_devis{
-  display: flex;
-  flex-direction: column;
-  color: #1D4C77;
-  width: 100%;
-  margin-top: 30px;
-  justify-content: space-around;
-  align-items: center;
-}
-
-.devis{
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  height: 100px;
-  width: 100%;
-}
-
-.date {
-  margin-left: auto;
-  margin-right: 100px;
-}
-
-.infos_devis{
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  width: 100%;
-}
-
-.page_devis{
-  display: flex;
-  flex-direction: row;
-}
-
-.infos-devis {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  width: 100%;
-}
-
-
-.infos-header {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  text-align: center;
-
-}
-
-.liste_devis > .separateur1 {
-  width: 65vw;
-}
-
-.voir-devis {
-  border: none;
-  background: none;
-  font-size: 20px;
-  font-weight: 400;
-
-
-  background-color: #2072BC;
-  color: #F5F5F5;
-  text-decoration: none;
-  border-radius: 5px;
-
-  width: 4em;
-  height: 1.3em;
-
-  text-align: center;
-
-  cursor: pointer;
-  margin-left: auto;
-  margin-right: 100px;
-  align-self: flex-end;
-}
-
-#AucunDevisCompte {
-  position: absolute;
-  top: 47%;
-  left: 15%;
- 
-  height: 54px;
-  
-  font-size: 35px;
-  font-weight: 700;
- 
-  color: transparent;
-  background: #97ADC1;
-  -webkit-background-clip: text;
-  -moz-background-clip: text;
-  background-clip: text;
-  text-shadow: 0px 3px 3px rgba(255,255,255,0.5);
-}
-
-
-/**************page paiement****************/
-.liste_carte {
-  display: flex;
-  flex-direction: column;
-  color: #1D4C77;
-  width: 100%;
-
-  margin-top: 5em;
-}
-
-.carte {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  gap: 50px;
-  width: 100%;
-}
-
-.carte > img {
-  width: 125px;
-  height: 75px;
-}
-
-.liste_carte > .separateur3 {
-  background-color: #97ADC1;
-  width: 65vw;
-  height: 2px;
-  margin-bottom: 20px;
-  margin: 2em 0;
-}
-
-.carte > input {
-  border: none;
-  background: none;
-  font-size: 20px;
-  font-weight: 400;
-
-
-  background-color: #bd0000;
-  color: #F5F5F5;
-  text-decoration: none;
-  border-radius: 5px;
-
-  width: 5em;
-  height: 1.7em;
-  text-align: center;
-  cursor: pointer;
-  margin-left: auto;
-
-  margin-right: 5em;
-}
-
-#AucuneCarte {
-  position: absolute;
-  top: 47%;
-  left: 21%;
- 
-  height: 54px;
-  
-  font-size: 35px;
-  font-weight: 700;
- 
-  color: transparent;
-  background: #97ADC1;
-  -webkit-background-clip: text;
-  -moz-background-clip: text;
-  background-clip: text;
-  text-shadow: 0px 3px 3px rgba(255,255,255,0.5);
-}
-
-@media screen and (min-width: 0px) and (max-width: 500px) { 
-  .liste_carte {
-    display: flex;
-    flex-direction: column;
-    color: #1D4C77;
-    width: 100%;
-  
-    margin-top: 10em;
   }
 
-  .liste_carte h3{
+  #boutonDescription {
+    top: 20px;
+    left: 270px;
+  }
+
+  .descriptionPersonne {
+    width: 355px;
+  }
+
+  #modificationDescription {
+    top: 41%;
+    left: 35%;
+  }
+
+  #champsDescription {
+    width: 1000px;
     font-size: 15px;
+    font-weight: normal;
+    margin-left: 6%;
   }
-  
-  .carte {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    gap: 20px;
-    width: 100%;
-  }
-  
-  .carte > img {
-    width: 95px;
-    height: 65px;
-  }
-  
-  .liste_carte > .separateur3 {
-    background-color: #97ADC1;
-    width: 65vw;
-    height: 2px;
-    margin-bottom: 20px;
-    margin: 2em 0;
-  }
-  
-  .carte > input {
-    border: none;
-    background: none;
-    font-size: 15px;
-    font-weight: 400;
-  
-  
-    background-color: #bd0000;
-    color: #F5F5F5;
-    text-decoration: none;
-    border-radius: 5px;
-  
-    width: 5em;
-    height: 1.7em;
-    text-align: center;
-    cursor: pointer;
-    margin-left: auto;
-  
-    margin-right: 5em;
-  }
-  
-  #AucuneCarte {
-    position: absolute;
-    top: 47%;
-    left: 21%;
-   
-    height: 54px;
-    
-    font-size: 35px;
-    font-weight: 700;
-   
-    color: transparent;
-    background: #97ADC1;
-    -webkit-background-clip: text;
-    -moz-background-clip: text;
-    background-clip: text;
-    text-shadow: 0px 3px 3px rgba(255,255,255,0.5);
+
+  #description {
+    width: 1000px;
+    height: 100px;
+    margin-left: 6%;
   }
 }
