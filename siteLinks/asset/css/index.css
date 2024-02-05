@@ -125,6 +125,7 @@ input[type="checkbox"] {
   justify-content: center;
   justify-content: space-evenly;
   background-color: #133250;
+  margin-top: 1.7em;
   height: 90px;
 }
 
@@ -274,3 +275,76 @@ input[type="checkbox"] {
   color:#000;
   }
 
+  @media screen and (min-width: 0px) and (max-width: 500px) { 
+
+  #Liste_Filtre {
+      width: 100%; 
+  }
+
+  .jailesbarres h3{
+    margin-top: 0.5em;
+  }
+
+  #newLogementInput {
+    margin: 1em 2.5em;
+  }
+
+  #leprixla {
+    display: flex;
+    flex-direction: row;
+    margin: 1em 2.5em;
+  }
+
+  #petitebarredeseparation {
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+  }
+
+  .b4r3 input{
+    width: 140px;
+    height: 30px;
+  }
+
+  #lesgensla {
+    margin: 1em 2.5em;
+  }
+
+  .valiiiide input {
+    font-size: 20px;
+  }
+
+  .reeeetour a {
+    font-size: 20px;
+  }
+
+  /******    SOUS MENUS ********/
+
+
+  #filtreContainer svg {
+    width: 20px;
+    height: 30px;
+  }
+
+  .baaaaaaaarrrre {
+    width: 85%;
+  }
+
+  #filtreContainer p {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+    margin-top: 0.4em;
+  }
+
+  .menu-demo2 li{
+    width: 250px;
+    height: 33px;
+  }
+
+
+  .menu-demo2 li li label{
+    padding-left: 10px;
+  }
+
+}
