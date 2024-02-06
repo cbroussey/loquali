@@ -7,7 +7,9 @@
 
 /* PopUp de déconnexion */
 
-#popUpDeco {
+#popUpDeco, .confirmation-modal {
+    top:0;
+    left:0;
     display: none;
     position: absolute;
     background-color: rgb(0 00 00 / 0.5);
@@ -17,7 +19,7 @@
     z-index: 90;
 }
 
-.popUpDecoChoix {
+.popUpDecoChoix, .modal-content {
     position: absolute;
 
     margin: 19% 25%;
@@ -68,21 +70,22 @@
     background-color: #8A3443;
 }
 
+/* popup de suppression de compte, de suppression de logement */
+
 /* Menu de navigation */
 
 .nav {
     width: 20%;
-    height: 110vh;
+    height: 92vh;
     background-color: #7297B8;
     display: flex;
-    justify-content: center;
+    justify-content:space-around;
     flex-direction: column;
 }
 
 .nav-item {
     cursor: pointer;
     color: var(--secondBG);
-    margin: 50px 0;
 }
 
 .nav-item:hover {
@@ -96,7 +99,11 @@
 .nav figure {
     display: flex;
     flex-direction: row;
-    margin: 0 30px;
+    padding: 0 30px;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
 }
 
 .nav figcaption {
@@ -844,6 +851,8 @@
 }
 
 
+
+
 @media screen and (min-width: 0px) and (max-width: 1100px) {
 
     #compteConnection {
@@ -939,9 +948,11 @@
 /*                         COMPTE - LOGEMENTS (propriétaire) */
 
 #compteLogementPropo {
+    display:flex;
+    flex-direction: column;
     color: #1D4C77;
     position: initial;
-    margin-bottom: 50px;
+    justify-content: space-around;
 }
 
 #AucunLogementCompte {
@@ -959,11 +970,6 @@
     margin-top: 30%;
 }
 
-#compteListeLogements {
-    background: none;
-    margin-left: -20%;
-}
-
 .compteAjout_log {
     height: 55px;
     width: 30%;
@@ -973,9 +979,6 @@
     align-items: center;
     justify-content: center;
     border-radius: 5px;
-    margin-left: 55%;
-    margin-top: 20%;
-    margin-bottom: 11%;
 }
 
 .compteAjout_log a {
@@ -997,19 +1000,17 @@
 .compteListeUnLogement {
     display: flex;
     flex-direction: row;
-    height: 30%;
+    
+    height: -100px;
     width: 100%;
-    margin-left: 20%;
 }
 
 .compteSeparateur1 {
     background-color: #97ADC1;
-    width: 95%;
+    width: 88vh;
     height: 2px;
     color: transparent;
     margin: 40px 0;
-
-    margin-left: 22.5%;
 }
 
 .compteBtnListeLogement {
@@ -1114,10 +1115,6 @@
 }
 
 #AucunDevisCompte {
-    position: absolute;
-    top: 47%;
-    left: 15%;
-
     height: 54px;
 
     font-size: 35px;

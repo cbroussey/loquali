@@ -480,14 +480,13 @@ try {
   </form>
 
   <script src="asset/js/header.js"></script>
-  <script src="asset/js/modifInfosCompte.js"></script>
   <script src="asset/js/account.js"></script>
   <script src="asset/js/boutonSupprimer.js"></script>
-  <?php if ($_GET["res"] == "res") { ?>
+  <?php /* if ($_GET["res"] == "res") { ?>
     <script>
       liens_compte(3)
     </script>
-  <?php } ?>
+  <?php } */ ?>
 </body>
 <style>
   input[type="checkbox"] {

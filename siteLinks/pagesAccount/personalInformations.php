@@ -63,3 +63,5 @@
         </form>
     </div>
 </div>
+<!-- javascript -->
+<script src="asset/js/modifInfosCompte.js"></script>
