@@ -1,3 +1,5 @@
+const Liste_Filtre = document.getElementById("filtreContainer");
+
 function search(e) {
     if (e.preventDefault) e.preventDefault();
     //document.querySelector("body").style.filter = brightness("50%");
@@ -24,12 +26,13 @@ function search(e) {
         document.getElementById("service1"),
         document.getElementById("service2"),
         document.getElementById("service3"),
-        document.getElementById("service4")
+        document.getElementById("service4"),
+        document.getElementById("searchbar")
     ]
     let params = "test=&"
     for (let i = 0; i < valeurs.length; i++) {
         if (valeurs[i] != null && ((valeurs[i].type == "radio" || valeurs[i].type == "checkbox") && valeurs[i].checked
-            || valeurs[i].type == "number" && valeurs[i].value != "")) {
+            || (valeurs[i].type == "number" || valeurs[i].type == "text") && valeurs[i].value != "")) {
             params += valeurs[i].name + "=" + valeurs[i].value + "&"; // type
         }
     }
@@ -40,7 +43,7 @@ function search(e) {
        document.getElementsByClassName("box")[0].innerHTML = s;
     });
     //console.log(e);
-    toggleFiltre();
+    if (Liste_Filtre.style.display === "block") toggleFiltre();
     return false;
 }
 
@@ -60,6 +63,8 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
         form.addEventListener("submit", search);
     }
+    document.querySelector(".bar > .search").addEventListener("click", search);
+    document.querySelector(".bar > .gauche-bar > #searchbar").addEventListener("input", search);
 
 
     /* Réalisation de l'animation */
@@ -152,7 +157,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-const Liste_Filtre = document.getElementById("filtreContainer");
 
 function toggleFiltre() {
     // Inverse l'état de la popup
