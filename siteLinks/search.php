@@ -3,6 +3,10 @@
 include('connect_params.php');
 try {
     $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
+    //$villes = $dbh->prepare("SELECT DISTINCT localisation FROM test.logement WHERE en_ligne = true");
+    //$villes->execute();
+    //$villes = $villes->fetchAll();
+    //$villes = array_column($villes, 'localisation');
 
     /* Gestion des options de tri en attribuant à une variable la donnée dans la bdd sur laquel on veut trier les logements via un ORDER BY */
 
@@ -107,6 +111,10 @@ try {
 
         if ($ind == "PrixMax" && $val !="") {
           $filtre.="AND prix_ttc<=$val ";
+        }
+
+        if ($ind == "recherche" && $val !="") {
+          $filtre.="AND LOWER(localisation) LIKE LOWER('%$val%') ";
         }
 
       }

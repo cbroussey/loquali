@@ -16,12 +16,13 @@
     $res->bindParam('id', $_SESSION["userId"], PDO::PARAM_INT);
     $res->execute();
     $cles = $res->fetchAll();
+    $cles = array_column($cles, 'cle');
     //print_r($cles);
     foreach($cles as $i) {
-        $calend = (isset($_POST[$i["cle"] . "_c"]) ? "TRUE" : "FALSE");
-        $indisp = (isset($_POST[$i["cle"] . "_i"]) ? "TRUE" : "FALSE");
+        $calend = (isset($_POST[$i . "_c"]) ? "TRUE" : "FALSE");
+        $indisp = (isset($_POST[$i . "_i"]) ? "TRUE" : "FALSE");
         $res = $dbh->prepare("UPDATE test.api SET accescalendrier = :calend, miseindispo = :indisp WHERE cle=:cle AND id_compte = :id");
-        $res->bindParam('cle', $i["cle"], PDO::PARAM_STR);
+        $res->bindParam('cle', $i, PDO::PARAM_STR);
         $res->bindParam('calend', $calend, PDO::PARAM_STR);
         $res->bindParam('indisp', $indisp, PDO::PARAM_STR);
         $res->bindParam('id', $_SESSION["userId"], PDO::PARAM_INT);
