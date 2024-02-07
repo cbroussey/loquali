@@ -964,3 +964,7 @@
     
     height: 30px;
   }
+
+  .etoileAvis input{
+    display: none;
+  }
