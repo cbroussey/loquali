@@ -931,9 +931,13 @@ try {
                                         <p> <span>Avis</span> : <?php echo ($rrrrrrrrrrrowCount); ?> avis</p>
                                     </div>
                                     <div class="droiteBarreHautAvis">
-                                        <button id="AjoutAvis">Ajouter un avis</button>
+                                        <button id="AjoutAvis" onclick="modalRedirect2()">Ajouter un avis</button>
                                     </div>
-                                    <div id="ajoutAvisForm">
+
+                                    <?php
+                                    if ($_SESSION['userType'] == "client") {
+                                        ?>
+                                            <div id="ajoutAvisForm">
                                         <form action="logement.php" method="POST">
                                             <textarea name="descriptionAvis" id="descriptionAvis" cols="30" rows="10" placeholder="Veuillez saisir une description"></textarea>
                                             <input type="radio" class="btn_note_avis" id="1Etoile" name="note" value="1" onchange="changeLabel(this)">
@@ -963,6 +967,22 @@ try {
 </label>
                                         </form>
                                     </div>
+                                        <?php
+                                    }else {
+                                        ?>
+                                        <div class="confirmation-modal" id="myModal5">
+                                            <div class="modal-content">
+                                                <span class="close" onclick="refusRedirect2()">&times;</span>
+                                                <p>Vous ne pouvez pas créer d'avis car vous n'êtes pas connecté en tant que client</p>
+                                                <input type="hidden" name="confirmDelete" value="<?php echo $id ?>">
+                                                
+                                            </div>
+                                        </div>
+                                        <?php
+                                    }
+                                    ?>
+                                    
+                                    
                                 </div>
 
                                 <div id="ListeAvis">

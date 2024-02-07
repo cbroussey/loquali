@@ -1,3 +1,665 @@
+
+/******************************************** ACCUEIL ********************************************/
+
+.slider1 {
+  position: relative;
+  max-width: 100%;
+  margin: auto;
+  overflow: hidden;
+}
+
+.barreRecherche {
+  color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+.barreRecherche h2 {
+  margin-bottom: 0px;
+}
+
+.gauche-bar {
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.25) inset;
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  width: 600px;
+}
+
+.bar {
+  display: flex;
+  align-items: flex-start;
+}
+
+.search {
+  color: #fff;
+  background-color: var(--mainColor);
+  border-radius: 10px;
+  margin-left: 20px;
+  padding: 10px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: Inter;
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  width: 180px;
+}
+
+#searchbar {
+  width: 100%;
+  border: none;
+  outline: none;
+  padding: 10px;
+  font-size: 16px;
+  color: black;
+}
+
+.dot {
+  cursor: pointer;
+  text-align: center;
+  z-index: 1;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.dot.active {
+  background-color: var(--mainColor);
+}
+
+.point {
+  position: absolute;
+  top: 95%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+.slider1 .slider {
+  display: flex;
+  animation: slider-1 20s infinite ease-in-out;
+}
+
+.slider1 .slider img {
+  flex-shrink: 0;
+  vertical-align: middle;
+  height: 300px;
+  object-fit: cover;
+  width: 100%;
+}
+
+.filter-container {
+  background: var(--secondBG);
+  box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.25);
+  height: 108px;
+  width: 100%;
+  padding: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.filter-container .button {
+  background-color: var(--mainColor);
+  color: white;
+  font-size: 20px;
+  border-radius: 5px;
+  font-style: italic;
+  height: 40px;
+  width: auto;
+  padding: 0 10px;
+
+  margin-left: 2em;
+
+  display: flex;
+  align-items: center;
+}
+
+.filter-container svg {
+  width: 30px;
+  height: 25px;
+  margin: 0 15px;
+}
+
+
+
+#trier,
+#slogant {
+  width: 300px;
+}
+
+#slogan {
+  border-radius: 5px;
+  background: #1d4c77;
+  color: white;
+  height: 40px;
+  width: 30%;
+
+  margin-left: 5em;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#datebutton {
+  margin-left: 2em;
+}
+
+#trier {
+  width: 10%;
+
+}
+
+#div_Tri {
+  position: absolute;
+}
+
+#div_Tri ul {
+  list-style: none;
+  display: none;
+}
+
+.maison img {
+  width: 300px;
+  border-radius: 5px;
+}
+
+.ajout_log {
+  height: 55px;
+  width: 20%;
+  background-color: var(--mainColor);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+}
+
+.ajout_log a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+  padding: 0 10px;
+}
+
+.ajout_log a p {
+  margin-left: 5px;
+}
+
+.ajout_log a svg {
+  margin-right: 5px;
+}
+
+.box {
+  margin: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.maison {
+  margin: 20px;
+  position: relative;
+  width: 300px;
+}
+
+
+.ville {
+  color: #000;
+  font-family: Inter;
+  font-size: 17px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.prix {
+  margin-top: 5px;
+  margin-left: 5px;
+  color: #000;
+}
+
+
+.ville {
+  margin-bottom: 5px;
+  margin-left: 5px;
+}
+
+.etoile {
+  background-color: var(--mainColor);
+  display: flex;
+  color: white;
+  width: 120px;
+  height: 27px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px 0px 0px 5px;
+  position: absolute;
+  top: 20px;
+  right: -8px;
+}
+
+#triangle {
+  display: inline-block;
+  height: 0;
+  width: 0;
+  border-right: 8px solid transparent;
+  border-bottom: 5px solid #1D4C77;
+  position: absolute;
+  top: 15px;
+  right: -8px;
+  z-index: 0;
+}
+
+.etoile p {
+  color: #fff;
+  font-family: Inter;
+  font-size: 17px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin-left: 10px;
+}
+
+.more-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.more-container a {
+  width: 196px;
+  height: 41px;
+  background-color: var(--mainColor);
+  color: white;
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  border-radius: 10px;
+}
+
+.more-container a:hover {
+  background-color: #1D4C77;
+}
+
+#ps {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+@media screen and (min-width: 0px) and (max-width: 1100px) {
+
+  #slogan {
+    display: none;
+  }
+
+  .filter-container {
+    height: 108px;
+    width: 100%;
+    padding: 0;
+  }
+
+
+}
+
+#filtreContainer {
+  top: 0;
+  right: 0;
+  display: none;
+  position: absolute;
+  background-color: rgb(0 00 00 / 0.5);
+  height: 100vh;
+  width: 100%;
+
+  z-index: 90;
+}
+
+
+
+
+@media screen and (min-width: 0px) and (max-width: 900px) {
+
+
+  .slider1 {
+    position: relative;
+    max-width: 100%;
+    margin: auto;
+    overflow: hidden;
+  }
+
+  .barreRecherche {
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 1;
+  }
+
+  .barreRecherche h2 {
+    margin-bottom: 0px;
+  }
+
+  .gauche-bar {
+    width: 300px;
+  }
+
+
+  .search {
+    border-radius: 10px;
+    margin-left: 10px;
+    padding: 10px;
+    height: 38px;
+    font-size: 15px;
+    width: 120px;
+  }
+
+  .dot {
+    display: none;
+  }
+
+  .dot.active {
+    display: none;
+  }
+
+  .point {
+    display: none;
+  }
+
+  .filter-container {
+    height: 80px;
+  }
+
+  .filter-container svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .filter-container .button {
+
+    font-size: 15px;
+    border-radius: 5px;
+    font-style: italic;
+    height: 35px;
+    width: auto;
+    padding: 0 10px;
+
+  }
+
+
+  #trier,
+  #slogant {
+    width: 200px;
+  }
+
+
+
+  .maison {
+    margin: 20px auto;
+    position: relative;
+    width: 250px;
+  }
+
+  .maison img {
+    width: 250px;
+    height: auto;
+  }
+
+
+
+
+}
+
+
+@media screen and (min-width: 0px) and (max-width: 600px) {
+
+  .maison {
+    margin: 20px auto;
+    position: relative;
+    width: 250px;
+  }
+
+  .maison img {
+    width: 250px;
+    height: auto;
+  }
+
+
+  .ville {
+    color: #000;
+    font-family: Inter;
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+
+  .prix {
+    margin-top: 5px;
+    margin-left: 5px;
+    color: #000;
+  }
+
+
+  .ville {
+    margin-bottom: 5px;
+    margin-left: 5px;
+  }
+
+  .etoile {
+    background-color: var(--mainColor);
+    display: flex;
+    color: white;
+    width: 120px;
+    height: 27px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px 0px 0px 5px;
+    position: absolute;
+    top: 20px;
+    right: -8px;
+  }
+
+  #triangle {
+    display: inline-block;
+    height: 0;
+    width: 0;
+    border-right: 8px solid transparent;
+    border-bottom: 5px solid #1D4C77;
+    position: absolute;
+    top: 15px;
+    right: -8px;
+    z-index: 0;
+  }
+
+  .etoile p {
+    color: #fff;
+    font-family: Inter;
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin-left: 10px;
+  }
+
+}
+
+
+
+
+@media screen and (min-width: 0px) and (max-width: 500px) {
+
+  .gauche-bar {
+    width: 200px;
+  }
+
+  .search {
+    border-radius: 10px;
+    margin-left: 10px;
+    padding: 10px;
+    height: 38px;
+    font-size: 15px;
+    width: 100px;
+  }
+
+  .dot {
+    display: none;
+  }
+
+  .dot.active {
+    display: none;
+  }
+
+  .point {
+    display: none;
+  }
+
+  .filter-container {
+    height: 80px;
+  }
+
+  .filter-container svg {
+    display: none;
+  }
+
+  .filter-container .button {
+
+    font-size: 15px;
+    border-radius: 5px;
+    font-style: italic;
+    height: 35px;
+    width: auto;
+    padding: 0 10px;
+  }
+
+
+  #trier,
+  #slogant {
+    width: 130px;
+  }
+
+
+  .filter-container .button {
+    width: 50px;
+    padding: 0 10px;
+  }
+
+
+
+}
+
+
+@media screen and (min-width: 0px) and (max-width: 500px) {
+
+  .maison {
+    margin: 20px auto;
+    position: relative;
+    width: 150px;
+  }
+
+  .maison img {
+    width: 150px;
+    height: auto;
+  }
+
+
+  .ville {
+    color: #000;
+    font-family: Inter;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+
+  .prix {
+    margin-top: 5px;
+    margin-left: 5px;
+    color: #000;
+    font-size: 12px;
+  }
+
+
+  .ville {
+    margin-bottom: 5px;
+    margin-left: 5px;
+  }
+
+  .etoile {
+    background-color: var(--mainColor);
+    display: flex;
+    color: white;
+    width: 70px;
+    height: 27px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px 0px 0px 5px;
+    position: absolute;
+    top: 20px;
+    right: -8px;
+  }
+
+  #triangle {
+    display: inline-block;
+    height: 0;
+    width: 0;
+    border-right: 8px solid transparent;
+    border-bottom: 5px solid #1D4C77;
+    position: absolute;
+    top: 15px;
+    right: -8px;
+    z-index: 0;
+  }
+
+  .etoile p {
+    color: #fff;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin-left: 10px;
+  }
+
+  .box {
+    align-items: flex-start;
+  }
+
+
+  #searchbar {
+    font-size: 12px;
+  }
+
+  .gauche-bar svg {
+    width: 20px;
+    height: auto;
+  }
+}
+
+
+
+
+
 /********************* FILTRES *************/
 
 #Liste_Filtre {
