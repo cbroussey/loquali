@@ -353,29 +353,146 @@
   }
   
   @media screen and (min-width: 0px) and (max-width: 400px) {
-  
-    #svgBack {
+    #ensemble {
+      flex-direction: column;
+    }
+
+    #pagePersoSvgBack {
       left: 50px;
       width: 50px;
       height: 37.778px;
     }
-  
-    #ensemble {
-      flex-direction: column;
-      margin-top: -2%;
+
+    .infos {
+      font-size: 15px;
+      margin-left: 0;
     }
-  
-  
-    #infosTous {
-      width: 355px;
+
+    .infos h2{
+      font-size: 20px;
     }
-  
+
     .infosProprio {
-      margin-left: 0px;
-      top: -10px;
-      width: 355px;
+      width: 100%;
+      top: 10%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
   
     }
+
+    #infosTous {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
+    #aProposDeMoi {
+      background-color: #F5F5F5;
+      box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+      padding: 15px -1px 46px 30px;
+      width: 100%;
+  
+    }
+
+    #aProposDeMoi div h2 {
+      font-size: 15px;
+      text-decoration: underline;
+      margin-left: 5%;
+    }
+
+    #boutonDescription {
+      margin-top: 11%;
+    }
+
+    #champsDescription {
+      width: 355px;
+      height: 100px;
+      font-size: 15px;
+      font-weight: normal;
+    }
+
+    .descriptionPersonne {
+      width: 80%;
+      margin-left: 5%;
+    }
+
+    #logementPropo {
+      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    #listeLogements {
+      width: 250px;
+      height: 610px;
+      border-radius: 0%;
+      background: transparent;
+      box-shadow: 0px 0px 0px 0px transparent;
+      overflow: hidden;
+      font-size: 15px;
+    }
+
+    .separateur {
+      display: none;
+    }
+
+    .listeUnLogement {
+      display: flex;
+      justify-content: center;
+      margin-left: 60%;
+    }
+
+    .unLogement {
+      font-size: 15px;
+      margin-top: 54%;
+      flex-direction: column;
+    }
+
+    .unLogement h2 {
+      font-size: 15px;
+    }
+
+    .unLogement p{
+      width: 1250px;
+    }
+
+    .unLogement .noteAvis img {
+      width: 35px;
+      height: 35px;
+      margin-top: 1px;
+    }
+
+    .imgLogement {
+      display: flex;
+      align-items: center;
+    }
+
+    .listeUnLogement div img {
+      width: 150px;
+      height: 100px;
+      border-radius: 5px;
+    }
+
+    .noteAvis{
+      width: 125px;
+    }
+
+    .consulterLogement {
+      display: none;
+    }
+
+    .separateur1 {
+      background-color: #97ADC1;
+      width: 100%;
+      height: 2px;
+    }
+
+  
+   /*  
+  
+    
   
     .infos h2 {
       margin-top: -20px;
@@ -387,7 +504,7 @@
   
   
     .infos {
-      font-size: 15px;
+      
       margin-top: -40px;
       margin-left: 10px;
     }
@@ -420,18 +537,9 @@
       margin-left: -10px;
     }
   
-    .separateur {
-      display: none;
-    }
+    
   
-    #aProposDeMoi {
-      background-color: #F5F5F5;
-      box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
-      margin-left: -15%;
-      padding: 15px 25px 46px 30px;
-      width: 100%;
-  
-    }
+    
   
     #aProposDeMoi div h2 {
       font-size: 15px;
@@ -446,21 +554,14 @@
       left: 140px;
     }
   
-    .descriptionPersonne {
-      width: 355px;
-    }
+    
   
     #modificationDescription {
       top: 34%;
       left: 35%;
     }
   
-    #champsDescription {
-      width: 355px;
-      height: 100px;
-      font-size: 15px;
-      font-weight: normal;
-    }
+    
   
     #description {
       width: 355px;
@@ -468,11 +569,7 @@
     }
   
   
-    #logementPropo {
-      top: -10px;
-      position: relative;
-      margin-left: -10px;
-    }
+    
   
     #titreLogement {
       margin-top: -115px;
@@ -481,57 +578,25 @@
       font-size: 20px;
     }
   
-    #listeLogements {
-      width: 250px;
-      height: 610px;
-      margin-left: 30px;
-      border-radius: 0%;
-      background: transparent;
-      box-shadow: 0px 0px 0px 0px transparent;
-      overflow: hidden;
-      font-size: 15px;
-    }
+   
   
-    .listeUnLogement {
-      margin-left: -50px;
-    }
+    
   
-    .unLogement h2 {
-      font-size: 15px;
-    }
+    
   
-    /*     .unLogement {
-        font-size: 15px;
-        margin-bottom: -25px;
-      }
-   */
-    .listeUnLogement div img {
-      width: 150px;
-      height: 100px;
-      border-radius: 5px;
-    }
+      
+   
+    
   
     .unLogement .noteAvis {
       margin-top: -10px;
     }
   
-    .unLogement .noteAvis img {
-      width: 35px;
-      height: 35px;
-      margin-top: 1px;
-    }
+    
   
-    .consulterLogement {
-      display: none;
-    }
+    
   
-    .separateur1 {
-      background-color: #97ADC1;
-      width: 600px;
-      height: 2px;
-      margin-left: -50px;
-      margin-top: -30px;
-    }
+     */
   
   
   }
@@ -545,9 +610,18 @@
     }
   
     .infosProprio {
-      top: -10%;
-      left: 30%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: 100%;
     }
+
+    #infosTous {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      justify-content: center;
+  }
   
     #logementPropo {
       display: flex;
@@ -569,7 +643,6 @@
   
       padding: 15px 25px 46px 30px;
       width: 1056px;
-      left: -50%;
       top: 10%;
       position: relative;
   
