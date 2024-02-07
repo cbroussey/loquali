@@ -20,5 +20,6 @@
         $res->bindParam('id', $_SESSION["userId"], PDO::PARAM_INT);
         $res->execute();
     }
+    //print_r($_POST);
     header("Location: compte.php");
 ?>
