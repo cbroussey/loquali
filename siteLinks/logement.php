@@ -941,7 +941,7 @@ try {
                                         <form action="logement.php" method="POST">
                                             <div class="etoileAvis">
                                                 <label class="container" id="etoile1">
-                                                    <input type="checkbox" class="btn_note_avis" id="1Etoile" name="note" value="51>
+                                                    <input type="checkbox" class="btn_note_avis" id="1Etoile" name="note" value="1">
                                                     <img class="star-img" src="../siteLinks/asset/icons/blanc/star.svg"
                                                         width="40px">
                                                 </label>
