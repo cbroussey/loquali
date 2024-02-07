@@ -1,3 +1,5 @@
+/********************* FILTRES *************/
+
 #Liste_Filtre {
   position: fixed;
   top: 0;
@@ -17,13 +19,14 @@ input[type="checkbox"] {
 
 .baaaaaaaarrrre {
   position: relative;
-  width: 450px;
+  width: 90%;
   height: 2px;
   background: #98BFE2;
   margin: 1.5em auto;
 }
 
 .jailesbarres h3{
+  margin-top: 1em;
   margin-left: 1.5em;
   font-weight: bolder;
 }
@@ -75,7 +78,6 @@ input[type="checkbox"] {
 
 .valiiiide {
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
 }
@@ -93,25 +95,59 @@ input[type="checkbox"] {
 }
 
 .valiiiide input:hover {
-  background: #98BFE2;
+  background: #97ADC1;
+}
+
+.reeeetour a {
+  width: 153px;
+  height: 51px;
+  border-radius: 10px;
+  background: #2072BC;
+  border: none;
+  color: #F5F5F5;
+  text-align: center;
+  font-size: 25px;
+  font-weight: 800;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.reeeetour a:hover {
+  background: #97ADC1;
+}
+
+#boutonsEnBaaaaas {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  justify-content: space-evenly;
+  background-color: #133250;
+  margin-top: 1.7em;
+  height: 90px;
 }
 
 
 /******    SOUS MENUS ********/
 
 
-.menutrie svg {
+#filtreContainer svg {
   width: 20px;
   height: 30px;
 }
 
-.menutrie p {
+#filtreContainer p {
   display: flex;
   justify-content: space-between;
   align-items: center;
   align-content: center;
+}
 
-  padding: 0.5em;
+.premierli {
+  margin-top: 1em;
+  margin-left: 2.5em;
 }
 
 .menu-demo2, .menu-demo2 ul{
@@ -127,7 +163,7 @@ input[type="checkbox"] {
   position:relative;
   width: 368px;
   height: 33px;
-  padding: 0.5em;
+  padding: 0.5em 1em;
   }
 
   .menu-demo2 ul li{
@@ -156,21 +192,31 @@ input[type="checkbox"] {
   }
 
   .menu-demo2 li:hover ul{
-  max-height:15em;
+  max-height:20em;
+  }
+
+  .menu-demo2 li li {
+    display: flex;
+    align-items: center;
+    align-content: center;
+  }
+
+  .menu-demo2 li li label{
+    padding-left: 10px;
   }
 
   /* background des liens menus */
   .menu-demo2 li:first-child{
-    background: #2072BC;
+    background: #97ADC1;
   }
   .menu-demo2 li:nth-child(2){
-    background: #2072BC;
+    background: #97ADC1;
   }
   .menu-demo2 li:nth-child(3){
-    background: #2072BC;
+    background: #97ADC1;
   }
   .menu-demo2 li:last-child{
-    background: #2072BC;
+    background: #97ADC1;
   }
   
   /* background des liens sous menus */
@@ -187,16 +233,16 @@ input[type="checkbox"] {
   background:#98BFE2;
   }
   /* background des liens menus et sous menus au survol */
-  .menu-demo2 li:first-child:hover, .menu-demo2 li:first-child li:hover{
+  .menu-demo2 li:first-child li:hover{
   background:#2072BC;
   }
-  .menu-demo2 li:nth-child(2):hover, .menu-demo2 li:nth-child(2) li:hover{
+  .menu-demo2 li:nth-child(2) li:hover{
   background:#2072BC;
   }
-  .menu-demo2 li:nth-child(3):hover, .menu-demo2 li:nth-child(3) li:hover{
+  .menu-demo2 li:nth-child(3) li:hover{
   background:#2072BC;
   }
-  .menu-demo2 li:last-child:hover, .menu-demo2 li:last-child li:hover{
+  .menu-demo2 li:last-child li:hover{
   background:#2072BC;
   }
   /* les a href */
@@ -206,6 +252,14 @@ input[type="checkbox"] {
   padding:8px 32px;
   color:#fff;
   font-family:arial;
+  }
+
+  .menu-demo2 li label {
+    width: 368px;
+    height: 33px;
+
+    display: flex;
+    align-items: center;
   }
 
   .menu-demo2 ul a{
@@ -220,3 +274,77 @@ input[type="checkbox"] {
   .menu-demo2 li:hover a, .menu-demo2 li li:hover a{
   color:#000;
   }
+
+  @media screen and (min-width: 0px) and (max-width: 500px) { 
+
+  #Liste_Filtre {
+      width: 100%; 
+  }
+
+  .jailesbarres h3{
+    margin-top: 0.5em;
+  }
+
+  #newLogementInput {
+    margin: 1em 2.5em;
+  }
+
+  #leprixla {
+    display: flex;
+    flex-direction: row;
+    margin: 1em 2.5em;
+  }
+
+  #petitebarredeseparation {
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+  }
+
+  .b4r3 input{
+    width: 140px;
+    height: 30px;
+  }
+
+  #lesgensla {
+    margin: 1em 2.5em;
+  }
+
+  .valiiiide input {
+    font-size: 20px;
+  }
+
+  .reeeetour a {
+    font-size: 20px;
+  }
+
+  /******    SOUS MENUS ********/
+
+
+  #filtreContainer svg {
+    width: 20px;
+    height: 30px;
+  }
+
+  .baaaaaaaarrrre {
+    width: 85%;
+  }
+
+  #filtreContainer p {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+    margin-top: 0.4em;
+  }
+
+  .menu-demo2 li{
+    width: 250px;
+    height: 33px;
+  }
+
+
+  .menu-demo2 li li label{
+    padding-left: 10px;
+  }
+
+}

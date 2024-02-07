@@ -172,6 +172,7 @@ try {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="asset/css/headerAndFooter.css">
   <link rel="stylesheet" href="asset/css/style.css">
+  <link rel="stylesheet" href="asset/css/compte.css">
   <script src="asset/js/boutonSupprimer.js"></script>
   <title>Comptes - Infos personnelles</title>
 </head>
@@ -218,11 +219,7 @@ try {
       </style>
 
     <?php
-    }
-    ?>
-
-    <?php
-    if ($_SESSION['userType'] === 'client') {
+    } else if ($_SESSION['userType'] === 'client') {
     ?>
       <p class="personneheader"><span class="nompersonne"> <?php echo ($infos['nom']) ?> <?php echo ($infos['prenom']) ?> &#160;&#160;&#160;&#160; ● </span><span class="personne">voyageur</span></p>
 
@@ -482,27 +479,14 @@ try {
     </div>
   </form>
 
-
-  <form method="post" id="popUpDeco">
-    <div class="popUpDecoChoix">
-      <h2>Êtes-vous sûr de vouloir <br>vous déconnecter ?</h2>
-      <div class="button-container">
-        <input class="cancel-button" id="cancelDisconnect" name="cancelDisconnect" type="button" value="Annuler" />
-        <input type="hidden" name="hidden" value="disconnect">
-        <input class="confirm-button" id="confirmDisconnect" type="submit" value="Se déconnecter" />
-      </div>
-    </div>
-  </form>
-
   <script src="asset/js/header.js"></script>
-  <script src="asset/js/modifInfosCompte.js"></script>
   <script src="asset/js/account.js"></script>
   <script src="asset/js/boutonSupprimer.js"></script>
-  <?php if ($_GET["res"] == "res") { ?>
+  <?php /* if ($_GET["res"] == "res") { ?>
     <script>
       liens_compte(3)
     </script>
-  <?php } ?>
+  <?php } */ ?>
 </body>
 <style>
   input[type="checkbox"] {

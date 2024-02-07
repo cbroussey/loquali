@@ -127,11 +127,11 @@ if ($_SESSION["userType"] == "proprietaire") {
 
               <div class="menutrie">
                 <ul class="menu-demo2">
-                  <li> <p>Trier 
+                  <li class="premierli"> <p>Trier 
                     <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M6.29399 8.67047C6.68448 9.10984 7.31864 9.10984 7.70914 8.67047L13.7071 1.92179C14.0976 1.48242 14.0976 0.768892 13.7071 0.329525C13.3166 -0.109843 12.6825 -0.109843 12.292 0.329525L7 6.28383L1.70802 0.333039C1.31753 -0.106328 0.683365 -0.106328 0.292871 0.333039C-0.0976236 0.772407 -0.0976236 1.48594 0.292871 1.92531L6.29086 8.67399L6.29399 8.67047Z" fill="#F5F5F5" />
                     </svg></p>
-                    <ul>
+                    <ul class="aaaaaaaaaaaaaa">
                       <li>
                         <input type="radio" name="tri" id="rad_tri_1" value="Prix : Ordre Croissant" <?php if ($_POST["tri"] == "Prix : Ordre Croissant") {
                                                                                                         echo ("checked");
@@ -198,7 +198,7 @@ if ($_SESSION["userType"] == "proprietaire") {
 
               <div id="leprixla">
                 <div class="b4r3">
-                  <p>Prix min</p>
+                  <p>Prix minimum</p>
                   <input class="quantity" id="PrixMin" name="PrixMin" type="number" pattern="(29|35|22|56)[0-9]{3}" <?php if ($_POST["PrixMin"] != "") { ?> value="<?php echo ($_POST["PrixMin"]) ?>" <?php   } ?>>
                 </div>
 
@@ -233,7 +233,11 @@ if ($_SESSION["userType"] == "proprietaire") {
 
               <div class="aaaaamenagement">
                 <ul class="menu-demo2">
-                  <li> <p>aménagements</p> 
+                  <li class="premierli"> <p>Aménagements
+                    <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M6.29399 8.67047C6.68448 9.10984 7.31864 9.10984 7.70914 8.67047L13.7071 1.92179C14.0976 1.48242 14.0976 0.768892 13.7071 0.329525C13.3166 -0.109843 12.6825 -0.109843 12.292 0.329525L7 6.28383L1.70802 0.333039C1.31753 -0.106328 0.683365 -0.106328 0.292871 0.333039C-0.0976236 0.772407 -0.0976236 1.48594 0.292871 1.92531L6.29086 8.67399L6.29399 8.67047Z" fill="#F5F5F5" />
+                    </svg>
+                  </p> 
                     <ul>
                       <li>
                         <input type="checkbox" id="amena1" name="amena[]" value="jardin" <?php foreach ($_POST["amena"] as $key => $val) {
@@ -274,13 +278,17 @@ if ($_SESSION["userType"] == "proprietaire") {
 
               <div class="jailesbarres">
                 <div class="jailabarre"></div>
-                <h3>Installation</h3>
+                <h3>Installations</h3>
                 <div class="jailabarre"></div>
               </div>
 
               <div class="inssssstaaaal">
                 <ul class="menu-demo2">
-                  <li> <p>aménagements</p> 
+                  <li class="premierli"> <p>Installations
+                    <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M6.29399 8.67047C6.68448 9.10984 7.31864 9.10984 7.70914 8.67047L13.7071 1.92179C14.0976 1.48242 14.0976 0.768892 13.7071 0.329525C13.3166 -0.109843 12.6825 -0.109843 12.292 0.329525L7 6.28383L1.70802 0.333039C1.31753 -0.106328 0.683365 -0.106328 0.292871 0.333039C-0.0976236 0.772407 -0.0976236 1.48594 0.292871 1.92531L6.29086 8.67399L6.29399 8.67047Z" fill="#F5F5F5" />
+                    </svg>
+                  </p> 
                     <ul>
                       <li>
                         <input type="checkbox" id="instal1" name="instal[]" value="climatisation" <?php foreach ($_POST["instal"] as $key => $val) {
@@ -329,13 +337,17 @@ if ($_SESSION["userType"] == "proprietaire") {
 
               <div class="jailesbarres">
                 <div class="jailabarre"></div>
-                <h3>Service</h3>
+                <h3>Services</h3>
                 <div class="jailabarre"></div>
               </div>
 
               <div class="serrrrrvice">
                 <ul class="menu-demo2">
-                  <li> <p>aménagements</p> 
+                  <li class="premierli"> <p>Services
+                    <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M6.29399 8.67047C6.68448 9.10984 7.31864 9.10984 7.70914 8.67047L13.7071 1.92179C14.0976 1.48242 14.0976 0.768892 13.7071 0.329525C13.3166 -0.109843 12.6825 -0.109843 12.292 0.329525L7 6.28383L1.70802 0.333039C1.31753 -0.106328 0.683365 -0.106328 0.292871 0.333039C-0.0976236 0.772407 -0.0976236 1.48594 0.292871 1.92531L6.29086 8.67399L6.29399 8.67047Z" fill="#F5F5F5" />
+                    </svg>
+                  </p> 
                     <ul>
                       <li>
                         <input type="checkbox" id="service1" name="service[]" value="linge" <?php foreach ($_POST["service"] as $key => $val) {
@@ -374,12 +386,22 @@ if ($_SESSION["userType"] == "proprietaire") {
                 </ul>
               </div>
 
+              <div class="baaaaaaaarrrre"></div>
 
-              <br>
+              <div class="jailesbarres">
+                <h3>Notes</h3>
+              </div>
+
+              <div id="leprixla">
+                <div class="b4r3">
+                  <p>Note minimum</p>
+                  <input class="quantity" id="PrixMin" name="PrixMin" type="number" pattern="(29|35|22|56)[0-9]{3}" <?php if ($_POST["PrixMin"] != "") { ?> value="<?php echo ($_POST["PrixMin"]) ?>" <?php   } ?>>
+                </div>
+              </div>
 
               <div id="boutonsEnBaaaaas">
                 <div class="reeeetour">
-                  <a href="#">Annuler</a>
+                  <a href="#">Rénitialiser</a>
                 </div>
                 <div class="valiiiide">
                   <input type="submit" name="test" value="Valider" id="validerouuuu">

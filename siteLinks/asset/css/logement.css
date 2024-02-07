@@ -949,3 +949,17 @@
     margin-bottom: 20px;
     margin-right: 5%;
   }
+
+  .btn_note_avis {
+    display: none;
+  }
+
+
+
+
+  /*** AVIS **/
+
+  .etoileAvis{
+    
+    height: 30px;
+  }

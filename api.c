@@ -142,6 +142,7 @@ int main(int argc, char *argv[]) {
     bool accPriv; // Compte privilégié ?
     bool accCalend; // Peut afficher le calendrier ?
     bool accDesact; // Peut mettre un logement en indisponible ?
+    bool accReact; // Peut mettre un logement en disponible ?
     char* cmdargs[MAXCMD]; // Arguments de la commande reçue
 
     PGconn *db; // BDD
@@ -305,6 +306,7 @@ int main(int argc, char *argv[]) {
                 accPriv = (PQgetvalue(res, 0, 2)[0] == 't');
                 accCalend = (PQgetvalue(res, 0, 3)[0] == 't');
                 accDesact = (PQgetvalue(res, 0, 4)[0] == 't');
+                accReact = accDesact;
                 strcpy(accNom, PQgetvalue(res, 0, 5));
                 printose(true, "Valid API key : %s\n", accNom);
                 memset(cmd, 0, strlen(cmd));
@@ -420,10 +422,10 @@ int main(int argc, char *argv[]) {
                         if (i >= 3) { // nom de la commande + 2 ou 3 arguments
                             if (i >= 4) {// Si il y a le troisième argument pour sélectionner une plage
                                 memset(tmp, 0, strlen(tmp));
-                                sprintf(tmp, " AND jour <= '%s'", cmdargs[3]);
+                                sprintf(tmp, ",'%s'", cmdargs[3]);
                             }
                             memset(cmd, 0, strlen(cmd));
-                            sprintf(cmd, "SELECT * FROM test.planning WHERE id_logement = %d AND jour %s= '%s'%s;", atoi(cmdargs[1]), (i >= 4 ? ">" : ""), cmdargs[2], (i >= 4 ? tmp : ""));
+                            sprintf(cmd, "SELECT * FROM test.setEtatLogement(%d,FALSE,'%s'%s)", atoi(cmdargs[1]), cmdargs[2], (i >= 4 ? tmp : ""));
                             res = PQexec(db, cmd);
                             if (PQresultStatus(res) != PGRES_TUPLES_OK) {
                                 memset(cmd, 0, strlen(cmd));
@@ -432,42 +434,42 @@ int main(int argc, char *argv[]) {
                                 write(cnx, cmd, strlen(cmd));
                             } else {
                                 memset(cmd, 0, strlen(cmd));
-                                if (PQntuples(res) > 0) { // Si la/les plages existent déjà sur la date/période sélectionnée
-                                    /*if (i >= 4) {
-                                        memset(tmp, 0, strlen(tmp));
-                                        sprintf(tmp, ", raison_indisponible = '%s' ", cmdargs[3]);
-                                    }*/
-                                    sprintf(cmd, "UPDATE test.planning SET disponibilite = FALSE WHERE id_logement = %d AND jour %s= '%s'%s;", atoi(cmdargs[1]), (i >= 4 ? ">" : ""), cmdargs[2], (i >= 4 ? tmp : ""));
-                                    res = PQexec(db, cmd);
-                                    if (PQresultStatus(res) != PGRES_COMMAND_OK) {
-                                        memset(cmd, 0, strlen(cmd));
-                                        sprintf(cmd, "Err: %s\r\n", PQerrorMessage(db));
-                                        printose(true, cmd);
-                                        write(cnx, cmd, strlen(cmd));
-                                    } else {
-                                        write(cnx, "OK\r\n", 4);
-                                    }
-                                } else { // Sinon
-                                    memset(cmd, 0, strlen(cmd));
-                                    // On récupère le prix de base pour le définir dans la plage
-                                    sprintf(cmd, "SELECT prix_base_ht FROM test.logement WHERE id_logement = %d;", atoi(cmdargs[1]));
-                                    res = PQexec(db, cmd); // Impossible de crash puisque le premier test avec les paramètres a déjà marché
-                                    sprintf(cmd, "INSERT INTO test.planning VALUES (FALSE, %10.2f, '%s', '%s', %d);", atof(PQgetvalue(res, 0, 0)), cmdargs[2], (i >= 4 ? cmdargs[3] : ""), atoi(cmdargs[1]));
-                                    res = PQexec(db, cmd);
-                                    if (PQresultStatus(res) != PGRES_COMMAND_OK) {
-                                        memset(cmd, 0, strlen(cmd));
-                                        sprintf(cmd, "Err: %s\r\n", PQerrorMessage(db));
-                                        printose(true, cmd);
-                                        write(cnx, cmd, strlen(cmd));
-                                    } else {
-                                        write(cnx, "OK\r\n", 4);
-                                    }
-                                }
-
+                                sprintf(cmd, "%s\n", PQgetvalue(res, 0, 0));
+                                write(cnx, cmd, strlen(cmd));
                             }
                             PQclear(res);
                         } else {
                             write(cnx, "Not enough arguments\r\nUsage : disable <id> <start-date> [end-date]\r\n", 60);
+                        }
+                    } else {
+                        write(cnx, "You do not have permission to execute that command\r\n", 52);
+                    }
+                } else if (strcmp(cmdargs[0], "enable") == 0) {
+                    if (accReact) {
+                        //i = getArgs(cmd, cmdargs);
+                        //printf("\n%d, %s, %s\n", i, cmdargs[0], cmdargs[1]);
+                        //printf("%d arguments\n", i);
+                        if (i >= 3) { // nom de la commande + 2 ou 3 arguments
+                            if (i >= 4) {// Si il y a le troisième argument pour sélectionner une plage
+                                memset(tmp, 0, strlen(tmp));
+                                sprintf(tmp, ",'%s'", cmdargs[3]);
+                            }
+                            memset(cmd, 0, strlen(cmd));
+                            sprintf(cmd, "SELECT * FROM test.setEtatLogement(%d,TRUE,'%s'%s)", atoi(cmdargs[1]), cmdargs[2], (i >= 4 ? tmp : ""));
+                            res = PQexec(db, cmd);
+                            if (PQresultStatus(res) != PGRES_TUPLES_OK) {
+                                memset(cmd, 0, strlen(cmd));
+                                sprintf(cmd, "Err: %s\r\n", PQerrorMessage(db));
+                                printose(true, cmd);
+                                write(cnx, cmd, strlen(cmd));
+                            } else {
+                                memset(cmd, 0, strlen(cmd));
+                                sprintf(cmd, "%s\n", PQgetvalue(res, 0, 0));
+                                write(cnx, cmd, strlen(cmd));
+                            }
+                            PQclear(res);
+                        } else {
+                            write(cnx, "Not enough arguments\r\nUsage : enable <id> <start-date> [end-date]\r\n", 59);
                         }
                     } else {
                         write(cnx, "You do not have permission to execute that command\r\n", 52);
@@ -481,6 +483,7 @@ int main(int argc, char *argv[]) {
                     write(cnx, "  list\r\n", 8);
                     if (accCalend) write(cnx, "  planning <id> <start-date> [end-date]\r\n", 41);
                     if (accDesact) write(cnx, "  disable <id> <start-date> [end-date]\r\n", 40);
+                    if (accReact) write(cnx, "  enable <id> <start-date> [end-date]\r\n", 39);
                     write(cnx, "  help\r\n", 8);
                     write(cnx, "  exit\r\n", 8);
                 } else if (strcmp(cmdargs[0], "exit") == 0) {
