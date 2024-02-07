@@ -1,6 +1,5 @@
 <div id="compteLogementReservation" class="comptePage">
   <div id="compteLogementPropo">
-
     <div class="compteAjout_log">
       <a href="newLogement.php">
         <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -84,9 +83,7 @@
                   <span class="close" onclick="closeModal3()">&times;</span>
                   <p>Êtes-vous sûr de vouloir supprimer ?</p>
                   <input type="hidden" name="confirmDelete" value="<?php echo $id ?>">
-
                   <a href="logement.php?confirmDelete=<?php echo ($info["id_logement"]) ?>" class="confirm-button">Confirmer</a>
-
                 </div>
               </div>
               <a href="logement.php?confirmDelete=<?php echo ($info["id_logement"]) ?>"><img src="asset/icons/bleu/troisPoints.svg" alt=""></a>

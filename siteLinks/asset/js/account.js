@@ -72,10 +72,8 @@ links.forEach(function (link, index) {
                 current.style.display = "block";
                 break;
             case 5:
-                console.log(current);
                 current.style.display = "none";
                 current = comptePaiementAPI;
-                console.log(current);
                 current.style.display = "block";
                 break;
             default:
