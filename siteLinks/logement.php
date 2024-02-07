@@ -941,31 +941,31 @@ try {
                                         <form action="logement.php" method="POST">
                                             <div class="etoileAvis">
                                                 <label class="container" id="etoile1">
-                                                    <input type="checkbox">
+                                                    <input type="checkbox" class="btn_note_avis" id="1Etoile" name="note" value="51>
                                                     <img class="star-img" src="../siteLinks/asset/icons/blanc/star.svg"
                                                         width="40px">
                                                 </label>
 
                                                 <label class="container" id="etoile2">
-                                                    <input type="checkbox">
+                                                    <input type="checkbox" class="btn_note_avis" id="2Etoile" name="note" value="2">
                                                     <img class="star-img" src="../siteLinks/asset/icons/blanc/star.svg"
                                                         width="40px">
                                                 </label>
 
                                                 <label class="container" id="etoile3">
-                                                    <input type="checkbox">
+                                                    <input type="checkbox" class="btn_note_avis" id="3Etoile" name="note" value="3">
                                                     <img class="star-img" src="../siteLinks/asset/icons/blanc/star.svg"
                                                         width="40px">
                                                 </label>
 
                                                 <label class="container" id="etoile4">
-                                                    <input type="checkbox">
+                                                    <input type="checkbox" class="btn_note_avis" id="4Etoile" name="note" value="4">
                                                     <img class="star-img" src="../siteLinks/asset/icons/blanc/star.svg"
                                                         width="40px">
                                                 </label>
 
                                                 <label class="container" id="etoile5">
-                                                    <input type="checkbox">
+                                                    <input type="checkbox" class="btn_note_avis" id="5Etoile" name="note" value="5">
                                                     <img class="star-img" src="../siteLinks/asset/icons/blanc/star.svg"
                                                         width="40px">
                                                 </label>
