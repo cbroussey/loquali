@@ -1,0 +1,549 @@
+
+/******************************************** CONNEXION ********************************************/
+
+#connexion {
+    display: flex;
+  }
+  
+  #connexion>section:first-of-type {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--secondBG);
+    width: 60%;
+  }
+  
+  #connexion>section:first-of-type>a>button {
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    width: 50px;
+    height: 50px;
+    padding: 0;
+    border: 0;
+    border-radius: 10px;
+    background-color: var(--mainColor);
+  }
+  
+  #connexion>section:first-of-type>img {
+    margin-top: 100px;
+    width: 360px;
+  }
+  
+  #connexion>section:first-of-type>form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  #connexion>section:first-of-type>form>input,
+  #connexion>section:first-of-type>form>div>input {
+    padding: 0;
+    width: 500px;
+    height: 70px;
+    border: 1px solid #1D4C77;
+    background: var(--secondBG);
+    margin: 15px;
+    color: var(--textColor);
+    font-size: 25px;
+    font-style: italic;
+    font-weight: 300;
+    padding-left: 30px;
+  }
+  
+  #connexion>section:first-of-type>form>div>input {
+    width: 443px;
+    margin: 0;
+    border: 0;
+  }
+  
+  .invalidInput {
+    color: #771D2D;
+  }
+  
+  #connexion>section:first-of-type>form>div {
+    display: flex;
+    align-items: center;
+    margin: 15px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #1D4C77;
+  }
+  
+  #connexion>section:first-of-type>form>input[type="submit"] {
+    border: 0;
+    border-radius: 100px;
+    font-style: normal;
+    color: var(--secondBG);
+    background-color: var(--mainColor);
+  }
+  
+  #connexion>section:first-of-type>p,
+  form>input::placeholder,
+  form>div>input::placeholder,
+  #connexion a {
+    color: var(--textColor);
+  }
+  
+  #connexion>section:first-of-type>p,
+  #creation>section:last-of-type>p {
+    position: absolute;
+    bottom: 0;
+    max-width: 500px;
+    text-align: center;
+    margin-bottom: 15px;
+    font-weight: lighter;
+  }
+  
+  #connexion>section:last-of-type {
+    background-image: url('../../asset/img/createAndconnectFont.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.25);
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  #connexion>section:last-of-type>button,
+  #creation>section:first-of-type>a>button {
+    height: 70px;
+    border-radius: 100px;
+    border: 2px solid #FFF;
+    background: rgba(217, 217, 217, 0.70);
+    padding: 0 10% 0 10%;
+  }
+  
+  #connexion>section:last-of-type>button>a {
+    text-decoration: none;
+  }
+  
+  #connexion>section:last-of-type>h1 {
+    margin: 100px 0 20px 0;
+  }
+  
+  #connexion>section:last-of-type>h2 {
+    margin: 0 0 50% 0;
+    font-weight: normal;
+    max-width: 350px;
+    text-align: center;
+  }
+  
+  #forbiddenPassword {
+    margin: 15px;
+  }
+  
+  @media screen and (max-width: 950px) {
+    #connexion {
+      flex-direction: column;
+    }
+  
+    #connexion>section:first-of-type {
+      width: auto;
+    }
+  
+    #connexion>section:last-of-type {
+      width: auto;
+    }
+  
+    #connexion>section:first-of-type>a>button {
+      top: 10px;
+      left: 10px;
+      width: 40px;
+      height: 40px;
+    }
+  
+    #connexion>section:first-of-type>img {
+      width: 180px;
+      margin-top: 50px;
+    }
+  
+    #connexion>section:first-of-type>form>input,
+    #connexion>section:first-of-type>form>div>input {
+      width: 293px;
+      height: 50px;
+      font-size: 20px;
+  
+    }
+  
+    #connexion>section:first-of-type>form>div {
+      margin: 10px;
+    }
+  
+    #connexion>section:first-of-type>form>div>input {
+      width: 236px;
+    }
+  
+    #connexion>section:last-of-type>h1,
+    #connexion>section:last-of-type>h2 {
+      display: none;
+    }
+  
+    #connexion>section:first-of-type>p,
+    #creation>section:last-of-type>p {
+      position: relative;
+      bottom: 0;
+      text-align: center;
+      margin-top: 3vh;
+      margin-bottom: 15px;
+    }
+  
+    #connexion>section:last-of-type {
+      position: absolute;
+      vertical-align: middle;
+      height: 25vh;
+      width: 100%;
+      bottom: 0;
+    }
+  }
+
+
+/******************************************** CREATION ********************************************/
+
+#creation {
+  display: flex;
+}
+
+#creation>section:last-of-type {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--secondBG);
+  width: 60%;
+}
+
+#creation>section:last-of-type>a>button {
+  position: absolute;
+  top: 50px;
+  left: 44%;
+  width: 50px;
+  height: 50px;
+  padding: 0;
+  border: 0;
+  border-radius: 10px;
+  background-color: var(--mainColor);
+}
+
+#creation>section:last-of-type>img {
+  width: 360px;
+}
+
+#creation>section:last-of-type>form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#creation>section:last-of-type>form>input,
+#creation>section:last-of-type>form>div>input {
+  padding: 0;
+  width: 500px;
+  height: 70px;
+  border: 1px solid #1D4C77;
+  background: var(--secondBG);
+  margin: 15px;
+  color: var(--textColor);
+  font-size: 25px;
+  font-style: italic;
+  font-weight: 300;
+  padding-left: 30px;
+}
+
+#creation>section:last-of-type>form>#confirmIsOwner {
+  margin-top: 20vh;
+}
+
+#creation>section:last-of-type>form>div>input {
+  width: 443px;
+  margin: 0;
+  border: 0px;
+}
+
+.surroundCasePassWord {
+  display: flex;
+  align-items: center;
+  margin: 15px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #1D4C77;
+}
+
+#creation>section:last-of-type>form>input[type="submit"] {
+  width: 300px;
+  border: 0;
+  border-radius: 100px;
+  font-style: normal;
+  color: var(--secondBG);
+  background-color: var(--mainColor);
+}
+
+#connexion>section:last-of-type>h1,
+#connexion>section:last-of-type>h2,
+#connexion>section:last-of-type>button>h2,
+#creation>section:last-of-type>p,
+#creation>section:last-of-type>form>input::placeholder,
+#creation>section:last-of-type>form>div>input::placeholder,
+#creation>section:first-of-type>h1,
+#creation>section:first-of-type>h2,
+#creation>section:first-of-type>a>button>h2,
+#formIsOwner>div>div>label>h2,
+#formIsOwner>div>p,
+#creation a {
+  color: var(--textColor);
+}
+
+#creation a,
+#connexion a {
+  text-decoration: underline;
+}
+
+#creation>section:first-of-type {
+  background-image: url('../../asset/img/createAndconnectFont.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.25);
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#creation>section:first-of-type>a>button>h2 {
+  width: 200px;
+}
+
+#creation>section:first-of-type>h1 {
+  margin: 10% 0 5% 0;
+}
+
+#creation>section:first-of-type>h2 {
+  margin: 0 0 50% 0;
+  font-weight: normal;
+  max-width: 350px;
+  text-align: center;
+}
+
+#formIsOwner>div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border: none;
+}
+
+#formIsOwner>div>div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 15px;
+}
+
+#formIsOwner>div>div>input[type="radio"] {
+  appearance: none;
+  width: 25px;
+  /* Largeur souhaitée */
+  height: 25px;
+  /* Hauteur souhaitée */
+  border: 0.5px solid #D0D0D0;
+  margin: 0 25px 0 0;
+  padding: 0;
+  background-color: #FFF;
+  border-radius: 3px;
+  /* Coins arrondis */
+  outline: none;
+  /* Supprime la bordure de sélection par défaut */
+}
+
+#formIsOwner>div>div>input[type="radio"]:checked {
+  background-color: #2072BC;
+}
+
+#formIsOwner>div>p {
+  max-width: 400px;
+}
+
+@media screen and (max-width: 950px) {
+  main {
+    flex: 0;
+  }
+
+  #creation {
+    flex-direction: column-reverse;
+
+  }
+
+  #creation>section:first-of-type {
+    width: auto;
+  }
+
+  #creation>section:last-of-type {
+    width: auto;
+  }
+
+  #creation>section:last-of-type>a>button {
+    top: 10px;
+    left: 10px;
+    width: 40px;
+    height: 40px;
+  }
+
+  #creation>section:last-of-type>img {
+    width: 180px;
+    margin-top: 50px;
+  }
+
+  #creation>section:last-of-type>form>input,
+  #creation>section:last-of-type>form>div>input {
+    width: 293px;
+    height: 50px;
+    font-size: 20px;
+
+  }
+
+  #creation>section:last-of-type>form>#confirmIsOwner {
+    margin-top: 20vh;
+  }
+
+  #creation>section:last-of-type>form>div {
+    margin: 10px;
+  }
+
+  #creation>section:last-of-type>form>div>input {
+    width: 236px;
+  }
+
+  #creation>section:first-of-type>h1,
+  #creation>section:first-of-type>h2 {
+    display: none;
+  }
+
+  #creation>section:last-of-type>p,
+  #creation>section:first-of-type>p {
+    position: relative;
+    bottom: 0;
+    text-align: center;
+    margin-top: 3vh;
+    margin-bottom: 15px;
+  }
+
+  #creation>section:first-of-type {
+    position: relative;
+    vertical-align: middle;
+    height: 25vh;
+    width: 100%;
+    bottom: 0;
+  }
+}
+
+/************************** COMPTE - PAGES **************************/
+
+
+@media screen and (min-width: 0px) and (max-width: 400px) {
+
+  #compteContainer {
+    overflow: hidden;
+  }
+
+  #compteLogements {
+    margin-top: 30%;
+    margin-left: -27%;
+  }
+
+  #compteLogementPropo {
+    width: 87vw;
+    margin-left: -49%;
+  }
+
+  .compteAjout_log {
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 200px;
+    padding: 0 80px;
+    margin-left: 100% !important;
+  }
+
+  .toutLogement {
+    width: 40vh;
+  }
+
+  .compteSeparateur1 {
+    margin-left: 33% !important;
+    margin-top: 15% !important;
+  }
+
+  #AucunLogementCompte {
+    margin-top: -60%;
+    margin-left: -27%;
+    width: 250px;
+  }
+
+  #compteListeLogements {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-left: 65%;
+    margin-top: -40%;
+  }
+
+  .log_info_liste {
+    margin: 0;
+  }
+
+  .compteListeUnLogement {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: -78%;
+    margin-top: 5%;
+  }
+
+  .compteBtnListeLogement {
+    margin-left: -75% !important;
+    margin-right: -80%;
+    margin-bottom: -50%;
+  }
+
+  .imgListeLogementProprio {
+    width: 340%;
+    margin-left: -83%;
+    margin-top: -90% !important;
+  }
+
+  #imajedelespagna {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+
+  .unLogement {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: -2% !important;
+    margin-right: 8%;
+    margin-top: -10% !important;
+    float: right;
+    width: 78% !important;
+
+    text-align: right;
+
+  }
+
+  .unLogement .noteAvis {
+    display: none;
+  }
+
+  body {
+    overflow: hidden;
+  }
+
+}
+  

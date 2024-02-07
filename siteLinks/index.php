@@ -76,7 +76,7 @@ if ($_SESSION["userType"] == "proprietaire") {
           <svg width="29" height="39" viewBox="0 0 29 39" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M12.8497 37.4203C2.01173 21.7084 0 20.0959 0 14.3216C0 6.41195 6.41195 0 14.3216 0C22.2312 0 28.6431 6.41195 28.6431 14.3216C28.6431 20.0959 26.6314 21.7084 15.7934 37.4203C15.0822 38.4477 13.5609 38.4476 12.8497 37.4203ZM14.3216 20.2889C17.6172 20.2889 20.2889 17.6172 20.2889 14.3216C20.2889 11.0259 17.6172 8.35424 14.3216 8.35424C11.0259 8.35424 8.35424 11.0259 8.35424 14.3216C8.35424 17.6172 11.0259 20.2889 14.3216 20.2889Z" fill="#1D4C77" />
           </svg>
-          <input id="searchbar" type="text" placeholder="Rechercher une destination ...">
+          <input id="searchbar" name="recherche" type="text" placeholder="Rechercher une destination ...">
         </div>
         <a class="search" href="#">Rechercher</a>
       </div>

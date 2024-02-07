@@ -1,7 +1,1295 @@
-    
+ 
+/******************************************** DEMANDE DEVIS ********************************************/
+.main-devis {
+    display: flex;
+  }
+  
+  .retour {
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    background: var(--mainColor);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: -1250px;
+    margin-right: 20px;
+  }
+  
+  .demande {
+    width: 60%;
+  
+  }
+  
+  .demande h1 {
+    color: var(--textColor);
+  
+  }
+  
+  .boutonRetour {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    border: none;
+    width: 60px;
+    height: 60px;
+    cursor: grab;
+    flex-shrink: 0;
+    background-color: #2072BC;
+  }
+  
+  .main-devis,
+  h1 {
+    color: #1D4C77;
+    font-family: Inter;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+    margin: 20px;
+  }
+  
+  .voyage h2 {
+    color: var(--textColor);
+  
+    font-family: Inter;
+    font-size: 35px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin-bottom: 20px;
+  }
+  
+  .voyage_container {
+    border-radius: 25px;
+    border: 2px solid #1D4C77;
+    width: 650px;
+  }
+  
+  .voyage_container p {
+    color: #1D4C77;
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+  
+  .voyage {
+    width: 365px;
+    margin: 20px;
+  }
+  
+  
+  .voyage_container .date {
+    display: flex;
+  
+  }
+  
+  .voyage_container .date p {
+    padding: 10px;
+  }
+  
+  .voyage_container .date .date_arrivee,
+  .date_depart {
+    display: flex;
+  }
+  
+  .voyage_container .personne {
+    display: flex;
+    align-items: center;
+    border-top: 2px solid #1D4C77;
+  
+  }
+  
+  .voyage_container .personne p {
+    margin: 20px;
+  }
+  
+  .demande .date .date_arrivee {
+    border-right: 2px solid #1D4C77;
+  }
+  
+  .demande .personne {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+  
+  }
+  
+  
+  .icons_info {
+    margin-left: 20px;
+  }
+  
+  .recap {
+    margin: 20px;
+    position: sticky;
+    top: 0;
+    margin-top: -500px;
+    z-index: 100;
+  }
+  
+  .recap-info {
+    width: 625px;
+    margin: 20px auto;
+    height: 650px;
+    flex-shrink: 0;
+  
+    border-radius: 25px;
+    background: var(--secondBG);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
+  }
+  
+  .info_logoment {
+    display: flex;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .info_logoment {
+    display: flex;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .info_logoment div {
+    margin: 20px;
+  }
+  
+  .info_logoment {
+    display: flex;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .info_logoment div {
+    margin: 20px;
+  }
+  
+  .info {
+    color: var(--textColor);
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+  
+  .more_info {
+    color: var(--textColor);
+  
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+  
+  .info_prix {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+  }
+  
+  .row {
+    display: flex;
+    justify-content: space-between;
+    margin: 25px;
+  }
+  
+  .label,
+  .value {
+    color: var(--textColor);
+    font-family: Inter;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+  
+  .label_t {
+    color: var(--textColor);
+    font-family: Inter;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+  
+  .button_valider a {
+    display: inline-block;
+    margin-top: 10px;
+    width: 625px;
+    height: 62px;
+    background-color: var(--mainColor);
+    color: #fff;
+    text-align: center;
+    line-height: 62px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-family: Inter;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 700;
+  }
+  
+  
+  .icons_info h2 {
+    color: var(--textColor);
+    font-family: Inter;
+    font-size: 35px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin-bottom: 20px;
+  }
+  
+  .icons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 20px auto;
+    margin-left: 20px;
+  }
+  
+  .icons div {
+    width: 50%;
+    margin-bottom: 20px;
+  
+    display: flex;
+    text-align: center;
+  }
+  
+  .icons div p {
+    display: flex;
+    align-items: center;
+    align-items: center;
+    margin-left: 20px;
+    color: var(--textColor);
+    font-family: Inter;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+  
+  
+  
+  
+  #input_check_box_info {
+    margin: 20px;
+  
+  }
+  
+  #check_box_info input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #d3d3d3;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+  }
+  
+  #check_box_info input[type="checkbox"]:checked {
+    background-color: var(--mainColor);
+  }
+  
+  #check_box_info input[type="checkbox"]:checked::before {
+    content: '';
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background-color: #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  #check_box_info h2 {
+    color: var(--textColor);
+    font-family: Inter;
+    font-size: 35px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+  
+  #check_box_info label {
+    color: var(--textColor);
+    font-family: Inter;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+  
+  #check_box_info {
+  
+    margin: 20px;
+  }
+  
+  #check_box_info p {
+    color: var(--textColor);
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    width: 392px;
+    margin-left: 20px;
+  }
+  
+  .conditions_anulations {
+  
+    height: 272px;
+    background-color: var(--secondBG);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .conditions_anulations h2 {
+    color: var(--textColor);
+    font-family: Inter;
+    font-size: 35px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+  
+  .conditions_anulations p {
+    color: var(--textColor);
+    text-align: justify;
+    font-family: Inter;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }   
     
 
 
+/******************************************** RECEPTION DEVIS ********************************************/
+
+.retour {
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    background: var(--mainColor);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: -1250px;
+    margin-right: 20px;
+  }
+  
+  
+  .demande {
+  
+    width: 60%;
+    margin-top: 50px;
+  
+  }
+  
+  
+  .demande h1 {
+    color: var(--textColor);
+  
+    font-family: Inter;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+  }
+  
+  .voyage h2 {
+    color: var(--textColor);
+  
+    font-family: Inter;
+    font-size: 35px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+  
+  .voyage {
+    width: 365px;
+    margin: 20px;
+  }
+  
+  .voyage h2 {
+    margin-bottom: 10px;
+  }
+  
+  .voyage_container {
+    border-radius: 25px;
+    border: 2px solid #1D4C77;
+    width: 731px;
+    color: var(--secondBG);
+    background-color: #7297B8;
+    ;
+  }
+  
+  .demande .date {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+  
+  }
+  
+  .demande .date .date_arrivee,
+  .date_depart {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 2px solid #1D4C77;
+    width: 100%;
+  }
+  
+  .demande .date .date_arrivee {
+    border-right: 2px solid #1D4C77;
+  }
+  
+  .demande .personne {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    margin-top: 10px;
+  
+  }
+  
+  
+  .test {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+  }
+  
+  .recap {
+    margin: 20px;
+    position: sticky;
+    top: 0;
+    margin-top: -500px;
+    z-index: 100;
+  }
+  
+  .recap-info {
+    width: 100%;
+    margin-top: 20px;
+  
+  
+    flex-shrink: 0;
+  
+    border-radius: 25px;
+    background: var(--secondBG);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
+  
+  
+  
+  }
+  
+  .sticky_recap {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+  
+  
+  .info_logoment {
+    display: flex;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .info_logoment {
+    display: flex;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .info_logoment div {
+    margin: 20px;
+  }
+  
+  
+  .info_logoment {
+    display: flex;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .info_logoment div {
+    margin: 20px;
+  }
+  
+  
+  .info {
+    color: var(--textColor);
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+  
+  .more_info {
+    color: var(--textColor);
+  
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+  
+  .info_prix {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+  }
+  
+  .row {
+    display: flex;
+    justify-content: space-between;
+    margin: 25px;
+  }
+  
+  
+  
+  
+  
+  .label,
+  .value {
+    color: var(--textColor);
+    font-family: Inter;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+  
+  .label_t {
+    color: var(--textColor);
+    font-family: Inter;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+  
+  .main-devis .button_valider a {
+    display: inline-block;
+    margin-top: 10px;
+    width: 90%;
+    height: 62px;
+    background-color: var(--mainColor);
+    color: #fff;
+    text-align: center;
+    line-height: 62px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-family: Inter;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 700;
+  }
+  
+  
+  .icons_info h2 {
+    color: var(--textColor);
+    font-family: Inter;
+    font-size: 2.1875rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+  
+  .icons_info {
+    margin: 20px;
+  }
+  
+  
+  .icons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 20px auto;
+    margin-left: 20px;
+  }
+  
+  .icons>div {
+    width: 48%;
+    margin-bottom: 20px;
+    display: flex;
+    text-align: center;
+  }
+  
+  
+  
+  
+  .icons>div>p {
+    display: flex;
+    align-items: center;
+    align-items: center;
+    margin-left: 20px;
+    color: var(--textColor);
+    font-family: Inter;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+  
+  
+  #check_box_info {
+    margin: 20px;
+  }
+  
+  #input_check_box_info {
+    margin: 20px;
+  
+  }
+  
+  #check_box_info input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #d3d3d3;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+  }
+  
+  #check_box_info input[type="checkbox"]:checked {
+    background-color: var(--mainColor);
+  }
+  
+  #check_box_info input[type="checkbox"]:checked::before {
+    content: '';
+    width: 4px;
+  
+    height: 4px;
+    border-radius: 50%;
+    background-color: #fff;
+  
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  #check_box_info h2 {
+    color: var(--textColor);
+    font-family: Inter;
+    font-size: 35px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+  
+  #check_box_info label {
+    color: var(--textColor);
+    font-family: Inter;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+  
+  
+  #check_box_info p {
+    color: var(--textColor);
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    width: 392px;
+    margin-left: 20px;
+  }
+  
+  .conditions_anulations {
+  
+    height: 272px;
+    background-color: var(--secondBG);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 272px;
+    background: #F5F5F5;
+  }
+  
+  .conditions_anulations h2 {
+    color: var(--textColor);
+    font-family: Inter;
+    font-size: 35px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+  
+  .conditions_anulations p {
+    color: var(--textColor);
+    text-align: justify;
+    font-family: Inter;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+  
+  .conditions_plus {
+    margin: 20px auto;
+    padding: 50px;
+  
+  }
+  
+  .main-devis .button_refuser a {
+    display: none;
+    display: inline-block;
+    margin-top: 10px;
+    width: 90%;
+    height: 62px;
+    background-color: #8A3443;
+    color: #fff;
+    text-align: center;
+    line-height: 62px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-family: Inter;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 700;
+  }
+  
+  
+  .hidden {
+    display: none;
+  
+  }
+  
+  #popup {
+    visibility: hidden;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    border-radius: 10px;
+  }
+  
+  #overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 999;
+  }
+  
+  #popup p {
+    margin: 20px;
+  }
+  
+  .button_confirmation {
+    display: flex;
+    justify-content: space-between;
+  
+  }
+  
+  #popup a {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 0 20px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: bold;
+    color: #fff;
+  }
+  
+  #popup a#annuler {
+    background-color: #1D4C77;
+  }
+  
+  #popup a#confirmer {
+    background-color: #8A3443;
+  }
+  
+  /* REPONSE DEVIS ???????? */
+  
+  .retour {
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    background: var(--mainColor);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: -1250px;
+    margin-right: 20px;
+  }
+  
+  
+  
+  
+  
+  @media (max-width: 1300px) {
+    main {
+      display: flex;
+      flex-wrap: wrap;
+    }
+  
+    .recap {
+      margin-left: 100px;
+      width: 50vw;
+    }
+  
+  
+  
+  }
+  
+  
+  .demande h1 {
+    color: var(--textColor);
+  
+    font-family: Inter;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+  }
+  
+  .voyage h2 {
+    color: var(--textColor);
+  
+    font-family: Inter;
+    font-size: 35px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+  
+  .voyage {
+    width: 365px;
+    margin: 20px;
+  }
+  
+  .voyage h2 {
+    margin-bottom: 10px;
+  }
+  
+  .voyage_container {
+    border-radius: 25px;
+    border: 2px solid #1D4C77;
+    width: 731px;
+    color: var(--secondBG);
+    background-color: #7297B8;
+    ;
+  }
+  
+  .demande .date {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+  
+  }
+  
+  .demande .date .date_arrivee,
+  .date_depart {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 2px solid #1D4C77;
+    width: 100%;
+  }
+  
+  .demande .date .date_arrivee {
+    border-right: 2px solid #1D4C77;
+  }
+  
+  .demande .personne {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    margin-top: 10px;
+  
+  }
+  
+  
+  .test {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+  }
+  
+  .recap {
+    margin: 20px;
+    position: sticky;
+    top: 0;
+    margin-top: -500px;
+    z-index: 100;
+  }
+  
+  .recap-info {
+    width: 625px;
+    margin: 20px auto;
+    height: 650px;
+    flex-shrink: 0;
+    border-radius: 25px;
+    background: var(--secondBG);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
+  
+  }
+  
+  
+  .info_logoment {
+    display: flex;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .info_logoment {
+    display: flex;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .info_logoment div {
+    margin: 20px;
+  }
+  
+  
+  .info_logoment {
+    display: flex;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .info_logoment div {
+    margin: 20px;
+  }
+  
+  
+  .info {
+    color: var(--textColor);
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+  
+  .more_info {
+    color: var(--textColor);
+  
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+  
+  .info_prix {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+  }
+  
+  .row {
+    display: flex;
+    justify-content: space-between;
+    margin: 25px;
+  }
+  
+  .label,
+  .value {
+    color: var(--textColor);
+    font-family: Inter;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+  
+  .label_t {
+    color: var(--textColor);
+    font-family: Inter;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+  
+  .button_valider a {
+    display: inline-block;
+    margin-top: 10px;
+    width: 625px;
+    height: 62px;
+    background-color: var(--mainColor);
+    color: #fff;
+    text-align: center;
+    line-height: 62px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-family: Inter;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 700;
+  }
+  
+  
+  .icons_info h2 {
+    color: var(--textColor);
+    font-family: Inter;
+    font-size: 2.1875rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+  
+  .icons_info {
+    margin: 20px;
+  }
+  
+  
+  .icons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 20px auto;
+    margin-left: 20px;
+  }
+  
+  .icons>div {
+    width: 48%;
+    margin-bottom: 20px;
+    display: flex;
+    text-align: center;
+  }
+  
+  
+  
+  
+  .icons>div>p {
+    display: flex;
+    align-items: center;
+    align-items: center;
+    margin-left: 20px;
+    color: var(--textColor);
+    font-family: Inter;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+  
+  
+  #check_box_info {
+    margin: 20px;
+  }
+  
+  #input_check_box_info {
+    margin: 20px;
+  }
+  
+  #check_box_info input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #d3d3d3;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+  }
+  
+  #check_box_info input[type="checkbox"]:checked {
+    background-color: var(--mainColor);
+  }
+  
+  #check_box_info input[type="checkbox"]:checked::before {
+    content: '';
+    width: 4px;
+  
+    height: 4px;
+    border-radius: 50%;
+    background-color: #fff;
+  
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  #check_box_info h2 {
+    color: var(--textColor);
+    font-family: Inter;
+    font-size: 35px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+  
+  #check_box_info label {
+    color: var(--textColor);
+    font-family: Inter;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+  
+  
+  #check_box_info p {
+    color: var(--textColor);
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    width: 392px;
+    margin-left: 20px;
+  }
+  
+  .conditions_anulations {
+  
+    height: 272px;
+    background-color: var(--secondBG);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .conditions_anulations h2 {
+    color: var(--textColor);
+    font-family: Inter;
+    font-size: 35px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+  
+  .conditions_anulations p {
+    color: var(--textColor);
+    text-align: justify;
+    font-family: Inter;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+  
+  
+  .button_refuser a {
+    display: inline-block;
+    margin-top: 10px;
+    width: 625px;
+    height: 62px;
+    background-color: #8A3443;
+    ;
+    color: #fff;
+    text-align: center;
+    line-height: 62px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-family: Inter;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 700;
+  }
+  
+  
+  #popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    border-radius: 10px;
+  }
+  
+  #overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 999;
+  }
+  
+  #popup p {
+    margin: 20px;
+  }
+  
+  .button_confirmation {
+    display: flex;
+    justify-content: space-between;
+  
+  }
+  
+  #popup a {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 0 20px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: bold;
+    color: #fff;
+  }
+  
+  #popup a#annuler {
+    background-color: #1D4C77;
+  }
+  
+  #popup a#confirmer {
+    background-color: #8A3443;
+  }
     
 
 
