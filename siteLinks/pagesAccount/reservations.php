@@ -87,11 +87,7 @@
 
             </p>
           </div>
-          <a class="consulterLogement" href="logement.php?id=<?php echo $info["id_logement"] ?>"><em>Consulter le
-              logement</em></a>
         </div>
-        <a class="consulterLogement" href="logement.php?id=<?php echo $info["id_logement"] ?>"><em>Consulter le
-            logement</em></a>
       </div>
     </div>
     <div class="compteBtnListeLogement">

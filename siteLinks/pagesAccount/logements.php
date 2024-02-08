@@ -64,9 +64,6 @@
                 <p class="logement_prix">
                   <?php echo ($info["prix_ttc"]); ?> €, par nuit
                 </p>
-
-                <a class="consulterLogement" href="logement.php?id=<?php echo $info["id_logement"] ?>"><em>Consulter le
-                    logement</em></a>
               </div>
 
             </div>

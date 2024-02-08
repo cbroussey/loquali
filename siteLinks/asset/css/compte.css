@@ -868,6 +868,9 @@
 .toutLogement {
     display: flex;
     flex-wrap: nowrap;
+}
+
+.toutLogement img {
     max-width: 230px; /*largeur et longueur maximale de l'image*/
     max-height: 150px;
 }
@@ -951,7 +954,7 @@
 
 .compteSeparateur1 {
     background-color: #97ADC1;
-    width: 88vh;
+    width: 70vw;
     height: 2px;
     color: transparent;
     margin: 40px 0;
