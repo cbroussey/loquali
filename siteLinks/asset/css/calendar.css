@@ -2,25 +2,31 @@
     display:flex;
     width:100%;
     justify-content: center;
-    padding-top: 8vh;
+    padding-top: 5vh;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-items: center;
 }
-
 
 #calendar {
     display: flex;
     flex-direction: column;
     align-items: center;
     background-color: #EDEDED;
-    width: 30%;
+    width: 60%;
     height: 30%;
-    padding: 15px 15px;
+    padding: 15px 6.7%;
     gap: 15px;
-    border-radius: 10px;
+    border-radius: 10px 10px 0 0;
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
     transition: visibility var(--animSpeed) ease-out, opacity var(--animSpeed) ease-out;
 
-
     -webkit-user-select: none;
+
+    padding-bottom: 2em;
+
+    z-index: 50;
 }
 
 #directionChoice {
@@ -35,7 +41,8 @@
 #calendar tr {
     display: flex;
     justify-content: flex-start;
-    gap: 5px;
+    
+    gap: 9.3%;
 }
 
 #calendar tr:first-of-type {
@@ -45,7 +52,7 @@
 
 #calendar td{
     position: relative;
-    width: 70px;
+    width: 100%;
     height: 70px;
     display: flex;
     justify-content: center;
@@ -54,18 +61,20 @@
 }
 
 .cal-data > label {
-    font-size: 30px;
-    color: black;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
     z-index: 10;
+    margin-top: 2em;
 }
 
 .cal-data > input {
     position: absolute;
     top: 0;
     bottom: 0;
-    width: 100%;
+    width: 240%;
     height: 100%;
-    background-color: green;
+    background-color: #1D4C77;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -77,7 +86,7 @@
     -moz-appearance: none;
     appearance: none;
     border: none;
-    background-color: red;
+    background-color: rgb(153, 77, 77);
 }
 
 #checkboxContainer input {
@@ -87,7 +96,7 @@
 .nbcasejourcalend {
     width: 30px;
     height: 30px;
-    background-color: red;
+    background-color: rgb(153, 77, 77);
     border: none;
 }
 
@@ -115,20 +124,6 @@
     color: #1D4C77;
 }
 
-#valideyy {
-    width: 93px;
-    height: 38px;
-    border-radius: 10px;
-    color: #FFF;
-    text-align: center;
-    font-size: 20px;
-    font-weight: 600;
-    border:none;
-    background: #2072BC;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-
-}
-
 #calendar table {
     width: 100%;
     font-size: 20px;
@@ -149,4 +144,183 @@
     flex-direction: column;
     justify-content: center;
     gap: 5px;
+}
+
+.prixdujour {
+    font-size: 15px;
+    font-weight: 300;
+    margin-top: -0.5em;
+}
+
+
+#petitmenuprix {
+    width: 73.8%;
+    z-index: 99;
+}
+
+
+#barreselectionjour,  #barreselectionjour div{
+    background-color: #2F5980;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    color: white;
+
+    display: flex;
+    justify-content: space-between;
+
+    padding: 0 2em;
+}
+
+#date{
+    font-size: 25px;
+    font-weight: bold;
+}
+
+
+/********************** SWITCH *******************/
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+  }
+  
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #7BCC7A;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: #954957;
+  }
+  
+  #barreselectionjour input:focus + .slider {
+    box-shadow: 0 0 1px #954957;
+  }
+  
+  #barreselectionjour  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+  
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
+
+/*********************************************************************/
+
+
+#leprixla {
+    background-color: #97ADC1;
+    margin-top: -0.2em;
+    border-radius: 0 0 10px 10px;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    padding: 2em;
+    padding-top: 1em;
+}
+
+#leprixchangela  {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+
+
+}
+
+#petitebarredeseparation {
+    margin-top: 1.5em;
+    margin-left: 1em;
+    margin-right: 1em;
+    font-size: xx-large;
+    color: white;
+  }
+
+.b4r3 input{
+    width: 250px;
+    height: 45px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
+    cursor: pointer;
+    border: none;
+    color: #2F5980;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.b4r3 p {
+    text-align: left;
+    color: white;
+    font-weight: 100;
+    margin-bottom: 5px;
+}
+
+
+#valideyy {
+    margin-top: 1em;
+    width: 120px;
+    height: 38px;
+    border-radius: 10px;
+    color: #FFF;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 600;
+    border:none;
+    background: #2072BC;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+#valideyy:hover {
+    background: #2F5980;
+}
+
+
+
+@media screen and (min-width: 0px) and (max-width: 1370px) { 
+    #calendar tr {
+        display: flex;
+        justify-content: flex-start;
+        
+        gap: 8%;
+    }
+
+    .cal-data > input {
+        width: 200%;
+    }
+    
 }
