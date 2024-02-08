@@ -285,7 +285,7 @@ create table api(
     --miseDispo boolean,
     id_compte integer,
     constraint api_pk primary key(cle),
-    constraint api_fk_compte foreign key (id_compte) references compte(id_compte)
+    constraint api_fk_compte foreign key (id_compte) references compte(id_compte) ON DELETE CASCADE
 );
 
 

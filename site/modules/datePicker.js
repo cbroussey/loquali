@@ -3,6 +3,10 @@
 // - Limitations de date de début et de fin (et durée max/mois min)
 // - Un context menu custom
 
+function today(y=0, m=0, d=0) {
+    return new Date(new Date().getFullYear()+y, new Date().getMonth()+m, new Date().getDate()+d);
+}
+
 function fill0(txt) {
     return `${txt.length%2?"0":""}${txt}`;
 }
@@ -36,6 +40,18 @@ class datePicker {
         });
         this.off = off;
         this.multi = multi;
+        let ready = false;
+        while(!ready) {
+            ready = true;
+            for (let i = 0; i < this.off.length; i++) {
+                if (new Date(this.off[i]) >= this.start && new Date(this.off[i]) <= this.end) {
+                    this.start = new Date(new Date(this.off[i]).getFullYear(), new Date(this.off[i]).getMonth(), new Date(this.off[i]).getDate()+1)
+                    this.end = new Date(new Date(this.off[i]).getFullYear(), new Date(this.off[i]).getMonth(), new Date(this.off[i]).getDate()+1+this.dist)
+                    ready = false;
+                    break;
+                }
+            }
+        }
     }
 
     display() {
@@ -48,9 +64,9 @@ class datePicker {
             if (this.moving == 1) this.moving = 2
             else if (this.moving == 2) this.moving = 1
         }
-        if (this.start.getTime() < new Date().getTime()) {
-            this.start = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate())
-            this.end = new Date(this.start.getFullYear(), this.start.getMonth(), this.start.getDate()+this.dist)
+        if (this.start.getTime() < today().getTime()) {
+            this.start = today()
+            this.end = today(0, 0, this.dist)
         }
         this.DP.querySelector('.DPmonth').innerHTML = monthNames[this.month] + ' ' + this.year;
         let DPstart = new Date(this.year, this.month, 0).getDay();
@@ -97,9 +113,12 @@ class datePicker {
                     this.moving = 1
                 } else if (this.end.toDateString() == selDate.toDateString() || selDate > this.end) {
                     this.end = selDate
+                    //console.log(this.end)
                     this.moving = 2
                 } else {
-                    console.log("Here should be a custom context menu to ask if start date or end date")
+                    //console.log("Here should be a custom context menu to ask if start date or end date")
+                    this.tmpdist = Math.ceil(Math.abs(selDate - this.start) / (1000 * 60 * 60 * 24));
+                    this.moving = 3
                 }
                 this.display()
             })
@@ -112,18 +131,45 @@ class datePicker {
             })
             */
             element.addEventListener("mousemove", () => {
-                if (this.moving == 1 && !this.off.includes(`${this.start.getFullYear()}-${fill0((this.start.getMonth()+1).toString())}-${fill0((this.start.getDate()+this.dist).toString())}`)) {
-                    console.log(`${this.start.getFullYear()}-${fill0((this.start.getMonth()+1).toString())}-${fill0((this.start.getDate()+this.dist).toString())}`)
-                    this.start = new Date(this.year, this.month, parseInt(element.querySelector("a").innerHTML));
+                let clickedDate = new Date(this.year, this.month, parseInt(element.querySelector("a").innerHTML));
+                if (this.moving == 1 /*&& !this.off.includes(`${this.start.getFullYear()}-${fill0((this.start.getMonth()+1).toString())}-${fill0((this.start.getDate()+this.dist).toString())}`)*/) {
+                    //console.log(`${this.start.getFullYear()}-${fill0((this.start.getMonth()+1).toString())}-${fill0((this.start.getDate()+this.dist).toString())}`)
+                    this.start = clickedDate;
                     if (this.start >= new Date(this.end.getFullYear(), this.end.getMonth(), this.end.getDate()-this.dist)) this.end = new Date(this.start.getFullYear(), this.start.getMonth(), this.start.getDate()+this.dist);
-                } else if (this.moving == 2 && /*this.end >= new Date(new Date().getTime()+86000000*(this.dist)) &&*/ !this.off.includes(`${this.end.getFullYear()}-${fill0((this.end.getMonth()+1).toString())}-${fill0((this.end.getDate()-this.dist).toString())}`)) {
-                    this.end = new Date(this.year, this.month, parseInt(element.querySelector("a").innerHTML));
+                } else if (this.moving == 2 /*&& this.end >= new Date(new Date().getTime()+86000000*(this.dist))*/ /*&& !this.off.includes(`${this.end.getFullYear()}-${fill0((this.end.getMonth()+1).toString())}-${fill0((this.end.getDate()-this.dist).toString())}`)*/) {
+                    this.end = clickedDate;
                     if (this.end <= new Date(this.start.getFullYear(), this.start.getMonth(), this.start.getDate()+this.dist)) this.start = new Date(this.end.getFullYear(), this.end.getMonth(), this.end.getDate()-this.dist);
+                } else if (this.moving == 3 && this.multi /*&& (clickedDate < this.start || clickedDate > this.end)*/) {
+                    let tmpdist = Math.ceil((clickedDate - this.start) / (1000 * 60 * 60 * 24)) - this.tmpdist;
+                    //console.log(tmpdist)
+                    this.start = new Date(this.start.getFullYear(), this.start.getMonth(), this.start.getDate()+tmpdist)
+                    this.end = new Date(this.end.getFullYear(), this.end.getMonth(), this.end.getDate()+tmpdist)
                 }
                 this.display()
             })
             element.addEventListener("mouseup", () => {
                 this.moving = 0
+                for (let i = 0; i < this.off.length; i++) {
+                    if (new Date(this.off[i]) >= this.start && new Date(this.off[i]) <= new Date(this.end.getFullYear(), this.end.getMonth(), this.end.getDate()+1)) {
+                        alert("Vous ne pouvez pas réserver sur cette période")
+                        this.start = new Date(new Date(this.off[i]).getFullYear(), new Date(this.off[i]).getMonth(), new Date(this.off[i]).getDate())
+                        this.end = new Date(new Date(this.off[i]).getFullYear(), new Date(this.off[i]).getMonth(), new Date(this.off[i]).getDate()+this.dist)
+                        let ready = false;
+                        while(!ready) {
+                            ready = true;
+                            for (let i = 0; i < this.off.length; i++) {
+                                if (new Date(this.off[i]) >= this.start && new Date(this.off[i]) <= this.end) {
+                                    this.start = new Date(new Date(this.off[i]).getFullYear(), new Date(this.off[i]).getMonth(), new Date(this.off[i]).getDate()+1)
+                                    this.end = new Date(new Date(this.off[i]).getFullYear(), new Date(this.off[i]).getMonth(), new Date(this.off[i]).getDate()+1+this.dist)
+                                    ready = false;
+                                    break;
+                                }
+                            }
+                        }
+                        this.display()
+                        break;
+                    }
+                }
             })
         });
         let current = this.DP.querySelectorAll(".DPcurrent, .DPno")

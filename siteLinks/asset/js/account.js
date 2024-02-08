@@ -12,7 +12,7 @@ accountDisconnect.addEventListener('click', function () {
 
 accountDisconnect2.addEventListener('click', function () {
     popUpDeco.style.display = "block";
-})
+});
 
 //popup Disconnect
 const cancelDisconnect = document.getElementById("cancelDisconnect");
@@ -32,57 +32,42 @@ const listeLiens = [compteAccueil, compteInfosPerso, compteConnection, compteLog
 
 // Sélectionnez tous les liens à l'intérieur de la div avec la classe 'nav'
 var links = document.querySelectorAll('.nav > div');
+var imgLinks = document.querySelectorAll('.img-front');
 var menuLinks = document.querySelectorAll('figure > figcaption');
-var current = compteAccueil;
-current.style.display = "block";
+
+var currentPage = compteAccueil;
 var currentMenuLink = menuLinks[0];
+var currentMenuImg = imgLinks[0];
+
+//application du style sur le lien sélectionné par défaut
+currentPage.style.display = "block";
 currentMenuLink.style.color = 'var(--textColor)';
-currentMenuLink.parentNode.children[0].children[1].display = "none";
+currentMenuImg.style.display = 'none';
+
+//fonction pour conserver la bonne page de compte en cas de refresh
+function toPage(index) {
+
+    currentMenuLink.style.color = 'var(--secondBG)';
+    currentMenuImg.style.display = 'block';
+    currentPage.style.display = 'none';
+
+    currentMenuLink = menuLinks[index];
+    currentMenuImg = imgLinks[index];
+    currentPage = listeLiens[index];
+
+    currentMenuLink.style.color = 'var(--textColor)';
+    currentMenuImg.style.display = 'none';
+    currentPage.style.display = 'block';
+}
 
 links.forEach(function (link, index) {
     link.addEventListener('click', function liens_compte() {
         console.log('Vous avez cliqué sur le lien avec l\'index : ' + index);
-        currentMenuLink.style.color = 'var(--secondBG)';
-        currentMenuLink = menuLinks[index];
-        currentMenuLink.style.color = 'var(--textColor)';
-        switch (index) {
-            case 0:
-                current.style.display = "none";
-                current = compteAccueil;
-                current.style.display = "block";
-                break;
-            case 1:
-                current.style.display = "none";
-                current = compteInfosPerso;
-                current.style.display = "block";
-                break;
-            case 2:
-                current.style.display = "none";
-                current = compteConnection;
-                current.style.display = "block";
-                break;
-            case 3:
-                current.style.display = "none";
-                current = compteLogementReservation;
-                current.style.display = "block";
-                break;
-            case 4:
-                current.style.display = "none";
-                current = compteDevis;
-                current.style.display = "block";
-                break;
-            case 5:
-                current.style.display = "none";
-                current = comptePaiementAPI;
-                current.style.display = "block";
-                break;
-            default:
-                console.log("Problème d'indexation");
-                break;
-        }
+
+        toPage(index);
+        
     });
 });
-
 
 // Fonction pour réinitialiser la couleur au survol
 function resetColorOnHover(element) {
