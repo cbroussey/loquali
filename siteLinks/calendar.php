@@ -137,7 +137,7 @@ error_reporting(0);?>
                         $cDay = $year."-".$month."-$i";
                         $checked = in_array($cDay, $dispo);
                         echo '<td class="cal-data">';
-                        echo '<label class="nbjourcalend" for="case-'.$i.'">' . $i . '</label>';
+                        echo '<label class="nbjourcalend" for="case-'.$i.'">' . $i . ' <div class="prixdujour"> <p> prix : </p> </div>  </label> ';
                         echo '<input class="nbcasejourcalend" id="case-'.$i.'" type="checkbox" name="dispo[]" value=' . $i . ' '.($checked ? 'checked' : '').'>';
                         echo '</td>';
 
@@ -157,9 +157,33 @@ error_reporting(0);?>
                     ?>
                 </tr>
             </table>
-
-            <input type="submit" value="valider" id="valideyy">
         </form>
+        <div id="petitmenuprix">
+            <div id="barreselectionjour">
+                <p id="date">February 2024 / Mercredi 7</p>
+                <div>
+                    <p>logement disponible</p>&nbsp;&nbsp;
+                    <label class="switch">
+                        <input type="checkbox">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+            </div>
+            <div id="leprixla">
+                <div id="leprixchangela">
+                    <div class="b4r3">
+                        <p>Prix actuel</p>
+                        <input class="quantity" id="PrixMin" name="PrixMin" type="number" pattern="(29|35|22|56)[0-9]{3}" <?php if ($_POST["PrixMin"] != "") { ?> value="<?php echo ($_POST["PrixMin"]) ?>" <?php   } ?>>
+                    </div>
+                    <p id="petitebarredeseparation">-</p>
+                    <div class="b4r3" id="adroiteuuu">
+                        <p>Nouveau prix</p>
+                        <input class="quantity" id="PrixMax" name="PrixMax" type="number" pattern="(29|35|22|56)[0-9]{3}" <?php if ($_POST["PrixMax"] != "") { ?> value="<?php echo ($_POST["PrixMax"]) ?>" <?php   } ?>>
+                    </div>
+                </div>
+                <input type="submit" value="valider" id="valideyy">
+            </div>
+        </div>
     </div>
     <script src="asset/js/calendar.js"></script>
 </body>
