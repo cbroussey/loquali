@@ -221,7 +221,7 @@ suivantBtn2.addEventListener('click', function() {
     alert("Veuillez remplir tous les champs du formulaire avant de passer à l'étape suivante.");
     } else {
         gros_div.style.transform = 'translateX(-50%)';
-        Page3.style.display = 'block';
+        Page4.style.display = 'block';
         setTimeout(function() {
             Page2.style.display = 'none';
             gros_div.style.marginLeft='200%';
@@ -229,7 +229,7 @@ suivantBtn2.addEventListener('click', function() {
     }
 });
 
-suivantBtn3.addEventListener('click', function() {
+/* suivantBtn3.addEventListener('click', function() {
     if (suivantBtn3.disabled) {
     alert("Veuillez remplir tous les champs du formulaire avant de passer à l'étape suivante.");
     } else {
@@ -240,7 +240,7 @@ suivantBtn3.addEventListener('click', function() {
             gros_div.style.marginLeft='300%';
         }, 800);
     }
-});
+}); */
 
 
 checkFieldsP1();
