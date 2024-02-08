@@ -36,6 +36,7 @@ error_reporting(0);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="asset/css/headerAndFooter.css">
     <link rel="stylesheet" type="text/css" href="asset/css/style.css">
+    <link rel="stylesheet" type="text/css" href="asset/css/createAndConnect.css">
     <title>Créer votre compte</title>
 </head>
 <body>
