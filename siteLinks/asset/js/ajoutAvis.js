@@ -20,3 +20,23 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
+function openModal2() {
+    document.getElementById('myModal2').style.display = 'block';
+}
+
+function closeModal2() {
+    document.getElementById('myModal2').style.display = 'none';
+}
+
+document.getElementById("AjoutAvis").addEventListener("click", function() {
+    var formulaire = document.getElementById("ajoutAvisForm");
+    if (formulaire.style.display === "none") {
+        formulaire.style.display = "block";
+    } else {
+        formulaire.style.display = "none";
+    }
+});
+
+
+
