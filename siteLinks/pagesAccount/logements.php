@@ -46,7 +46,7 @@
         $stmt = $dbh->prepare($query);
         $stmt->bindParam('id_image', $photo["min"], PDO::PARAM_STR);
         $stmt->execute();
-        $extention = $stmt->fetch();  
+        $extention = $stmt->fetch();
         ?>
 
         <div class="compteListeUnLogement">
@@ -55,6 +55,7 @@
             <img src="asset/img/logements/<?php echo ($photo["min"]); ?>.<?php echo $extention["extension_image"] ?>"
               width="100%" height="100%" alt="" class="imgListeLogementProprio">
 
+
             <div class="unLogement">
               <div class="log_info_liste">
                 <h2>
@@ -62,7 +63,7 @@
                   <?php echo ($info["localisation"]); ?>
                 </h2>
                 <p class="logement_prix">
-                  <?php echo ($info["prix_ttc"]); ?> €, par nuit
+                  <?php echo ($info["prix_ttc"]); ?> € par nuit
                 </p>
               </div>
 
