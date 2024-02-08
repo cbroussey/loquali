@@ -10,9 +10,9 @@
     $nbLogements = $stmt->fetch();
 
     if ($nbLogements['count'] == 0) {
-  ?>
+      ?>
       <p id="AucuneReservCompte">Vous n'avez aucunes réservations pour le moment</p>
-  <?php
+      <?php
     }
 
     foreach ($dbh->query("SELECT * FROM test.logement WHERE id_compte = $id", PDO::FETCH_ASSOC) as $row) {
@@ -53,12 +53,19 @@
   <div class="compteListeUnLogement">
     <div class="toutLogement">
       <div id=imajedelespagna>
-        <img src="asset/img/logements/<?php echo ($photo["min"]); ?>.<?php echo $extention["extension_image"] ?>" width="100%" height="100%" alt="" class="imgListeLogementProprio">
+        <img src="asset/img/logements/<?php echo ($photo["min"]); ?>.<?php echo $extention["extension_image"] ?>"
+          width="100%" height="100%" alt="" class="imgListeLogementProprio">
       </div>
       <div class="unLogement">
         <div class="log_info_liste">
-          <h2><?php echo ($info["nature_logement"]); ?> <?php echo ($info["type_logement"]); ?>, <?php echo ($info["localisation"]); ?></h2>
-          <p><?php echo ($info["prix_devis"]); ?> €, par nuit</p>
+          <h2>
+            <?php echo ($info["nature_logement"]); ?>
+            <?php echo ($info["type_logement"]); ?>,
+            <?php echo ($info["localisation"]); ?>
+          </h2>
+          <p>
+            <?php echo ($info["prix_devis"]); ?> €, par nuit
+          </p>
           <div class="noteAvis">
             <p>
 
@@ -80,31 +87,26 @@
 
             </p>
           </div>
-          <a class="consulterLogement" href="logement.php?id=<?php echo $info["id_logement"] ?>"><em>Consulter le logement</em></a>
+          <a class="consulterLogement" href="logement.php?id=<?php echo $info["id_logement"] ?>"><em>Consulter le
+              logement</em></a>
         </div>
-        <a class="consulterLogement" href="logement.php?id=<?php echo $info["id_logement"] ?>"><em>Consulter le logement</em></a>
+        <a class="consulterLogement" href="logement.php?id=<?php echo $info["id_logement"] ?>"><em>Consulter le
+            logement</em></a>
       </div>
     </div>
     <div class="compteBtnListeLogement">
-      <a href="modifLogement.php?id=<?php echo ($info["id_logement"]) ?>"><img src="asset/icons/bleu/modification.svg" alt=""></a>
+      <a href="modifLogement.php?id=<?php echo ($info["id_logement"]) ?>"><img src="asset/icons/bleu/modification.svg"
+          alt=""></a>
 
       <a onclick="openModal2()"><img src="asset/icons/bleu/trash.svg" alt=""></a>
-
-
-
-
       <div class="confirmation-modal" id="myModal2">
         <div class="modal-content">
           <span class="close" onclick="closeModal2()">&times;</span>
           <p>Êtes-vous sûr de vouloir supprimer ?</p>
           <input type="hidden" name="confirmDelete" value="<?php echo $id ?>">
-
           <a href="logement.php?confirmDelete=<?php echo ($info["id_logement"]) ?>" class="confirm-button">Confirmer</a>
-
         </div>
       </div>
-
-
     </div>
   </div>
 

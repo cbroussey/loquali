@@ -49,52 +49,56 @@ $result = $query->fetchAll();
 ?>
 
 <div id="comptePaiementAPI" class="comptePage" style="width: 100%; position:relative;">
-  <div id="apiSection" style="width:60%; position:absolute; top:50%; left:50%; transform: translate(-50%,-50%);">
-    <?php
-    if (empty($result)) {
-      echo "<p>Aucune clé API n'est associée à cet ID.</p>";
-    }
-    ?>
+  <div id="compteAPIContainer">
+    <div id="apiSection">
+      <?php
+      if (empty($result)) {
+        echo "<p>Aucune clé API n'est associée à cet ID.</p>";
+      }
+      ?>
 
-    <form method="post" action="api_save.php">
-      <table>
-        <thead>
-          <tr>
-            <th>Nom de la clé API</th>
-            <th>Privilèges</th>
-            <th>Accès Calendrier</th>
-            <th>Mise Indispo</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php
-          foreach ($result as $index => $row) {
-            $info = $row;
-          ?>
+      <form method="post" action="api_save.php">
+        <table>
+          <thead>
             <tr>
-              <td><?php echo $info["cle"]; ?></td>
-              <td>
-                <input type="checkbox" name="<?php echo $info['cle'] . "_p"; ?>" <?php echo ($info['privilegie'] ? "checked" : "") ?> disabled>
-              </td>
-              <td>
-                <input type="checkbox" name="<?php echo $info['cle'] . "_c"; ?>" <?php echo ($info['accescalendrier'] ? "checked" : "") ?>>
-              </td>
-              <td>
-                <input type="checkbox" name="<?php echo $info['cle'] . "_i"; ?>" <?php echo ($info['miseindispo'] ? "checked" : "") ?>>
-              </td>
-              <td>
-              </td>
+              <th>Nom de la clé API</th>
+              <th>Privilèges</th>
+              <th>Accès Calendrier</th>
+              <th>Mise Indispo</th>
+              <th></th>
             </tr>
-          <?php
-            if ($index < count($result) - 1) {
-              echo "<tr><td colspan='5'><hr></td></tr>";
+          </thead>
+          <tbody>
+            <?php
+            foreach ($result as $index => $row) {
+              $info = $row;
+              ?>
+              <tr>
+                <td>
+                  <?php echo $info["cle"]; ?>
+                </td>
+                <td>
+                  <input type="checkbox" name="<?php echo $info['cle'] . "_p"; ?>" <?php echo ($info['privilegie'] ? "checked" : "") ?> disabled>
+                </td>
+                <td>
+                  <input type="checkbox" name="<?php echo $info['cle'] . "_c"; ?>" <?php echo ($info['accescalendrier'] ? "checked" : "") ?>>
+                </td>
+                <td>
+                  <input type="checkbox" name="<?php echo $info['cle'] . "_i"; ?>" <?php echo ($info['miseindispo'] ? "checked" : "") ?>>
+                </td>
+                <td>
+                </td>
+              </tr>
+              <?php
+              if ($index < count($result) - 1) {
+                echo "<tr><td colspan='5'><hr></td></tr>";
+              }
             }
-          }
-          ?>
-        </tbody>
-      </table>
-      <button type="submit">Appliquer les changements</button>
-    </form>
+            ?>
+          </tbody>
+        </table>
+        <button type="submit">Appliquer les changements</button>
+      </form>
+    </div>
   </div>
 </div>

@@ -2,18 +2,10 @@
 <?php
 $server = 'servbdd';
 $driver = 'pgsql';
-$dbname = '';
+$dbname = 'pg_';
 $user = '';
-
-
-
 $pass = '';
-
-
-
-
-
-
+?>
 
 
 

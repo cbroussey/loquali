@@ -665,6 +665,7 @@
     border-radius: 25px;
     padding: 20px;
     margin: 15px 30px;
+    background-color: #F5F5F5;
   }
 
   .hautAvis{
@@ -951,5 +952,19 @@
   }
 
   .btn_note_avis {
+    display: none;
+  }
+
+
+
+
+  /*** AVIS **/
+
+  .etoileAvis{
+    
+    height: 30px;
+  }
+
+  .etoileAvis input{
     display: none;
   }
