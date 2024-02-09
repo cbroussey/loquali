@@ -1,4 +1,3 @@
-
 <?php 
 error_reporting(0);
  include('connect_params.php');

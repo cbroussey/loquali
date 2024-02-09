@@ -1,4 +1,3 @@
-
 <?php
 $server = 'servbdd';
 $driver = 'pgsql';
