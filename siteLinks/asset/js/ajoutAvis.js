@@ -8,13 +8,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 // Si la case est cochée, cocher les cases précédentes
                 for (let i = 0; i <= index; i++) {
                     checkboxes[i].checked = true;
-                    checkboxes[i].parentElement.querySelector('.star-img').src = '../siteLinks/asset/icons/bleu/star.svg';
+                    checkboxes[i].parentElement.querySelector('.star-img').src = 'asset/icons/bleu/star.svg';
                 }
             } else {
                 // Si la case est décochée, décocher les cases suivantes
                 for (let i = checkboxes.length - 1; i > index; i--) {
                     checkboxes[i].checked = false;
-                    checkboxes[i].parentElement.querySelector('.star-img').src = '../siteLinks/asset/icons/blanc/star.svg';
+                    checkboxes[i].parentElement.querySelector('.star-img').src = 'asset/icons/blanc/star.svg';
                 }
             }
         });

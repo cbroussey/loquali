@@ -1,6 +1,18 @@
 <?php
 session_start();
 error_reporting(0);
+?>
+
+<pre>
+    <?php
+print_r($_POST);
+    ?>
+</pre>
+
+<?php
+include('connect_params.php');
+
+
 if (isset($_POST["note"])){
 
 try {
@@ -18,7 +30,13 @@ try {
     print "Erreur !: " . $e->getMessage() . "<br/>";
     die();
 }
-$aviiiiiiiiis= $id_avis_max + 1;
+
+echo $id_avis_max[0]["max"];
+$aviiiiiiiiis= $id_avis_max[0]["max"] + 1;
+
+echo $aviiiiiiiiis;
+
+
 
 try {
 
@@ -67,7 +85,7 @@ $som = 0;
 foreach ($aviss as $tabNote) {
     $som += $tabNote["note_avis"];
 }
-$moy = $som / $rrrrrrrrrrrowCount2;
+$moy = round($som / $rrrrrrrrrrrowCount2, 1);
 
 try {
     $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
@@ -88,8 +106,9 @@ try {
 }
 $idlogement=$_POST["id"];
 
-header("Location:logement.php?id=$id");
-exit(0);
 }
-
 ?>
+
+<script type="text/javascript">
+    window.location.href = "logement.php?id=<?php echo($_POST["id"]); ?>";
+</script>

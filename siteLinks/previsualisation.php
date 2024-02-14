@@ -38,6 +38,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="asset/css/style.css">
     <link rel="stylesheet" href="asset/css/headerAndFooter.css">
+    <link rel="stylesheet" href="asset/css/logement.css">
 
 
 </head>
