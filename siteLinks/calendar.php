@@ -1,8 +1,22 @@
+<?php
+session_start();
+error_reporting(0); 
 
-<?php session_start();
-error_reporting(0);?>
+function getAvailableDaysInOneMonth($month, $data) {
+    $availableDays = array();
+    foreach ($data as $value) {
+        $day = explode("-", $value);
+        if ($day[1] == $month) {
+            array_push($availableDays, $value);
+        }
+    }
+    return $availableDays;
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,6 +25,7 @@ error_reporting(0);?>
     <title>Document</title>
 </head>
 <?php include "header.php" ?>
+
 <body>
     <div id="centerCalendar">
         <form id="calendar" method="post">
@@ -26,12 +41,8 @@ error_reporting(0);?>
             $stmt->execute();
             $dispo = $stmt->fetchAll();
 
-            $dispo = array_map(function ($item) {
-                return $item['jour'];
-            }, $dispo);
-
             //print_r($dispo);
-
+            
             if (!isset($_SESSION['dispo'])) {
                 $_SESSION['dispo'] = [];
             }
@@ -40,7 +51,7 @@ error_reporting(0);?>
 
                 //passe au mois suivant si on clique sur suivant, au mois précédent sinon
                 if ($_POST['prevOrNext'] == 'next') {
-                    $month = $_POST['month'] + 1; 
+                    $month = $_POST['month'] + 1;
                     $year = $_POST['year'];
                     if ($month > 12) {
                         $month = 1;
@@ -61,7 +72,7 @@ error_reporting(0);?>
                 $stmt->bindParam('idLogement', $idLogement, PDO::PARAM_INT);
                 $stmt->execute();
 
-                foreach($_POST['dispo'] as $day) {
+                foreach ($_POST['dispo'] as $day) {
                     $day = $_POST['year'] . "-" . $_POST['month'] . "-$day";
                     $query = "INSERT INTO test.planning (disponibilite, jour, id_logement) VALUES (:dispo, :jour, :idLogement)";
                     $stmt = $dbh->prepare($query);
@@ -105,7 +116,9 @@ error_reporting(0);?>
 
             <div id="directionChoice">
                 <input id="prevYear" type="submit" value="<">
-                <h4 id="joyeuxanniversaire"><?php echo "$monthName $year" ?></h4>
+                <h4 id="joyeuxanniversaire">
+                    <?php echo "$monthName $year" ?>
+                </h4>
                 <input id="nextYear" type="submit" value=">">
             </div>
 
@@ -134,11 +147,11 @@ error_reporting(0);?>
                     }
 
                     for ($i = 1; $i <= $daysInMonth; $i++) {
-                        $cDay = $year."-".$month."-$i";
+                        $cDay = $year . "-" . $month . "-$i";
                         $checked = in_array($cDay, $dispo);
                         echo '<td class="cal-data">';
-                        echo '<label class="nbjourcalend" for="case-'.$i.'">' . $i . ' <div class="prixdujour"> <p> prix : </p> </div>  </label> ';
-                        echo '<input class="nbcasejourcalend" id="case-'.$i.'" type="checkbox" name="dispo[]" value=' . $i . ' '.($checked ? 'checked' : '').'>';
+                        echo '<label class="nbjourcalend" for="case-' . $i . '">' . $i . ' <div class="prixdujour"> <p> prix : </p> </div>  </label> ';
+                        echo '<input class="nbcasejourcalend" id="case-' . $i . '" type="checkbox" name="dispo[]" value=' . $i . ' ' . ($checked ? 'checked' : '') . '>';
                         echo '</td>';
 
                         // Passer à la nouvelle ligne chaque fois que nous atteignons la fin d'une semaine
@@ -157,34 +170,40 @@ error_reporting(0);?>
                     ?>
                 </tr>
             </table>
+
+            <div id="petitmenuprix">
+                <div id="barreselectionjour">
+                    <p id="date">February 2024 / Mercredi 7</p>
+                    <div>
+                        <p>logement disponible</p>&nbsp;&nbsp;
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+                <div id="leprixla">
+                    <div id="leprixchangela">
+                        <div class="b4r3">
+                            <p>Prix actuel</p>
+                            <input class="quantity" id="PrixMin" name="PrixMin" type="number"
+                                pattern="(29|35|22|56)[0-9]{3}" <?php if ($_POST["PrixMin"] != "") { ?>
+                                    value="<?php echo ($_POST["PrixMin"]) ?>" <?php } ?>>
+                        </div>
+                        <p id="petitebarredeseparation">-</p>
+                        <div class="b4r3" id="adroiteuuu">
+                            <p>Nouveau prix</p>
+                            <input class="quantity" id="PrixMax" name="PrixMax" type="number"
+                                pattern="(29|35|22|56)[0-9]{3}" <?php if ($_POST["PrixMax"] != "") { ?>
+                                    value="<?php echo ($_POST["PrixMax"]) ?>" <?php } ?>>
+                        </div>
+                    </div>
+                    <input type="submit" value="valider" id="valideyy">
+                </div>
+            </div>
         </form>
-        <div id="petitmenuprix">
-            <div id="barreselectionjour">
-                <p id="date">February 2024 / Mercredi 7</p>
-                <div>
-                    <p>logement disponible</p>&nbsp;&nbsp;
-                    <label class="switch">
-                        <input type="checkbox">
-                        <span class="slider round"></span>
-                    </label>
-                </div>
-            </div>
-            <div id="leprixla">
-                <div id="leprixchangela">
-                    <div class="b4r3">
-                        <p>Prix actuel</p>
-                        <input class="quantity" id="PrixMin" name="PrixMin" type="number" pattern="(29|35|22|56)[0-9]{3}" <?php if ($_POST["PrixMin"] != "") { ?> value="<?php echo ($_POST["PrixMin"]) ?>" <?php   } ?>>
-                    </div>
-                    <p id="petitebarredeseparation">-</p>
-                    <div class="b4r3" id="adroiteuuu">
-                        <p>Nouveau prix</p>
-                        <input class="quantity" id="PrixMax" name="PrixMax" type="number" pattern="(29|35|22|56)[0-9]{3}" <?php if ($_POST["PrixMax"] != "") { ?> value="<?php echo ($_POST["PrixMax"]) ?>" <?php   } ?>>
-                    </div>
-                </div>
-                <input type="submit" value="valider" id="valideyy">
-            </div>
-        </div>
     </div>
     <script src="asset/js/calendar.js"></script>
 </body>
+
 </html>
