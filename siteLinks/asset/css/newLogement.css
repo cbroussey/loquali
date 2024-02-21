@@ -53,6 +53,11 @@
   #newLogementInput input[type="radio"] {
     display: none;
   }
+
+  input[type="checkbox"]:checked + label {
+    background-color: var(--mainColor);
+    color: #fff;
+  }
   
   /* input[type="radio"]:checked + label > img {
     border: var(--mainColor) 20px solid; 
@@ -248,6 +253,8 @@
   
     margin: 0 10%;
   }
+
+
   
   .btn_choix2_ajlog {
     display: inline-flex;

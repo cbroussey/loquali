@@ -79,6 +79,7 @@ create table logement(
     reglement_interieur varchar(255),
     id_compte integer,
     id_image_couv integer,
+    adresse varchar(255),
     constraint logement_pk primary key(id_logement),
     constraint logement_fk_proprietaire foreign key (id_compte) references proprietaire(id_compte) ON DELETE CASCADE,
     constraint logement_fk_couverture foreign key (id_image_couv) references image(id_image)
@@ -823,3 +824,6 @@ INSERT INTO api(cle, privilegie, accesCalendrier, miseIndispo, id_compte) VALUES
     ('logementavecplanning', FALSE, TRUE, TRUE, 4),
     ('azeazeazeazeazeaze', FALSE, TRUE, FALSE, 8);
 
+
+
+SELECT MAX(id_avis) FROM test.avis;"
