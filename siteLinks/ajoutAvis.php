@@ -3,11 +3,6 @@ session_start();
 error_reporting(0);
 ?>
 
-<pre>
-    <?php
-print_r($_POST);
-    ?>
-</pre>
 
 <?php
 include('connect_params.php');
@@ -31,10 +26,8 @@ try {
     die();
 }
 
-echo $id_avis_max[0]["max"];
 $aviiiiiiiiis= $id_avis_max[0]["max"] + 1;
 
-echo $aviiiiiiiiis;
 
 
 

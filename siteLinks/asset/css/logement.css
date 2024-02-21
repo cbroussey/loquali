@@ -15,7 +15,6 @@
 
 /******************************************** LOGEMENT ********************************************/
 
-
 #bg{
     background-color: var(--secondBG);
     margin: 0;
@@ -186,6 +185,7 @@
   .img_proprio_log{
     width: 130px;
     transform: scale(1);
+    transition: all 0.15s ease-in-out;
   }
   
   .img_proprio_log:hover{
@@ -196,6 +196,7 @@
   .img_avis_log{
     width: 130px;
     transform: scale(1);
+    transition: all 0.15s ease-in-out;
   }
   
   .img_avis_log:hover{
@@ -218,7 +219,8 @@
     border-radius: 50%;
   
     margin-top: -60px;
-    margin-left: 5%;
+    margin-left: 20%;
+
   }
   
   .photo_profil_proprio_log_avis{
@@ -233,7 +235,7 @@
   
     border: 2px solid var(--mainColor);
     border-radius: 50%;
-  
+
   }
   
   .block_info_log{
@@ -509,37 +511,52 @@
   .info_depart_log p{
     margin-bottom: 20px;
   }
-  
 
+  #ajoutAvisForm{
+    display: none;
+    width: 27.5%;
+    margin-right: 4.5px;
+  }
 
-  
-  
-  @media screen and (min-width: 0px) and (max-width: 740px) { 
-  
-    #bg p{
-    font-size: 10px;
-    }
-   
-    #bg h3{
-    font-size: 12px;
-    }
-   
-    #bg h2, #bg h2 span{
-    font-size: 15px;
-    }
-   
-    #bg h1{
-    font-size: 15px;
-    }
-   
-    .res_and_map_log{
-    margin-top: 0;
-    position: static;
+  #ajoutAvisForm textarea{
     width: 100%;
-    }
-   
-   
-   }
+    padding: 5px;
+  }
+
+  #ligneBasAjAvis{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 5px;
+  }
+
+  .etoileAvis label{
+    width: 20%;
+  }
+
+  .etoileAvis{
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+  }
+
+
+  #ajAvisConfirm {
+  color: #F5F5F5;
+  background-color: #2072BC;
+  border-radius: 5px;
+  width: 150px;
+  height: 45px;
+  font-size: 15px;
+  font-weight: 500;
+  }
+
+  
+  
+
   
    /* Style pour la boîte de dialogue de confirmation */
   .confirmation-modal {
@@ -706,12 +723,17 @@
     margin-right: 2%;
   }
 
+  .noteAvisLog img{
+    margin: 0 -6.5px;
+  }
+
   .ContentAvis{
     font-weight: 400;
     width: 100%;
+    word-wrap: break-word;
   }
 
-  @media screen and (min-width: 0px) and (max-width: 1100px) { 
+ /*  @media screen and (min-width: 0) and (max-width: 1100px) { 
   
     #bg h3 {
       font-size: 20px;
@@ -726,22 +748,7 @@
     margin-top: 5px;
    }
   
-   #detailgenre {
-    font-size: 15px;
-    margin-left: 10px;
-  }
-  
-  .lig_images_log_droite img {
-    display: none;
-  }
-  
-  .images_log img {
-    margin-left: 25%;
-  }
-  
-  .barre_log {
-    display: none;
-  }
+
   
   .sticky_res_and_map_log {
     background-color: #F5F5F5;
@@ -750,148 +757,317 @@
   
   }
   
-  .proprio_log {
-    width: 153px;
-    height: 77px;
-    margin-left: 0%;
+
+  
+
+
+  
+
+  
+ 
+
+  
+
+
+  
+
+  
+
+
+
+ */
+
+
+
+  @media screen and (min-width: 0px) and (max-width: 500px) { 
+
+    .titre_log_bas svg{
+      width: 15px;
+      height: auto;
+     }
     
-  }
+     .titre_log_bas p{
+      margin-top: 5px;
+     }
   
-  .details_log {
-    width: 253px;
-  height: 77px;
-  }
-  
-  .photo_profil_proprio_log {
-    background: url(asset/img/profils/4.png) center/cover;
-    width: 40px;
-    height: 40px;
-    border-radius: 40px;
-    border: 1px solid #2072BC;
-  
-    left: 25px;
-    margin-top: -15px;
-  }
-  
-  .barre_info_log {
-    padding-top: 3.5%;
-    display: flex;
-    justify-content: space-around;
-    height: 100px;
-    margin: 0 2.5%;
-  }
-  
-  
-  
-  .block_info_log h2 {
-    width: 110px;
-    height: 11px;
+    #bg p{
+    font-size: 9px;
+    }
+   
+    #bg h3{
+    font-size: 12px;
+    }
+   
+    #bg h2, #bg h2 span{
+    font-size: 13px;
+    }
+   
+    #bg h1{
     font-size: 15px;
-    font-weight: 700;
+    }
+   
+    .res_and_map_log{
+    margin-top: 0;
+    position: static;
+    width: 100%;
+    }
+
+    .dutexte h4{
+      font-size: 15px;
+      font-weight: 800;
+      text-decoration: underline;
+      width: 100%;
+
+    }
+
+    .dutexte p{
+      margin-top: 15px;
+    }
   
-    margin: 0;
-    margin-left: -20px;
-  }
+    .sep_descri_regle_log {
+      width: 90%;
+      margin: 5px;
+    }
+
+    .dutexte{
+      text-align: center;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: -25px;
+      margin-top: 20px;
+    }
+
+    .description_log, .reglement_log, .info_arrive_log, .info_depart_log {
+      width: 100%;
+    }
+
+    .group_res_info_log{
+      display: flex;
+      flex-direction: column-reverse;
+    }
+
+    .elem_reservation_log {
+      height: 27px;
+    }
+    
+    .elem_reservation_log img {
+      width: 27px;
+      height: 27px;
+    }
+
+    .rerservation_log {
+      margin-bottom: 8%;
+      background-color: #1d4c77;
+      color: var(--secondBG);
+      width: 310px;
+      border-radius: 5px;
+    
+      margin-right:   auto;
+      margin-left:auto;
+    }
+    
+    .bouton_res_log h1 {
+      font-size: 20px;
+    }
+    
+    .bouton_res_log{
+      width: 160px;
+      height: 40px;  
+    }
+    
+    .rerservation_log>.detail_reservation_log>p {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .block_info_log{
+      margin-bottom: 10px;
+    }
+    
+    .txt_details_log {
+      text-align: center;
+      margin-left: -15px; 
+    }
+
+    
+    .details_log p {
+      margin-left: 15%;
+    }
+    
+    .txt_info_log {
+      margin: 10px 0;
+    }
+
+    #nomeuhgenre{
   
-  #nomeuhgenre{
+      margin-left: 10px;
+    }
+    
+    .info_proprio_log {
+      margin-right: 10px;
+      margin-bottom: -10px;
+    
+    }
+    
+    .info_proprio_log svg{
+      width: 10px;
+      height: auto;
+    }
+
+    .contact_proprio_log{
+      margin-left: -10px;
+    }
+
+    .proprio_log {
+      width: 165px;
+      height: 80px;
+      margin-left: 0%;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+    
+    .details_log {
+      width: 280px;
+      height: 80px;
+    }
+    
+    .photo_profil_proprio_log {
+      background: url(asset/img/profils/4.png) center/cover;
+      width: 52px;
+      height: 52px;
+      border-radius: 40px;
+      border: 1px solid #2072BC;
+    
+      margin-top: -25px;
+      margin-left: 5px;
   
-    margin-left: 10px;
-  }
-  
-  .info_proprio_log {
-    margin-left: 0;
-    margin-bottom: 0;
-  
-  }
-  
-  .info_proprio_log svg{
-    width: 10px;
-    height: auto;
-  }
-  
-  .block_info_log{
-    margin-bottom: 10px;
-  }
-  
-  .txt_details_log {
-    text-align: center;
-  }
-  
-  .details_log p {
-    margin-left: 15%;
-  }
-  
-  .txt_info_log {
-    margin: 10px 0;
-  }
-  
-  .rerservation_log {
-    margin-bottom: 8%;
-    background-color: #1d4c77;
-    color: var(--secondBG);
-    width: 310px;
-    border-radius: 5px;
-  
-    margin-right:   auto;
-    margin-left:auto;
-  }
-  
-  .bouton_res_log h1 {
-    font-size: 20px;
-  }
-  
-  .bouton_res_log{
-    width: 160px;
-    height: 40px;  
-  }
-  
-  .rerservation_log>.detail_reservation_log>p {
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }
-  
-  .elem_reservation_log {
-    height: 27px;
-  }
-  
-  .elem_reservation_log img {
-    width: 27px;
-    height: 27px;
-  }
-  
-  .group_res_info_log{
-    display: flex;
-    flex-direction: column-reverse;
-  }
-  
-  #bg .description_log h4 {
-  font-size: 15px;
-  font-weight: 800;
-  }
-  
-  .description_log p {
-    margin-bottom: 10px;
-    font-weight: 300;
-  }
-  
-  .reglement_log h4 {
-    font-size: 15px;
-  font-weight: 800;
-  text-decoration: underline;
-    margin-bottom: 5%;
-  }
-  
-  #bg p {
-    font-size: 10px;
-    font-weight: 300;
-  }
-  
-  .sep_descri_regle_log {
-    width: 50%;
-    margin: 0;
-  }
-  
-  
+    }
+    
+    .barre_info_log {
+      padding-top: 3.5%;
+      display: flex;
+      justify-content: space-around;
+      height: 100px;
+      margin: 0 2.5%;
+    }
+    
+    
+    
+    .block_info_log h2 {
+      width: 110px;
+      height: 11px;
+      font-size: 15px;
+      font-weight: 700;
+    
+      margin: 0;
+      margin-left: -15px;
+    }
+    
+    #map{
+      width: 90%;
+      margin-left: 5%;
+    }
+    
+    #AjoutAvis{
+      width: 85px;
+      height: 35px;
+      font-size: 11px;
+    }
+
+    .unAvis{
+      width: 100%;
+      height: auto;
+    }
+
+    .photo_profil_proprio_log_avis{
+      width: 60px;
+      height: 60px;
+    }
+
+    .infoTxtProprioAvis{
+      justify-content: center;
+    }
+
+    .infoTxtProprioAvis h3{
+      margin-bottom: 2.5px;
+    }
+
+    .infoTxtProprioAvis p {
+      margin-top: 2.5px;
+    }
+
+    .milieuAvis{
+      justify-content: flex-start;
+      margin: 0;
+    }
+
+    .noteAvisLog{
+      width: 40%;
+      margin: 0;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      flex-wrap: nowrap;
+      margin-right: 11px;
+    }
+
+    .noteAvisLog img{
+      width: 35%;
+    }
+
+    #detailgenre {
+      font-size: 15px;
+      margin-left: 10px;
+    }
+    
+    .lig_images_log_droite img {
+      display: none;
+    }
+    
+    .images_log img {
+      width: 100%;
+    }
+    
+    .barre_log {
+      display: none;
+    }
+
+    #ajoutAvisForm{
+      margin-top: 165px;
+    }
+
+    #ajoutAvisForm textarea{
+      width: 200px;
+      margin-left: -100px;
+    }
+
+    .etoileAvis{
+      width: 150px;
+      margin-left: -100px;
+    }
+
+    .etoileAvis img{
+      max-width: 28px;
+    }
+
+    #ajAvisConfirm{
+      height: 28px;
+      font-size: 12px;
+    }
+
+    #AvisSection{
+      margin-top: -20px;
+    }
+    
+    .ContentAvis p{
+      width: 100px;
+      height: auto;
+    }
+
   }
   
   
