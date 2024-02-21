@@ -11,6 +11,33 @@ $idLogement = $_GET['id'];
 $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
 $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
+//si on a validé un formulaire, insertion/modifications des disponibilités dans la bdd
+if (isset($_POST['indispo'])) {
+    $query = "SELECT jour FROM test.planning WHERE id_logement = :id_logement;";
+    $stmt = $dbh->prepare($query);
+    $stmt->bindParam('id_logement', $idLogement, PDO::PARAM_STR);
+    $stmt->execute();
+    $daysInBdd = $stmt->fetchAll();
+    $daysInBdd = array_column($daysInBdd, 'jour');
+    $false = 0;
+
+    for ($i = 0; $i < sizeof($_POST['indispo']); $i++) {
+        $modifiedDay = addZero($_POST['year'] . '-' . $_POST['month'] . '-' . $_POST['indispo'][$i]);
+        $modifiedPrix = $_POST['allPrix'][$i];
+        if (in_array($modifiedDay, $daysInBdd)) {
+            $query = "UPDATE test.planning SET disponibilite = :disponibilite, prix_ht = :prix_ht WHERE id_logement = :id_logement AND jour = :jour;";
+        } else {
+            $query = "INSERT INTO test.planning(disponibilite, prix_ht, jour, id_logement) VALUES (:disponibilite, :prix_ht, :jour, :id_logement);";
+        }
+        $stmt = $dbh->prepare($query);
+        $stmt->bindParam('disponibilite', $false, PDO::PARAM_INT);
+        $stmt->bindParam('prix_ht', $modifiedPrix, PDO::PARAM_INT);
+        $stmt->bindParam('id_logement', $idLogement, PDO::PARAM_STR);
+        $stmt->bindParam('jour', $modifiedDay, PDO::PARAM_STR);
+        $stmt->execute();
+    }
+}
+
 //récupération du prix de base du logement
 $query = "SELECT prix_base_ht FROM test.logement WHERE id_logement = :id_logement;";
 $stmt = $dbh->prepare($query);
@@ -88,30 +115,6 @@ if (isset($_POST['prevOrNext'])) {
 //récupération de tous les jours disponible dans le mois
 $dispoInMonth = getAnavailableDaysInOneMonth($month, $dispo);
 
-echo "<pre>";
-print_r($dispoInMonth);
-echo "</pre>";
-
-//récupération des jours cochés par l'utilisateur au mois précédent/suivant
-if (isset($_POST['dispo'])) {
-
-    print_r($_POST['dispo']);
-
-    foreach ($_POST['dispo'] as $day) {
-        if (!in_array($day, $dispo)) {
-            $day = $_POST['year'] . "-" . $_POST['month'] . "-$day";
-            print_r($day);
-            $query = "INSERT INTO test.planning (disponibilite, jour, id_logement) VALUES (:dispo, :jour, :idLogement)";
-            $stmt = $dbh->prepare($query);
-            $boolean = false;
-            $stmt->bindParam('dispo', $boolean, PDO::PARAM_BOOL);
-            $stmt->bindParam(':jour', $day, PDO::PARAM_STR);
-            $stmt->bindParam('idLogement', $idLogement, PDO::PARAM_INT);
-            $stmt->execute();
-        }
-    }
-}
-
 //si l'utilisateur clique sur "valider", il est redirigé vers son compte
 if ($_POST['prevOrNext'] == 'submit') {
     header("Location: compte.php");
@@ -142,7 +145,11 @@ if ($_POST['prevOrNext'] == 'submit') {
 
             <?php
             $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $month, $year);
-            $monthName = date("F", mktime(0, 0, 0, $month, 1, date("Y")));
+            $monthsInFrench = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
+            $monthName = $monthsInFrench[$month - 1];
+
+            $firstDayOfMonth = date("N", mktime(0, 0, 0, $month, 1, $year));
+            $currentDayOfWeek = $firstDayOfMonth - 1;
             ?>
 
             <div id="directionChoice">
@@ -167,10 +174,6 @@ if ($_POST['prevOrNext'] == 'submit') {
                 </tr>
                 <tr>
                     <?php
-                    $firstDayOfMonth = date("N", mktime(0, 0, 0, $month, 1, $year));
-                    $currentDayOfWeek = $firstDayOfMonth - 1;
-
-
                     // Remplir les cases vides avant le premier jour du mois
                     for ($i = 0; $i < $currentDayOfWeek; $i++) {
                         echo '<td></td>';
@@ -183,15 +186,23 @@ if ($_POST['prevOrNext'] == 'submit') {
                         echo '<td class="cal-data">';
 
                         //affichage du prix
-                        if (in_array($cDay, $dispoInMonth)) {
+                        if (array_key_exists($cDay, $dispoInMonth)) {
                             $prix = $dispoInMonth[$cDay][0];
+                            if ($dispoInMonth[$cDay][1] != 1) {
+                                $checked = true;
+                                $prix = 0;
+                            } else {
+                                $checked = false;
+                            }
                         } else {
                             $prix = $prixBase;
+                            $checked = false;
                         }
-                        echo '<label class="nbjourcalend" for="case-' . $i . '">' . $i . ' <div class="prixdujour"> <p>' . $prix . '€</p> </div>  </label> ';
+                        echo '<input type="hidden" name="allPrix[]" value=' . $prix . '>';
+                        echo '<label class="nbjourcalend" for="case-' . $i . '">' . $i . ' <div class="prixdujour"> <p> ' . $prix . ' €</p> </div>  </label> ';
 
                         //affichage du jour
-                        echo '<input class="nbcasejourcalend" id="case-' . $i . '" type="checkbox" name="dispo[]" value=' . $i . ' ' . ($checked ? 'checked' : '') . '>';
+                        echo '<input class="nbcasejourcalend" id="case-' . $i . '" type="checkbox" name="indispo[]" value=' . $i . ' ' . ($checked ? 'checked onclick="this.checked=true"' : 'onclick="this.checked=false"') . '>';
                         echo '</td>';
 
                         // Passer à la nouvelle ligne chaque fois que nous atteignons la fin d'une semaine
@@ -213,7 +224,9 @@ if ($_POST['prevOrNext'] == 'submit') {
 
             <div id="petitmenuprix">
                 <div id="barreselectionjour">
-                    <p id="date">February 2024 / Mercredi 7</p>
+                    <p id="date">
+                        <?php echo $monthName . ' ' . $year ?>
+                    </p>
                     <div>
                         <p>logement disponible</p>&nbsp;&nbsp;
                         <label class="switch">
@@ -227,15 +240,13 @@ if ($_POST['prevOrNext'] == 'submit') {
                         <div class="b4r3">
                             <p>Prix actuel</p>
                             <input class="quantity" id="PrixMin" name="PrixMin" type="number"
-                                pattern="(29|35|22|56)[0-9]{3}" <?php if ($_POST["PrixMin"] != "") { ?>
-                                    value="<?php echo ($_POST["PrixMin"]) ?>" <?php } ?>>
+                                pattern="(29|35|22|56)[0-9]{3}" value="">
                         </div>
                         <p id="petitebarredeseparation">-</p>
                         <div class="b4r3" id="adroiteuuu">
                             <p>Nouveau prix</p>
                             <input class="quantity" id="PrixMax" name="PrixMax" type="number"
-                                pattern="(29|35|22|56)[0-9]{3}" <?php if ($_POST["PrixMax"] != "") { ?>
-                                    value="<?php echo ($_POST["PrixMax"]) ?>" <?php } ?>>
+                                pattern="(29|35|22|56)[0-9]{3}" value="">
                         </div>
                     </div>
                     <input type="submit" value="valider" id="valideyy">
