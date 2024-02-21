@@ -1,19 +1,124 @@
 <?php
 session_start();
-error_reporting(0); 
+error_reporting(0);
 
-function getAvailableDaysInOneMonth($month, $data) {
+include('connect_params.php');
+
+//récupération de l'id du logement
+$idLogement = $_GET['id'];
+
+//initialisation bdd
+$dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
+$dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+
+//récupération du prix de base du logement
+$query = "SELECT prix_base_ht FROM test.logement WHERE id_logement = :id_logement;";
+$stmt = $dbh->prepare($query);
+$stmt->bindParam('id_logement', $idLogement, PDO::PARAM_STR);
+$stmt->execute();
+$prixBase = $stmt->fetch()['prix_base_ht'];
+
+//requête de récupération de toutes les dates indisponibles du logement
+$query = "SELECT disponibilite, jour, prix_ht, raison_indisponible FROM test.planning WHERE id_logement = :id_logement;";
+$stmt = $dbh->prepare($query);
+$stmt->bindParam('id_logement', $idLogement, PDO::PARAM_STR);
+$stmt->execute();
+$dispo = $stmt->fetchAll();
+
+//fonction qui renvoie les jours indisponibles d'un mois ($month) donné
+function getAnavailableDaysInOneMonth($month, $data)
+{
     $availableDays = array();
     foreach ($data as $value) {
-        $day = explode("-", $value);
+        $day = explode("-", $value['jour']);
+        //vérification du mois et de l'indisponibilité du logement
         if ($day[1] == $month) {
-            array_push($availableDays, $value);
+            $availableDays[$value['jour']] = [$value['prix_ht'], $value['disponibilite']];
         }
     }
     return $availableDays;
 }
 
+//fonction qui rajoute des zéros à une date pour avoir le format attendu
+function addZero($date)
+{
+    //divise la date en année, mois et jour
+    $explodedDate = explode('-', $date);
+    $year = $explodedDate[0];
+    $month = $explodedDate[1];
+    $day = $explodedDate[2];
+
+    // Ajouter des zéros si nécessaire
+    if (strlen($month) < 2) {
+        $month = '0' . $month;
+    }
+    if (strlen($day) < 2) {
+        $day = '0' . $day;
+    }
+
+    return "$year-$month-$day";
+}
+
+if (isset($_POST['prevOrNext'])) {
+
+    //passe au mois suivant si l'utilisateur clique sur "suivant"
+    if ($_POST['prevOrNext'] == 'next') {
+        $month = $_POST['month'] + 1;
+        $year = $_POST['year'];
+        if ($month > 12) {
+            $month = 1;
+            $year += 1;
+        }
+        //passe au mois suivant si l'utilisateur clique sur "précédent"
+    } else if ($_POST['prevOrNext'] == 'prev') {
+        $month = $_POST['month'] - 1;
+        $year = $_POST['year'];
+        if ($month <= 0) {
+            $month = 12;
+            $year -= 1;
+        }
+    }
+
+} else {
+    $today = explode('-', date("Y-m-d"));
+    $month = $today[1];
+    $year = $today[0];
+}
+
+//récupération de tous les jours disponible dans le mois
+$dispoInMonth = getAnavailableDaysInOneMonth($month, $dispo);
+
+echo "<pre>";
+print_r($dispoInMonth);
+echo "</pre>";
+
+//récupération des jours cochés par l'utilisateur au mois précédent/suivant
+if (isset($_POST['dispo'])) {
+
+    print_r($_POST['dispo']);
+
+    foreach ($_POST['dispo'] as $day) {
+        if (!in_array($day, $dispo)) {
+            $day = $_POST['year'] . "-" . $_POST['month'] . "-$day";
+            print_r($day);
+            $query = "INSERT INTO test.planning (disponibilite, jour, id_logement) VALUES (:dispo, :jour, :idLogement)";
+            $stmt = $dbh->prepare($query);
+            $boolean = false;
+            $stmt->bindParam('dispo', $boolean, PDO::PARAM_BOOL);
+            $stmt->bindParam(':jour', $day, PDO::PARAM_STR);
+            $stmt->bindParam('idLogement', $idLogement, PDO::PARAM_INT);
+            $stmt->execute();
+        }
+    }
+}
+
+//si l'utilisateur clique sur "valider", il est redirigé vers son compte
+if ($_POST['prevOrNext'] == 'submit') {
+    header("Location: compte.php");
+    exit();
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,92 +129,18 @@ function getAvailableDaysInOneMonth($month, $data) {
     <link rel="stylesheet" href="asset/css/headerAndFooter.css">
     <title>Document</title>
 </head>
+
+<!-- inclusion du header -->
 <?php include "header.php" ?>
 
 <body>
     <div id="centerCalendar">
         <form id="calendar" method="post">
+
+            <input type="hidden" name="year" value=<?php echo $year ?>>
+            <input type="hidden" name="month" value=<?php echo $month ?>>
+
             <?php
-            include('connect_params.php');
-
-            $idLogement = $_GET['id'];
-            $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
-            $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-            $query = "SELECT jour FROM test.planning WHERE id_logement = :id_logement;";
-            $stmt = $dbh->prepare($query);
-            $stmt->bindParam('id_logement', $idLogement, PDO::PARAM_STR);
-            $stmt->execute();
-            $dispo = $stmt->fetchAll();
-
-            //print_r($dispo);
-            
-            if (!isset($_SESSION['dispo'])) {
-                $_SESSION['dispo'] = [];
-            }
-
-            if (isset($_POST['year'])) {
-
-                //passe au mois suivant si on clique sur suivant, au mois précédent sinon
-                if ($_POST['prevOrNext'] == 'next') {
-                    $month = $_POST['month'] + 1;
-                    $year = $_POST['year'];
-                    if ($month > 12) {
-                        $month = 1;
-                        $year += 1;
-                    }
-                } else if ($_POST['prevOrNext'] == 'prev') {
-                    $month = $_POST['month'] - 1;
-                    $year = $_POST['year'];
-                    if ($month <= 0) {
-                        $month = 12;
-                        $year -= 1;
-                    }
-                }
-
-                $query = "DELETE FROM test.planning WHERE EXTRACT(MONTH FROM jour) = :currentMonth AND id_logement = :idLogement";
-                $stmt = $dbh->prepare($query);
-                $stmt->bindParam('currentMonth', $month, PDO::PARAM_INT);
-                $stmt->bindParam('idLogement', $idLogement, PDO::PARAM_INT);
-                $stmt->execute();
-
-                foreach ($_POST['dispo'] as $day) {
-                    $day = $_POST['year'] . "-" . $_POST['month'] . "-$day";
-                    $query = "INSERT INTO test.planning (disponibilite, jour, id_logement) VALUES (:dispo, :jour, :idLogement)";
-                    $stmt = $dbh->prepare($query);
-                    $boolean = false;
-                    $stmt->bindParam('dispo', $boolean, PDO::PARAM_BOOL);
-                    $stmt->bindParam(':jour', $day, PDO::PARAM_STR);
-                    $stmt->bindParam('idLogement', $idLogement, PDO::PARAM_INT);
-                    $stmt->execute();
-                }
-                if ($_POST['prevOrNext'] == 'submit') {
-                    header("Location: compte.php");
-                    exit();
-                }
-
-                ?>
-
-                <input type="hidden" name="year" value=<?php echo $year ?>>
-                <input type="hidden" name="month" value=<?php echo $month ?>>
-
-                <?php
-            } else {
-                $today = explode('-', date("Y-m-d"));
-                $month = $today[1];
-                $year = $today[0];
-
-                $query = "DELETE FROM test.planning WHERE EXTRACT(MONTH FROM jour) = :currentMonth AND id_logement = :idLogement";
-                $stmt = $dbh->prepare($query);
-                $stmt->bindParam('currentMonth', $month, PDO::PARAM_INT);
-                $stmt->bindParam('idLogement', $idLogement, PDO::PARAM_INT);
-                $stmt->execute();
-                ?>
-
-                <input type="hidden" name="year" value=<?php echo $year ?>>
-                <input type="hidden" name="month" value=<?php echo $month ?>>
-
-                <?php
-            }
             $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $month, $year);
             $monthName = date("F", mktime(0, 0, 0, $month, 1, date("Y")));
             ?>
@@ -137,7 +168,6 @@ function getAvailableDaysInOneMonth($month, $data) {
                 <tr>
                     <?php
                     $firstDayOfMonth = date("N", mktime(0, 0, 0, $month, 1, $year));
-                    $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $month, $year);
                     $currentDayOfWeek = $firstDayOfMonth - 1;
 
 
@@ -147,10 +177,20 @@ function getAvailableDaysInOneMonth($month, $data) {
                     }
 
                     for ($i = 1; $i <= $daysInMonth; $i++) {
-                        $cDay = $year . "-" . $month . "-$i";
-                        $checked = in_array($cDay, $dispo);
+                        $cDay = addZero($year . "-" . $month . "-$i");
+
+                        //ouverture de la cellule
                         echo '<td class="cal-data">';
-                        echo '<label class="nbjourcalend" for="case-' . $i . '">' . $i . ' <div class="prixdujour"> <p> prix : </p> </div>  </label> ';
+
+                        //affichage du prix
+                        if (in_array($cDay, $dispoInMonth)) {
+                            $prix = $dispoInMonth[$cDay][0];
+                        } else {
+                            $prix = $prixBase;
+                        }
+                        echo '<label class="nbjourcalend" for="case-' . $i . '">' . $i . ' <div class="prixdujour"> <p>' . $prix . '€</p> </div>  </label> ';
+
+                        //affichage du jour
                         echo '<input class="nbcasejourcalend" id="case-' . $i . '" type="checkbox" name="dispo[]" value=' . $i . ' ' . ($checked ? 'checked' : '') . '>';
                         echo '</td>';
 
