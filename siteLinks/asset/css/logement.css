@@ -15,7 +15,6 @@
 
 /******************************************** LOGEMENT ********************************************/
 
-
 #bg{
     background-color: var(--secondBG);
     margin: 0;
@@ -186,6 +185,7 @@
   .img_proprio_log{
     width: 130px;
     transform: scale(1);
+    transition: all 0.15s ease-in-out;
   }
   
   .img_proprio_log:hover{
@@ -196,6 +196,7 @@
   .img_avis_log{
     width: 130px;
     transform: scale(1);
+    transition: all 0.15s ease-in-out;
   }
   
   .img_avis_log:hover{
@@ -219,6 +220,7 @@
   
     margin-top: -60px;
     margin-left: 5%;
+
   }
   
   .photo_profil_proprio_log_avis{
@@ -233,7 +235,7 @@
   
     border: 2px solid var(--mainColor);
     border-radius: 50%;
-  
+
   }
   
   .block_info_log{
@@ -509,8 +511,48 @@
   .info_depart_log p{
     margin-bottom: 20px;
   }
-  
 
+  #ajoutAvisForm{
+    display: none;
+    width: 27.5%;
+    margin-right: 4.5px;
+  }
+
+  #ajoutAvisForm textarea{
+    width: 100%;
+    padding: 5px;
+  }
+
+  #ligneBasAjAvis{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 5px;
+  }
+
+  .etoileAvis label{
+    width: 20%;
+  }
+
+  .etoileAvis{
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+  }
+
+
+  #ajAvisConfirm {
+  color: #F5F5F5;
+  background-color: #2072BC;
+  border-radius: 5px;
+  width: 150px;
+  height: 45px;
+  font-size: 15px;
+  font-weight: 500;
+  }
 
   
   

@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 // Si la case est cochée, cocher les cases précédentes
                 for (let i = 0; i <= index; i++) {
                     checkboxes[i].checked = true;
-                    checkboxes[i].parentElement.querySelector('.star-img').src = 'asset/icons/bleu/star.svg';
+                    checkboxes[i].parentElement.querySelector('.star-img').src = 'asset/icons/bleu/star2.svg';
                 }
             } else {
                 // Si la case est décochée, décocher les cases suivantes
@@ -31,12 +31,13 @@ function closeModal2() {
 
 document.getElementById("AjoutAvis").addEventListener("click", function() {
     var formulaire = document.getElementById("ajoutAvisForm");
+    var btnAjAvis = document.getElementById("AjoutAvis");
     if (formulaire.style.display === "none") {
         formulaire.style.display = "block";
+        btnAjAvis.style.display = "none";
     } else {
         formulaire.style.display = "none";
     }
 });
-
 
 

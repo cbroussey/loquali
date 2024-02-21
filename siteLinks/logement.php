@@ -1022,48 +1022,51 @@ try {
                             if ($_SESSION['userType'] == "client") {
 
                                 ?>
-                                <div id="ajoutAvisForm">
+                                <div id="ajoutAvisForm" >
                                     <form action="ajoutAvis.php" method="POST" >
-                                        <input type="text-area" name="descriptionAvis">
-                                        <div class="etoileAvis">
-                                            <label class="container" id="etoile1">
-                                                <input type="checkbox" class="btn_note_avis" id="1Etoile" name="note"
-                                                    value="1">
+                                        <textarea rows="7" cols="50" type="text-area" name="descriptionAvis" placeholder="Magnifique maison en bord de mer"></textarea>
+                                        <div id="ligneBasAjAvis">
+
+                                            <div class="etoileAvis">
+                                                <label class="container" id="etoile1">
+                                                    <input type="checkbox" class="btn_note_avis" id="1Etoile" name="note"
+                                                        value="1">
+                                                        <img class="star-img" src="asset/icons/blanc/star.svg"
+                                                        width="40px">
+                                                </label>
+
+                                                <label class="container" id="etoile2">
+                                                    <input type="checkbox" class="btn_note_avis" id="2Etoile" name="note"
+                                                        value="2">
+                                                        <img class="star-img" src="asset/icons/blanc/star.svg"
+                                                        width="40px">
+                                                </label>
+
+                                                <label class="container" id="etoile3">
+                                                    <input type="checkbox" class="btn_note_avis" id="3Etoile" name="note"
+                                                        value="3">
+                                                        <img class="star-img" src="asset/icons/blanc/star.svg"
+                                                        width="40px">
+                                                </label>
+
+                                                <label class="container" id="etoile4">
+                                                    <input type="checkbox" class="btn_note_avis" id="4Etoile" name="note"
+                                                        value="4">
+                                                        <img class="star-img" src="asset/icons/blanc/star.svg"
+                                                        width="40px">
+                                                </label>
+
+                                                <label class="container" id="etoile5">
+                                                    <input type="checkbox" class="btn_note_avis" id="5Etoile" name="note"
+                                                        value="5">
                                                     <img class="star-img" src="asset/icons/blanc/star.svg"
-                                                    width="40px">
-                                            </label>
+                                                        width="40px">
+                                                </label>
 
-                                            <label class="container" id="etoile2">
-                                                <input type="checkbox" class="btn_note_avis" id="2Etoile" name="note"
-                                                    value="2">
-                                                    <img class="star-img" src="asset/icons/blanc/star.svg"
-                                                    width="40px">
-                                            </label>
-
-                                            <label class="container" id="etoile3">
-                                                <input type="checkbox" class="btn_note_avis" id="3Etoile" name="note"
-                                                    value="3">
-                                                    <img class="star-img" src="asset/icons/blanc/star.svg"
-                                                    width="40px">
-                                            </label>
-
-                                            <label class="container" id="etoile4">
-                                                <input type="checkbox" class="btn_note_avis" id="4Etoile" name="note"
-                                                    value="4">
-                                                    <img class="star-img" src="asset/icons/blanc/star.svg"
-                                                    width="40px">
-                                            </label>
-
-                                            <label class="container" id="etoile5">
-                                                <input type="checkbox" class="btn_note_avis" id="5Etoile" name="note"
-                                                    value="5">
-                                                <img class="star-img" src="asset/icons/blanc/star.svg"
-                                                    width="40px">
-                                            </label>
-
+                                            </div>
+                                            <input type="hidden" name="id" value="<?php echo $_GET["id"]; ?>" checked>
+                                            <input type="submit" value="Confirmer" id="ajAvisConfirm">
                                         </div>
-                                        <input type="submit" name="id" value="<?php echo $_GET["id"]; ?>">
-
                                     </form>
                                 </div>
                                 <?php
@@ -1072,9 +1075,14 @@ try {
                                 <div class="confirmation-modal" id="myModal5">
                                     <div class="modal-content">
                                         <span class="close" onclick="refusRedirect2()">&times;</span>
-                                        <p>Vous ne pouvez pas créer d'avis car vous n'êtes pas connecté en tant que client
+                                        <p>Vous ne pouvez pas créer d'avis car vous n'êtes pas connecté en tant que client. Voulez-vous vous connectez ?
                                         </p>
                                         <input type="hidden" name="confirmDelete" value="<?php echo $id ?>">
+                                        <form
+                                            action="<?php if ($_SESSION['userType']=="proprietaire") { ?>connexion.php<?php } else { ?>connexion.php<?php } ?>"
+                                            method="POST">
+                                            <button class="confirm-button" >Confirmer</button>
+                                        </form>
 
                                     </div>
                                 </div>
