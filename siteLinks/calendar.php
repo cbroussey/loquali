@@ -230,7 +230,7 @@ if ($_POST['prevOrNext'] == 'submit') {
                     <div>
                         <p>logement disponible</p>&nbsp;&nbsp;
                         <label class="switch">
-                            <input type="checkbox">
+                            <input type="checkbox" name="isAvailable">
                             <span class="slider round"></span>
                         </label>
                     </div>
