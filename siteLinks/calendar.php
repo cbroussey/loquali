@@ -117,8 +117,8 @@ $dispoInMonth = getAnavailableDaysInOneMonth($month, $dispo);
 
 //si l'utilisateur clique sur "valider", il est redirigé vers son compte
 if ($_POST['prevOrNext'] == 'submit') {
-    header("Location: compte.php");
-    exit();
+    //header("Location: compte.php");
+    //exit();
 }
 ?>
 

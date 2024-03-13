@@ -423,31 +423,31 @@ try {
 
     <?php
     // ACCUEIL
-    include "./pagesAccount/homePage.php";
+    include "./account/homePage.php";
 
     // INFORMATION
-    include "./pagesAccount/personalInformations.php";
+    include "./account/personalInformations.php";
 
     // CONNEXION
-    include "./pagesAccount/connexion.php";
+    include "./account/connexion.php";
 
     // LOGEMENTS / RESERVATIONS
     if ($_SESSION['userType'] == "client") {  //si l'utilisateur est client, on affiche ses réservations
-      include "./pagesAccount/reservations.php";
+      include "./account/reservations.php";
     } else if ($_SESSION['userType'] == "proprietaire") { //si l'utilisateur est propriétaire, on affiche ses logemements
-      include "./pagesAccount/logements.php";
+      include "./account/logements.php";
     } else {  //cas d'erreur
       echo "Erreur : Type d'utilisateur incorrect ou absent.";
     }
 
     // DEVIS
-    include "./pagesAccount/devis.php";
+    include "./account/devis.php";
 
     // PAIEMENT / API
     if ($_SESSION['userType'] == "client") { //si l'utilisateur est client, on affiche ses modes de paiement
-      include "./pagesAccount/paiement.php";
+      include "./account/paiement.php";
     } else if ($_SESSION['userType'] == "proprietaire") { //si l'utilisateur est propriétaire, on affiche l'API synchronisator
-      include "./pagesAccount/api.php";
+      include "./account/api.php";
     } else {  //cas d'erreur
       echo "Erreur : Type d'utilisateur incorrect ou absent.";
     }
