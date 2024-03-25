@@ -280,11 +280,12 @@ create table facture(
 
 create table api(
     cle varchar(32),
-    privilegie boolean,
-    accesCalendrier boolean,
-    miseIndispo boolean,
-    --miseDispo boolean,
-    id_compte integer,
+    privilegie boolean DEFAULT FALSE,
+    accesCalendrier boolean DEFAULT FALSE,
+    miseIndispo boolean DEFAULT FALSE,
+    miseDispo boolean DEFAULT FALSE,
+    id_compte integer DEFAULT FALSE,
+    CHECK ((miseDispo = FALSE) OR ((privilegie <> TRUE) AND (accesCalendrier <> TRUE) AND (miseIndispo <> TRUE))),
     constraint api_pk primary key(cle),
     constraint api_fk_compte foreign key (id_compte) references compte(id_compte) ON DELETE CASCADE
 );
