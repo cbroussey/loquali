@@ -184,7 +184,8 @@ try {
       <p class="personneheader"><span class="nompersonne">
           <?php echo ($infos['nom']) ?>
           <?php echo ($infos['prenom']) ?> &#160;&#160;&#160;&#160; ●
-        </span><span class="personne">propriétaire</span></p>
+        </span><span class="personne">propriétaire</span>
+      </p>
 
       <style>
         body {
@@ -199,11 +200,7 @@ try {
           color: white;
         }
 
-        #AucunLogementCompte {
-          color: white;
-          text-shadow: -1px -1px 1px rgba(255, 255, 255, 0.2), 1px 1px 1px rgba(0, 0, 0, 0.6);
-        }
-
+  
         #bonjour,
         #textchange,
         #compteInfosPerso,

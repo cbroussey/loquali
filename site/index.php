@@ -733,7 +733,10 @@ if ($_SESSION["userType"] == "proprietaire") {
 
   </div>
 
-  <a id="plus">plus</a>
+  <div id="affplus">
+    <p>Poursuivre la recherche des logements..</p>
+    <a id="plus">Afficher plus</a>
+  </div>
 
 
 

@@ -937,15 +937,38 @@ input[type="checkbox"] {
   color:#000;
   }
 
+
+  #affplus{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  
+    margin: 1em;
+  }
+  
   #plus {
-    background-color: green;
-    color: red;
+    width: 10%;
+    padding: 1em 1.5em;
+    margin: 0.5em;
+    background-color: #2072BC;
+    color: white;
+    font-weight: 700;
+    text-align: center;
+    border-radius: 10px;
+
     transition: all 0.2s;
+
+
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
   }
 
   #plus:hover{
-    background-color: yellow;
-    color: black;
+    background-color:#133250;
     transition: all 0.2s;
   }
 
@@ -1024,3 +1047,5 @@ input[type="checkbox"] {
   }
 
 }
+
+
