@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="asset/css/modif.css">
     <link rel="stylesheet" href="asset/css/headerAndFooter.css">
     <link rel="stylesheet" href="asset/css/logement.css">
+    <link rel="stylesheet" href="asset/css/previsualisation.css">
 
 
 </head>
@@ -895,33 +896,26 @@
                         
                     </div>
 
-                    <div class="button_valider">
-                        <a href="index.php">Modifier le logement</a>
-                    </div>
-                    <div class="button_refuser" id="btn_ann_modif">
-                        <a href="modifLogement.php?id=<?php echo ($id) ?>" onclick="afficherPopup()">Annuler</a>
-                    </div>
-
-                    <div id="overlay"></div>
-                    <div id="popup">
-                        <p>Etes-vous sûr de vouloir annuler la création du logement ?</p>
-                        <div class="button_confirmation">
-                            
-                            <a href="#" id="annuler" onclick="cacherPopup()">Non</a>
-                            <a href="index.php" id="confirmer" onclick="confirmerRefus()">
-                                <?php $id_log=2; ?>
-                                <form method="post">
-                                    <input type="text" value="<?php echo htmlentities($id_log) ?>" style='display:"none"' id="id_log">
-                                    <input type="submit" value="Oui" />
-                                </form>
-                            </a>
-                        </div>
-                    </div>
+                    
                     
                 </div>
 
 
-                    
+                <div class="button_valider">
+                        <a href="index.php">Modifier le logement</a>
+                </div>
+
+                <div class="button_refuser">
+                    <button  onclick="openModal()">Annuler</button>
+                </div>
+
+                <div class="confirmation-modal button_annuler" id="myModal">
+                    <div class="modal-content">
+                        <span class="close" onclick="closeModal()">&times;</span>
+                        <p>Êtes-vous sûr de vouloir annuler la modification de ce logement ?</p>
+                            <a href="modifLogement.php?id=<?php echo ($id) ?>" class="confirm-button">Confirmer</a>
+                    </div>
+                </div>
                     
 
 
@@ -1049,7 +1043,8 @@
 </div>
 
 </footer>
-    <script src="asset/js/script.js"></script>
+<script src="asset/js/script.js"></script>
+    <script src = "asset/js/boutonSupprimer.js"></script>
 
 </body>
 </html>

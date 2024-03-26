@@ -40,7 +40,6 @@
     <link rel="stylesheet" href="asset/css/headerAndFooter.css">
     <link rel="stylesheet" href="asset/css/logement.css">
 
-
 </head>
 <body>
         <?php  /* Gros ajout à la bdd afin de crée un logement avec toutes les informations que le propriétaire à remplit */
