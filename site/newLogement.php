@@ -181,7 +181,7 @@
             
                     <!-- Bouton pour passer à la page suivante qui se click seulement si toutes les informations sont remplit-->
                     <div class="barre_btn_fin_form">
-                        <a href="logement.html">Annuler</a>
+                        <a href="compte.php">Annuler</a>
                         <a href="#" class="Suivant" id="suivantBtn1">Suivant</a>
                     </div>
                     

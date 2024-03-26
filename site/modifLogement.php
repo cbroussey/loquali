@@ -312,7 +312,7 @@
             
                         
                     <div class="barre_btn_fin_form">
-                        <a href="logement.html">Annuler</a>
+                        <a href="compte.php">Annuler</a>
                         <a href="#" class="Suivant" id="suivantBtn1">Suivant</a>
                     </div>
                     

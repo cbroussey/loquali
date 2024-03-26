@@ -10,8 +10,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="asset/css/headerAndFooter.css">
     <link rel="stylesheet" href="asset/css/style.css">
+    <link rel="stylesheet" href="asset/css/pagePerso.css">
     <link rel="stylesheet" href="asset/css/pageProprio.css">
-
     <title>Document</title>
 </head>
 <body>

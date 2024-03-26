@@ -30,13 +30,11 @@ $aviiiiiiiiis= $id_avis_max[0]["max"] + 1;
 
 
 
-
 try {
-
     $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
     $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-    $query = "INSERT INTO test.avis (id_avis, contenu, id_logement, note_avis, id_compte) VALUES
-(:id_avis, :newValue, :id_log, :note, :id_compte);";
+    $query = "INSERT INTO test.avis (id_avis, contenu, id_logement, note_avis, id_compte, date_avis) VALUES
+(:id_avis, :newValue, :id_log, :note, :id_compte, NOW());";
 
     $stmt = $dbh->prepare($query);
     $stmt->bindParam(':newValue', $_POST["descriptionAvis"], PDO::PARAM_STR);
@@ -45,10 +43,8 @@ try {
     $stmt->bindParam(':note', $_POST["note"], PDO::PARAM_INT);
     $stmt->bindParam(':id_compte', $_SESSION["userId"], PDO::PARAM_INT);
     $stmt->execute();
-    $aviss = $stmt->fetchAll();
 
-    $rrrrrrrrrrrowCount2 = $stmt->rowCount();
-
+    $rowCount2 = $stmt->rowCount();
 } catch (PDOException $e) {
     print "Erreur !: " . $e->getMessage() . "<br/>";
     die();

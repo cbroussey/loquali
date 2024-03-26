@@ -32,7 +32,6 @@
   
   h2 span{
     font-weight: bold;
-    font-size: 25px;
   }
   
   .txt_details_log{
@@ -380,6 +379,10 @@
     align-items: center;
     margin: 3% 0;
   }
+
+  .haut_rerservation_log h2{
+    font-size: 20px;
+  }
   
   .bouton_res_log h1 {
     color: #fff;
@@ -392,7 +395,7 @@
     color: var(--secondBG);
     border-radius: 5px;
     height: 60px;
-    width: 250px;
+    width: 240px;
     justify-content: center;
     align-items: center;
     transform: scale(1);
