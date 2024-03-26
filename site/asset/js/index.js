@@ -36,7 +36,6 @@ function search(e) {
             params += valeurs[i].name + "=" + valeurs[i].value + "&"; // type
         }
     }
-    console.log(params);
     fetch(`./search.php?${params}`).then((r) => {
         return r.text();
     }).then((s) => {
@@ -146,16 +145,7 @@ if (radioButtonOwner) { //vérifie si l'élément existe pour éviter les erreur
 }
 
 
-/* Mise en place de la restriction de saise */
 
-const champTel = document.getElementById("telephone");
-
-document.addEventListener("DOMContentLoaded", function () {
-    champTel.addEventListener("input", function (event) {
-        // Remplacer tout caractère non numérique par une chaîne vide
-        this.value = this.value.replace(/\D/g, "");
-    });
-});
 
 
 function toggleFiltre() {
@@ -198,3 +188,44 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
+
+
+const list = document.getElementById('listMaison');
+const plus = document.getElementById('plus');
+
+let page = 1;
+let nbElemPage = 10;
+let pageMax = Math.ceil(list.getElementsByClassName('maison').length / nbElemPage);
+
+console.log(list.getElementsByClassName('maison').length)
+
+const test = list.getElementsByClassName('maison');
+
+for (let i = 0; i < list.getElementsByClassName('maison').length; i++){  
+    if (i<page*nbElemPage) {
+        test[i].style.display = 'block'
+        console.log('oui')
+    } else {
+        test[i].style.display = 'none'
+        console.log('non')
+    }
+}
+
+plus.addEventListener('click', function() {
+    if (page < pageMax) {
+        page++;
+    }
+    console.log(page)
+    for (let i = 0; i < list.getElementsByClassName('maison').length; i++){  
+        if (i<page*nbElemPage) {
+            test[i].style.display = 'block'
+            console.log('oui')
+        } else {
+            test[i].style.display = 'none'
+            console.log('non')
+        }
+    }
+});
+
+
+

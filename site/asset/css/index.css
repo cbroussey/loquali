@@ -937,6 +937,20 @@ input[type="checkbox"] {
   color:#000;
   }
 
+  #plus {
+    background-color: green;
+    color: red;
+    transition: all 0.2s;
+  }
+
+  #plus:hover{
+    background-color: yellow;
+    color: black;
+    transition: all 0.2s;
+  }
+
+
+
   @media screen and (min-width: 0px) and (max-width: 500px) { 
 
   #Liste_Filtre {

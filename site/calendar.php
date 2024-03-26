@@ -117,8 +117,8 @@ $dispoInMonth = getAnavailableDaysInOneMonth($month, $dispo);
 
 //si l'utilisateur clique sur "valider", il est redirigé vers son compte
 if ($_POST['prevOrNext'] == 'submit') {
-    header("Location: compte.php");
-    exit();
+    //header("Location: compte.php");
+    //exit();
 }
 ?>
 
@@ -230,7 +230,7 @@ if ($_POST['prevOrNext'] == 'submit') {
                     <div>
                         <p>logement disponible</p>&nbsp;&nbsp;
                         <label class="switch">
-                            <input type="checkbox">
+                            <input type="checkbox" name="isAvailable">
                             <span class="slider round"></span>
                         </label>
                     </div>
