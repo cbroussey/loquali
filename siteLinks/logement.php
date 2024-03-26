@@ -1181,6 +1181,10 @@ try {
                                             ?>
                                         </div>
 
+                                        <?php
+                                            
+                                        ?>
+
                                         <p>Il y a 2 jours</p>
                                     </div>
 
