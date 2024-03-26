@@ -19,7 +19,7 @@
         </div>
         <input type="submit" value="Supprimer">
       </form>
-      <div class="separateur3"></div>
+      <div class="compteSeparateur1"></div>
     <?php }
   } else { ?>
     <p id="AucuneCarte">Vous n'avez aucune carte enregistrée</p>

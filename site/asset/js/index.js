@@ -191,6 +191,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 const list = document.getElementById('listMaison');
+const plusDiv = document.getElementById('affplus');
 const plus = document.getElementById('plus');
 
 let page = 1;
@@ -201,31 +202,27 @@ console.log(list.getElementsByClassName('maison').length)
 
 const test = list.getElementsByClassName('maison');
 
-for (let i = 0; i < list.getElementsByClassName('maison').length; i++){  
-    if (i<page*nbElemPage) {
-        test[i].style.display = 'block'
-        console.log('oui')
+function toggleVisibility() {
+    for (let i = 0; i < test.length; i++) {  
+        if (i < page * nbElemPage) {
+            test[i].style.display = 'block';
+        } else {
+            test[i].style.display = 'none';
+        }
+    }
+    
+    if (page === pageMax) {
+        plusDiv.style.display = 'none';
     } else {
-        test[i].style.display = 'none'
-        console.log('non')
+        plusDiv.style.display = 'flex'; 
     }
 }
+
+toggleVisibility();
 
 plus.addEventListener('click', function() {
     if (page < pageMax) {
         page++;
-    }
-    console.log(page)
-    for (let i = 0; i < list.getElementsByClassName('maison').length; i++){  
-        if (i<page*nbElemPage) {
-            test[i].style.display = 'block'
-            console.log('oui')
-        } else {
-            test[i].style.display = 'none'
-            console.log('non')
-        }
+        toggleVisibility();
     }
 });
-
-
-

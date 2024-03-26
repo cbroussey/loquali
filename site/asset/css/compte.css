@@ -1111,16 +1111,23 @@
     flex-direction: column;
     color: #1D4C77;
     width: 100%;
+    margin-top: 30px;
+    margin-right: 5em;
+    align-items: center;
 
 }
 
 .carte {
     display: flex;
-    justify-content: center;
+    /* justify-content: center; */
     align-items: center;
+    height: 100px;
     text-align: center;
     gap: 50px;
-    width: 100%;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    flex-direction: row;
 }
 
 .carte>img {
