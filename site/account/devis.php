@@ -6,7 +6,10 @@
 
 
     $id_client = $_SESSION['userId'];
-    foreach ($dbh->query("SELECT * FROM test.reservation INNER JOIN test.devis ON test.reservation.id_reservation = test.devis.id_reservation WHERE id_compte = $id_client", PDO::FETCH_ASSOC) as $row) {
+    foreach ($dbh->query("SELECT * FROM test.reservation 
+                          INNER JOIN test.devis ON test.reservation.id_reservation = test.devis.id_reservation
+                          
+                          WHERE id_compte = $id_client", PDO::FETCH_ASSOC) as $row) {
       $devisExist = true;
       $id_logement = $row["id_logement"];
       $id_reservation = $row["id_reservation"];
@@ -60,7 +63,7 @@
                 </div>
               </div>
             </form>
-            <div class="separateur1">a</div>
+            <div class="compteSeparateur1">a</div>
           </div>
 
         </div>
@@ -74,6 +77,7 @@
     foreach ($dbh->query("SELECT * FROM test.reservation 
                             INNER JOIN test.devis ON test.reservation.id_reservation = test.devis.id_reservation 
                             INNER JOIN test.logement ON test.reservation.id_logement = test.logement.id_logement
+                            INNER JOIN test.compte ON test.reservation.id_compte = test.compte.id_compte
                             WHERE test.logement.id_compte = $id_proprio", PDO::FETCH_ASSOC) as $row) {
       $id_logement = $row["id_logement"];
 
@@ -109,7 +113,7 @@
             <img src="<?= $pathName ?>" alt="" class="logo">
             <div class="infos-devis">
               <div class="infos-header">
-                <h3><?= $client["nom_affichage"] ?></h3>
+                <h3><?= $row["nom_affichage"] ?></h3>
                 <p class="date"><?= explode(" ", $row["date_devis"])[0] ?></p>
               </div>
               <div class="infos-header">
@@ -118,7 +122,7 @@
               </div>
             </div>
           </form>
-          <div class="separateur1">a</div>
+          <div class="compteSeparateur1">a</div>
         </div>
 
       </div>

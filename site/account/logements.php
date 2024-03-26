@@ -12,99 +12,101 @@
     </div>
 
 
-    <?php
+    <div class="centrersaufajout">
+      <?php
 
-    try {
-      $id = $_SESSION['userId'];
-      $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-
-      $query = "SELECT COUNT(*) FROM test.logement WHERE id_compte = $id;";
-      $stmt = $dbh->prepare($query);
-      $stmt->execute();
-      $nbLogements = $stmt->fetch();
-
-      if ($nbLogements['count'] == 0) {
-        ?>
-        <p id="AucunLogementCompte">Vous n'avez aucun logement en ligne</p>
-        <?php
-      }
-
-
-      foreach ($dbh->query("SELECT * FROM test.logement WHERE id_compte = $id", PDO::FETCH_ASSOC) as $row) {
-
-        $info = $row;
+      try {
+        $id = $_SESSION['userId'];
         $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-        $query = "SELECT min(id_image) FROM test.photo_logement NATURAL JOIN test.image WHERE id_logement = :id_logement;";
 
+        $query = "SELECT COUNT(*) FROM test.logement WHERE id_compte = $id;";
         $stmt = $dbh->prepare($query);
-        $stmt->bindParam('id_logement', $info["id_logement"], PDO::PARAM_STR);
         $stmt->execute();
-        $photo = $stmt->fetch();
+        $nbLogements = $stmt->fetch();
 
-        $query = "SELECT extension_image FROM test.image WHERE id_image = :id_image;";
-
-        $stmt = $dbh->prepare($query);
-        $stmt->bindParam('id_image', $photo["min"], PDO::PARAM_STR);
-        $stmt->execute();
-        $extention = $stmt->fetch();
-        ?>
-
-        <div class="compteListeUnLogement">
-
-          <div class="toutLogement">
-            <img src="asset/img/logements/<?php echo ($photo["min"]); ?>.<?php echo $extention["extension_image"] ?>"
-              width="100%" height="100%" alt="" class="imgListeLogementProprio">
+        if ($nbLogements['count'] == 0) {
+          ?>
+          <p id="AucunLogementCompte">Vous n'avez aucun logement en ligne</p>
+          <?php
+        }
 
 
-            <div class="unLogement">
-              <div class="log_info_liste">
-                <h2>
-                  <?php echo ($info["libelle_logement"]); ?>,
-                  <?php echo ($info["localisation"]); ?>
-                </h2>
-                <p class="logement_prix">
-                  <?php echo ($info["prix_ttc"]); ?> € par nuit
-                </p>
+        foreach ($dbh->query("SELECT * FROM test.logement WHERE id_compte = $id", PDO::FETCH_ASSOC) as $row) {
+
+          $info = $row;
+          $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+          $query = "SELECT min(id_image) FROM test.photo_logement NATURAL JOIN test.image WHERE id_logement = :id_logement;";
+
+          $stmt = $dbh->prepare($query);
+          $stmt->bindParam('id_logement', $info["id_logement"], PDO::PARAM_STR);
+          $stmt->execute();
+          $photo = $stmt->fetch();
+
+          $query = "SELECT extension_image FROM test.image WHERE id_image = :id_image;";
+
+          $stmt = $dbh->prepare($query);
+          $stmt->bindParam('id_image', $photo["min"], PDO::PARAM_STR);
+          $stmt->execute();
+          $extention = $stmt->fetch();
+          ?>
+
+          <div class="compteListeUnLogement">
+
+            <div class="toutLogement">
+              <img src="asset/img/logements/<?php echo ($photo["min"]); ?>.<?php echo $extention["extension_image"] ?>"
+                width="100%" height="100%" alt="" class="imgListeLogementProprio">
+
+
+              <div class="unLogement">
+                <div class="log_info_liste">
+                  <h2>
+                    <?php echo ($info["libelle_logement"]); ?>,
+                    <?php echo ($info["localisation"]); ?>
+                  </h2>
+                  <p class="logement_prix">
+                    <?php echo ($info["prix_ttc"]); ?> € par nuit
+                  </p>
+                </div>
+
               </div>
 
             </div>
 
-          </div>
-
-          <div class="compteBtnListeLogement">
-            <a href="calendar.php?id=<?php echo ($info["id_logement"]) ?>"><img src="asset/icons/bleu/calendar.svg"
-                alt=""></a>
-            <a href="modifLogement.php?id=<?php echo ($info["id_logement"]) ?>"><img src="asset/icons/bleu/modification.svg"
-                alt=""></a>
+            <div class="compteBtnListeLogement">
+              <a href="calendar.php?id=<?php echo ($info["id_logement"]) ?>"><img src="asset/icons/bleu/calendar.svg"
+                  alt=""></a>
+              <a href="modifLogement.php?id=<?php echo ($info["id_logement"]) ?>"><img src="asset/icons/bleu/modification.svg"
+                  alt=""></a>
 
 
-            <a onclick="openModal3()"><img src="asset/icons/bleu/trash.svg" alt=""></a>
+              <a onclick="openModal3()"><img src="asset/icons/bleu/trash.svg" alt=""></a>
 
-            <div class="confirmation-modal" id="myModal3">
-              <div class="modal-content">
-                <span class="close" onclick="closeModal3()">&times;</span>
-                <p>Êtes-vous sûr de vouloir supprimer ?</p>
-                <input type="hidden" name="confirmDelete" value="<?php echo $id ?>">
-                <a href="logement.php?confirmDelete=<?php echo ($info["id_logement"]) ?>"
-                  class="confirm-button">Confirmer</a>
+              <div class="confirmation-modal" id="myModal3">
+                <div class="modal-content">
+                  <span class="close" onclick="closeModal3()">&times;</span>
+                  <p>Êtes-vous sûr de vouloir supprimer ?</p>
+                  <input type="hidden" name="confirmDelete" value="<?php echo $id ?>">
+                  <a href="logement.php?confirmDelete=<?php echo ($info["id_logement"]) ?>"
+                    class="confirm-button">Confirmer</a>
+                </div>
               </div>
+              <a href="logement.php?confirmDelete=<?php echo ($info["id_logement"]) ?>"><img
+                  src="asset/icons/bleu/troisPoints.svg" alt=""></a>
+
             </div>
-            <a href="logement.php?confirmDelete=<?php echo ($info["id_logement"]) ?>"><img
-                src="asset/icons/bleu/troisPoints.svg" alt=""></a>
+
 
           </div>
 
+          <div class="compteSeparateur1">a</div>
 
-        </div>
-
-        <div class="compteSeparateur1">a</div>
-
-        <?php
+          <?php
+        }
+      } catch (PDOException $e) {
+        print "Erreur !: " . $e->getMessage() . "<br/>";
+        die();
       }
-    } catch (PDOException $e) {
-      print "Erreur !: " . $e->getMessage() . "<br/>";
-      die();
-    }
-    ?>
+      ?>
+    </div>
   </div>
 </div>

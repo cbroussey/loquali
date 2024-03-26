@@ -9,7 +9,66 @@
     color: black;
 }
 
+.button_valider{
+  width: 100%;
+}
 
+.button_refuser{
+  width: 100%;
+}
+
+.button_valider a {
+  display: inline-block;
+  margin-top: 10px;
+  width: 100%;
+  height: 62px;
+  background-color: var(--mainColor);
+  color: #fff;
+  text-align: center;
+  line-height: 62px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-family: Inter;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.button_refuser button {
+  display: inline-block;
+  margin-top: 10px;
+  width: 100%;
+  height: 62px;
+  background-color: #8A3443;
+  ;
+  color: #fff;
+  text-align: center;
+  line-height: 62px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-family: Inter;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.button_refuser a {
+  display: inline-block;
+  margin-top: 10px;
+  width: 100%;
+  height: 62px;
+  background-color: #8A3443;
+  ;
+  color: #fff;
+  text-align: center;
+  line-height: 62px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-family: Inter;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 700;
+}
 
 
 
@@ -32,7 +91,6 @@
   
   h2 span{
     font-weight: bold;
-    font-size: 25px;
   }
   
   .txt_details_log{
@@ -364,9 +422,9 @@
     width: 100%;
     height: 100%;
   }
+  
   .rerservation_log{
     float: right;
-    margin-right: 5%;
     margin-bottom: 8%;
     background-color: #1d4c77;
     color: var(--secondBG);
@@ -380,6 +438,10 @@
     align-items: center;
     margin: 3% 0;
   }
+
+  .haut_rerservation_log h2{
+    font-size: 20px;
+  }
   
   .bouton_res_log h1 {
     color: #fff;
@@ -392,7 +454,7 @@
     color: var(--secondBG);
     border-radius: 5px;
     height: 60px;
-    width: 250px;
+    width: 240px;
     justify-content: center;
     align-items: center;
     transform: scale(1);

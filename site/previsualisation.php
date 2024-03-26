@@ -40,7 +40,6 @@
     <link rel="stylesheet" href="asset/css/headerAndFooter.css">
     <link rel="stylesheet" href="asset/css/logement.css">
 
-
 </head>
 <body>
         <?php  /* Gros ajout à la bdd afin de crée un logement avec toutes les informations que le propriétaire à remplit */
@@ -965,11 +964,7 @@
                     <div class="modal-content">
                         <span class="close" onclick="closeModal()">&times;</span>
                         <p>Êtes-vous sûr de vouloir annuler la création de ce logement ?</p>
-                        <form method="GET" action="logement.php">
-                            <input type="hidden" name="confirmDelete" value="<?php echo $id_log ?>">
-                            <button class="confirm-button">Confirmer</button>
-                        </form>
-                    
+                            <a href="logement.php?confirmDelete=<?php echo ($id_log) ?>" class="confirm-button">Confirmer</a>
                     </div>
                 </div>
 

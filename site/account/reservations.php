@@ -11,9 +11,7 @@
 
     if ($nbLogements['count'] == 0) {
       ?>
-      <div id="AucuneReservCompte">
-        <h1>Vous n'avez aucunes réservations pour le moment</h1>
-      </div>
+      <p id="AucuneReservCompte">Vous n'avez aucunes réservations pour le moment</p>
       <?php
     } else {
       foreach ($dbh->query("SELECT * FROM test.logement WHERE id_compte = $id", PDO::FETCH_ASSOC) as $row) {

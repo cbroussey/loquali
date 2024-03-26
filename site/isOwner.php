@@ -66,7 +66,6 @@ error_reporting(0);
                         <input type="radio" id="client" name="type" value="client" />
                         <label for="client"><h2>Créer un compte client</h2></label>
                     </div>
-                    <p>Un compte client peut devenir un compte propriétaire, en remplissant des informations spécifiques demandées sur le compte</p>
                 </div>
                 <input id="confirmIsOwner" type="submit" value="Suivant"/>
             </form>
