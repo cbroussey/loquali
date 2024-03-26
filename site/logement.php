@@ -1182,10 +1182,12 @@ try {
                                         </div>
 
                                         <?php
-                                            
+                                            $dateAff = explode(" ", $unAvis["date_avis"]);
+                                            $dateAff2 = explode('-', $dateAff[0]);
+                                            $heureAff = explode(":",$dateAff[1]);
                                         ?>
 
-                                        <p>Il y a 2 jours</p>
+                                        <p>Posté le <?php echo($dateAff2[2])?>/<?php echo($dateAff2[1])?>/<?php echo($dateAff2[0])?> à <?php echo($heureAff[0]);?>:<?php echo($heureAff[1]);?></p>
                                     </div>
 
                                     <div class="ContentAvis">
