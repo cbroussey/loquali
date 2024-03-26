@@ -1,7 +1,7 @@
 <div id="compteAccueil" class="comptePage">
 
   <div class="accueil">
-    <p id="bonjour">Bonjour <?php echo ($infos['nom']) ?> !</p>
+    <p id="bonjour">Bonjour <?php echo ($infos['prenom']) ?> !</p>
     <div class="container">
 
       <label for="fileInput">

@@ -77,8 +77,13 @@
 
 /* Menu de navigation */
 
+
+
+
+
 .nav {
-    width: 20vw;
+    max-width: 18vw;
+    min-width: 18vw;
     height: 92vh;
     background-color: #7297B8;
     display: flex;
@@ -97,6 +102,8 @@
     padding: 0 30px 0 30px;
     margin-block: 0 0;
     margin-inline: 0 0;
+    max-width: 18vw;
+    min-width: 18vw;
 }
 
 .nav figcaption {
@@ -106,6 +113,8 @@
     padding-left: 30px;
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
+    width: 50%;
 }
 
 .img-area {
@@ -884,57 +893,65 @@
 }
 
 #AucuneReservCompte {
-    display:flex;
-    width:100%;
-    height:100%;
-    align-items: center;
-    justify-content: center;
-}
-
-#AucuneReservCompte h1 {
+    font-size: 35px;
     font-weight: 700;
-    color: transparent;
-    background: #97ADC1;
-    -webkit-background-clip: text;
-    -moz-background-clip: text;
-    background-clip: text;
-    text-shadow: 0px 3px 3px rgba(255, 255, 255, 0.5);
+
+    
+    color: #1D4C77;
+   
+    width: 100%;
+    text-align: center;
+    margin-top: 25%;
 }
 
 /*                         COMPTE - LOGEMENTS (propriétaire) */
 
+
 #compteLogementPropo {
+    overflow-y: scroll;
+    height: 92vh;
+
     display: flex;
     align-items: center;
     flex-direction: column;
-    height: 92vh;
+
+}
+
+.centrersaufajout {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    max-height: 50vh;
+
+}
+
+.log_info_liste{
+    color: #1D4C77;
 }
 
 #AucunLogementCompte {
     font-size: 35px;
     font-weight: 700;
 
-    color: transparent;
-    background: #97ADC1;
-    -webkit-background-clip: text;
-    -moz-background-clip: text;
-    background-clip: text;
-    text-shadow: 0px 3px 3px rgba(255, 255, 255, 0.5);
-
-    margin-left: 16%;
-    margin-top: 30%;
+    
+    color: #1D4C77;
+   
+    width: 100%;
+    text-align: center;
+    margin-top: 25%;
 }
 
 .compteAjout_log {
-    margin: 8vh 0;
-    height: 55px;
-    width: 30%;
+    margin: 8vh auto;
+    width: 25%;
     background-color: var(--mainColor);
     color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     border-radius: 5px;
+    padding: 0.5em 1em;
+
+    position: relative;
+    right: 0;
 }
 
 .compteAjout_log a {
@@ -978,6 +995,9 @@
 
 
 
+
+
+
 /*                         COMPTE - DEVIS (client & propriétaire) */
 
 .logo {
@@ -995,7 +1015,9 @@
     color: #1D4C77;
     width: 100%;
     margin-top: 30px;
-    justify-content: space-around;
+    margin-left: 5em;
+
+    margin-right: 5em;
     align-items: center;
 }
 
@@ -1003,13 +1025,15 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    
     height: 100px;
-    width: 100%;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .date {
     margin-left: auto;
-    margin-right: 100px;
 }
 
 .infos_devis {
@@ -1022,6 +1046,7 @@
 .page_devis {
     display: flex;
     flex-direction: row;
+    height: 92vh;
 }
 
 .infos-devis {
@@ -1033,7 +1058,7 @@
 
 
 .infos-header {
-    width: 100%;
+    width: 90%;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -1064,22 +1089,19 @@
 
     cursor: pointer;
     margin-left: auto;
-    margin-right: 100px;
     align-self: flex-end;
 }
 
 #AucunDevisCompte {
-    height: 54px;
-
     font-size: 35px;
     font-weight: 700;
 
-    color: transparent;
-    background: #97ADC1;
-    -webkit-background-clip: text;
-    -moz-background-clip: text;
-    background-clip: text;
-    text-shadow: 0px 3px 3px rgba(255, 255, 255, 0.5);
+    
+    color: #1D4C77;
+   
+    width: 100%;
+    text-align: center;
+    margin-top: 25%;
 }
 
 /*                         COMPTE - PAIEMENT (client) */
@@ -1090,7 +1112,6 @@
     color: #1D4C77;
     width: 100%;
 
-    margin-top: 5em;
 }
 
 .carte {
@@ -1137,20 +1158,15 @@
 }
 
 #AucuneCarte {
-    top: 47%;
-    left: 21%;
-
-    height: 54px;
-
     font-size: 35px;
     font-weight: 700;
 
-    color: transparent;
-    background: #97ADC1;
-    -webkit-background-clip: text;
-    -moz-background-clip: text;
-    background-clip: text;
-    text-shadow: 0px 3px 3px rgba(255, 255, 255, 0.5);
+    
+    color: #1D4C77;
+   
+    width: 100%;
+    text-align: center;
+    margin-top: 25%;
 }
 
 @media screen and (min-width: 0px) and (max-width: 500px) {
@@ -1210,23 +1226,7 @@
         margin-right: 5em;
     }
 
-    #AucuneCarte {
-        position: absolute;
-        top: 47%;
-        left: 21%;
 
-        height: 54px;
-
-        font-size: 35px;
-        font-weight: 700;
-
-        color: transparent;
-        background: #97ADC1;
-        -webkit-background-clip: text;
-        -moz-background-clip: text;
-        background-clip: text;
-        text-shadow: 0px 3px 3px rgba(255, 255, 255, 0.5);
-    }
 }
 
 /*                         COMPTE - API (propriétaire) */
@@ -1283,3 +1283,6 @@
     border-radius: 4px;
 
 }
+
+
+
