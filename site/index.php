@@ -416,7 +416,7 @@ if ($_SESSION["userType"] == "proprietaire") {
 
   </div>
 
-  <div class="box">
+  <div class="box" id="listMaison">
     <?php   /* Début intérraction avec la bdd */
 
     include('connect_params.php');
@@ -731,8 +731,11 @@ if ($_SESSION["userType"] == "proprietaire") {
 
 
 
-
   </div>
+
+  <a id="plus">plus</a>
+
+
 
   <div id="menu">
     <div id="choix">
