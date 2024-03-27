@@ -527,7 +527,11 @@
       align-items: center;
       margin-left: auto;
       margin-right: auto;
-  }
+    }
+
+    .photo_profil_proprio_log_avis{
+      margin-left: -10%;
+    }
 
     .separateur {
       display: none;
