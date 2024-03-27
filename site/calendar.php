@@ -11,39 +11,51 @@ $idLogement = $_GET['id'];
 $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
 $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
+//récupération du prix de base du logement et de son libellé
+$query = "SELECT prix_base_ht, libelle_logement FROM test.logement WHERE id_logement = :id_logement;";
+$stmt = $dbh->prepare($query);
+$stmt->bindParam('id_logement', $idLogement, PDO::PARAM_STR);
+$stmt->execute();
+$stmt = $stmt->fetch();
+$prixBase = $stmt['prix_base_ht'];
+$libelle = $stmt['libelle_logement'];
+
+//récupération des réservations sur ce logement
+$query = "SELECT debut_reservation, fin_reservation FROM test.reservation NATURAL JOIN test.devis WHERE id_logement = :id_logement AND acceptation = :acceptation;";
+$stmt = $dbh->prepare($query);
+$acceptation = 1;
+$stmt->bindParam('id_logement', $idLogement, PDO::PARAM_STR);
+$stmt->bindParam('acceptation', $acceptation, PDO::PARAM_INT);
+$stmt->execute();
+$reservedDays = $stmt->fetchAll();
+
 //si on a validé un formulaire, insertion/modifications des disponibilités dans la bdd
-if (isset($_POST['indispo'])) {
+if (isset($_POST['allDays'])) {
+    $modifiedDays = explode(',', $_POST['allDays']);
     $query = "SELECT jour FROM test.planning WHERE id_logement = :id_logement;";
     $stmt = $dbh->prepare($query);
     $stmt->bindParam('id_logement', $idLogement, PDO::PARAM_STR);
     $stmt->execute();
     $daysInBdd = $stmt->fetchAll();
     $daysInBdd = array_column($daysInBdd, 'jour');
-    $false = 0;
+    $boolean = ($modifiedDays[0] == 'true') ? 1 : 0;
 
-    for ($i = 0; $i < sizeof($_POST['indispo']); $i++) {
-        $modifiedDay = addZero($_POST['year'] . '-' . $_POST['month'] . '-' . $_POST['indispo'][$i]);
-        $modifiedPrix = $_POST['allPrix'][$i];
+    for ($i = 1; $i < sizeof($modifiedDays); $i++) {
+        $modifiedDay = addZero($_POST['year'] . '-' . $_POST['month'] . '-' . $modifiedDays[$i]);
+        $modifiedPrix = $boolean ? $prixBase : $_POST['allPrix'][$i];
         if (in_array($modifiedDay, $daysInBdd)) {
             $query = "UPDATE test.planning SET disponibilite = :disponibilite, prix_ht = :prix_ht WHERE id_logement = :id_logement AND jour = :jour;";
         } else {
             $query = "INSERT INTO test.planning(disponibilite, prix_ht, jour, id_logement) VALUES (:disponibilite, :prix_ht, :jour, :id_logement);";
         }
         $stmt = $dbh->prepare($query);
-        $stmt->bindParam('disponibilite', $false, PDO::PARAM_INT);
+        $stmt->bindParam('disponibilite', $boolean, PDO::PARAM_INT);
         $stmt->bindParam('prix_ht', $modifiedPrix, PDO::PARAM_INT);
         $stmt->bindParam('id_logement', $idLogement, PDO::PARAM_STR);
         $stmt->bindParam('jour', $modifiedDay, PDO::PARAM_STR);
         $stmt->execute();
     }
 }
-
-//récupération du prix de base du logement
-$query = "SELECT prix_base_ht FROM test.logement WHERE id_logement = :id_logement;";
-$stmt = $dbh->prepare($query);
-$stmt->bindParam('id_logement', $idLogement, PDO::PARAM_STR);
-$stmt->execute();
-$prixBase = $stmt->fetch()['prix_base_ht'];
 
 //requête de récupération de toutes les dates indisponibles du logement
 $query = "SELECT disponibilite, jour, prix_ht, raison_indisponible FROM test.planning WHERE id_logement = :id_logement;";
@@ -104,6 +116,9 @@ if (isset($_POST['prevOrNext'])) {
             $month = 12;
             $year -= 1;
         }
+    } else if ($_POST['prevOrNext'] == 'submit') {
+        $month = $_POST['month'];
+        $year = $_POST['year'];
     }
 
 } else {
@@ -114,12 +129,6 @@ if (isset($_POST['prevOrNext'])) {
 
 //récupération de tous les jours disponible dans le mois
 $dispoInMonth = getAnavailableDaysInOneMonth($month, $dispo);
-
-//si l'utilisateur clique sur "valider", il est redirigé vers son compte
-if ($_POST['prevOrNext'] == 'submit') {
-    //header("Location: compte.php");
-    //exit();
-}
 ?>
 
 <!DOCTYPE html>
@@ -130,7 +139,7 @@ if ($_POST['prevOrNext'] == 'submit') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="asset/css/calendar.css">
     <link rel="stylesheet" href="asset/css/headerAndFooter.css">
-    <title>Document</title>
+    <title>Calendrier | <?php echo $libelle ?></title>
 </head>
 
 <!-- inclusion du header -->
@@ -161,6 +170,7 @@ if ($_POST['prevOrNext'] == 'submit') {
             </div>
 
             <input id="prevOrNext" type="hidden" name="prevOrNext" value="">
+            <input id="allDays" type="hidden" name="allDays" value="">
 
             <table>
                 <tr>
@@ -198,11 +208,14 @@ if ($_POST['prevOrNext'] == 'submit') {
                             $prix = $prixBase;
                             $checked = false;
                         }
+
+                        //TODO affichage des jours réservés
+
                         echo '<input type="hidden" name="allPrix[]" value=' . $prix . '>';
                         echo '<label class="nbjourcalend" for="case-' . $i . '">' . $i . ' <div class="prixdujour"> <p> ' . $prix . ' €</p> </div>  </label> ';
 
                         //affichage du jour
-                        echo '<input class="nbcasejourcalend" id="case-' . $i . '" type="checkbox" name="indispo[]" value=' . $i . ' ' . ($checked ? 'checked onclick="this.checked=true"' : 'onclick="this.checked=false"') . '>';
+                        echo '<input class="nbcasejourcalend" id="case-' . $i . '" type="checkbox" value=' . $i . ' ' . ($checked ? 'checked' : '') . '>';
                         echo '</td>';
 
                         // Passer à la nouvelle ligne chaque fois que nous atteignons la fin d'une semaine
@@ -228,9 +241,9 @@ if ($_POST['prevOrNext'] == 'submit') {
                         <?php echo $monthName . ' ' . $year ?>
                     </p>
                     <div>
-                        <p>logement disponible</p>&nbsp;&nbsp;
+                        <p id="isAvailableText">logement disponible</p>&nbsp;&nbsp;
                         <label class="switch">
-                            <input type="checkbox" name="isAvailable">
+                            <input type="checkbox" id="isAvailable" name="isAvailable">
                             <span class="slider round"></span>
                         </label>
                     </div>
@@ -238,9 +251,8 @@ if ($_POST['prevOrNext'] == 'submit') {
                 <div id="leprixla">
                     <div id="leprixchangela">
                         <div class="b4r3">
-                            <p>Prix actuel</p>
-                            <input class="quantity" id="PrixMin" name="PrixMin" type="number"
-                                pattern="(29|35|22|56)[0-9]{3}" value="">
+                            <p>Prix</p>
+                            <input class="quantity" id="PrixMin" name="PrixMin" type="number" value="">
                         </div>
                         <p id="petitebarredeseparation">-</p>
                         <div class="b4r3" id="adroiteuuu">
@@ -249,7 +261,7 @@ if ($_POST['prevOrNext'] == 'submit') {
                                 pattern="(29|35|22|56)[0-9]{3}" value="">
                         </div>
                     </div>
-                    <input type="submit" value="valider" id="valideyy">
+                    <button type="button" id="valideyy">Valider</button>
                 </div>
             </div>
         </form>
