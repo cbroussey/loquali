@@ -750,7 +750,16 @@ if ($_SESSION["userType"] == "proprietaire") {
                                                   } else {
                                                     echo ("Mes réservations");
                                                   } ?></a>
+      <div class="separateur"></div>
+      <select id="sort">
+        <option value="nom">Langues</option>
+        <option value="type">Francais</option>
+        <option value="niveau">Anglais</option>
+        <option value="date">Espagnol</option>
+        <option value="date">Espagnol</option>
+      </select>
     </div>
+    <a href="index.php" id="retour">Retour</a>
   </div>
 
 
