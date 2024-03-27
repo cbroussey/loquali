@@ -1292,4 +1292,7 @@
 }
 
 
-
+.separBar {
+    border-left: 1px black solid;
+    min-width: 1em;
+}
