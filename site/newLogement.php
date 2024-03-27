@@ -105,7 +105,7 @@
                                 </select>
 
 
-                                <input type="text" id="ville" name="ville"  class="select_info_log_ajlog" required placeholder="Ville"/>
+                                <input type="text" id="ville" name="ville"  class="select_info_log_ajlog testRectification"  required placeholder="Ville"/>
                             </div>
 
                             <div class="ligne_select_info_log_ajlog">

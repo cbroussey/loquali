@@ -35,18 +35,25 @@ function decrement(id) {
 
 
 document.getElementById('code_postal').addEventListener('input', function() {
-    var codePostal = this.value;
     var regexBretagne = /^(29|35|22|56)[0-9]{3}$/;
 
-    var message = document.getElementById('message');
+    this.value = this.value.replace(/\D/g, '');
+    if (this.value.length > 5) {
+        this.value = this.value.substring(0, this.value.length - 1);
+        this.style.borderColor = "#1D4C77";
 
-    if (regexBretagne.test(codePostal)) {
-      message.textContent = 'Code postal valide en Bretagne.';
-      message.style.color = 'green';
     } else {
-      message.textContent = 'Veuillez entrer un code postal valide en Bretagne.';
-      message.style.color = 'red';
+        this.style.borderColor = "red";
+        console.log(this.style.borderColor);
     }
+
+    if (regexBretagne.test(this.value) ) {
+        this.style.borderColor = "#1D4C77";
+    } else {
+        this.style.borderColor = 'red';
+    }
+
+
   });
 
 
@@ -114,6 +121,60 @@ document.getElementById('Personne').addEventListener('input', function () {
 });
 
 
+function rectifLongTxt(elem) {
+    if (elem.value.length < 50 && elem.value.length>0){
+        elem.style.borderColor = "#1D4C77";
+
+    } else {
+        elem.style.borderColor = 'red';
+    }
+
+}
+
+
+function rectifLongTxt2(elem) {
+    if (elem.value.length < 250 && elem.value.length>0){
+        elem.style.borderColor = "#1D4C77";
+
+    } else {
+        elem.style.borderColor = 'red';
+    }
+
+}
+
+// correction pour 50 char max
+
+document.getElementById('ville').addEventListener('input', function(){
+    rectifLongTxt(this);
+});
+
+document.getElementById('adresse').addEventListener('input', function(){
+    rectifLongTxt(this);
+});
+
+document.getElementById('appartement').addEventListener('input', function(){
+    rectifLongTxt(this);
+});
+
+document.getElementById('titre').addEventListener('input', function(){
+    rectifLongTxt(this);
+});
+
+document.getElementById('description2').addEventListener('input', function(){
+    rectifLongTxt2(this);
+});
+
+document.getElementById('Règlement').addEventListener('input', function(){
+    rectifLongTxt2(this);
+});
+
+document.getElementById('info_arrive').addEventListener('input', function(){
+    rectifLongTxt2(this);
+});
+
+document.getElementById('info_depart').addEventListener('input', function(){
+    rectifLongTxt2(this);
+});
 
 
 /* Partie pour gèrer le fait de tout remplir pour passer à la page d'après */
@@ -404,14 +465,4 @@ function afficherPopup() {
     cacherPopup();
    }
 
-
-   const code_postal = document.getElementById("code_postal");
-
-
-code_postal.addEventListener('input', function() {
-    this.value = this.value.replace(/\D/g, '');
-    if (this.value.length > 5) {
-        this.value = this.value.substring(0, this.value.length - 1);
-    }
-})
    
