@@ -267,43 +267,23 @@ try {
   </header>
 
   <?php
-  foreach ($_FILES["photo"]["error"] as $key => $error) {
 
-    if (isset($_FILES["photo"]["tmp_name"])) {
-
-
-
-      $repertoireImages = 'asset/img/profils/';
-      $userId = $_SESSION['userId'];
-
-      if ($images = opendir($repertoireImages)) {
-        while (false !== ($fichier = readdir($images))) {
-          $imgInfos = pathinfo($fichier);
-          if ($imgInfos['filename'] == $userId) {
-            $chemin = $repertoireImages . $fichier;
-
-            if (unlink($chemin)) {
-            }
-          }
-        }
-        closedir($images);
-      }
-
+    if (isset($_FILES["profilImage"]["tmp_name"])) {
 
 
       $img_dir = "asset/img/profils";
-      $tmpName = $_FILES["photo"]["tmp_name"][$key];
+      $tmpName = $_FILES["profilImage"]["tmp_name"];
 
-      $nom_photo = $_FILES["photo"]["name"][$key];
+      $nom_photo = $_FILES["profilImage"]["name"][$key];
       $extention = explode(".", $nom_photo);
 
 
       $chemin = $img_dir . "/" . $_SESSION['userId'] . "." . $extention[1];
 
-
       move_uploaded_file($tmpName, $chemin);
+
     }
-  }
+  
   ?>
 
   <div id="compteContainer">
@@ -419,8 +399,19 @@ try {
     </div>
 
     <?php
+    if (count($_POST)!=0 || count($_FILES)!=0){
+      ?>
+        <script type="text/javascript">
+          window.location.href = "compte.php";
+        </script>
+      <?php
+    }
+  ?>
+
+    <?php
     // ACCUEIL
     include "./account/homePage.php";
+
 
     // INFORMATION
     include "./account/personalInformations.php";
@@ -483,9 +474,16 @@ try {
     </div>
   </form>
 
+
+
+  
+
   <script src="asset/js/header.js"></script>
   <script src="asset/js/account.js"></script>
+  <script src="asset/js/accountAccueil.js"></script>
   <script src="asset/js/boutonSupprimer.js"></script>
+  <script src="asset/js/modifInfosCompte.js"></script>
+
   <?php /* if ($_GET["res"] == "res") { ?>
 <script>
  liens_compte(3)

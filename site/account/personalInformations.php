@@ -1,6 +1,6 @@
 <div id="compteInfosPerso" class="comptePage">
     <div class="lignes">
-        <form method="post" action="compte.php">
+        <form method="post">
             <p>Nom</p>
             <p id="nom" class="displayInfos"><?php echo ($infos['nom']) ?></p>
             <input type="text" name="nom" id="nom" class="modifInfos" cols="30" rows="10" value="<?php echo ($infos['nom']) ?>">

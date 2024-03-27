@@ -34,7 +34,6 @@
           <label for="photo" id="custom-button-pp" aria-placeholder=""> <img src="asset/icons/blanc/photo.svg" alt="">
           </label>
 
-          <input type="file" id="photo" name="photo[]" multiple />
 
         </div>
       </form>
