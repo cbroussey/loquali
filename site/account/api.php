@@ -47,7 +47,7 @@ $query->execute();
 
 $result = $query->fetchAll();
 ?>
-
+<script src="asset/js/api.js"></script>
 <div id="comptePaiementAPI" class="comptePage" style="width: 100%; position:relative;">
   <div id="compteAPIContainer">
     <div id="apiSection">
@@ -66,6 +66,7 @@ $result = $query->fetchAll();
               <th>Accès Calendrier</th>
               <th>Mise Indispo</th>
               <th></th>
+              <th>Mise Dispo</th>
             </tr>
           </thead>
           <tbody>
@@ -86,7 +87,10 @@ $result = $query->fetchAll();
                 <td>
                   <input type="checkbox" name="<?php echo $info['cle'] . "_i"; ?>" <?php echo ($info['miseindispo'] ? "checked" : "") ?>>
                 </td>
+                <td class="separBar">
+                </td>
                 <td>
+                <input type="checkbox" name="<?php echo $info['cle'] . "_d"; ?>" <?php echo ($info['misedispo'] ? "checked" : "") ?>>
                 </td>
               </tr>
               <?php
