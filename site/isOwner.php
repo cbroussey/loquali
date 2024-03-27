@@ -55,7 +55,7 @@ error_reporting(0);
                     </svg>
                 </button>
             </a>
-            <img src="asset/img/logo.png" alt="logo">
+            <img src="asset/img/logo.png" alt="logo Loquali">
             <form id="formIsOwner" method="post">
                 <div>
                     <div>

@@ -210,7 +210,7 @@ try {
         <!-- Header -->
         <header>
             <a href="index.php">
-                <img src="asset/img/logo.png" alt="logo">
+                <img src="asset/img/logo.png" alt="logo Loquali">
             </a>
             <div></div>
             <div id="headerEmptyDiv"></div>
@@ -342,7 +342,7 @@ try {
                         ?>
 
                                 <img src="asset/img/logements/<?php echo ($nom['id_image'] . "." . $nom['extension_image']); ?>"
-                                    alt="problème">
+                                    alt="Image du logement">
 
                                 <?php
                     }
@@ -660,7 +660,7 @@ try {
 
                                                 <div class="elem_reservation_log">
                                                     <img src="asset/icons/blanc/<?php echo ($key["nom_amenagement"]); ?>.svg"
-                                                        alt="">
+                                                        alt="Icone <?php echo($key["nom_amenagement"]) ?>">
                                                     <p>
                                                         <?php echo ($key["nom_amenagement"]); ?>
                                                     </p>
@@ -727,7 +727,7 @@ try {
 
                                                 <div class="elem_reservation_log">
                                                     <img src="asset/icons/blanc/<?php echo ($key["nom_installation"]); ?>.svg"
-                                                        alt="">
+                                                    alt="Icone <?php echo($key["nom_installation"]) ?>">
                                                     <p>
                                                         <?php echo ($key["nom_installation"]); ?>
                                                     </p>
@@ -791,7 +791,7 @@ try {
                                                 <div class="elem_reservation_log">
 
                                                     <img src="asset/icons/blanc/<?php echo ($key["nom_service"]); ?>.svg"
-                                                        alt="">
+                                                        alt="Icone <?php echo($key["nom_service"]) ?>">
                                                     <p>
                                                         <?php echo ($key["nom_service"]); ?>
                                                     </p>
@@ -1035,35 +1035,35 @@ try {
                                                     <input type="checkbox" class="btn_note_avis" id="1Etoile" name="note"
                                                         value="1">
                                                         <img class="star-img" src="asset/icons/blanc/star.svg"
-                                                        width="40px">
+                                                        width="40px" alt="Icone Etoile">
                                                 </label>
 
                                                 <label class="container" id="etoile2">
                                                     <input type="checkbox" class="btn_note_avis" id="2Etoile" name="note"
                                                         value="2">
                                                         <img class="star-img" src="asset/icons/blanc/star.svg"
-                                                        width="40px">
+                                                        width="40px" alt="Icone Etoile">
                                                 </label>
 
                                                 <label class="container" id="etoile3">
                                                     <input type="checkbox" class="btn_note_avis" id="3Etoile" name="note"
                                                         value="3">
                                                         <img class="star-img" src="asset/icons/blanc/star.svg"
-                                                        width="40px">
+                                                        width="40px" alt="Icone Etoile">
                                                 </label>
 
                                                 <label class="container" id="etoile4">
                                                     <input type="checkbox" class="btn_note_avis" id="4Etoile" name="note"
                                                         value="4">
                                                         <img class="star-img" src="asset/icons/blanc/star.svg"
-                                                        width="40px">
+                                                        width="40px" alt="Icone Etoile">
                                                 </label>
 
                                                 <label class="container" id="etoile5">
                                                     <input type="checkbox" class="btn_note_avis" id="5Etoile" name="note"
                                                         value="5">
                                                     <img class="star-img" src="asset/icons/blanc/star.svg"
-                                                        width="40px">
+                                                        width="40px" alt="Icone Etoile">
                                                 </label>
 
                                             </div>
@@ -1175,7 +1175,7 @@ try {
 
                                                 ?>
 
-                                                    <img src="asset/icons/bleu/star.svg" alt="">
+                                                    <img src="asset/icons/bleu/star.svg" alt="Icone Etoile">
 
 
 
@@ -1217,7 +1217,7 @@ try {
 
         <div id="infosFooter">
             <div id="footerCercleLogo">
-                <img src="asset/img/logoRond.svg" alt="logo">
+                <img src="asset/img/logoRond.svg" alt="logo rond Loquali">
             </div>
             <div id="textefooter">
                 <div id="infosLegal">
@@ -1237,9 +1237,9 @@ try {
                 <div id="reseaux">
                     <h2>Suivez nous</h2>
                     <div id="logoReseaux">
-                        <a href=""><img src="asset/icons/blanc/facebook.svg" alt=""></a>
-                        <a href=""><img src="asset/icons/blanc/instagram.svg" alt=""></a>
-                        <a href=""><img src="asset/icons/blanc/steam.svg" alt=""></a>
+                    <a href=""><img src="asset/icons/blanc/facebook.svg" alt="Logo Facebook"></a>
+            <a href=""><img src="asset/icons/blanc/instagram.svg" alt="Logo Instagram"></a>
+            <a href=""><img src="asset/icons/blanc/steam.svg" alt="Logo de la graisse capilaire Swag (vive faute orthodraphe)"></a>
                     </div>
                 </div>
                 <div id="contact">

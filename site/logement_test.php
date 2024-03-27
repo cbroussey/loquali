@@ -19,7 +19,7 @@
 
         <header>
             <a href="index.php">
-                <img src="asset/img/logo.png" alt="logo">
+                <img src="asset/img/logo.png" alt="logo Loquali">
             </a>
             <div></div>
             <div id="headerEmptyDiv"></div>
@@ -98,12 +98,12 @@
 
 
             <div class="images_log"> <!-- Partie pour montrer les immages (il manque le caroussel) -->
-                <img src="asset/img/logements/1.jpg" alt="img1">
+                <img src="asset/img/logements/1.jpg" alt="image 1">
                 <div class="images_log_droite">
-                    <img src="asset/img/logements/2.jpg" alt="img2">
-                    <img src="asset/img/logements/3.jpg" alt="img3">
-                    <img src="asset/img/logements/4.jpg" alt="img4">
-                    <img src="asset/img/logements/5.jpg" alt="img5">
+                    <img src="asset/img/logements/2.jpg" alt="image 2">
+                    <img src="asset/img/logements/3.jpg" alt="image 3">
+                    <img src="asset/img/logements/4.jpg" alt="image 4">
+                    <img src="asset/img/logements/5.jpg" alt="image 5">
                 </div>
             </div>
 
@@ -844,7 +844,7 @@
 
 <div id="infosFooter">
 <div id="footerCercleLogo" class="portableDroite">
-    <img src="asset/img/logo.png" alt="logo">
+    <img src="asset/img/logo.png" alt="logo rond Loquali">
 </div>
 <div id="textefooter">
   <div class="gauche" class="portableGauche" id="infosLegal">
@@ -862,9 +862,9 @@
   <div class="centrer" class="portableDroite" id="reseaux">
       <h2>Suivez nous</h2>
       <div id="logoReseaux">
-          <a href=""><img src="asset/icons/blanc/facebook.svg" alt=""></a>
-          <a href=""><img src="asset/icons/blanc/instagram.svg" alt=""></a>
-          <a href=""><img src="asset/icons/blanc/steam.svg" alt=""></a>
+      <a href=""><img src="asset/icons/blanc/facebook.svg" alt="Logo Facebook"></a>
+            <a href=""><img src="asset/icons/blanc/instagram.svg" alt="Logo Instagram"></a>
+            <a href=""><img src="asset/icons/blanc/steam.svg" alt="Logo de la graisse capilaire Swag (vive faute orthodraphe)"></a>
       </div>
   </div>
   <div class="droite" class="portableGauche" id="contact">

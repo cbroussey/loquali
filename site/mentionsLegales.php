@@ -41,7 +41,7 @@ if (isset($_GET["confirmDelete"])) {
 <body>
 <header>
     <a href="index.php">
-      <img src="asset/img/logo.png" alt="logo">
+      <img src="asset/img/logo.png" alt="logo Loquali">
     </a>
     <div></div>
     <div id="headerEmptyDiv"></div>
@@ -99,7 +99,7 @@ if (isset($_GET["confirmDelete"])) {
 
 <div id="infosFooter">
   <div id="footerCercleLogo">
-    <img src="asset/img/logoRond.svg" alt="logo">
+    <img src="asset/img/logoRond.svg" alt="logo rond Loquali">
   </div>
   <div id="textefooter">
     <div id="infosLegal">
@@ -119,9 +119,9 @@ if (isset($_GET["confirmDelete"])) {
     <div id="reseaux">
       <h2>Suivez nous</h2>
       <div id="logoReseaux">
-        <a href=""><img src="asset/icons/blanc/facebook.svg" alt=""></a>
-        <a href=""><img src="asset/icons/blanc/instagram.svg" alt=""></a>
-        <a href=""><img src="asset/icons/blanc/steam.svg" alt=""></a>
+      <a href=""><img src="asset/icons/blanc/facebook.svg" alt="Logo Facebook"></a>
+            <a href=""><img src="asset/icons/blanc/instagram.svg" alt="Logo Instagram"></a>
+            <a href=""><img src="asset/icons/blanc/steam.svg" alt="Logo de la graisse capilaire Swag (vive faute orthodraphe)"></a>
       </div>
     </div>
     <div id="contact">

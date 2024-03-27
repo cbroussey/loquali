@@ -39,7 +39,7 @@
 
 <header>
     <a href="index.php">
-      <img src="asset/img/logo.png" alt="logo">
+      <img src="asset/img/logo.png" alt="logo Loquali">
     </a>
     <div></div>
     <div id="headerEmptyDiv"></div>
@@ -106,7 +106,7 @@
     <a href="compte.php" style="
         height : 125px;
         ">
-        <img src="asset/icons/bleu/toBack.svg" alt="" id="pagePersoSvgBack">
+        <img src="asset/icons/bleu/toBack.svg" alt="Icone Retour" id="pagePersoSvgBack">
     </a>
 
         <!-- Partie avec les infos du proprio -->
@@ -159,7 +159,7 @@
                         if (isset($note)) {
                             ?>
                             <figure class="star">
-                                <img src="asset/icons/bleu/star.svg" alt="">
+                                <img src="asset/icons/bleu/star.svg" alt="Icone etoile">
                                 <figcaption><?php echo htmlentities($note) ?></figcaption>
                             </figure>
                             <?php
@@ -170,14 +170,14 @@
                     if ($_SESSION['userType'] == 'proprietaire') {
                         ?>
                         <figure class="tel">
-                        <img src="asset/icons/bleu/tel.svg" alt="">
+                        <img src="asset/icons/bleu/tel.svg" alt="Icone Telephone">
                         <figcaption><?php echo wordwrap($current["numero"], 2, " ", 1); ?></figcaption>
                         </figure>
                         <?php
                     } 
                     ?>
                     <figure class="mail">
-                        <img src="asset/icons/bleu/mail.svg" alt="">
+                        <img src="asset/icons/bleu/mail.svg" alt="Icone Mail">
                         <figcaption><?php if (isset($_SESSION["adresse_mail"])){
                             echo($_SESSION["adresse_mail"]);
                         } else { echo $_SESSION['email'];} ?></figcaption>
@@ -201,7 +201,7 @@
                         <!-- Affichage de la description si elle est saisie, sinon affichage d'un message normal. Possibilité de modifier en cliquant sur le bouton puis en validant -->
                         <div class="descriptionPersonne">
                             <form method="post">
-                                <a href="#" id="boutonDescription" class="testBouton"><img src="asset/icons/bleu/modification.svg" alt=""></a>
+                                <a href="#" id="boutonDescription" class="testBouton"><img src="asset/icons/bleu/modification.svg" alt="Icone Modification"></a>
                                 <input type="submit" value="Enregistrer" id="modificationDescription" class="modifBtn">
                                 <?php 
                                     if (!empty($current["description"])) {
@@ -285,7 +285,7 @@
                             <div class="listeUnLogement">
                                 <div class="imgLogement">
                                     <a  href="logement.php?id=<?php echo($info["id_logement"]) ?>">
-                                        <img class="imgPageProprioLog" src="asset/img/logements/<?php echo($photo["min"]); ?>.<?php echo $extention["extension_image"] ?>" width="300px" height="100%" alt="">
+                                        <img class="imgPageProprioLog" src="asset/img/logements/<?php echo($photo["min"]); ?>.<?php echo $extention["extension_image"] ?>" width="300px" height="100%" alt="Image du Logement <?php echo($info["id_logement"]) ?>">
                                     </a>                                
                                 </div>
                                 
@@ -368,14 +368,14 @@
 
                             <div class="listeUnLogement">
                                 <div>
-                                    <img src="asset/img/logements/<?php echo($photo["min"]); ?>.<?php echo $extention["extension_image"] ?>" width="100%" height="100%" alt="" class="imgListeLogementProprio">
+                                    <img src="asset/img/logements/<?php echo($photo["min"]); ?>.<?php echo $extention["extension_image"] ?>" width="100%" height="100%" alt="Image du Logement <?php echo($info["id_logement"]) ?>" class="imgListeLogementProprio">
                                 </div>
                                 
                                 <div class="unLogement">
                                     <h2><?php echo($info["nature_logement"]); ?> <?php echo($info["type_logement"]); ?>, <?php echo($info["localisation"]); ?></h2>
                                     <p><?php echo($info["code_postal"]); ?>, <U><?php echo($info["departement"]); ?></U></p>
                                     <div class="noteAvis">
-                                        <img src="asset/icons/bleu/star.svg" alt="">
+                                        <img src="asset/icons/bleu/star.svg" alt="Icone Etoile">
                                         <p><?php echo($info["note_logement"]); ?>, 24 avis</p>
                                     </div>
                                     <a class="consulterLogement" href="logement.php?id=<?php echo $info["id_logement"] ?>"><em>Consulter le logement</em></a>
