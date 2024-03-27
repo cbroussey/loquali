@@ -75,7 +75,7 @@ error_reporting(0);
                     </svg>
                 </button>
             </a>
-            <img src="asset/img/logo.png" alt="logo">
+            <img src="asset/img/logo.png" alt="logo Loquali">
             <form method="post" enctype="multipart/form-data">
                 <input type="text" id="pays" name="pays" placeholder="Pays" required />
                 <input type="text" id="ville" name="ville" placeholder="Ville" required />

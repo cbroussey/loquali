@@ -18,7 +18,7 @@
 
 <header>
     <a href="index.php">
-      <img src="asset/img/logo.png" alt="logo">
+      <img src="asset/img/logo.png" alt="logo Loquali">
     </a>
     <div></div>
     <div id="headerEmptyDiv"></div>
@@ -98,7 +98,7 @@
 
  
     <a href="logement.php?id=<?php echo($id_log); ?>">
-        <img src="asset/icons/bleu/toBack.svg" alt="" id="pagePersoSvgBack">
+        <img src="asset/icons/bleu/toBack.svg" alt="Icone Retour" id="pagePersoSvgBack">
     </a>
         <div class="infosProprio">
             <div id="infosTous">
@@ -132,7 +132,7 @@
                         if (isset($note)) {
                             ?>
                             <figure class="star">
-                                <img src="asset/icons/bleu/star.svg" alt="">
+                                <img src="asset/icons/bleu/star.svg" alt="Icone Etoile">
                                 <figcaption><?php echo htmlentities($note) ?></figcaption>
                             </figure>
                             <?php
@@ -140,14 +140,14 @@
                     ?>
                     
                         <figure class="tel">
-                        <img src="asset/icons/bleu/tel.svg" alt="">
+                        <img src="asset/icons/bleu/tel.svg" alt="Icone Telephone">
                         <figcaption><?php echo wordwrap($current["numero"], 2, " ", 1); ?></figcaption>
                         </figure>
                         <?php
                 
                     ?>
                     <figure class="mail">
-                        <img src="asset/icons/bleu/mail.svg" alt="">
+                        <img src="asset/icons/bleu/mail.svg" alt="Icone Mail">
                         <figcaption><?php echo $current['adresse_mail'] ?></figcaption>
                     </figure>
                 </div>
@@ -215,7 +215,7 @@
                     <div class="listeUnLogement">
                         <div>
                             <a  href="logement.php?id=<?php echo($info["id_logement"]) ?>">
-                                <img class="imgPageProprioLog" src="asset/img/logements/<?php echo($photo["min"]); ?>.<?php echo $extention["extension_image"] ?>" width="300px" height="100%" alt="">
+                                <img class="imgPageProprioLog" src="asset/img/logements/<?php echo($photo["min"]); ?>.<?php echo $extention["extension_image"] ?>" width="300px" height="100%" alt="Image Logement <?php echo($info['id_logement']) ?>">
                             </a>
                         </div>
                         
@@ -223,7 +223,7 @@
                             <h2><?php echo($info["nature_logement"]); ?> <?php echo($info["type_logement"]); ?>, <?php echo($info["localisation"]); ?></h2>
                             <p><?php echo($info["code_postal"]); ?>, <U><?php echo($info["departement"]); ?></U></p>
                             <div class="noteAvis">
-                                <img src="asset/icons/bleu/star.svg" alt="">
+                                <img src="asset/icons/bleu/star.svg" alt="Icone Etoile">
                                 <p><?php echo($info["note_logement"]); ?>, 24 avis</p>
                             </div>
                             <a class="consulterLogement" href="logement.php?id=<?php echo $info["id_logement"] ?>"><em>Consulter le logement</em></a>

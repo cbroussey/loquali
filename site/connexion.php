@@ -77,7 +77,7 @@
                 </svg>
                 </button>
             </a>
-            <img src="asset/img/logo.png" alt="logo">
+            <img src="asset/img/logo.png" alt="logo Loquali">
             <form method="post">
                 <?php
                 if ($inconnu) {
@@ -85,7 +85,7 @@
                     <input type="email" id="email" name="email" placeholder="Adresse-mail" value=<?php echo $_POST['email'] ?>>
                     <div>
                         <input type="password" id="passwordInput" placeholder="Mot de passe" name="passwordInput" autocomplete="current-password" required/>
-                        <img id="eyesPasswordVisible" src="asset/icons/bleu/eye-open.svg" alt="eye">                
+                        <img id="eyesPasswordVisible" src="asset/icons/bleu/eye-open.svg" alt="Icone voir mot de passe">                
                     </div>
                     <p class="invalidInput">Adresse mail  ou mot de passe incorrect !</p>
                     <?php
@@ -94,7 +94,7 @@
                     <input type="email" id="email" name="email" placeholder="Adresse-mail"/>
                     <div>
                         <input type="password" id="passwordInput" placeholder="Mot de passe" name="passwordInput" required/>
-                        <img id="eyesPasswordVisible" src="asset/icons/bleu/eye-open.svg" alt="eye">              
+                        <img id="eyesPasswordVisible" src="asset/icons/bleu/eye-open.svg" alt="Icone voir mot de passe">              
                     </div>
                     <?php
                 }

@@ -119,7 +119,7 @@ error_reporting(0);
     } ?>
 <header>
     <a href="index.php">
-      <img src="asset/img/logo.png" alt="logo">
+      <img src="asset/img/logo.png" alt="logo Loquali">
     </a>
     <div></div>
     <div id="headerEmptyDiv"></div>
@@ -163,7 +163,7 @@ error_reporting(0);
         <form action="<?php echo ($qui == "client") ? "paiement.php" : (($qui == "proprietaire") ? "validationDevisProprio.php" : "inserDevis.php"); ?>" method="POST">
             <div class="demande">
                 <div class="retour">
-                    <button class="boutonRetour" onclick="history.back()"><img src="asset/icons/blanc/retour.svg"></button>
+                    <button class="boutonRetour" onclick="history.back()"><img src="asset/icons/blanc/retour.svg" alt="Icone retour"></button>
                     <a id="idlog" hidden><?php echo $id; ?></a>
                     <h1 class="h1-mobile"><?php echo ($qui == "proprietaire" || $qui == "client") ? "Demande de réservation" : "Demande de devis"; ?></h1>
                 </div>
@@ -177,7 +177,7 @@ error_reporting(0);
 
 
                             <div class="date_arrivee">
-                                <?php echo ($qui == "proprietaire" || $qui == "client") ? '<img src="asset/icons/blanc/date.svg" alt=""> ' : ''; ?>
+                                <?php echo ($qui == "proprietaire" || $qui == "client") ? '<img src="asset/icons/blanc/date.svg" alt="Icone Date"> ' : ''; ?>
 
                                 <p>
                                     <input type="date" <?php echo ($qui == "proprietaire" || $qui == "client") ? 'readonly' : ''; ?> name="start-date" id="start" class="<?php echo ($qui == "proprietaire" || $qui == "client") ? 'start_block' : 'start'; ?>" data-delai-resa-min="<?php echo $info['delai_resa_min'] + 1; ?>" min="<?php echo date('Y-m-d', strtotime('+' . ($info['delai_resa_min'] + 1) . ' day')); ?>" value="<?php echo ($qui == "proprietaire" || $qui == "client") ? $reservation["debut_reservation"] : date('Y-m-d', strtotime('+' . ($info['delai_resa_min'] + 1) . ' day')); ?>">
@@ -188,7 +188,7 @@ error_reporting(0);
                             <div class="barre-separation"></div>
 
                             <div class="date_depart">
-                                <?php echo ($qui == "proprietaire" || $qui == "client") ? '<img src="asset/icons/blanc/date.svg" alt=""> ' : ''; ?>
+                                <?php echo ($qui == "proprietaire" || $qui == "client") ? '<img src="asset/icons/blanc/date.svg" alt="Icone date"> ' : ''; ?>
 
                                 <p>
                                     <input <?php echo ($qui == "proprietaire" || $qui == "client") ? 'readonly' : ''; ?> type="date" name="end-date" id="end" class="<?php echo ($qui == "proprietaire" || $qui == "client") ? 'end_block' : 'end'; ?>" data-duree-delaire-min="<?php echo $info['duree_resa_min'] + $info['delai_resa_min'] + 1; ?>" min="<?php echo date('Y-m-d', strtotime('+' . ($info['duree_resa_min'] + $info['delai_resa_min'] + 1) . ' day')); ?>" value="<?php echo ($qui == "proprietaire" || $qui == "client") ? $reservation["fin_reservation"] : date('Y-m-d', strtotime('+' . ($info['duree_resa_min'] + $info['delai_resa_min'] + 1) . ' day')); ?>">
@@ -198,7 +198,7 @@ error_reporting(0);
                         </div>
 
                         <div class="personne">
-                            <img src="asset/icons/<?php echo ($qui == "proprietaire" || $qui == "client") ? "blanc" : "bleu"; ?>/personne.svg" alt="">
+                            <img src="asset/icons/<?php echo ($qui == "proprietaire" || $qui == "client") ? "blanc" : "bleu"; ?>/personne.svg" alt="Iconne personne">
                             <div class=<?php echo ($qui == "proprietaire" || $qui == "client") ? "ligne_champ_nombre_ajlog1" : "ligne_champ_nombre_ajlog"; ?>>
 
                                 <div class=<?php echo ($qui == "proprietaire" || $qui == "client") ? "number-input1" : "number-input"; ?>>
@@ -211,7 +211,7 @@ error_reporting(0);
                                 </div>
                                 <label for="Personne">Personnes</label>
                             </div>
-                            <img src="asset/icons/bleu/arrow-down.svg" style="<?php echo ($qui == "proprietaire" || $qui == "client") ? "display:none;" : "display:none"; ?>" alt="">
+                            <img src="asset/icons/bleu/arrow-down.svg" style="<?php echo ($qui == "proprietaire" || $qui == "client") ? "display:none;" : "display:none"; ?>" alt="Icone Retour">
 
                         </div>
                     </div>
@@ -221,27 +221,27 @@ error_reporting(0);
                         <h2>Type de Logement</h2>
                         <div class="icons">
                             <div>
-                                <img src="asset/icons/bleu/appart_bleu.svg" alt="">
+                                <img src="asset/icons/bleu/appart_bleu.svg" alt="Icone appartement">
                                 <p><?php echo ($info["nature_logement"]); ?> </p>
                             </div>
                             <div>
-                                <img src="asset/icons/bleu/salon.svg" alt="">
+                                <img src="asset/icons/bleu/salon.svg" alt="Icone Salon">
                                 <p>Salon</p>
                             </div>
                             <div>
-                                <img src="asset/icons/bleu/chambre.svg" alt="">
+                                <img src="asset/icons/bleu/chambre.svg" alt="Icone Chambre">
                                 <p><?php echo ($info["nb_chambre"]); ?> chambres</p>
                             </div>
                             <div>
-                                <img src="asset/icons/bleu/salle_bain.svg" alt="">
+                                <img src="asset/icons/bleu/salle_bain.svg" alt="Icone salle de bain">
                                 <p><?php echo ($info["nb_salle_de_bain"]); ?> Salle de bain</p>
                             </div>
                             <div>
-                                <img src="asset/icons/bleu/cusine.svg" alt="">
+                                <img src="asset/icons/bleu/cusine.svg" alt="Icone cuisine">
                                 <p>Cuisine</p>
                             </div>
                             <div>
-                                <img src="asset/icons/bleu/wifi.svg" alt="">
+                                <img src="asset/icons/bleu/wifi.svg" alt="Icone Wifi">
 
                                 <p>Wi-fi</p>
                             </div>
@@ -264,7 +264,7 @@ error_reporting(0);
 
                                 ?>
                                     <div>
-                                        <img src="asset/icons/bleu/<?php echo (strtolower($value["nom_amenagement"])); ?>.svg" alt="">
+                                        <img src="asset/icons/bleu/<?php echo (strtolower($value["nom_amenagement"])); ?>.svg" alt="Icone <?php echo(strtolower($value["nom_amenagement"])) ?>">
                                         <p><?php echo ($value["nom_amenagement"]); ?></p>
                                     </div>
                             <?php }
@@ -285,7 +285,7 @@ error_reporting(0);
                                 foreach ($instal as $elemnt => $value) {
                                 ?>
                                     <div>
-                                        <img src="asset/icons/bleu/<?php echo (strtolower($value["nom_installation"])); ?>.svg" alt="">
+                                        <img src="asset/icons/bleu/<?php echo (strtolower($value["nom_installation"])); ?>.svg" alt="Icone <?php echo(strtolower($value["nom_installation"])) ?>">
                                         <p><?php echo ($value["nom_installation"]); ?></p>
                                     </div>
                             <?php }
@@ -309,7 +309,7 @@ error_reporting(0);
 
                                 ?>
                                     <div>
-                                        <img src="asset/icons/bleu/<?php echo ($value["nom_service"]); ?>.svg" alt="">
+                                        <img src="asset/icons/bleu/<?php echo ($value["nom_service"]); ?>.svg" alt="Icone <?php echo(strtolower($value["nom_service"])) ?>">
                                         <p><?php echo ($value["nom_service"]); ?></p>
                                     </div>
                             <?php }
@@ -346,7 +346,7 @@ error_reporting(0);
                 <div class="sticky_recap">
                     <div class="recap-info">
                         <div class="info_logoment">
-                            <img src="asset/img/logements/<?php echo ($photo[0]["id_image"]); ?>.<?php echo ($current["extension_image"]); ?>" width="183px" height="124px">
+                            <img src="asset/img/logements/<?php echo ($photo[0]["id_image"]); ?>.<?php echo ($current["extension_image"]); ?>" width="183px" height="124px" alt="Photo logement">
                             <div>
                                 <span>
                                     <p class="info">Logement : <?php echo ($info["nature_logement"]) ?></p>
@@ -487,7 +487,7 @@ error_reporting(0);
 
 <div id="infosFooter">
   <div id="footerCercleLogo">
-    <img src="asset/img/logoRond.svg" alt="logo">
+    <img src="asset/img/logoRond.svg" alt="logo rond Loquali">
   </div>
   <div id="textefooter">
     <div id="infosLegal">
@@ -507,9 +507,9 @@ error_reporting(0);
     <div id="reseaux">
       <h2>Suivez nous</h2>
       <div id="logoReseaux">
-        <a href=""><img src="asset/icons/blanc/facebook.svg" alt=""></a>
-        <a href=""><img src="asset/icons/blanc/instagram.svg" alt=""></a>
-        <a href=""><img src="asset/icons/blanc/steam.svg" alt=""></a>
+      <a href=""><img src="asset/icons/blanc/facebook.svg" alt="Logo Facebook"></a>
+            <a href=""><img src="asset/icons/blanc/instagram.svg" alt="Logo Instagram"></a>
+            <a href=""><img src="asset/icons/blanc/steam.svg" alt="Logo de la graisse capilaire Swag (vive faute orthodraphe)"></a>
       </div>
     </div>
     <div id="contact">
