@@ -314,7 +314,88 @@
     width: 550px;
     height: 300px;
   }
+
+  #ListeAvis{
+    width: 100%;
+    padding: 0 2%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    max-height: 60vh;    
+    overflow-y: scroll;
+  }
   
+  .unAvis{
+    width: 85%;
+    border: 2px solid var(--mainColor);
+    border-radius: 25px;
+    padding: 20px;
+    margin: 15px 20px;
+    background-color: #FFF;
+  }
+
+  .hautAvis{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .infoPropioAvis{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: nowrap;
+  }
+  
+  .infoTxtProprioAvis{
+    
+    color: #1D4C77;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-direction: column;
+
+    height: 55%;
+  }
+
+  
+  .noteAvisLog{
+    margin-right: 2%;
+  }
+
+  .noteAvisLog img{
+    margin: 0 -6.5px;
+  }
+
+  .img_avis_log{
+    width: 100px;
+    transform: scale(1);
+    transition: all 0.15s ease-in-out;
+  }
+  
+  .img_avis_log:hover{
+    transform: scale(1.05);
+    transition: all 0.25s ease-in-out;
+  }
+
+  .photo_profil_proprio_log_avis{
+  
+    background-image: url('../img/profils/proprio.jpg');
+    background-size: cover;
+    background-position: center;
+    box-sizing: border-box;
+  
+    width: 80px;
+    height: 80px;
+  
+    border: 2px solid var(--mainColor);
+    border-radius: 50%;
+
+  }
+
+ 
   
   /* truc pour les modif */
   

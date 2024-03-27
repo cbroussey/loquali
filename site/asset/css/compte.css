@@ -148,6 +148,8 @@
     .nav {
         width: 22%;
         height: 92vh;
+        max-width: 22vw;
+        min-width: 22vw;
     }
 
     .img-area img {
@@ -678,6 +680,7 @@
     width: 40%;
 }
 
+<<<<<<< HEAD
 input[type="text"]{
     border: 1px #1D4C77 solid;
     border-radius: 5px;
@@ -685,6 +688,9 @@ input[type="text"]{
 }
 
 @media screen and (min-width: 0px) and (max-width: 1100px) {
+=======
+@media screen and (min-width: 0px) and (max-width: 1150px) {
+>>>>>>> 052413d9480b1690eab13c0c4e4befd627f67b72
     #compteInfosPerso {
         position: absolute;
         top: 20%;
@@ -731,6 +737,7 @@ input[type="text"]{
 
         color: #1D4C77;
     }
+
 
 }
 
