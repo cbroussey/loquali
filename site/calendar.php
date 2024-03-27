@@ -2,7 +2,7 @@
 session_start();
 error_reporting(0);
 
-include('connect_params.php');
+include ('connect_params.php');
 
 //récupération de l'id du logement
 $idLogement = $_GET['id'];
@@ -98,6 +98,24 @@ function addZero($date)
     return "$year-$month-$day";
 }
 
+//fonction qui renvoie un tableau contenant toutes les dates comprises entre deux dates, start et end
+function getDaysBetweenBounds($start, $end)
+{
+    $days = [];
+    $startDate = new DateTime($start);
+    $endDate = new DateTime($end);
+
+    //ajout de la date de début
+    $days[] = $startDate->format('Y-m-d');
+
+    //ajout des jours intermédiaires
+    while ($startDate < $endDate) {
+        $startDate->modify('+1 day');
+        $days[] = $startDate->format('Y-m-d');
+    }
+    return $days;
+}
+
 if (isset($_POST['prevOrNext'])) {
 
     //passe au mois suivant si l'utilisateur clique sur "suivant"
@@ -128,7 +146,13 @@ if (isset($_POST['prevOrNext'])) {
 }
 
 //récupération de tous les jours disponible dans le mois
-$dispoInMonth = getAnavailableDaysInOneMonth($month, $dispo);
+$indispoInMonth = getAnavailableDaysInOneMonth($month, $dispo);
+
+//récupération de tous les jours réservés
+$allReservedDays = [];
+foreach ($reservedDays as $oneOccurence) {
+    $allReservedDays += getDaysBetweenBounds($oneOccurence['debut_reservation'], $oneOccurence['fin_reservation']);
+}
 ?>
 
 <!DOCTYPE html>
@@ -139,7 +163,9 @@ $dispoInMonth = getAnavailableDaysInOneMonth($month, $dispo);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="asset/css/calendar.css">
     <link rel="stylesheet" href="asset/css/headerAndFooter.css">
-    <title>Calendrier | <?php echo $libelle ?></title>
+    <title>Calendrier |
+        <?php echo $libelle ?>
+    </title>
 </head>
 
 <!-- inclusion du header -->
@@ -196,9 +222,9 @@ $dispoInMonth = getAnavailableDaysInOneMonth($month, $dispo);
                         echo '<td class="cal-data">';
 
                         //affichage du prix
-                        if (array_key_exists($cDay, $dispoInMonth)) {
-                            $prix = $dispoInMonth[$cDay][0];
-                            if ($dispoInMonth[$cDay][1] != 1) {
+                        if (array_key_exists($cDay, $indispoInMonth)) {
+                            $prix = $indispoInMonth[$cDay][0];
+                            if ($indispoInMonth[$cDay][1] != 1) {
                                 $checked = true;
                                 $prix = 0;
                             } else {
@@ -209,12 +235,13 @@ $dispoInMonth = getAnavailableDaysInOneMonth($month, $dispo);
                             $checked = false;
                         }
 
-                        //TODO affichage des jours réservés
+                        $isReserved = (in_array($cDay, $allReservedDays)) ? true : false;
 
                         echo '<input type="hidden" name="allPrix[]" value=' . $prix . '>';
                         echo '<label class="nbjourcalend" for="case-' . $i . '">' . $i . ' <div class="prixdujour"> <p> ' . $prix . ' €</p> </div>  </label> ';
 
                         //affichage du jour
+                        echo '<input type="hidden" name="reservations" class="reservations" value=' . $isReserved . '>';
                         echo '<input class="nbcasejourcalend" id="case-' . $i . '" type="checkbox" value=' . $i . ' ' . ($checked ? 'checked' : '') . '>';
                         echo '</td>';
 

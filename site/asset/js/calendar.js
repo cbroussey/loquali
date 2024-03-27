@@ -16,22 +16,32 @@ submit.addEventListener('click', function () {
     prevOrNext.value = "submit";
 });
 
+//gestion des jours réservés & clics sur les jours réservés
+
+
 //gestion des clics sur les dates
 const boxesCalendar = document.getElementsByClassName('nbcasejourcalend');
+const reservations = document.getElementsByClassName('reservations');
 const boxIsClicked = new Map();
 
+let i = 0;
 Array.from(boxesCalendar).forEach(box => {
-    boxIsClicked.set(box, false);
-    box.addEventListener('click', function () {
-        if (boxIsClicked.get(box) === false) {
-            boxIsClicked.set(box, true);
-            box.style.backgroundColor = '#2072BC';
-        } else {
-            boxIsClicked.set(box, false);
-            box.style.backgroundColor = '';
-        }
-        updateTitle();
-    })
+    if (reservations[i].value == 1) {
+        box.style.backgroundColor = '#DC6C3C';
+    } else {
+        boxIsClicked.set(box, false);
+        box.addEventListener('click', function () {
+            if (boxIsClicked.get(box) === false) {
+                boxIsClicked.set(box, true);
+                box.style.backgroundColor = '#2072BC';
+            } else {
+                boxIsClicked.set(box, false);
+                box.style.backgroundColor = '';
+            }
+            updateTitle();
+        })
+    }
+    i++;
 });
 
 //changement du titre de la fenêtre de modification en fonction des jours sélectionnés
