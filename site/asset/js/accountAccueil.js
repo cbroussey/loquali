@@ -31,3 +31,7 @@ function changeProfilePhoto(event) {
         reader.readAsDataURL(newPhoto);
     }
 }
+
+
+
+
