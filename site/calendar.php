@@ -235,7 +235,9 @@ foreach ($reservedDays as $oneOccurence) {
                             $checked = false;
                         }
 
+                        //variable affectée à true si le jour est réservé, false sinon
                         $isReserved = (in_array($cDay, $allReservedDays)) ? true : false;
+                        //variable affectée à true si le jour est passé, false sinon
                         $isPassed = (strtotime($cDay) < time()) ? true : false;
 
                         echo '<input type="hidden" name="allPrix[]" value=' . $prix . '>';
