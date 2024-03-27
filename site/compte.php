@@ -445,21 +445,28 @@ try {
 
   <div id="menu">
     <div id="choix">
-      <a href="compteAccueil.php" class="bouton">Mon compte</a>
 
-      <a href="" class="bouton">Mes réservation</a>
+      <a href="connexion.php" class="bouton">Se connecter</a>
 
-      <a href="" class="bouton">Messagerie</a>
+      <div class="separateur"></div>
 
-      <div id="separe"></div>
+      <a href="compte.php" class="bouton">Mon compte</a>
 
-      <p>Changer la langue</p>
-      <div id="langues">
-        <a href="">Français</a>
-        <div id="separe2"></div>
-        <a href="">Anglais</a>
-      </div>
+      <a href="compte.php?res=res" class="bouton"><?php if ($_SESSION["userType"] == "proprietaire") {
+                                                    echo ("Mes logements");
+                                                  } else {
+                                                    echo ("Mes réservations");
+                                                  } ?></a>
+      <div class="separateur"></div>
+      <select id="sort">
+        <option value="nom">Langues</option>
+        <option value="type">Francais</option>
+        <option value="niveau">Anglais</option>
+        <option value="date">Espagnol</option>
+        <option value="date">Espagnol</option>
+      </select>
     </div>
+    <a href="compte.php" id="retour">Retour</a>
   </div>
 
 

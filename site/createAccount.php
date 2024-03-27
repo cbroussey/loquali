@@ -111,7 +111,7 @@ error_reporting(0);
                     </svg>
                 </button>
             </a>
-            <img src="asset/img/logo.png" alt="logo">
+            <img src="asset/img/logo.png" alt="logo Loquali">
             <form method="post">
                 <?php
                 if (($_POST['passwordInput'] != $_POST['passwordInput2']) || (emailIsInDB($_POST['email']))) {
@@ -128,11 +128,11 @@ error_reporting(0);
                     ?>
                     <div class="surroundCasePassWord">
                         <input type="password" id="passwordInput" placeholder="Mot de passe" name="passwordInput" autocomplete="current-password" required/>
-                        <img id="eyesPasswordVisible" src="asset/icons/bleu/eye-open.svg" alt="eye">              
+                        <img id="eyesPasswordVisible" src="asset/icons/bleu/eye-open.svg" alt="icone voir mot de passe">              
                     </div>
                     <div class="surroundCasePassWord">
                         <input type="password" id="passwordInput2" placeholder="Confirmez le mot de passe" name="passwordInput2" autocomplete="current-password" required/>
-                        <img id="eyesPasswordVisible2" src="asset/icons/bleu/eye-open.svg" alt="eye">              
+                        <img id="eyesPasswordVisible2" src="asset/icons/bleu/eye-open.svg" alt="icone voir mot de passe">              
                     </div>
                     <?php
                     if ($_POST['passwordInput'] != $_POST['passwordInput2']) {
@@ -148,11 +148,11 @@ error_reporting(0);
                     <input type="email" id="email" name="email" placeholder="Adresse-mail" required/>    
                     <div class="surroundCasePassWord">
                         <input type="password" id="passwordInput" placeholder="Mot de passe" name="passwordInput" autocomplete="current-password" required/>
-                        <img id="eyesPasswordVisible" src="asset/icons/bleu/eye-open.svg" alt="eye">              
+                        <img id="eyesPasswordVisible" src="asset/icons/bleu/eye-open.svg" alt="icone voir mot de passe">              
                     </div>
                     <div class="surroundCasePassWord">
                         <input type="password" id="passwordInput2" placeholder="Confirmez le mot de passe" name="passwordInput2" autocomplete="current-password" required/>
-                        <img id="eyesPasswordVisible2" src="asset/icons/bleu/eye-open.svg" alt="eye">              
+                        <img id="eyesPasswordVisible2" src="asset/icons/bleu/eye-open.svg" alt="Icone voir mot de passe">              
                     </div>
                     <?php
                 }

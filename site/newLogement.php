@@ -27,7 +27,7 @@
     <div class="sticky_header_log">
 <header>
     <a href="index.php">
-      <img src="asset/img/logo.png" alt="logo">
+      <img src="asset/img/logo.png" alt="logo Loquali">
     </a>
     <div></div>
     <div id="headerEmptyDiv"></div>
@@ -105,7 +105,7 @@
                                 </select>
 
 
-                                <input type="text" id="ville" name="ville"  class="select_info_log_ajlog" required placeholder="Ville"/>
+                                <input type="text" id="ville" name="ville"  class="select_info_log_ajlog testRectification"  required placeholder="Ville"/>
                             </div>
 
                             <div class="ligne_select_info_log_ajlog">
@@ -539,7 +539,7 @@
 
 <div id="infosFooter">
   <div id="footerCercleLogo">
-    <img src="asset/img/logoRond.svg" alt="logo">
+    <img src="asset/img/logoRond.svg" alt="logo rond Loquali">
   </div>
   <div id="textefooter">
     <div id="infosLegal">
@@ -559,9 +559,9 @@
     <div id="reseaux">
       <h2>Suivez nous</h2>
       <div id="logoReseaux">
-        <a href=""><img src="asset/icons/blanc/facebook.svg" alt=""></a>
-        <a href=""><img src="asset/icons/blanc/instagram.svg" alt=""></a>
-        <a href=""><img src="asset/icons/blanc/steam.svg" alt=""></a>
+      <a href=""><img src="asset/icons/blanc/facebook.svg" alt="Logo Facebook"></a>
+            <a href=""><img src="asset/icons/blanc/instagram.svg" alt="Logo Instagram"></a>
+            <a href=""><img src="asset/icons/blanc/steam.svg" alt="Logo de la graisse capilaire Swag (vive faute orthodraphe)"></a>
       </div>
     </div>
     <div id="contact">

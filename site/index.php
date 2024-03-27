@@ -29,7 +29,7 @@ if ($_SESSION["userType"] == "proprietaire") {
 <body>
   <header>
     <a href="index.php">
-      <img src="asset/img/logo.png" alt="logo">
+      <img src="asset/img/logo.png" alt="logo Loquali">
     </a>
     <div></div>
     <div id="headerEmptyDiv"></div>
@@ -88,11 +88,11 @@ if ($_SESSION["userType"] == "proprietaire") {
       <span class="dot"></span>
     </div>
     <div class="slider" id="slider">
-      <img src="asset/img/indexSlider1.jpg" alt="d">
-      <img src="asset/img/indexSlider2.jpg" alt="">
-      <img src="asset/img/indexSlider3.jpg" alt="">
-      <img src="asset/img/indexSlider4.jpg" alt="tets">
-      <img src="asset/img/indexSlider1.jpg" alt="d">
+      <img src="asset/img/indexSlider1.jpg" alt="Image 1 du Slider">
+      <img src="asset/img/indexSlider2.jpg" alt="Image 2 du Slider">
+      <img src="asset/img/indexSlider3.jpg" alt="Image 3 du Slider">
+      <img src="asset/img/indexSlider4.jpg" alt="Image 4 du Slider">
+      <img src="asset/img/indexSlider1.jpg" alt="Image 5 du Slider">
     </div>
   </div>
 
@@ -568,7 +568,7 @@ if ($_SESSION["userType"] == "proprietaire") {
                 }
                 ?>
 
-                <img src="asset/img/logements/<?php echo ($photo[0]["id_image"]); ?>.<?php echo ($photo[0]["extension_image"]) ?>" withd="300" height="225" alt="img">
+                <img src="asset/img/logements/<?php echo ($photo[0]["id_image"]); ?>.<?php echo ($photo[0]["extension_image"]) ?>" withd="300" height="225" alt="Photo du Logement avec l'id <?php echo($id) ?>">
 
                 <p class="ville"><?php echo ($info["libelle_logement"]);  ?>, <?php echo ($info["localisation"]); ?></p>
                 <p class="prix"><strong><?php echo ($info["prix_ttc"] . "€");  ?></strong> par nuit</p>
@@ -594,10 +594,10 @@ if ($_SESSION["userType"] == "proprietaire") {
             <a href="logement.php?id=<?php echo ($id); ?>" class="maison">
               <div id="triangle"></div>
               <div class="etoile">
+                <p><?php echo($info["note_logement"])?></p>
                 <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M7.5 0L9.18386 5.52786H14.6329L10.2245 8.94427L11.9084 14.4721L7.5 11.0557L3.09161 14.4721L4.77547 8.94427L0.367076 5.52786H5.81614L7.5 0Z" fill="white" />
                 </svg>
-                <p><?php echo($info["note_logement"])?></p>
 
               </div>
               <?php
@@ -608,7 +608,7 @@ if ($_SESSION["userType"] == "proprietaire") {
               }
               ?>
 
-              <img src="asset/img/logements/<?php echo ($photo[0]["id_image"]); ?>.<?php echo ($photo[0]["extension_image"]) ?>" withd="300" height="225" alt="img">
+              <img src="asset/img/logements/<?php echo ($photo[0]["id_image"]); ?>.<?php echo ($photo[0]["extension_image"]) ?>" withd="300" height="225" alt="Photo du Logement avec l'id <?php echo($id) ?>">
 
               <p class="ville"><?php echo ($info["libelle_logement"]);  ?>, <?php echo ($info["localisation"]); ?></p>
               <p class="prix"><strong><?php echo ($info["prix_ttc"] . "€");  ?></strong> par nuit</p>
@@ -654,10 +654,10 @@ if ($_SESSION["userType"] == "proprietaire") {
               <a href="logement.php?id=<?php echo ($id); ?>" class="maison">
                 <div id="triangle"></div>
                 <div class="etoile">
+                  <p><?php echo($info["note_logement"])?></p>
                   <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M7.5 0L9.18386 5.52786H14.6329L10.2245 8.94427L11.9084 14.4721L7.5 11.0557L3.09161 14.4721L4.77547 8.94427L0.367076 5.52786H5.81614L7.5 0Z" fill="white" />
                   </svg>
-                  <p><?php echo($info["note_logement"])?></p>
 
                 </div>
                 <?php
@@ -668,7 +668,7 @@ if ($_SESSION["userType"] == "proprietaire") {
                 }
                 ?>
 
-                <img src="asset/img/logements/<?php echo ($photo[0]["id_image"]); ?>.<?php echo ($photo[0]["extension_image"]) ?>" withd="300" height="225" alt="img">
+                <img src="asset/img/logements/<?php echo ($photo[0]["id_image"]); ?>.<?php echo ($photo[0]["extension_image"]) ?>" withd="300" height="225" alt="Photo du Logement avec l'id <?php echo($id) ?>">
 
                 <p class="ville"><?php echo ($info["libelle_logement"]);  ?>, <?php echo ($info["localisation"]); ?></p>
                 <p class="prix"><strong><?php echo ($info["prix_ttc"] . "€");  ?></strong> par nuit</p>
@@ -694,10 +694,10 @@ if ($_SESSION["userType"] == "proprietaire") {
             <a href="logement.php?id=<?php echo ($id); ?>" class="maison">
               <div id="triangle"></div>
               <div class="etoile">
+                <p><?php echo($info["note_logement"])?></p>
                 <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M7.5 0L9.18386 5.52786H14.6329L10.2245 8.94427L11.9084 14.4721L7.5 11.0557L3.09161 14.4721L4.77547 8.94427L0.367076 5.52786H5.81614L7.5 0Z" fill="white" />
                 </svg>
-                <p><?php echo($info["note_logement"])?></p>
 
               </div>
               <?php
@@ -708,7 +708,7 @@ if ($_SESSION["userType"] == "proprietaire") {
               }
               ?>
 
-              <img src="asset/img/logements/<?php echo ($photo[0]["id_image"]); ?>.<?php echo ($photo[0]["extension_image"]) ?>" withd="300" height="225" alt="img">
+              <img src="asset/img/logements/<?php echo ($photo[0]["id_image"]); ?>.<?php echo ($photo[0]["extension_image"]) ?>" withd="300" height="225" alt="Photo du Logement avec l'id <?php echo($id) ?>">
 
               <p class="ville"><?php echo ($info["libelle_logement"]);  ?>, <?php echo ($info["localisation"]); ?></p>
               <p class="prix"><strong><?php echo ($info["prix_ttc"] . "€");  ?></strong> par nuit</p>
@@ -743,6 +743,11 @@ if ($_SESSION["userType"] == "proprietaire") {
 
   <div id="menu">
     <div id="choix">
+
+      <a href="connexion.php" class="bouton">Se connecter</a>
+
+      <div class="separateur"></div>
+
       <a href="compte.php" class="bouton">Mon compte</a>
 
       <a href="compte.php?res=res" class="bouton"><?php if ($_SESSION["userType"] == "proprietaire") {
@@ -750,7 +755,16 @@ if ($_SESSION["userType"] == "proprietaire") {
                                                   } else {
                                                     echo ("Mes réservations");
                                                   } ?></a>
+      <div class="separateur"></div>
+      <select id="sort">
+        <option value="nom">Langues</option>
+        <option value="type">Francais</option>
+        <option value="niveau">Anglais</option>
+        <option value="date">Espagnol</option>
+        <option value="date">Espagnol</option>
+      </select>
     </div>
+    <a href="index.php" id="retour">Retour</a>
   </div>
 
 
@@ -758,7 +772,7 @@ if ($_SESSION["userType"] == "proprietaire") {
 
     <div id="infosFooter">
       <div id="footerCercleLogo">
-        <img src="asset/img/logoRond.svg" alt="logo">
+        <img src="asset/img/logoRond.svg" alt="logo Loquali Rond">
       </div>
       <div id="textefooter">
         <div id="infosLegal">
@@ -778,9 +792,9 @@ if ($_SESSION["userType"] == "proprietaire") {
         <div id="reseaux">
           <h2>Suivez nous</h2>
           <div id="logoReseaux">
-            <a href=""><img src="asset/icons/blanc/facebook.svg" alt=""></a>
-            <a href=""><img src="asset/icons/blanc/instagram.svg" alt=""></a>
-            <a href=""><img src="asset/icons/blanc/steam.svg" alt=""></a>
+            <a href=""><img src="asset/icons/blanc/facebook.svg" alt="Logo Facebook"></a>
+            <a href=""><img src="asset/icons/blanc/instagram.svg" alt="Logo Instagram"></a>
+            <a href=""><img src="asset/icons/blanc/steam.svg" alt="Logo de la graisse capilaire Swag (vive faute orthodraphe)"></a>
           </div>
         </div>
         <div id="contact">

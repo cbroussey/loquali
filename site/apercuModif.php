@@ -411,7 +411,7 @@
     ?>
     <header>
         <a href="index.php">
-            <img src="asset/img/logo.png" alt="logo">
+            <img src="asset/img/logo.png" alt="logo Loquali">
         </a>
         <div></div>
         <div id="headerEmptyDiv"></div>
@@ -516,7 +516,7 @@
                     if ($i < 5) {
                     ?>
 
-                    <img src="asset/img/logements/<?php echo($nom["id_image"]); ?>.<?php echo($nom['extension_image']); ?>" alt="problème">
+                    <img src="asset/img/logements/<?php echo($nom["id_image"]); ?>.<?php echo($nom['extension_image']); ?>" alt="Photo du Logement Ajouté">
 
                     <?php
                     }
@@ -738,7 +738,7 @@
 
 
                                 <div class="elem_reservation_log">
-                                    <img src="asset/icons/blanc/<?php echo($key);?>.svg" alt="">
+                                    <img src="asset/icons/blanc/<?php echo($key);?>.svg" alt="Logo de l'aménagement <?php echo($key) ?>">
                                     <p><?php echo($key);?></p>
                                 </div>
 
@@ -801,7 +801,7 @@
                                 
 
                                 <div class="elem_reservation_log">
-                                    <img src="asset/icons/blanc/<?php echo($key);?>.svg" alt="">
+                                    <img src="asset/icons/blanc/<?php echo($key);?>.svg" alt="Logo de l'installation <?php echo($key) ?>">
                                     <p> <?php echo($key);?> </p>
                                 </div>
 
@@ -862,7 +862,7 @@
 
                                 <div class="elem_reservation_log">
 
-                                <img src="asset/icons/blanc/<?php echo($key);?>.svg" alt="">
+                                <img src="asset/icons/blanc/<?php echo($key);?>.svg" alt="Logo du service <?php echo($key) ?>">
                                 <p> <?php echo($key);?> </p>
 
 
@@ -1006,7 +1006,7 @@
 
 <div id="infosFooter">
 <div id="footerCercleLogo" class="portableDroite">
-    <img src="asset/img/logo.png" alt="logo">
+    <img src="asset/img/logo.png" alt="logo Rond Loquali">
 </div>
 <div id="textefooter">
   <div class="gauche" class="portableGauche" id="infosLegal">
@@ -1024,9 +1024,9 @@
   <div class="centrer" class="portableDroite" id="reseaux">
       <h2>Suivez nous</h2>
       <div id="logoReseaux">
-          <a href=""><img src="asset/icons/blanc/facebook.svg" alt=""></a>
-          <a href=""><img src="asset/icons/blanc/instagram.svg" alt=""></a>
-          <a href=""><img src="asset/icons/blanc/steam.svg" alt=""></a>
+      <a href=""><img src="asset/icons/blanc/facebook.svg" alt="Logo Facebook"></a>
+        <a href=""><img src="asset/icons/blanc/instagram.svg" alt="Logo Instagram"></a>
+        <a href=""><img src="asset/icons/blanc/steam.svg" alt="Logo de la graisse capilaire Swag (vive faute orthodraphe)"></a>
       </div>
   </div>
   <div class="droite" class="portableGauche" id="contact">
