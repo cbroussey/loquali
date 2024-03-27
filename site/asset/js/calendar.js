@@ -22,13 +22,19 @@ submit.addEventListener('click', function () {
 //gestion des clics sur les dates
 const boxesCalendar = document.getElementsByClassName('nbcasejourcalend');
 const reservations = document.getElementsByClassName('reservations');
+const oldDates = document.getElementsByClassName('oldDates');
 const boxIsClicked = new Map();
 
 let i = 0;
 Array.from(boxesCalendar).forEach(box => {
-    if (reservations[i].value == 1) {
-        box.style.backgroundColor = '#DC6C3C';
-    } else {
+    if (oldDates[i].value == 1) {
+        if (reservations[i].value == 1) {
+            box.style.backgroundColor = '#DC6C3C';
+        } else {
+            box.style.backgroundColor = '#B5B5B5';
+        }
+    }
+     else {
         boxIsClicked.set(box, false);
         box.addEventListener('click', function () {
             if (boxIsClicked.get(box) === false) {
