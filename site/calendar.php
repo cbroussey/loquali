@@ -236,12 +236,14 @@ foreach ($reservedDays as $oneOccurence) {
                         }
 
                         $isReserved = (in_array($cDay, $allReservedDays)) ? true : false;
+                        $isPassed = (strtotime($cDay) < time()) ? true : false;
 
                         echo '<input type="hidden" name="allPrix[]" value=' . $prix . '>';
                         echo '<label class="nbjourcalend" for="case-' . $i . '">' . $i . ' <div class="prixdujour"> <p> ' . $prix . ' €</p> </div>  </label> ';
 
                         //affichage du jour
                         echo '<input type="hidden" name="reservations" class="reservations" value=' . $isReserved . '>';
+                        echo '<input type="hidden" name="oldDates" class="oldDates" value=' . $isPassed . '>';
                         echo '<input class="nbcasejourcalend" id="case-' . $i . '" type="checkbox" value=' . $i . ' ' . ($checked ? 'checked' : '') . '>';
                         echo '</td>';
 

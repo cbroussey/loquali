@@ -21,12 +21,18 @@
     foreach($cles as $i) {
         $calend = (isset($_POST[$i . "_c"]) ? "TRUE" : "FALSE");
         $indisp = (isset($_POST[$i . "_i"]) ? "TRUE" : "FALSE");
-        $res = $dbh->prepare("UPDATE test.api SET accescalendrier = :calend, miseindispo = :indisp WHERE cle=:cle AND id_compte = :id");
+        $indisp = (isset($_POST[$i . "_d"]) ? "TRUE" : "FALSE");
+        $res = $dbh->prepare("UPDATE test.api SET accescalendrier = :calend, miseindispo = :indisp, misedispo = :disp WHERE cle=:cle AND id_compte = :id");
         $res->bindParam('cle', $i, PDO::PARAM_STR);
         $res->bindParam('calend', $calend, PDO::PARAM_STR);
         $res->bindParam('indisp', $indisp, PDO::PARAM_STR);
+        $res->bindParam('disp', $disp, PDO::PARAM_STR);
         $res->bindParam('id', $_SESSION["userId"], PDO::PARAM_INT);
-        $res->execute();
+        try {
+            $res->execute();
+        } catch (e) {
+            continue;
+        }
     }
     //print_r($_POST);
     header("Location: compte.php");
