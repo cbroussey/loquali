@@ -743,6 +743,11 @@ if ($_SESSION["userType"] == "proprietaire") {
 
   <div id="menu">
     <div id="choix">
+
+      <a href="connexion.php" class="bouton">Se connecter</a>
+
+      <div class="separateur"></div>
+
       <a href="compte.php" class="bouton">Mon compte</a>
 
       <a href="compte.php?res=res" class="bouton"><?php if ($_SESSION["userType"] == "proprietaire") {
