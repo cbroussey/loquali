@@ -53,9 +53,10 @@
           <div class="compteListeUnLogement">
 
             <div class="toutLogement">
-              <img src="asset/img/logements/<?php echo ($photo["min"]); ?>.<?php echo $extention["extension_image"] ?>"
+              <a href="logement.php?id=<?php echo($info["id_logement"]) ?>">
+                <img src="asset/img/logements/<?php echo ($photo["min"]); ?>.<?php echo $extention["extension_image"] ?>"
                 width="100%" height="100%" alt="" class="imgListeLogementProprio">
-
+              </a>
 
               <div class="unLogement">
                 <div class="log_info_liste">
@@ -88,10 +89,25 @@
                   <input type="hidden" name="confirmDelete" value="<?php echo $id ?>">
                   <a href="logement.php?confirmDelete=<?php echo ($info["id_logement"]) ?>"
                     class="confirm-button">Confirmer</a>
+                  <a onclick="closeModal3()"
+                    class="confirm-button">Annuler</a>
                 </div>
               </div>
-              <a href="logement.php?confirmDelete=<?php echo ($info["id_logement"]) ?>"><img
-                  src="asset/icons/bleu/troisPoints.svg" alt=""></a>
+
+
+              <a  onclick="openModal4()"><img src="asset/icons/bleu/troisPoints.svg" alt=""></a>
+
+              <div class="confirmation-modal" id="myModal4">
+                <div class="modal-content">
+                  <span class="close" onclick="closeModal4()">&times;</span>
+                  <p>Êtes-vous sûr de changer la visibilité de ce logement ?</p>
+                  <input type="hidden" name="confirmDelete" value="<?php echo $id ?>">
+                  <a href="logement.php?confirmHorsligne=<?php echo ($info["id_logement"]) ?>&redir=1"
+                    class="confirm-button">Confirmer</a>
+                  <a onclick="closeModal4()"
+                    class="confirm-button">Annuler</a>
+                </div>
+              </div>
 
             </div>
 

@@ -126,7 +126,7 @@
                     </style>
                 </div>
                 <div class = "infos">
-                    <h2><?php echo $current['nom_affichage'] ?></h2>
+                    <h2><?php echo $current['nom'] ?> <?php echo($current['prenom']) ?></h2>
                     <?php
                         $note = $current['note_proprio'];
                         if (isset($note)) {
@@ -214,7 +214,7 @@
 
                     <div class="listeUnLogement">
                         <div>
-                            <a  href="logement.php?id='<?php echo($info["id_logement"]) ?>'">
+                            <a  href="logement.php?id=<?php echo($info["id_logement"]) ?>">
                                 <img class="imgPageProprioLog" src="asset/img/logements/<?php echo($photo["min"]); ?>.<?php echo $extention["extension_image"] ?>" width="300px" height="100%" alt="">
                             </a>
                         </div>

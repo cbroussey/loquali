@@ -52,6 +52,9 @@ if (isset($_GET["confirmHorsligne"])) {
         print "Erreur !: " . $e->getMessage() . "<br/>";
         die();
     }
+
+    echo('proute');
+
 }
 
 $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
@@ -430,7 +433,7 @@ try {
 
                                 <div class="block_info_log" id="nomeuhgenre">
                                     <h2>
-                                        <?php echo ($proprio["nom_affichage"]) ?>
+                                        <?php echo ($proprio["nom"]) ?> <?php echo($proprio['prenom']) ?>
                                     </h2>
                                 </div>
                                 <div class="block_info_log">
@@ -1129,7 +1132,7 @@ try {
                                             </a>
                                             <div class="infoTxtProprioAvis">
                                                 <h3>
-                                                    <?= $unAvis["nom_affichage"] ?>
+                                                    <?= $unAvis["nom"] ?> <?= $unAvis['prenom'] ?>
                                                 </h3>
                                                 <?php
                                                 try {
@@ -1206,8 +1209,6 @@ try {
 
 
     </main>
-
-
 
 
 

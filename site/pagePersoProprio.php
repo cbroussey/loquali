@@ -153,7 +153,7 @@
                     </style>
                 </div>
                 <div class = "infos">
-                    <h2><?php echo $_SESSION['displayName'] ?> </h2>
+                    <h2><?php echo $current['nom'] ?> <?php echo($current['prenom']) ?></h2>
                     <?php
                         $note = ($_SESSION['userType'] == 'proprietaire') ? $current['note_proprio'] : $current['note_client'];
                         if (isset($note)) {
@@ -281,9 +281,10 @@
 
                             ?>
 
+                        
                             <div class="listeUnLogement">
                                 <div class="imgLogement">
-                                    <a  href="logement.php?id='<?php echo($info["id_logement"]) ?>'">
+                                    <a  href="logement.php?id=<?php echo($info["id_logement"]) ?>">
                                         <img class="imgPageProprioLog" src="asset/img/logements/<?php echo($photo["min"]); ?>.<?php echo $extention["extension_image"] ?>" width="300px" height="100%" alt="">
                                     </a>                                
                                 </div>
@@ -359,10 +360,11 @@
                             $stmt = $dbh->prepare($query);
                             $stmt->bindParam('id_image', $photo["min"], PDO::PARAM_STR);
                             $stmt->execute();
-                            $extention = $stmt->fetch();
+                            $extention = $stmt->fetch();    
 
 
                             ?>
+
 
                             <div class="listeUnLogement">
                                 <div>
