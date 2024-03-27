@@ -1,0 +1,744 @@
+#page2, #page3, #page4{
+    display: none;
+}
+
+.page{
+    transition: all  0.8s ease-in-out;
+    min-height: 100%;  
+    overflow-y: scroll;
+    max-height: 88vh;
+}
+
+#gros_div{
+    overflow: auto;
+    transition: transform 0.8s ease-in-out;
+    margin-bottom: 50px;
+}
+
+
+/******************************************** NOUVEAU LOGEMENT ********************************************/
+
+#newLog{
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow-x: hidden;
+  }
+  
+  #newLog h2{
+    margin: 20px 0;
+    text-align: center;
+  }
+  
+  #newLog p, #newLog h4{
+    margin: 15px 0;
+  }
+  
+  .choix_type_log_ajlog{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  
+  .label_choix_ajlog{
+    font-family: "Inter", sans-serif;
+    font-size: 30px;
+    font-weight: bolder;
+  }
+  
+  /* Cacher les boutons radio */
+  #newLogementInput input[type="radio"] {
+    display: none;
+  }
+
+  input[type="checkbox"]:checked + label {
+    background-color: var(--mainColor);
+    color: #fff;
+  }
+  
+  /* input[type="radio"]:checked + label > img {
+    border: var(--mainColor) 20px solid; 
+    color: #fff; 
+  } */
+  
+  
+  .barre_btn_choix_type_ajlog{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .btn_choix_ajlog {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 10px;
+    margin: 20px 20px;
+    background-color: var(--secondBG);
+    border: 1px solid #1D4C77;
+    border-radius: 5px;
+    cursor: pointer;
+    color: var(--textColor);
+    width: 14%;
+    min-width: 120px;
+    height: 90px;
+    max-width: 350px;
+  }
+  
+  /* Lorsque le label est cliqué, cocher le bouton radio associé */
+  #newLogementInput input[type="radio"]:checked + label {
+    background-color: var(--mainColor); 
+    color: #fff; 
+  }
+  
+  .partie_endroit_log_ajlog{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .ligne_select_info_log_ajlog{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%-10px;
+    padding: 0 10px;
+  }
+  
+  
+  .select_info_log_ajlog{
+    background-color: var(--secondBG);
+    border-radius: 20px;
+    color: var(--textColor);
+    border-color: #1D4C77;
+    width: 50%;
+    height: 50px;
+    border-width: 1.5px;
+    margin: 10px;
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  #adresse    {
+    width: 100%;
+  }
+  
+  #appartement{
+    width: 100%;
+  }
+  
+  /* Style pour le conteneur du champ number et des boutons */
+  .number-input {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  /* Style pour les boutons d'incrémentation et de décrémentation */
+  .number-input button {
+    color: var(--textColor);
+    font-weight: bolder;
+    background-color: var(--secondBG);
+    border: 1px solid #1D4C77;
+    border-radius: 50%;
+    width: 2em;
+    height: 2em;
+    font-size: 1em;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Style pour le champ number */
+  .number-input input[type="text"] {
+    padding: 5px;
+    font-size: 16px;
+    width: 40px; 
+    text-align: center;
+    border: none; 
+    -webkit-appearance: none; 
+    appearance: none;
+    background-color: #fff;
+    color: var(--textColor);
+  
+    margin: 0 5px;
+  }
+  
+  .ajout_nombre_piece_ajlog{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #fff;
+    width: 100%;
+  }
+  
+  .ligne_champ_nombre_ajlog{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 300px;
+    color: var(--textColor);
+    margin-top: 15px;
+  }
+  
+  .barre_btn_fin_form{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: -50px;
+  }
+  
+  
+  .barre_btn_fin_form a{
+    background-color: var(--mainColor);
+    color: var(--secondBG);
+    font-size: 25px;
+    font-weight: bolder;
+    width: 180px;
+    height: 55px;
+    margin-left: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+  }
+  
+  .barre_btn_fin_form .Suivant{
+    margin-right: 5%;
+    width: 180px;
+    height: 55px;
+    background-color: var(--mainColor);
+    border: none;
+    color: var(--secondBG);
+    font-size: 25px;
+    font-weight: bolder;
+    border-radius: 5px;
+    transform: translateX(0);
+  }
+  
+  
+  .page {
+    width: 25%; 
+    float: left;
+    background-color: #fff;
+    margin-top: -50px;
+    margin-bottom: 20px;
+    padding-top: 50px;
+  }
+  
+  input[type="checkbox"] {
+    display: none;
+  }
+  
+  .barre_btn_choix_aménagement_ajlog{
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+  
+    margin: 0 10%;
+  }
+
+
+  
+  .btn_choix2_ajlog {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 10px;
+    background-color: var(--secondBG);
+    border: 1px solid #1D4C77;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #000000;
+    width: 15%;
+    max-width: 150px;
+    height: 80px;
+    margin: 11px 11px;
+  
+  
+    font-size: 20px;
+    
+  }
+  
+  .choix_aménagement_log_ajlog{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  .ajout_photo_ajlog{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  
+    font-size: 25px;
+    font-weight: 500;
+    
+  }
+  
+  .envoie_photo_ajlog {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    font-size: 20px;
+    height: 50px;
+  }
+  
+  #custom-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: var(--mainColor); /* Couleur de fond de votre bouton personnalisé */
+    color: var(--secondBG); /* Couleur du texte */
+    border: #1D4C77 1px solid;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  #photo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+  
+  #liste_img_ajlog {
+    margin-top: 20px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  
+  #liste_img_ajlog img{
+    margin: 5px 10px;
+    width: 400px;
+  }
+  
+  .ajout_titre_log_ajlog{
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  
+  }
+  
+  #titre{
+    color: var(--textColor);
+    background-color: var(--secondBG);
+    border: #1D4C77 1px solid;
+    border-radius: 20px;
+    height: 50px;
+    width: 30%;
+    padding: 0 20px;
+    font-size: 20px;
+  }
+  
+  .ajout_long_text1_log_ajlog{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 50px;
+  
+  }
+  
+  .ajout_long_text2_log_ajlog{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;   
+    margin-bottom: 50px;
+  
+  }
+  
+  .ajout_long_text1_log_ajlog .txt_area_ajlog{
+    color: var(--textColor);
+    background-color: var(--secondBG);
+    border: #1D4C77 2px solid;
+    border-radius: 15px;
+    padding: 10px 20px;
+    height: 115px;
+    width: 45%;
+    font-size: 15px;
+  }
+  
+  .ajout_long_text2_log_ajlog .txt_area_ajlog{
+    color: var(--textColor);
+    background-color: var(--secondBG);
+    border: #1D4C77 2px solid;
+    border-radius: 15px;
+    padding: 10px 20px;
+    height: 130px;
+    width: 45%;
+    font-size: 15px; 
+  }
+  
+  .ajout_plage_disp_ajlog{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  .ajout_plage_disp_ajlog p{
+    color: var(--textColor);
+    font-size: 20px;
+    margin: 50px 0;
+  }
+  
+  .ajout_plage_disp2_ajlog p{
+    text-align: center;
+    font-weight: 500;
+    font-size: 20px;
+  }
+  
+  .ligne_ajout_plage_disp_ajlog{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    width: 100%;
+  }
+  
+  .ajout_plage_disp_gauche_ajlog{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 20px;
+  }
+  
+  .ajout_plage_disp_gauche_ajlog p{
+    margin-right: 15px;
+    font-size: 20px;
+    color: var(--textColor);
+  }
+  
+  
+  .ajout_plage_disp_droite_ajlog{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+  }
+  
+  .ajout_plage_disp_droite_ajlog p{
+    margin-left: 20px;
+    background-color: var(--secondBG);
+    border: #1D4C77 1px solid;
+    border-radius: 20px 0px 0px 20px;
+    color: var(--textColor);
+    height: 50px;
+    width: 260px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 3px;
+  }
+  
+  .ajout_plage_disp_droite_cal_ajlog{
+    background-color: var(--mainColor);
+    border: var(--mainColor) 1px solid;
+    border-radius: 0 20px 20px 0;
+    height: 50px;
+    width: 85px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .ajout_plage_disp_droite_cal_ajlog svg{
+    margin-left: -12px;
+  }
+  
+  .ajouter_prix_ajlog{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .haut_ajout_prix_ajlog{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .prix_log_ajlog{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    flex-direction: row;
+  }
+  
+  
+  .prix_log_ajlog h1{
+    margin: 5px;
+    color: var(--textColor);
+    font-weight: 500;
+  }
+  
+  #prix {
+    border: #1D4C77 1px solid;
+    border-radius: 20px;
+    padding: 20px;
+    width: 15%; 
+    height: 50px;
+    font-size: 40px;
+    font-weight: 100;
+    color: var(--textColor);
+    background-color: var(--secondBG);
+    text-align: center;
+  }
+  
+  .bas_ajout_prix_ajlog{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: var(--textColor);
+    background-color: var(--secondBG);
+    border: #1D4C77 1px solid;
+    border-radius: 15px;
+    padding: 15px;
+    margin-top: 50px;
+    width: 59%;
+    margin-bottom: 20px;
+  }
+  
+  .ligne_tabprix_ajlog{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 100;
+    font-size: 25px;
+  }
+  
+  .droit_prix_ajlog{
+    color: var(--textColor);
+    font-weight: bold;
+  }
+  
+  .droit_prix_ajlog p{
+    font-weight: bold;   
+  }
+  
+  /* Bouton Momo */
+  #popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: var(--secondBG);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    border-radius: 10px;
+  }
+  
+  #overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 999;
+  }
+  
+  #popup p{
+    margin: 20px;
+  }
+  
+  .button_confirmation{
+    display: flex;
+    justify-content: space-between;
+  
+  }
+  
+  #popup a {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 0 20px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: bold;
+    color: #fff;
+  }
+  
+  #popup a#annuler {
+    background-color: #1D4C77; 
+  }
+  #popup a#confirmer {
+    background-color: #8A3443;
+  }
+  
+  .button_refuser button{
+    display: inline-block;
+    margin-top: 10px;
+    width: 100%;
+    height: 62px;
+    background-color: #8A3443;;
+    color: #fff;
+    text-align: center;
+    line-height: 62px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 700;
+    margin-bottom: 20px;
+   }
+   
+   .button_valider a {
+    display: inline-block;
+    margin-top: 10px;
+    width: 100%;
+    height: 62px;
+    background-color: var(--mainColor);
+    color: #fff;
+    text-align: center;
+    line-height: 62px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 700;
+   }
+  
+  
+  #id_loge{
+    display: none;
+  }
+  
+  
+  .testdelamort{
+    width: 400%;
+    transition: all 0.8s ease-in-out;
+  }
+  
+  
+  @media screen and (min-width: 0px) and (max-width: 1050px) { 
+
+    .btn_choix_ajlog{
+      height: 65px;
+    }
+  
+    .ajout_nombre_piece_ajlog .ligne_champ_nombre_ajlog{
+      margin-top: 10px;
+      font-size: 14.5px;
+    }
+
+    .partie_endroit_log_ajlog{
+      font-size: 10px;
+    }
+
+    h2{
+      font-size: 20px;
+    }
+
+
+  }
+  
+  @media screen and (min-width: 0px) and (max-width: 800px) { 
+    .select_info_log_ajlog{
+    }
+
+    #liste_img_ajlog img{
+      width: 200px;
+    }
+  }
+
+  @media screen and (min-width: 0px) and (max-width: 770px) { 
+    .barre_btn_fin_form{
+      margin-top: 25px;
+    }
+
+    #custom-button{
+      font-size: 13px;
+    }
+
+    input[type="text"]{
+      font-size: 13px !important;
+    }
+
+    textarea{
+      font-size: 12px !important;
+    }
+
+
+  }
+
+  @media screen and (min-width: 510px) and (max-width: 770px) { 
+    .btn_choix2_ajlog{
+      width: 14%;
+      font-size: 12px;
+      height: 40px;
+      margin: 5px;
+    }
+
+    .ligne_tabprix_ajlog{
+      font-size: 20px;
+    }
+  }
+
+  @media screen and (min-width: 0px) and (max-width: 510px) { 
+    .btn_choix2_ajlog{
+      font-size: 10px;
+      height: 30px;
+      margin: 5px;
+    }
+
+    .ligne_tabprix_ajlog{
+      font-size: 15px;
+    }
+
+    .barre_btn_fin_form a, .barre_btn_fin_form .Suivant{
+      font-size: 20px;
+      width: 140px;
+    }
+  }
+
+
+  @media screen and (min-width: 0px) and (max-width: 900px) { 
+    #page4 .barre_btn_fin_form{
+      margin-top: 20px;
+    }
+
+    #page4 input[type="text"]{
+      font-size: 25px !important;
+    }
+
+    .droit_prix_ajlog{
+      font-size: 13px;
+    }
+  }

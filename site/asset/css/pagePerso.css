@@ -1,0 +1,790 @@
+
+/****************************PAGE PERSO PROPRIETAIRE*****************************/
+#pagePersoSvgBack {
+    width: 45px;
+    height: 45px;
+    flex-shrink: 0;
+    margin: 40px;
+  }
+  
+  #ensemble {
+    min-height: 92vh;
+    float: right;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    margin-top: 20px;
+  }
+  
+  
+  
+  
+  .infosProprio {
+    position: relative;
+    float: left;
+    top: 100px;
+    height: 463px;
+    width: 620px;
+    color: #1D4C77;
+  }
+  
+  .infosProprio button {
+    border-radius: 5px;
+    border: 1.5px solid #1D4C77;
+    background: #2072BC;
+  
+    width: 305px;
+    height: 62px;
+  
+    color: #F5F5F5;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  
+    margin-left: 150px;
+    margin-top: 230px;
+  }
+  
+  
+  
+  
+  #infosTous {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .infos {
+    margin-left: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 160px;
+  
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+  
+  .infos figure {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+  
+  }
+  
+  .infos figcaption {
+    margin-left: 10px;
+  }
+  
+  .star {
+  
+    margin-left: -8px;
+  }
+  
+  .tel {
+    margin-right: 5px;
+  }
+  
+  .messageCompteClient {
+    color: #9EA5AB;
+    font-family: Inter;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+  }
+  
+  #aProposDeMoi {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    margin-bottom: 18px;
+  }
+  
+  #aProposDeMoi h2 {
+    margin-right: 30px;
+    margin-bottom: 10px;
+  }
+  
+  #aProposDeMoi div {
+    display: flex;
+    margin-top: 10px;
+  }
+  
+  
+  #textProposDeMoi {
+  
+    text-align: justify;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  
+    margin-top: 10px;
+  }
+  
+  
+  
+  #logementPropo {
+    color: #1D4C77;
+    position: initial;
+    margin-top: 80px;
+  
+    margin-bottom: 50px;
+  }
+  
+  
+  
+  
+  #titreLogement {
+    margin-top: -30px;
+    margin-bottom: 14px;
+    display: flex;
+    justify-content: center;
+    font-size: 25px;
+  
+  }
+  
+  #listeLogements {
+    overflow: auto;
+  
+    padding: 20px 55px 20px 55px;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+  
+    width: 650px;
+    height: 679px;
+  
+    border-radius: 25px;
+    background: #F5F5F5;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
+  }
+  
+  #AucunLogement {
+    padding-top: 20px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .unLogement {
+    height: 171px;
+    margin-top: 10px;
+    margin-bottom: 9px;
+  
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    width: 330px;
+  }
+  
+  .unLogement h2 {
+    margin-left: 20px;
+    margin-top: -5px;
+  }
+  
+  
+  .unLogement p {
+    height: 32px;
+    width: 250px;
+    margin-top: 15px;
+    margin-bottom: -10px;
+    margin-left: 20px;
+  }
+  
+  .unLogement img {
+    margin-left: 11px;
+    margin-right: -22px;
+  }
+  
+  .consulterLogement {
+    color: #97ADC1;
+    margin-left: 20px;
+  
+  
+  }
+  
+  
+  .noteAvis {
+    display: flex;
+    flex-direction: row;
+    margin-top: 5px;
+    margin-bottom: 25px;
+  }
+  
+  .noteAvis img {
+    margin-top: 5px;
+  }
+  
+  .noteAvis p {
+    margin-top: 13px;
+  }
+  
+  .listeUnLogement {
+    display: flex;
+    flex-direction: row;
+    height: 30%;
+  }
+  
+  .listeUnLogement div img {
+    border-radius: 5px;
+  }
+  
+  .imgListeLogementProprio {
+    max-width: 290px;
+  }
+  
+  .separateur {
+    background-color: #97ADC1;
+    width: 600px;
+    height: 1px;
+    margin-bottom: 20px;
+  }
+  
+  .separateur1 {
+    background-color: #97ADC1;
+    width: 600px;
+    height: 2px;
+    -webkit-user-select: none;
+  
+    color: transparent;
+    margin: 25px 0;
+    margin-left: 10px;
+  }
+  
+  #compteLogements .separateur1 {
+    margin-left: 0;
+  }
+  
+  #boutonDescription {
+    width: 30px;
+    height: 30px;
+    border: none;
+    background-color: transparent;
+    background-repeat: no-repeat;
+  
+    position: absolute;
+    top: 211px;
+    left: 220px;
+  
+    transition: all 0.2s ease-in-out;
+  }
+  
+  #boutonDescription:hover {
+    transform: scale(1.1);
+    transition: all 0.15s ease-in-out;
+  }
+  
+  
+  #modificationDescription {
+  
+    position: absolute;
+    top: 210px;
+    left: 220px;
+  
+    background-color: #2072BC;
+    width: 100px;
+    font-weight: 700;
+    font-size: 15px;
+    height: 30px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    color: #FFF;
+    border: none;
+  
+    transition: all 0.2s ease-in-out;
+  }
+  
+  #modificationDescription:hover {
+    transform: scale(1.1);
+    transition: all 0.15s ease-in-out;
+  }
+  
+  #description {
+    width: 550px;
+    height: 300px;
+  }
+  
+  #champsDescription {
+    word-wrap: break-word;
+    width: 550px;
+    height: 300px;
+  }
+
+  #ListeAvis{
+    width: 100%;
+    padding: 0 2%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    max-height: 60vh;    
+    overflow-y: scroll;
+  }
+  
+  .unAvis{
+    width: 85%;
+    border: 2px solid var(--mainColor);
+    border-radius: 25px;
+    padding: 20px;
+    margin: 15px 20px;
+    background-color: #FFF;
+  }
+
+  .hautAvis{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .infoPropioAvis{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: nowrap;
+  }
+  
+  .infoTxtProprioAvis{
+    
+    color: #1D4C77;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-direction: column;
+
+    height: 55%;
+  }
+
+  
+  .noteAvisLog{
+    margin-right: 2%;
+  }
+
+  .noteAvisLog img{
+    margin: 0 -6.5px;
+  }
+
+  .img_avis_log{
+    width: 100px;
+    transform: scale(1);
+    transition: all 0.15s ease-in-out;
+  }
+  
+  .img_avis_log:hover{
+    transform: scale(1.05);
+    transition: all 0.25s ease-in-out;
+  }
+
+  .photo_profil_proprio_log_avis{
+  
+    background-image: url('../img/profils/proprio.jpg');
+    background-size: cover;
+    background-position: center;
+    box-sizing: border-box;
+  
+    width: 80px;
+    height: 80px;
+  
+    border: 2px solid var(--mainColor);
+    border-radius: 50%;
+
+  }
+
+ 
+  
+  /* truc pour les modif */
+  
+  .modifBtn {
+    display: none;
+  }
+  
+  .modifBtn.active {
+    display: block;
+  }
+  
+  .testBouton {
+    display: block;
+  }
+  
+  .testBouton.active {
+    display: none;
+  }
+  
+  
+  .descriptionModif {
+    display: none;
+  }
+  
+  .descriptionModif.active {
+    display: block;
+  }
+  
+  .descriptionCompte {
+    display: block;
+  
+  }
+  
+  .descriptionCompte.active {
+    display: none;
+  }
+  
+  @media screen and (min-width: 0px) and (max-width: 400px) {
+    #ensemble {
+      flex-direction: column;
+    }
+
+    #pagePersoSvgBack {
+      left: 50px;
+      width: 50px;
+      height: 37.778px;
+    }
+
+    .infos {
+      font-size: 15px;
+      margin-left: 0;
+    }
+
+    .infos h2{
+      font-size: 20px;
+    }
+
+    .infosProprio {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin-top: -55%;
+  
+    }
+
+    #infosTous {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
+    #aProposDeMoi {
+      background-color: #F5F5F5;
+      box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+      padding: 15px -1px 46px 30px;
+      width: 100%;
+      height: 3em;
+  
+    }
+
+    #aProposDeMoi div h2 {
+      font-size: 15px;
+      text-decoration: underline;
+      margin-left: 5%;
+    }
+
+    .messageCompteClient{
+      justify-content: center;
+      align-items: center;
+    }
+
+    #boutonDescription {
+      margin-top: 11%;
+    }
+
+    #champsDescription {
+      width: 355px;
+      height: 100px;
+      font-size: 15px;
+      font-weight: normal;
+    }
+
+    .descriptionPersonne {
+      width: 80%;
+      margin-left: 5%;
+    }
+
+    #logementPropo {
+      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    #listeLogements {
+      width: 250px;
+      height: 610px;
+      border-radius: 0%;
+      background: transparent;
+      box-shadow: 0px 0px 0px 0px transparent;
+      overflow: hidden;
+      font-size: 15px;
+    }
+
+    .unAvis {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .photo_profil_proprio_log_avis{
+      margin-left: -10%;
+    }
+
+    .separateur {
+      display: none;
+    }
+
+    .listeUnLogement {
+      display: flex;
+      justify-content: center;
+      margin-left: 60%;
+    }
+
+    .unLogement {
+      font-size: 15px;
+      margin-top: 54%;
+      flex-direction: column;
+    }
+
+    .unLogement h2 {
+      font-size: 15px;
+    }
+
+    .unLogement p{
+      width: 1250px;
+    }
+
+    .unLogement .noteAvis img {
+      width: 35px;
+      height: 35px;
+      margin-top: 1px;
+    }
+
+    .imgLogement {
+      display: flex;
+      align-items: center;
+    }
+
+    .listeUnLogement div img {
+      width: 150px;
+      height: 100px;
+      border-radius: 5px;
+    }
+
+    .noteAvis{
+      width: 125px;
+    }
+
+    .consulterLogement {
+      display: none;
+    }
+
+    .separateur1 {
+      background-color: #97ADC1;
+      width: 100%;
+      height: 2px;
+    }
+
+  
+   /*  
+  
+    
+  
+    .infos h2 {
+      margin-top: -20px;
+      margin-left: -45px;
+      margin-bottom: 30px;
+  
+  
+    }
+  
+  
+    .infos {
+      
+      margin-top: -40px;
+      margin-left: 10px;
+    }
+  
+    .star {
+      margin-left: -18px;
+  
+    }
+  
+    .star img {
+      width: 45px;
+      height: 45px;
+    }
+  
+    .tel {
+      margin-left: -16px;
+    }
+  
+    .tel img {
+      width: 42px;
+      height: 42px;
+    }
+  
+    .mail img {
+      width: 30px;
+      height: 30px;
+    }
+  
+    .mail {
+      margin-left: -10px;
+    }
+  
+    
+  
+    
+  
+    #aProposDeMoi div h2 {
+      font-size: 15px;
+      text-decoration: underline;
+      margin-right: 60px;
+  
+    }
+  
+  
+    #boutonDescription {
+      top: 163px;
+      left: 140px;
+    }
+  
+    
+  
+    #modificationDescription {
+      top: 34%;
+      left: 35%;
+    }
+  
+    
+  
+    #description {
+      width: 355px;
+      height: 100px;
+    }
+  
+  
+    
+  
+    #titreLogement {
+      margin-top: -115px;
+      margin-bottom: 14px;
+      margin-left: 35%;
+      font-size: 20px;
+    }
+  
+   
+  
+    
+  
+    
+  
+      
+   
+    
+  
+    .unLogement .noteAvis {
+      margin-top: -10px;
+    }
+  
+    
+  
+    
+  
+     */
+  
+  
+  }
+  
+  @media screen and (min-width: 400px) and (max-width: 1300px) {
+  
+    #ensemble {
+      display: flex;
+      flex-direction: column;
+  
+    }
+  
+    .infosProprio {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: 100%;
+      margin-top: -15%;
+    }
+
+    #infosTous {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      justify-content: center;
+  }
+  
+    #logementPropo {
+      display: flex;
+      flex-direction: column;
+      align-content: center;
+      flex-wrap: wrap;
+      margin-top: 15%;
+     
+  
+    }
+  
+    .separateur {
+      display: none;
+    }
+  
+    #aProposDeMoi {
+      background-color: #F5F5F5;
+      box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+  
+      padding: 15px 25px 46px 30px;
+   
+      top: 10%;
+      position: relative;
+  
+    }
+  
+    #aProposDeMoi div h2 {
+      font-size: 20px;
+      text-decoration: underline;
+      margin-left: 60px;
+  
+    }
+
+    .messageCompteClient{
+      text-align: center;
+      justify-content: center;
+      align-items: center;
+    }
+  
+    #boutonDescription {
+      top: 20px;
+      left: 270px;
+    }
+  
+    .descriptionPersonne {
+      width: 355px;
+    }
+  
+    #modificationDescription {
+      top: 41%;
+      left: 35%;
+    }
+  
+    #champsDescription {
+      width: 1000px;
+      font-size: 15px;
+      font-weight: normal;
+      margin-left: 6%;
+    }
+  
+    #description {
+      width: 1000px;
+      height: 100px;
+      margin-left: 6%;
+    }
+  }

@@ -1,0 +1,1208 @@
+.contact_proprio_log{
+    width: 200%;
+    display: flex;
+    align-items: center;
+}
+
+#myModal4{
+    display: none;
+    color: black;
+}
+
+.button_valider{
+  width: 100%;
+}
+
+.button_refuser{
+  width: 100%;
+}
+
+.button_valider a {
+  display: inline-block;
+  margin-top: 10px;
+  width: 100%;
+  height: 62px;
+  background-color: var(--mainColor);
+  color: #fff;
+  text-align: center;
+  line-height: 62px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-family: Inter;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.button_refuser button {
+  display: inline-block;
+  margin-top: 10px;
+  width: 100%;
+  height: 62px;
+  background-color: #8A3443;
+  ;
+  color: #fff;
+  text-align: center;
+  line-height: 62px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-family: Inter;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.button_refuser a {
+  display: inline-block;
+  margin-top: 10px;
+  width: 100%;
+  height: 62px;
+  background-color: #8A3443;
+  ;
+  color: #fff;
+  text-align: center;
+  line-height: 62px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-family: Inter;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 700;
+}
+
+
+
+/******************************************** LOGEMENT ********************************************/
+
+#bg{
+    background-color: var(--secondBG);
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow-x: hidden;
+  }
+  
+  
+  
+  .barre_fin_header_log{
+    margin-top: -8px;
+    margin-bottom: -17px;
+  }
+  
+  h2 span{
+    font-weight: bold;
+  }
+  
+  .txt_details_log{
+    margin-top: 6%;
+    margin-left: -4%;
+  }
+  
+  .txt_descr_log{
+    font-size: 20px;
+    font-weight: bolder;
+  }
+  
+  .txt_info_log{
+    font-size: 20px;
+    margin: 20px 0;
+  }
+  
+  .txt_info_petit_log{
+    font-size: 15px;
+  }
+  
+  .txt_descr_log{
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  #bg .description_log h4{
+    font-weight: bold;
+    text-decoration: underline;
+  }
+  
+  .blanc{
+    background: #fff;
+    padding-top: 30px;
+    top: 0;
+    width: 100%;
+  }
+  
+  .blanc2{
+    background: #fff;
+    margin-top: -10px;
+    padding-top: 18px;
+  }
+  
+  .titre_log{
+    color: var(--textColor);
+    margin-left: 5%;
+    font-size: 20px;
+  }
+  
+  .titre_log h3{
+    margin-top: 0;
+  }
+  
+  .titre_log_bas{
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+  }
+  
+  #detailgenre {
+    color: #1D4C77;
+    font-size: 20px;
+    font-weight: 500;
+    text-decoration-line: underline;
+    margin-left: 20px;
+  }
+  
+  .titre_log_bas p{
+    margin-left: 5px;
+  }
+  
+  .images_log{
+    display: flex;
+    width: 80%;
+    margin-left: 10%;
+    justify-content: center;
+    align-items: normal;
+    padding-bottom: 3.5%;
+  }
+  
+  .images_log img{
+    border-radius: 5px;
+  }
+  
+  .images_log>img{
+    width: 49%;
+    margin-top: 0.75%;
+    margin-right: 0.5%;
+  }
+  
+  .images_log_droite{
+    width: 50%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .images_log_droite img{
+    margin-top: 1.5%;
+    margin-right: 1.5%;
+    width: 48%;
+  }
+  
+  .images_log img{
+    transform: scale(1);
+    transition: all 0.15s ease-in-out;
+  }
+  
+  .images_log img:hover{
+    transform: scale(1.025);
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .lig_images_log_droite{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    height: 50%;
+  
+  }
+  
+  .lig_images_log_droite img {
+    width: 48%;
+  }
+  
+  .barre_log{
+    margin-top: -6px;
+  }
+  
+  
+  .barre_info_log{
+    padding-top: 3.5%;
+    display: flex;
+    height: 175px;
+  }
+  
+  .proprio_log{
+    background-color: #1d4c77;
+    display: flex;
+    width: 25%;
+    color: var(--secondBG);
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 5%;
+    border-radius: 15px;
+  }
+  
+  .img_proprio_log{
+    width: 130px;
+    transform: scale(1);
+    transition: all 0.15s ease-in-out;
+  }
+  
+  .img_proprio_log:hover{
+    transform: scale(1.05);
+    transition: all 0.25s ease-in-out;
+  }
+
+  .img_avis_log{
+    width: 130px;
+    transform: scale(1);
+    transition: all 0.15s ease-in-out;
+  }
+  
+  .img_avis_log:hover{
+    transform: scale(1.05);
+    transition: all 0.25s ease-in-out;
+  }
+  
+  .photo_profil_proprio_log{
+  
+    background-image: url('../img/profils/proprio.jpg');
+    background-size: cover;
+    background-position: center;
+    box-sizing: border-box;
+  
+    position: absolute;
+    width: 100%;
+    height: 130px;
+  
+    border: 4px solid var(--mainColor);
+    border-radius: 50%;
+  
+    margin-top: -60px;
+    margin-left: 20%;
+
+  }
+  
+  .photo_profil_proprio_log_avis{
+  
+    background-image: url('../img/profils/proprio.jpg');
+    background-size: cover;
+    background-position: center;
+    box-sizing: border-box;
+  
+    width: 80px;
+    height: 80px;
+  
+    border: 2px solid var(--mainColor);
+    border-radius: 50%;
+
+  }
+  
+  .block_info_log{
+    margin-bottom: 20px;
+  }
+  
+  .block_info_log h2{
+    margin-bottom: 14px;
+  }
+  
+  .info_proprio_log{
+    margin-right: 3%;
+    margin-bottom: -20px;
+    width: 50%;
+  }
+  
+  .note_proprio_log{
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+  }
+  
+  .info_proprio_log p{
+    margin-left: 5px;
+  }
+  
+  .contact_proprio_log{
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+  }
+  
+  .contact_proprio_log p{
+    margin-left: 5%;
+  }
+  
+  .details_log{
+    background-color: #1d4c77;
+    width: 35%;
+    color: var(--secondBG);
+    margin-left: 2.5%;
+    border-radius: 15px;
+  
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  
+  .details_log p{
+    width: 100%;
+    margin-left: 20%;
+    margin-top: -2.5%;
+    font-size: 20px;
+    font-weight: 500;
+  }
+  
+  .details_log .petit{
+    font-size: 15px;
+    margin-top: 5.5%;
+  }
+  
+  .dispo_date_log{
+    width: 100%;
+    height: 40px;
+    float: right;
+    margin-right: 5%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: var(--textColor);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .dispo_date_log p span{
+    font-weight: bold;
+  }
+  
+  .bouton_date_log{
+    background-color: var(--mainColor);
+    color: var(--secondBG);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 25%;
+    height: 40px;
+    border-radius: 5px;
+    margin-left: 20px;
+    transform: scale(1);
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .bouton_date_log:hover{
+    background-color: #43688A;
+    color: #fff;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .bouton_date_log p{
+    margin-left: 5px;
+  }
+  
+  .res_and_map_log{
+    display: flex;
+    float: right;
+    width: 25%;
+    flex-direction: column;
+    flex-wrap: wrap;
+    margin-right: 5%;
+    margin-top: -10%;
+    position: sticky;
+    top: 90px;
+  }
+  
+  .carte_box_log{
+    float: right;
+    margin-right: 5%;
+    border: #1D4C77 2px solid;
+    border-radius: 5px;
+    margin-bottom: 75px;
+    width: 100%;
+    height: 300px;
+  }
+  
+  .carte{
+    width: 100%;
+    height: 100%;
+  }
+  
+  .rerservation_log{
+    float: right;
+    margin-bottom: 8%;
+    background-color: #1d4c77;
+    color: var(--secondBG);
+    width: 100%;
+    border-radius: 5px;
+  }
+  
+  .haut_rerservation_log{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 3% 0;
+  }
+
+  .haut_rerservation_log h2{
+    font-size: 20px;
+  }
+  
+  .bouton_res_log h1 {
+    color: #fff;
+    font-size: 25px;
+  }
+  
+  .bouton_res_log{
+    display: flex;
+    background-color: var(--mainColor);
+    color: var(--secondBG);
+    border-radius: 5px;
+    height: 60px;
+    width: 240px;
+    justify-content: center;
+    align-items: center;
+    transform: scale(1);
+    border: none;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  }
+  
+  .bouton_res_log:hover{
+    background-color:#7297B8;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .bare_res{
+    height: 3px;
+    width: 100%;
+    background-color: var(--secondBG);
+  }
+  
+  .services_log{
+    margin-bottom: 15px;
+  }
+  
+  .elem_reservation_log {
+    display: flex;
+    justify-content: start;
+    align-items: center ;
+    width: 200px;
+    margin-left: 10%;
+    flex-wrap: wrap;
+  }
+  
+  .elem_reservation_log p{
+    margin: 15px;
+  }
+  
+  .rerservation_log>.detail_reservation_log>p{
+    margin-left: 31px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  
+  
+  .ligne_elem_res_log{
+    display: flex;
+    margin-bottom: 20px;
+  }
+  
+  .description_log{
+    margin-top: 2%;
+    color: var(--textColor);
+    margin-left: 5%;
+    width: 60%;
+    padding:0 5% 0 0;
+  }
+  
+  .description_log h4{
+    margin-bottom: 5%;
+  }
+  
+  .description_log p{
+    margin-bottom: 30px;
+  }
+  
+  .sep_descri_regle_log{
+    background-color: #1D4C77;
+    width: 30%;
+    height: 2px;
+    margin-left: 5%;
+  }
+  
+  .reglement_log{
+    margin-top: 2%;
+    color: var(--textColor);
+    margin-left: 5%;
+    width: 60%;
+    padding:0 5% 0 0;
+  }
+  
+  .reglement_log h4{
+    margin-bottom: 2%;
+  }
+  
+  .reglement_log p{
+    margin-bottom: 20px;
+  }
+  
+  .info_arrive_log{
+    margin-top: 2%;
+    color: var(--textColor);
+    margin-left: 5%;
+    width: 60%;
+    padding:0 5% 0 0;
+  }
+  
+  .info_arrive_log h4{
+    margin-bottom: 2%;
+  }
+  
+  .info_arrive_log p{
+    margin-bottom: 20px;
+  }
+  
+  .info_depart_log{
+    margin-top: 2%;
+    color: var(--textColor);
+    margin-left: 5%;
+    width: 60%;
+    padding:0 5% 0 0;
+    margin-bottom: 45px;
+  }
+  
+  .info_depart_log h4{
+    margin-bottom: 2%;
+  }
+  
+  .info_depart_log p{
+    margin-bottom: 20px;
+  }
+
+  #ajoutAvisForm{
+    display: none;
+    width: 27.5%;
+    margin-right: 4.5px;
+  }
+
+  #ajoutAvisForm textarea{
+    width: 100%;
+    padding: 5px;
+  }
+
+  #ligneBasAjAvis{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 5px;
+  }
+
+  .etoileAvis label{
+    width: 20%;
+  }
+
+  .etoileAvis{
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+  }
+
+
+  #ajAvisConfirm {
+  color: #F5F5F5;
+  background-color: #2072BC;
+  border-radius: 5px;
+  width: 150px;
+  height: 45px;
+  font-size: 15px;
+  font-weight: 500;
+  }
+
+  
+  
+
+  
+   /* Style pour la boîte de dialogue de confirmation */
+  .confirmation-modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0; 
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+  
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 30%;
+  }
+   
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  .confirm-button {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .confirm-button:hover {
+    background-color: #c82333;
+  }
+  
+  .delete-button {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .delete-button:hover {
+    background-color: #c82333;
+  }
+  
+
+  #AvisSection{
+    width: 90%;
+    margin: 0 5%;
+  }
+
+  #AvisSection p{
+    color: #1D4C77;
+  }
+
+  #AvisSection p span{
+    font-weight: bolder;
+  }
+  
+  
+
+  .barreHautAvis{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin: 20px 0;
+  }
+
+  #AjoutAvis{
+    color: #F5F5F5;
+    background-color: #2072BC;
+    border-radius: 5px;
+    width: 150px;
+    height: 45px;
+    font-size: 15px;
+    font-weight: 500;
+  }
+
+  #ListeAvis{
+    width: 100%;
+    padding: 0 2%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    max-height: 60vh;    
+    overflow-y: scroll;
+  }
+
+  .unAvis{
+    width: 40%;
+    border: 2px solid var(--mainColor);
+    border-radius: 25px;
+    padding: 20px;
+    margin: 15px 30px;
+    background-color: #F5F5F5;
+  }
+
+  .hautAvis{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .infoPropioAvis{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: nowrap;
+  }
+  
+  .infoTxtProprioAvis{
+    margin-left: -15%;
+    color: #1D4C77;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-direction: column;
+
+    height: 55%;
+  }
+
+  .milieuAvis{
+    margin: 10px 0;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+  }
+
+  .noteAvisLog{
+    margin-right: 2%;
+  }
+
+  .noteAvisLog img{
+    margin: 0 -6.5px;
+  }
+
+  .ContentAvis{
+    font-weight: 400;
+    width: 100%;
+    word-wrap: break-word;
+  }
+
+ /*  @media screen and (min-width: 0) and (max-width: 1100px) { 
+  
+    #bg h3 {
+      font-size: 20px;
+    }
+  
+   .titre_log_bas svg{
+    width: 15px;
+    height: auto;
+   }
+  
+   .titre_log_bas p{
+    margin-top: 5px;
+   }
+  
+
+  
+  .sticky_res_and_map_log {
+    background-color: #F5F5F5;
+    border-top: 1px solid rgba(0, 0, 0, 0.20);
+  
+  
+  }
+  
+
+  
+
+
+  
+
+  
+ 
+
+  
+
+
+  
+
+  
+
+
+
+ */
+
+
+
+  @media screen and (min-width: 0px) and (max-width: 500px) { 
+
+    .titre_log_bas svg{
+      width: 15px;
+      height: auto;
+     }
+    
+     .titre_log_bas p{
+      margin-top: 5px;
+     }
+  
+    #bg p{
+    font-size: 9px;
+    }
+   
+    #bg h3{
+    font-size: 12px;
+    }
+   
+    #bg h2, #bg h2 span{
+    font-size: 13px;
+    }
+   
+    #bg h1{
+    font-size: 15px;
+    }
+   
+    .res_and_map_log{
+    margin-top: 0;
+    position: static;
+    width: 100%;
+    }
+
+    .dutexte h4{
+      font-size: 15px;
+      font-weight: 800;
+      text-decoration: underline;
+      width: 100%;
+
+    }
+
+    .dutexte p{
+      margin-top: 15px;
+    }
+  
+    .sep_descri_regle_log {
+      width: 90%;
+      margin: 5px;
+    }
+
+    .dutexte{
+      text-align: center;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: -25px;
+      margin-top: 20px;
+    }
+
+    .description_log, .reglement_log, .info_arrive_log, .info_depart_log {
+      width: 100%;
+    }
+
+    .group_res_info_log{
+      display: flex;
+      flex-direction: column-reverse;
+    }
+
+    .elem_reservation_log {
+      height: 27px;
+    }
+    
+    .elem_reservation_log img {
+      width: 27px;
+      height: 27px;
+    }
+
+    .rerservation_log {
+      margin-bottom: 8%;
+      background-color: #1d4c77;
+      color: var(--secondBG);
+      width: 310px;
+      border-radius: 5px;
+    
+      margin-right:   auto;
+      margin-left:auto;
+    }
+    
+    .bouton_res_log h1 {
+      font-size: 20px;
+    }
+    
+    .bouton_res_log{
+      width: 160px;
+      height: 40px;  
+    }
+    
+    .rerservation_log>.detail_reservation_log>p {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .block_info_log{
+      margin-bottom: 10px;
+    }
+    
+    .txt_details_log {
+      text-align: center;
+      margin-left: -15px; 
+    }
+
+    
+    .details_log p {
+      margin-left: 15%;
+    }
+    
+    .txt_info_log {
+      margin: 10px 0;
+    }
+
+    #nomeuhgenre{
+  
+      margin-left: 10px;
+    }
+    
+    .info_proprio_log {
+      margin-right: 10px;
+      margin-bottom: -10px;
+    
+    }
+    
+    .info_proprio_log svg{
+      width: 10px;
+      height: auto;
+    }
+
+    .contact_proprio_log{
+      margin-left: -10px;
+    }
+
+    .proprio_log {
+      width: 165px;
+      height: 80px;
+      margin-left: 0%;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+    
+    .details_log {
+      width: 280px;
+      height: 80px;
+    }
+    
+    .photo_profil_proprio_log {
+      background: url(asset/img/profils/4.png) center/cover;
+      width: 52px;
+      height: 52px;
+      border-radius: 40px;
+      border: 1px solid #2072BC;
+    
+      margin-top: -25px;
+      margin-left: 5px;
+  
+    }
+    
+    .barre_info_log {
+      padding-top: 3.5%;
+      display: flex;
+      justify-content: space-around;
+      height: 100px;
+      margin: 0 2.5%;
+    }
+    
+    
+    
+    .block_info_log h2 {
+      width: 110px;
+      height: 11px;
+      font-size: 15px;
+      font-weight: 700;
+    
+      margin: 0;
+      margin-left: -15px;
+    }
+    
+    #map{
+      width: 90%;
+      margin-left: 5%;
+    }
+    
+    #AjoutAvis{
+      width: 85px;
+      height: 35px;
+      font-size: 11px;
+    }
+
+    .unAvis{
+      width: 100%;
+      height: auto;
+    }
+
+    .photo_profil_proprio_log_avis{
+      width: 60px;
+      height: 60px;
+    }
+
+    .infoTxtProprioAvis{
+      justify-content: center;
+    }
+
+    .infoTxtProprioAvis h3{
+      margin-bottom: 2.5px;
+    }
+
+    .infoTxtProprioAvis p {
+      margin-top: 2.5px;
+    }
+
+    .milieuAvis{
+      justify-content: flex-start;
+      margin: 0;
+    }
+
+    .noteAvisLog{
+      width: 40%;
+      margin: 0;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      flex-wrap: nowrap;
+      margin-right: 11px;
+    }
+
+    .noteAvisLog img{
+      width: 35%;
+    }
+
+    #detailgenre {
+      font-size: 15px;
+      margin-left: 10px;
+    }
+    
+    .lig_images_log_droite img {
+      display: none;
+    }
+    
+    .images_log img {
+      width: 100%;
+    }
+    
+    .barre_log {
+      display: none;
+    }
+
+    #ajoutAvisForm{
+      margin-top: 165px;
+    }
+
+    #ajoutAvisForm textarea{
+      width: 200px;
+      margin-left: -100px;
+    }
+
+    .etoileAvis{
+      width: 150px;
+      margin-left: -100px;
+    }
+
+    .etoileAvis img{
+      max-width: 28px;
+    }
+
+    #ajAvisConfirm{
+      height: 28px;
+      font-size: 12px;
+    }
+
+    #AvisSection{
+      margin-top: -20px;
+    }
+    
+    .ContentAvis p{
+      width: 100px;
+      height: auto;
+    }
+
+  }
+  
+  
+  
+  .button_valider2 a {
+    float: right;
+    display: inline-block;
+    margin-top: -50px;
+    width: 10%;
+    height: 62px;
+    background-color: var(--mainColor);
+    color: #fff;
+    text-align: center;
+    line-height: 62px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 700;
+    margin-right: 5%;
+  }
+  
+  .button_refuser2 button{
+    float: right;
+    display: inline-block;
+    margin-top: -50px;
+    width: 10%;
+    height: 62px;
+    background-color: #8A3443;;
+    color: #fff;
+    text-align: center;
+    line-height: 62px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 700;
+    margin-bottom: 20px;
+    margin-right: 5%;
+  }
+  .button_ligne2 button{
+    float: right;
+    display: inline-block;
+    margin-top: -50px;
+    width: 13%;
+    height: 62px;
+    background-color: green;;
+    color: #fff;
+    text-align: center;
+    line-height: 62px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 700;
+    margin-bottom: 20px;
+    margin-right: 5%;
+  }
+
+  .btn_note_avis {
+    display: none;
+  }
+
+
+
+
+  /*** AVIS **/
+
+  .etoileAvis{
+    
+    height: 30px;
+  }
+
+  .etoileAvis input{
+    display: none;
+  }
