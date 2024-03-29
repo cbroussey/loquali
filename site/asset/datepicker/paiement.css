@@ -1,0 +1,245 @@
+@font-face {
+    font-family: 'inter';
+    src: url('polices/inter-bold-webfont.woff2') format('woff2'),
+         url('polices/inter-bold-webfont.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'inter';
+    src: url('polices/inter-light-webfont.woff2') format('woff2'),
+         url('polices/inter-light-webfont.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'inter';
+    src: url('polices/inter-semibold-webfont.woff2') format('woff2'),
+         url('polices/inter-semibold-webfont.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+
+}
+
+:root {
+    --lightColor: #97ADC1;
+    --mainColor: #2072BC;
+    --textColor: #1D4C77;
+    --bgColor: #FFFFFF;
+    --secondBG: #f5f5f5;
+}
+
+body {
+    color: var(--textColor);
+    padding-top: 80px;
+    padding-bottom: 320px;
+    font-family: 'inter';
+    font-weight: 300;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: bold;
+}
+
+.flexTop {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 50px 50px;
+    flex-wrap: wrap;
+    gap: 3em;
+    align-items: ce;
+}
+
+.backButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--mainColor);
+    border-radius: 10px;
+    width: 50px;
+    height: 50px;
+    justify-self: flex-start;
+    border: none;
+    cursor: pointer;
+}
+
+.backButton:hover, #devis > button:hover {
+    background-color: var(--textColor);
+}
+
+.backButton > img {
+    transform: rotate(90deg);
+    max-height: 2em;
+    filter: invert(100%) sepia(70%) saturate(0%) hue-rotate(28deg) brightness(107%) contrast(101%);
+}
+
+#paiement {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    flex-basis: 35em;
+}
+
+#paiement > * {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+#paiement > * > h2 {
+    font-size: 30px;
+}
+
+#paiement > * > p {
+    font-size: 20px;
+}
+
+p > .h3 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-right: 1em;
+}
+
+#infosPaiement > div {
+    background-color: #F5F5F5;
+    padding: 16px 30px;
+    border: var(--textColor) 1px solid;
+    border-radius: 10px;
+}
+
+#infosPaiement > input, #infosPaiement > div > input {
+    background-color: #F5F5F5;
+    padding: 16px 30px;
+    border: var(--textColor) 1px solid;
+    border-radius: 10px;
+}
+
+#infosPaiement > input::placeholder, #infosPaiement > div > input::placeholder {
+    color: var(--textColor);
+    font-size: 16px;
+}
+
+#cardNumber + div, #cardNumber + div + div {
+    display: flex;
+    border: none;
+    gap: 5px;
+    background-color: var(--bgColor);
+    padding: 0;
+}
+
+#infosPaiement > div > div {
+    background-color: #F5F5F5;
+    padding: 16px 30px;
+    border: var(--textColor) 1px solid;
+    border-radius: 10px;
+}
+
+#infosPaiement > #paymentType {
+    display: flex;
+    padding: .5em 30px;
+    justify-content: space-between;
+    /*height: 2.2em;*/
+    gap: 1em;
+}
+
+#paymentType > a {
+    align-self: center;
+    flex-grow: 1;
+}
+
+#paymentType > img {
+    max-height: 2em;
+    align-self: center;
+}
+
+#infosPaiement > div > input.inputImg {
+    background-repeat: no-repeat;
+    background-position: left;
+    background-size: 4em;
+    padding: .5em 5em;
+    color: var(--textColor);
+    font-size: 16px;
+    border: none;
+    border-radius: 0;
+}
+
+#paymentType > img:last-of-type {
+    max-height: 1em;
+}
+
+#expiry, #postalCode, #country {
+    flex-grow: 1;
+}
+
+#country {
+    display: flex;
+}
+
+#country > a {
+    align-self: center;
+    flex-grow: 1;
+}
+
+#devis {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: var(--secondBG);
+    padding: 1em;
+    border-radius: 1em;
+    flex-basis: 25em;
+}
+
+#devis > figure {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 10px;
+    align-self: center;
+    text-align: center;
+    font-size: 14px;
+    padding-bottom: 1em;
+}
+
+#devis > figure > img {
+    border-radius: 10px;
+}
+
+#devis > div {
+    padding: 2em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    border-top: var(--lightColor) 2px solid;
+    gap: 1.5em;
+}
+
+#devis > div > p {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+#devis > div > p > a:nth-child(2) {
+    flex-grow: 1;
+    text-align: right;
+    align-self: center;
+}
+
+#devis > button {
+    background-color: var(--mainColor);
+    border-radius: 5px;
+    padding: .5em 3em;
+    color: #FFFFFF;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    align-self: center;
+    border: none;
+    cursor: pointer;
+}
