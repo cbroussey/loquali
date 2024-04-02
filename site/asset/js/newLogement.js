@@ -132,9 +132,6 @@ function rectifLongTxt(elem) {
 }
 
 
-// correction pour 50 char max
-
-
 function rectifLongTxt2(elem) {
     if (elem.value.length < 250 && elem.value.length>0){
         elem.style.borderColor = "#1D4C77";
@@ -145,6 +142,7 @@ function rectifLongTxt2(elem) {
 
 }
 
+// correction pour 50 char max
 
 document.getElementById('ville').addEventListener('input', function(){
     rectifLongTxt(this);
