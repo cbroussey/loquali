@@ -50,7 +50,7 @@ if ($_SESSION["userType"] == "proprietaire") {
       <?php
       if (isset($_SESSION['userId'])) {
       ?>
-        <h4><a href="compte.php?res=res"><?php if ($_SESSION["userType"] == "proprietaire") {
+        <h4><a href="compte.php?ind=3"><?php if ($_SESSION["userType"] == "proprietaire") {
                                             echo ("Mes logements");
                                           } else {
                                             echo ("Mes réservations");
