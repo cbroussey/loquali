@@ -52,9 +52,6 @@ if (isset($_GET["confirmHorsligne"])) {
         print "Erreur !: " . $e->getMessage() . "<br/>";
         die();
     }
-
-    echo('proute');
-
 }
 
 $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
@@ -82,6 +79,16 @@ if (isset($_GET["confirmligne"])) {
         die();
     }
 }
+
+
+if ($_GET["redir"] == 1) {
+    ?>
+    <script type="text/javascript">
+        window.location.href = "compte.php?ind=3";
+    </script>
+    <?php
+}
+
 /* Début de la page en html css */
 
 
@@ -1209,6 +1216,7 @@ try {
 
 
     </main>
+
 
 
 

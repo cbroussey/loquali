@@ -103,16 +103,12 @@
                   <p>Changer la visibilité de ce logement</p>
                   <input type="hidden" name="confirmDelete" value="<?php echo $id ?>">
 
-                  <select name="" id="enligneoupas">
-                    <option value="">Mettre le logement EN ligne</option>
-                    <option value="">Mettre le logement HORS ligne</option>
-                  </select>
-
                   <div class="boutons_choix">
-                    <a onclick="closeModal4()"
-                      class="confirm-button">Annuler</a>
                     <a href="logement.php?confirmHorsligne=<?php echo ($info["id_logement"]) ?>&redir=1"
-                      id="confirmChange">Confirmer</a>
+                      id="confirmChange">Hors Ligne</a>
+
+                      <a href="logement.php?confirmligne=<?php echo ($info["id_logement"]) ?>&redir=1"
+                      id="confirmChange2">En Ligne</a>
                   </div>
                 </div>
               </div>
