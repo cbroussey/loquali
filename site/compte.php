@@ -270,21 +270,35 @@ try {
 
     if (isset($_FILES["profilImage"]["tmp_name"])) {
 
+      print_r($_FILES);
 
       $img_dir = "asset/img/profils";
       $tmpName = $_FILES["profilImage"]["tmp_name"];
 
-      $nom_photo = $_FILES["profilImage"]["name"][$key];
-      $extention = explode(".", $nom_photo);
+      $nom_photo = $_FILES["profilImage"]["name"];
+      $extension = pathinfo($nom_photo, PATHINFO_EXTENSION); 
 
-
-      $chemin = $img_dir . "/" . $_SESSION['userId'] . "." . $extention[1];
-
-      move_uploaded_file($tmpName, $chemin);
-
+      $chemin = $img_dir . "/" . $_SESSION['userId'] . "." . $extension;
+      if ($images = opendir('asset/img/profils/')) {
+        while (false !== ($fichier = readdir($images))) {
+            $imgInfos = pathinfo($fichier);
+            if ($imgInfos['filename'] == $_SESSION['userId']) {
+                $cheminFichier = 'asset/img/profils/' . $fichier;
+                unlink($cheminFichier);
+                echo("| Suppression |");
+            }
+        }
+        closedir($images);
     }
-  
-  ?>
+    
+
+      if (move_uploaded_file($tmpName, $chemin)) {
+        echo "File is valid, and was successfully uploaded.";
+      } else {
+        echo "Possible file upload attack!";
+      }
+    }
+    ?>
 
   <div id="compteContainer">
     <div class="nav">
@@ -406,12 +420,12 @@ try {
       } else if (count($_FILES)!=0) {
         $index=0;
       } else {
-        $index=0;
+        $index=3;
       }
 
       ?>
         <script type="text/javascript">
-          window.location.href = "compte.php?ind=<?php echo($index) ?>";
+            window.location.href = "compte.php?ind=<?php echo($index) ?>";
         </script>
       <?php
     }
