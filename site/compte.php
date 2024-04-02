@@ -400,9 +400,18 @@ try {
 
     <?php
     if (count($_POST)!=0 || count($_FILES)!=0){
+
+      if (isset($_POST["nom"]) || isset($_POST["prenom"]) || isset($_POST["adresse_mail"]) || isset($_POST["numero"])|| isset($_POST["adressePersonne"])) {
+        $index = 1;
+      } else if (count($_FILES)!=0) {
+        $index=0;
+      } else {
+        $index=0;
+      }
+
       ?>
         <script type="text/javascript">
-          window.location.href = "compte.php";
+          window.location.href = "compte.php?ind=<?php echo($index) ?>";
         </script>
       <?php
     }
