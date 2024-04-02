@@ -89,3 +89,13 @@ function resetColorOnHover(element) {
 menuLinks.forEach(function (menuLink) {
     resetColorOnHover(menuLink);
 });
+
+// Récupérer les paramètres de l'URL pour redirection pratique
+var queryString = window.location.search;
+var params = new URLSearchParams(queryString);
+var valeurInd = params.get('ind');
+console.log(valeurInd)
+
+if (valeurInd!=null){
+    toPage(valeurInd)
+}

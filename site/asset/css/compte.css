@@ -478,7 +478,10 @@
 
 #profilImage {
     color: transparent;
-    width: 100%;
+    width: 150px;
+    height: 150px;
+    margin-left: -45px;
+    margin-top: -45px;
     /* Rendre le bouton invisible */
     opacity: 0;
     position: absolute;

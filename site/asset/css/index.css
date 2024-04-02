@@ -277,6 +277,8 @@
   font-weight: 700;
   line-height: normal;
   margin-left: 10px;
+  margin-bottom: -3.5px;
+  margin-right: 3px;
 }
 
 .more-container {
@@ -580,9 +582,13 @@
 
   .maison img {
     width: 150px;
-    height: auto;
+    height: 110px;
   }
 
+  #plus {
+    font-size: 10px;
+    width: auto !important;
+  }
 
   .ville {
     color: #000;
@@ -639,6 +645,7 @@
     font-weight: 700;
     line-height: normal;
     margin-left: 10px;
+    margin-right: 3px;
   }
 
   .box {

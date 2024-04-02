@@ -12,7 +12,7 @@
     <div class="separateurgenre"></div>
 
     <div class="lignes">
-        <form method="post" action="compte.php">
+        <form method="post" action="compte.php#compteInfosPerso">
             <p>Prénom</p>
             <p id="prenom" class="displayInfos2"><?php echo ($infos['prenom']) ?></p>
             <input type="text" name="prenom" id="prenom" class="modifInfos2" cols="30" rows="10" value="<?php echo ($infos['prenom']) ?>">
