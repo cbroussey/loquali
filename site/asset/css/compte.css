@@ -75,8 +75,69 @@
 
 /* popup de suppression de compte, de suppression de logement */
 
+
+
+#myModal3 {
+    color: #1D4C77;
+    font-size: 30px;
+}
+
+#myModal4 {
+    color: #1D4C77;
+    font-size: 30px;
+}
+
+#enligneoupas {
+    width: 400px;
+    height: 45px;
+    background-color: #bcc8d3;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
+    cursor: pointer;
+    border: none;
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+    border-radius: 5px;
+    padding: 0.5em 2em;
+
+    margin: 1em auto;
+}
+
+
+.modal-content a {
+    width: 200px;
+    height: 45px;
+    background-color: #1D4C77;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
+    cursor: pointer;
+    border: none;
+    color: white;
+    font-size: 25px;
+    font-weight: 600;
+    border-radius: 5px;
+    padding: 0.5em 2em;
+}
+
+.modal-content {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+}
+
+.boutons_choix {
+    margin: 1em;
+}
+
+
+
 /* Menu de navigation */
 
+
+
+.compteBtnListeLogement a{
+    cursor: pointer;
+}
 
 
 
@@ -164,6 +225,8 @@
 
 @media screen and (min-width: 0px) and (max-width: 1100px) {
     .nav {
+        max-width: 100vw;
+        min-width: 100vw;
         width: 100%;
         height: 90px;
         background-color: #7297B8;
@@ -178,7 +241,10 @@
     .nav figure {
         display: flex;
         flex-direction: row;
-        margin: 0 0px;
+        justify-content: space-around;
+
+        margin: 0 -10px;
+        padding: 0;
     }
 
     .nav figcaption {
@@ -208,6 +274,9 @@
 /*                         COMPTE - ACCUEIL (client & propriétaire) */
 
 .accueil {
+    position: relative;
+    top: 5em;
+    left: 0;
     margin-top: 8vh;
     display: flex;
     justify-content: center;
@@ -316,16 +385,29 @@
 }
 
 @media screen and (min-width: 0px) and (max-width: 500px) {
+    .middle {
+        transform: translate(-50%, 0%);
+    }
+
+    .separateurCompte {
+        width: 250px;
+    }
+
+
     .accueil {
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
+        position: absolute;
+
+        width: 100%;
+        margin: 3em auto;
     }
 
     #bonjour {
         color: #1D4C77;
-        font-size: 15px;
+        font-size: 20px;
         font-weight: 700;
         margin-top: 5rem;
         margin-bottom: -2em;
@@ -374,16 +456,17 @@
         color: var(--textColor);
         text-align: center;
 
-        margin-top: 5rem;
+        margin-top: 3.5rem;
+        margin-bottom: 2em;
     }
 
     #comptePro {
         border-radius: 5px;
         background: var(--mainColor);
-        width: 435px;
+        width: 235px;
         height: 55px;
         color: var(--secondBG);
-        font-size: 25px;
+        font-size: 20px;
         font-weight: 700;
         display: flex;
         justify-content: center;
@@ -997,7 +1080,73 @@
 }
 
 
+@media screen and (min-width: 0px) and (max-width: 500px) {
+    #compteLogementPropo {
+        overflow-y: hidden;
+        position: absolute;
+        margin: 3.5em -24em;
+        width: 100vw;
+    }
 
+    .compteListeUnLogement {
+        width: 100vw;
+    }
+
+
+#AucunLogementCompte {
+    font-size: 35px;
+    font-weight: 700;
+
+    
+    color: #1D4C77;
+   
+    width: 100%;
+    text-align: center;
+    margin-top: 25%;
+}
+
+.compteAjout_log {
+    margin: 8vh 0em;
+    width: 60%;
+}
+
+.compteListeUnLogement {
+    width: 100vw;
+    flex-direction: column;
+}
+
+
+
+.compteListeUnLogement h2{
+font-size: 15px;
+}
+
+.compteListeUnLogement svg{
+    width: 20px;
+    height: auto;
+}
+
+.compteListeUnLogement img{
+    width: 20px;
+    height: auto;
+}
+
+.compteSeparateur1 {
+    background-color: #97ADC1;
+    width: 50vw;
+    height: 2px;
+    color: transparent;
+    margin: 40px 0;
+}
+
+.compteBtnListeLogement {
+    display: flex;
+    justify-content: space-around;
+    align-content: space-between;
+    width: 22%;
+    margin-left: 11%;
+}
+}
 
 
 
