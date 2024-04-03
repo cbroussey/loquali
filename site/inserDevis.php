@@ -102,7 +102,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         VALUES (false, 0.00, :current_date, :raison_indisponible, :id_logment)
     ");
 
-            $stmt->bindParam(':current_date', $currentDate->format('d/m/Y'), PDO::PARAM_STR);
+            $stmt->bindParam(':current_date', $currentDate->format('Y-m-d'), PDO::PARAM_STR);
             $stmt->bindValue(':raison_indisponible', null, PDO::PARAM_NULL);
             $stmt->bindParam(':id_logment', $id, PDO::PARAM_INT);
 
