@@ -40,4 +40,10 @@ document.getElementById("AjoutAvis").addEventListener("click", function() {
     }
 });
 
+const AjoutAvis = document.getElementById('AjoutAvis');
+
+AjoutAvis.addEventListener('click', function() {
+    AjoutAvis.click();
+})
+
 

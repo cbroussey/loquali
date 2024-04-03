@@ -306,7 +306,7 @@ int main(int argc, char *argv[]) {
                 accPriv = (PQgetvalue(res, 0, 2)[0] == 't');
                 accCalend = (PQgetvalue(res, 0, 3)[0] == 't');
                 accDesact = (PQgetvalue(res, 0, 4)[0] == 't');
-                accReact = accDesact;
+                accReact = (PQgetvalue(res, 0, 5)[0] == 't');
                 strcpy(accNom, PQgetvalue(res, 0, 5));
                 printose(true, "Valid API key : %s\n", accNom);
                 memset(cmd, 0, strlen(cmd));
@@ -436,6 +436,9 @@ int main(int argc, char *argv[]) {
                                 memset(cmd, 0, strlen(cmd));
                                 sprintf(cmd, "%s\n", PQgetvalue(res, 0, 0));
                                 write(cnx, cmd, strlen(cmd));
+
+                                // le retour devrait être : un liste des dates de disponibilité du bien.
+
                             }
                             PQclear(res);
                         } else {

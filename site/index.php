@@ -50,7 +50,7 @@ if ($_SESSION["userType"] == "proprietaire") {
       <?php
       if (isset($_SESSION['userId'])) {
       ?>
-        <h4><a href="compte.php?res=res"><?php if ($_SESSION["userType"] == "proprietaire") {
+        <h4><a href="compte.php?ind=3"><?php if ($_SESSION["userType"] == "proprietaire") {
                                             echo ("Mes logements");
                                           } else {
                                             echo ("Mes réservations");
@@ -743,6 +743,11 @@ if ($_SESSION["userType"] == "proprietaire") {
 
   <div id="menu">
     <div id="choix">
+
+      <a href="connexion.php" class="bouton">Se connecter</a>
+
+      <div class="separateur"></div>
+
       <a href="compte.php" class="bouton">Mon compte</a>
 
       <a href="compte.php?res=res" class="bouton"><?php if ($_SESSION["userType"] == "proprietaire") {
@@ -750,7 +755,16 @@ if ($_SESSION["userType"] == "proprietaire") {
                                                   } else {
                                                     echo ("Mes réservations");
                                                   } ?></a>
+      <div class="separateur"></div>
+      <select id="sort">
+        <option value="nom">Langues</option>
+        <option value="type">Francais</option>
+        <option value="niveau">Anglais</option>
+        <option value="date">Espagnol</option>
+        <option value="date">Espagnol</option>
+      </select>
     </div>
+    <a href="index.php" id="retour">Retour</a>
   </div>
 
 

@@ -2,6 +2,7 @@
 session_start();
 error_reporting(0);
 include('connect_params.php');
+
 $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
 
 
@@ -11,7 +12,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $fin = $_POST["end-date"];
     $id_compte = $_SESSION['userId'];
     $nb_personne = intval($_POST["Personne"]);
-    $nom_Charge = $_POST["charge"];
+    // $query1 = "SELECT * FROM test.planning WHERE id_logement = (:id_logement);";
+    // $stmt = $dbh->prepare($query1);
+    // $stmt->bindParam(':id_logement', $id, PDO::PARAM_INT);
+    // $stmt->execute();
+    // $planning = $stmt->fetch(PDO::FETCH_ASSOC);
+    // print_r($planning);
 
     try {
         $stmt = $dbh->prepare("
@@ -53,12 +59,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $stmt->execute();
         }
-        $prix_devis = null;
+        $prix_devis = $_POST["prix"];
         $delai_acceptation = null;
         $acceptation = false;
         $date_devis = date("Y-m-d H:i:s");
 
-        $stmt = $dbh->prepare("
+        $stmt = $dbh->prepare(" 
             INSERT INTO test.devis (
                 id_reservation,
                 prix_devis,
@@ -75,37 +81,43 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         ");
 
         $stmt->bindParam(':id_reservation',  $Idres["id_reservation"], PDO::PARAM_INT);
-        $stmt->bindParam(':prix_devis', $prix_devis, PDO::PARAM_NULL); // Assuming $prix_devis is a variable
+        $stmt->bindParam(':prix_devis', $prix_devis, PDO::PARAM_INT); // Assuming $prix_devis is a variable
         $stmt->bindParam(':delai_acceptation', $delai_acceptation, PDO::PARAM_NULL); // Assuming $delai_acceptation is a variable
         $stmt->bindParam(':acceptation', $acceptation, PDO::PARAM_BOOL);
         $stmt->bindParam(':date_devis', $date_devis, PDO::PARAM_STR);
 
         $stmt->execute();
+        
+       
+
 
         $currentDate = $deb;
+       
+   
         while ($currentDate <= $fin) {
             // Exécutez votre requête d'insertion pour chaque date
-            // ...
-
+           // echo($currentDate . "<br>");
+            
             $stmt = $dbh->prepare("
                 INSERT INTO test.planning (disponibilite, prix_ht, jour, raison_indisponible, id_logement)
                 VALUES (false, 0.00, :current_date, :raison_indisponible, :id_logment)
                 ");
 
-            // ...
+        
 
-            $jsp = false;
-            // Paramètres de liaison
+            
            
             $stmt->bindParam(':current_date', $currentDate, PDO::PARAM_STR);
-            $stmt->bindValue(':raison_indisponible', null, PDO::PARAM_NULL); // Vous devez définir la valeur appropriée ici
+            $stmt->bindValue(':raison_indisponible', null, PDO::PARAM_NULL); 
             $stmt->bindParam(':id_logment', $id, PDO::PARAM_INT);
 
             // Exécution de la requête
             $stmt->execute();
 
             // Passez à la date suivante
-            $currentDate = date('Y-m-d', strtotime($currentDate . ' +1 day'));
+            //$currentDate = date('m/d/Y', strtotime($currentDate . ' +1 days'));
+            $currentDate =  (DateTime::createFromFormat('d/m/Y', $currentDate))->modify('+1 day')->format('d/m/Y');
+
 
         }
 

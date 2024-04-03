@@ -25,10 +25,9 @@
   <div class="modal-content">
     <h2>Êtes-vous sûr de vouloir supprimer ce compte ?</h2>
     <form method="GET" action="compte.php">
-      <input type="hidden" name="confirmDelete" value="<?php echo $id ?>">
       <div class="button-container">
-        <button id="confirmChange" onclick="closeModal()">Annuler</button>
-        <button class="confirm-button">Confirmer</button>
+        <button  onclick="closeModal()">Annuler</button>
+        <a href="compte.php?confirmDelete=<?php echo $id ?>" id="confirmChange" class="confirm-button">Confirmer</a>
       </div>
     </form>
   </div>

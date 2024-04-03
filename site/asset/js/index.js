@@ -40,8 +40,8 @@ function search(e) {
         return r.text();
     }).then((s) => {
        document.getElementsByClassName("box")[0].innerHTML = s;
+
     });
-    //console.log(e);
     if (Liste_Filtre.style.display === "block") toggleFiltre();
     return false;
 }
@@ -195,7 +195,7 @@ const plusDiv = document.getElementById('affplus');
 const plus = document.getElementById('plus');
 
 let page = 1;
-let nbElemPage = 10;
+let nbElemPage = 12;
 let pageMax = Math.ceil(list.getElementsByClassName('maison').length / nbElemPage);
 
 console.log(list.getElementsByClassName('maison').length)

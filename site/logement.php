@@ -4,6 +4,8 @@
 session_start();
 error_reporting(0);
 
+
+
 /* Suppression du logement si demandé */
 include('connect_params.php');
 $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
@@ -52,9 +54,6 @@ if (isset($_GET["confirmHorsligne"])) {
         print "Erreur !: " . $e->getMessage() . "<br/>";
         die();
     }
-
-    echo('proute');
-
 }
 
 $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
@@ -82,6 +81,16 @@ if (isset($_GET["confirmligne"])) {
         die();
     }
 }
+
+
+if ($_GET["redir"] == 1) {
+    ?>
+    <script type="text/javascript">
+        window.location.href = "compte.php?ind=3";
+    </script>
+    <?php
+}
+
 /* Début de la page en html css */
 
 
@@ -195,7 +204,9 @@ try {
         print "Erreur !: " . $e->getMessage() . "<br/>";
         die();
     }
-
+    if ($_SESSION['userId'] != $info["id_compte"] && $_SESSION["userType"] == "proprietaire") {
+        header("Location: index.php");
+    }
     $dbh = null;
     ?>
 
@@ -1080,12 +1091,7 @@ try {
                                         <span class="close" onclick="refusRedirect2()">&times;</span>
                                         <p>Vous ne pouvez pas créer d'avis car vous n'êtes pas connecté en tant que client. Voulez-vous vous connectez ?
                                         </p>
-                                        <input type="hidden" name="confirmDelete" value="<?php echo $id ?>">
-                                        <form
-                                            action="<?php if ($_SESSION['userType']=="proprietaire") { ?>connexion.php<?php } else { ?>connexion.php<?php } ?>"
-                                            method="POST">
-                                            <button class="confirm-button" >Confirmer</button>
-                                        </form>
+                                        <a href="connexion.php?log=<?php echo $id?>" class="confirm-button">Confirmer</a>
 
                                     </div>
                                 </div>
@@ -1124,7 +1130,7 @@ try {
                                         <div class="infoPropioAvis">
 
                                             <a class="img_avis_log"
-                                                href="pageProprio.php?id=<?php echo ($unAvis["id_compte"]); ?>&id_log=<?php echo ($id) ?>">
+                                                href="pageClient.php?id=<?php echo ($unAvis["id_compte"]); ?>&id_log=<?php echo ($id) ?>">
                                                 <div class="photo_profil_proprio_log_avis ppAvisLogRrrrowcount<?php echo ($unAvis['id_compte']); ?>"
                                                     style='background: url("<?php echo ($pathName) ?>") center/cover;'>
                                                 </div>
@@ -1209,6 +1215,7 @@ try {
 
 
     </main>
+
 
 
 

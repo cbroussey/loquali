@@ -270,21 +270,35 @@ try {
 
     if (isset($_FILES["profilImage"]["tmp_name"])) {
 
+      print_r($_FILES);
 
       $img_dir = "asset/img/profils";
       $tmpName = $_FILES["profilImage"]["tmp_name"];
 
-      $nom_photo = $_FILES["profilImage"]["name"][$key];
-      $extention = explode(".", $nom_photo);
+      $nom_photo = $_FILES["profilImage"]["name"];
+      $extension = pathinfo($nom_photo, PATHINFO_EXTENSION); 
 
-
-      $chemin = $img_dir . "/" . $_SESSION['userId'] . "." . $extention[1];
-
-      move_uploaded_file($tmpName, $chemin);
-
+      $chemin = $img_dir . "/" . $_SESSION['userId'] . "." . $extension;
+      if ($images = opendir('asset/img/profils/')) {
+        while (false !== ($fichier = readdir($images))) {
+            $imgInfos = pathinfo($fichier);
+            if ($imgInfos['filename'] == $_SESSION['userId']) {
+                $cheminFichier = 'asset/img/profils/' . $fichier;
+                unlink($cheminFichier);
+                echo("| Suppression |");
+            }
+        }
+        closedir($images);
     }
-  
-  ?>
+    
+
+      if (move_uploaded_file($tmpName, $chemin)) {
+        echo "File is valid, and was successfully uploaded.";
+      } else {
+        echo "Possible file upload attack!";
+      }
+    }
+    ?>
 
   <div id="compteContainer">
     <div class="nav">
@@ -400,9 +414,18 @@ try {
 
     <?php
     if (count($_POST)!=0 || count($_FILES)!=0){
+
+      if (isset($_POST["nom"]) || isset($_POST["prenom"]) || isset($_POST["adresse_mail"]) || isset($_POST["numero"])|| isset($_POST["adressePersonne"])) {
+        $index = 1;
+      } else if (count($_FILES)!=0) {
+        $index=0;
+      } else {
+        $index=3;
+      }
+
       ?>
         <script type="text/javascript">
-          window.location.href = "compte.php";
+            window.location.href = "compte.php?ind=<?php echo($index) ?>";
         </script>
       <?php
     }
@@ -445,21 +468,28 @@ try {
 
   <div id="menu">
     <div id="choix">
-      <a href="compteAccueil.php" class="bouton">Mon compte</a>
 
-      <a href="" class="bouton">Mes réservation</a>
+      <a href="connexion.php" class="bouton">Se connecter</a>
 
-      <a href="" class="bouton">Messagerie</a>
+      <div class="separateur"></div>
 
-      <div id="separe"></div>
+      <a href="compte.php" class="bouton">Mon compte</a>
 
-      <p>Changer la langue</p>
-      <div id="langues">
-        <a href="">Français</a>
-        <div id="separe2"></div>
-        <a href="">Anglais</a>
-      </div>
+      <a href="compte.php?res=res" class="bouton"><?php if ($_SESSION["userType"] == "proprietaire") {
+                                                    echo ("Mes logements");
+                                                  } else {
+                                                    echo ("Mes réservations");
+                                                  } ?></a>
+      <div class="separateur"></div>
+      <select id="sort">
+        <option value="nom">Langues</option>
+        <option value="type">Francais</option>
+        <option value="niveau">Anglais</option>
+        <option value="date">Espagnol</option>
+        <option value="date">Espagnol</option>
+      </select>
     </div>
+    <a href="compte.php" id="retour">Retour</a>
   </div>
 
 
