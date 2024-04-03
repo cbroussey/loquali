@@ -284,10 +284,19 @@ create table api(
     accesCalendrier boolean DEFAULT FALSE,
     miseIndispo boolean DEFAULT FALSE,
     miseDispo boolean DEFAULT FALSE,
-    id_compte integer DEFAULT FALSE,
+    id_compte integer,
     CHECK ((miseDispo = FALSE) OR ((privilegie <> TRUE) AND (accesCalendrier <> TRUE) AND (miseIndispo <> TRUE))),
     constraint api_pk primary key(cle),
     constraint api_fk_compte foreign key (id_compte) references compte(id_compte) ON DELETE CASCADE
+);
+
+CREATE TABLE ical(
+    token VARCHAR(32) NOT NULL,
+    date_debut DATE,
+    date_fin DATE,
+    id_logement integer, -- id compte autorisé récupéré à partir de l'id logement
+    constraint ical_pk primary key(token),
+    constraint ical_fk_logement foreign key (id_logement) references logement(id_logement) ON DELETE CASCADE
 );
 
 
@@ -824,7 +833,3 @@ INSERT INTO api(cle, privilegie, accesCalendrier, miseIndispo, id_compte) VALUES
     ('MANGETESGRANDSMORTS', FALSE, TRUE, TRUE, 10),
     ('logementavecplanning', FALSE, TRUE, TRUE, 4),
     ('azeazeazeazeazeaze', FALSE, TRUE, FALSE, 8);
-
-
-
-SELECT MAX(id_avis) FROM test.avis;"

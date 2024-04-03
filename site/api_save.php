@@ -21,7 +21,7 @@
     foreach($cles as $i) {
         $calend = (isset($_POST[$i . "_c"]) ? "TRUE" : "FALSE");
         $indisp = (isset($_POST[$i . "_i"]) ? "TRUE" : "FALSE");
-        $indisp = (isset($_POST[$i . "_d"]) ? "TRUE" : "FALSE");
+        $disp = (isset($_POST[$i . "_d"]) && $calend == "FALSE" && $indisp == "FALSE" ? "TRUE" : "FALSE");
         $res = $dbh->prepare("UPDATE test.api SET accescalendrier = :calend, miseindispo = :indisp, misedispo = :disp WHERE cle=:cle AND id_compte = :id");
         $res->bindParam('cle', $i, PDO::PARAM_STR);
         $res->bindParam('calend', $calend, PDO::PARAM_STR);
