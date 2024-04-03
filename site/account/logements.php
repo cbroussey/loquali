@@ -96,7 +96,7 @@
               </div>
 
 
-              <a  onclick="openModal4()"><img src="asset/icons/bleu/troisPoints.svg" alt=""></a>
+              <a class="btnModal testmodal"><img src="asset/icons/bleu/troisPoints.svg" alt=""></a>
 
               <div class="confirmation-modal" id="myModal4">
                 <div class="modal-content" class="choix_logements">

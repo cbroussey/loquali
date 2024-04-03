@@ -40,8 +40,8 @@ function search(e) {
         return r.text();
     }).then((s) => {
        document.getElementsByClassName("box")[0].innerHTML = s;
+
     });
-    //console.log(e);
     if (Liste_Filtre.style.display === "block") toggleFiltre();
     return false;
 }
