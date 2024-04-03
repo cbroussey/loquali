@@ -76,8 +76,56 @@ class datePicker {
         this.display()
     }
 
+    tdown(element) {
+        let selDate = new Date(this.year, this.month, parseInt(element.querySelector("a").innerHTML))
+        if ((this.start.toDateString() == selDate.toDateString() || selDate < this.start || !this.multi)) {
+            this.start = selDate
+            this.moving = 1
+        } else if (this.end.toDateString() == selDate.toDateString() || selDate > this.end) {
+            this.end = selDate
+            //console.log(this.end)
+            this.moving = 2
+        } else {
+            //console.log("Here should be a custom context menu to ask if start date or end date")
+            this.tmpdist = Math.ceil(Math.abs(selDate - this.start) / (1000 * 60 * 60 * 24));
+            this.moving = 3
+        }
+        this.display()
+    }
+
+    tmove(element) {
+        let clickedDate = new Date(this.year, this.month, parseInt(element.querySelector("a").innerHTML));
+        if (clickedDate >= new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate())) {
+            if (this.moving == 1 /*&& !this.off.includes(`${this.start.getFullYear()}-${fill0((this.start.getMonth()+1).toString())}-${fill0((this.start.getDate()+this.dist).toString())}`)*/) {
+                //console.log(`${this.start.getFullYear()}-${fill0((this.start.getMonth()+1).toString())}-${fill0((this.start.getDate()+this.dist).toString())}`)
+                this.start = clickedDate;
+                if (this.start >= new Date(this.end.getFullYear(), this.end.getMonth(), this.end.getDate()-this.dist)) this.end = new Date(this.start.getFullYear(), this.start.getMonth(), this.start.getDate()+this.dist);
+            } else if (this.moving == 2 /*&& this.end >= new Date(new Date().getTime()+86000000*(this.dist))*/ /*&& !this.off.includes(`${this.end.getFullYear()}-${fill0((this.end.getMonth()+1).toString())}-${fill0((this.end.getDate()-this.dist).toString())}`)*/) {
+                this.end = clickedDate;
+                if (this.end <= new Date(this.start.getFullYear(), this.start.getMonth(), this.start.getDate()+this.dist)) this.start = new Date(this.end.getFullYear(), this.end.getMonth(), this.end.getDate()-this.dist);
+            } else if (this.moving == 3 && this.multi /*&& (clickedDate < this.start || clickedDate > this.end)*/) {
+                let tmpdist = Math.ceil((clickedDate - this.start) / (1000 * 60 * 60 * 24)) - this.tmpdist;
+                //console.log(tmpdist)
+                this.start = new Date(this.start.getFullYear(), this.start.getMonth(), this.start.getDate()+tmpdist)
+                this.end = new Date(this.end.getFullYear(), this.end.getMonth(), this.end.getDate()+tmpdist)
+            }
+        }
+        this.display()
+    }
+
+    tend(element) {
+        this.moving = 0
+        for (let i = 0; i < this.off.length; i++) {
+            if (new Date(this.off[i]) >= this.start && new Date(this.off[i]) <= new Date(this.end.getFullYear(), this.end.getMonth(), this.end.getDate()+1)) {
+                alert("Vous ne pouvez pas réserver sur cette période")
+                this.setMinDate();
+                break;
+            }
+        }
+        this.DP.dispatchEvent(new CustomEvent("DPchanged",{detail:{id: this.DP},bubbles:true}));
+    }
+
     display() {
-        console.log(this.DP)
         if (!this.DP.readOnly) {
             //let temp = new Date(this.end.getTime()-this.dist);
             if (this.start > new Date(this.end.getFullYear(), this.end.getMonth(), this.end.getDate()-this.dist) && this.multi) {
@@ -129,22 +177,17 @@ class datePicker {
                 html += "</tr>"
             }
             this.DP.querySelector("table > tbody").innerHTML = html;
+
             this.DP.querySelectorAll(".DPcurrent:not(.DPno)").forEach(element => {
+                
+
                 element.addEventListener('mousedown', () => {
-                    let selDate = new Date(this.year, this.month, parseInt(element.querySelector("a").innerHTML))
-                    if ((this.start.toDateString() == selDate.toDateString() || selDate < this.start || !this.multi)) {
-                        this.start = selDate
-                        this.moving = 1
-                    } else if (this.end.toDateString() == selDate.toDateString() || selDate > this.end) {
-                        this.end = selDate
-                        //console.log(this.end)
-                        this.moving = 2
-                    } else {
-                        //console.log("Here should be a custom context menu to ask if start date or end date")
-                        this.tmpdist = Math.ceil(Math.abs(selDate - this.start) / (1000 * 60 * 60 * 24));
-                        this.moving = 3
-                    }
-                    this.display()
+                    this.tdown(element)
+                    console.log("pc down")
+                })
+                element.addEventListener('touchstart', () => {
+                    this.tdown(element)
+                    console.log("phone down")
                 })
                 /*
                 element.addEventListener("contextmenu", () => {
@@ -154,33 +197,29 @@ class datePicker {
                     }
                 })
                 */
+               
+
                 element.addEventListener("mousemove", () => {
-                    let clickedDate = new Date(this.year, this.month, parseInt(element.querySelector("a").innerHTML));
-                    if (this.moving == 1 /*&& !this.off.includes(`${this.start.getFullYear()}-${fill0((this.start.getMonth()+1).toString())}-${fill0((this.start.getDate()+this.dist).toString())}`)*/) {
-                        //console.log(`${this.start.getFullYear()}-${fill0((this.start.getMonth()+1).toString())}-${fill0((this.start.getDate()+this.dist).toString())}`)
-                        this.start = clickedDate;
-                        if (this.start >= new Date(this.end.getFullYear(), this.end.getMonth(), this.end.getDate()-this.dist)) this.end = new Date(this.start.getFullYear(), this.start.getMonth(), this.start.getDate()+this.dist);
-                    } else if (this.moving == 2 /*&& this.end >= new Date(new Date().getTime()+86000000*(this.dist))*/ /*&& !this.off.includes(`${this.end.getFullYear()}-${fill0((this.end.getMonth()+1).toString())}-${fill0((this.end.getDate()-this.dist).toString())}`)*/) {
-                        this.end = clickedDate;
-                        if (this.end <= new Date(this.start.getFullYear(), this.start.getMonth(), this.start.getDate()+this.dist)) this.start = new Date(this.end.getFullYear(), this.end.getMonth(), this.end.getDate()-this.dist);
-                    } else if (this.moving == 3 && this.multi /*&& (clickedDate < this.start || clickedDate > this.end)*/) {
-                        let tmpdist = Math.ceil((clickedDate - this.start) / (1000 * 60 * 60 * 24)) - this.tmpdist;
-                        //console.log(tmpdist)
-                        this.start = new Date(this.start.getFullYear(), this.start.getMonth(), this.start.getDate()+tmpdist)
-                        this.end = new Date(this.end.getFullYear(), this.end.getMonth(), this.end.getDate()+tmpdist)
-                    }
-                    this.display()
+                    this.tmove(element)
+                    console.log("pc move")
                 })
+                element.addEventListener("touchmove", e => {
+                    e.preventDefault();
+                    this.tmove(document.elementFromPoint(e.touches[0].clientX, e.touches[0].clientY))
+                    console.log("phone move")
+                    console.log(e)
+                })
+
+                
+
                 element.addEventListener("mouseup", () => {
-                    this.moving = 0
-                    for (let i = 0; i < this.off.length; i++) {
-                        if (new Date(this.off[i]) >= this.start && new Date(this.off[i]) <= new Date(this.end.getFullYear(), this.end.getMonth(), this.end.getDate()+1)) {
-                            alert("Vous ne pouvez pas réserver sur cette période")
-                            this.setMinDate();
-                            break;
-                        }
-                    }
-                    this.DP.dispatchEvent(new CustomEvent("DPchanged",{detail:{id: this.DP},bubbles:true}));
+                    this.tend(element)
+                    console.log("pc up")
+                })
+                element.addEventListener("touchend", () => {
+                    this.tend(element)
+                    console.log("phone up")
+                    console.log(element)
                 })
             });
             let current = this.DP.querySelectorAll(".DPcurrent, .DPno")

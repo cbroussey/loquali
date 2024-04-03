@@ -3,6 +3,13 @@ let disabledDates = []
 let startDate = ""
 let endDate = ""
 
+function date2date(date) {
+    date = date.split("/")
+    date = [date[2], date[1], date[0]]
+    date = date.join("-")
+    return date
+}
+
 async function recupDatesBloquees(idlog) {
     let data = await fetch(`./dateBlockDevis.php?id_logement=${idlog}`)
     data = await data.json()
@@ -11,7 +18,10 @@ async function recupDatesBloquees(idlog) {
 }
 
 async function recupDate(idlog, datedeb, datefin) {
-    let data = await fetch(`./calculPrix.php?id_logement=${idlog}&date_debut=${datedeb}&date_fin=${datefin}`)
+    console.log("zfzecf")
+    console.log(`./calculPrix.php?id_logement=${idlog}&date_debut=${date2date(datedeb)}&date_fin=${date2date(datefin)}`)
+    console.log("fdp")
+    let data = await fetch(`./calculPrix.php?id_logement=${idlog}&date_debut=${date2date(datedeb)}&date_fin=${date2date(datefin)}`)
     data = await data.json()
     return data
   
@@ -40,7 +50,7 @@ function setDatesBloquees() {
                 
                 document.querySelector("#dates2 > p").innerText = datePickers["DP2"].start.toLocaleDateString() + " - " + datePickers["DP2"].end.toLocaleDateString()
                
-                recupDate(document.getElementById("idlog").innerHTML, datePickers["DP2"].start.toLocaleDateString(), datePickers["DP2"].end.toLocaleDateString()).then((v) => {
+                recupDate(document.getElementById("idlog").innerText, datePickers["DP2"].start.toLocaleDateString(), datePickers["DP2"].end.toLocaleDateString()).then((v) => {
                     try { document.querySelectorAll(".info_prix > .row > a > .value")[0].value = v["prix_ht"] }
                     catch { document.querySelectorAll(".info_prix > .row > .value")[0].value = v["prix_ht"] }
                     console.log(v);
