@@ -4,6 +4,8 @@
 session_start();
 error_reporting(0);
 
+
+
 /* Suppression du logement si demandé */
 include('connect_params.php');
 $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
@@ -202,7 +204,9 @@ try {
         print "Erreur !: " . $e->getMessage() . "<br/>";
         die();
     }
-
+    if ($_SESSION['userId'] != $info["id_compte"] && $_SESSION["userType"] == "proprietaire") {
+        header("Location: index.php");
+    }
     $dbh = null;
     ?>
 
@@ -1087,12 +1091,7 @@ try {
                                         <span class="close" onclick="refusRedirect2()">&times;</span>
                                         <p>Vous ne pouvez pas créer d'avis car vous n'êtes pas connecté en tant que client. Voulez-vous vous connectez ?
                                         </p>
-                                        <input type="hidden" name="confirmDelete" value="<?php echo $id ?>">
-                                        <form
-                                            action="<?php if ($_SESSION['userType']=="proprietaire") { ?>connexion.php<?php } else { ?>connexion.php<?php } ?>"
-                                            method="POST">
-                                            <button class="confirm-button" >Confirmer</button>
-                                        </form>
+                                        <a href="connexion.php?log=<?php echo $id?>" class="confirm-button">Confirmer</a>
 
                                     </div>
                                 </div>
