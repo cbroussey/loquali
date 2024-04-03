@@ -83,14 +83,15 @@
               <a onclick="openModal3()"><img src="asset/icons/bleu/trash.svg" alt=""></a>
 
               <div class="confirmation-modal" id="myModal3">
-                <div class="modal-content">
-                  <span class="close" onclick="closeModal3()">&times;</span>
+                <div class="modal-content" class="choix_logements">
                   <p>Êtes-vous sûr de vouloir supprimer ?</p>
                   <input type="hidden" name="confirmDelete" value="<?php echo $id ?>">
-                  <a href="logement.php?confirmDelete=<?php echo ($info["id_logement"]) ?>"
-                    class="confirm-button">Confirmer</a>
-                  <a onclick="closeModal3()"
-                    class="confirm-button">Annuler</a>
+                  <div class="boutons_choix">
+                    <a onclick="closeModal3()"
+                      class="confirm-button">Annuler</a>
+                    <a href="logement.php?confirmDelete=<?php echo ($info["id_logement"]) ?>"
+                      id="confirmChange">Confirmer</a>
+                  </div>
                 </div>
               </div>
 
@@ -98,14 +99,17 @@
               <a  onclick="openModal4()"><img src="asset/icons/bleu/troisPoints.svg" alt=""></a>
 
               <div class="confirmation-modal" id="myModal4">
-                <div class="modal-content">
-                  <span class="close" onclick="closeModal4()">&times;</span>
-                  <p>Êtes-vous sûr de changer la visibilité de ce logement ?</p>
+                <div class="modal-content" class="choix_logements">
+                  <p>Changer la visibilité de ce logement</p>
                   <input type="hidden" name="confirmDelete" value="<?php echo $id ?>">
-                  <a href="logement.php?confirmHorsligne=<?php echo ($info["id_logement"]) ?>&redir=1"
-                    class="confirm-button">Confirmer</a>
-                  <a onclick="closeModal4()"
-                    class="confirm-button">Annuler</a>
+
+                  <div class="boutons_choix">
+                    <a href="logement.php?confirmHorsligne=<?php echo ($info["id_logement"]) ?>&redir=1"
+                      id="confirmChange">Hors Ligne</a>
+
+                      <a href="logement.php?confirmligne=<?php echo ($info["id_logement"]) ?>&redir=1"
+                      id="confirmChange2">En Ligne</a>
+                  </div>
                 </div>
               </div>
 
