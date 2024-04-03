@@ -38,21 +38,23 @@ if (isset($_POST['allDays'])) {
     $stmt->execute();
     $daysInBdd = $stmt->fetchAll();
     $daysInBdd = array_column($daysInBdd, 'jour');
-    $boolean = ($modifiedDays[0] == 'true') ? 1 : 0;
+    $boolean = ($modifiedDays[0] == 'true') ? 1 : 0; //true si le logement est disponible, false sinon
+    $unavailabilityReason = $_POST['raisonIndispo'];
 
     for ($i = 1; $i < sizeof($modifiedDays); $i++) {
         $modifiedDay = addZero($_POST['year'] . '-' . $_POST['month'] . '-' . $modifiedDays[$i]);
-        $modifiedPrix = $boolean ? $prixBase : $_POST['allPrix'][$i];
+        $modifiedPrix = $_POST['prix'];
         if (in_array($modifiedDay, $daysInBdd)) {
-            $query = "UPDATE test.planning SET disponibilite = :disponibilite, prix_ht = :prix_ht WHERE id_logement = :id_logement AND jour = :jour;";
+            $query = "UPDATE test.planning SET disponibilite = :disponibilite, prix_ht = :prix_ht, raison_indisponible = :raison_indisponible WHERE id_logement = :id_logement AND jour = :jour;";
         } else {
-            $query = "INSERT INTO test.planning(disponibilite, prix_ht, jour, id_logement) VALUES (:disponibilite, :prix_ht, :jour, :id_logement);";
+            $query = "INSERT INTO test.planning(disponibilite, prix_ht, jour, raison_indisponible, id_logement) VALUES (:disponibilite, :prix_ht, :jour, :raison_indisponible, :id_logement);";
         }
         $stmt = $dbh->prepare($query);
         $stmt->bindParam('disponibilite', $boolean, PDO::PARAM_INT);
         $stmt->bindParam('prix_ht', $modifiedPrix, PDO::PARAM_INT);
         $stmt->bindParam('id_logement', $idLogement, PDO::PARAM_STR);
         $stmt->bindParam('jour', $modifiedDay, PDO::PARAM_STR);
+        $stmt->bindParam('raison_indisponible', $unavailabilityReason, PDO::PARAM_STR);
         $stmt->execute();
     }
 }
@@ -177,6 +179,9 @@ foreach ($reservedDays as $oneOccurence) {
 
             <input type="hidden" name="year" value=<?php echo $year ?>>
             <input type="hidden" name="month" value=<?php echo $month ?>>
+            <input id="prevOrNext" type="hidden" name="prevOrNext" value="">
+            <input id="allDays" type="hidden" name="allDays" value="">
+            <input id="prixBase" type="hidden" name="prixBase" value=<?php echo $prixBase ?>>
 
             <?php
             $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $month, $year);
@@ -189,15 +194,11 @@ foreach ($reservedDays as $oneOccurence) {
 
             <div id="directionChoice">
                 <input id="prevYear" type="submit" value="<">
-                <h4 id="joyeuxanniversaire">
+                <h4 id="currentMonth">
                     <?php echo "$monthName $year" ?>
                 </h4>
                 <input id="nextYear" type="submit" value=">">
             </div>
-
-            <input id="prevOrNext" type="hidden" name="prevOrNext" value="">
-            <input id="allDays" type="hidden" name="allDays" value="">
-
             <table>
                 <tr>
                     <th>Lun.</th>
@@ -226,7 +227,6 @@ foreach ($reservedDays as $oneOccurence) {
                             $prix = $indispoInMonth[$cDay][0];
                             if ($indispoInMonth[$cDay][1] != 1) {
                                 $checked = true;
-                                $prix = 0;
                             } else {
                                 $checked = false;
                             }
@@ -239,8 +239,6 @@ foreach ($reservedDays as $oneOccurence) {
                         $isReserved = (in_array($cDay, $allReservedDays)) ? true : false;
                         //variable affectée à true si le jour est passé, false sinon
                         $isPassed = (strtotime($cDay) < time()) ? true : false;
-
-                        echo '<input type="hidden" name="allPrix[]" value=' . $prix . '>';
                         echo '<label class="nbjourcalend" for="case-' . $i . '">' . $i . ' <div class="prixdujour"> <p> ' . $prix . ' €</p> </div>  </label> ';
 
                         //affichage du jour
@@ -266,7 +264,7 @@ foreach ($reservedDays as $oneOccurence) {
                 </tr>
             </table>
 
-            <div id="petitmenuprix">
+            <div id="menuSelectedDays">
                 <div id="barreselectionjour">
                     <p id="date">
                         <?php echo $monthName . ' ' . $year ?>
@@ -279,17 +277,17 @@ foreach ($reservedDays as $oneOccurence) {
                         </label>
                     </div>
                 </div>
-                <div id="leprixla">
-                    <div id="leprixchangela">
-                        <div class="b4r3">
-                            <p>Prix</p>
-                            <input class="quantity" id="PrixMin" name="PrixMin" type="number" value="">
-                        </div>
-                        <p id="petitebarredeseparation">-</p>
-                        <div class="b4r3" id="adroiteuuu">
-                            <p>Nouveau prix</p>
-                            <input class="quantity" id="PrixMax" name="PrixMax" type="number"
-                                pattern="(29|35|22|56)[0-9]{3}" value="">
+                <div id="changeInformations">
+                    <div id="changeInformationsAlignement">
+                        <div id="containerPrixAndRaison">
+                            <div>
+                                <label for="prix">Prix (en €)</label>
+                                <input class="quantity" id="prix" name="prix" type="number" value="">
+                            </div>
+                            <div id="raisonIndispoContainer">
+                                <label for="raisonIndispo">Raison d'indisponibilité</label>
+                                <input class="quantity" id="raisonIndispo" name="raisonIndispo" type="text" value="">
+                            </div>
                         </div>
                     </div>
                     <button type="button" id="valideyy">Valider</button>

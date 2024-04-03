@@ -1,6 +1,8 @@
+/* TODO : a partir de 1100px de large jusqu'à inf*/
+
 #centerCalendar {
-    display:flex;
-    width:100%;
+    display: flex;
+    width: 100%;
     justify-content: center;
     padding-top: 5vh;
     flex-direction: column;
@@ -9,16 +11,19 @@
     justify-items: center;
 }
 
+input {
+    margin: 0px;
+}
+
 #calendar {
     display: flex;
     flex-direction: column;
     align-items: center;
     background-color: #EDEDED;
-    width: 60%;
+    width: 70%;
     height: 30%;
-    padding: 15px 6.7%;
     gap: 15px;
-    border-radius: 10px 10px 0 0;
+    border-radius: 10px;
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
     transition: visibility var(--animSpeed) ease-out, opacity var(--animSpeed) ease-out;
 
@@ -30,49 +35,53 @@
 }
 
 #directionChoice {
-    display:flex;
-    margin-top: -1em;
-}
-
-#checkboxContainer{
-    display:flex;
-}
-
-#calendar tr {
     display: flex;
-    justify-content: flex-start;
-    
-    gap: 9.3%;
+    margin-top: 15px;
 }
 
-#calendar tr:first-of-type {
+#checkboxContainer {
     display: flex;
-    justify-content: space-around;
 }
 
-#calendar td{
+#calendar tr,
+#calendar th {
+    display: flex;
+    justify-content: center;
+}
+
+#calendar tr:first-of-type {}
+
+#calendar th {
     position: relative;
-    width: 100%;
+    width: 130px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#calendar td {
+    position: relative;
+    width: 130px;
     height: 70px;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 5px;
 }
 
-.cal-data > label {
+.cal-data>label {
     font-size: 20px;
     font-weight: bold;
     color: white;
     z-index: 10;
-    margin-top: 2em;
+    margin-top: 1em;
 }
 
-.cal-data > input {
+.cal-data>input {
     position: absolute;
     top: 0;
     bottom: 0;
-    width: 240%;
+    width: 130px;
     height: 100%;
     background-color: #1D4C77;
     -webkit-appearance: none;
@@ -81,7 +90,7 @@
     border: none;
 }
 
-.cal-data > input:checked {
+.cal-data>input:checked {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -101,26 +110,27 @@
 }
 
 
-#joyeuxanniversaire {
+#currentMonth {
     color: #1D4C77;
     text-align: center;
+    width: 250px;
     font-size: 20px;
     font-weight: 600;
 
-    padding:0 1em;
+    padding: 0 1em;
 }
 
 #prevYear {
     font-size: 20px;
     font-weight: 600;
-    border:none;
+    border: none;
     color: #1D4C77;
 }
 
 #nextYear {
     font-size: 20px;
     font-weight: 600;
-    border:none;
+    border: none;
     color: #1D4C77;
 }
 
@@ -128,9 +138,11 @@
     width: 100%;
     font-size: 20px;
     font-weight: 600;
-    border:none;
+    border: none;
     color: #1D4C77;
     margin-top: -1em;
+    margin-right: 300px;
+    margin-left: 300px;
 }
 
 #calendar td {
@@ -139,11 +151,11 @@
     font-weight: 300;
 }
 
-#calendar tbody  {
+#calendar tbody {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 5px;
+    gap: 2px;
 }
 
 .prixdujour {
@@ -153,13 +165,17 @@
 }
 
 
-#petitmenuprix {
-    width: 73.8%;
+#menuSelectedDays {
+    width: 928px;
     z-index: 99;
 }
 
+#barreselectionjour {
+    padding: 0 2em;
+}
 
-#barreselectionjour,  #barreselectionjour div{
+#barreselectionjour,
+#barreselectionjour div {
     background-color: #2F5980;
 
     display: flex;
@@ -171,11 +187,9 @@
 
     display: flex;
     justify-content: space-between;
-
-    padding: 0 2em;
 }
 
-#date{
+#date {
     font-size: 25px;
     font-weight: bold;
 }
@@ -188,15 +202,15 @@
     display: inline-block;
     width: 60px;
     height: 34px;
-  }
-  
-  .switch input {
+}
+
+.switch input {
     opacity: 0;
     width: 0;
     height: 0;
-  }
-  
-  .slider {
+}
+
+.slider {
     position: absolute;
     cursor: pointer;
     top: 0;
@@ -206,9 +220,9 @@
     background-color: #7BCC7A;
     -webkit-transition: .4s;
     transition: .4s;
-  }
-  
-  .slider:before {
+}
+
+.slider:before {
     position: absolute;
     content: "";
     height: 26px;
@@ -218,49 +232,46 @@
     background-color: white;
     -webkit-transition: .4s;
     transition: .4s;
-  }
-  
-  input:checked + .slider {
+}
+
+input:checked+.slider {
     background-color: #954957;
-  }
-  
-  #barreselectionjour input:focus + .slider {
+}
+
+#barreselectionjour input:focus+.slider {
     box-shadow: 0 0 1px #954957;
-  }
-  
-  #barreselectionjour  input:checked + .slider:before {
+}
+
+#barreselectionjour input:checked+.slider:before {
     -webkit-transform: translateX(26px);
     -ms-transform: translateX(26px);
     transform: translateX(26px);
-  }
-  
-  .slider.round {
+}
+
+.slider.round {
     border-radius: 34px;
-  }
-  
-  .slider.round:before {
+}
+
+.slider.round:before {
     border-radius: 50%;
-  }
+}
 
 /*********************************************************************/
 
 
-#leprixla {
+#changeInformations {
     background-color: #97ADC1;
     margin-top: -0.2em;
-    border-radius: 0 0 10px 10px;
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
     padding: 2em;
     padding-top: 1em;
 }
 
-#leprixchangela  {
+#changeInformationsAlignement {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-content: center;
-
-
 }
 
 #petitebarredeseparation {
@@ -269,10 +280,15 @@
     margin-right: 1em;
     font-size: xx-large;
     color: white;
-  }
+}
 
-.b4r3 input{
-    width: 250px;
+#containerPrixAndRaison {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#containerPrixAndRaison input {
     height: 45px;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
     cursor: pointer;
@@ -283,11 +299,24 @@
     font-weight: 600;
 }
 
-.b4r3 p {
+#prix {
+    width: 150px;
+}
+
+#raisonIndispo {
+    width: 700px;
+}
+
+#containerPrixAndRaison label {
     text-align: left;
     color: white;
     font-weight: 100;
     margin-bottom: 5px;
+}
+
+#containerPrixAndRaison>div {
+    display: flex;
+    flex-direction: column;
 }
 
 
@@ -300,7 +329,7 @@
     text-align: center;
     font-size: 20px;
     font-weight: 600;
-    border:none;
+    border: none;
     background: #2072BC;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
@@ -310,17 +339,80 @@
 }
 
 
-
-@media screen and (min-width: 0px) and (max-width: 1370px) { 
-    #calendar tr {
-        display: flex;
-        justify-content: flex-start;
-        
-        gap: 8%;
+@media screen and (min-width: 1000px) and (max-width: 1370px) {
+    #calendar {
+        width: 960px;
     }
+}
 
-    .cal-data > input {
-        width: 200%;
+@media screen and (min-width:630px) and (max-width: 1000px) {
+    #calendar {
+        width: 602px;
     }
     
+    #calendar th,
+    #calendar td,
+    .cal-data>input {
+        width:80px;
+    }
+
+    .cal-data>label {
+        margin-top: 15px;
+    }
+
+    #menuSelectedDays {
+        width:572px;
+    }
+
+    #raisonIndispo {
+        width:340px;
+    }
+}
+
+@media screen and (min-width: 0px) and (max-width:630px) {
+    #calendar {
+        width: 375px;
+    }
+    
+    #calendar table {
+        font-size: 15px;
+    }
+
+    #directionChoice {
+        margin-top: 5px;
+    }
+
+    #currentMonth {
+        margin:15px;
+    }
+     
+    #calendar th,
+    #calendar td,
+    .cal-data>input {
+        width:50px;
+    }
+
+    .cal-data>label {
+        font-size: 15px;
+    }
+    .prixdujour {
+        font-size: 10px;
+    }
+
+    #menuSelectedDays {
+        width:363px;
+    }
+
+    #containerPrixAndRaison {
+        flex-direction: column;
+    }
+
+    #raisonIndispoContainer {
+        margin-top:15px;
+    }
+
+    #raisonIndispo,
+    #containerPrixAndRaison div input {
+        width:300px;
+    }
 }
