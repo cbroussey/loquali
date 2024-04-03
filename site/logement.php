@@ -551,19 +551,7 @@ try {
                                     });
                             </script>
 
-                            <div class="dispo_date_log">
-                                <p><span> Disponibilité de réservation : </span></p>
-                                <button class="bouton_date_log" onclick="toggleDP('DPDisplay', this)"
-                                    style="margin: 1em;">
-                                    <svg width="26" height="31" viewBox="0 0 26 31" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M8.43766 17.2659H6.15721C5.78094 17.2659 5.47307 16.9499 5.47307 16.5638V14.2237C5.47307 13.8376 5.78094 13.5217 6.15721 13.5217H8.43766C8.81393 13.5217 9.12179 13.8376 9.12179 14.2237V16.5638C9.12179 16.9499 8.81393 17.2659 8.43766 17.2659ZM14.5949 16.5638V14.2237C14.5949 13.8376 14.287 13.5217 13.9107 13.5217H11.6303C11.254 13.5217 10.9461 13.8376 10.9461 14.2237V16.5638C10.9461 16.9499 11.254 17.2659 11.6303 17.2659H13.9107C14.287 17.2659 14.5949 16.9499 14.5949 16.5638ZM20.0679 16.5638V14.2237C20.0679 13.8376 19.7601 13.5217 19.3838 13.5217H17.1034C16.7271 13.5217 16.4192 13.8376 16.4192 14.2237V16.5638C16.4192 16.9499 16.7271 17.2659 17.1034 17.2659H19.3838C19.7601 17.2659 20.0679 16.9499 20.0679 16.5638ZM14.5949 22.1801V19.84C14.5949 19.4539 14.287 19.1379 13.9107 19.1379H11.6303C11.254 19.1379 10.9461 19.4539 10.9461 19.84V22.1801C10.9461 22.5662 11.254 22.8821 11.6303 22.8821H13.9107C14.287 22.8821 14.5949 22.5662 14.5949 22.1801ZM9.12179 22.1801V19.84C9.12179 19.4539 8.81393 19.1379 8.43766 19.1379H6.15721C5.78094 19.1379 5.47307 19.4539 5.47307 19.84V22.1801C5.47307 22.5662 5.78094 22.8821 6.15721 22.8821H8.43766C8.81393 22.8821 9.12179 22.5662 9.12179 22.1801ZM20.0679 22.1801V19.84C20.0679 19.4539 19.7601 19.1379 19.3838 19.1379H17.1034C16.7271 19.1379 16.4192 19.4539 16.4192 19.84V22.1801C16.4192 22.5662 16.7271 22.8821 17.1034 22.8821H19.3838C19.7601 22.8821 20.0679 22.5662 20.0679 22.1801ZM25.541 6.96933V27.5624C25.541 29.1127 24.3153 30.3705 22.8045 30.3705H2.73654C1.22574 30.3705 0 29.1127 0 27.5624V6.96933C0 5.419 1.22574 4.16118 2.73654 4.16118H5.47307V1.11903C5.47307 0.732908 5.78094 0.416992 6.15721 0.416992H8.43766C8.81393 0.416992 9.12179 0.732908 9.12179 1.11903V4.16118H16.4192V1.11903C16.4192 0.732908 16.7271 0.416992 17.1034 0.416992H19.3838C19.7601 0.416992 20.0679 0.732908 20.0679 1.11903V4.16118H22.8045C24.3153 4.16118 25.541 5.419 25.541 6.96933ZM22.8045 27.2114V9.77747H2.73654V27.2114C2.73654 27.4044 2.89047 27.5624 3.0786 27.5624H22.4624C22.6505 27.5624 22.8045 27.4044 22.8045 27.2114Z"
-                                            fill="#F5F5F5" />
-                                    </svg> &#160;Dates</button>
-                                <div id="DPDisplay" class="dateDisplay"></div>
-                            </div>
-
+ 
 
                             <div class="rerservation_log">
                                 <!-- Partie avec tout les détails de la réservation : aménagement, prix etc ... -->
@@ -893,114 +881,9 @@ try {
 
 
                     </div>
-                </div>
 
 
-
-
-
-                <?php /* Affichage des bouton modifier, supprimer et mettre hors ligne / en ligne si connecter comme propriétaire */
-
-                if ($_SESSION['userId'] == $info["id_compte"]) {
-                    $statue;
-                    if ($info["en_ligne"]) {
-                        $statue = "Mettre Hors Ligne";
-                    } else {
-                        $statue = "Mettre en Ligne";
-                    }
-                    ?>
-                    <div class="barre_btn_ajustement_log">
-                        <div class="button_valider2">
-                            <a href="modifLogement.php?id=<?php echo ($id) ?>">
-                                <h2>Modifier</h2>
-                            </a>
-                        </div>
-
-                        <div class="button_refuser2">
-                            <button onclick="openModal()">supprimer</button>
-                        </div>
-                        <div class="button_ligne2">
-                            <button onclick="ouvreModal()">
-                                <?php echo $statue ?>
-                            </button>
-                        </div>
-                    </div>
-
-
-
-                    <div class="confirmation-modal" id="myModal">
-                        <div class="modal-content">
-                            <span class="close" onclick="closeModal()">&times;</span>
-                            <p>Êtes-vous sûr de vouloir supprimer ce logement ?</p>
-                            <form method="GET" action="logement.php">
-                                <input type="hidden" name="confirmDelete" value="<?php echo $id ?>">
-
-                                <button class="confirm-button">Confirmer</button>
-                            </form>
-
-                        </div>
-                    </div>
-                    <?php
-                    if ($info["en_ligne"]) {
-                        ?>
-                        <div class="confirmation-modal" id="myModal2">
-                            <div class="modal-content">
-                                <span class="close" onclick="fermeModal()">&times;</span>
-                                <p>Êtes-vous sûr de vouloir mettre ce logement hors ligne ?</p>
-                                <form method="GET" action="logement.php">
-                                    <input type="hidden" name="confirmHorsligne" value="<?php echo $id ?>">
-
-                                    <button class="confirm-button">Confirmer</button>
-                                </form>
-
-                            </div>
-                        </div>
-                        <?php
-                    }
-                    ?>
-                    <?php
-                    if (!$info["en_ligne"]) {
-                        ?>
-                        <div class="confirmation-modal" id="myModal2">
-                            <div class="modal-content">
-                                <span class="close" onclick="fermeModal()">&times;</span>
-                                <p>Êtes-vous sûr de vouloir mettre ce logement en ligne ?</p>
-                                <form method="GET" action="logement.php">
-                                    <input type="hidden" name="confirmligne" value="<?php echo $id ?>">
-
-                                    <button class="confirm-button">Confirmer</button>
-                                </form>
-
-                            </div>
-                        </div>
-                        <?php
-                    }
-                    ?>
-                    <?php
-                }
-                ?> <!-- Fin de la partie avec les bouton de modification et autres -->
-                <div class="barre_log">
-                    <svg width="100%" height="10" viewBox="0 0 1920 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <g filter="url(#filter0_d_60_122)">
-                            <rect width="1920" height="1" transform="matrix(1 0 0 -1 0 4)" fill="#D9D9D9" />
-                        </g>
-                        <defs>
-                            <filter id="filter0_d_60_122" x="-4" y="0" width="1928" height="9"
-                                filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-                                <feFlood flood-opacity="0" result="BackgroundImageFix" />
-                                <feColorMatrix in="SourceAlpha" type="matrix"
-                                    values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
-                                <feOffset dy="1" />
-                                <feGaussianBlur stdDeviation="2" />
-                                <feComposite in2="hardAlpha" operator="out" />
-                                <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
-                                <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_60_122" />
-                                <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_60_122"
-                                    result="shape" />
-                            </filter>
-                        </defs>
-                    </svg>
-                </div>
+                
                 <!--calendar-->
                 <?php
                 //récupération de l'id du logement
@@ -1216,6 +1099,118 @@ try {
                         </table>
                     </form>
                 </div>
+
+                </div>
+
+
+
+
+
+                <?php /* Affichage des bouton modifier, supprimer et mettre hors ligne / en ligne si connecter comme propriétaire */
+
+                if ($_SESSION['userId'] == $info["id_compte"]) {
+                    $statue;
+                    if ($info["en_ligne"]) {
+                        $statue = "Mettre Hors Ligne";
+                    } else {
+                        $statue = "Mettre en Ligne";
+                    }
+                    ?>
+                    <div class="barre_btn_ajustement_log">
+                        <div class="button_valider2">
+                            <a href="modifLogement.php?id=<?php echo ($id) ?>">
+                                <h2>Modifier</h2>
+                            </a>
+                        </div>
+
+                        <div class="button_refuser2">
+                            <button onclick="openModal()">supprimer</button>
+                        </div>
+                        <div class="button_ligne2">
+                            <button onclick="ouvreModal()">
+                                <?php echo $statue ?>
+                            </button>
+                        </div>
+                    </div>
+
+
+
+                    <div class="confirmation-modal" id="myModal">
+                        <div class="modal-content">
+                            <span class="close" onclick="closeModal()">&times;</span>
+                            <p>Êtes-vous sûr de vouloir supprimer ce logement ?</p>
+                            <form method="GET" action="logement.php">
+                                <input type="hidden" name="confirmDelete" value="<?php echo $id ?>">
+
+                                <button class="confirm-button">Confirmer</button>
+                            </form>
+
+                        </div>
+                    </div>
+                    <?php
+                    if ($info["en_ligne"]) {
+                        ?>
+                        <div class="confirmation-modal" id="myModal2">
+                            <div class="modal-content">
+                                <span class="close" onclick="fermeModal()">&times;</span>
+                                <p>Êtes-vous sûr de vouloir mettre ce logement hors ligne ?</p>
+                                <form method="GET" action="logement.php">
+                                    <input type="hidden" name="confirmHorsligne" value="<?php echo $id ?>">
+
+                                    <button class="confirm-button">Confirmer</button>
+                                </form>
+
+                            </div>
+                        </div>
+                        <?php
+                    }
+                    ?>
+                    <?php
+                    if (!$info["en_ligne"]) {
+                        ?>
+                        <div class="confirmation-modal" id="myModal2">
+                            <div class="modal-content">
+                                <span class="close" onclick="fermeModal()">&times;</span>
+                                <p>Êtes-vous sûr de vouloir mettre ce logement en ligne ?</p>
+                                <form method="GET" action="logement.php">
+                                    <input type="hidden" name="confirmligne" value="<?php echo $id ?>">
+
+                                    <button class="confirm-button">Confirmer</button>
+                                </form>
+
+                            </div>
+                        </div>
+                        <?php
+                    }
+                    ?>
+                    <?php
+                }
+                ?> <!-- Fin de la partie avec les bouton de modification et autres -->
+                <div class="barre_log">
+                    <svg width="100%" height="10" viewBox="0 0 1920 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g filter="url(#filter0_d_60_122)">
+                            <rect width="1920" height="1" transform="matrix(1 0 0 -1 0 4)" fill="#D9D9D9" />
+                        </g>
+                        <defs>
+                            <filter id="filter0_d_60_122" x="-4" y="0" width="1928" height="9"
+                                filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                                <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                                <feColorMatrix in="SourceAlpha" type="matrix"
+                                    values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+                                <feOffset dy="1" />
+                                <feGaussianBlur stdDeviation="2" />
+                                <feComposite in2="hardAlpha" operator="out" />
+                                <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
+                                <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_60_122" />
+                                <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_60_122"
+                                    result="shape" />
+                            </filter>
+                        </defs>
+                    </svg>
+                </div>
+
+
+
 
                 <div class="blanc2">
 
