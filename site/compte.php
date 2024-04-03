@@ -513,6 +513,7 @@ try {
   <script src="asset/js/accountAccueil.js"></script>
   <script src="asset/js/boutonSupprimer.js"></script>
   <script src="asset/js/modifInfosCompte.js"></script>
+  <script src="asset/js/rectifIfo.js"></script>
 
   <?php /* if ($_GET["res"] == "res") { ?>
 <script>
