@@ -1130,7 +1130,7 @@ try {
                                         <div class="infoPropioAvis">
 
                                             <a class="img_avis_log"
-                                                href="pageProprio.php?id=<?php echo ($unAvis["id_compte"]); ?>&id_log=<?php echo ($id) ?>">
+                                                href="pageClient.php?id=<?php echo ($unAvis["id_compte"]); ?>&id_log=<?php echo ($id) ?>">
                                                 <div class="photo_profil_proprio_log_avis ppAvisLogRrrrowcount<?php echo ($unAvis['id_compte']); ?>"
                                                     style='background: url("<?php echo ($pathName) ?>") center/cover;'>
                                                 </div>
