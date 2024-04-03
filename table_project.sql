@@ -644,11 +644,11 @@ VALUES
     ('2024-01-13', '2023-11-20', 4, 2, 12),
     ('2024-01-20', '2023-12-15', 1, 3, 13);
     
-INSERT INTO avis (id_avis, id_parent, titre, contenu, date_avis, id_logement, id_compte)
+INSERT INTO avis (id_avis, id_parent, titre, contenu, date_avis,note_avis, id_logement id_compte)
 VALUES
-    (1,1, 'Super séjour', 'Nous avons passé un excellent séjour dans cet appartement.', '2023-11-10', 1, 1),
-    (2,2, 'Magnifique maison', 'La maison était tout simplement magnifique. Nous avons adoré.', '2023-11-25', 2, 2),
-    (3,3, 'Studio agréable', 'Le studio était parfait pour nos vacances. Nous y retournerons.', '2023-12-15', 3, 3);
+    (1,1, 'Super séjour', 'Nous avons passé un excellent séjour dans cet appartement.', '2023-11-10', 4, 1, 1),
+    (2,2, 'Magnifique maison', 'La maison était tout simplement magnifique. Nous avons adoré.', '2023-11-25', 5, 2, 2),
+    (3,3, 'Studio agréable', 'Le studio était parfait pour nos vacances. Nous y retournerons.', '2023-12-15', 3, 3, 3);
     
 
 INSERT INTO signalement (id_signalement, justification, type_signalement, id_compte, id_objet, classe_objet)
