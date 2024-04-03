@@ -40,13 +40,13 @@ bool simpleMatch(char string[], char matcher[]) {
             if (i < strlen(matcher)-1 && j < strlen(string)-1 && string[j+1] == matcher[i+1]) i++; // If expected character after * is already the next one in the string
         }
     }
-    return (i == strlen(matcher));
+    return (i == strlen(matcher) || (i == strlen(matcher)-1 && matcher[i] == '*'));
 }
 
 // Ignore all emmpty characters
 void ignEmpty(int file) {
     char c = ' ';
-    while (c == ' ' || c < 41) read(file, &c, 1);
+    while (c == ' ' || c < 33) read(file, &c, 1);
     lseek(file, -1, SEEK_CUR);
 }
 
@@ -57,32 +57,30 @@ int parseJSON(int file, const char **expectedArgs, int numArgs, char **values) {
     int i, j;
     int ret;
     char c;
+    memset(line, 0, MAXCMD);
+    memset(value, 0, MAXCMD);
     ignEmpty(file);
     ret = read(file, &c, 1);
     if (c != '{') {
         printf("Error : Invalid JSON file");
         exit(1);
     }
-    ignEmpty(file);
-    c = ' ';
     while (c != '}' && ret != 0) {
+        ignEmpty(file);
+        c = ' ';
         memset(line, 0, strlen(line));
         for (i = 0; c != ',' && c != '}'; i++) {
             ret = read(file, &c, 1);
-            if (ret && c != ',' && c != '}') {
-                line[i] = c;
-                i++;
-            }
+            if (ret && c != ',' && c != '}') line[i] = c;
         }
         if (simpleMatch(line, "\"*\":*\"*\"*")) {
+            //printf("%s\n", line);
             memset(value, 0, strlen(value));
-            c = ' ';
-            for (i = 1; c != '"'; i++) {
-                read(file, &c, 1);
-                if (c != '"') value[i] = c;
-            }
+            i = 1; // Define before otherwise check fails immediately
+            for (i = 1; line[i] != '"'; i++) value[i-1] = line[i];
             j = numArgs;
             for (i = 0; i < numArgs; i++) {
+                //printf("%s == %s\n", value, expectedArgs[i]);
                 if (!strcmp(value, expectedArgs[i])) {
                     if (j != numArgs) {
                         printf("Error : value '%s' found but specified multiple times in the expected args\n", value);
@@ -93,26 +91,28 @@ int parseJSON(int file, const char **expectedArgs, int numArgs, char **values) {
                 }
             }
             if (j != numArgs) {
-                c = ' ';
-                for (i = 0; c != ':'; i++) read(file, &c, 1);
-                for (i = i; c != '"'; i++) read(file, &c, 1);
+                printf("Parsed %s : ", value);
+                i = 0;
+                for (i = 0; line[i] != ':'; i++) c = ' ';
+                for (i = i; line[i] != '"'; i++) c = ' ';
                 memset(value, 0, strlen(value));
-                for (i = i; c != '"'; i++) {
-                    read(file, &c, 1);
-                    if (c != '"') value[strlen(value)] = c;
-                }
+                i++;
+                for (i = i; line[i] != '"'; i++) value[strlen(value)] = line[i];
                 values[j] = malloc(strlen(value) + 1);  // Allocate memory for the string
-                if (value[j] == NULL) {
-                    printf("Error : malloc failed");
-                    exit(1);
-                }
+                //if (value[j] == NULL) {
+                //    printf("Error : malloc failed");
+                //    exit(1);
+                //}
                 strcpy(values[j], value);
+                printf("%s\n", value);
                 numParsed++;
             }
         } else {
-            printf("Error : Invalid JSON line at %ld\n", lseek(file, 0, SEEK_CUR)-strlen(line)-1);
+            printf("Error : Invalid JSON line at char %ld : '%s'\n", lseek(file, 0, SEEK_CUR)-strlen(line)-1, line);
             exit(1);
         }
+        lseek(file, -1, SEEK_CUR);
+        ret = read(file, &c, 1);
     }
     if (c != '}') {
         printf("Error : Expected JSON object closure, got '%c'\n", c);
@@ -123,7 +123,8 @@ int parseJSON(int file, const char **expectedArgs, int numArgs, char **values) {
 
 int main(int argc, char** argv) {
     int statusCode = EXIT_SUCCESS;
-    printf("%i\n", simpleMatch("abcdef", "abc*def"));
+    //printf("%i\n", simpleMatch("abcdef", "abc*def"));
+    //printf("%i\n", simpleMatch("\"key\": \"logementavecplanning\"", "\"*\":*\"*\"*"));
     //char pollType;
     //int pollTime;
     int file;
