@@ -830,7 +830,7 @@
     }
 
     .lignes p {
-        font-size: 12px;
+        font-size: 15px;
     }
 
     .displayInfos {
@@ -863,17 +863,31 @@
     }
 
     .boutonInfosstyle {
-        margin-top: -40px;
+        margin-top: -35px;
         color: #1d4c77;
         text-decoration: underline;
         border: none;
         background: none;
         font-size: 15px;
-        font-weight: 400;
         background-color: #2072BC;
         color: #F5F5F5;
         text-decoration: none;
         padding: 10px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .lignes #modifEnregistrer {
+        margin-top: -35px;
+        color: #1d4c77;
+        text-decoration: underline;
+        border: none;
+        background: none;
+        font-size: 15px;
+        background-color: #2072BC;
+        color: #F5F5F5;
+        text-decoration: none;
+        padding: 10px 0;
         border-radius: 5px;
         cursor: pointer;
     }
@@ -916,7 +930,7 @@
     }
 
     #compteConnection .lignes p {
-        font-size: 13px;
+        font-size: 15px;
     }
 
     #compteConnection .displayInfos {
@@ -1124,31 +1138,34 @@
 font-size: 15px;
 }
 
-.compteListeUnLogement svg{
-    width: 20px;
-    height: auto;
-}
-
-.compteListeUnLogement img{
-    width: 20px;
+.imgListeLogementProprio img{
+    width: 50px;
     height: auto;
 }
 
 .compteSeparateur1 {
     background-color: #97ADC1;
-    width: 50vw;
+    width: 85vw;
     height: 2px;
     color: transparent;
-    margin: 40px 0;
+    margin: auto;
+    margin-bottom: 2em;
 }
 
 .compteBtnListeLogement {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-content: space-between;
-    width: 22%;
-    margin-left: 11%;
+    padding-top: 0.5em;
+
+    width: 80vw;
+    margin: 0 auto;
 }
+
+.compteBtnListeLogement img{
+    margin: 15px 0px;
+}
+
 }
 
 
@@ -1174,6 +1191,7 @@ font-size: 15px;
 
     margin-right: 5em;
     align-items: center;
+
 }
 
 .devis {
@@ -1198,10 +1216,13 @@ font-size: 15px;
     width: 100%;
 }
 
+#compteDevis {
+    overflow-y: scroll;
+}
+
 .page_devis {
     display: flex;
     flex-direction: row;
-    height: 92vh;
 }
 
 .infos-devis {
@@ -1216,6 +1237,7 @@ font-size: 15px;
     width: 90%;
     display: flex;
     flex-direction: row;
+
     align-items: center;
     text-align: center;
 
@@ -1258,6 +1280,42 @@ font-size: 15px;
     text-align: center;
     margin-top: 25%;
 }
+
+
+
+@media screen and (min-width: 0px) and (max-width: 500px) {
+    
+    
+    
+#compteDevis {
+    height: 92vh;
+    position: absolute;
+
+    top: 10em;
+    left: 0em;
+
+
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+.page_devis {
+    width: 95vw;
+}
+
+
+    .liste_devis {
+        margin-left: 0em;
+        margin-right: 0em;
+    }
+
+
+    .infos-header {
+        text-align: left;
+    }
+}
+
+
 
 /*                         COMPTE - PAIEMENT (client) */
 
@@ -1450,4 +1508,77 @@ font-size: 15px;
 .separBar {
     border-left: 1px black solid;
     min-width: 1em;
+}
+
+
+
+@media screen and (min-width: 0px) and (max-width: 500px) {
+
+    #compteAPIContainer {
+        height: 92vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+
+        position: absolute;
+        left: -40em;
+
+        font-size: 10px;
+    }
+    
+    #apiSection {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+        text-align: center;
+    }
+    
+    #apiSection table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+        margin-bottom: 30px;
+    
+    }
+    
+    #apiSection th,
+    #apiSection td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+    
+    #apiSection label {
+        margin-right: 15px;
+    }
+    
+    #apiSection input[type="checkbox"] {
+        margin-right: 5px;
+    }
+    
+    .ajout-button {
+        background-color: #2072BC;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 4px;
+    
+    }
+    
+    
+    .separBar {
+        border-left: 1px black solid;
+        min-width: 1em;
+    }
+
+
 }
