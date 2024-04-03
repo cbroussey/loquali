@@ -90,13 +90,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 
-
         $currentDate = DateTime::createFromFormat('d/m/Y', $deb);
         $endDate = DateTime::createFromFormat('d/m/Y', $fin);
 
         while ($currentDate <= $endDate) {
-            // Exécutez votre requête d'insertion pour chaque date
-            print_r($currentDate->format('d/m/Y') . "<br>");
+            
+        
 
             $stmt = $dbh->prepare("
         INSERT INTO test.planning (disponibilite, prix_ht, jour, raison_indisponible, id_logement)
