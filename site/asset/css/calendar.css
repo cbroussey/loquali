@@ -125,6 +125,7 @@ input {
     font-weight: 600;
     border: none;
     color: #1D4C77;
+    background-color: #EDEDED;
 }
 
 #nextYear {
@@ -132,6 +133,7 @@ input {
     font-weight: 600;
     border: none;
     color: #1D4C77;
+    background-color: #EDEDED;
 }
 
 #calendar table {
