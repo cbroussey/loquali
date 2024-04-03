@@ -44,7 +44,7 @@
 
                     if(isset($_GET['log'])) {
                         $idredir = $_GET['log'];
-                        header("Location: logement.php?id=$idredir");
+                        header("Location: logement.php?id=$idredir#AvisSection");
                     } else {
                         header("Location: index.php");
                     }
@@ -78,6 +78,7 @@
             <a href="<?php if(isset($_GET['log'])) {
                     ?>logement.php?id=<?php
                     echo($_GET['log']);
+                    ?>#AvisSection<?php 
                 } else {
                     ?>index.php<?php
                     }?>">
@@ -118,7 +119,11 @@
         <section>
             <h1>Bonjour ! Demat !</h1>
             <h2>Inscrivez-vous et réservez votre logement de rêve</h2>
-            <button><a href="createAccount.php"><h2>Créer un compte</h2></a></button>
+            <button>
+                <a href="createAccount.php<?php if(isset($_GET['log'])) {?>?log=<?php echo($_GET['log']);}?>">
+                    <h2>Créer un compte</h2>
+                </a>
+            </button>
         </section>
     </main>
 

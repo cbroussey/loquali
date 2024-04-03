@@ -4,7 +4,7 @@
     $id = $_SESSION['userId'];
     $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
-    $query = "SELECT COUNT(*) FROM test.logement WHERE id_compte = $id;";
+    $query = "SELECT COUNT(*) FROM test.reservation WHERE id_compte = $id;";
     $stmt = $dbh->prepare($query);
     $stmt->execute();
     $nbLogements = $stmt->fetch();
@@ -14,20 +14,7 @@
       <p id="AucuneReservCompte">Vous n'avez aucunes réservations pour le moment</p>
       <?php
     } else {
-      foreach ($dbh->query("SELECT * FROM test.logement WHERE id_compte = $id", PDO::FETCH_ASSOC) as $row) {
-
-        $info = $row;
-        $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-        $query = "SELECT min(id_image) FROM test.photo_logement NATURAL JOIN test.image WHERE id_logement = :id_logement;";
-
-        $query = "SELECT COUNT(*) FROM test.reservation WHERE id_compte = $id;";
-        $stmt = $dbh->prepare($query);
-        $stmt->bindParam('id_logemecompteLogementsnt', $info["id_logement"], PDO::PARAM_STR);
-        $stmt->execute();
-        $photo = $stmt->fetch();
-
-        $query = "SELECT extension_image FROM test.image WHERE id_image = :id_image;";
-
+      
         foreach ($dbh->query("SELECT * FROM test.reservation 
                   INNER JOIN test.devis ON test.reservation.id_reservation = test.devis.id_reservation
                   INNER JOIN test.logement ON test.reservation.id_logement = test.logement.id_logement
@@ -35,19 +22,19 @@
 
           $info = $row;
           $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-          $query = "SELECT min(id_image) FROM test.photo_logement NATURAL JOIN test.image WHERE id_logement = :id_logement;";
+          $query = "SELECT * FROM test.photo_logement NATURAL JOIN test.image WHERE id_logement = :id_logement;";
 
           $stmt = $dbh->prepare($query);
           $stmt->bindParam('id_logement', $info["id_logement"], PDO::PARAM_STR);
           $stmt->execute();
           $photo = $stmt->fetch();
         }
-      }
+      
       ?>
       <div class="compteListeUnLogement">
         <div class="toutLogement">
           <div id=imajedelespagna>
-            <img src="asset/img/logements/<?php echo ($photo["min"]); ?>.<?php echo $extention["extension_image"] ?>"
+            <img src="asset/img/logements/<?php echo ($photo["id_image"]); ?>.<?php echo $photo["extension_image"] ?>"
               width="100%" height="100%" alt="" class="imgListeLogementProprio">
           </div>
           <div class="unLogement">
