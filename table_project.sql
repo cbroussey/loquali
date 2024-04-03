@@ -284,10 +284,19 @@ create table api(
     accesCalendrier boolean DEFAULT FALSE,
     miseIndispo boolean DEFAULT FALSE,
     miseDispo boolean DEFAULT FALSE,
-    id_compte integer DEFAULT FALSE,
+    id_compte integer,
     CHECK ((miseDispo = FALSE) OR ((privilegie <> TRUE) AND (accesCalendrier <> TRUE) AND (miseIndispo <> TRUE))),
     constraint api_pk primary key(cle),
     constraint api_fk_compte foreign key (id_compte) references compte(id_compte) ON DELETE CASCADE
+);
+
+CREATE TABLE ical(
+    token VARCHAR(32) NOT NULL,
+    date_debut DATE,
+    date_fin DATE,
+    id_logement integer, -- id compte autorisé récupéré à partir de l'id logement
+    constraint ical_pk primary key(token),
+    constraint ical_fk_logement foreign key (id_logement) references logement(id_logement) ON DELETE CASCADE
 );
 
 
@@ -635,11 +644,11 @@ VALUES
     ('2024-01-13', '2023-11-20', 4, 2, 12),
     ('2024-01-20', '2023-12-15', 1, 3, 13);
     
-INSERT INTO avis (id_avis, id_parent, titre, contenu, date_avis, id_logement, id_compte)
+INSERT INTO avis (id_avis, id_parent, titre, contenu, date_avis,note_avis, id_logement id_compte)
 VALUES
-    (1,1, 'Super séjour', 'Nous avons passé un excellent séjour dans cet appartement.', '2023-11-10', 1, 1),
-    (2,2, 'Magnifique maison', 'La maison était tout simplement magnifique. Nous avons adoré.', '2023-11-25', 2, 2),
-    (3,3, 'Studio agréable', 'Le studio était parfait pour nos vacances. Nous y retournerons.', '2023-12-15', 3, 3);
+    (1,1, 'Super séjour', 'Nous avons passé un excellent séjour dans cet appartement.', '2023-11-10', 4, 1, 1),
+    (2,2, 'Magnifique maison', 'La maison était tout simplement magnifique. Nous avons adoré.', '2023-11-25', 5, 2, 2),
+    (3,3, 'Studio agréable', 'Le studio était parfait pour nos vacances. Nous y retournerons.', '2023-12-15', 3, 3, 3);
     
 
 INSERT INTO signalement (id_signalement, justification, type_signalement, id_compte, id_objet, classe_objet)
@@ -824,7 +833,3 @@ INSERT INTO api(cle, privilegie, accesCalendrier, miseIndispo, id_compte) VALUES
     ('MANGETESGRANDSMORTS', FALSE, TRUE, TRUE, 10),
     ('logementavecplanning', FALSE, TRUE, TRUE, 4),
     ('azeazeazeazeazeaze', FALSE, TRUE, FALSE, 8);
-
-
-
-SELECT MAX(id_avis) FROM test.avis;"

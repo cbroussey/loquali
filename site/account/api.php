@@ -63,10 +63,8 @@ $result = $query->fetchAll();
             <tr>
               <th>Nom de la clé API</th>
               <th>Privilèges</th>
-              <th>Accès Calendrier</th>
+              <th>Accès Calendrier (disponibilité)</th>
               <th>Mise Indispo</th>
-              <th></th>
-              <th>Mise Dispo</th>
             </tr>
           </thead>
           <tbody>
