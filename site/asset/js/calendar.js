@@ -1,3 +1,7 @@
+//suppression de la raison d'indisponibilité de l'écran
+const raisonIndispoContainer = document.getElementById('raisonIndispoContainer');
+raisonIndispoContainer.style.display = 'none';
+
 //gestion du mois du calendrier (passage au mois suivant et précédent)
 const prevYear = document.getElementById("prevYear");
 const nextYear = document.getElementById("nextYear");
@@ -24,6 +28,12 @@ const boxesCalendar = document.getElementsByClassName('nbcasejourcalend');
 const reservations = document.getElementsByClassName('reservations');
 const oldDates = document.getElementsByClassName('oldDates');
 const boxIsClicked = new Map();
+const prix = document.getElementById('prix');
+
+//ajout d'un écouteur qui limite l'input à deux chiffres après la virgule / point
+prix.addEventListener('blur', function() {
+    prix.value = parseFloat(prix.value).toFixed(2);
+});
 
 let i = 0;
 Array.from(boxesCalendar).forEach(box => {
@@ -72,11 +82,13 @@ let daysAreAvailable = true;
 switchIsAvailable.addEventListener('click', () => {
     daysAreAvailable = daysAreAvailable ? false : true;
     textIsAvailable.textContent = daysAreAvailable ? 'logement disponible' : 'logement indisponible';
+    raisonIndispoContainer.style.display = daysAreAvailable ? 'none' : 'flex';
 });
 
 //gestion du clic sur le bouton valider
 const allDays = document.getElementById('allDays');
 const calendar = document.getElementById('calendar');
+const prixBase = document.getElementById('prixBase');
 
 submit.addEventListener('click', () => {
     let selectedDays = [];
@@ -87,8 +99,21 @@ submit.addEventListener('click', () => {
     });
 
     if (selectedDays.length > 0) {
+        if (isNaN(prix.value) || prix.value == '') {
+            prix.style.color = 'white';
+            prix.value = prixBase.value;
+        }
         allDays.value = daysAreAvailable.toString() + ',' + selectedDays.join(',');
         calendar.submit();
     }
 })
+
+//limitation du nombre d'élément de l'input
+const raisonIndispo = document.getElementById('raisonIndispo');
+raisonIndispo.addEventListener('input', function() {
+    if (raisonIndispo.value.length > 255) {
+        raisonIndispo.value = raisonIndispo.value.slice(0, 255);
+    }
+});
+
 
