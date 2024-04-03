@@ -64,7 +64,7 @@
     try {
         $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
         $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-        $query = "SELECT * FROM test.proprietaire NATURAL JOIN test.compte NATURAL JOIN test.telephone WHERE id_compte = :id_compte";
+        $query = "SELECT * FROM test.client NATURAL JOIN test.compte WHERE id_compte = :id_compte";
         $stmt = $dbh->prepare($query);
         $stmt->bindParam('id_compte', $id, PDO::PARAM_STR);
         $stmt->execute();
@@ -127,29 +127,9 @@
                 </div>
                 <div class = "infos">
                     <h2><?php echo $current['nom'] ?> <?php echo($current['prenom']) ?></h2>
-                    <?php
-                        $note = $current['note_proprio'];
-                        if (isset($note)) {
-                            ?>
-                            <figure class="star">
-                                <img src="asset/icons/bleu/star.svg" alt="Icone Etoile">
-                                <figcaption><?php echo htmlentities($note) ?></figcaption>
-                            </figure>
-                            <?php
-                        }
-                    ?>
-                    
-                        <figure class="tel">
-                        <img src="asset/icons/bleu/tel.svg" alt="Icone Telephone">
-                        <figcaption><?php echo wordwrap($current["numero"], 2, " ", 1); ?></figcaption>
-                        </figure>
-                        <?php
-                
-                    ?>
-                    <figure class="mail">
-                        <img src="asset/icons/bleu/mail.svg" alt="Icone Mail">
-                        <figcaption><?php echo $current['adresse_mail'] ?></figcaption>
-                    </figure>
+
+
+
                 </div>
 
             </div>
@@ -158,7 +138,7 @@
 
                 <div id="aProposDeMoi">
                     <div>
-                        <h2>À propos de moi</h2>
+                        <h2>Compte Voyageur</h2>
                     </div>
                     <div class="descriptionPersonne">
                             <input type="submit" value="Enregistrer" id="modificationDescription" class="modifBtn">
@@ -170,9 +150,8 @@
         
         
         </div>
-        <?php print_r($current) ?>
         <div id="logementPropo">
-            <h2 id="titreLogement"><?php if ($current["userType"]=="propriétaire") ?>Logements Proposé</h2>
+            <h2 id="titreLogement"><?php if ($current["userType"]=="propriétaire") ?>Avis Posté</h2>
             <div id="listeLogements">
 
 
@@ -182,61 +161,146 @@
             try {
                 $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
-                $query = "SELECT COUNT(*) FROM test.logement WHERE id_compte = $id;";
+                $query = "SELECT COUNT(*) FROM test.avis WHERE id_compte = $id;";
                 $stmt = $dbh->prepare($query);
                 $stmt->execute();
                 $nbLogements = $stmt->fetch();
 
                 if ($nbLogements['count'] == 0) {
                     ?>
-                    <p id="AucunLogement">Vous n'avez aucun logement en ligne</p>
+                    <p id="AucunLogement">Pas d'avis posté</p>
                     <?php
                 }
-                
 
-                foreach($dbh->query("SELECT * FROM test.logement WHERE id_compte = $id", PDO::FETCH_ASSOC) as $row) {
-            
-                    $info=$row;
+                try {
+
+                    $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
                     $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-                    $query = "SELECT min(id_image) FROM test.photo_logement NATURAL JOIN test.image WHERE id_logement = :id_logement;";
-            
+                    $query = "SELECT * FROM test.avis NATURAL JOIN test.compte WHERE id_compte = :idcompte";
+
                     $stmt = $dbh->prepare($query);
-                    $stmt->bindParam('id_logement', $info["id_logement"], PDO::PARAM_STR);
+                    $stmt->bindParam('idcompte', $id, PDO::PARAM_INT);
                     $stmt->execute();
-                    $photo = $stmt->fetch();
+                    $aviss = $stmt->fetchAll();
 
-                    $query = "SELECT extension_image FROM test.image WHERE id_image = :id_image;";
-            
-                    $stmt = $dbh->prepare($query);
-                    $stmt->bindParam('id_image', $photo["min"], PDO::PARAM_STR);
-                    $stmt->execute();
-                    $extention = $stmt->fetch();
-                    ?>
+                    $rrrrrrrrrrrowCountttt = $stmt->rowCount();
 
-                    <div class="listeUnLogement">
-                        <div>
-                            <a  href="logement.php?id=<?php echo($info["id_logement"]) ?>">
-                                <img class="imgPageProprioLog" src="asset/img/logements/<?php echo($photo["min"]); ?>.<?php echo $extention["extension_image"] ?>" width="300px" height="100%" alt="Image Logement <?php echo($info['id_logement']) ?>">
-                            </a>
-                        </div>
-                        
-                        <div class="unLogement">
-                            <h2><?php echo($info["nature_logement"]); ?> <?php echo($info["type_logement"]); ?>, <?php echo($info["localisation"]); ?></h2>
-                            <p><?php echo($info["code_postal"]); ?>, <U><?php echo($info["departement"]); ?></U></p>
-                            <div class="noteAvis">
-                                <img src="asset/icons/bleu/star.svg" alt="Icone Etoile">
-                                <p><?php echo($info["note_logement"]); ?>, 24 avis</p>
-                            </div>
-                            <a class="consulterLogement" href="logement.php?id=<?php echo $info["id_logement"] ?>"><em>Consulter le logement</em></a>
-                        </div>
-                        
-                    </div>
-
-                    <div class="separateur1">a</div>
-
-                    <?php
+                } catch (PDOException $e) {
+                    print "Erreur !: " . $e->getMessage() . "<br/>";
+                    die();
                 }
+                $nbAvis = 0;
                 
+                            foreach ($aviss as $key => $unAvis) {
+                                $nbAvis++;
+
+                                if ($images = opendir('asset/img/profils/')) {
+                                    while (false !== ($fichier = readdir($images))) {
+                                        $imgInfos = pathinfo($fichier);
+                                        if ($imgInfos['filename'] == $unAvis["id_compte"]) {
+                                            $pathName = 'asset/img/profils/' . $fichier;
+                                            break;
+                                        }
+                                    }
+                                    if ($pathName == '') {
+                                        $pathName = 'asset/img/profils/default.jpg';
+                                    }
+                                    closedir($images);
+
+                                }
+                                ?>
+
+                                <div class="unAvis">
+
+                                    <div class="hautAvis">
+
+                                        <div class="infoPropioAvis">
+
+                                            <a class="img_avis_log"
+                                                href="pageProprio.php?id=<?php echo ($unAvis["id_compte"]); ?>&id_log=<?php echo ($id) ?>">
+                                                <div class="photo_profil_proprio_log_avis ppAvisLogRrrrowcount<?php echo ($unAvis['id_compte']); ?>"
+                                                    style='background: url("<?php echo ($pathName) ?>") center/cover;'>
+                                                </div>
+
+                                            </a>
+                                            <div class="infoTxtProprioAvis">
+                                                <h3>
+                                                    <?= $unAvis["nom"] ?> <?= $unAvis['prenom'] ?>
+                                                </h3>
+                                                <?php
+                                                try {
+
+                                                    $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
+                                                    $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+                                                    $query = "SELECT * FROM test.avis NATURAL JOIN test.compte WHERE id_compte = :idcompte";
+
+                                                    $stmt = $dbh->prepare($query);
+                                                    $stmt->bindParam('idcompte', $unAvis["id_compte"], PDO::PARAM_INT);
+                                                    $stmt->execute();
+                                                    $aviss = $stmt->fetchAll();
+
+                                                    $rrrrrrrrrrrowCount2 = $stmt->rowCount();
+
+                                                } catch (PDOException $e) {
+                                                    print "Erreur !: " . $e->getMessage() . "<br/>";
+                                                    die();
+                                                }
+                                                ?>
+                                                <p>
+                                                    <?= $rrrrrrrrrrrowCount2 ?> avis
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <svg width="25" height="26" viewBox="0 0 25 26" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M16.0156 13C16.0156 14.9434 14.4434 16.5156 12.5 16.5156C10.5566 16.5156 8.98438 14.9434 8.98438 13C8.98438 11.0566 10.5566 9.48438 12.5 9.48438C14.4434 9.48438 16.0156 11.0566 16.0156 13ZM21.0938 9.48438C19.1504 9.48438 17.5781 11.0566 17.5781 13C17.5781 14.9434 19.1504 16.5156 21.0938 16.5156C23.0371 16.5156 24.6094 14.9434 24.6094 13C24.6094 11.0566 23.0371 9.48438 21.0938 9.48438ZM3.90625 9.48438C1.96289 9.48438 0.390625 11.0566 0.390625 13C0.390625 14.9434 1.96289 16.5156 3.90625 16.5156C5.84961 16.5156 7.42188 14.9434 7.42188 13C7.42188 11.0566 5.84961 9.48438 3.90625 9.48438Z"
+                                                fill="#1D4C77" />
+                                        </svg>
+                                    </div>
+
+                                    <div class="milieuAvis">
+
+                                        <div class="noteAvisLog">
+                                            <?php
+                                            for ($i = 0; $i < $unAvis["note_avis"]; $i++) {
+
+                                                ?>
+
+                                                    <img src="asset/icons/bleu/star.svg" alt="Icone Etoile">
+
+
+
+                                                <?php
+                                            }
+                                            ?>
+                                        </div>
+
+                                        <?php
+                                            $dateAff = explode(" ", $unAvis["date_avis"]);
+                                            $dateAff2 = explode('-', $dateAff[0]);
+                                            $heureAff = explode(":",$dateAff[1]);
+                                        ?>
+
+                                        <p>Posté le <?php echo($dateAff2[2])?>/<?php echo($dateAff2[1])?>/<?php echo($dateAff2[0])?> à <?php echo($heureAff[0]);?>:<?php echo($heureAff[1]);?></p>
+                                    </div>
+
+                                    <div class="ContentAvis">
+                                        <p>
+                                            <?php echo ($unAvis["contenu"]); ?>
+                                        </p>
+                                    </div>
+                                </div>
+                                
+                                <?php if ($nbAvis<$rrrrrrrrrrrowCountttt) {
+                                    ?>
+                                    <div class="separateur1">a</div>
+                                    <?php
+                                }
+                            }
+                            
+        
             } catch (PDOException $e) {
                 print "Erreur !: " . $e->getMessage() . "<br/>";
                 die();
