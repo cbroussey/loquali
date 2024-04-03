@@ -807,17 +807,17 @@ h1 {
       line-height: normal;
   }
 
-  .main-devis .button_refuser a {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #FFF;
-      font-family: Inter;
-      font-size: 20px;
-      font-style: normal;
-      font-weight: 700;
-      line-height: normal;
-      width: 100%;
+  .main-devis .button_refuser a{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #FFF;
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    height: 46px;
   }
 
   .boutonRetour {

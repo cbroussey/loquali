@@ -7,7 +7,7 @@ error_reporting(0);
 
 
 /* Suppression du logement si demandé */
-include('connect_params.php');
+include ('connect_params.php');
 $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
 $query = $dbh->prepare("SELECT * FROM test.logement WHERE id_logement = :idlog");
 $query->bindParam('idlog', $_GET["confirmDelete"], PDO::PARAM_INT);
@@ -151,7 +151,7 @@ try {
 
     <?php  /* Récupération de toutes les informations concernant le logement via la BDD */
 
-    include('connect_params.php');
+    include ('connect_params.php');
     try {
         $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
         $id = $_GET["id"];
@@ -444,7 +444,8 @@ try {
 
                                 <div class="block_info_log" id="nomeuhgenre">
                                     <h2>
-                                        <?php echo ($proprio["nom"]) ?> <?php echo($proprio['prenom']) ?>
+                                        <?php echo ($proprio["nom"]) ?>
+                                        <?php echo ($proprio['prenom']) ?>
                                     </h2>
                                 </div>
                                 <div class="block_info_log">
@@ -671,7 +672,7 @@ try {
 
                                                 <div class="elem_reservation_log">
                                                     <img src="asset/icons/blanc/<?php echo ($key["nom_amenagement"]); ?>.svg"
-                                                        alt="Icone <?php echo($key["nom_amenagement"]) ?>">
+                                                        alt="Icone <?php echo ($key["nom_amenagement"]) ?>">
                                                     <p>
                                                         <?php echo ($key["nom_amenagement"]); ?>
                                                     </p>
@@ -738,7 +739,7 @@ try {
 
                                                 <div class="elem_reservation_log">
                                                     <img src="asset/icons/blanc/<?php echo ($key["nom_installation"]); ?>.svg"
-                                                    alt="Icone <?php echo($key["nom_installation"]) ?>">
+                                                        alt="Icone <?php echo ($key["nom_installation"]) ?>">
                                                     <p>
                                                         <?php echo ($key["nom_installation"]); ?>
                                                     </p>
@@ -802,7 +803,7 @@ try {
                                                 <div class="elem_reservation_log">
 
                                                     <img src="asset/icons/blanc/<?php echo ($key["nom_service"]); ?>.svg"
-                                                        alt="Icone <?php echo($key["nom_service"]) ?>">
+                                                        alt="Icone <?php echo ($key["nom_service"]) ?>">
                                                     <p>
                                                         <?php echo ($key["nom_service"]); ?>
                                                     </p>
@@ -1000,14 +1001,228 @@ try {
                         </defs>
                     </svg>
                 </div>
+                <!--calendar-->
+                <?php
+                //récupération de l'id du logement
+                $idLogement = $_GET['id'];
 
+                //initialisation bdd
+                $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
+                $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+
+                //récupération du prix de base du logement et de son libellé
+                $query = "SELECT prix_base_ht, libelle_logement FROM test.logement WHERE id_logement = :id_logement;";
+                $stmt = $dbh->prepare($query);
+                $stmt->bindParam('id_logement', $idLogement, PDO::PARAM_STR);
+                $stmt->execute();
+                $stmt = $stmt->fetch();
+                $prixBase = $stmt['prix_base_ht'];
+                $libelle = $stmt['libelle_logement'];
+
+                //récupération des réservations sur ce logement
+                $query = "SELECT debut_reservation, fin_reservation FROM test.reservation NATURAL JOIN test.devis WHERE id_logement = :id_logement AND acceptation = :acceptation;";
+                $stmt = $dbh->prepare($query);
+                $acceptation = 1;
+                $stmt->bindParam('id_logement', $idLogement, PDO::PARAM_STR);
+                $stmt->bindParam('acceptation', $acceptation, PDO::PARAM_INT);
+                $stmt->execute();
+                $reservedDays = $stmt->fetchAll();
+
+                //requête de récupération de toutes les dates indisponibles du logement
+                $query = "SELECT disponibilite, jour, prix_ht, raison_indisponible FROM test.planning WHERE id_logement = :id_logement;";
+                $stmt = $dbh->prepare($query);
+                $stmt->bindParam('id_logement', $idLogement, PDO::PARAM_STR);
+                $stmt->execute();
+                $dispo = $stmt->fetchAll();
+
+                //fonction qui renvoie les jours indisponibles d'un mois ($month) donné
+                function getAnavailableDaysInOneMonth($month, $data)
+                {
+                    $availableDays = array();
+                    foreach ($data as $value) {
+                        $day = explode("-", $value['jour']);
+                        //vérification du mois et de l'indisponibilité du logement
+                        if ($day[1] == $month) {
+                            $availableDays[$value['jour']] = [$value['prix_ht'], $value['disponibilite']];
+                        }
+                    }
+                    return $availableDays;
+                }
+
+                //fonction qui rajoute des zéros à une date pour avoir le format attendu
+                function addZero($date)
+                {
+                    //divise la date en année, mois et jour
+                    $explodedDate = explode('-', $date);
+                    $year = $explodedDate[0];
+                    $month = $explodedDate[1];
+                    $day = $explodedDate[2];
+
+                    // Ajouter des zéros si nécessaire
+                    if (strlen($month) < 2) {
+                        $month = '0' . $month;
+                    }
+                    if (strlen($day) < 2) {
+                        $day = '0' . $day;
+                    }
+
+                    return "$year-$month-$day";
+                }
+
+                //fonction qui renvoie un tableau contenant toutes les dates comprises entre deux dates, start et end
+                function getDaysBetweenBounds($start, $end)
+                {
+                    $days = [];
+                    $startDate = new DateTime($start);
+                    $endDate = new DateTime($end);
+
+                    //ajout de la date de début
+                    $days[] = $startDate->format('Y-m-d');
+
+                    //ajout des jours intermédiaires
+                    while ($startDate < $endDate) {
+                        $startDate->modify('+1 day');
+                        $days[] = $startDate->format('Y-m-d');
+                    }
+                    return $days;
+                }
+
+                if (isset($_POST['prevOrNext'])) {
+
+                    //passe au mois suivant si l'utilisateur clique sur "suivant"
+                    if ($_POST['prevOrNext'] == 'next') {
+                        $month = $_POST['month'] + 1;
+                        $year = $_POST['year'];
+                        if ($month > 12) {
+                            $month = 1;
+                            $year += 1;
+                        }
+                        //passe au mois suivant si l'utilisateur clique sur "précédent"
+                    } else if ($_POST['prevOrNext'] == 'prev') {
+                        $month = $_POST['month'] - 1;
+                        $year = $_POST['year'];
+                        if ($month <= 0) {
+                            $month = 12;
+                            $year -= 1;
+                        }
+                    } else if ($_POST['prevOrNext'] == 'submit') {
+                        $month = $_POST['month'];
+                        $year = $_POST['year'];
+                    }
+
+                } else {
+                    $today = explode('-', date("Y-m-d"));
+                    $month = $today[1];
+                    $year = $today[0];
+                }
+
+                //récupération de tous les jours disponible dans le mois
+                $indispoInMonth = getAnavailableDaysInOneMonth($month, $dispo);
+
+                //récupération de tous les jours réservés
+                $allReservedDays = [];
+                foreach ($reservedDays as $oneOccurence) {
+                    $allReservedDays += getDaysBetweenBounds($oneOccurence['debut_reservation'], $oneOccurence['fin_reservation']);
+                }
+                ?>
+                <div id="centerCalendar">
+                    <form id="calendar" method="post">
+
+                        <input type="hidden" name="year" value=<?php echo $year ?>>
+                        <input type="hidden" name="month" value=<?php echo $month ?>>
+                        <input id="prevOrNext" type="hidden" name="prevOrNext" value="">
+                        <input id="allDays" type="hidden" name="allDays" value="">
+                        <input id="prixBase" type="hidden" name="prixBase" value=<?php echo $prixBase ?>>
+
+                        <?php
+                        $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+                        $monthsInFrench = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
+                        $monthName = $monthsInFrench[$month - 1];
+
+                        $firstDayOfMonth = date("N", mktime(0, 0, 0, $month, 1, $year));
+                        $currentDayOfWeek = $firstDayOfMonth - 1;
+                        ?>
+
+                        <div id="directionChoice">
+                            <input id="prevYear" type="submit" value="<">
+                            <h4 id="currentMonth">
+                                <?php echo "$monthName $year" ?>
+                            </h4>
+                            <input id="nextYear" type="submit" value=">">
+                        </div>
+                        <table>
+                            <tr>
+                                <th>Lun.</th>
+                                <th>Mar.</th>
+                                <th>Mer.</th>
+                                <th>Jeu.</th>
+                                <th>Ven.</th>
+                                <th>Sam.</th>
+                                <th>Dim.</th>
+                            </tr>
+                            <tr>
+                                <?php
+                                // Remplir les cases vides avant le premier jour du mois
+                                for ($i = 0; $i < $currentDayOfWeek; $i++) {
+                                    echo '<td></td>';
+                                }
+
+                                for ($i = 1; $i <= $daysInMonth; $i++) {
+                                    $cDay = addZero($year . "-" . $month . "-$i");
+
+                                    //ouverture de la cellule
+                                    echo '<td class="cal-data">';
+
+                                    //affichage du prix
+                                    if (array_key_exists($cDay, $indispoInMonth)) {
+                                        $prix = $indispoInMonth[$cDay][0];
+                                        if ($indispoInMonth[$cDay][1] != 1) {
+                                            $checked = true;
+                                        } else {
+                                            $checked = false;
+                                        }
+                                    } else {
+                                        $prix = $prixBase;
+                                        $checked = false;
+                                    }
+
+                                    //variable affectée à true si le jour est réservé, false sinon
+                                    $isReserved = (in_array($cDay, $allReservedDays)) ? true : false;
+                                    //variable affectée à true si le jour est passé, false sinon
+                                    $isPassed = (strtotime($cDay) < time()) ? true : false;
+                                    echo '<label class="nbjourcalend" for="case-' . $i . '">' . $i . ' <div class="prixdujour"> <p> ' . $prix . ' €</p> </div>  </label> ';
+
+                                    //affichage du jour
+                                    echo '<input type="hidden" name="reservations" class="reservations" value=' . $isReserved . '>';
+                                    echo '<input type="hidden" name="oldDates" class="oldDates" value=' . $isPassed . '>';
+                                    echo '<input class="nbcasejourcalend" id="case-' . $i . '" type="checkbox" value=' . $i . ' ' . ($checked ? 'checked' : '') . '>';
+                                    echo '</td>';
+
+                                    // Passer à la nouvelle ligne chaque fois que nous atteignons la fin d'une semaine
+                                    $currentDayOfWeek++;
+                                    if ($currentDayOfWeek == 7) {
+                                        echo '</tr><tr>';
+                                        $currentDayOfWeek = 0; // Réinitialiser le compteur pour la nouvelle ligne
+                                    }
+                                }
+
+                                // Remplir les cases vides après le dernier jour du mois
+                                while ($currentDayOfWeek < 7) {
+                                    echo '<td></td>';
+                                    $currentDayOfWeek++;
+                                }
+                                ?>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
 
                 <div class="blanc2">
 
 
                     <div id="AvisSection">
 
-                        
+
 
                         <div class="barreHautAvis">
                             <div class="gaucheBarreHautAvis">
@@ -1022,13 +1237,13 @@ try {
                                 <div class="droiteBarreHautAvis">
                                     <button id="AjoutAvis">Ajouter un avis</button>
                                 </div>
-                            <?php
-                            }else{
-                            ?>      
-                            <div class="droiteBarreHautAvis">
-                                <button id="AjoutAvis" onclick="modalRedirect2()">Ajouter un avis</button>
-                            </div>
-                            <?php
+                                <?php
+                            } else {
+                                ?>
+                                <div class="droiteBarreHautAvis">
+                                    <button id="AjoutAvis" onclick="modalRedirect2()">Ajouter un avis</button>
+                                </div>
+                                <?php
                             }
                             ?>
                             <?php
@@ -1036,45 +1251,46 @@ try {
                             if ($_SESSION['userType'] == "client") {
 
                                 ?>
-                                <div id="ajoutAvisForm" >
-                                    <form action="ajoutAvis.php" method="POST" >
-                                        <textarea rows="7" cols="50" type="text-area" name="descriptionAvis" placeholder="Magnifique maison en bord de mer"></textarea>
+                                <div id="ajoutAvisForm">
+                                    <form action="ajoutAvis.php" method="POST">
+                                        <textarea rows="7" cols="50" type="text-area" name="descriptionAvis"
+                                            placeholder="Magnifique maison en bord de mer"></textarea>
                                         <div id="ligneBasAjAvis">
 
                                             <div class="etoileAvis">
                                                 <label class="container" id="etoile1">
                                                     <input type="checkbox" class="btn_note_avis" id="1Etoile" name="note"
                                                         value="1">
-                                                        <img class="star-img" src="asset/icons/blanc/star.svg"
-                                                        width="40px" alt="Icone Etoile">
+                                                    <img class="star-img" src="asset/icons/blanc/star.svg" width="40px"
+                                                        alt="Icone Etoile">
                                                 </label>
 
                                                 <label class="container" id="etoile2">
                                                     <input type="checkbox" class="btn_note_avis" id="2Etoile" name="note"
                                                         value="2">
-                                                        <img class="star-img" src="asset/icons/blanc/star.svg"
-                                                        width="40px" alt="Icone Etoile">
+                                                    <img class="star-img" src="asset/icons/blanc/star.svg" width="40px"
+                                                        alt="Icone Etoile">
                                                 </label>
 
                                                 <label class="container" id="etoile3">
                                                     <input type="checkbox" class="btn_note_avis" id="3Etoile" name="note"
                                                         value="3">
-                                                        <img class="star-img" src="asset/icons/blanc/star.svg"
-                                                        width="40px" alt="Icone Etoile">
+                                                    <img class="star-img" src="asset/icons/blanc/star.svg" width="40px"
+                                                        alt="Icone Etoile">
                                                 </label>
 
                                                 <label class="container" id="etoile4">
                                                     <input type="checkbox" class="btn_note_avis" id="4Etoile" name="note"
                                                         value="4">
-                                                        <img class="star-img" src="asset/icons/blanc/star.svg"
-                                                        width="40px" alt="Icone Etoile">
+                                                    <img class="star-img" src="asset/icons/blanc/star.svg" width="40px"
+                                                        alt="Icone Etoile">
                                                 </label>
 
                                                 <label class="container" id="etoile5">
                                                     <input type="checkbox" class="btn_note_avis" id="5Etoile" name="note"
                                                         value="5">
-                                                    <img class="star-img" src="asset/icons/blanc/star.svg"
-                                                        width="40px" alt="Icone Etoile">
+                                                    <img class="star-img" src="asset/icons/blanc/star.svg" width="40px"
+                                                        alt="Icone Etoile">
                                                 </label>
 
                                             </div>
@@ -1089,9 +1305,10 @@ try {
                                 <div class="confirmation-modal" id="myModal5">
                                     <div class="modal-content">
                                         <span class="close" onclick="refusRedirect2()">&times;</span>
-                                        <p>Vous ne pouvez pas créer d'avis car vous n'êtes pas connecté en tant que client. Voulez-vous vous connectez ?
+                                        <p>Vous ne pouvez pas créer d'avis car vous n'êtes pas connecté en tant que client.
+                                            Voulez-vous vous connectez ?
                                         </p>
-                                        <a href="connexion.php?log=<?php echo $id?>" class="confirm-button">Confirmer</a>
+                                        <a href="connexion.php?log=<?php echo $id ?>" class="confirm-button">Confirmer</a>
 
                                     </div>
                                 </div>
@@ -1138,7 +1355,8 @@ try {
                                             </a>
                                             <div class="infoTxtProprioAvis">
                                                 <h3>
-                                                    <?= $unAvis["nom"] ?> <?= $unAvis['prenom'] ?>
+                                                    <?= $unAvis["nom"] ?>
+                                                    <?= $unAvis['prenom'] ?>
                                                 </h3>
                                                 <?php
                                                 try {
@@ -1181,7 +1399,7 @@ try {
 
                                                 ?>
 
-                                                    <img src="asset/icons/bleu/star.svg" alt="Icone Etoile">
+                                                <img src="asset/icons/bleu/star.svg" alt="Icone Etoile">
 
 
 
@@ -1191,12 +1409,18 @@ try {
                                         </div>
 
                                         <?php
-                                            $dateAff = explode(" ", $unAvis["date_avis"]);
-                                            $dateAff2 = explode('-', $dateAff[0]);
-                                            $heureAff = explode(":",$dateAff[1]);
+                                        $dateAff = explode(" ", $unAvis["date_avis"]);
+                                        $dateAff2 = explode('-', $dateAff[0]);
+                                        $heureAff = explode(":", $dateAff[1]);
                                         ?>
 
-                                        <p>Posté le <?php echo($dateAff2[2])?>/<?php echo($dateAff2[1])?>/<?php echo($dateAff2[0])?> à <?php echo($heureAff[0]);?>:<?php echo($heureAff[1]);?></p>
+                                        <p>Posté le
+                                            <?php echo ($dateAff2[2]) ?>/
+                                            <?php echo ($dateAff2[1]) ?>/
+                                            <?php echo ($dateAff2[0]) ?> à
+                                            <?php echo ($heureAff[0]); ?>:
+                                            <?php echo ($heureAff[1]); ?>
+                                        </p>
                                     </div>
 
                                     <div class="ContentAvis">
@@ -1244,9 +1468,10 @@ try {
                 <div id="reseaux">
                     <h2>Suivez nous</h2>
                     <div id="logoReseaux">
-                    <a href=""><img src="asset/icons/blanc/facebook.svg" alt="Logo Facebook"></a>
-            <a href=""><img src="asset/icons/blanc/instagram.svg" alt="Logo Instagram"></a>
-            <a href=""><img src="asset/icons/blanc/steam.svg" alt="Logo de la graisse capilaire Swag (vive faute orthodraphe)"></a>
+                        <a href=""><img src="asset/icons/blanc/facebook.svg" alt="Logo Facebook"></a>
+                        <a href=""><img src="asset/icons/blanc/instagram.svg" alt="Logo Instagram"></a>
+                        <a href=""><img src="asset/icons/blanc/steam.svg"
+                                alt="Logo de la graisse capilaire Swag (vive faute orthodraphe)"></a>
                     </div>
                 </div>
                 <div id="contact">

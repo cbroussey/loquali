@@ -87,38 +87,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bindParam(':date_devis', $date_devis, PDO::PARAM_STR);
 
         $stmt->execute();
-        
-       
 
 
-        $currentDate = $deb;
-       
-   
-        while ($currentDate <= $fin) {
-            // Exécutez votre requête d'insertion pour chaque date
-           // echo($currentDate . "<br>");
+
+        $currentDate = DateTime::createFromFormat('d/m/Y', $deb);
+        $endDate = DateTime::createFromFormat('d/m/Y', $fin);
+
+        while ($currentDate <= $endDate) {
             
+        
+
             $stmt = $dbh->prepare("
-                INSERT INTO test.planning (disponibilite, prix_ht, jour, raison_indisponible, id_logement)
-                VALUES (false, 0.00, :current_date, :raison_indisponible, :id_logment)
-                ");
+        INSERT INTO test.planning (disponibilite, prix_ht, jour, raison_indisponible, id_logement)
+        VALUES (false, 0.00, :current_date, :raison_indisponible, :id_logment)
+    ");
 
-        
-
-            
-           
-            $stmt->bindParam(':current_date', $currentDate, PDO::PARAM_STR);
-            $stmt->bindValue(':raison_indisponible', null, PDO::PARAM_NULL); 
+            $stmt->bindParam(':current_date', $currentDate->format('d/m/Y'), PDO::PARAM_STR);
+            $stmt->bindValue(':raison_indisponible', null, PDO::PARAM_NULL);
             $stmt->bindParam(':id_logment', $id, PDO::PARAM_INT);
 
             // Exécution de la requête
             $stmt->execute();
 
             // Passez à la date suivante
-            //$currentDate = date('m/d/Y', strtotime($currentDate . ' +1 days'));
-            $currentDate =  (DateTime::createFromFormat('d/m/Y', $currentDate))->modify('+1 day')->format('d/m/Y');
-
-
+            $currentDate->modify('+1 day');
         }
 
 
