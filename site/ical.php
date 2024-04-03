@@ -18,7 +18,7 @@
             $venv = $venv->fetchAll();
             $cal = "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Loquali//NONSGML alz.bzh//FR\n";
             foreach ($venv as $v) {
-                $cal .= "BEGIN:VEVENT\nDTSTART:" . date("Ymd\THis\Z", strtotime($v['jour'])) . "\nDTEND:" . date("Ymd\THis\Z", strtotime($v['jour'] . " +1 day")) . "\nSUMMARY:Indisponible\nEND:VEVENT\n";
+                $cal .= "BEGIN:VEVENT\nDTSTART:" . date("Ymd\T230000\Z", strtotime($v['jour'] . " -1 day")) . "\nDTEND:" . date("Ymd\T230000\Z", strtotime($v['jour'])) . "\nSUMMARY:Indisponible\nEND:VEVENT\n";
             }
             $cal .= "END:VCALENDAR";
             echo $cal;
