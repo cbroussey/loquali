@@ -12,13 +12,20 @@ $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
 $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
 //récupération du prix de base du logement et de son libellé
-$query = "SELECT prix_base_ht, libelle_logement FROM test.logement WHERE id_logement = :id_logement;";
+$query = "SELECT prix_base_ht, libelle_logement, id_compte FROM test.logement WHERE id_logement = :id_logement;";
 $stmt = $dbh->prepare($query);
 $stmt->bindParam('id_logement', $idLogement, PDO::PARAM_STR);
 $stmt->execute();
 $stmt = $stmt->fetch();
 $prixBase = $stmt['prix_base_ht'];
 $libelle = $stmt['libelle_logement'];
+$verifCompte = $stmt['id_compte'];
+
+//vérification de l'identité du propriétaire
+if ($verifCompte != $_SESSION['userId']) {
+    header("Location: index.php");
+    exit();
+}
 
 //récupération des réservations sur ce logement
 $query = "SELECT debut_reservation, fin_reservation FROM test.reservation NATURAL JOIN test.devis WHERE id_logement = :id_logement AND acceptation = :acceptation;";
