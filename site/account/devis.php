@@ -82,6 +82,7 @@
       $id_logement = $row["id_logement"];
 
       $id_reservation = $row["id_reservation"];
+     
 
       $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 

@@ -77,129 +77,132 @@ class datePicker {
     }
 
     display() {
-        //let temp = new Date(this.end.getTime()-this.dist);
-        if (this.start > new Date(this.end.getFullYear(), this.end.getMonth(), this.end.getDate()-this.dist) && this.multi) {
-            this.end = new Date(this.start.getFullYear(), this.start.getMonth(), this.start.getDate()+this.dist)
-            //temp = this.start
-            //this.start = this.end
-            //this.end = temp
-            if (this.moving == 1) this.moving = 2
-            else if (this.moving == 2) this.moving = 1
-        }
-        if (this.start.getTime() < today().getTime()) {
-            this.start = today()
-            this.end = today(0, 0, this.dist)
-        }
-        this.DP.querySelector('.DPmonth').innerHTML = monthNames[this.month] + ' ' + this.year;
-        let DPstart = new Date(this.year, this.month, 0).getDay();
-        let daysInMonth = new Date(this.year, this.month+1, 0).getDate() /*- DPstart*/;
-        let done = false;
-        let i = 1;
-        let html = ""
-        while (!done) {
-            html += "<tr>";
-            for (let j = 0; j < 7; j++) {
-                html += "<td ";
-                if (DPstart || done) {
-                    html += "class='DPout'><div></div></td>";
-                    DPstart--;
-                }
-                else if (new Date(this.year, this.month, i+1) >= new Date() && !this.off.includes(`${this.year}-${fill0((this.month+1).toString())}-${fill0(i.toString())}`)) {
-                    //console.log(`${this.year}-${fill0((this.month+1).toString())}-${fill0(i.toString())}`)
-                    html += "class='DPcurrent'><div></div><a>" + i + "</a></td>";
-                    i++;
-                    if (i%daysInMonth == 1) done = true;
-                } else {
-                    html += "class='DPno'><div></div><a>" + i + "</a></td>";
-                    i++;
-                    if (i%daysInMonth == 1) done = true;
-                }
-                /*
-                if (i < DPstart) {
-                    html += "<td class='DPout'>" + (daysPrevMonth + i + 1) + "</td>";
-                } else if (i < DPstart + new Date(year, month + 1, 0).getDate()) {
-                    html += "<td class='DPcurrent'>" + (i - DPstart + 1) + "</td>";
-                } else {
-                    html += "<td class='DPout'>" + (i - DPstart - new Date(year, month + 1, 0).getDate() + 1) + "</td>";
-                }
-                */
+        console.log(this.DP)
+        if (!this.DP.readOnly) {
+            //let temp = new Date(this.end.getTime()-this.dist);
+            if (this.start > new Date(this.end.getFullYear(), this.end.getMonth(), this.end.getDate()-this.dist) && this.multi) {
+                this.end = new Date(this.start.getFullYear(), this.start.getMonth(), this.start.getDate()+this.dist)
+                //temp = this.start
+                //this.start = this.end
+                //this.end = temp
+                if (this.moving == 1) this.moving = 2
+                else if (this.moving == 2) this.moving = 1
             }
-            html += "</tr>"
-        }
-        this.DP.querySelector("table > tbody").innerHTML = html;
-        this.DP.querySelectorAll(".DPcurrent:not(.DPno)").forEach(element => {
-            element.addEventListener('mousedown', () => {
-                let selDate = new Date(this.year, this.month, parseInt(element.querySelector("a").innerHTML))
-                if ((this.start.toDateString() == selDate.toDateString() || selDate < this.start || !this.multi)) {
-                    this.start = selDate
-                    this.moving = 1
-                } else if (this.end.toDateString() == selDate.toDateString() || selDate > this.end) {
-                    this.end = selDate
-                    //console.log(this.end)
-                    this.moving = 2
-                } else {
-                    //console.log("Here should be a custom context menu to ask if start date or end date")
-                    this.tmpdist = Math.ceil(Math.abs(selDate - this.start) / (1000 * 60 * 60 * 24));
-                    this.moving = 3
-                }
-                this.display()
-            })
-            /*
-            element.addEventListener("contextmenu", () => {
-                if (this.end.toDateString() != new Date(this.year, this.month, element.querySelector("a").innerHTML).toDateString()) {
-                    this.start = new Date(this.year, this.month, parseInt(element.querySelector("a").innerHTML))
-                    this.display()
-                }
-            })
-            */
-            element.addEventListener("mousemove", () => {
-                let clickedDate = new Date(this.year, this.month, parseInt(element.querySelector("a").innerHTML));
-                if (this.moving == 1 /*&& !this.off.includes(`${this.start.getFullYear()}-${fill0((this.start.getMonth()+1).toString())}-${fill0((this.start.getDate()+this.dist).toString())}`)*/) {
-                    //console.log(`${this.start.getFullYear()}-${fill0((this.start.getMonth()+1).toString())}-${fill0((this.start.getDate()+this.dist).toString())}`)
-                    this.start = clickedDate;
-                    if (this.start >= new Date(this.end.getFullYear(), this.end.getMonth(), this.end.getDate()-this.dist)) this.end = new Date(this.start.getFullYear(), this.start.getMonth(), this.start.getDate()+this.dist);
-                } else if (this.moving == 2 /*&& this.end >= new Date(new Date().getTime()+86000000*(this.dist))*/ /*&& !this.off.includes(`${this.end.getFullYear()}-${fill0((this.end.getMonth()+1).toString())}-${fill0((this.end.getDate()-this.dist).toString())}`)*/) {
-                    this.end = clickedDate;
-                    if (this.end <= new Date(this.start.getFullYear(), this.start.getMonth(), this.start.getDate()+this.dist)) this.start = new Date(this.end.getFullYear(), this.end.getMonth(), this.end.getDate()-this.dist);
-                } else if (this.moving == 3 && this.multi /*&& (clickedDate < this.start || clickedDate > this.end)*/) {
-                    let tmpdist = Math.ceil((clickedDate - this.start) / (1000 * 60 * 60 * 24)) - this.tmpdist;
-                    //console.log(tmpdist)
-                    this.start = new Date(this.start.getFullYear(), this.start.getMonth(), this.start.getDate()+tmpdist)
-                    this.end = new Date(this.end.getFullYear(), this.end.getMonth(), this.end.getDate()+tmpdist)
-                }
-                this.display()
-            })
-            element.addEventListener("mouseup", () => {
-                this.moving = 0
-                for (let i = 0; i < this.off.length; i++) {
-                    if (new Date(this.off[i]) >= this.start && new Date(this.off[i]) <= new Date(this.end.getFullYear(), this.end.getMonth(), this.end.getDate()+1)) {
-                        alert("Vous ne pouvez pas réserver sur cette période")
-                        this.setMinDate();
-                        break;
+            if (this.start.getTime() < today().getTime()) {
+                this.start = today()
+                this.end = today(0, 0, this.dist)
+            }
+            this.DP.querySelector('.DPmonth').innerHTML = monthNames[this.month] + ' ' + this.year;
+            let DPstart = new Date(this.year, this.month, 0).getDay();
+            let daysInMonth = new Date(this.year, this.month+1, 0).getDate() /*- DPstart*/;
+            let done = false;
+            let i = 1;
+            let html = ""
+            while (!done) {
+                html += "<tr>";
+                for (let j = 0; j < 7; j++) {
+                    html += "<td ";
+                    if (DPstart || done) {
+                        html += "class='DPout'><div></div></td>";
+                        DPstart--;
                     }
+                    else if (new Date(this.year, this.month, i+1) >= new Date() && !this.off.includes(`${this.year}-${fill0((this.month+1).toString())}-${fill0(i.toString())}`)) {
+                        //console.log(`${this.year}-${fill0((this.month+1).toString())}-${fill0(i.toString())}`)
+                        html += "class='DPcurrent'><div></div><a>" + i + "</a></td>";
+                        i++;
+                        if (i%daysInMonth == 1) done = true;
+                    } else {
+                        html += "class='DPno'><div></div><a>" + i + "</a></td>";
+                        i++;
+                        if (i%daysInMonth == 1) done = true;
+                    }
+                    /*
+                    if (i < DPstart) {
+                        html += "<td class='DPout'>" + (daysPrevMonth + i + 1) + "</td>";
+                    } else if (i < DPstart + new Date(year, month + 1, 0).getDate()) {
+                        html += "<td class='DPcurrent'>" + (i - DPstart + 1) + "</td>";
+                    } else {
+                        html += "<td class='DPout'>" + (i - DPstart - new Date(year, month + 1, 0).getDate() + 1) + "</td>";
+                    }
+                    */
                 }
-                this.DP.dispatchEvent(new CustomEvent("DPchanged",{detail:{id: this.DP},bubbles:true}));
-            })
-        });
-        let current = this.DP.querySelectorAll(".DPcurrent, .DPno")
-        if (this.month == this.start.getMonth() && this.year == this.start.getFullYear() ) {
-            current[this.start.getDate()-1].classList.add("DPselected")
-        }
-        if (this.month == this.end.getMonth() && this.year == this.end.getFullYear() && this.multi) {
-            current[this.end.getDate()-1].classList.add("DPselected")
-        }
-        DPstart = new Date(this.year, this.month, 0).getDay(); // Jour de la semaine
-        for (let i = 0; i < current.length; i++) {
-            if (
-                (new Date(this.year, this.month, current[i].querySelector("a").innerHTML) >= this.start)
-                && (new Date(this.year, this.month, current[i].querySelector("a").innerHTML) <= this.end)
-            ) {
-                if (this.multi) current[i].querySelector("div").classList.add('DPsel');
-                if ((new Date(this.year, this.month, i+1).toDateString() == this.start.toDateString()) || ((i+DPstart)%7 == 0 && i != 0))
-                    current[i].querySelector("div").classList.add('DPselS');
-                if (((new Date(this.year, this.month, i+1).toDateString() == this.end.toDateString()) || ((i+DPstart)%7 == 6 && i != daysInMonth-1))
-                    && this.multi)
-                    current[i].querySelector("div").classList.add('DPselE');
+                html += "</tr>"
+            }
+            this.DP.querySelector("table > tbody").innerHTML = html;
+            this.DP.querySelectorAll(".DPcurrent:not(.DPno)").forEach(element => {
+                element.addEventListener('mousedown', () => {
+                    let selDate = new Date(this.year, this.month, parseInt(element.querySelector("a").innerHTML))
+                    if ((this.start.toDateString() == selDate.toDateString() || selDate < this.start || !this.multi)) {
+                        this.start = selDate
+                        this.moving = 1
+                    } else if (this.end.toDateString() == selDate.toDateString() || selDate > this.end) {
+                        this.end = selDate
+                        //console.log(this.end)
+                        this.moving = 2
+                    } else {
+                        //console.log("Here should be a custom context menu to ask if start date or end date")
+                        this.tmpdist = Math.ceil(Math.abs(selDate - this.start) / (1000 * 60 * 60 * 24));
+                        this.moving = 3
+                    }
+                    this.display()
+                })
+                /*
+                element.addEventListener("contextmenu", () => {
+                    if (this.end.toDateString() != new Date(this.year, this.month, element.querySelector("a").innerHTML).toDateString()) {
+                        this.start = new Date(this.year, this.month, parseInt(element.querySelector("a").innerHTML))
+                        this.display()
+                    }
+                })
+                */
+                element.addEventListener("mousemove", () => {
+                    let clickedDate = new Date(this.year, this.month, parseInt(element.querySelector("a").innerHTML));
+                    if (this.moving == 1 /*&& !this.off.includes(`${this.start.getFullYear()}-${fill0((this.start.getMonth()+1).toString())}-${fill0((this.start.getDate()+this.dist).toString())}`)*/) {
+                        //console.log(`${this.start.getFullYear()}-${fill0((this.start.getMonth()+1).toString())}-${fill0((this.start.getDate()+this.dist).toString())}`)
+                        this.start = clickedDate;
+                        if (this.start >= new Date(this.end.getFullYear(), this.end.getMonth(), this.end.getDate()-this.dist)) this.end = new Date(this.start.getFullYear(), this.start.getMonth(), this.start.getDate()+this.dist);
+                    } else if (this.moving == 2 /*&& this.end >= new Date(new Date().getTime()+86000000*(this.dist))*/ /*&& !this.off.includes(`${this.end.getFullYear()}-${fill0((this.end.getMonth()+1).toString())}-${fill0((this.end.getDate()-this.dist).toString())}`)*/) {
+                        this.end = clickedDate;
+                        if (this.end <= new Date(this.start.getFullYear(), this.start.getMonth(), this.start.getDate()+this.dist)) this.start = new Date(this.end.getFullYear(), this.end.getMonth(), this.end.getDate()-this.dist);
+                    } else if (this.moving == 3 && this.multi /*&& (clickedDate < this.start || clickedDate > this.end)*/) {
+                        let tmpdist = Math.ceil((clickedDate - this.start) / (1000 * 60 * 60 * 24)) - this.tmpdist;
+                        //console.log(tmpdist)
+                        this.start = new Date(this.start.getFullYear(), this.start.getMonth(), this.start.getDate()+tmpdist)
+                        this.end = new Date(this.end.getFullYear(), this.end.getMonth(), this.end.getDate()+tmpdist)
+                    }
+                    this.display()
+                })
+                element.addEventListener("mouseup", () => {
+                    this.moving = 0
+                    for (let i = 0; i < this.off.length; i++) {
+                        if (new Date(this.off[i]) >= this.start && new Date(this.off[i]) <= new Date(this.end.getFullYear(), this.end.getMonth(), this.end.getDate()+1)) {
+                            alert("Vous ne pouvez pas réserver sur cette période")
+                            this.setMinDate();
+                            break;
+                        }
+                    }
+                    this.DP.dispatchEvent(new CustomEvent("DPchanged",{detail:{id: this.DP},bubbles:true}));
+                })
+            });
+            let current = this.DP.querySelectorAll(".DPcurrent, .DPno")
+            if (this.month == this.start.getMonth() && this.year == this.start.getFullYear() ) {
+                current[this.start.getDate()-1].classList.add("DPselected")
+            }
+            if (this.month == this.end.getMonth() && this.year == this.end.getFullYear() && this.multi) {
+                current[this.end.getDate()-1].classList.add("DPselected")
+            }
+            DPstart = new Date(this.year, this.month, 0).getDay(); // Jour de la semaine
+            for (let i = 0; i < current.length; i++) {
+                if (
+                    (new Date(this.year, this.month, current[i].querySelector("a").innerHTML) >= this.start)
+                    && (new Date(this.year, this.month, current[i].querySelector("a").innerHTML) <= this.end)
+                ) {
+                    if (this.multi) current[i].querySelector("div").classList.add('DPsel');
+                    if ((new Date(this.year, this.month, i+1).toDateString() == this.start.toDateString()) || ((i+DPstart)%7 == 0 && i != 0))
+                        current[i].querySelector("div").classList.add('DPselS');
+                    if (((new Date(this.year, this.month, i+1).toDateString() == this.end.toDateString()) || ((i+DPstart)%7 == 6 && i != daysInMonth-1))
+                        && this.multi)
+                        current[i].querySelector("div").classList.add('DPselE');
+                }
             }
         }
     }
