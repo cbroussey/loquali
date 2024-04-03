@@ -980,6 +980,21 @@
 
 /*                         COMPTE - RESERVATIONS (client) */
 
+.LesReservations{
+    position: absolute;
+    top: 10em;
+    left: 20em;
+    height: 80vh;
+
+    overflow-y: scroll;
+
+}
+.noteAvis {
+    margin-top: 1em;
+}
+.laNoche{
+    margin-top: 1em;
+}
 .toutLogement {
     display: flex;
     flex-wrap: nowrap;
@@ -1005,6 +1020,18 @@
     width: 100%;
     text-align: center;
     margin-top: 25%;
+}
+
+
+@media screen and (min-width: 0px) and (max-width: 500px) {
+    .LesReservations{
+        left: 0.5em;
+        top: 12em;
+        overflow-y: hidden;
+        overflow-x: hidden;
+        width: 98vw;
+    }
+
 }
 
 /*                         COMPTE - LOGEMENTS (propriétaire) */
@@ -1396,7 +1423,9 @@ font-size: 15px;
         color: #1D4C77;
         width: 100%;
 
-        margin-top: 10em;
+        margin-top: 7em;
+        position: absolute;
+        left: 0em;
     }
 
     .liste_carte h3 {
@@ -1443,7 +1472,7 @@ font-size: 15px;
         cursor: pointer;
         margin-left: auto;
 
-        margin-right: 5em;
+        margin-right: 1em;
     }
 
 
