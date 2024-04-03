@@ -2,7 +2,7 @@
 include('connect_params.php');
 error_reporting(0);
 try {
-    print_r($_POST);
+
     $nouveau_prix = $_POST["prixTTC"];
     $nouveau_delai = (new DateTime())->add(new DateInterval('P5D'))->format('Y-m-d');
     $reservation = $_POST["reservation"];
@@ -24,7 +24,7 @@ try {
     $stmt->bindParam(':id_reservation', $reservation);
 
     $stmt->execute();
-   // header("Location: compte.php");
+     header("Location: compte.php");
     exit();
 } catch (PDOException $e) {
     print "Erreur !: " . $e->getMessage() . "<br/>";

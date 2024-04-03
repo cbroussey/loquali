@@ -150,13 +150,15 @@ error_reporting(0);
         <div></div>
     </header>
     <main class="main-devis">
-       
         <form action="<?php echo ($qui == "client") ? "paiement.php" : (($qui == "proprietaire") ? "validationDevisProprio.php" : "inserDevis.php"); ?>" method="POST">
             <div class="demande">
                 <div class="retour">
                     <button class="boutonRetour" onclick="history.back()"><img src="asset/icons/blanc/retour.svg"></button>
                     <a id="idlog" hidden>
                         <?php echo $id; ?>
+                    </a>
+                    <a id='id_reservation'hidden>
+                         <?php echo $_POST["reservation"]; ?>
                     </a>
                     <h1 class="h1-mobile">
                         <?php echo ($qui == "proprietaire" || $qui == "client") ? "Demande de réservation" : "Demande de devis"; ?>
