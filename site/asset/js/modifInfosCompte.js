@@ -100,8 +100,3 @@ function submitForm() {
     document.getElementById("profileForm").submit();
 }
 
-
-document.getElementById('photo').addEventListener('change', function (event) {
-    document.getElementById("profileForm").submit();
-
-});

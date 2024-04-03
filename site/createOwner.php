@@ -94,5 +94,7 @@ error_reporting(0);
         </section>
     </main>
     <script src="asset/js/createOwner.js"></script>
+    <script src="asset/js/rectifIfoCreateOwner.js"></script>
+
 </body>
 </html>

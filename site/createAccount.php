@@ -152,11 +152,11 @@ error_reporting(0);
                     <input type="text" id="nom" name="nom" placeholder="Nom" required />
                     <input type="text" id="prenom" name="prenom" placeholder="Prénom" required />
                     <input type="email" id="email" name="email" placeholder="Adresse-mail" required/>    
-                    <div class="surroundCasePassWord">
+                    <div class="surroundCasePassWord" id="Psw1">
                         <input type="password" id="passwordInput" placeholder="Mot de passe" name="passwordInput" autocomplete="current-password" required/>
                         <img id="eyesPasswordVisible" src="asset/icons/bleu/eye-open.svg" alt="icone voir mot de passe">              
                     </div>
-                    <div class="surroundCasePassWord">
+                    <div class="surroundCasePassWord" id="Psw2">
                         <input type="password" id="passwordInput2" placeholder="Confirmez le mot de passe" name="passwordInput2" autocomplete="current-password" required/>
                         <img id="eyesPasswordVisible2" src="asset/icons/bleu/eye-open.svg" alt="Icone voir mot de passe">              
                     </div>
@@ -169,5 +169,7 @@ error_reporting(0);
         </section>
     </main>
     <script src="asset/js/createAccount.js"></script>
+    <script src="asset/js/newLogement.js"></script>
+    <script src="asset/js/rectifIfoCreate.js"></script>
 </body>
 </html>

@@ -364,6 +364,12 @@
   max-width: 400px;
 }
 
+input[type="text"]{
+  border: 1px #1D4C77 solid;
+  border-radius: 5px;
+  padding: 5px;
+}
+
 @media screen and (max-width: 950px) {
   main {
     flex: 0;
