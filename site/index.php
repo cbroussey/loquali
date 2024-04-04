@@ -23,6 +23,8 @@ if ($_SESSION["userType"] == "proprietaire") {
   <link rel="stylesheet" href="asset/css/headerAndFooter.css">
   <link rel="stylesheet" href="asset/css/style.css">
   <link rel="stylesheet" href="asset/css/index.css">
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
   <title>LoQuali - Accueil</title>
 </head>
 
@@ -117,6 +119,45 @@ if ($_SESSION["userType"] == "proprietaire") {
           </svg>
           <p>Filtres</p>
         </a>
+
+        <a class="button" id="Btn_Map">
+          <svg id="fleche_Map" xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25"
+            fill="none">
+            <path
+              d="M23.827 0H1.17324C0.132319 0 -0.392925 1.26299 0.344624 2.00054L9.375 11.0323V21.0938C9.375 21.4761 9.56157 21.8345 9.87485 22.0538L13.7811 24.7872C14.5518 25.3267 15.625 24.7799 15.625 23.8271V11.0323L24.6556 2.00054C25.3916 1.26445 24.87 0 23.827 0Z"
+              fill="#F5F5F5" />
+          </svg>
+          <p>Map</p>
+        </a>
+
+
+        <div id="mapPopup" class="popup">
+
+          <div id="map" style="height: 450px; width:600px;"></div>
+
+        </div>
+
+
+        <script>
+
+          document.getElementById('Btn_Map').addEventListener('click', function () {
+            document.getElementById('mapPopup').style.display = 'block';
+            document.getElementById('map').style.display = 'block';
+          });
+
+
+          window.addEventListener('click', function (event) {
+            var map = document.getElementById('map');
+            var Btn_Map = document.getElementById('Btn_Map');
+            var mapPopup = document.getElementById('mapPopup');
+            if (event.target != mapPopup && event.target != Btn_Map && event.target != map) {
+              mapPopup.style.display = 'none';
+            }
+          });
+
+
+
+        </script>
 
         <div id="filtreContainer">
           <div id="Liste_Filtre"> <!-- Partie visible uniquement lors d'un click sur le buton filtres -->
@@ -811,6 +852,120 @@ if ($_SESSION["userType"] == "proprietaire") {
     </div>
 
   </footer>
+
+  <script>
+      var map = L.map('map').setView([48.2020, -2.9326], 7);
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+      }).addTo(map);
+
+      var housingLocations = [];
+      var cityNamesCounter = {};
+
+      var count = 0;
+
+      <?php
+      $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
+      foreach ($dbh->query("SELECT distinct localisation from test.logement WHERE en_ligne=true", PDO::FETCH_ASSOC) as $row) {
+        $info = $row;
+        $cityName = $info["localisation"];
+        $geocodeUrl = 'https://nominatim.openstreetmap.org/search?format=json&q=' . urlencode($cityName);
+        ?>
+
+        fetch('<?php echo $geocodeUrl; ?>')
+          .then(response => response.json())
+          .then(data => {
+            console.log('Réponse pour <?php echo $cityName; ?> :', data);
+
+            if (data.length > 0) {
+              var lat = parseFloat(data[0].lat);
+              var lon = parseFloat(data[0].lon);
+              housingLocations.push({
+                name: '<?php echo $cityName; ?>',
+                lat: lat,
+                lon: lon
+              });
+
+
+              cityNamesCounter['<?php echo $cityName; ?>'] = (cityNamesCounter['<?php echo $cityName; ?>'] || 0) + 1;
+
+
+              if (cityNamesCounter['<?php echo $cityName; ?>'] === 1) {
+                count++;
+              }
+
+              if (housingLocations.length == count) {
+                displayMarkers();
+              }
+            } else {
+              console.error('Aucune donnée de géocodage trouvée pour la ville:', '<?php echo $cityName; ?>');
+            }
+          })
+          .catch(error => {
+            console.error('Erreur lors de la requête de géocodage:', error);
+          });
+
+      <?php } ?>
+
+
+
+      function displayMarkers() {
+        console.log('housingLocations :', housingLocations);
+
+        housingLocations.forEach(function (location) {
+          var lat = parseFloat(location.lat);
+          var lon = parseFloat(location.lon);
+
+          var marker = L.marker([lat, lon]).addTo(map)
+            .bindPopup(location.name);
+
+          marker.on('click', function (e) {
+            var cityName = e.target.getPopup().getContent();
+            document.getElementById("searchbar").value = cityName
+            search(e);
+          });
+        });
+      }
+
+
+      function getCityNamesInBounds() {
+        var bounds = map.getBounds();
+        var cityNames = [];
+
+
+        housingLocations.forEach(function (location) {
+          var latLng = L.latLng(location.lat, location.lon);
+
+
+          if (bounds.contains(latLng)) {
+            cityNames.push(location.name);
+          }
+        });
+
+        return cityNames;
+      }
+
+      function handleMapChange() {
+        var cityNames = getCityNamesInBounds();
+        console.log(cityNames)
+        cityNames.forEach(function (cityName) {
+          document.getElementById("searchbar").value = cityNames
+          search(cityName)
+        });
+      };
+
+
+
+
+
+      map.on('moveend', handleMapChange);
+      map.on('zoomend', handleMapChange);
+
+
+
+
+    </script>
 
   <script src="asset/js/header.js"></script>
   <script src="asset/js/index.js"></script>

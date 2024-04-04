@@ -7,17 +7,17 @@ $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $deb = $_POST["start-date"];
+    // Convertir la date de début au format "Y-m-d"
+    $start_date = DateTime::createFromFormat('d/m/Y', $_POST["start-date"]);
+    $deb = $start_date->format('Y-m-d');
+    
+    // Convertir la date de fin au format "Y-m-d"
+    $end_date = DateTime::createFromFormat('d/m/Y', $_POST["end-date"]);
+    $fin = $end_date->format('Y-m-d');
+    
     $id = $_POST["id"];
-    $fin = $_POST["end-date"];
     $id_compte = $_SESSION['userId'];
     $nb_personne = intval($_POST["Personne"]);
-    // $query1 = "SELECT * FROM test.planning WHERE id_logement = (:id_logement);";
-    // $stmt = $dbh->prepare($query1);
-    // $stmt->bindParam(':id_logement', $id, PDO::PARAM_INT);
-    // $stmt->execute();
-    // $planning = $stmt->fetch(PDO::FETCH_ASSOC);
-    // print_r($planning);
 
     try {
         $stmt = $dbh->prepare("
@@ -81,46 +81,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         ");
 
         $stmt->bindParam(':id_reservation',  $Idres["id_reservation"], PDO::PARAM_INT);
-        $stmt->bindParam(':prix_devis', $prix_devis, PDO::PARAM_INT); // Assuming $prix_devis is a variable
-        $stmt->bindParam(':delai_acceptation', $delai_acceptation, PDO::PARAM_NULL); // Assuming $delai_acceptation is a variable
+        $stmt->bindParam(':prix_devis', $prix_devis, PDO::PARAM_INT); 
+        $stmt->bindParam(':delai_acceptation', $delai_acceptation, PDO::PARAM_NULL); 
         $stmt->bindParam(':acceptation', $acceptation, PDO::PARAM_BOOL);
         $stmt->bindParam(':date_devis', $date_devis, PDO::PARAM_STR);
 
         $stmt->execute();
 
-
-
-        $currentDate = DateTime::createFromFormat('d/m/Y', $deb);
-        $endDate = DateTime::createFromFormat('d/m/Y', $fin);
-
-        while ($currentDate <= $endDate) {
-            
-        
-
+        while ($deb <= $fin) {
             $stmt = $dbh->prepare("
-        INSERT INTO test.planning (disponibilite, prix_ht, jour, raison_indisponible, id_logement)
-        VALUES (false, 0.00, :current_date, :raison_indisponible, :id_logment)
-    ");
+                INSERT INTO test.planning (disponibilite, prix_ht, jour, raison_indisponible, id_logement)
+                VALUES (false, 0.00, :current_date, :raison_indisponible, :id_logment)
+            ");
 
-            $stmt->bindParam(':current_date', $currentDate->format('Y-m-d'), PDO::PARAM_STR);
+            $stmt->bindParam(':current_date', $deb, PDO::PARAM_STR);
             $stmt->bindValue(':raison_indisponible', null, PDO::PARAM_NULL);
             $stmt->bindParam(':id_logment', $id, PDO::PARAM_INT);
 
-            // Exécution de la requête
             $stmt->execute();
 
             // Passez à la date suivante
-            $currentDate->modify('+1 day');
+            $deb = date("Y-m-d", strtotime($deb . " +1 day"));
+            
         }
-
-
-
-
-
-        // Redirection vers la page d'index après l'exécution du code
-        header("Location: index.php");
+        header("Location: compte.php");
         exit();
     } catch (PDOException $e) {
         echo "Erreur lors de l'insertion du devis : " . $e->getMessage();
     }
 }
+?>

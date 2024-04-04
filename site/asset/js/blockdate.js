@@ -53,15 +53,17 @@ function setDatesBloquees() {
                 recupDate(document.getElementById("idlog").innerText, datePickers["DP2"].start.toLocaleDateString(), datePickers["DP2"].end.toLocaleDateString()).then((v) => {
                     try { document.querySelectorAll(".info_prix > .row > a > .value")[0].value = v["prix_ht"] }
                     catch { document.querySelectorAll(".info_prix > .row > .value")[0].value = v["prix_ht"] }
-                    console.log(v);
                     document.querySelectorAll(".info_prix > .row > .label")[0].innerHTML = v["nbjours"] -1  + " nuits"
-                    document.querySelectorAll(".info_prix > .row > .value")[0].innerHTML = v["prix_ht"] * 0.10 + ".00 €";
+                    let prixTva =  v["prix_ht"] * 0.10
+                    var str = ""+prixTva.toFixed(2)
+                    var resultat = str.replace(".", ",")
+                    document.querySelectorAll(".info_prix > .row > .value")[0].innerHTML = resultat + "€";
                     var prixHT = v["prix_ht"];
                     var montantTotal = prixHT * 1.10;
                     document.querySelectorAll(".info_prix > .row > a > .value")[1].value = montantTotal.toFixed(2);
                     document.getElementById('prix').value = v["prix_ht"]
                     document.getElementById('nbJours').value = v["nbjours"]
-                    document.getElementById('prixTTC').value = montantTotal.toFixed(2)
+                   
                 
                 })
                 document.getElementById('start-date').value = datePickers["DP2"].start.toLocaleDateString();

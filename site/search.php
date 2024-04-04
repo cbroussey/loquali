@@ -114,8 +114,20 @@ try {
         }
 
         if ($ind == "recherche" && $val !="") {
-          $filtre.="AND LOWER(localisation) LIKE LOWER('%$val%') ";
-        }
+          
+          $localisations = explode(',', $val);
+          
+          $localisationConditions = '';
+      
+          foreach ($localisations as $localisation) {
+              $localisation = trim($localisation); 
+              $localisationConditions .= "LOWER(localisation) LIKE LOWER('%$localisation%') OR ";
+          }
+          
+          $localisationConditions = rtrim($localisationConditions, 'OR ');
+      
+          $filtre .= "AND ($localisationConditions) ";
+      }
 
       }
     }
