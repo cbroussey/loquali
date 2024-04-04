@@ -136,7 +136,15 @@
   margin: 0 15px;
 }
 
+.filtrer{
+  display: flex; 
+  justify-content: space-between;
+}
 
+#map {
+  height: 450px;
+  width: 600px;
+}
 
 #trier,
 #slogant {
