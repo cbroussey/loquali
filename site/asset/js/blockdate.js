@@ -54,7 +54,10 @@ function setDatesBloquees() {
                     try { document.querySelectorAll(".info_prix > .row > a > .value")[0].value = v["prix_ht"] }
                     catch { document.querySelectorAll(".info_prix > .row > .value")[0].value = v["prix_ht"] }
                     document.querySelectorAll(".info_prix > .row > .label")[0].innerHTML = v["nbjours"] -1  + " nuits"
-                    document.querySelectorAll(".info_prix > .row > .value")[0].innerHTML = v["prix_ht"] * 0.10 + ".00 €";
+                    let prixTva =  v["prix_ht"] * 0.10
+                    var str = ""+prixTva.toFixed(2)
+                    var resultat = str.replace(".", ",")
+                    document.querySelectorAll(".info_prix > .row > .value")[0].innerHTML = resultat + "€";
                     var prixHT = v["prix_ht"];
                     var montantTotal = prixHT * 1.10;
                     document.querySelectorAll(".info_prix > .row > a > .value")[1].value = montantTotal.toFixed(2);
