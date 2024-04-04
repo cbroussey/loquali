@@ -51,12 +51,22 @@ $result = $query->fetchAll();
 <div id="comptePaiementAPI" class="comptePage" style="width: 100%; position:relative;">
   <div id="compteAPIContainer">
     <div id="apiSection">
+      <table>
+        <thead>
+          <tr><th>Information :</th></tr>
+        </thead>
+        <tbody>
+          <tr><td style="font-weight: 300;">
+          Faites attention au permissions que vous donnez à vos clés et qui a accès à celles ci.<br>
+          Pour raisons de confidentialité, il est recommandé d'utiliser la permission "accès calendrier" seule lorsque vous souhaitez partager un calendrier de disponibilité de vos logements avec un autre site
+          </td></tr>
+        </tbody>
+      </table>
       <?php
       if (empty($result)) {
         echo "<p>Aucune clé API n'est associée à cet ID.</p>";
-      }
+      } else {
       ?>
-
       <form method="post" action="api_save.php">
         <table>
           <thead>
@@ -88,19 +98,110 @@ $result = $query->fetchAll();
                 <td class="separBar">
                 </td>
                 <td>
-                <input type="checkbox" name="<?php echo $info['cle'] . "_d"; ?>" <?php echo ($info['misedispo'] ? "checked" : "") ?>>
+                  <a onclick="openAModal('myModalapi<?php echo $index ?>')"><img src="asset/icons/bleu/trash.svg" alt=""></a>
+                  <div class="confirmation-modal" id="myModalapi<?php echo $index ?>">
+                    <div class="modal-content" class="choix_logements">
+                      <p>Êtes-vous sûr de vouloir supprimer ?</p>
+                      <input type="hidden" name="confirmDelete" value="<?php echo $info["cle"] ?>">
+                      <div class="boutons_choix">
+                        <a onclick="closeAModal('myModalapi<?php echo $index ?>')"
+                          class="confirm-button">Annuler</a>
+                        <a href="api_del.php?confirmDelete=<?php echo $info["cle"] ?>"
+                          id="confirmChange">Confirmer</a>
+                      </div>
+                    </div>
+                  </div>
                 </td>
               </tr>
               <?php
-              if ($index < count($result) - 1) {
-                echo "<tr><td colspan='5'><hr></td></tr>";
-              }
             }
             ?>
           </tbody>
         </table>
         <button type="submit">Appliquer les changements</button>
       </form>
+      <?php } ?>
+      <form action="api_add.php" method="POST">
+          <table>
+            <tbody>
+              <tr>
+                <td>Nouvelle clé</td>
+                <td>Accès calendrier : <input type="checkbox"></td>
+                <td>Mise indispo : <input type="checkbox"></td>
+                <td class="separBar"></td>
+                <td><button type="button">Ajouter</button></td>
+              </tr>
+            </tbody>
+          </table>
+          <p style="font-weight: 300">Note : Seul un administrateur du site peut créer des clés privilégiées</p>
+      </form>
     </div>
+    <?php
+      $query = $dbh->prepare("SELECT * FROM test.ical WHERE id_compte = :id");
+      $query->bindParam(':id', $id, PDO::PARAM_INT);
+      $query->execute();
+      $result = $query->fetchAll();
+    ?>
+    <div id="icalSection" style="margin-top: 1em">
+        <?php
+        if (empty($result)) {
+          echo "<p>Aucun ICAL n'a été généré avec ce compte</p>";
+        } else {
+        ?>
+        <form method="post" action="api_save.php">
+          <table>
+            <thead>
+              <tr>
+                <th>Token ICAL</th>
+                <th>ID logement</th>
+                <th>Date de début</th>
+                <th>Date de fin</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php
+              foreach ($result as $index => $row) {
+                $info = $row;
+                ?>
+                <tr>
+                  <td>
+                    <?php echo $info["token"] ?>
+                  </td>
+                  <td>
+                    <?php echo $info["id_logement"] ?>
+                  </td>
+                  <td>
+                    <?php echo $info["date_debut"] ?>
+                  </td>
+                  <td>
+                    <?php echo $info["date_fin"] ?>
+                  </td>
+                  <td class="separBar">
+                  </td>
+                  <td>
+                    <a onclick="openAModal('myModalical<?php echo $index ?>')"><img src="asset/icons/bleu/trash.svg" alt=""></a>
+                    <div class="confirmation-modal" id="myModalical<?php echo $index ?>">
+                      <div class="modal-content" class="choix_logements">
+                        <p>Êtes-vous sûr de vouloir supprimer ?</p>
+                        <input type="hidden" name="confirmDelete" value="<?php echo $info["cle"] ?>">
+                        <div class="boutons_choix">
+                          <a onclick="closeAModal('myModalical<?php echo $index ?>')"
+                            class="confirm-button">Annuler</a>
+                          <a href="ical_del.php?confirmDelete=<?php echo $info["cle"] ?>"
+                            id="confirmChange">Confirmer</a>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <?php
+              }
+              ?>
+            </tbody>
+          </table>
+          <button type="submit">Appliquer les changements</button>
+        </form>
+        <?php } ?>
+      </div>
   </div>
 </div>

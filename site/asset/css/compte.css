@@ -1483,11 +1483,12 @@ font-size: 15px;
 #compteAPIContainer {
     height: 92vh;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-#apiSection {
+#apiSection, #icalSection {
     width: 60%;
     padding: 10px;
     border: 1px solid #ddd;
@@ -1495,7 +1496,7 @@ font-size: 15px;
     background-color: #f9f9f9;
 }
 
-#apiSection table {
+#apiSection table, #icalSection table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 10px;
@@ -1504,13 +1505,15 @@ font-size: 15px;
 }
 
 #apiSection th,
-#apiSection td {
+#apiSection td,
+#icalSection th,
+#icalSection td {
     padding: 8px;
     text-align: left;
     border-bottom: 1px solid #ddd;
 }
 
-#apiSection label {
+#apiSection label, #icalSection label {
     margin-right: 15px;
 }
 

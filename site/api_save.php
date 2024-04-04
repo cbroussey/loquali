@@ -30,10 +30,10 @@
         $res->bindParam('id', $_SESSION["userId"], PDO::PARAM_INT);
         try {
             $res->execute();
-        } catch (e) {
+        } catch (Exception $e) {
             continue;
         }
     }
     //print_r($_POST);
-    header("Location: compte.php");
+    header("Location: compte.php?ind=5");
 ?>

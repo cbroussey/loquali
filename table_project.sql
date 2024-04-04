@@ -283,9 +283,7 @@ create table api(
     privilegie boolean DEFAULT FALSE,
     accesCalendrier boolean DEFAULT FALSE,
     miseIndispo boolean DEFAULT FALSE,
-    miseDispo boolean DEFAULT FALSE,
     id_compte integer,
-    CHECK ((miseDispo = FALSE) OR ((privilegie <> TRUE) AND (accesCalendrier <> TRUE) AND (miseIndispo <> TRUE))),
     constraint api_pk primary key(cle),
     constraint api_fk_compte foreign key (id_compte) references compte(id_compte) ON DELETE CASCADE
 );
@@ -294,8 +292,10 @@ CREATE TABLE ical(
     token VARCHAR(32) NOT NULL,
     date_debut DATE,
     date_fin DATE,
-    id_logement integer, -- id compte autorisé récupéré à partir de l'id logement
+    id_logement integer,
+    id_compte integer,
     constraint ical_pk primary key(token),
+    constraint ical_fk_compte foreign key (id_compte) references compte(id_compte) ON DELETE CASCADE,
     constraint ical_fk_logement foreign key (id_logement) references logement(id_logement) ON DELETE CASCADE
 );
 
@@ -832,4 +832,5 @@ INSERT INTO api(cle, privilegie, accesCalendrier, miseIndispo, id_compte) VALUES
     ('AAABBBCCCDDDEEE', FALSE, FALSE, FALSE, 11),
     ('MANGETESGRANDSMORTS', FALSE, TRUE, TRUE, 10),
     ('logementavecplanning', FALSE, TRUE, TRUE, 4),
+    ('cleavecqueplanning', FALSE, TRUE, FALSE, 4),
     ('azeazeazeazeazeaze', FALSE, TRUE, FALSE, 8);
