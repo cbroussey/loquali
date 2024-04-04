@@ -134,18 +134,19 @@ int main(int argc, char** argv) {
     } else if (argc >= 2 && access(argv[1], F_OK) == 0) {
         // Verification du JSON, sinon message d'erreur
 
-        if (argc > 2) {
+        //if (argc > 2) {
             // Code de définition cron
             // Vérification de l'argument pérdiode, sinon message d'erreur
             //pollType = argv[2][strlen(argv[2])-1];
-            argv[2][strlen(argv[2])-1] = '\0';
+            //argv[2][strlen(argv[2])-1] = '\0';
             //pollTime = atoi(argv[2]);
             //xsystem("crontab -l > .crontemp; echo * %d %d * %d %s %s", ());
-            statusCode = system("cron");
-        } else {
+            //statusCode = system("cron");
+        //} else {
             file = open(argv[1], O_RDONLY);
             parseJSON(file, neededFields, 2, values);
-        }
+            printf("key='%s', id=%s\n", values[0], values[1]);
+        //}
     } else {
         printf("Error: missing JSON file path argument\n\n");
         printHelp(argv[0]);
