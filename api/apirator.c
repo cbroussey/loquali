@@ -9,13 +9,20 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <fcntl.h>
+#include <time.h>
+#include <stdarg.h>
 
 #define MAXCMD 1024 // Taille max de toutes les chaines de caractères
+#define fieldsAmnt 4
 
-const char *neededFields[2] = {
+const char *neededFields[fieldsAmnt] = {
     "key",
-    "id_log"
+    "id",
+    "log_path",
+    "data_path"
 };
+
+int foutput = 0;
 
 void errorOut(char *err) {
     printf("Err: %s\n", err);
@@ -29,6 +36,27 @@ void printHelp(char name[]) {
     //printf("\t\tWhere N is an integer\n");
     //printf("\t\tAnd X is one character between D, W, or M\n");
     //printf("\t\t(Day, Week, or Month)\n");
+}
+
+// Fonction qui printf des logs à l'écran et dans un fichier (si un fichier a été ouvert)
+// no_time = 0 -> Affichage à l'écran et écriture dans le fichier
+// no_time = 1 -> Affichage à l'écran et écriture dans le fichier sans indication de temps (permet le formattage de certains affichages)
+void printose(bool no_time, const char* format, ...) {
+    time_t t = time(NULL);
+    struct tm tm = *localtime(&t);
+    char txt[MAXCMD];
+    char tmp[MAXCMD];
+    va_list args;
+    va_start(args, format);
+    vsnprintf(txt, sizeof(txt), format, args); // do check return value
+    va_end(args);
+    memset(tmp, 0, sizeof(tmp));
+    sprintf(tmp, "[%02d/%02d/%d %02d:%02d:%02d] ", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900, tm.tm_hour, tm.tm_min, tm.tm_sec);
+    printf("%s%s", (no_time != true ? tmp : ""), txt);
+    if (foutput) {
+        if (no_time != true) write(foutput, tmp, strlen(tmp));
+        write(foutput, txt, strlen(txt));
+    }
 }
 
 bool simpleMatch(char string[], char matcher[]) {
@@ -62,7 +90,7 @@ int parseJSON(int file, const char **expectedArgs, int numArgs, char **values) {
     ignEmpty(file);
     ret = read(file, &c, 1);
     if (c != '{') {
-        printf("Error : Invalid JSON file");
+        printose(true, "Error : Invalid JSON file");
         exit(1);
     }
     while (c != '}' && ret != 0) {
@@ -83,7 +111,7 @@ int parseJSON(int file, const char **expectedArgs, int numArgs, char **values) {
                 //printf("%s == %s\n", value, expectedArgs[i]);
                 if (!strcmp(value, expectedArgs[i])) {
                     if (j != numArgs) {
-                        printf("Error : value '%s' found but specified multiple times in the expected args\n", value);
+                        printose(true, "Error : value '%s' found but specified multiple times in the expected args\n", value);
                         exit(1);
                     } else {
                         j = i;
@@ -91,7 +119,7 @@ int parseJSON(int file, const char **expectedArgs, int numArgs, char **values) {
                 }
             }
             if (j != numArgs) {
-                printf("Parsed %s : ", value);
+                printose(true, "Parsed %s : ", value);
                 i = 0;
                 for (i = 0; line[i] != ':'; i++) c = ' ';
                 for (i = i; line[i] != '"'; i++) c = ' ';
@@ -104,18 +132,18 @@ int parseJSON(int file, const char **expectedArgs, int numArgs, char **values) {
                 //    exit(1);
                 //}
                 strcpy(values[j], value);
-                printf("%s\n", value);
+                printose(true, "%s\n", value);
                 numParsed++;
             }
         } else {
-            printf("Error : Invalid JSON line at char %ld : '%s'\n", lseek(file, 0, SEEK_CUR)-strlen(line)-1, line);
+            printose(true, "Error : Invalid JSON line at char %ld : '%s'\n", lseek(file, 0, SEEK_CUR)-strlen(line)-1, line);
             exit(1);
         }
         lseek(file, -1, SEEK_CUR);
         ret = read(file, &c, 1);
     }
     if (c != '}') {
-        printf("Error : Expected JSON object closure, got '%c'\n", c);
+        printose(true, "Error : Expected JSON object closure, got '%c'\n", c);
         exit(1);
     }
     return numParsed;
@@ -129,6 +157,10 @@ int main(int argc, char** argv) {
     //int pollTime;
     int file;
     char *values[MAXCMD];
+    char filename[MAXCMD];
+    time_t t = time(NULL);
+    struct tm tm = *localtime(&t);;
+    int i;
     if (argc < 2) {
         printHelp(argv[0]);
     } else if (argc >= 2 && access(argv[1], F_OK) == 0) {
@@ -144,13 +176,55 @@ int main(int argc, char** argv) {
             //statusCode = system("cron");
         //} else {
             file = open(argv[1], O_RDONLY);
-            parseJSON(file, neededFields, 2, values);
-            printf("key='%s', id=%s\n", values[0], values[1]);
+            parseJSON(file, neededFields, fieldsAmnt, values);
+            close(file);
+            if (values[0] == NULL || values[1] == NULL || values[3] == NULL) {
+                printose(true, "Error : one or more required attributes are missing, please check FORMAT.md for the documentation\n");
+                exit(1);
+            }
+            if (values[2] != NULL) {
+                chdir(values[2]);
+                memset(filename, 0, sizeof(filename));
+                tm = *localtime(&t);
+                sprintf(filename, "logs-%02d_%02d_%d.log", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900);
+                foutput = open(filename, O_WRONLY | O_APPEND | O_CREAT, 0644);
+                if (foutput == -1) {
+                    foutput = 0;
+                    printose(true, "Warning : could not create log file. Ignoring");
+                } else {
+                    write(foutput, "===== [LOG START] =====\n", 24);
+                    write(foutput, "Parsed attributes :\n", 16);
+                    for (i = 0; i < fieldsAmnt; i++) {
+                        write(foutput, "- '", 3);
+                        write(foutput, neededFields[i], strlen(neededFields[i]));
+                        write(foutput, "' = ", 4);
+                        write(foutput, values[i], strlen(values[i]));
+                        write(foutput, "\n", 1);
+                    }
+                }
+            }
+            printose(true, "\n");
+            chdir(values[3]);
+            tm = *localtime(&t);
+            sprintf(filename, "apirator-%02d_%02d_%d_%02d_%02d_%02d.json", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900, tm.tm_hour, tm.tm_min, tm.tm_sec);
+            file = open(filename, O_WRONLY | O_APPEND | O_CREAT, 0644);
+            if (file == -1) {
+                printose(true, "Error : could not create data result file. Aborting");
+                if (foutput) close(foutput);
+                exit(1);
+            }
+            printose(false, "Connecting to the server...");
+
+            
         //}
     } else {
-        printf("Error: missing JSON file path argument\n\n");
+        printose(true, "Error: missing JSON file path argument\n\n");
         printHelp(argv[0]);
         statusCode = EXIT_FAILURE;
+    }
+    if (foutput) {
+        write(foutput, "====== [LOG END] ======\n", 24);
+        close(foutput);
     }
     return statusCode;
 }
