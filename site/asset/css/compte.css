@@ -1500,7 +1500,7 @@ font-size: 15px;
     width: 100%;
     border-collapse: collapse;
     margin-top: 10px;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
 
 }
 
@@ -1540,6 +1540,7 @@ font-size: 15px;
 .separBar {
     border-left: 1px black solid;
     min-width: 1em;
+    padding: 0;
 }
 
 

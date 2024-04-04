@@ -126,10 +126,10 @@ $result = $query->fetchAll();
             <tbody>
               <tr>
                 <td>Nouvelle clé</td>
-                <td>Accès calendrier : <input type="checkbox"></td>
-                <td>Mise indispo : <input type="checkbox"></td>
-                <td class="separBar"></td>
-                <td><button type="button">Ajouter</button></td>
+                <td>Accès calendrier : <input type="checkbox" name="cal"></td>
+                <td>Mise indispo : <input type="checkbox" name="indisp"></td>
+                <td class="separBar" style='width: 0'></td>
+                <td width="1%"><button type="submit">Ajouter</button></td>
               </tr>
             </tbody>
           </table>
@@ -165,7 +165,7 @@ $result = $query->fetchAll();
                 ?>
                 <tr>
                   <td>
-                    <?php echo $info["token"] ?>
+                    <a href="ical.php?t=<?php echo $info["token"] ?>" style="color: black"><?php echo $info["token"] ?></a>
                   </td>
                   <td>
                     <?php echo $info["id_logement"] ?>
@@ -183,11 +183,11 @@ $result = $query->fetchAll();
                     <div class="confirmation-modal" id="myModalical<?php echo $index ?>">
                       <div class="modal-content" class="choix_logements">
                         <p>Êtes-vous sûr de vouloir supprimer ?</p>
-                        <input type="hidden" name="confirmDelete" value="<?php echo $info["cle"] ?>">
+                        <input type="hidden" name="confirmDelete" value="<?php echo $info["token"] ?>">
                         <div class="boutons_choix">
                           <a onclick="closeAModal('myModalical<?php echo $index ?>')"
                             class="confirm-button">Annuler</a>
-                          <a href="ical_del.php?confirmDelete=<?php echo $info["cle"] ?>"
+                          <a href="ical_del.php?confirmDelete=<?php echo $info["token"] ?>"
                             id="confirmChange">Confirmer</a>
                         </div>
                       </div>
@@ -199,9 +199,23 @@ $result = $query->fetchAll();
               ?>
             </tbody>
           </table>
-          <button type="submit">Appliquer les changements</button>
+          <p style="font-weight: 300">Note : le lien universel pour les ICAL est <u><?php echo $_SERVER['SERVER_NAME'] . "/ical.php?t=votre_token" ?></u></p>
         </form>
         <?php } ?>
+        <form action="ical_add.php" method="POST">
+          <table>
+            <tbody>
+              <tr>
+                <td>Nouveau token</td>
+                <td>ID logement : <input type="number" name="id_log"></td>
+                <td>Date de début : <input type="date" name="debut"></td>
+                <td>Date de fin : <input type="date" name="fin"></td>
+                <td class="separBar"></td>
+                <td><button type="submit">Ajouter</button></td>
+              </tr>
+            </tbody>
+          </table>
+      </form>
       </div>
   </div>
 </div>
