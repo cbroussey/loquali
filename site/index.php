@@ -102,13 +102,14 @@ if ($_SESSION["userType"] == "proprietaire") {
 
 
 
-
-        <a class="button" id="Btn_Map">
-        <svg width="29" height="39" viewBox="0 0 29 39" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12.8497 37.2777C2.01173 21.6257 0 20.0193 0 14.267C0 6.38752 6.41195 0 14.3216 0C22.2312 0 28.6431 6.38752 28.6431 14.267C28.6431 20.0193 26.6314 21.6257 15.7934 37.2777C15.0822 38.3012 13.5609 38.3011 12.8497 37.2777ZM14.3216 20.2116C17.6172 20.2116 20.2889 17.5501 20.2889 14.267C20.2889 10.9839 17.6172 8.32241 14.3216 8.32241C11.0259 8.32241 8.35424 10.9839 8.35424 14.267C8.35424 17.5501 11.0259 20.2116 14.3216 20.2116Z" fill="white"/>
-        </svg>
-          <p>Map</p>
-        </a>
+        <div id="map_button">
+          <a class="button" id="Btn_Map">
+          <svg width="29" height="39" viewBox="0 0 29 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12.8497 37.2777C2.01173 21.6257 0 20.0193 0 14.267C0 6.38752 6.41195 0 14.3216 0C22.2312 0 28.6431 6.38752 28.6431 14.267C28.6431 20.0193 26.6314 21.6257 15.7934 37.2777C15.0822 38.3012 13.5609 38.3011 12.8497 37.2777ZM14.3216 20.2116C17.6172 20.2116 20.2889 17.5501 20.2889 14.267C20.2889 10.9839 17.6172 8.32241 14.3216 8.32241C11.0259 8.32241 8.35424 10.9839 8.35424 14.267C8.35424 17.5501 11.0259 20.2116 14.3216 20.2116Z" fill="white"/>
+          </svg>
+            <p>Map</p>
+          </a>
+        </div>
 
 
         <div id="mapPopup" class="popup">
@@ -119,24 +120,25 @@ if ($_SESSION["userType"] == "proprietaire") {
 
 
         <script>
-
-          document.getElementById('Btn_Map').addEventListener('click', function () {
-            document.getElementById('mapPopup').style.display = 'block';
-            document.getElementById('map').style.display = 'block';
-          });
-
-
           window.addEventListener('click', function (event) {
             var map = document.getElementById('map');
             var Btn_Map = document.getElementById('Btn_Map');
             var mapPopup = document.getElementById('mapPopup');
-            if (event.target != mapPopup && event.target != Btn_Map && event.target != map) {
-              mapPopup.style.display = 'none';
+            if (event.target != mapPopup && event.target != Btn_Map && event.target != map){
+              if (mapIsOpen){
+                console.log("hidden")
+                mapIsOpen = false;
+                mapPopup.style.visibility = "hidden";
+              }
             }
           });
-
-
-
+          
+          var mapIsOpen = false;
+          document.getElementById('map_button').addEventListener('click', function () {
+            document.getElementById('mapPopup').style.visibility = 'visible';
+            document.getElementById('map').style.display = 'block';
+            mapIsOpen = true;
+          });
         </script>
 
 
@@ -859,7 +861,7 @@ if ($_SESSION["userType"] == "proprietaire") {
   </footer>
 
   <script>
-      var map = L.map('map').setView([48.2020, -2.9326], 7);
+      var map = L.map('map').setView([48.2481155,-3.5313842], 7);
 
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '© OpenStreetMap contributors'
