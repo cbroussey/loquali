@@ -120,25 +120,23 @@ if ($_SESSION["userType"] == "proprietaire") {
 
 
         <script>
+          document.getElementById('map_button').addEventListener('click', function () {
+            document.getElementById('mapPopup').style.visibility = 'visible';
+            document.getElementById('map').style.display = 'block';
+          });
+
+
           window.addEventListener('click', function (event) {
             var map = document.getElementById('map');
             var Btn_Map = document.getElementById('Btn_Map');
             var mapPopup = document.getElementById('mapPopup');
-            if (event.target != mapPopup && event.target != Btn_Map && event.target != map){
-              if (mapIsOpen){
-                console.log("hidden")
-                mapIsOpen = false;
-                mapPopup.style.visibility = "hidden";
-              }
+            if (event.target != mapPopup && event.target != map && event.target != Btn_Map){
+              mapPopup.style.visibility = "hidden";
             }
           });
-          
-          var mapIsOpen = false;
-          document.getElementById('map_button').addEventListener('click', function () {
-            document.getElementById('mapPopup').style.visibility = 'visible';
-            document.getElementById('map').style.display = 'block';
-            mapIsOpen = true;
-          });
+
+
+
         </script>
 
 
