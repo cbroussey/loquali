@@ -1,6 +1,31 @@
 <?php
 error_reporting(0);
-    if (isset($_POST['pays'])) {
+
+function emailIsInDB($numero) {
+    include('connect_params.php');
+
+    try {
+        $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
+        $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+
+        $query = "SELECT * FROM test.telephone WHERE test.telephone.numero = :numero";
+        
+        $stmt = $dbh->prepare($query);
+        $stmt->bindParam('numero', $numero, PDO::PARAM_STR);
+        $stmt->execute();
+        $post = $stmt->fetch();
+
+        if ($post == null) {
+            return false;
+        } else {
+            return true; 
+        }
+    } catch (PDOException $e) {
+        print "Erreur : " . $e->getMessage() . "<br/>";
+        die();
+    }
+} 
+    if (isset($_POST['pays']) && !emailIsInDB($_POST['telephone'])) {
         try {
             session_start();
             include('connect_params.php');
@@ -33,7 +58,7 @@ error_reporting(0);
 
             //enregistrement de l'image de la carte d'identité
             $imageName = $_SESSION['userId'] . "." . explode('/', $_FILES["fichier"]['type'])[1];
-            move_uploaded_file($_FILES["fichier"]["tmp_name"], "asset/img/identite/$imageName");
+            move_uploaded_file($_FILES["fichier"]["tmp_name"], "asset/img/profils/$imageName");
 
             //changement du userType dans les variables de session
             $_SESSION['userType'] = 'proprietaire';
@@ -82,11 +107,18 @@ error_reporting(0);
             </a>
             <img src="asset/img/logo.png" alt="logo Loquali">
             <form method="post" enctype="multipart/form-data">
-                <input type="text" id="pays" name="pays" placeholder="Pays" required />
-                <input type="text" id="ville" name="ville" placeholder="Ville" required />
-                <input type="text" id="adresse" name="adresse" placeholder="Adresse" required />
+                <input type="text" id="pays" name="pays" placeholder="Pays" value="<?php echo htmlentities($_POST['pays']) ?>" required />
+                <input type="text" id="ville" name="ville" placeholder="Ville" value="<?php echo htmlentities($_POST['ville']) ?>" required />
+                <input type="text" id="adresse" name="adresse" placeholder="Adresse" value="<?php echo htmlentities($_POST['adresse']) ?>" required />
                 <!-- <input type="text" id="codePostal" name="codePostal" placeholder="Code Postal" required /> -->
-                <input type="tel" id="telephone" name="telephone" placeholder="Numéro de tel." required />
+                <input type="tel" id="telephone" name="telephone" placeholder="Numéro de tel." value="<?php echo htmlentities($_POST['telephone']) ?>" required />
+                <?php
+                    if (emailIsInDB($_POST['telephone'])) {
+                    ?>
+                    <p class="invalidInput">Un compte existe déjà avec ce numéro de téléphone.</p>
+                    <?php
+                }
+                ?>
                 <input type="file" id="fichier" name="fichier" accept="image/*" required/>
                 <input type="submit" value="Créer votre compte"/>
             </form>
