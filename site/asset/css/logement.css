@@ -1227,6 +1227,11 @@ input {
   margin: 0px;
 }
 
+.dutexte{
+  margin-top: -150px;
+  margin-bottom: 50px;
+}
+
 #calendar {
   display: flex;
   flex-direction: column;
@@ -1245,7 +1250,7 @@ input {
 
   z-index: 50;
   float: right;
-   margin-top: -600px;
+   margin-top: -800px;
    margin-left: 5%;
    margin-bottom: 50px;
    left: 0;
@@ -1552,8 +1557,17 @@ input:checked+.slider {
 }
 
 @media screen and (min-width: 0px) and (max-width:630px) {
+
+  .dutexte{
+    margin-top: -0;
+    margin-bottom: 0;
+  }
+  
+
   #calendar {
       width: 375px;
+      margin-top: 0;
+      margin-left: 2%;
   }
   
   #calendar table {
