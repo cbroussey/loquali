@@ -35,6 +35,9 @@ $stmt->bindParam('id_logement', $idLogement, PDO::PARAM_STR);
 $stmt->bindParam('acceptation', $acceptation, PDO::PARAM_INT);
 $stmt->execute();
 $reservedDays = $stmt->fetchAll();
+echo "<pre>";
+print_r($reservedDays);
+echo "</pre>";
 
 //si on a validé un formulaire, insertion/modifications des disponibilités dans la bdd
 if (isset($_POST['allDays'])) {
