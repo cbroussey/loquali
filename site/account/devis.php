@@ -9,7 +9,7 @@
     foreach ($dbh->query("SELECT * FROM test.reservation 
                           INNER JOIN test.devis ON test.reservation.id_reservation = test.devis.id_reservation
                           
-                          WHERE id_compte = $id_client", PDO::FETCH_ASSOC) as $row) {
+                          WHERE id_compte = $id_client AND acceptation= false", PDO::FETCH_ASSOC) as $row) {
       $devisExist = true;
       $id_logement = $row["id_logement"];
       $id_reservation = $row["id_reservation"];
@@ -54,7 +54,7 @@
               <img src="<?= $pathName ?>" alt="" class="logo">
               <div class="infos-devis">
                 <div class="infos-header">
-                  <h3><?= $proprio["nom_affichage"] ?></h3>
+                  <h3><?= $proprio["nom"] ?> <?= $proprio["prenom"] ?></h3>
                   <p class="date"><?= explode(" ", $row["date_devis"])[0] ?></p>
                 </div>
                 <div class="infos-header">
@@ -92,12 +92,12 @@
         while (false !== ($fichier = readdir($images))) {
           $imgInfos = pathinfo($fichier);
           if ($imgInfos['filename'] == $client_id) {
-            $pathName = 'asset/img/profils/' . $fichier;
+            $pathName2 = 'asset/img/profils/' . $fichier;
             break;
           }
         }
-        if ($pathName == '') {
-          $pathName = 'asset/img/profils/default.jpg';
+        if ($pathName2 == '') {
+          $pathName2 = 'asset/img/profils/default.jpg';
         }
         closedir($images);
       }
@@ -111,10 +111,10 @@
             <input type="hidden" name="qui" value="proprietaire">
             <input type="hidden" name="reservation" value="<?= $row["id_reservation"] ?>">
             <input type="hidden" name="id" value="<?= $row["id_logement"] ?>">
-            <img src="<?= $pathName ?>" alt="" class="logo">
+            <img src="<?= $pathName2 ?>" alt="" class="logo">
             <div class="infos-devis">
               <div class="infos-header">
-                <h3><?= $row["nom_affichage"] ?></h3>
+                <h3><h3><?= $row["nom"] ?> <?= $row["prenom"] ?></h3></h3>
                 <p class="date"><?= explode(" ", $row["date_devis"])[0] ?></p>
               </div>
               <div class="infos-header">

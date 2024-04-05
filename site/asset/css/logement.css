@@ -425,7 +425,6 @@
   
   .rerservation_log{
     float: right;
-    margin-bottom: 8%;
     background-color: #1d4c77;
     color: var(--secondBG);
     width: 100%;
@@ -624,7 +623,7 @@
   .confirmation-modal {
     display: none;
     position: fixed;
-    z-index: 1;
+    z-index: 100;
     left: 0;
     top: 0; 
     width: 100%;
@@ -1246,8 +1245,7 @@ input {
 
   z-index: 50;
 
-
-   margin-top: -400px;
+    margin-top: -20px;
    margin-left: 5%;
    margin-bottom: 50px;
    left: 0;
