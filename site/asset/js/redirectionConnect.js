@@ -14,3 +14,12 @@ function refusRedirect2() {
     document.getElementById('myModal5').style.display = 'none';
 }
 
+function modalRedirect3() {
+    document.getElementById('myModal6').style.display = 'block';
+}
+
+function refusRedirect3() {
+    document.getElementById('myModal6').style.display = 'none';
+}
+
+
