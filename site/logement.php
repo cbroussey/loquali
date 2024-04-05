@@ -832,58 +832,7 @@ try {
 
                         </div>
 
-                        <div class="dutexte">
-                            <!-- Ajout de tout les paragraphes liés au logements style description, règles etc ... -->
-                            <div class="description_log">
-                                <h4>Description :</h4>
-                                <p class="txt_descr_log">
-                                    <?php echo ($info["descriptif"]); ?>
-                                </p>
 
-                            </div>
-
-                            <div class="sep_descri_regle_log">
-                            </div>
-
-
-                            <div class="reglement_log">
-                                <h4>Réglement intérieur : </h4>
-                                <p class="txt_descr_log">
-                                    <?php echo ($info["reglement_interieur"]); ?>
-                                </p>
-
-                            </div>
-
-                            <div class="sep_descri_regle_log">
-                            </div>
-
-
-                            <div class="info_arrive_log">
-                                <h4>Informations d’arrivée :</h4>
-                                <p class="txt_descr_log">
-                                    <?php echo ($info["info_arrivee"]); ?>
-                                </p>
-
-                            </div>
-
-                            <div class="sep_descri_regle_log">
-                            </div>
-
-
-                            <div class="info_depart_log">
-                                <h4>Informations de départ :</h4>
-                                <p class="txt_descr_log">
-                                    <?php echo ($info["info_depart"]); ?>
-                                </p>
-
-                            </div>
-                        </div>
-
-
-                    </div>
-
-
-                
                 <!--calendar-->
                 <?php
                 //récupération de l'id du logement
@@ -1100,6 +1049,59 @@ try {
                     </form>
                 </div>
 
+                        <div class="dutexte">
+                            <!-- Ajout de tout les paragraphes liés au logements style description, règles etc ... -->
+                            <div class="description_log">
+                                <h4>Description :</h4>
+                                <p class="txt_descr_log">
+                                    <?php echo ($info["descriptif"]); ?>
+                                </p>
+
+                            </div>
+
+                            <div class="sep_descri_regle_log">
+                            </div>
+
+
+                            <div class="reglement_log">
+                                <h4>Réglement intérieur : </h4>
+                                <p class="txt_descr_log">
+                                    <?php echo ($info["reglement_interieur"]); ?>
+                                </p>
+
+                            </div>
+
+                            <div class="sep_descri_regle_log">
+                            </div>
+
+
+                            <div class="info_arrive_log">
+                                <h4>Informations d’arrivée :</h4>
+                                <p class="txt_descr_log">
+                                    <?php echo ($info["info_arrivee"]); ?>
+                                </p>
+
+                            </div>
+
+                            <div class="sep_descri_regle_log">
+                            </div>
+
+
+                            <div class="info_depart_log">
+                                <h4>Informations de départ :</h4>
+                                <p class="txt_descr_log">
+                                    <?php echo ($info["info_depart"]); ?>
+                                </p>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+                
+
                 </div>
 
 
@@ -1234,7 +1236,7 @@ try {
 
                 <div class="blanc2">
 
-
+<!-- a -->
                     <div id="AvisSection">
 
 

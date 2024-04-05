@@ -60,8 +60,21 @@ nextYear.addEventListener('click', function () {
     prevOrNext.value = "next";
 });
 
-submit.addEventListener('click', function () {
-    prevOrNext.value = "submit";
+//gestion des clics sur les dates
+const boxesCalendar = document.getElementsByClassName('nbcasejourcalend');
+const reservations = document.getElementsByClassName('reservations');
+const oldDates = document.getElementsByClassName('oldDates');
+const boxIsClicked = new Map();
+
+let i = 0;
+Array.from(boxesCalendar).forEach(box => {
+    console.log("box" + i);
+    if (reservations[i].value == 1) {
+        box.style.backgroundColor = '#DC6C3C';
+    } else if (oldDates[i].value == 1) {
+        box.style.backgroundColor = '#B5B5B5';
+    }
+    i++;
 });
 
 

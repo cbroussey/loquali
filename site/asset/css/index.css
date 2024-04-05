@@ -338,6 +338,9 @@
     padding: 0;
   }
 
+  .slider {
+    height: 180px;
+  }
 
 }
 

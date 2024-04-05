@@ -425,7 +425,6 @@
   
   .rerservation_log{
     float: right;
-    margin-bottom: 8%;
     background-color: #1d4c77;
     color: var(--secondBG);
     width: 100%;
@@ -624,7 +623,7 @@
   .confirmation-modal {
     display: none;
     position: fixed;
-    z-index: 1;
+    z-index: 100;
     left: 0;
     top: 0; 
     width: 100%;
@@ -1245,9 +1244,8 @@ input {
   padding-bottom: 2em;
 
   z-index: 50;
-
-
-   margin-top: -400px;
+  float: right;
+   margin-top: -600px;
    margin-left: 5%;
    margin-bottom: 50px;
    left: 0;
@@ -1309,14 +1307,6 @@ input {
   -moz-appearance: none;
   appearance: none;
   border: none;
-}
-
-.cal-data>input:checked {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  border: none;
-  background-color: rgb(153, 77, 77);
 }
 
 #checkboxContainer input {
