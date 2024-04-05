@@ -1244,8 +1244,8 @@ input {
   padding-bottom: 2em;
 
   z-index: 50;
-
-    margin-top: -20px;
+  float: right;
+   margin-top: -600px;
    margin-left: 5%;
    margin-bottom: 50px;
    left: 0;
@@ -1307,14 +1307,6 @@ input {
   -moz-appearance: none;
   appearance: none;
   border: none;
-}
-
-.cal-data>input:checked {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  border: none;
-  background-color: rgb(153, 77, 77);
 }
 
 #checkboxContainer input {
