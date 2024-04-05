@@ -144,6 +144,13 @@
 #map {
   height: 450px;
   width: 600px;
+  
+}
+
+#mapPopup{
+  position: absolute;
+  visibility: hidden;
+  z-index: 10;
 }
 
 #trier,
