@@ -35,9 +35,6 @@ $stmt->bindParam('id_logement', $idLogement, PDO::PARAM_STR);
 $stmt->bindParam('acceptation', $acceptation, PDO::PARAM_INT);
 $stmt->execute();
 $reservedDays = $stmt->fetchAll();
-echo "<pre>";
-print_r($reservedDays);
-echo "</pre>";
 
 //si on a validé un formulaire, insertion/modifications des disponibilités dans la bdd
 if (isset($_POST['allDays'])) {
@@ -163,7 +160,10 @@ $indispoInMonth = getAnavailableDaysInOneMonth($month, $dispo);
 //récupération de tous les jours réservés
 $allReservedDays = [];
 foreach ($reservedDays as $oneOccurence) {
-    $allReservedDays += getDaysBetweenBounds($oneOccurence['debut_reservation'], $oneOccurence['fin_reservation']);
+    $oneOccurence = getDaysBetweenBounds($oneOccurence['debut_reservation'], $oneOccurence['fin_reservation']);
+    foreach ($oneOccurence as $day) {
+        $allReservedDays[] = $day;
+    }
 }
 ?>
 
@@ -247,6 +247,9 @@ foreach ($reservedDays as $oneOccurence) {
 
                         //variable affectée à true si le jour est réservé, false sinon
                         $isReserved = (in_array($cDay, $allReservedDays)) ? true : false;
+                        if ($isReserved) {
+                            error_log("day reserved : $cDay");
+                        }
                         //variable affectée à true si le jour est passé, false sinon
                         $isPassed = (strtotime($cDay) < time()) ? true : false;
                         echo '<label class="nbjourcalend" for="case-' . $i . '">' . $i . ' <div class="prixdujour"> <p> ' . $prix . ' €</p> </div>  </label> ';
