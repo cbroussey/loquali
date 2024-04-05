@@ -442,7 +442,7 @@ if ($_SESSION["userType"] == "proprietaire") {
 
               <div id="boutonsEnBaaaaas">
                 <div class="reeeetour">
-                  <a href="#">Rénitialiser</a>
+                  <a href="index.php">Rénitialiser</a>
                 </div>
                 <div class="valiiiide">
                   <input type="submit" name="test" value="Valider" id="validerouuuu">

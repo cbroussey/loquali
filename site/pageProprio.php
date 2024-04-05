@@ -170,7 +170,6 @@
         
         
         </div>
-        <?php print_r($current) ?>
         <div id="logementPropo">
             <h2 id="titreLogement"><?php if ($current["userType"]=="propriétaire") ?>Logements Proposé</h2>
             <div id="listeLogements">
