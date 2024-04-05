@@ -101,32 +101,12 @@ if ($_SESSION["userType"] == "proprietaire") {
   <div class="filter-container">
 
 
-    <div id="slogan">
-      <div id="ps">
-        <p>Des logements pour tout les goûts </p>
-      </div>
-    </div>
 
-    <div id="gauche">
-
-
-      <!-- Début des filtres (sélection) -->
-
-      <div class="filtrer"> <!-- Bouton visible -->
-        <a class="button" id="Btn_Filtre">
-          <svg id="fleche_Filtre" xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
-            <path d="M23.827 0H1.17324C0.132319 0 -0.392925 1.26299 0.344624 2.00054L9.375 11.0323V21.0938C9.375 21.4761 9.56157 21.8345 9.87485 22.0538L13.7811 24.7872C14.5518 25.3267 15.625 24.7799 15.625 23.8271V11.0323L24.6556 2.00054C25.3916 1.26445 24.87 0 23.827 0Z" fill="#F5F5F5" />
-          </svg>
-          <p>Filtres</p>
-        </a>
 
         <a class="button" id="Btn_Map">
-          <svg id="fleche_Map" xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25"
-            fill="none">
-            <path
-              d="M23.827 0H1.17324C0.132319 0 -0.392925 1.26299 0.344624 2.00054L9.375 11.0323V21.0938C9.375 21.4761 9.56157 21.8345 9.87485 22.0538L13.7811 24.7872C14.5518 25.3267 15.625 24.7799 15.625 23.8271V11.0323L24.6556 2.00054C25.3916 1.26445 24.87 0 23.827 0Z"
-              fill="#F5F5F5" />
-          </svg>
+        <svg width="29" height="39" viewBox="0 0 29 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12.8497 37.2777C2.01173 21.6257 0 20.0193 0 14.267C0 6.38752 6.41195 0 14.3216 0C22.2312 0 28.6431 6.38752 28.6431 14.267C28.6431 20.0193 26.6314 21.6257 15.7934 37.2777C15.0822 38.3012 13.5609 38.3011 12.8497 37.2777ZM14.3216 20.2116C17.6172 20.2116 20.2889 17.5501 20.2889 14.267C20.2889 10.9839 17.6172 8.32241 14.3216 8.32241C11.0259 8.32241 8.35424 10.9839 8.35424 14.267C8.35424 17.5501 11.0259 20.2116 14.3216 20.2116Z" fill="white"/>
+        </svg>
           <p>Map</p>
         </a>
 
@@ -158,6 +138,31 @@ if ($_SESSION["userType"] == "proprietaire") {
 
 
         </script>
+
+
+
+    <div id="slogan">
+      <div id="ps">
+        <p>Des logements pour tout les goûts </p>
+      </div>
+    </div>
+
+
+
+    <div id="gauche">
+
+
+      <!-- Début des filtres (sélection) -->
+
+      <div class="filtrer"> <!-- Bouton visible -->
+        <a class="button" id="Btn_Filtre">
+          <svg id="fleche_Filtre" xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
+            <path d="M23.827 0H1.17324C0.132319 0 -0.392925 1.26299 0.344624 2.00054L9.375 11.0323V21.0938C9.375 21.4761 9.56157 21.8345 9.87485 22.0538L13.7811 24.7872C14.5518 25.3267 15.625 24.7799 15.625 23.8271V11.0323L24.6556 2.00054C25.3916 1.26445 24.87 0 23.827 0Z" fill="#F5F5F5" />
+          </svg>
+          <p>Filtres</p>
+        </a>
+
+        
 
         <div id="filtreContainer">
           <div id="Liste_Filtre"> <!-- Partie visible uniquement lors d'un click sur le buton filtres -->

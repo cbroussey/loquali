@@ -1210,6 +1210,26 @@ try {
                 </div>
 
 
+                <pre>
+                                    <?php
+
+                                        $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
+                                        $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+                                        $query = "SELECT * FROM test.reservation WHERE id_logement = :id_logement";
+
+                                        $stmt = $dbh->prepare($query);
+                                        $stmt->bindParam('id_logement', $idLogement, PDO::PARAM_INT);
+                                        $stmt->execute();
+                                        $avisP = $stmt->fetchAll();
+
+                                        $avisPoste = false;
+                                        foreach($avisP as $key => $val) {
+                                            if ($val['id_compte']==$_SESSION['userId']){
+                                                $avisPoste=true;
+                                            }
+                                        }
+                                    ?>
+                                </pre>
 
 
                 <div class="blanc2">
@@ -1227,25 +1247,37 @@ try {
                             </div>
 
                             <?php
-                            if ($_SESSION['userType'] == "client") {
+                            if ($avisPoste == true) {
+                                
                                 ?>
                                 <div class="droiteBarreHautAvis">
                                     <button id="AjoutAvis">Ajouter un avis</button>
                                 </div>
                                 <?php
-                            } else {
+                            } else if ($_SESSION['userType'] != "client") {
                                 ?>
                                 <div class="droiteBarreHautAvis">
                                     <button id="AjoutAvis" onclick="modalRedirect2()">Ajouter un avis</button>
                                 </div>
                                 <?php
+                            } else {
+                                ?>
+                                <div class="droiteBarreHautAvis">
+                                    <button id="AjoutAvis" onclick="modalRedirect3()">Ajouter un avis</button>
+                                </div>
+                                <?php 
                             }
                             ?>
                             <?php
 
-                            if ($_SESSION['userType'] == "client") {
+                            if ($avisPoste) {
 
                                 ?>
+
+
+
+
+            
                                 <div id="ajoutAvisForm">
                                     <form action="ajoutAvis.php" method="POST">
                                         <textarea rows="7" cols="50" type="text-area" name="descriptionAvis"
@@ -1305,6 +1337,14 @@ try {
                                         </p>
                                         <a href="connexion.php?log=<?php echo $id ?>" class="confirm-button">Confirmer</a>
 
+                                    </div>
+                                </div>
+
+
+                                <div class="confirmation-modal" id="myModal6">
+                                    <div class="modal-content">
+                                        <span class="close" onclick="refusRedirect3()">&times;</span>
+                                        <p>Vous n'avez pas réserver ce logement. Vous ne pouvez donc pas poster d'avis.</p>
                                     </div>
                                 </div>
                                 <?php
