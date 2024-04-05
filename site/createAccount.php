@@ -24,6 +24,7 @@ error_reporting(0);
             die();
         }
     } 
+
     if (isset($_POST['nom']) && ($_POST['passwordInput'] == $_POST['passwordInput2']) && !emailIsInDB($_POST['email'])) {
 
         session_start();
