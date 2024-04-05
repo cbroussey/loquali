@@ -1,6 +1,6 @@
 <?php
     session_start();
-    error_reporting(0);
+    //error_reporting(0);
     //echo date("m-y") ."\n";
     if (
         (/*isset($_POST["paymentType"]) && $_POST["paymentType"] == "MasterCard" && */preg_match('/^(5[1-5][0-9]{14}|2(22[1-9][0-9]{12}|2[3-9][0-9]{13}|[3-6][0-9]{14}|7[0-1][0-9]{13}|720[0-9]{12}))$/', $_POST["cardNumber"]))
@@ -34,7 +34,8 @@
                         'INSERT INTO test.cb VALUES (:typecb, :num, DATE(:validite), :crypto, :compte);'
                     );
                     $validiteFDP = "01/" . $_POST['expiry'];
-                    $res->bindParam('typecb', "MasterCard", PDO::PARAM_STR);
+                    $typeCarteFDP = "MasterCard";
+                    $res->bindParam('typecb', $typeCarteFDP, PDO::PARAM_STR);
                     $res->bindParam('num', $_POST['cardNumber'], PDO::PARAM_STR);
                     $res->bindParam('validite', $validiteFDP, PDO::PARAM_STR);
                     $res->bindParam('crypto', $_POST['crypto'], PDO::PARAM_STR);
