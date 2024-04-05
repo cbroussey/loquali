@@ -31,7 +31,7 @@ const boxIsClicked = new Map();
 const prix = document.getElementById('prix');
 
 //ajout d'un écouteur qui limite l'input à deux chiffres après la virgule / point
-prix.addEventListener('blur', function() {
+prix.addEventListener('blur', function () {
     prix.value = parseFloat(prix.value).toFixed(2);
 });
 
@@ -44,18 +44,22 @@ Array.from(boxesCalendar).forEach(box => {
             box.style.backgroundColor = '#B5B5B5';
         }
     }
-     else {
-        boxIsClicked.set(box, false);
-        box.addEventListener('click', function () {
-            if (boxIsClicked.get(box) === false) {
-                boxIsClicked.set(box, true);
-                box.style.backgroundColor = '#2072BC';
-            } else {
-                boxIsClicked.set(box, false);
-                box.style.backgroundColor = '';
-            }
-            updateTitle();
-        })
+    else {
+        if (reservations[i].value == 1) {
+            box.style.backgroundColor = '#DC6C3C';
+        } else {
+            boxIsClicked.set(box, false);
+            box.addEventListener('click', function () {
+                if (boxIsClicked.get(box) === false) {
+                    boxIsClicked.set(box, true);
+                    box.style.backgroundColor = '#2072BC';
+                } else {
+                    boxIsClicked.set(box, false);
+                    box.style.backgroundColor = '';
+                }
+                updateTitle();
+            })
+        }
     }
     i++;
 });
@@ -110,7 +114,7 @@ submit.addEventListener('click', () => {
 
 //limitation du nombre d'élément de l'input
 const raisonIndispo = document.getElementById('raisonIndispo');
-raisonIndispo.addEventListener('input', function() {
+raisonIndispo.addEventListener('input', function () {
     if (raisonIndispo.value.length > 255) {
         raisonIndispo.value = raisonIndispo.value.slice(0, 255);
     }

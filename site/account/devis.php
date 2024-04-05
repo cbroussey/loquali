@@ -40,7 +40,7 @@
         closedir($images);
       }
 
-      if (!empty($row["prix_devis"])) {
+      if (!empty(($row["delai_acceptation"]))) {
         $devisCount++;
 
   ?>

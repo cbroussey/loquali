@@ -88,7 +88,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $stmt->execute();
 
-        while ($deb <= $fin) {
+        /*while ($deb <= $fin) {
             $stmt = $dbh->prepare("
                 INSERT INTO test.planning (disponibilite, prix_ht, jour, raison_indisponible, id_logement)
                 VALUES (false, 0.00, :current_date, :raison_indisponible, :id_logment)
@@ -103,7 +103,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Passez à la date suivante
             $deb = date("Y-m-d", strtotime($deb . " +1 day"));
             
-        }
+        }*/
         header("Location: compte.php");
         exit();
     } catch (PDOException $e) {
