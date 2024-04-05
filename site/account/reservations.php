@@ -32,12 +32,29 @@
 
 
           ?>
+
+
+
+
+
           <div class="compteListeUnLogement">
             <div class="toutLogement">
-              <div id=imajedelespagna>
-                <img src="asset/img/logements/<?php echo ($photo["id_image"]); ?>.<?php echo $photo["extension_image"] ?>"
-                  width="100%" height="100%" alt="" class="imgListeLogementProprio">
-              </div>
+
+            <form class="devis" method="POST" action="consulterRes.php">
+              <input type="hidden" name="qui" value="client">
+              <input type="hidden" name="reservation" value="<?= $row["id_reservation"] ?>">
+              <input type="hidden" name="id" value="<?= $row["id_logement"] ?>">
+              
+              <button type="submit">
+                <div id=imajedelespagna>
+                  <img src="asset/img/logements/<?php echo ($photo["id_image"]); ?>.<?php echo $photo["extension_image"] ?>"
+                    width="100%" height="100%" alt="" class="imgListeLogementProprio">
+                </div>
+              </button>
+              
+              
+            </form>
+
               <div class="unLogement">
                 <div class="log_info_liste">
                   <h2>
