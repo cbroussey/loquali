@@ -306,7 +306,7 @@ int main(int argc, char *argv[]) {
                 accPriv = (PQgetvalue(res, 0, 2)[0] == 't');
                 accCalend = (PQgetvalue(res, 0, 3)[0] == 't');
                 accDesact = (PQgetvalue(res, 0, 4)[0] == 't');
-                accReact = (PQgetvalue(res, 0, 5)[0] == 't');
+                accReact = accDesact;
                 strcpy(accNom, PQgetvalue(res, 0, 5));
                 printose(true, "Valid API key : %s\n", accNom);
                 memset(cmd, 0, strlen(cmd));
@@ -414,6 +414,31 @@ int main(int argc, char *argv[]) {
                     } else {
                         write(cnx, "You do not have permission to execute that command\r\n", 52);
                     }
+                } else if (strcmp(cmdargs[0], "available") == 0) {
+                    if (accCalend) {
+                        //i = getArgs(cmd, cmdargs);
+                        //printf("\n%d, %s, %s\n", i, cmdargs[0], cmdargs[1]);
+                        //printf("%d arguments\n", i);
+                        if (i >= 2) { // nom de la commande + 1 arguments
+                            memset(cmd, 0, strlen(cmd));
+                            sprintf(cmd, "SELECT * FROM test.getAvailableDays(%d);", atoi(cmdargs[1]));
+                            res = PQexec(db, cmd);
+                            if (PQresultStatus(res) != PGRES_TUPLES_OK) {
+                                memset(cmd, 0, strlen(cmd));
+                                sprintf(cmd, "Err: %s\r\n", PQerrorMessage(db));
+                                printose(true, cmd);
+                                write(cnx, cmd, strlen(cmd));
+                            } else {
+                                // Affichage des attributs
+                                writeTable(res, cnx);
+                            }
+                            PQclear(res);
+                        } else {
+                            write(cnx, "Not enough arguments\r\nUsage : available <id>\r\n", 46);
+                        }
+                    } else {
+                        write(cnx, "You do not have permission to execute that command\r\n", 52);
+                    }
                 } else if (strcmp(cmdargs[0], "disable") == 0) {
                     if (accDesact) {
                         //i = getArgs(cmd, cmdargs);
@@ -485,6 +510,7 @@ int main(int argc, char *argv[]) {
                     if (accPriv) write(cnx, "  list_all\r\n", 12);
                     write(cnx, "  list\r\n", 8);
                     if (accCalend) write(cnx, "  planning <id> <start-date> [end-date]\r\n", 41);
+                    if (accCalend) write(cnx, "  available <id>\r\n", 18);
                     if (accDesact) write(cnx, "  disable <id> <start-date> [end-date]\r\n", 40);
                     if (accReact) write(cnx, "  enable <id> <start-date> [end-date]\r\n", 39);
                     write(cnx, "  help\r\n", 8);

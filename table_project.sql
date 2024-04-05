@@ -723,6 +723,31 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+CREATE FUNCTION test.getAvailableDays(id_log INT)
+    RETURNS TABLE(lejour DATE, disponibilite BOOLEAN) AS $$
+DECLARE
+    actuel DATE = current_date;
+    dispo BOOLEAN;
+BEGIN
+    WHILE actuel < current_date + interval '1' YEAR LOOP
+        PERFORM * FROM test.planning WHERE test.planning.id_logement = id_log AND test.planning.jour = actuel;
+        IF NOT FOUND THEN
+            lejour = actuel;
+            disponibilite = TRUE;
+            RETURN NEXT;
+        ELSE
+            SELECT test.planning.disponibilite FROM test.planning WHERE test.planning.id_logement = id_log AND test.planning.jour = actuel INTO dispo;
+            IF disponibilite = TRUE THEN
+                lejour = actuel;
+                disponibilite = TRUE;
+                RETURN NEXT;
+            END IF;
+        END IF;
+        actuel = actuel + 1;
+    END LOOP;
+END;
+$$ LANGUAGE plpgsql;
+
 -- nbJours = nombre de jours passés dans le logement (jours non-entiers inclus, donc date de début et de fin inclus)
 -- Nombre de nuits = nbJours-1
 CREATE FUNCTION test.getPlageData(id_log INT, date_debut DATE, date_fin DATE)

@@ -13,13 +13,15 @@
 #include <stdarg.h>
 
 #define MAXCMD 1024 // Taille max de toutes les chaines de caractères
-#define fieldsAmnt 4
+#define fieldsAmnt 6
 
 const char *neededFields[fieldsAmnt] = {
+    "ip",
+    "port",
     "key",
     "id",
-    "log_path",
-    "data_path"
+    "data_path",
+    "log_path"
 };
 
 int foutput = 0;
@@ -57,6 +59,12 @@ void printose(bool no_time, const char* format, ...) {
         if (no_time != true) write(foutput, tmp, strlen(tmp));
         write(foutput, txt, strlen(txt));
     }
+}
+
+void niceExit(char err[]) {
+    printose(true, err);
+    if (foutput) close(foutput);
+    exit(1);
 }
 
 bool simpleMatch(char string[], char matcher[]) {
@@ -158,8 +166,12 @@ int main(int argc, char** argv) {
     int file;
     char *values[MAXCMD];
     char filename[MAXCMD];
+    char output[MAXCMD];
+    char c;
     time_t t = time(NULL);
     struct tm tm = *localtime(&t);;
+    int sock;
+    struct sockaddr_in server_addr;
     int i;
     if (argc < 2) {
         printHelp(argv[0]);
@@ -178,22 +190,25 @@ int main(int argc, char** argv) {
             file = open(argv[1], O_RDONLY);
             parseJSON(file, neededFields, fieldsAmnt, values);
             close(file);
-            if (values[0] == NULL || values[1] == NULL || values[3] == NULL) {
-                printose(true, "Error : one or more required attributes are missing, please check FORMAT.md for the documentation\n");
-                exit(1);
+            for (i = 0; i < fieldsAmnt-1; i++) {
+                if (values[i] == NULL) {
+                    printose(true, "Error : one or more required attributes are missing, please check FORMAT.md for the documentation\n");
+                    exit(1);
+                }
             }
-            if (values[2] != NULL) {
-                chdir(values[2]);
+            if (values[fieldsAmnt-1] != NULL) {
+                //chdir(values[fieldsAmnt-1]);
                 memset(filename, 0, sizeof(filename));
                 tm = *localtime(&t);
-                sprintf(filename, "logs-%02d_%02d_%d.log", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900);
+                sprintf(filename, "%slogs-%02d_%02d_%d.log", values[fieldsAmnt-1], tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900);
+                //  printf("%s\n", filename);
                 foutput = open(filename, O_WRONLY | O_APPEND | O_CREAT, 0644);
                 if (foutput == -1) {
                     foutput = 0;
                     printose(true, "Warning : could not create log file. Ignoring");
                 } else {
                     write(foutput, "===== [LOG START] =====\n", 24);
-                    write(foutput, "Parsed attributes :\n", 16);
+                    write(foutput, "Parsed attributes :\n", 20);
                     for (i = 0; i < fieldsAmnt; i++) {
                         write(foutput, "- '", 3);
                         write(foutput, neededFields[i], strlen(neededFields[i]));
@@ -204,18 +219,70 @@ int main(int argc, char** argv) {
                 }
             }
             printose(true, "\n");
-            chdir(values[3]);
+            //chdir(values[4]);
             tm = *localtime(&t);
-            sprintf(filename, "apirator-%02d_%02d_%d_%02d_%02d_%02d.json", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900, tm.tm_hour, tm.tm_min, tm.tm_sec);
+            memset(filename, 0, strlen(filename));
+            sprintf(filename, "%sapirator-%02d_%02d_%d_%02d_%02d_%02d.json", values[4], tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900, tm.tm_hour, tm.tm_min, tm.tm_sec);
+            //printf("%s\n", filename);
             file = open(filename, O_WRONLY | O_APPEND | O_CREAT, 0644);
             if (file == -1) {
-                printose(true, "Error : could not create data result file. Aborting");
-                if (foutput) close(foutput);
-                exit(1);
+                niceExit("Error : could not create data result file. Aborting");
             }
-            printose(false, "Connecting to the server...");
-
-            
+            printose(false, "Connecting to the server... ");
+            int server_port = atoi(values[1]);
+            sock = socket(AF_INET, SOCK_STREAM, 0);
+            if (sock == -1) {
+                niceExit("Socket creation error\n");
+            }
+            server_addr.sin_family = AF_INET;
+            server_addr.sin_port = htons(server_port);
+            if (inet_pton(AF_INET, values[0], &server_addr.sin_addr) <= 0) {
+                niceExit("Invalid server address\n");
+            }
+            if (connect(sock, (struct sockaddr *)&server_addr, sizeof(server_addr)) == -1) {
+                niceExit("Connection error\n");
+            }
+            printose(true, "OK\n");
+            printose(false, "Awaiting server input... ");
+            c = ' ';
+            do {
+                if (recv(sock, &c, 1, 0) == -1) niceExit("Receive error"); 
+            } while (c != '\x03');
+            printose(true, "OK\n");
+            printose(false, "Sending api key... ");
+            if (send(sock, values[2], strlen(values[2]), 0) == -1) {
+                niceExit("Send error");
+            }
+            printose(true, "OK \n");
+            printose(false, "Awaiting server input... ");
+            do {
+                if (recv(sock, &c, 1, 0) == -1) niceExit("Receive error"); 
+            } while (c != '\x03');
+            printose(true, "OK\n");
+            sprintf(output, "available %s\n", values[3]);
+            printose(false, "Sending command... ");
+            if (send(sock, output, strlen(output), 0) == -1) {
+                niceExit("Send error");
+            }
+            printose(true, "OK\n");
+            printose(false, "Receiving data... ");
+            do {
+                if (recv(sock, &c, 1, 0) == -1) niceExit("Receive error"); 
+                write(file, &c, 1);
+            } while (c != '\n');
+            printose(true, "OK\n");
+            printose(false, "Awaiting server input... ");
+            do {
+                if (recv(sock, &c, 1, 0) == -1) niceExit("Receive error"); 
+            } while (c != '\x03');
+            printose(true, "OK\n");
+            printose(false, "Closing connection... ");
+            if (send(sock, "exit\n", 5, 0) == -1) {
+                niceExit("Send error");
+            }
+            printose(true, "OK\n");
+            printose(false, "Everything seems good, program done\n");
+            close(file);
         //}
     } else {
         printose(true, "Error: missing JSON file path argument\n\n");

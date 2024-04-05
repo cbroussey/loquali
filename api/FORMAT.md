@@ -2,10 +2,14 @@
 Le programme apirator n'accepte que les fichiers JSON contenant des paramètres au format "chaîne de caractères" (inclus également les potentiels nombres entiers tels que l'identifiant du logement)
 
 Il doit comporter les clés et leurs valeurs associées suivantes :
+- "ip" pour l'ip du serveur (obligatoire)
+- "port" pour le port du serveur (obligatoire)
 - "key" pour votre clé API (obligatoire)
 - "id" pour l'identifiant du bien dont vous souhaitez obtenir les données (obligatoire)
 - "log_path" pour le chemin **absolu** du dossier vers les fichiers de logs de l'apirator (si non défini, aucun log ne sera enregistré)
 - "data_path" pour le chemin **absolu** du dossier vers les fichiers de données récupérées (obligatoire)
+
+Les chemins doivent forcément être des dossiers et donc **doivent** se terminer par un "/"
 
 Chacun de ces attributs peuvent être placés dans l'ordre qui vous convient mais le format type JSON et les guillemets pour chaque clé et chaque valeur sont obligatoires.
 

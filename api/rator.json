@@ -1,5 +1,8 @@
 {
-	"jean" : "feuille" , 
+	"ip": "127.0.0.1",
+	"port": "2222",
 	"id": "1",
-	"key": "logementavecplanning"
+	"key": "logementavecplanning",
+	"log_path": "/docker/sae/data/git/sae34_2a1/api/apirator_logs/",
+	"data_path": "/docker/sae/data/git/sae34_2a1/api/apirator_data/"
 }
