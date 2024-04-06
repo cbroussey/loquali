@@ -6,8 +6,8 @@ Il doit comporter les clés et leurs valeurs associées suivantes :
 - "port" pour le port du serveur (obligatoire)
 - "key" pour votre clé API (obligatoire)
 - "id" pour l'identifiant du bien dont vous souhaitez obtenir les données (obligatoire)
-- "log_path" pour le chemin **absolu** du dossier vers les fichiers de logs de l'apirator (si non défini, aucun log ne sera enregistré)
-- "data_path" pour le chemin **absolu** du dossier vers les fichiers de données récupérées (obligatoire)
+- "log_path" pour le chemin du dossier vers les fichiers de logs de l'apirator (si non défini, aucun log ne sera enregistré)
+- "data_path" pour le chemin du dossier vers les fichiers de données récupérées (obligatoire)
 
 Les chemins doivent forcément être des dossiers et donc **doivent** se terminer par un "/"
 

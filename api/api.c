@@ -16,7 +16,7 @@
 #include <stdarg.h>
 #include <time.h>
 
-#define MAXCMD 1024 // Taille max de toutes les chaines de caractères
+#define MAXCMD 8192 // Taille max de toutes les chaines de caractères
 
 bool verbose = false;
 int foutput = 0; // Fichier de sortie des logs si définit

@@ -12,7 +12,7 @@
 #include <time.h>
 #include <stdarg.h>
 
-#define MAXCMD 1024 // Taille max de toutes les chaines de caractères
+#define MAXCMD 8192 // Taille max de toutes les chaines de caractères
 #define fieldsAmnt 6
 
 const char *neededFields[fieldsAmnt] = {
@@ -197,7 +197,6 @@ int main(int argc, char** argv) {
                 }
             }
             if (values[fieldsAmnt-1] != NULL) {
-                //chdir(values[fieldsAmnt-1]);
                 memset(filename, 0, sizeof(filename));
                 tm = *localtime(&t);
                 sprintf(filename, "%slogs-%02d_%02d_%d.log", values[fieldsAmnt-1], tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900);
@@ -219,7 +218,6 @@ int main(int argc, char** argv) {
                 }
             }
             printose(true, "\n");
-            //chdir(values[4]);
             tm = *localtime(&t);
             memset(filename, 0, strlen(filename));
             sprintf(filename, "%sapirator-%02d_%02d_%d_%02d_%02d_%02d.json", values[4], tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900, tm.tm_hour, tm.tm_min, tm.tm_sec);

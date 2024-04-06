@@ -17,3 +17,22 @@ Parsed attributes :
 [05/04/2024 00:58:30] Closing connection... OK
 [05/04/2024 00:58:30] Everything seems good, program done
 ====== [LOG END] ======
+===== [LOG START] =====
+Parsed attributes :
+- 'ip' = 127.0.0.1
+- 'port' = 2222
+- 'key' = logementavecplanning
+- 'id' = 1
+- 'data_path' = /docker/sae/data/git/sae34_2a1/api/apirator_data/
+- 'log_path' = /docker/sae/data/git/sae34_2a1/api/apirator_logs/
+
+[05/04/2024 12:59:44] Connecting to the server... OK
+[05/04/2024 12:59:44] Awaiting server input... OK
+[05/04/2024 12:59:44] Sending api key... OK 
+[05/04/2024 12:59:44] Awaiting server input... OK
+[05/04/2024 12:59:44] Sending command... OK
+[05/04/2024 12:59:44] Receiving data... OK
+[05/04/2024 12:59:44] Awaiting server input... OK
+[05/04/2024 12:59:44] Closing connection... OK
+[05/04/2024 12:59:44] Everything seems good, program done
+====== [LOG END] ======

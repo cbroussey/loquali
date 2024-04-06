@@ -6,7 +6,7 @@
 #include <unistd.h>
 #include <arpa/inet.h>
 
-#define MAX_BUFFER_SIZE 1024 // Taille max des chaines de caractères
+#define MAX_BUFFER_SIZE 8192 // Taille max des chaines de caractères
 
 int main(int argc, char *argv[]) {
     if (argc != 3) {
