@@ -27,13 +27,13 @@
             //print_r($resa);
             $cal = "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Loquali//NONSGML alz.bzh//FR\n";
             foreach ($indisp as $v) {
-                $cal .= "BEGIN:VEVENT\nDTSTART:" . date("Ymd\T230000\Z", strtotime($v['jour'] . " -1 day")) . "\nDTEND:" . date("Ymd\T230000\Z", strtotime($v['jour'])) . "\nSUMMARY:Indisponible\nDESCRIPTION:" . $v["raison_indisponible"] . "\nLOCATION:" . $v["libelle_logement"] . ", " . $v["localisation"] . "\nEND:VEVENT\n";
+                $cal .= "BEGIN:VEVENT\nDTSTART;TZID=Europe/Paris:" . date("Ymd\T000000\Z", strtotime($v['jour'])) . "\nDTEND:" . date("Ymd\T220000\Z", strtotime($v['jour'])) . "\nSUMMARY:Indisponible\nDESCRIPTION:" . $v["raison_indisponible"] . "\nLOCATION:" . $v["libelle_logement"] . ", " . $v["localisation"] . "\nEND:VEVENT\n";
             }
             foreach ($resa as $v) {
                 if ($v["acceptation"] == 1) {
-                    $cal .= "BEGIN:VEVENT\nDTSTART:" . date("Ymd\T230000\Z", strtotime($v['debut_reservation'])) . "\nDTEND:" . date("Ymd\T230000\Z", strtotime($v['fin_reservation'])) . "\nSUMMARY:Réservation\nLOCATION:" . $v["libelle_logement"] . ", " . $v["localisation"] . "\nEND:VEVENT\n";
+                    $cal .= "BEGIN:VEVENT\nDTSTART;TZID=Europe/Paris:" . date("Ymd\T000000\Z", strtotime($v['debut_reservation'])) . "\nDTEND:" . date("Ymd\T220000\Z", strtotime($v['fin_reservation'])) . "\nSUMMARY:Réservation\nLOCATION:" . $v["libelle_logement"] . ", " . $v["localisation"] . "\nEND:VEVENT\n";
                 } else {
-                    $cal .= "BEGIN:VEVENT\nDTSTART:" . date("Ymd\T230000\Z", strtotime($v['debut_reservation'])) . "\nDTEND:" . date("Ymd\T230000\Z", strtotime($v['fin_reservation'])) . "\nSUMMARY:Demande de réservation\nLOCATION:" . $v["libelle_logement"] . ", " . $v["localisation"] . "\nDESCRIPTION:Expiration de la demande le ". $v["delai_acceptation"] ."\nEND:VEVENT\n";
+                    $cal .= "BEGIN:VEVENT\nDTSTART;TZID=Europe/Paris:" . date("Ymd\T000000\Z", strtotime($v['debut_reservation'])) . "\nDTEND:" . date("Ymd\T220000\Z", strtotime($v['fin_reservation'])) . "\nSUMMARY:Demande de réservation\nLOCATION:" . $v["libelle_logement"] . ", " . $v["localisation"] . "\nDESCRIPTION:Expiration de la demande le ". $v["delai_acceptation"] ."\nEND:VEVENT\n";
                 }
             }
             $cal .= "END:VCALENDAR";

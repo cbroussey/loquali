@@ -49,6 +49,19 @@ Sortie au format JSON
 date est une chaine de caractères formattée comme suit : `AAAA-MM-JJ` où A correspond au chiffres de l'année, M du mois, et J du jour
 
 disponible est une chaine de caractère booléenne, elle ne peut posséder que 2 valeurs : `t` pour VRAI et `f` pour FAUX. Un logement est disponible si la valeur est à `t`
+### available
+Nécessite la permission du propriétaire. Permet de voir toutes les dates de disponibilité d'un logement sur une période d'un an
+
+1 argument requis : l'identifiant du logement
+
+Sortie au format JSON
+```JSON
+{"date":"disponible"}
+```
+date est une chaine de caractères formattée comme suit : `AAAA-MM-JJ` où A correspond au chiffres de l'année, M du mois, et J du jour
+
+disponible est une chaine de caractère booléenne, elle ne peut posséder que 2 valeurs : `t` pour VRAI et `f` pour FAUX. Un logement est disponible si la valeur est à `t`
+Notez qu'ici, la commande ne vous retournera que les jours ou la disponibilité est à `t`
 ### disable
 Nécessite la permission du propriétaire. Permet de mettre en indisponible un logement sur une date/période donnée.
 

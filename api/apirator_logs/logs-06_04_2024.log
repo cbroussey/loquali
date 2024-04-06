@@ -1,0 +1,19 @@
+===== [LOG START] =====
+Parsed attributes :
+- 'ip' = 127.0.0.1
+- 'port' = 2222
+- 'key' = logementavecplanning
+- 'id' = 1
+- 'data_path' = /docker/sae/data/git/sae34_2a1/api/apirator_data/
+- 'log_path' = /docker/sae/data/git/sae34_2a1/api/apirator_logs/
+
+[06/04/2024 17:44:20] Connecting to the server... OK
+[06/04/2024 17:44:20] Awaiting server input... OK
+[06/04/2024 17:44:20] Sending api key... OK 
+[06/04/2024 17:44:20] Awaiting server input... OK
+[06/04/2024 17:44:21] Sending command... OK
+[06/04/2024 17:44:21] Receiving data... OK
+[06/04/2024 17:44:21] Awaiting server input... OK
+[06/04/2024 17:44:21] Closing connection... OK
+[06/04/2024 17:44:21] Everything seems good, program done
+====== [LOG END] ======
