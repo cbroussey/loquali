@@ -737,7 +737,7 @@ BEGIN
             RETURN NEXT;
         ELSE
             SELECT test.planning.disponibilite FROM test.planning WHERE test.planning.id_logement = id_log AND test.planning.jour = actuel INTO dispo;
-            IF disponibilite = TRUE THEN
+            IF dispo = TRUE THEN
                 lejour = actuel;
                 disponibilite = TRUE;
                 RETURN NEXT;
