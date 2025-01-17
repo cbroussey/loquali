@@ -16,6 +16,10 @@ Voir le README dans [/site](https://github.com/cbroussey/loquali/tree/main/site)
 
 Voir le README dans [/api](https://github.com/cbroussey/loquali/tree/main/api) pour plus de détails sur l'API
 
+### Modèle conceptuel de données
+
+![mcd](https://github.com/user-attachments/assets/7671a495-5b52-4791-8541-6da25169c210)
+
 ## Les acquis
 
 - Travail en équipe
